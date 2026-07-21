@@ -1,0 +1,206 @@
+{%- comment -%}
+  Product Cross-sell Banner (cooling vest)
+  Off-season cross-sell: full-bleed lifestyle background, left-aligned dark
+  heading + subheading + solid CTA button. Cooling-vest only (no preset) so it
+  can't be added to other pages and won't change the shared Featured Banner.
+{%- endcomment -%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .xsb {
+    position: relative;
+    min-height: {{ section.settings.height }}px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  #shopify-section-{{ section.id }} .xsb__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  #shopify-section-{{ section.id }} .xsb__bg--mobile { display: none; }
+  #shopify-section-{{ section.id }} .container {
+    position: relative;
+    z-index: 1;
+    padding-left: 56px;
+    padding-right: 56px;
+    width: 100%;
+  }
+  #shopify-section-{{ section.id }} .xsb__inner {
+    max-width: 520px;
+    text-align: {{ section.settings.text_align }};
+  }
+  #shopify-section-{{ section.id }} .xsb__heading {
+    font-size: clamp(26px, 3.4vw, 44px);
+    font-weight: 800;
+    line-height: 1.12;
+    color: {{ section.settings.heading_color }};
+    margin: 0 0 12px;
+  }
+  #shopify-section-{{ section.id }} .xsb__sub {
+    font-size: clamp(15px, 1.6vw, 18px);
+    color: {{ section.settings.text_color }};
+    line-height: 1.5;
+    margin: 0 0 28px;
+  }
+  #shopify-section-{{ section.id }} .xsb__btn {
+    display: inline-block;
+    background: {{ section.settings.btn_bg }};
+    color: {{ section.settings.btn_text }};
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 14px 30px;
+    border-radius: 8px;
+    transition: filter .2s ease;
+  }
+  #shopify-section-{{ section.id }} .xsb__btn:hover { filter: brightness(0.93); }
+
+  @media (max-width: 768px) {
+    {% if section.settings.mobile_layout == 'stacked' %}
+      /* Stacked: image on top, text + button on a panel below */
+      #shopify-section-{{ section.id }} .xsb {
+        display: block;
+        min-height: 0;
+      }
+      #shopify-section-{{ section.id }} .xsb__bg {
+        position: static;
+        width: 100%;
+        height: auto;
+        aspect-ratio: {{ section.settings.mobile_image_ratio }};
+        display: none;
+      }
+      #shopify-section-{{ section.id }} .xsb__bg--desktop { display: none; }
+      {% if section.settings.background_image_mobile != blank %}
+        #shopify-section-{{ section.id }} .xsb__bg--mobile { display: block; }
+      {% else %}
+        #shopify-section-{{ section.id }} .xsb__bg--desktop { display: block; }
+      {% endif %}
+      #shopify-section-{{ section.id }} .container {
+        position: relative;
+        background: {{ section.settings.mobile_panel_bg }};
+        padding: 28px 24px 32px;
+      }
+      #shopify-section-{{ section.id }} .xsb__inner {
+        max-width: 100%;
+        text-align: {{ section.settings.mobile_text_align }};
+      }
+      #shopify-section-{{ section.id }} .xsb__sub { margin-bottom: 22px; }
+      {% if section.settings.mobile_text_align == 'center' %}
+        #shopify-section-{{ section.id }} .xsb__btn { display: inline-block; }
+      {% endif %}
+    {% else %}
+      /* Overlay: text over the image (use only with a roomy image) */
+      #shopify-section-{{ section.id }} .xsb {
+        min-height: {{ section.settings.height_mobile }}px;
+        align-items: {{ section.settings.mobile_align }};
+      }
+      #shopify-section-{{ section.id }} .xsb__bg--desktop { display: none; }
+      {% if section.settings.background_image_mobile != blank %}
+        #shopify-section-{{ section.id }} .xsb__bg--mobile { display: block; }
+      {% endif %}
+      #shopify-section-{{ section.id }} .container { padding-left: 24px; padding-right: 24px; }
+      #shopify-section-{{ section.id }} .xsb__inner {
+        max-width: 100%;
+        text-align: {{ section.settings.mobile_text_align }};
+      }
+      #shopify-section-{{ section.id }} .xsb__sub { margin-bottom: 22px; }
+    {% endif %}
+  }
+{% endstyle %}
+
+<div class="xsb">
+  {% if section.settings.background_image != blank %}
+    <img class="xsb__bg xsb__bg--desktop"
+         src="{{ section.settings.background_image | image_url: width: 2400 }}"
+         alt="{{ section.settings.heading | escape }}" loading="lazy">
+  {% endif %}
+  {% if section.settings.background_image_mobile != blank %}
+    <img class="xsb__bg xsb__bg--mobile"
+         src="{{ section.settings.background_image_mobile | image_url: width: 1200 }}"
+         alt="{{ section.settings.heading | escape }}" loading="lazy">
+  {% endif %}
+
+  <div class="container">
+    <div class="xsb__inner">
+      {% if section.settings.heading != blank %}
+        <h2 class="xsb__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.sub_heading != blank %}
+        <p class="xsb__sub">{{ section.settings.sub_heading }}</p>
+      {% endif %}
+      {% if section.settings.btn_label != blank %}
+        <a href="{{ section.settings.btn_url }}" class="xsb__btn">{{ section.settings.btn_label }}</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cross-sell Banner",
+  "class": "product-cross-sell-banner-section",
+  "templates": ["product"],
+  "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "Background Image (Desktop)" },
+    { "type": "image_picker", "id": "background_image_mobile", "label": "Background Image (Mobile)" },
+    { "type": "range", "id": "height", "label": "Height (Desktop)", "min": 300, "max": 700, "step": 10, "unit": "px", "default": 460 },
+    { "type": "range", "id": "height_mobile", "label": "Height (Mobile)", "min": 280, "max": 600, "step": 10, "unit": "px", "default": 420 },
+    { "type": "header", "content": "Text" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Heat In Winter, Cool In Summer" },
+    { "type": "text", "id": "sub_heading", "label": "Subheading", "default": "Explore Venustas Heated Apparel" },
+    { "type": "color", "id": "heading_color", "label": "Heading Color", "default": "#01132F" },
+    { "type": "color", "id": "text_color", "label": "Subheading Color", "default": "#1f2d3d" },
+    {
+      "type": "select", "id": "text_align", "label": "Text Align (Desktop)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ], "default": "left"
+    },
+    { "type": "header", "content": "Mobile Layout" },
+    {
+      "type": "select", "id": "mobile_layout", "label": "Mobile Layout",
+      "info": "Stacked = image on top, text + button below (best for busy images). Overlay = text over the image.",
+      "options": [
+        { "value": "stacked", "label": "Stacked (image top, text below)" },
+        { "value": "overlay", "label": "Overlay (text over image)" }
+      ], "default": "stacked"
+    },
+    {
+      "type": "select", "id": "mobile_image_ratio", "label": "Mobile Image Ratio (stacked)",
+      "options": [
+        { "value": "16 / 9", "label": "Wide (16:9)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "3 / 2", "label": "3:2" }
+      ], "default": "4 / 3"
+    },
+    { "type": "color", "id": "mobile_panel_bg", "label": "Mobile Text Panel Background", "default": "#EDF2F9" },
+    {
+      "type": "select", "id": "mobile_text_align", "label": "Text Align (Mobile)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ], "default": "left"
+    },
+    {
+      "type": "select", "id": "mobile_align", "label": "Vertical Position (Mobile · overlay only)",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Bottom" }
+      ], "default": "center"
+    },
+    { "type": "header", "content": "Button" },
+    { "type": "text", "id": "btn_label", "label": "Button Label", "default": "Shop Heated Apparel" },
+    { "type": "url", "id": "btn_url", "label": "Button URL" },
+    { "type": "color", "id": "btn_bg", "label": "Button Background", "default": "#E8580C" },
+    { "type": "color", "id": "btn_text", "label": "Button Text", "default": "#FFFFFF" }
+  ]
+}
+{% endschema %}

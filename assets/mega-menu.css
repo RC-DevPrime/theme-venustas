@@ -1,0 +1,348 @@
+/* DISPLAY - 1 MEGA MENU */
+.header .mega-menu .display-1{
+    --bs-gutter-x: 20px;
+}
+.header .mega-menu .menu-list-container{
+    display:flex;
+    gap:35px;
+}
+.header .mega-menu .menu-list-container .menu-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+.header .mega-menu .menu-list-container .menu-list a{
+    position:relative;
+    width:fit-content;
+}
+.header .mega-menu .menu-list-container .menu-list a:before{
+    content:"";
+    display:block;
+    width:0;
+    height:1px;
+    background-color:#ff4438;
+    position:absolute;
+    bottom:0;
+    transition: all 0.3s ease;
+}
+.header .mega-menu .menu-list-container .menu-list a:hover:before{
+    width:100%;
+}
+.header .mega-menu .display-1 .product-list{
+    --bs-gutter-x:20px;
+}
+.header .mega-menu .menu-list-product-item{
+    background: #F7F8F9;
+    border-radius: 10px 10px 10px 10px;
+    padding:10px 15px;
+    position:relative;
+    overflow:hidden;
+    display: block;
+    text-decoration: none;
+}
+.header .mega-menu .menu-list-product-item:hover .product-image-container img{
+  scale: 1.1;
+}
+.header .mega-menu .menu-list-product-item .row{
+    --bs-gutter-x: 20px;
+}
+.header .mega-menu .container{
+    padding-left:50px;
+    padding-right:50px;
+}
+.header .mega-menu .menu-list-product-item .product-image-container img{
+    width:100%;
+    height:100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: all 0.3s ease;
+}
+.header .mega-menu .menu-list-product-item .menu-product-tag{
+    background: #ff4438;
+    color: #fff;
+    font-family: Poppins;
+    font-weight: 600 !important;
+    position: absolute;
+    top: 4%;
+    right: -8%;
+    padding: 4px 3rem;
+    transform: rotate(45deg);
+    line-height: normal;
+}
+
+
+/* DISPLAY - 2 MEGA MENU */
+.header .mega-menu .display-2 .menu-list-tab{
+    list-style: none;
+}
+.header .mega-menu .display-2 .menu-list-tab li{
+    margin-bottom:0.8rem;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding:12px 1.5rem;
+    border-radius:4px;
+}
+.header .mega-menu .display-2 .menu-list-tab li i{
+    opacity:0;
+}
+.header .mega-menu .display-2 .menu-list-tab li.active{
+    color: #FF4438;
+    background: #EFEFEF;
+}
+.header .mega-menu .display-2 .menu-list-tab li.active i{
+    opacity:1;
+}
+.header .mega-menu .display-2-top-link{
+    display:none;
+}
+.header .mega-menu .display-2-top-link.active{
+    display:inline-flex;
+    align-items:center;
+}
+.header .mega-menu .display-2 .mega-menu-tab-list-content{
+    --bs-gutter-x: 20px;
+    --bs-gutter-y: 1rem;
+    display:none;
+}
+.header .mega-menu .display-2 .mega-menu-tab-list-content .swym-wishlist-collections-v2-container{
+    display:none !important;
+}
+.header .mega-menu .display-2 .mega-menu-tab-list-content.active{
+    display:flex;
+}
+.header .mega-menu .mega-menu-tab-list .border-right{
+    border-right:1px solid #DADADA;
+}
+
+
+/* DISPLAY - 3 MEGA MENU */
+.header .mega-menu .display-3 .menu-list-tab{
+    list-style: none;
+}
+.header .mega-menu .display-3 .menu-list-tab li{
+    margin-bottom:1rem;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.header .mega-menu .display-3 .menu-list-tab li i{
+    opacity:0;
+}
+.header .mega-menu .display-3 .menu-list-tab li.active{
+    color: #FF4438;
+}
+.header .mega-menu .display-3 .menu-list-tab li.active i{
+    opacity:1;
+}
+.header .display-3 .menu-list-collection-item{
+    display: block;
+    height: 200px;
+    border-radius: 10px 10px 10px 10px;
+    position: relative;
+    overflow: hidden;
+}
+.header .display-3 .menu-list-collection-item:hover .bg-image{
+  scale:1.1;
+}
+.header .display-3 .menu-list-collection-item:after{
+    content: "";
+    background: linear-gradient( 360deg, #000000 0%, rgba(0,0,0,0) 100%);
+    position: absolute;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50%;
+}
+.header .display-3 .menu-list-collection-item .bg-image{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    position:absolute;
+    transition: all 0.3s ease;
+}
+.header .display-3 .menu-list-collection-item .info-content{
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    z-index: 1;
+    padding:0px 1rem;
+    width:100%;
+}
+.header .mega-menu .display-3 .mega-menu-tab-list-content{
+    --bs-gutter-x: 20px;
+    display:none;
+}
+.header .mega-menu .display-3 .mega-menu-tab-list-content.active{
+    display:flex;
+}
+
+.header .mega-menu .featured-menu-item{
+    display:block;
+    height:250px;
+    border-radius:8px;
+    overflow:hidden;
+}
+.header .mega-menu .featured-menu-item img{
+    width:100%;
+    height:100%;
+    transition: all 0.3s ease;
+    object-fit:cover;
+}
+.header .mega-menu .featured-menu-item:hover img{
+    transform: scale(1.1);
+}
+
+/* DISPLAY - 4 MEGA MENU */
+.header .mega-menu .display-4.mega-menu-tab-list{
+    --bs-gutter-x: 15px;
+}
+.header .mega-menu .display-4 .featured-menu-item{
+    height:200px;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+
+
+/* ================== Badge Overlay CSS ========================*/
+.badge-overlay {
+    position: absolute;
+    left: 0%;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 100;
+    -webkit-transition: width 1s ease, height 1s ease;
+    -moz-transition: width 1s ease, height 1s ease;
+    -o-transition: width 1s ease, height 1s ease;
+    transition: width 0.4s ease, height 0.4s ease
+}
+
+/* ================== Badge CSS ========================*/
+.custom-badge {
+    margin: 0;
+    padding: 0;
+    padding: 3px 5px;
+    font-size: 15px;
+    text-align: center;
+    line-height: normal;
+    background: #ff4438;
+}
+.custom-badge.longer{
+    padding: 5px 0px;
+    margin-top: -4px;
+    margin-right: -4px;
+}
+
+.custom-badge::before, .custom-badge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    margin: 0 -1px;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    min-width: 55px
+}
+
+.custom-badge::before {
+    right: 100%
+}
+
+.custom-badge::after {
+    left: 100%
+}
+
+/* ================== Badge Position CSS ========================*/
+.top-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    -ms-transform: translateX(-30%) translateY(0%) rotate(-45deg);
+    -webkit-transform: translateX(-30%) translateY(0%) rotate(-45deg);
+    transform: translateX(-30%) translateY(0%) rotate(-45deg);
+    -ms-transform-origin: top right;
+    -webkit-transform-origin: top right;
+    transform-origin: top right;
+}
+
+.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    -ms-transform: translateX(30%) translateY(0%) rotate(45deg);
+    -webkit-transform: translateX(30%) translateY(0%) rotate(45deg);
+    transform: translateX(30%) translateY(0%) rotate(45deg);
+    -ms-transform-origin: top left;
+    -webkit-transform-origin: top left;
+    transform-origin: top left;
+}
+
+.bottom-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    -ms-transform: translateX(-30%) translateY(0%) rotate(45deg);
+    -webkit-transform: translateX(-30%) translateY(0%) rotate(45deg);
+    transform: translateX(-30%) translateY(0%) rotate(45deg);
+    -ms-transform-origin: bottom right;
+    -webkit-transform-origin: bottom right;
+    transform-origin: bottom right;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    -ms-transform: translateX(30%) translateY(0%) rotate(-45deg);
+    -webkit-transform: translateX(30%) translateY(0%) rotate(-45deg);
+    transform: translateX(30%) translateY(0%) rotate(-45deg);
+    -ms-transform-origin: bottom left;
+    -webkit-transform-origin: bottom left;
+    transform-origin: bottom left;
+}
+
+.top-full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.middle-full {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    -ms-transform: translateX(0%) translateY(-50%) rotate(0deg);
+    -webkit-transform: translateX(0%) translateY(-50%) rotate(0deg);
+    transform: translateX(0%) translateY(-50%) rotate(0deg);
+}
+
+.bottom-full {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/* ================== Badge color CSS ========================*/
+.custom-badge.red {
+    background: #ff4438;
+}
+
+
+/* FOR MOBILE PHONE */
+@media only screen and (max-width: 768px) {
+  .header .display-3 .menu-list-collection-item{
+      height: 170px;
+  }
+}

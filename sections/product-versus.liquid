@@ -1,0 +1,181 @@
+{%- comment -%}
+  Product Versus — heading + description + two pre-designed comparison images.
+  The two cards are finished image assets (uploaded), shown side by side on
+  desktop with an optional VS badge; swipeable left/right on mobile.
+{%- endcomment -%}
+
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+  #shopify-section-{{ section.id }} .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  #shopify-section-{{ section.id }} .vs {
+    padding: 64px 0;
+  }
+  #shopify-section-{{ section.id }} .vs__heading {
+    font-size: clamp(24px, 3vw, 40px);
+    font-weight: 800;
+    color: {{ section.settings.heading_color }};
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1.15;
+    margin: 0 0 {% if section.settings.description == blank %}40px{% else %}10px{% endif %};
+  }
+  #shopify-section-{{ section.id }} .vs__heading-accent {
+    background: linear-gradient(90deg, {{ section.settings.accent_color_2 }} 0%, {{ section.settings.accent_color }} 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: {{ section.settings.accent_color }};
+  }
+  #shopify-section-{{ section.id }} .vs__desc {
+    text-align: center;
+    color: #5a6470;
+    font-size: clamp(14px, 1.4vw, 17px);
+    max-width: 760px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+  #shopify-section-{{ section.id }} .vs__stage {
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .vs__swiper { overflow: hidden; }
+  #shopify-section-{{ section.id }} .vs__slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+  }
+  #shopify-section-{{ section.id }} .vs__slide .vs__placeholder {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    border-radius: 16px;
+    background: #e4ebf2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9aa7b4;
+    font-size: 14px;
+  }
+  /* VS badge — centered over the gap, desktop only */
+  #shopify-section-{{ section.id }} .vs__badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, {{ section.settings.accent_color_2 }} 0%, {{ section.settings.accent_color }} 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 30px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 22px rgba(28,128,254,0.32);
+  }
+  #shopify-section-{{ section.id }} .vs__pagination {
+    display: none;
+    text-align: center;
+    margin-top: 22px;
+  }
+  #shopify-section-{{ section.id }} .vs__pagination .swiper-pagination-bullet {
+    width: 9px; height: 9px; background: #c2cdd8; opacity: 1; margin: 0 5px;
+  }
+  #shopify-section-{{ section.id }} .vs__pagination .swiper-pagination-bullet-active {
+    background: {{ section.settings.accent_color }};
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .container { padding-left: 20px; padding-right: 20px; }
+    #shopify-section-{{ section.id }} .vs { padding: 44px 0; }
+    #shopify-section-{{ section.id }} .vs__badge { display: none; }
+    #shopify-section-{{ section.id }} .vs__pagination { display: block; }
+  }
+{% endstyle %}
+
+<div class="vs">
+  <div class="container">
+    {% if section.settings.heading != blank or section.settings.heading_accent != blank %}
+      <h2 class="vs__heading">
+        {{ section.settings.heading }}
+        {% if section.settings.heading_accent != blank %}<span class="vs__heading-accent">{{ section.settings.heading_accent }}</span>{% endif %}
+      </h2>
+    {% endif %}
+    {% if section.settings.description != blank %}
+      <p class="vs__desc">{{ section.settings.description }}</p>
+    {% endif %}
+
+    <div class="vs__stage">
+      <div class="vs__swiper swiper" id="vs-swiper-{{ section.id }}">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide vs__slide">
+            {% if section.settings.image_left != blank %}
+              <img src="{{ section.settings.image_left | image_url: width: 900 }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
+            {% else %}
+              <div class="vs__placeholder">Left comparison image</div>
+            {% endif %}
+          </div>
+          <div class="swiper-slide vs__slide">
+            {% if section.settings.image_right != blank %}
+              <img src="{{ section.settings.image_right | image_url: width: 900 }}" alt="{{ section.settings.heading_accent | escape }}" loading="lazy">
+            {% else %}
+              <div class="vs__placeholder">Right comparison image</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% if section.settings.show_vs %}<div class="vs__badge">VS</div>{% endif %}
+    </div>
+
+    <div class="vs__pagination" id="vs-pag-{{ section.id }}"></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('#vs-swiper-{{ section.id }}', {
+      slidesPerView: 1.08,
+      spaceBetween: 14,
+      pagination: { el: '#vs-pag-{{ section.id }}', clickable: true },
+      breakpoints: {
+        769: { slidesPerView: 2, spaceBetween: 12, allowTouchMove: false }
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Versus Comparison",
+  "class": "product-versus-section",
+  "templates": ["product"],
+  "settings": [
+    { "type": "checkbox", "id": "enabled_section_child_scroll", "label": "Enable scroll nav anchor", "default": false },
+    { "type": "text", "id": "section_scroll_nav", "label": "Scroll Nav Group" },
+    { "type": "text", "id": "nav_title", "label": "Nav Title" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#EAF1F8" },
+    { "type": "color", "id": "heading_color", "label": "Heading Color", "default": "#01132F" },
+    { "type": "color", "id": "accent_color", "label": "Accent Color (gradient end / deep blue)", "default": "#1C80FE" },
+    { "type": "color", "id": "accent_color_2", "label": "Accent Color 2 (gradient start / light cyan)", "default": "#5BD3F0" },
+    { "type": "text", "id": "heading", "label": "Heading (dark part)", "default": "Fan-Only Airflow vs" },
+    { "type": "text", "id": "heading_accent", "label": "Heading (accent part)", "default": "Ice-Water Cooling" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Cold water circulates close to your body — not just air blowing around." },
+    { "type": "checkbox", "id": "show_vs", "label": "Show VS badge (desktop)", "default": true },
+    { "type": "header", "content": "Comparison Images" },
+    { "type": "image_picker", "id": "image_left", "label": "Left Image (fan-only)" },
+    { "type": "image_picker", "id": "image_right", "label": "Right Image (IcyLoop)" }
+  ],
+  "presets": [
+    { "name": "Versus Comparison" }
+  ]
+}
+{% endschema %}

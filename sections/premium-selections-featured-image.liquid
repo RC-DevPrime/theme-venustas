@@ -1,0 +1,257 @@
+{% style %}
+
+    .premium-selections-featured-image-section .gradient-text{
+        color: transparent;
+        background-image: linear-gradient(108deg, #B93205, #ef7e00 29%, #d94e0f 62%, #B93205);
+        background-size: 200% 200%;
+        background-clip: text;
+        -webkit-background-clip: text;
+    }
+    .premium-selections-featured-image-section .featured-image-container{
+        height:60vh;
+        border-radius:16px;
+        overflow:hidden;
+        position:relative;
+    }
+    .premium-selections-featured-image-section .featured-image-container .bg-image{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .premium-selections-featured-image-section .section-btn img{
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .premium-selections-featured-image-section .featured-image-container .inner-content{
+        height:100%;
+        width:100%;
+        position:absolute;
+        top:0;
+        left:0;
+        background: #f9f9f921;
+        opacity:0;
+        transition: all 0.3s ease;
+    }
+    .premium-selections-featured-image-section .featured-image-container .inner-content .scroll-view{
+        overflow-y:scroll;
+    }
+    .premium-selections-featured-image-section .featured-image-container .inner-content .scroll-view .row{
+        --bs-gutter-x: 80px;
+        --bs-gutter-y: 20px;
+    }
+    .premium-selections-featured-image-section .featured-image-container .inner-content .scroll-view::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    .premium-selections-featured-image-section .featured-image-container .inner-content .scroll-view .icon-image{
+        object-fit:contain;
+    }
+    .premium-selections-featured-image-section .featured-image-container.active .inner-content{
+        opacity:1;
+    }
+    .premium-selections-featured-image-section .featured-image-container.active .bg-image{
+        -webkit-filter: blur(28px);
+        filter: blur(28px);
+    }
+    .premium-selections-featured-image-section .featured-image-container .btn-view{
+        width:40px;
+        height:40px;
+        border-radius:50px;
+        background-color:#000;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        position:absolute;
+        bottom:1.5rem;
+        right:1.5rem;
+        cursor:pointer;
+    }
+    .premium-selections-featured-image-section .featured-image-container .btn-view img{
+        width:20px;
+        height:20px;
+        object-fit:contain;
+        transition: all 0.3s ease;
+    }
+    .premium-selections-featured-image-section .featured-image-container.active .btn-view img{
+        transform: rotate(45deg);
+    }
+    
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .premium-selections-featured-image-section .featured-image-container{
+            height:550px;
+            border-radius:10px;
+        }
+        .premium-selections-featured-image-section .featured-image-container .inner-content .scroll-view .row{
+            --bs-gutter-x:1rem;
+            padding-top:30px;
+            padding-bottom:30px;
+        }
+        .premium-selections-featured-image-section .featured-image-container .inner-content .scroll-view .icon-image{
+            width:18px;
+            height:18px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content">
+    <div class="section-top col-lg-6 col-md-6 col-sm-12 pb-lg-4 pb-md-4 pb-sm-3" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="100" data-aos-duration="500">
+        {% if section.settings.sub_heading != blank %}
+            <h5 class="pp-semibold pretitle-lg f-gray pb-lg-3 pb-md-3 pb-sm-2 text-lg-start text-md-start text-sm-center">
+                {{ section.settings.sub_heading }}
+            </h5>
+        {% endif %}
+        {% if section.settings.heading != blank %}
+            <h2 class="pp-bold title-md gradient-text text-lg-start text-md-start text-sm-center d-lg-block d-md-block d-sm-none">
+                {{ section.settings.heading }}
+            </h2>
+            <h2 class="pp-bold title-sm gradient-text text-lg-start text-md-start text-sm-center d-lg-none d-md-none d-sm-block col-10 mx-auto">
+                {{ section.settings.heading }}
+            </h2>
+        {% endif %}
+        <div class="section-bottom pt-3 {% if section.blocks.size > 1 %} d-none {% else %} d-lg-none d-md-none d-sm-block {% endif %} pb-3 ">
+            <div class="d-flex flex-lg-row flex-md-row flex-sm-column align-items-center justify-content-center align-items-center gap-lg-2 gap-md-2 gap-sm-3">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="pp-regular body f-black text-center">
+                        {{ section.settings.description }}
+                    </div>
+                </div>
+                <a href="{{ section.settings.btn_link }}" class="section-btn btn-hover btn-main btn-no-animation px-lg-3 px-md-3 px-sm-3 py-2 d-flex align-items-center gap-1 w-fit-content">
+                    <span class="pp-regular body-lg l-h-normal px-1">
+                        {{ section.settings.btn_label }}
+                    </span>
+                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/47420_2x_bf9f4027-13f9-4344-a883-453f60bc5d25.png?v=1758125303" width="100%" height="100%" class="btn-icon">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="featured-image-container" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="150" data-aos-duration="500">
+        <img src="{{ section.settings.image | img_url: '1400x1400' }}" width="100%" height="100%" class="bg-image">
+        {% if section.blocks.size > 1 %}
+            <div class="inner-content">
+                <div class="scroll-view d-flex align-items-center h-100 ">
+                    <div class="section-content">
+                        <div class="row">
+                            {% for block in section.blocks %}
+                                <div class="{% if section.blocks.size == 3 %} col-lg-4 col-md-4 {% else %} col-lg-3 col-md-3 {% endif %} col-sm-12 {% if forloop.index == 1 %}mt-lg-0 mt-md-0 mt-sm-4{% endif %}">
+                                    <div class="d-flex flex-lg-column flex-md-column flex-sm-row align-items-lg-start align-items-md-start align-items-sm-center gap-lg-0 gap-md-0 gap-sm-1">
+                                        <img src="{{ block.settings.icon | img_url: '200x200' }}" width="35px" height="35px" class="icon-image">
+                                        <h4 class="pp-bold body f-white py-lg-3 py-md-3 py-sm-2">
+                                            {{ block.settings.heading }}
+                                        </h4>
+                                    </div>
+                                    <p class="pp-regular body-sm f-white"> 
+                                        {{ block.settings.description }}
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-view">
+                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/icon-plus.png?v=1763705919" width="30px" height="30px">
+            </div>
+        {% endif %}
+    </div>
+    <div class="section-bottom pt-4 {% if section.blocks.size > 1 %} d-block {% else %} d-lg-block d-md-block d-sm-none {% endif %} " data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="200" data-aos-duration="500">
+        <div class="d-flex flex-lg-row flex-md-row flex-sm-column {% if section.blocks.size > 1 %} align-items-start {% else %} align-items-center {% endif %} justify-content-between align-items-start gap-lg-2 gap-md-2 gap-sm-3">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="pp-regular body-lg f-black d-lg-block d-md-block d-sm-none">
+                    {{ section.settings.description }}
+                </div>
+                <div class="pp-regular body f-black d-lg-none d-md-none d-sm-block">
+                    {{ section.settings.description }}
+                </div>
+            </div>
+            <a href="{{ section.settings.btn_link }}" class="section-btn btn-hover btn-main btn-no-animation px-lg-3 px-md-3 px-sm-3 py-2 d-flex align-items-center gap-1 w-fit-content">
+                <span class="pp-regular body-lg l-h-normal px-1">
+                    {{ section.settings.btn_label }}
+                </span>
+                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/47420_2x_bf9f4027-13f9-4344-a883-453f60bc5d25.png?v=1758125303" width="100%" height="100%" class="btn-icon">
+            </a>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "premium-selections-featured-image-section",
+        "name": "Premium Featured Image",
+        "templates": ["page"],
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading", 
+                "label": "Sub Heading",
+                "default": "YKK  Zippers"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "The Globally Trusted Choice For Durability"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>Ykk Zippers, Considered The Epitome Of Quality In The Garment Industry, Are Prized For Their Exceptional Construction And Unwavering Reliability.</p>"
+            },
+            {
+                "type": "text",
+                "id": "btn_label",
+                "label": "Button Label",
+                "default": "Shop Now"
+            },
+            {
+                "type": "url",
+                "id": "btn_link",
+                "label": "Button Link",
+            },
+
+
+        ],
+        "max_blocks": 4,
+        "blocks": [
+            {
+                "type": "content",
+                "name": "Content",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "icon",
+                        "label": "Icon"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "description",
+                        "label": "Description"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Premium Featured Image"
+        }]
+    }
+  {% endschema %} 

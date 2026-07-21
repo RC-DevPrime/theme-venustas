@@ -1,0 +1,39 @@
+<a href="{{ entries.press_link.value }}" class="press-item" target="_blank" data-aos="fade-up" data-aos-easing="ease" data-aos-delay="{{  forloop.index }}00" data-aos-duration="500">
+    <div class="featured-image mb-3">
+        <img src="{{ entries.featured_image | img_url: '1400x1400' }}" width="100%" height="100%">
+        <div class="date-container"> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="22.399" height="22.359" viewBox="0 0 22.399 22.359">
+                <path d="M5.409 4v-.841a1.12 1.12 0 0 1 2.236 0V4h7v-.841a1.12 1.12 0 0 1 2.236 0V4h1.455a4.094 4.094 0 0 1 4.118 4.06v2.5a1.1 1.1 0 0 1 0 .436v9.4a4.1 4.1 0 0 1-4.12 4.065l-14.522-.017A4.09 4.09 0 0 1 .082 20.4V8.061A4.1 4.1 0 0 1 4.2 4h1.2Zm0 1.658H4.2a2.42 2.42 0 0 0-2.442 2.4v1.625h19.021V8.062a2.427 2.427 0 0 0-2.44-2.405h-1.455v1.272a1.12 1.12 0 0 1-2.236 0V5.656h-7v1.273a1.12 1.12 0 0 1-2.236 0V5.66Zm15.372 6.228H1.766V20.4a2.427 2.427 0 0 0 2.44 2.4h14.133a2.427 2.427 0 0 0 2.44-2.4v-8.512Zm-8.967 8.135h-1.071a1.1 1.1 0 1 1 0-2.205h1.071a1.1 1.1 0 1 1 0 2.205m-4.991-3.462H5.751a1.1 1.1 0 1 1 0-2.205H6.82a1.1 1.1 0 0 1 0 2.205Zm4.991 0h-1.071a1.1 1.1 0 1 1 0-2.205h1.071a1.1 1.1 0 0 1 0 2.205m4.978 0h-1.07a1.1 1.1 0 1 1 0-2.205h1.07a1.1 1.1 0 1 1 0 2.205M6.82 20.022H5.751a1.1 1.1 0 1 1 0-2.2H6.82a1.1 1.1 0 1 1 0 2.205Zm9.97 0h-1.069a1.1 1.1 0 1 1 0-2.2h1.07a1.1 1.1 0 1 1 0 2.205Z" transform="translate(-.082 -2.104)" style="fill:#fff"/>
+            </svg>
+            <p class="pp-regular body f-white l-h-normal">
+                {{ entries.date.value | date: "%b %d, %Y" }}
+            </p>
+        </div>
+        <div class="learn-btn d-flex align-items-center justify-content-center h-100 w-100">
+            <p class="pp-regular f-white body text-underline text-center">
+                Learn More
+            </p>
+        </div>
+        <div class="outer">
+            <div class="inner"></div>
+        </div>
+    </div>
+    <div class="press-logo mb-2">
+        <div class="d-flex align-items-center gap-2">
+            <div class="press-logo-container">
+                <img src="{{ entries.logo | img_url: '800x800' }}" width="100%" height="100%">
+            </div>
+            <h5 class="pp-regular f-gray body">
+                {{ entries.logo_label }}
+            </h5>
+        </div>
+    </div>
+    <div class="press-detail">
+        <h3 class="press-title pp-bold pretitle f-black truncate-2-text mb-3">
+            {{ entries.title.value }}
+        </h3>
+        <p class="press-description pp-regular body f-black truncate-3-text l-h-normal"> 
+            {{ entries.description.value }}
+        </p>
+    </div>
+</a>

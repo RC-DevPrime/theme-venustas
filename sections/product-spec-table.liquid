@@ -1,0 +1,213 @@
+{%- comment -%}
+  Product Spec Table
+  Two side-by-side panels of key/value rows, e.g. "Specification" and
+  "Mode & Runtime". Each row is a block assigned to the left or right panel.
+{%- endcomment -%}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    --st-accent: {{ section.settings.accent_color }};
+  }
+  #shopify-section-{{ section.id }} .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  #shopify-section-{{ section.id }} .st {
+    padding: 64px 0;
+  }
+  #shopify-section-{{ section.id }} .st__heading {
+    font-size: clamp(22px, 2.4vw, 34px);
+    font-weight: 800;
+    color: {{ section.settings.heading_color }};
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 0 36px;
+  }
+  #shopify-section-{{ section.id }} .st__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  #shopify-section-{{ section.id }} .st__panel {
+    background: {{ section.settings.panel_bg }};
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  #shopify-section-{{ section.id }} .st__panel-head {
+    background: var(--st-accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 14px 26px;
+  }
+  #shopify-section-{{ section.id }} .st__panel-head.is-split { justify-content: space-between; }
+  #shopify-section-{{ section.id }} .st__rows {
+    padding: 8px 26px 18px;
+  }
+  #shopify-section-{{ section.id }} .st__row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid #e6eaec;
+  }
+  #shopify-section-{{ section.id }} .st__row:last-child { border-bottom: 0; }
+  #shopify-section-{{ section.id }} .st__row-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+  #shopify-section-{{ section.id }} .st__ico {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+  }
+  #shopify-section-{{ section.id }} .st__label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #6a7278;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    line-height: 1.3;
+  }
+  #shopify-section-{{ section.id }} .st__value {
+    margin-left: auto;
+    font-size: 14px;
+    color: #1a1a1a;
+    text-align: right;
+    line-height: 1.5;
+    white-space: pre-line;
+    flex: none;
+  }
+  #shopify-section-{{ section.id }} .st__footnote {
+    padding: 14px 26px 22px;
+    font-size: 12px;
+    color: #8a9298;
+    line-height: 1.5;
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .container { padding-left: 20px; padding-right: 20px; }
+    #shopify-section-{{ section.id }} .st { padding: 44px 0; }
+    #shopify-section-{{ section.id }} .st__grid { grid-template-columns: 1fr; gap: 16px; }
+  }
+{% endstyle %}
+
+<div class="st">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <h2 class="st__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    <div class="st__grid">
+      <div class="st__panel">
+        <div class="st__panel-head{% if section.settings.left_heading_2 != blank %} is-split{% endif %}">
+          <span>{{ section.settings.left_heading }}</span>
+          {% if section.settings.left_heading_2 != blank %}<span>{{ section.settings.left_heading_2 }}</span>{% endif %}
+        </div>
+        <div class="st__rows">
+          {% for block in section.blocks %}
+            {% if block.settings.panel == 'left' %}
+              <div class="st__row" {{ block.shopify_attributes }}>
+                <div class="st__row-main">
+                  {% if block.settings.icon != blank %}
+                    <img class="st__ico" src="{{ block.settings.icon | image_url: width: 100 }}" alt="{{ block.settings.label | escape }}" loading="lazy">
+                  {% endif %}
+                  <div class="st__label">{{ block.settings.label }}</div>
+                </div>
+                <div class="st__value">{{ block.settings.value }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="st__panel">
+        <div class="st__panel-head{% if section.settings.right_heading_2 != blank %} is-split{% endif %}">
+          <span>{{ section.settings.right_heading }}</span>
+          {% if section.settings.right_heading_2 != blank %}<span>{{ section.settings.right_heading_2 }}</span>{% endif %}
+        </div>
+        <div class="st__rows">
+          {% for block in section.blocks %}
+            {% if block.settings.panel == 'right' %}
+              <div class="st__row" {{ block.shopify_attributes }}>
+                <div class="st__row-main">
+                  {% if block.settings.icon != blank %}
+                    <img class="st__ico" src="{{ block.settings.icon | image_url: width: 100 }}" alt="{{ block.settings.label | escape }}" loading="lazy">
+                  {% endif %}
+                  <div class="st__label">{{ block.settings.label }}</div>
+                </div>
+                <div class="st__value">{{ block.settings.value }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% if section.settings.right_footnote != blank %}
+            <div class="st__footnote">{{ section.settings.right_footnote }}</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Spec Table",
+  "class": "product-spec-table-section",
+  "settings": [
+    { "type": "checkbox", "id": "enabled_section_child_scroll", "label": "Enable scroll nav anchor", "default": false },
+    { "type": "text", "id": "section_scroll_nav", "label": "Scroll Nav Group" },
+    { "type": "text", "id": "nav_title", "label": "Nav Title" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#EDF2F9" },
+    { "type": "color", "id": "panel_bg", "label": "Panel Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "accent_color", "label": "Accent Color", "default": "#1C80FE" },
+    { "type": "color", "id": "heading_color", "label": "Section Title Color", "default": "#01132F" },
+    { "type": "text", "id": "heading", "label": "Section Title", "default": "Specs" },
+    { "type": "text", "id": "left_heading", "label": "Left Panel Heading", "default": "Specification" },
+    { "type": "text", "id": "left_heading_2", "label": "Left Panel Heading (right-aligned, optional)" },
+    { "type": "text", "id": "right_heading", "label": "Right Panel Heading", "default": "Mode" },
+    { "type": "text", "id": "right_heading_2", "label": "Right Panel Heading (right-aligned, optional)", "default": "Runtime*" },
+    { "type": "textarea", "id": "right_footnote", "label": "Right Panel Footnote", "default": "*Runtime may vary based on battery capacity, ice temperature, ambient temperature, and usage." }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        {
+          "type": "select", "id": "panel", "label": "Panel",
+          "options": [
+            { "value": "left", "label": "Left panel" },
+            { "value": "right", "label": "Right panel" }
+          ], "default": "left"
+        },
+        { "type": "image_picker", "id": "icon", "label": "Icon (left of label, optional)" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Label" },
+        { "type": "textarea", "id": "value", "label": "Value", "default": "Value" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spec Table",
+      "blocks": [
+        { "type": "row", "settings": { "panel": "left", "label": "Fit", "value": "Vest, unisex/regular" } },
+        { "type": "row", "settings": { "panel": "left", "label": "Materials", "value": "Nylon, polyester mesh, PVA" } },
+        { "type": "row", "settings": { "panel": "left", "label": "Weight (vest only)", "value": "Approx. 1.9 lb" } },
+        { "type": "row", "settings": { "panel": "left", "label": "Water Capacity", "value": "1.5 L tank" } },
+        { "type": "row", "settings": { "panel": "left", "label": "Input Power", "value": "5V / 2A" } },
+        { "type": "row", "settings": { "panel": "left", "label": "Port", "value": "USB-A" } },
+        { "type": "row", "settings": { "panel": "right", "label": "Dual Cooling", "value": "Ice-water + fans" } },
+        { "type": "row", "settings": { "panel": "right", "label": "Fans Only", "value": "5–6 h runtime" } },
+        { "type": "row", "settings": { "panel": "right", "label": "Water-cooling", "value": "23–29 h runtime" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

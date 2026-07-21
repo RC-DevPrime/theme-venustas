@@ -1,0 +1,85 @@
+{%- comment -%}
+  Shared base styles for Venustas Talents sections.
+  Usage: {% render 'v-talents-base-css', section: section %}
+{%- endcomment -%}
+{%- assign brand = section.settings.brand_color | default: '#B93205' -%}
+<style>
+  #shopify-section-{{ section.id }} {
+    --v-brand: {{ brand }};
+    --v-radius: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents {
+    color: #1a1a1a;
+    font-family: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents img:not(.v-talents-hero__bg) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents__brand {
+    color: var(--v-brand);
+  }
+
+  #shopify-section-{{ section.id }} .v-talents__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.25s ease, background 0.25s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents__btn--solid {
+    background: var(--v-brand);
+    color: #fff;
+    border-color: var(--v-brand);
+  }
+
+  #shopify-section-{{ section.id }} .v-talents__btn--solid:hover {
+    opacity: 0.88;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents__btn--outline-white {
+    background: transparent;
+    color: #fff;
+    border-color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents__btn--outline-white:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  #shopify-section-{{ section.id }} .v-talents__btn--outline-brand {
+    background: transparent;
+    color: var(--v-brand);
+    border-color: var(--v-brand);
+  }
+
+  #shopify-section-{{ section.id }} .v-talents__btn--outline-brand:hover {
+    background: rgba(185, 50, 5, 0.08);
+  }
+
+  #shopify-section-{{ section.id }} .v-talents__rounded-img {
+    border-radius: var(--v-radius);
+    overflow: hidden;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents__rounded-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

@@ -1,0 +1,59 @@
+{%- comment -%}
+  POWR form modals — render once per page (typically from Talents Hero).
+  Pass: section with powr_form_id, powr_rewards_form_id, apply/rewards popup settings.
+{%- endcomment -%}
+{%- liquid
+  assign powr_apply_id = section.settings.powr_form_id
+  assign powr_rewards_id = section.settings.powr_rewards_form_id | default: powr_apply_id
+  assign powr_apply_popup = false
+  if section.settings.apply_use_powr_popup and powr_apply_id != blank
+    assign powr_apply_popup = true
+  endif
+  assign powr_rewards_popup = false
+  if section.settings.rewards_use_powr_popup and powr_rewards_id != blank
+    assign powr_rewards_popup = true
+  endif
+  assign powr_show_rewards_modal = false
+  if powr_rewards_popup
+    assign powr_same_form = false
+    if powr_apply_popup and powr_rewards_id == powr_apply_id
+      assign powr_same_form = true
+    endif
+    unless powr_same_form
+      assign powr_show_rewards_modal = true
+    endunless
+  endif
+-%}
+
+{%- if powr_apply_popup -%}
+  <div class="v-talents-powr-modal" data-v-talents-powr-modal="apply">
+    <div class="v-talents-powr-modal__overlay" data-v-talents-powr-close></div>
+    <div class="v-talents-powr-modal__dialog" role="dialog" aria-modal="true" aria-label="Application form">
+      <div class="v-talents-powr-modal__header">
+        <button type="button" class="v-talents-powr-modal__close" data-v-talents-powr-close aria-label="Close">&times;</button>
+      </div>
+      <div class="v-talents-powr-modal__body">
+        <powr-form-builder u="{{ powr_apply_id }}"></powr-form-builder>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- if powr_show_rewards_modal -%}
+  <div class="v-talents-powr-modal" data-v-talents-powr-modal="rewards">
+    <div class="v-talents-powr-modal__overlay" data-v-talents-powr-close></div>
+    <div class="v-talents-powr-modal__dialog" role="dialog" aria-modal="true" aria-label="Rewards form">
+      <div class="v-talents-powr-modal__header">
+        <button type="button" class="v-talents-powr-modal__close" data-v-talents-powr-close aria-label="Close">&times;</button>
+      </div>
+      <div class="v-talents-powr-modal__body">
+        <powr-form-builder u="{{ powr_rewards_id }}"></powr-form-builder>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- if powr_apply_popup or powr_rewards_popup -%}
+  <script src="https://view.powr.io/assets/loader.js" defer></script>
+  {% render 'v-talents-powr-modal-js' %}
+{%- endif -%}

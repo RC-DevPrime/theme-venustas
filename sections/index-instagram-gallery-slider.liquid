@@ -1,0 +1,164 @@
+{% style %}
+    .instagram-gallery-slider-section{
+        content-visibility:auto;
+        contain-intrinsic-size: 1px 900px;
+    }
+    .instagram-gallery-slider-section .section-description a{
+        font-weight:unset;
+        color:#B93205;
+    }
+    .instagram-gallery-slider-section .instagram-gallery-slider .instagram-item{
+        overflow:hidden;
+        position:relative;
+        border-radius:16px;
+        display:block;
+    }
+    .instagram-gallery-slider-section .instagram-gallery-slider .instagram-item img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .instagram-gallery-slider-section .instagram-gallery-slider .instagram-item:hover:before{
+        opacity:0.7;
+    }
+    .instagram-gallery-slider-section .instagram-gallery-slider .instagram-item:hover:after{
+        opacity:1;
+    }
+    .instagram-gallery-slider-section .instagram-gallery-slider .instagram-item:before{
+        content:"";
+        width:100%;
+        height:100%;
+        position:absolute;
+        background-color:#FFF;
+        opacity:0;
+        transition: all 0.3s ease;
+    }
+    .instagram-gallery-slider-section .instagram-gallery-slider .instagram-item:after{
+        content:"";
+        width:100%;
+        height:100%;
+        position:absolute;
+        left:0;
+        opacity:0;
+        background-image:url(https://cdn.shopify.com/s/files/1/0457/1099/9709/files/Instagram_-_Negative_2x_1.png?v=1758127258);
+        background-position:center;
+        background-size:35px;
+        background-repeat:no-repeat;
+        transition: all 0.3s ease;
+    }
+    .instagram-gallery-slider-section .instagram-gallery-slider .float-nav button{
+        background: #F1EADD;
+    }
+    .instagram-gallery-slider-section .instagram-gallery-slider .float-nav button:hover{
+        background: #B93205;
+    }
+    .instagram-gallery-slider-section .instagram-gallery-slider .float-nav button i{
+        color: #B93205;
+    }
+    .instagram-gallery-slider-section .instagram-gallery-slider .float-nav button:hover i{
+        color: #FFF;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .instagram-gallery-slider-section .instagram-gallery-slider .instagram-item{
+            border-radius:8px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content">
+    <div class="col-lg-6 col-md-8 col-sm-12 mx-auto pb-lg-5 pb-md-4 pb-sm-4">
+        <div class="section-heading pp-bold title-sm f-black text-center">
+            {{ section.settings.heading }}
+        </div>
+        <div class="section-description pp-regular body-lg f-black text-center">
+            {{ section.settings.description }}
+        </div>
+    </div>
+    <div class="instagram-gallery-slider position-relative">
+        <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+                <div class="swiper-slide">
+                    <a href="{{ block.settings.link }}" class="instagram-item" target="_blank">
+                        <img
+                        src="{{ block.settings.image | image_url: width: 600 }}"
+                        srcset="
+                            {{ block.settings.image | image_url: width: 300 }} 300w,
+                            {{ block.settings.image | image_url: width: 450 }} 450w,
+                            {{ block.settings.image | image_url: width: 600 }} 600w,
+                            {{ block.settings.image | image_url: width: 900 }} 900w
+                        "
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        width="{{ block.settings.image.width }}"
+                        height="{{ block.settings.image.height }}"
+                        alt="instagram-gallery-{{ block.settings.image.alt | escape }}"
+                        loading="lazy"
+                        decoding="async"
+                        >
+                        </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        
+        <div class="float-nav d-lg-block d-md-block d-sm-block">
+            <button type="button" class="owl-prev" disabled>
+                <i class="fa-solid fa-chevron-left f-white"></i>
+            </button>
+            <button type="button" class="owl-next" disabled>
+                <i class="fa-solid fa-chevron-right f-white"></i>
+            </button>
+        </div>
+    </div>
+</div>
+{% schema %}
+{
+    "class": "instagram-gallery-slider-section overflow-hidden",
+    "name": "Instagram Gallery Slider",
+    "limit": 1,
+    "templates": ["index"],
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Instagram Gallery"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+        }
+    ],
+    "blocks": [
+        {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                }
+            ]
+        },
+    ],
+    "presets": [
+        {
+            "name": "Instagram Gallery Slider"
+        }
+    ]
+}
+{% endschema %}

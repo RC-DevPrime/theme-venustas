@@ -1,0 +1,142 @@
+{% style %}
+    .campaign-featured-banner-section{
+        background-color:#000;
+        position:relative;
+    }
+    .campaign-featured-banner-section .section-heading{
+        display:flex;
+        align-items:center;
+        gap:10px;
+    }
+    .campaign-featured-banner-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    
+    .campaign-featured-banner-section .bg-image{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .campaign-featured-banner-section .content-container{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        display: flex;
+        align-items: center;
+    }
+{% endstyle %}
+<div class="campaign-featured-banner-section 
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}> 
+    <img src="{{ section.settings.background_image | img_url: 'master' }}" width="100%" height="100%" class="bg-image d-lg-block d-md-block d-sm-none">
+    <img src="{{ section.settings.background_image_mobile | img_url: 'master' }}" width="100%" height="100%" class="bg-image d-lg-none d-md-none d-sm-block">
+    <div class="content-container">
+        <div class="container section-content">
+            <div class="col-6 d-lg-block d-md-block d-sm-none">
+                <h2 class="section-heading pp-semibold f-white title-xl pb-lg-3 pb-md-3 pb-sm-2">
+                    {{ section.settings.heading }}
+                </h2>
+                <div class="section-description pp-regular body-xl f-white pb-lg-4 pb-md-4 pb-sm-3">
+                    {{ section.settings.description }}
+                </div>
+                <a href="{{ section.settings.btn_link }}" class="btn-hover btn-main py-2">
+                    <span class="f-white pp-regular body-lg">
+                        {{ section.settings.btn_label }}
+                    </span>
+                </a>
+            </div>
+
+            <div class="col-12 d-lg-none d-md-none d-sm-block">
+                <h2 class="section-heading pp-semibold f-white text-center title-sm pb-3">
+                    {{ section.settings.heading }}
+                </h2>
+                <div class="section-description pp-regular body text-center f-white pb-3">
+                    {{ section.settings.description }}
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="{{ section.settings.btn_link }}" class="btn-hover btn-main py-2">
+                        <span class="f-white pp-regular body">
+                            {{ section.settings.btn_label }}
+                        </span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Campaign Featured Banner",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enabled_section_child_scroll",
+                "label": "Enabled Section Child Scroll"
+            },
+            {
+                "type": "text",
+                "id": "section_scroll_nav",
+                "label": "Section Scroll Nav",
+                "info": "Need to Enabled first Section Scroll"
+            },
+            {
+                "type": "text",
+                "id": "nav_title",
+                "label": "Navigation Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image",
+                "label": "Background Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image_mobile",
+                "label": "Background Image - Mobile"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Experience ultimate warmth and save big!"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>Choose any two premium heated vests from our Men’s and Women’s collections and enjoy 120 off. Limited to one day only！</p>"
+            },
+            {
+                "type": "text",
+                "id": "btn_label",
+                "label": "Button Label",
+                "default": "Buy Now"
+            },
+            {
+                "type": "url",
+                "id": "btn_link",
+                "label": "Button Link"
+            }
+        ],
+        "presets" :[{
+            "name" : "Campaign Featured Banner"
+        }]
+    }
+  {% endschema %} 

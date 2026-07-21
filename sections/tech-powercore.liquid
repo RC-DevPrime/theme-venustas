@@ -1,0 +1,761 @@
+{% assign section_anchor = section.settings.anchor_id | default: 'tech-powercore' | strip %}
+<section id="{{ section_anchor | escape }}" class="venustas-powercore-feature">
+  <div class="venustas-powercore-feature__inner">
+
+    <!-- Left: content -->
+    <div class="venustas-powercore-feature__content">
+
+      {% if section.settings.heading != blank %}
+        <h2 class="venustas-powercore-feature__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="venustas-powercore-feature__description">{{ section.settings.description }}</div>
+      {% endif %}
+
+      <!-- 2-column metrics grid -->
+      <div class="venustas-powercore-feature__metrics">
+
+        {% for i in (1..4) %}
+          {% assign num_key   = 'metric_' | append: i | append: '_number' %}
+          {% assign unit_key  = 'metric_' | append: i | append: '_unit' %}
+          {% assign label_key = 'metric_' | append: i | append: '_label' %}
+          {% assign num   = section.settings[num_key] %}
+          {% assign unit  = section.settings[unit_key] %}
+          {% assign label = section.settings[label_key] %}
+          {% if num != blank or label != blank %}
+            <div class="venustas-powercore-feature__metric-item">
+              <div class="venustas-powercore-feature__metric-number">
+                {{ num }}<span class="venustas-powercore-feature__metric-unit">{{ unit }}</span>
+              </div>
+              <div class="venustas-powercore-feature__metric-label">{{ label }}</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+
+      </div>
+
+      {% if section.settings.footnote != blank %}
+        <p class="venustas-powercore-feature__footnote">{{ section.settings.footnote }}</p>
+      {% endif %}
+
+    </div>
+
+    <!-- Right: product image -->
+    <div class="venustas-powercore-feature__media">
+      {% if section.settings.right_image != blank %}
+        <img
+          class="venustas-powercore-feature__image"
+          src="{{ section.settings.right_image | image_url: width: 1200 }}"
+          srcset="
+            {{ section.settings.right_image | image_url: width: 600 }} 600w,
+            {{ section.settings.right_image | image_url: width: 900 }} 900w,
+            {{ section.settings.right_image | image_url: width: 1200 }} 1200w
+          "
+          sizes="(max-width: 749px) 90vw, 48vw"
+          alt="{{ section.settings.right_image.alt | default: section.settings.heading | escape }}"
+          loading="lazy"
+        >
+      {% else %}
+        <div class="venustas-powercore-feature__placeholder">Add product image</div>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #{{ section_anchor | escape }} {
+    --bg:               {{ section.settings.bg_color }};
+    --heading-color:    {{ section.settings.heading_color }};
+    --desc-color:       {{ section.settings.description_color }};
+    --number-color:     {{ section.settings.number_color }};
+    --unit-color:       {{ section.settings.unit_color }};
+    --label-color:      {{ section.settings.label_color }};
+    --footnote-color:   {{ section.settings.footnote_color }};
+
+    --content-pt:       {{ section.settings.padding_top }}px;
+    --content-pb:       {{ section.settings.padding_bottom }}px;
+    --content-pad-left: {{ section.settings.content_left_padding_percent }}%;
+    --content-pad-right:{{ section.settings.content_right_padding_percent }}%;
+    --inner-width: {{ section.settings.content_width_percent | default: 85 }}%;
+    --mobile-content-h-pad: {{ section.settings.mobile_content_horizontal_padding | default: 0 }}px;
+    --media-height:     {{ section.settings.media_height }}px;
+    --image-pos-x:      {{ section.settings.image_position_x }}%;
+    --image-pos-y:      {{ section.settings.image_position_y }}%;
+    --media-shift-x:    {{ section.settings.media_shift_x_percent }}%;
+
+    --heading-size:     {{ section.settings.heading_size }}px;
+    --desc-size:        {{ section.settings.description_size }}px;
+    --number-size:      {{ section.settings.number_size }}px;
+    --unit-size:        {{ section.settings.unit_size }}px;
+    --label-size:       {{ section.settings.label_size }}px;
+    --footnote-size:    {{ section.settings.footnote_size }}px;
+
+    --mobile-heading-size: {{ section.settings.mobile_heading_size }}px;
+    --mobile-desc-size:    {{ section.settings.mobile_description_size }}px;
+    --mobile-number-size:  {{ section.settings.mobile_number_size }}px;
+    --mobile-unit-size:    {{ section.settings.mobile_unit_size }}px;
+    --mobile-label-size:   {{ section.settings.mobile_label_size }}px;
+    --mobile-media-height: {{ section.settings.mobile_media_height }}px;
+  }
+
+  #{{ section_anchor | escape }} {
+    {% if section.settings.background_image != blank %}
+      background-image: url('{{ section.settings.background_image | image_url: width: 2200 }}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    {% else %}
+      background: var(--bg);
+    {% endif %}
+    padding: 0;
+    overflow: hidden;
+  }
+
+  /* Inner: 50/50 grid; same width model as Tech Heatwave / Heatwave Technology (no theme page-width) */
+  #{{ section_anchor | escape }} .venustas-powercore-feature__inner {
+    width: var(--inner-width);
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 50%) minmax(0, 50%);
+    gap: 0;
+    align-items: center;
+    min-height: var(--media-height);
+  }
+
+  /* Left content */
+  #{{ section_anchor | escape }} .venustas-powercore-feature__content {
+    padding: var(--content-pt) var(--content-pad-right) var(--content-pb) var(--content-pad-left);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Heading */
+  #{{ section_anchor | escape }} .venustas-powercore-feature__heading {
+    margin: 0 0 16px;
+    color: var(--heading-color);
+    font-size: var(--heading-size);
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  /* Description */
+  #{{ section_anchor | escape }} .venustas-powercore-feature__description {
+    margin: 0 0 36px;
+    color: var(--desc-color);
+    font-size: var(--desc-size);
+    line-height: 1.55;
+  }
+
+  /* Metrics: 2-column grid */
+  #{{ section_anchor | escape }} .venustas-powercore-feature__metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 20px;
+    margin-bottom: 40px;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-feature__metric-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* Big number + small unit inline */
+  #{{ section_anchor | escape }} .venustas-powercore-feature__metric-number {
+    font-size: var(--number-size);
+    font-weight: 900;
+    color: var(--number-color);
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    flex-wrap: wrap;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-feature__metric-unit {
+    font-size: var(--unit-size);
+    font-weight: 700;
+    color: var(--unit-color);
+    line-height: 1;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-feature__metric-label {
+    font-size: var(--label-size);
+    color: var(--label-color);
+    font-weight: 500;
+    line-height: 1.3;
+    margin-top: 2px;
+  }
+
+  /* Footnote */
+  #{{ section_anchor | escape }} .venustas-powercore-feature__footnote {
+    margin: 0;
+    color: var(--footnote-color);
+    font-size: var(--footnote-size);
+    line-height: 1.5;
+  }
+
+  /* Right media */
+  #{{ section_anchor | escape }} .venustas-powercore-feature__media {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: var(--media-height);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-feature__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: var(--image-pos-x) var(--image-pos-y);
+    transform: translateX(var(--media-shift-x));
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-feature__placeholder {
+    width: 100%;
+    min-height: var(--media-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+  }
+
+  /* ---- Tablet ---- */
+  @media (max-width: 989px) {
+    #{{ section_anchor | escape }} .venustas-powercore-feature__inner {
+      grid-template-columns: 1fr;
+    }
+    #{{ section_anchor | escape }} .venustas-powercore-feature__content {
+      padding: 0;
+    }
+  }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 749px) {
+    #{{ section_anchor | escape }} {
+      --content-pt:    {{ section.settings.mobile_padding_top }}px;
+      --content-pb:    {{ section.settings.mobile_padding_bottom }}px;
+      --heading-size:  var(--mobile-heading-size);
+      --desc-size:     var(--mobile-desc-size);
+      --number-size:   var(--mobile-number-size);
+      --unit-size:     var(--mobile-unit-size);
+      --label-size:    var(--mobile-label-size);
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-feature__content {
+      padding: var(--content-pt) var(--mobile-content-h-pad) var(--content-pb) var(--mobile-content-h-pad);
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-feature__description {
+      margin-bottom: 24px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-feature__metrics {
+      gap: 20px 16px;
+      margin-bottom: 28px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-feature__media {
+      min-height: var(--mobile-media-height);
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-feature__placeholder {
+      min-height: var(--mobile-media-height);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "PowerCore Feature",
+  "tag": "section",
+  "class": "venustas-powercore-feature-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Section Anchor ID",
+      "default": "tech-powercore",
+      "info": "Used for nav jumps. e.g. tech-powercore"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Venustas PowerCore™"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Our advanced, high-performance battery system is designed specifically for Venustas heated apparel. Engineered for fast, safe, and long-lasting power, it ensures your garment delivers consistent warmth whenever you need it.</p>"
+    },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "*Heating hours may differ between different styles."
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Right Product Image"
+    },
+    {
+      "type": "header",
+      "content": "Metric 1"
+    },
+    {
+      "type": "text",
+      "id": "metric_1_number",
+      "label": "Number",
+      "default": "5000"
+    },
+    {
+      "type": "text",
+      "id": "metric_1_unit",
+      "label": "Unit",
+      "default": "mAh"
+    },
+    {
+      "type": "text",
+      "id": "metric_1_label",
+      "label": "Label",
+      "default": "Large Capacity"
+    },
+    {
+      "type": "header",
+      "content": "Metric 2"
+    },
+    {
+      "type": "text",
+      "id": "metric_2_number",
+      "label": "Number",
+      "default": "1000+"
+    },
+    {
+      "type": "text",
+      "id": "metric_2_unit",
+      "label": "Unit",
+      "default": "Times"
+    },
+    {
+      "type": "text",
+      "id": "metric_2_label",
+      "label": "Label",
+      "default": "of recharges"
+    },
+    {
+      "type": "header",
+      "content": "Metric 3"
+    },
+    {
+      "type": "text",
+      "id": "metric_3_number",
+      "label": "Number",
+      "default": "2.5H"
+    },
+    {
+      "type": "text",
+      "id": "metric_3_unit",
+      "label": "Unit",
+      "default": "-"
+    },
+    {
+      "type": "text",
+      "id": "metric_3_label",
+      "label": "Label",
+      "default": "Fast Charging"
+    },
+    {
+      "type": "header",
+      "content": "Metric 4"
+    },
+    {
+      "type": "text",
+      "id": "metric_4_number",
+      "label": "Number",
+      "default": "5"
+    },
+    {
+      "type": "text",
+      "id": "metric_4_unit",
+      "label": "Unit",
+      "default": "Safety"
+    },
+    {
+      "type": "text",
+      "id": "metric_4_label",
+      "label": "Label",
+      "default": "Certifications"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#07153a"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image (overrides color)"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#ff4b15"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#d7def0"
+    },
+    {
+      "type": "color",
+      "id": "number_color",
+      "label": "Metric Number Color",
+      "default": "#ff4b15"
+    },
+    {
+      "type": "color",
+      "id": "unit_color",
+      "label": "Metric Unit Color",
+      "default": "#ff4b15"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Metric Label Color",
+      "default": "#d4dbec"
+    },
+    {
+      "type": "color",
+      "id": "footnote_color",
+      "label": "Footnote Color",
+      "default": "#7a85a0"
+    },
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "range",
+      "id": "media_height",
+      "label": "Desktop Image Area Height (px)",
+      "min": 260,
+      "max": 800,
+      "step": 10,
+      "default": 520,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_media_height",
+      "label": "Mobile Image Area Height (px)",
+      "min": 180,
+      "max": 520,
+      "step": 10,
+      "default": 320,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_position_x",
+      "label": "Image Position X (%)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "image_position_y",
+      "label": "Image Position Y (%)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "media_shift_x_percent",
+      "label": "Image Horizontal Shift (%)",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "content_width_percent",
+      "label": "Content width",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 85,
+      "unit": "%",
+      "info": "Align with Tech Heatwave and Heatwave Technology (e.g. 85%). Replaces theme page-width for this section."
+    },
+    {
+      "type": "range",
+      "id": "content_left_padding_percent",
+      "label": "Desktop Content Left Padding (%)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 6,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "content_right_padding_percent",
+      "label": "Desktop Content Right Padding (%)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 4,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_padding_percent",
+      "label": "Mobile inner side padding (legacy)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "%",
+      "info": "No longer applied to layout. Kept for older theme JSON."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_left_padding_percent",
+      "label": "Mobile content left padding (legacy)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "%",
+      "info": "Unused. Use Mobile text horizontal padding."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_right_padding_percent",
+      "label": "Mobile content right padding (legacy)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "%",
+      "info": "Unused. Use Mobile text horizontal padding."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_horizontal_padding",
+      "label": "Mobile text horizontal padding",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 0,
+      "unit": "px",
+      "info": "Left/right padding for the text block at ≤749px. Use 0 to match other tech sections."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop Padding Top (px)",
+      "min": 20,
+      "max": 220,
+      "step": 4,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop Padding Bottom (px)",
+      "min": 20,
+      "max": 220,
+      "step": 4,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile Padding Top (px)",
+      "min": 12,
+      "max": 140,
+      "step": 2,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile Padding Bottom (px)",
+      "min": 12,
+      "max": 140,
+      "step": 2,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Font Sizes — Desktop"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading (px)",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "default": 52,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description (px)",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "number_size",
+      "label": "Metric Number (px)",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "default": 52,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "unit_size",
+      "label": "Metric Unit (px)",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "label": "Metric Label (px)",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "footnote_size",
+      "label": "Footnote (px)",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Font Sizes — Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading (px)",
+      "min": 18,
+      "max": 52,
+      "step": 1,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "label": "Description (px)",
+      "min": 11,
+      "max": 22,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_number_size",
+      "label": "Metric Number (px)",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "default": 38,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_unit_size",
+      "label": "Metric Unit (px)",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_label_size",
+      "label": "Metric Label (px)",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PowerCore Feature"
+    }
+  ]
+}
+{% endschema %}

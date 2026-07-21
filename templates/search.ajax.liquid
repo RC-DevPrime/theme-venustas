@@ -1,0 +1,41 @@
+{% layout none %}
+{
+  "products": [
+    {% for item in search.results %}
+      {% if item.object_type == 'product' %}
+        {
+          "title": {{ item.title | json }},
+          "url": {{ item.url | json }},
+          "price": {{ item.price | json }},
+          "created_at": {{ item.published_at | date: "%Y-%m-%dT%H:%M:%S" | json }},
+          "html": {% capture html %}{% render 'search-product-item', product: item, badge_detail: true %}{% endcapture %}
+                  {{ html | strip | replace: "\n", " " | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endif %}
+    {% endfor %}
+  ],
+
+  "pages": [
+    {% for item in search.results %}
+      {% if item.object_type == 'page' %}
+        {
+          "title": {{ item.title | json }},
+          "url": {{ item.url | json }},
+          "html": "<div class='page-result'>{{ item.title | escape }}</div>"
+        }{% unless forloop.last %},{% endunless %}
+      {% endif %}
+    {% endfor %}
+  ],
+
+  "articles": [
+    {% for item in search.results %}
+      {% if item.object_type == 'article' %}
+        {
+          "title": {{ item.title | json }},
+          "url": {{ item.url | json }},
+          "html": "<div class='article-result'>{{ item.title | escape }}</div>"
+        }{% unless forloop.last %},{% endunless %}
+      {% endif %}
+    {% endfor %}
+  ]
+}

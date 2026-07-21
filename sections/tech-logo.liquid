@@ -1,0 +1,360 @@
+{% assign section_anchor = section.settings.anchor_id | default: 'tech-logo' | strip %}
+{% assign logo_count = 0 %}
+{% for block in section.blocks %}
+  {% if block.settings.logo != blank %}
+    {% assign logo_count = logo_count | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
+<section id="{{ section_anchor | escape }}" class="venustas-tech-logo">
+  <div class="venustas-tech-logo__inner">
+    <div class="venustas-tech-logo__marquee">
+      <div class="venustas-tech-logo__track">
+        {% for round in (1..2) %}
+          {% for block in section.blocks %}
+            {% assign logo = block.settings.logo %}
+            {% if logo != blank %}
+              <div class="venustas-tech-logo__item" {{ block.shopify_attributes }}>
+                <img
+                  class="venustas-tech-logo__img"
+                  src="{{ logo | image_url: width: 360 }}"
+                  srcset="
+                    {{ logo | image_url: width: 160 }} 160w,
+                    {{ logo | image_url: width: 260 }} 260w,
+                    {{ logo | image_url: width: 360 }} 360w
+                  "
+                  sizes="(max-width: 768px) 96px, 150px"
+                  width="{{ logo.width }}"
+                  height="{{ logo.height }}"
+                  alt="{{ logo.alt | escape }}"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_anchor | escape }} {
+    --bg: {{ section.settings.bg_color }};
+    --pt: {{ section.settings.padding_top }}px;
+    --pb: {{ section.settings.padding_bottom }}px;
+    --content-width: {{ section.settings.content_width_percent }}%;
+    --logo-width: {{ section.settings.logo_width }}px;
+    --logo-height: {{ section.settings.logo_height }}px;
+    --logo-gap: {{ section.settings.logo_gap }}px;
+    --duration: {{ section.settings.animation_duration }}s;
+  }
+
+  #{{ section_anchor | escape }} {
+    background: var(--bg);
+    padding: var(--pt) 0 var(--pb);
+    overflow: hidden;
+    /* Isolate marquee so theme utilities (e.g. page-width flex) cannot wrap the strip */
+    isolation: isolate;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-logo__inner {
+    display: block;
+    box-sizing: border-box;
+    width: var(--content-width);
+    max-width: 1800px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-logo__marquee {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  /*
+   * Equal *visual* gaps between logo artwork: each item adds half of --logo-gap as horizontal padding.
+   * (Fixed-width columns made narrow marks like CNN look uneven vs neighbours.)
+   */
+  #{{ section_anchor | escape }} .venustas-tech-logo__track {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0;
+    width: max-content;
+    min-width: max-content;
+    animation: venustasTechLogoMarquee-{{ section.id }} var(--duration) linear infinite;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-logo__item {
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    height: var(--logo-height);
+    padding: 0 calc(var(--logo-gap) / 2);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-logo__img {
+    max-width: var(--logo-width);
+    max-height: var(--logo-height);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  {% if section.settings.pause_on_hover %}
+    #{{ section_anchor | escape }} .venustas-tech-logo__marquee:hover .venustas-tech-logo__track {
+      animation-play-state: paused;
+    }
+  {% endif %}
+
+  @keyframes venustasTechLogoMarquee-{{ section.id }} {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Narrow viewports: edge-to-edge marquee so logos stay one row (matches other tech sections ≤989px) */
+  @media (max-width: 989px) {
+    #{{ section_anchor | escape }} .venustas-tech-logo__inner {
+      width: 100%;
+      max-width: none;
+    }
+
+    #{{ section_anchor | escape }} .venustas-tech-logo__marquee {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (max-width: 768px) {
+    #{{ section_anchor | escape }} {
+      --pt: {{ section.settings.mobile_padding_top }}px;
+      --pb: {{ section.settings.mobile_padding_bottom }}px;
+      --content-width: {{ section.settings.mobile_content_width_percent }}%;
+      --logo-width: {{ section.settings.mobile_logo_width }}px;
+      --logo-height: {{ section.settings.mobile_logo_height }}px;
+      --logo-gap: {{ section.settings.mobile_logo_gap }}px;
+    }
+  }
+
+  {% if logo_count <= 1 %}
+    #{{ section_anchor | escape }} .venustas-tech-logo__track {
+      animation: none;
+      width: 100%;
+      justify-content: center;
+    }
+  {% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Tech Logo",
+  "tag": "section",
+  "class": "venustas-tech-logo-section",
+  "max_blocks": 20,
+  "templates": ["index", "page", "product", "blog"],
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Section Anchor ID",
+      "default": "tech-logo"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "content_width_percent",
+      "label": "Desktop content width (%)",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 92,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_width_percent",
+      "label": "Mobile content width (%)",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "unit": "%",
+      "info": "Used below 768px with logo size vars. The marquee is full viewport width from 989px and down so logos scroll in one row."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Logo Size & Spacing"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Desktop logo max width",
+      "min": 80,
+      "max": 260,
+      "step": 2,
+      "default": 150,
+      "unit": "px",
+      "info": "Wider logos shrink to this width; narrow logos stay narrow so spacing between marks stays even."
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Desktop logo height",
+      "min": 40,
+      "max": 140,
+      "step": 2,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_gap",
+      "label": "Desktop space between logos",
+      "min": 8,
+      "max": 80,
+      "step": 2,
+      "default": 36,
+      "unit": "px",
+      "info": "Horizontal distance between one logo graphic and the next."
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_width",
+      "label": "Mobile logo max width",
+      "min": 60,
+      "max": 180,
+      "step": 2,
+      "default": 80,
+      "unit": "px",
+      "info": "Same as desktop: cap only; narrow logos keep even spacing between marks."
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_height",
+      "label": "Mobile logo height",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_gap",
+      "label": "Mobile space between logos",
+      "min": 6,
+      "max": 40,
+      "step": 2,
+      "default": 18,
+      "unit": "px",
+      "info": "Distance between one logo graphic and the next on small screens."
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "animation_duration",
+      "label": "Scroll duration (seconds)",
+      "min": 8,
+      "max": 60,
+      "step": 1,
+      "default": 24,
+      "unit": "s"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tech Logo",
+      "blocks": [
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

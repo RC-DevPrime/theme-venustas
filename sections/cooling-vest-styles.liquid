@@ -1,0 +1,16 @@
+{%- comment -%}
+  Loads the Cooling Vest dedicated stylesheet, ONLY on the product.cooling-vest
+  template. No preset, so it can't be added to other pages from the editor.
+  Keep this section first in the template order so the CSS loads early.
+{%- endcomment -%}
+{%- if template.suffix == 'cooling-vest' -%}
+  {{ 'cooling-vest.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Cooling Vest Styles",
+  "templates": ["product"],
+  "settings": []
+}
+{% endschema %}

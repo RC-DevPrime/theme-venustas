@@ -1,0 +1,341 @@
+{% style %}
+    .reward-benefits-section .section-heading{
+        display:flex;    
+        align-items: center;
+        justify-content:center;
+        gap:8px;
+        width:100%;
+    }
+    .reward-benefits-section .section-heading img{
+        width:75px;
+        height:75px;
+        object-fit:contain;
+    }
+    .reward-benefits-section .section-description{
+        margin: 0 auto;
+        text-align: center;
+    }
+    .reward-benefits-section .section-description p{
+        text-align: center;
+        margin-bottom: 0;
+    }
+    .reward-benefits-section .tab-list-item-container{
+        display:flex;
+        gap:15px;
+    }
+    .reward-benefits-section .tab-content-list-container{
+        padding-top:50px;
+    }
+    .reward-benefits-section .tab-list-item-container .tab-item{
+        flex:1;
+        border-radius:8px;
+        border:1px solid #B93205;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:8px;
+        cursor:pointer;
+    }
+    .reward-benefits-section .tab-list-item-container .tab-item.active{
+        background-color:#B93205;
+        
+    }
+    .reward-benefits-section .tab-list-item-container .tab-item.active span{
+        color:#FFF;
+    }
+    .reward-benefits-section .reward-item{
+
+    }
+    .reward-benefits-section .reward-item .product-image{
+        height:450px;
+    }
+    .reward-benefits-section .reward-item .product-image img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        border-radius:8px;
+        background-color:#efefef;
+    }
+    .reward-benefits-section .reward-item .upper-content{
+        height:180px;
+        padding-top:25px;
+        border-top-right-radius:24px;
+        border-top-left-radius:24px;
+        background:#000;
+        width:85%;
+        margin:auto;
+        position:relative;
+    }
+    .reward-benefits-section .reward-item.discount .upper-content{
+        background: url(https://cdn.shopify.com/s/files/1/0457/1099/9709/files/52551.png?v=1764840050);
+        background-size: cover;
+    }
+    .reward-benefits-section .reward-item.discount .upper-content:before{
+        content:"";
+        display:block;
+    }
+    .reward-benefits-section .reward-item.gift-card .upper-content{
+        background: linear-gradient( 137deg, #D4470F 0%, #EE7B01 72%, #D24B0B 100%);
+        background-image: url(https://cdn.shopify.com/s/files/1/0457/1099/9709/files/52550.png?v=1764840052);
+        background-size: cover;
+        background-position:center center;
+    }
+    .reward-benefits-section .reward-item .bottom-content{
+        background: #F9F6EF;
+        padding:10px 24px 30px;
+        box-shadow: 0px -3px 6px 1px rgba(51,51,51,0.16);
+        border-radius:24px;
+    }
+    .reward-benefits-section .reward-item .btn{
+        border-radius:8px;
+    }
+    .reward-benefits-section .reward-item .btn-rules{
+        cursor:pointer;
+        width:fit-content;
+    }
+    .reward-benefits-section .reward-item .btn-rules i{
+        background: #F0EBE1;
+        border-radius:50px;
+        width:20px;
+        height:20px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:10px;
+        line-height:normal;
+    }
+    
+    .reward-benefits-section .list-row{
+        --bs-gutter-x: 1.5rem;
+        --bs-gutter-y: 1.5rem;
+    }
+    .reward-benefits-section .product.list-row{
+        --bs-gutter-x: 1rem;
+        --bs-gutter-y: 1.5rem;
+    }
+    .reward-benefits-section .tab-content-item {
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .reward-benefits-section .tab-content-list-container{
+            padding-top:30px;
+        }
+        .reward-benefits-section .tab-list-item-container{
+            gap:10px;
+        }
+        .reward-benefits-section .section-heading{
+            gap:0;
+        }
+        .reward-benefits-section .section-heading img{
+            width:45px;
+            height:45px;
+        }
+        .reward-benefits-section .section-description{
+            font-size: 1rem !important;
+            line-height: 1.5;
+        }
+        .reward-benefits-section .reward-item .upper-content{
+            height: 120px;
+            padding-top: 15px;
+            border-top-right-radius: 8px;
+            border-top-left-radius: 8px;
+            width: 90%;
+        }
+        .reward-benefits-section .list-row{
+            --bs-gutter-x: 16px;
+            --bs-gutter-y: 1.5rem;
+        }
+        .reward-benefits-section .reward-item .bottom-content{
+            padding: 10px 10px 20px;
+            border-radius: 8px;
+        }
+        .reward-benefits-section .reward-item .btn{
+            width:100%;
+        }
+        .reward-benefits-section .reward-item .product-image{
+            height:250px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content">
+    <div class="col-lg-8 col-md-8 col-sm-12 mx-auto">
+        <div class="section-heading pp-bold title-sm text-center">
+            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/left-icon.png?v=1763467930" width="50px" height="50px" class="heading-icon">
+            <span>{{ section.settings.heading }}</span>
+            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/right-icon.png?v=1763467930" width="50px" height="50px" class="heading-icon">
+        </div>
+        <div class="section-description pp-regular body-xl text-center f-black col-lg-10 col-md-10 col-sm-12 mx-auto">
+            {{ section.settings.description }}
+        </div>
+    </div>
+    <div class="tab-list-item-container col-lg-6 col-md-6 col-sm-12 mt-3 mx-auto">
+        <div class="tab-item active" tab-content-data="discount">
+            <span class="pp-semibold body-xl d-lg-block d-md-block d-sm-none">  
+                    Discount
+            </span>
+            <span class="pp-semibold body d-lg-none d-md-none d-sm-block">  
+                    Discount
+            </span>
+        </div>
+        <div class="tab-item" tab-content-data="gift-card">
+            <span class="pp-semibold body-xl d-lg-block d-md-block d-sm-none">  
+                    Gift Card
+            </span>
+            <span class="pp-semibold body d-lg-none d-md-none d-sm-block">  
+                    Gift Card
+            </span>
+        </div>
+        <div class="tab-item" tab-content-data="product">
+            <span class="pp-semibold body-xl d-lg-block d-md-block d-sm-none">  
+                    Product
+            </span>
+            <span class="pp-semibold body d-lg-none d-md-none d-sm-block">  
+                    Product
+            </span>
+        </div>
+    </div>
+
+    <div class="tab-content-list-container">
+        <div class="tab-content-item" tab-content-data="discount">
+                <div class="col-lg-11 col-md-11 col-sm-12 mx-auto">
+                    {% assign reward_points = shop.metaobjects['points'].values | sort: 'created_at' | reverse   %}
+                    {% assign reward_points_discount = reward_points | where: 'type', 'Discount' %}
+                    <div class="row list-row">
+                        {% for entries in reward_points_discount %}
+                            <div class="col-lg-3 col-md-4 col-sm-6" data-amount="{{ entries.amount.value | escape }}">
+                                {% render 'reward-item', entries: entries %}
+                            </div>
+                        {% endfor %}  
+                    </div>
+                </div>
+        </div>
+        <div class="tab-content-item" tab-content-data="gift-card" style="display:none">
+            <div class="col-lg-11 col-md-11 col-sm-12 mx-auto">
+                {% assign reward_points = shop.metaobjects['points'].values | sort: 'created_at' | reverse   %}
+                {% assign reward_points_discount = reward_points | where: 'type', 'Gift Card' %}
+                <div class="row list-row">
+                    {% for entries in reward_points_discount %}
+                        <div class="col-lg-3 col-md-4 col-sm-6" data-amount="{{ entries.amount.value | escape }}">
+                            {% render 'reward-item', entries: entries %}
+                        </div>
+                    {% endfor %}  
+                </div>
+            </div>
+
+        </div>
+        <div class="tab-content-item" tab-content-data="product" style="display:none">
+            <div class="row product list-row">
+                {% for block in section.blocks %}
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        {% render 'reward-product-item', block: block %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  (function () {
+    var sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot) return;
+
+    function parseAmount(value) {
+      if (!value) return 0;
+      var clean = String(value).replace(/[^0-9.\-]/g, '');
+      var num = parseFloat(clean);
+      return isNaN(num) ? 0 : num;
+    }
+
+    function sortTabByAmount(tabKey) {
+      var row = sectionRoot.querySelector('.tab-content-item[tab-content-data="' + tabKey + '"] .row.list-row');
+      if (!row) return;
+      var cards = Array.prototype.slice.call(row.children);
+      if (cards.length <= 1) return;
+      cards.sort(function (a, b) {
+        return parseAmount(a.getAttribute('data-amount')) - parseAmount(b.getAttribute('data-amount'));
+      });
+      cards.forEach(function (card) { row.appendChild(card); });
+    }
+
+    sortTabByAmount('discount');
+    sortTabByAmount('gift-card');
+  })();
+</script>
+{% schema %}
+    {
+        "class": "reward-benefits-section",
+        "name": "Reward Benefits Section",
+        "limit": 1,
+        "templates": ["page"],
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Redeem Heatwave Points For Benefits"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>Redeem Heatwave Points For Discounts, Free Gifts, Or Shopping Cards—starting At Just 100 Points. Act Now And Make Every Point Count!</p>"
+
+            }
+        ],
+        "blocks": [
+            {
+                "type": "product",
+                "name": "Product",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "product_image",
+                        "label": "Product Image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "reward_title",
+                        "label": "Reward Title",
+                        "default": "35W USB-C Power Adapter for 7.5/10K Battery, A01"
+                    },
+                    {
+                        "type": "text",
+                        "id": "amount",
+                        "label": "Amount",
+                        "default": "1000"
+                    },
+                    {
+                        "type": "text",
+                        "id": "sub_title",
+                        "label": "Sub Title",
+                        "default": "Heatwave Points"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "rules",
+                        "label": "Rules",
+
+                    },
+                    {
+                        "type": "text",
+                        "id": "btn_label",
+                        "label": "Button Label",
+                        "default": "Redeem Now"
+                    },
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Reward Benefits Section"
+        }]
+    }
+{% endschema %} 

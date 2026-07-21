@@ -1,0 +1,203 @@
+{%- comment -%}
+  Featured ambassador carousel — works on all breakpoints.
+  Markup: [data-v-master-carousel] > [data-v-master-carousel-track] > [data-v-master-carousel-slide]
+           [data-v-master-carousel-dots]
+{%- endcomment -%}
+<script>
+  (function () {
+    var sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot) return;
+
+    sectionRoot.querySelectorAll('[data-v-master-carousel]').forEach(function (carousel) {
+      var track = carousel.querySelector('[data-v-master-carousel-track]');
+      var dotsContainer = carousel.querySelector('[data-v-master-carousel-dots]');
+      var prevBtn = carousel.querySelector('[data-v-master-carousel-prev]');
+      var nextBtn = carousel.querySelector('[data-v-master-carousel-next]');
+      if (!track) return;
+
+      var slides = track.querySelectorAll('[data-v-master-carousel-slide]');
+      if (!slides.length) return;
+
+      var dotClass = carousel.getAttribute('data-dot-class') || 'v-master-featured__dot';
+      var intervalMs = parseInt(carousel.getAttribute('data-interval-ms') || '6000', 10) || 6000;
+      var enableAutoplay = carousel.getAttribute('data-autoplay') !== 'false';
+      var autoplayTimer = null;
+      var activeIndex = 0;
+      var dragStartX = 0;
+      var dragDeltaX = 0;
+      var isDragging = false;
+      var didDrag = false;
+      var dragThreshold = 48;
+      var wheelLocked = false;
+
+      function isInteractiveTarget(el) {
+        return el && el.closest && el.closest('.v-master-featured__card-link, .v-master-featured__story-btn, button, a, input, textarea, select, label');
+      }
+
+      function showSlide(i) {
+        activeIndex = i;
+        slides.forEach(function (slide, idx) {
+          var isActive = idx === i;
+          slide.classList.toggle('is-active', isActive);
+          slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        });
+        if (dotsContainer) {
+          dotsContainer.querySelectorAll('button').forEach(function (dot, idx) {
+            dot.classList.toggle('is-active', idx === i);
+          });
+        }
+      }
+
+      function buildDots() {
+        if (!dotsContainer || slides.length < 2) {
+          if (dotsContainer) dotsContainer.hidden = true;
+          return;
+        }
+        dotsContainer.hidden = false;
+        dotsContainer.innerHTML = '';
+        slides.forEach(function (_, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = dotClass + (i === 0 ? ' is-active' : '');
+          btn.setAttribute('aria-label', 'Ambassador ' + (i + 1));
+          btn.addEventListener('click', function () {
+            stopAutoplay();
+            showSlide(i);
+            if (enableAutoplay) startAutoplay();
+          });
+          dotsContainer.appendChild(btn);
+        });
+      }
+
+      function nextSlide() {
+        var next = activeIndex >= slides.length - 1 ? 0 : activeIndex + 1;
+        showSlide(next);
+      }
+
+      function prevSlide() {
+        var prev = activeIndex <= 0 ? slides.length - 1 : activeIndex - 1;
+        showSlide(prev);
+      }
+
+      function bindArrows() {
+        if (prevBtn) {
+          prevBtn.addEventListener('click', function () {
+            stopAutoplay();
+            prevSlide();
+            if (enableAutoplay) startAutoplay();
+          });
+        }
+
+        if (nextBtn) {
+          nextBtn.addEventListener('click', function () {
+            stopAutoplay();
+            nextSlide();
+            if (enableAutoplay) startAutoplay();
+          });
+        }
+      }
+
+      function endDrag(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        track.classList.remove('is-dragging');
+        try {
+          if (e.pointerId != null) track.releasePointerCapture(e.pointerId);
+        } catch (err) {
+          /* ignore */
+        }
+
+        if (dragDeltaX <= -dragThreshold) {
+          didDrag = true;
+          stopAutoplay();
+          nextSlide();
+          if (enableAutoplay) startAutoplay();
+        } else if (dragDeltaX >= dragThreshold) {
+          didDrag = true;
+          stopAutoplay();
+          prevSlide();
+          if (enableAutoplay) startAutoplay();
+        }
+        dragDeltaX = 0;
+      }
+
+      function bindDrag() {
+        if (slides.length < 2) return;
+
+        track.addEventListener('pointerdown', function (e) {
+          if (e.button !== 0) return;
+          if (isInteractiveTarget(e.target)) return;
+          isDragging = true;
+          didDrag = false;
+          dragStartX = e.clientX;
+          dragDeltaX = 0;
+          track.classList.add('is-dragging');
+          track.setPointerCapture(e.pointerId);
+        });
+
+        track.addEventListener('pointermove', function (e) {
+          if (!isDragging) return;
+          dragDeltaX = e.clientX - dragStartX;
+        });
+
+        track.addEventListener('pointerup', endDrag);
+        track.addEventListener('pointercancel', endDrag);
+
+        track.addEventListener(
+          'click',
+          function (e) {
+            if (!didDrag) return;
+            e.preventDefault();
+            e.stopPropagation();
+            didDrag = false;
+          },
+          true
+        );
+
+        track.addEventListener(
+          'wheel',
+          function (e) {
+            if (wheelLocked || slides.length < 2) return;
+            var dx = e.deltaX;
+            if (Math.abs(dx) < Math.abs(e.deltaY)) return;
+            if (Math.abs(dx) < 12) return;
+            e.preventDefault();
+            wheelLocked = true;
+            stopAutoplay();
+            if (dx > 0) nextSlide();
+            else prevSlide();
+            if (enableAutoplay) startAutoplay();
+            window.setTimeout(function () {
+              wheelLocked = false;
+            }, 450);
+          },
+          { passive: false }
+        );
+      }
+
+      function stopAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        if (!enableAutoplay || slides.length < 2) return;
+        autoplayTimer = window.setInterval(nextSlide, intervalMs);
+      }
+
+      buildDots();
+      bindArrows();
+      bindDrag();
+      showSlide(0);
+      if (enableAutoplay) startAutoplay();
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stopAutoplay();
+        else if (enableAutoplay) startAutoplay();
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,776 @@
+{% style %}
+    .main-page-section .row {
+        --bs-gutter-x: 60px;
+    }
+
+    .main-page-section img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .main-page-section .filter-sort-by-container {
+        border-radius: 4px 4px 4px 4px;
+        border: 1px solid #D9D9D9;
+        padding: 6px 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+    }
+
+    .main-page-section .filter-sort-by-container .custom-select {
+        display: flex;
+        align-items: center;
+        width: 160px;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    .main-page-section .filter-sort-by-container .custom-select i {
+        font-size: 14px;
+    }
+
+    .main-page-section .custom-select-option {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        width: 180px;
+        border: 1px solid #D9D9D9;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        z-index: 1;
+        background-color: #fff;
+    }
+
+    .main-page-section .custom-select-option.show {
+        display: flex;
+    }
+
+    .main-page-section .custom-select-option span {
+        padding: 6px 10px;
+        cursor: pointer;
+    }
+
+    .main-page-section .custom-select-option span:hover {
+        color: #FFF;
+        background: #2680EB;
+
+    }
+
+
+    .main-page-section .list-article-tags {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .main-page-section .list-article-tags .list-article-item {
+        padding: 12px 0px;
+        border-top: 1px solid #CCCCCC;
+        color: #656565;
+        transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .main-page-section .list-article-tags .list-article-item.active {
+        color: #B93205;
+    }
+
+    .main-page-section .list-article-tags .list-article-item:hover {
+        color: #B93205;
+    }
+
+    .main-page-section .list-article-tags .list-article-item.loading {
+        color: #B93205;
+        opacity: 0.6;
+        transform: translateX(6px);
+        pointer-events: none;
+    }
+
+    .main-page-section .list-article-tags .list-article-item:last-child {
+        border-bottom: 1px solid #CCCCCC;
+    }
+
+    .main-page-section .blog-article-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 25px;
+        row-gap: 40px;
+        padding-bottom: 20px;
+        transition: opacity 0.2s ease;
+    }
+
+    .main-page-section .blog-article-grid.is-loading {
+        opacity: 0.45;
+        pointer-events: none;
+    }
+
+    .main-page-section #loadMoreBtn {
+        width: fit-content;
+    }
+
+    .main-page-section .article-item {
+        border-radius: 16px;
+        box-shadow: 0px 3px 10px 1px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+
+    .main-page-section .article-item .article-featured-image {
+        height: 300px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        display:block;
+    }
+
+    .main-page-section .article-item .article-featured-image:hover img {
+        transform: scale(1.2) translateY(-10px);
+    }
+
+    .main-page-section .article-item .article-featured-image img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        transition: all 0.3s ease;
+    }
+
+    .main-page-section .article-item .article-featured-image .article-tag {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        background: #B93205;
+        border-radius: 4px 4px 4px 4px;
+        padding: 4px 15px;
+        line-height: normal;
+        font-size: 14px;
+        color: #FFF;
+    }
+
+    .main-page-section .article-item .article-detail {
+        padding: 15px 15px 20px;
+    }
+    .main-page-section .sticky-article-tag{
+        position:sticky;
+        top:0;
+    }
+
+
+    
+    .main-page-section .nav-hover-blog-nav {
+        position: fixed;
+        left: 0;
+        top: 20vh;
+        background: #B93205;
+        width: fit-content;
+        padding: 13px 20px 13px 15px;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        display: flex;
+        z-index: 999;
+        cursor: pointer;
+    }
+
+    .main-page-section .nav-hover-blog-nav img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+    }
+
+    /* --- MOBILE TOC NAV WRAPPER --- */
+    .main-page-section .mobile-blog-list-tags-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background-color: transparent;
+        z-index: 999999;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    /* overlay fade */
+    .main-page-section .mobile-blog-list-tags-nav .overlay {
+        position: fixed;
+        z-index: 1;
+        height: 100%;
+        width: 100%;
+        background-color: #000;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    /* side panel */
+    .main-page-section .mobile-blog-list-tags-nav .inner-section {
+        background-color: #FFF;
+        height: 100%;
+        width: 89%;
+        position: relative;
+        z-index: 2;
+        transform: translateX(-100%);
+        opacity: 0;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    /* open state */
+    .main-page-section .mobile-blog-list-tags-nav.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .main-page-section .mobile-blog-list-tags-nav.open .overlay {
+        opacity: 0.32;
+    }
+
+    .main-page-section .mobile-blog-list-tags-nav.open .inner-section {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    /* close button */
+    .main-page-section .btn-close-toc {
+        position: absolute;
+        top: 0;
+        right: -40px;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        background: #B93205;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
+    }
+
+    .main-page-section .btn-close-toc img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+    }
+
+    .main-page-section .mobile-article-tag-container{
+        padding:30px 20px;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .main-page-section .article-item {
+            border-radius: 8px;
+        }
+        .main-page-section .filter-sort-by-container .custom-select{
+            width:150px;
+        }
+        .main-page-section .custom-select-option{
+            width: 170px;
+        }
+        .main-page-section .list-article-tags .list-article-item{
+            color:#000;
+        }
+        .main-page-section .list-article-tags .list-article-item.active {
+            color: #B93205;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+        
+    }
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+        .main-page-section .row {
+            --bs-gutter-x: 0px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 230px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(1, 1fr);
+            column-gap: 20px;
+            row-gap: 20px;
+        }
+    }
+
+    @media only screen and (min-width: 375px) {
+        .main-page-section .row {
+            --bs-gutter-x: 0px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 230px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(1, 1fr);
+            column-gap: 20px;
+            row-gap: 20px;
+        }
+    }
+
+    @media only screen and (min-width: 390px) {
+        .main-page-section .row {
+            --bs-gutter-x: 0px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 230px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(1, 1fr);
+            column-gap: 20px;
+            row-gap: 20px;
+        }
+    }
+
+    @media only screen and (min-width: 414px) {
+        .main-page-section .row {
+            --bs-gutter-x: 0px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 230px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(1, 1fr);
+            column-gap: 20px;
+            row-gap: 20px;
+        }
+    }
+
+    @media only screen and (min-width: 428px) {
+        .main-page-section .row {
+            --bs-gutter-x: 0px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 230px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(1, 1fr);
+            column-gap: 20px;
+            row-gap: 20px;
+        }
+    }
+
+    @media only screen and (min-width: 480px) {
+        .main-page-section .row {
+            --bs-gutter-x: 0px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 240px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(1, 1fr);
+            column-gap: 20px;
+            row-gap: 20px;
+        }
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+        .main-page-section .row {
+            --bs-gutter-x: 30px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 250px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 20px;
+            row-gap: 25px;
+        }
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+        .main-page-section .row {
+            --bs-gutter-x: 40px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 270px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 20px;
+            row-gap: 25px;
+        }
+    }
+
+    @media only screen and (min-width: 1366px) {
+        .main-page-section .row {
+            --bs-gutter-x: 40px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 270px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 20px;
+            row-gap: 25px;
+        }
+    }
+
+    @media only screen and (min-width: 1440px) {
+        .main-page-section .row {
+            --bs-gutter-x: 40px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 280px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 20px;
+            row-gap: 25px;
+        }
+    }
+
+    @media only screen and (min-width: 1536px) {
+        .main-page-section .row {
+            --bs-gutter-x: 45px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 280px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 20px;
+            row-gap: 25px;
+        }
+    }
+
+    @media only screen and (min-width: 1600px) {
+        .main-page-section .row {
+            --bs-gutter-x: 50px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 290px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 20px;
+            row-gap: 25px;
+        }
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .main-page-section .row {
+            --bs-gutter-x: 60px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 300px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 25px;
+            row-gap: 30px;
+        }
+    }
+
+    @media only screen and (min-width: 2560px) {
+        .main-page-section .row {
+            --bs-gutter-x: 60px;
+        }
+
+        .main-page-section .article-item .article-featured-image {
+            height: 300px;
+        }
+        
+        .main-page-section .blog-article-grid{
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 25px;
+            row-gap: 30px;
+        }
+
+    }
+{% endstyle %}
+<div class="container section-content main-page-section">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12 d-lg-block d-md-block d-sm-none ">
+            <div class="sticky-article-tag"> 
+                <div class="pp-bold pretitle f-black pb-4">
+                    Blog Tags
+                </div>
+
+                <!-- Sidebar Tags (Liquid unique-collector, no active classes from Liquid) -->
+                <div class="list-article-tags">
+                    <a href="/blogs/{{ blog.handle }}" class="list-article-item">
+                        <span class="pp-semibold body-lg">All Posts</span>
+                    </a>
+
+                    {% assign rendered_tag_slugs = '|' %}
+                    {% for block in section.blocks %}
+                        {% assign manual_tag_label = block.settings.tag_label | strip %}
+                        {% assign manual_tag_slug = block.settings.tag_slug | handleize %}
+                        {% assign manual_slug_token = '|' | append: manual_tag_slug | append: '|' %}
+
+                        {% if manual_tag_label != blank and manual_tag_slug != blank %}
+                            {% unless rendered_tag_slugs contains manual_slug_token %}
+                                {% assign rendered_tag_slugs = rendered_tag_slugs | append: manual_tag_slug | append: '|' %}
+                                <a href="/blogs/{{ blog.handle }}/tagged/{{ manual_tag_slug }}" class="list-article-item" {{ block.shopify_attributes }}>
+                                    <span class="pp-semibold body-xl">{{ manual_tag_label }}</span>
+                                </a>
+                            {% endunless %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for t in blog.all_tags %}
+                        {% assign t_handle = t | handleize %}
+                        {% assign dynamic_slug_token = '|' | append: t_handle | append: '|' %}
+
+                        {% unless rendered_tag_slugs contains dynamic_slug_token %}
+                            {% assign rendered_tag_slugs = rendered_tag_slugs | append: t_handle | append: '|' %}
+                            <a href="/blogs/{{ blog.handle }}/tagged/{{ t_handle }}" class="list-article-item">
+                                <span class="pp-semibold body-xl">{{ t }}</span>
+                            </a>
+                        {% endunless %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9 col-md-9 col-sm-12">
+            <div class="d-flex align-items-center justify-content-end pb-4">
+                <div class="filter-sort-by-container">
+                    <span class="pp-regular body f-black">Sort By:</span>
+                    <div class="custom-select">
+                    <span class="pp-bold body f-black">Date Latest First</span>
+                    <i class="fa-solid fa-chevron-down f-black"></i>
+                    </div>
+                    <div class="custom-select-option">
+                    <span class="pp-regular body-sm">Date Latest first</span>
+                    <span class="pp-regular body-sm">Date Oldest first</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-blog-container">
+                {% assign all_articles = blog.articles %}
+
+                <div id="blog-section" class="blog-article-grid">
+                    {% paginate all_articles by 999 %}
+                    {% for article in all_articles limit: 10 %}
+                        {% assign all_tags = '' %}
+                        {% for tag in article.tags %}
+                            {% assign all_tags = all_tags | append: tag | handleize %}
+                            {% unless forloop.last %}
+                                {% assign all_tags = all_tags | append: ',' %}
+                            {% endunless %}
+                        {% endfor %}
+
+                        <div class="article-item" data-tags="{{ all_tags }}">
+                            <a href="{{ article.url }}" class="article-featured-image">
+                                {% if article.image %}
+                                <img src="{{ article.image | img_url: '1400x1400' }}" width="100%" height="100%">
+                                {% endif %}
+
+                                {% if article.tags.size > 0 %}
+                                <!-- Always FIRST tag in initial render -->
+                                <p class="pp-regular article-tag">{{ article.tags.first }}</p>
+                                {% endif %}
+                            </a>
+
+                            <div class="article-detail">
+                                <a href="{{ article.url }}" class="pp-bold pretitle-lg f-black pb-2">
+                                    <span class="pretitle d-lg-block d-md-block d-sm-none">{{ article.title }}</span>
+                                    <span class="body-xl d-lg-none d-md-none d-sm-block">{{ article.title }}</span>
+                                </a>
+
+                                <div class="article-description pp-regular f-white-gray l-h-normal pb-2">
+                                    <div class="d-lg-block d-md-block d-sm-none">
+                                        <span class="body excerpt-3">
+                                            {% if article.excerpt_or_content != blank %}
+                                                {{ article.excerpt_or_content }}
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    <div class="d-lg-none d-md-none d-sm-block">
+                                        <span class="body-sm excerpt-3">
+                                                {% if article.excerpt_or_content != blank %}
+                                                    {{ article.excerpt_or_content }}
+                                                {% endif %}
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="article-date-time pp-regular f-main l-h-normal">
+                                    <span class="body d-lg-block d-md-block d-sm-none">
+                                        {{ article.created_at | date: '%b %d, %Y' }}
+                                    </span>
+                                    <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                        {{ article.created_at | date: '%b %d, %Y' }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% endpaginate %}
+                </div>
+
+                <div class="d-flex flex-column justify-content-center align-items-center mt-lg-5 mt-md-5 mt-sm-4">
+                    <button id="loadMoreBtn" class="btn-hover btn-main py-2 load-more-btn" style="display:none;">Load More</button>
+                    <p id="viewingCounter" class="product-view-count pp-regular body-sm f-gray text-center mt-3">---</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-lg-none d-md-none d-sm-block">
+    <div class="nav-hover-blog-nav">
+        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/nav-mobile-icon.png?v=1761784876" width="100%" height="100%">
+    </div>
+    <div class="mobile-blog-list-tags-nav">
+        <div class="overlay"></div>
+        <div class="inner-section">
+            <div class="btn-close-toc">
+                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/close-nav-mobile.png?v=1761785925" width="100%" height="100%">
+            </div>
+            <div class="mobile-article-tag-container"> 
+                <div class="pp-bold pretitle f-black pb-3">
+                    Blog Tags
+                </div>
+
+                <!-- Sidebar Tags (Liquid unique-collector, no active classes from Liquid) -->
+                <div class="list-article-tags">
+                    <a href="/blogs/{{ blog.handle }}" class="list-article-item">
+                        <span class="pp-semibold body-xl">All Posts</span>
+                    </a>
+
+                    {% assign rendered_tag_slugs = '|' %}
+                    {% for block in section.blocks %}
+                        {% assign manual_tag_label = block.settings.tag_label | strip %}
+                        {% assign manual_tag_slug = block.settings.tag_slug | handleize %}
+                        {% assign manual_slug_token = '|' | append: manual_tag_slug | append: '|' %}
+
+                        {% if manual_tag_label != blank and manual_tag_slug != blank %}
+                            {% unless rendered_tag_slugs contains manual_slug_token %}
+                                {% assign rendered_tag_slugs = rendered_tag_slugs | append: manual_tag_slug | append: '|' %}
+                                <a href="/blogs/{{ blog.handle }}/tagged/{{ manual_tag_slug }}" class="list-article-item" {{ block.shopify_attributes }}>
+                                    <span class="pp-semibold body-xl">{{ manual_tag_label }}</span>
+                                </a>
+                            {% endunless %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for t in blog.all_tags %}
+                        {% assign t_handle = t | handleize %}
+                        {% assign dynamic_slug_token = '|' | append: t_handle | append: '|' %}
+
+                        {% unless rendered_tag_slugs contains dynamic_slug_token %}
+                            {% assign rendered_tag_slugs = rendered_tag_slugs | append: t_handle | append: '|' %}
+                            <a href="/blogs/{{ blog.handle }}/tagged/{{ t_handle }}" class="list-article-item">
+                                <span class="pp-semibold body-xl">{{ t }}</span>
+                            </a>
+                        {% endunless %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="blog-articles-data" type="application/json">
+{% paginate blog.articles by 250 %}
+{
+  "blogUrl": {{ blog.url | json }},
+  "currentTagSlug": {% if current_tags and current_tags.size > 0 %}{{ current_tags.first | handleize | json }}{% else %}""{% endif %},
+  "totalItems": {{ paginate.items | json }},
+  "currentPage": {{ paginate.current_page | json }},
+  "pages": {{ paginate.pages | json }},
+  "nextPageUrl": {% if paginate.next %}{{ paginate.next.url | json }}{% else %}null{% endif %},
+  "articles": [
+      {% for article in blog.articles %}
+      {
+        "title": {{ article.title | json }},
+        "url": {{ article.url | json }},
+        "img": {% if article.image %}{{ article.image | img_url: '1400x1400' | json }}{% else %}""{% endif %},
+        "excerpt": {% if article.excerpt_or_content != blank %}
+          {{ article.excerpt_or_content | strip_html | strip | truncate: 130 | json }}
+        {% else %}
+          {{ article.content | strip_html | strip | truncate: 130 | json }}
+        {% endif %},
+        "date": {{ article.created_at | date: '%b %d, %Y' | json }},
+        "tags": [
+          {% for tag in article.tags %}
+            { "label": {{ tag | json }}, "slug": {{ tag | handleize | json }} }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ]
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+  ]
+}
+{% endpaginate %}
+</script>
+
+
+
+{% schema %}
+{
+    "class": "main-page-section",
+    "name": "Main Blog",
+    "limit": 1,
+    "blocks": [
+        {
+            "type": "manual_tag",
+            "name": "Manual Tag",
+            "settings": [
+                {
+                    "type": "paragraph",
+                    "content": "Manual tags are shown first. Dynamic blog tags are still added automatically, but any dynamic tag with the same slug will be hidden to avoid duplicates."
+                },
+                {
+                    "type": "text",
+                    "id": "tag_label",
+                    "label": "Tag label"
+                },
+                {
+                    "type": "text",
+                    "id": "tag_slug",
+                    "label": "Tag slug",
+                    "info": "Used in the tag URL: /tagged/your-slug. If the same slug exists in both manual and dynamic tags, the dynamic duplicate is hidden."
+                }
+            ]
+        }
+    ],
+    "templates": ["blog"],
+    "presets": [
+        {
+            "name": "Main Blog"
+        }
+    ]
+}
+{% endschema %}

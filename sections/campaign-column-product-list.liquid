@@ -1,0 +1,284 @@
+{% style %}
+    .campaign-column-product-list-section{
+        background-color:#000;
+    }
+    .campaign-column-product-list-section .section-heading{
+    }
+    .campaign-column-product-list-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    .campaign-column-product-list-section .view-more-product-link{
+        display:flex;
+        justify-content: flex-end;
+    }
+    .campaign-column-product-list-section .column-product-item{
+        overflow:hidden;
+        border-radius:16px;
+        background-color:#FFF;
+        height:100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .campaign-column-product-list-section .column-product-item .featured-image{
+        height:400px;
+    }
+    .campaign-column-product-list-section .column-product-item .featured-image img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .campaign-column-product-list-section .column-product-item .product-details{
+        padding:20px 30px 30px;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        flex: 1;
+        justify-content: space-between;
+    }
+    .campaign-column-product-list-section .column-product-item .product-details .top-content{
+        position:relative;
+    }
+    .campaign-column-product-list-section .column-product-item .product-details .top-content .wishlist-button{
+        position:absolute;
+        top:0;
+        right:0;
+    }
+
+    .campaign-column-product-list-section .buy-now-and-add{
+        display:flex;
+        height:55px;
+    }
+    .campaign-column-product-list-section .buy-now-and-add .btn-buy-now{
+        background: #B93205;
+        border-radius: 16px 0px 0px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .campaign-column-product-list-section .buy-now-and-add .btn-add{
+        background: #B93205;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap:10px;
+        width:100%;
+        transition: all .5s ease;
+    }
+    .campaign-column-product-list-section .buy-now-and-add .btn-add:hover{
+        background:#161616;
+    }
+    .campaign-column-product-list-section .buy-now-and-add .btn-add button{
+        background:unset !important;
+        border:none !important;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    .campaign-column-product-list-section .buy-now-and-add .btn-add img{
+        width:25px;
+        height:25px;
+        object-fit:contain;
+    }
+    .campaign-column-product-list-section .learn-more-button{
+        border: 1px solid #B93205;
+        border-radius: 16px 16px 16px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap:10px;
+    }
+    .campaign-column-product-list-section .learn-more-button:hover{
+        background-color:#B93205;
+    }
+    .campaign-column-product-list-section .learn-more-button:hover span{
+        color:#FFF;
+    }
+
+    .campaign-column-product-list-section .section-heading{
+        margin-left:-30px;
+    }
+    .campaign-column-product-list-section .section-heading {
+        position:relative;
+    }
+    .campaign-column-product-list-section .section-heading:before{
+        content:"";
+        display:inline-block;
+        height:35px;
+        width:35px;
+        top:5px;
+        position:relative;
+        background-image:url({{ section.settings.heading_element | img_url: 'master' }});
+        background-size:contain;
+        background-repeat:no-repeat;
+    }
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+            
+        .campaign-column-product-list-section .section-heading{
+            margin-left:-25px;
+        }
+        .campaign-column-product-list-section .section-heading:before{
+            height:30px;
+            width:30px;
+        }
+        .campaign-column-product-list-section .column-product-item{
+            border-radius:6px;
+        }
+        .campaign-column-product-list-section .column-product-item .product-details{
+            padding:10px 10px 15px;
+        }
+        .campaign-column-product-list-section .column-product-item .featured-image{
+            height:120px;
+        }
+
+        .campaign-column-product-list-section .column-product-list-container .row{
+            --bs-gutter-x: 10px;
+        }
+        .campaign-column-product-list-section .wishlist-button svg{
+            width:18px;
+            height: 18px;
+        }
+        .campaign-column-product-list-section .shop-pay-container{
+            display: inline;
+        }
+        .campaign-column-product-list-section .shop-pay-container .shop-pay-icon{
+            height:12px;
+            margin-top: -2px;
+            margin-left: 3px;
+        }
+        .campaign-column-product-list-section .shop-pay-container p{
+            font-size:10px;
+        }
+        .campaign-column-product-list-section .buy-now-and-add{
+            height:30px;
+        }
+        .campaign-column-product-list-section .buy-now-and-add span,
+        .campaign-column-product-list-section .learn-more-button span{
+            font-size:10px;
+        }
+        .campaign-column-product-list-section .buy-now-and-add .btn-add img{
+            width:12px;
+        }
+        .campaign-column-product-list-section .buy-now-and-add .btn-buy-now{
+        }
+        .campaign-column-product-list-section .buy-now-and-add .btn-add{
+            gap:6px;
+            border-radius:6px;
+        }
+
+        .campaign-column-product-list-section .learn-more-button{
+            border-radius:6px;
+            height:30px;
+        }
+
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content 
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}> 
+    
+    <div class="pb-lg-5 pb-md-5 pb-sm-4">
+        <h2 class="section-heading pp-semibold f-white title-sm text-center">
+            {{ section.settings.heading }}
+        </h2>
+    </div>
+    <div class="view-more-product-link d-flex justify-content-lg-end justify-content-md-end justify-content-sm-center">
+        <a class="{{ section.settings.link }}"> 
+            <span class="pp-regular body-xl f-white d-lg-block d-md-block d-sm-none">View More Products >></span>
+            <span class="pp-regular body f-white d-lg-none d-md-none d-sm-block">View More Products >></span>
+        </a>
+    </div>
+
+    <div class="column-product-list-container pt-4">
+        <div class="row">
+            
+            {% for block in section.blocks %}
+                {% render 'column-product-item', block: block %}
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "campaign-column-product-list-section",
+        "name": "Campaign Column Prod List",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enabled_section_child_scroll",
+                "label": "Enabled Section Child Scroll"
+            },
+            {
+                "type": "text",
+                "id": "section_scroll_nav",
+                "label": "Section Scroll Nav",
+                "info": "Need to Enabled first Section Scroll"
+            },
+            {
+                "type": "text",
+                "id": "nav_title",
+                "label": "Navigation Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "heading_element",
+                "label": "Heading Element"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "New Arrivals"
+            },
+            {
+                "type": "url",
+                "id": "link",
+                "label": "Link",
+            }
+        ],
+        "blocks": [
+            {
+                "type": "product",
+                "name": "Product",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "featured_image",
+                        "label": "Featured Image"
+                    },
+                    {
+                        "type": "product",
+                        "id": "product",
+                        "label": "Product"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Campaign Column Prod List"
+        }]
+    }
+  {% endschema %} 

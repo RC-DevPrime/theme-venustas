@@ -1,0 +1,206 @@
+{% liquid
+    assign variants_available_arr = product.variants | map: 'available'
+    assign variants_option1_arr = product.variants | map: 'option1'
+    assign variants_option2_arr = product.variants | map: 'option2'
+    assign variants_option3_arr = product.variants | map: 'option3'
+%}
+
+<div class="variants variant-type-toggle">
+    <variant-radios class="no-js-hidden variants" data-section="{{ product.id }}" data-url="{{ product.url }}">
+        {% for option in product.options_with_values %}
+
+            {% assign selected_option_value = product.selected_or_first_available_variant.options[forloop.index0] %}
+
+            {% if option.name != 'Color' %}
+                <fieldset class="variant js product-form__input variant-{{ option.name | handleize }}">
+                    <legend class="variant-name form__label">
+                        {{ option.name }}
+                        <span class="variant-info variant--{{ option.name | handleize }}"> : {{ selected_option_value }}</span>
+                    </legend>
+
+                    {% for value in option.values %}
+                        {% liquid
+                            assign option_disabled = true
+                            for option_index in (0..variants_option1_arr.size)
+                                if option.position == 1
+                                    if variants_option1_arr[option_index] == value and variants_available_arr[option_index]
+                                        assign option_disabled = false
+                                    endif
+                                elsif option.position == 2
+                                    if variants_option1_arr[option_index] == product.selected_or_first_available_variant.option1
+                                        if variants_option2_arr[option_index] == value and variants_available_arr[option_index]
+                                            assign option_disabled = false
+                                        endif
+                                    endif
+                                elsif option.position == 3
+                                    if variants_option1_arr[option_index] == product.selected_or_first_available_variant.option1
+                                        if variants_option2_arr[option_index] == product.selected_or_first_available_variant.option2
+                                            if variants_option3_arr[option_index] == value and variants_available_arr[option_index]
+                                                assign option_disabled = false
+                                            endif
+                                        endif
+                                    endif
+                                endif
+                            endfor
+                        %}
+
+                        <span class="variants-selector default {% if selected_option_value == value %}selected{% endif %} {% if option_disabled %}disabled{% endif %}" 
+                              data-id="{{ product.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                            {{ value }}
+                        </span>
+                        <span class="variants-option">
+                            <input type="radio" class="variant-radio {% if option_disabled %}disabled{% endif %}"
+                                   id="{{ product.id }}-{{ option.position }}-{{ forloop.index0 }}" 
+                                   name="{{ option.name }}" 
+                                   value="{{ value | escape }}" 
+                                   form="{{ product_form_id }}" 
+                                   {% if selected_option_value == value %}checked{% endif %}>
+                        </span>
+                    {% endfor %}
+                </fieldset>
+
+                {% elsif option.name == 'Color' %}
+                    <fieldset class="variant js product-form__input color-variant ">
+                        <legend class="variant-name form__label form__label">
+                            {{ option.name }}
+                            <span class="variant-info variant--{{ option.name | handleize }}"> : {{ selected_option_value }}</span>
+                        </legend>
+
+                        {% assign colorIndex = 0 %}
+
+                        {% for value in option.values %}
+                            {% liquid
+                                assign option_disabled = true
+                                for option_index in (0..variants_option1_arr.size)
+                                    if option.position == 1
+                                        if variants_option1_arr[option_index] == value and variants_available_arr[option_index]
+                                            assign option_disabled = false
+                                        endif
+                                    elsif option.position == 2
+                                        if variants_option1_arr[option_index] == product.selected_or_first_available_variant.option1
+                                            if variants_option2_arr[option_index] == value and variants_available_arr[option_index]
+                                                assign option_disabled = false
+                                            endif
+                                        endif
+                                    elsif option.position == 3
+                                        if variants_option1_arr[option_index] == product.selected_or_first_available_variant.option1
+                                            if variants_option2_arr[option_index] == product.selected_or_first_available_variant.option2
+                                                if variants_option3_arr[option_index] == value and variants_available_arr[option_index]
+                                                    assign option_disabled = false
+                                                endif
+                                            endif
+                                        endif
+                                    endif
+                                endfor
+                            %}
+
+                            {%- comment -%} Determine swatch background (color + image) {%- endcomment -%}
+                            {% assign swatchIndex = 0 %}
+                            {% assign color_image_url = '' %}
+                            {% assign color_value_raw = value | downcase %}
+                            {% assign swatch_file_name_exact = value | strip | append: '.png' %}
+                            {% assign swatch_file_name_handle = value | handle | append: '.png' %}
+                            {% assign words = color_value_raw | split: ' ' %}
+                            {% assign base_color = words.last %}
+                            {% assign metaobject_color = blank %}
+                            {% assign metaobject_color_fallback = blank %}
+                            {% assign metaobject_color_value = blank %}
+                            {% assign metaobject_color_image = blank %}
+                            {% assign metaobject_color_image_url = blank %}
+                            {% assign category_color_metafield = product.metafields.shopify['color-pattern'] %}
+                            {% if category_color_metafield == blank %}
+                                {% assign category_color_metafield = product.metafields.shopify.color_pattern %}
+                            {% endif %}
+                            {% if category_color_metafield == blank %}
+                                {% assign category_color_metafield = product.metafields.custom.color %}
+                            {% endif %}
+
+                            {% for color_swatch in product.metafields.custom.color_swatches.value %}
+                                {% if color_swatch != blank and colorIndex == swatchIndex %}
+                                    {% assign color_image_url = color_swatch %}
+                                {% endif %}
+                                {% assign swatchIndex = swatchIndex | plus: 1 %}
+                            {% endfor %}
+
+                            {% for color_entry in category_color_metafield.value %}
+                                {% assign color_entry_label = color_entry.label.value | default: color_entry.label | default: color_entry.name.value | default: color_entry.name | default: color_entry.title.value | default: color_entry.title %}
+                                {% assign color_entry_label_downcase = color_entry_label | downcase %}
+                                {% if forloop.index0 == colorIndex %}
+                                    {% assign metaobject_color_fallback = color_entry %}
+                                {% endif %}
+                                {% if color_entry_label_downcase == color_value_raw %}
+                                    {% assign metaobject_color = color_entry %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if metaobject_color == blank %}
+                                {% assign metaobject_color = metaobject_color_fallback %}
+                            {% endif %}
+
+                            {% if metaobject_color != blank %}
+                                {% assign metaobject_color_value = metaobject_color.color.value | default: metaobject_color.color | default: metaobject_color.hex.value | default: metaobject_color.hex %}
+                                {% assign metaobject_color_image = metaobject_color.image.value | default: metaobject_color.image | default: metaobject_color.swatch_image.value | default: metaobject_color.swatch_image | default: metaobject_color.pattern.value | default: metaobject_color.pattern %}
+                                {% if metaobject_color_image != blank %}
+                                    {% assign metaobject_color_image_url = metaobject_color_image | image_url %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% assign swatch_exact = images[swatch_file_name_exact] %}
+                            {% assign swatch_handle = images[swatch_file_name_handle] %}
+                            {% assign swatch_primary = blank %}
+                            {% assign swatch_secondary = blank %}
+
+                            {% if swatch_exact != blank %}
+                                {% assign swatch_primary = swatch_exact | image_url %}
+                            {% endif %}
+
+                            {% if swatch_handle != blank %}
+                                {% assign swatch_secondary = swatch_handle | image_url %}
+                            {% endif %}
+
+                            {% assign swatch_bg = blank %}
+                            {% if swatch_primary != blank %}
+                                {% assign swatch_bg = swatch_primary %}
+                            {% elsif swatch_secondary != blank %}
+                                {% assign swatch_bg = swatch_secondary %}
+                            {% endif %}
+
+                            <span class="variants-selector color {% if option.selected_value == value %}selected{% endif %} {% if option_disabled %}disabled{% endif %}" 
+                                data-id="{{ product.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                                <div class="color-swatch" style="
+                                    background-color: {% if metaobject_color_value != blank %}{{ metaobject_color_value }}{% else %}{{ base_color }}{% endif %};
+                                    {% if color_image_url != blank %}
+                                    background-image: url({{ color_image_url }});
+                                    {% elsif metaobject_color_image_url != blank %}
+                                    background-image: url({{ metaobject_color_image_url }});
+                                    {% elsif swatch_bg != blank %}
+                                    background-image: url({{ swatch_bg }});
+                                    {% endif %}
+                                    background-size: cover;
+                                "
+                                {% if color_image_url == blank %}
+                                data-swatch-primary="{{ swatch_primary }}"
+                                data-swatch-secondary="{{ swatch_secondary }}"
+                                {% endif %}></div>
+                            </span>
+                            <span class="variants-option">
+                                <input type="radio" class="variant-radio {% if option_disabled %}disabled{% endif %}"
+                                    id="{{ product.id }}-{{ option.position }}-{{ forloop.index0 }}" 
+                                    name="{{ option.name }}" 
+                                    value="{{ value | escape }}" 
+                                    form="{{ product_form_id }}" 
+                                    {% if option.selected_value == value %}checked{% endif %}>
+                            </span>
+
+                            {% assign colorIndex = colorIndex | plus: 1 %}
+                        {% endfor %}
+                    </fieldset>
+                {% endif %}
+
+        {% endfor %}
+        <script type="application/json">
+            {{ product.variants | json }}
+        </script>
+    </variant-radios>
+</div>
+

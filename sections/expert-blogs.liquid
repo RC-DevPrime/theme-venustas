@@ -1,0 +1,715 @@
+{% assign section_anchor = section.settings.anchor_id | default: 'expert-blogs' | strip %}
+<section id="{{ section_anchor | escape }}" class="venustas-tech-featured-blogs-section">
+  <div class="venustas-tech-featured-blogs__content">
+    <div class="venustas-tech-featured-blogs__heading-wrap">
+      {% if section.settings.heading != blank %}
+        <h2 class="venustas-tech-featured-blogs__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="venustas-tech-featured-blogs__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+
+    <div class="venustas-tech-featured-blogs__slider" id="tech-featured-blogs-slider-{{ section.id }}">
+      <button type="button" class="venustas-tech-featured-blogs__nav-btn venustas-tech-featured-blogs__nav-btn--prev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <div class="venustas-tech-featured-blogs__viewport">
+        <div class="venustas-tech-featured-blogs__track">
+          {% for block in section.blocks limit: 6 %}
+            {% assign article = block.settings.article %}
+            {% if article != blank %}
+              <article class="venustas-tech-featured-blogs__slide" {{ block.shopify_attributes }}>
+                <a class="venustas-tech-featured-blogs__image-link" href="{{ article.url }}">
+                  <div class="venustas-tech-featured-blogs__image-wrap">
+                    {% if article.image != blank %}
+                      <img
+                        class="venustas-tech-featured-blogs__image"
+                        src="{{ article.image | image_url: width: 900 }}"
+                        srcset="
+                          {{ article.image | image_url: width: 480 }} 480w,
+                          {{ article.image | image_url: width: 720 }} 720w,
+                          {{ article.image | image_url: width: 900 }} 900w
+                        "
+                        sizes="(max-width: 768px) 92vw, (max-width: 1200px) 45vw, 32vw"
+                        alt="{{ article.title | escape }}"
+                        loading="lazy"
+                      >
+                    {% else %}
+                      <div class="venustas-tech-featured-blogs__placeholder">Add image</div>
+                    {% endif %}
+                  </div>
+                </a>
+
+                <div class="venustas-tech-featured-blogs__card-body">
+                  <h3 class="venustas-tech-featured-blogs__card-title">
+                    <a href="{{ article.url }}">{{ article.title }}</a>
+                  </h3>
+                  <p class="venustas-tech-featured-blogs__card-excerpt">
+                    {{ article.excerpt_or_content | strip_html | truncate: section.settings.excerpt_length }}
+                  </p>
+                  <a href="{{ article.url }}" class="venustas-tech-featured-blogs__card-cta">{{ section.settings.cta_text }}</a>
+                </div>
+              </article>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <button type="button" class="venustas-tech-featured-blogs__nav-btn venustas-tech-featured-blogs__nav-btn--next" aria-label="Next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  #{{ section_anchor | escape }} {
+    background: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__content {
+    width: {{ section.settings.content_width }}%;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__heading-wrap {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__heading {
+    margin: 0 0 8px;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 1.18;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__subheading {
+    margin: 0 auto;
+    max-width: 740px;
+    color: {{ section.settings.subheading_color }};
+    font-size: {{ section.settings.subheading_size }}px;
+    line-height: 1.4;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__slider {
+    position: relative;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__viewport {
+    overflow: hidden;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__track {
+    display: flex;
+    gap: {{ section.settings.card_gap }}px;
+    transition: transform .35s ease;
+    will-change: transform;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__slide {
+    flex: 0 0 calc((100% - ({{ section.settings.card_gap }}px * 2)) / 3);
+    min-width: 0;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__image-wrap {
+    border-radius: {{ section.settings.image_radius }}px;
+    overflow: hidden;
+    background: #d8d8d8;
+    aspect-ratio: 16 / 10;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .3s ease;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__slide:hover .venustas-tech-featured-blogs__image {
+    transform: scale(1.06);
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 14px;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__card-body {
+    padding: 10px 2px 0;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__card-title {
+    margin: 0 0 8px;
+    font-size: {{ section.settings.title_size }}px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__card-title a {
+    color: {{ section.settings.title_color }};
+    text-decoration: none;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__card-excerpt {
+    margin: 0 0 10px;
+    color: {{ section.settings.excerpt_color }};
+    font-size: {{ section.settings.excerpt_size }}px;
+    line-height: 1.42;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__card-cta {
+    color: {{ section.settings.cta_color }};
+    text-decoration: none;
+    font-size: {{ section.settings.cta_size }}px;
+    font-weight: 700;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__nav-btn {
+    position: absolute;
+    top: 33%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    border: 0;
+    border-radius: 50%;
+    background: {{ section.settings.nav_bg_color }};
+    color: {{ section.settings.nav_icon_color }};
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: background-color .25s ease, color .25s ease;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__nav-btn svg {
+    width: 22px;
+    height: 22px;
+    transition: color .25s ease;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__nav-btn:hover:not(:disabled) {
+    background: {{ section.settings.nav_hover_bg_color }};
+    color: {{ section.settings.nav_hover_icon_color }};
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__nav-btn:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__nav-btn--prev { left: -30px; }
+  #{{ section_anchor | escape }} .venustas-tech-featured-blogs__nav-btn--next { right: -30px; }
+
+  @media (max-width: 1100px) {
+    #{{ section_anchor | escape }} .venustas-tech-featured-blogs__slide {
+      flex-basis: calc((100% - {{ section.settings.card_gap }}px) / 2);
+    }
+  }
+
+  @media (max-width: 768px) {
+    #{{ section_anchor | escape }} {
+      padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-tech-featured-blogs__content {
+      width: {{ section.settings.mobile_content_width }}%;
+    }
+
+    #{{ section_anchor | escape }} .venustas-tech-featured-blogs__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-tech-featured-blogs__subheading {
+      font-size: {{ section.settings.mobile_subheading_size }}px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-tech-featured-blogs__track {
+      gap: {{ section.settings.mobile_card_gap }}px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-tech-featured-blogs__slide {
+      flex-basis: 100%;
+    }
+
+    #{{ section_anchor | escape }} .venustas-tech-featured-blogs__image-wrap {
+      border-radius: 8px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-tech-featured-blogs__nav-btn {
+      width: 40px;
+      height: 40px;
+      top: 30%;
+    }
+
+    #{{ section_anchor | escape }} .venustas-tech-featured-blogs__nav-btn--prev { left: 8px; }
+    #{{ section_anchor | escape }} .venustas-tech-featured-blogs__nav-btn--next { right: 8px; }
+  }
+{% endstyle %}
+
+<script>
+  (function () {
+    var root = document.getElementById('tech-featured-blogs-slider-{{ section.id }}');
+    if (!root) return;
+
+    var track = root.querySelector('.venustas-tech-featured-blogs__track');
+    var prev = root.querySelector('.venustas-tech-featured-blogs__nav-btn--prev');
+    var next = root.querySelector('.venustas-tech-featured-blogs__nav-btn--next');
+    if (!track || !prev || !next) return;
+
+    var originalSlides = Array.prototype.slice.call(track.querySelectorAll('.venustas-tech-featured-blogs__slide'));
+    var cloneCount = 0;
+    var currentIndex = 0;
+    var loopEnabled = false;
+    var isTransitioning = false;
+
+    function perView() {
+      if (window.innerWidth <= 768) return 1;
+      if (window.innerWidth <= 1100) return 2;
+      return 3;
+    }
+
+    function renderedSlides() {
+      return Array.prototype.slice.call(track.querySelectorAll('.venustas-tech-featured-blogs__slide'));
+    }
+
+    function setTransition(enabled) {
+      track.style.transition = enabled ? 'transform .35s ease' : 'none';
+    }
+
+    function stepWidth() {
+      var list = renderedSlides();
+      if (!list.length) return 0;
+      var width = list[0].getBoundingClientRect().width;
+      var styles = window.getComputedStyle(track);
+      var gap = parseFloat(styles.gap || styles.columnGap || 0);
+      return width + gap;
+    }
+
+    function applyTransform() {
+      track.style.transform = 'translateX(-' + (currentIndex * stepWidth()) + 'px)';
+    }
+
+    function clearClones() {
+      var clones = track.querySelectorAll('.venustas-tech-featured-blogs__slide[data-loop-clone="true"]');
+      Array.prototype.forEach.call(clones, function (node) {
+        node.remove();
+      });
+    }
+
+    function buildLoop() {
+      clearClones();
+      isTransitioning = false;
+
+      var total = originalSlides.length;
+      var visible = perView();
+      var shouldLoop = total > visible;
+
+      if (!total) {
+        prev.style.display = 'none';
+        next.style.display = 'none';
+        return;
+      }
+
+      if (!shouldLoop) {
+        loopEnabled = false;
+        cloneCount = 0;
+        currentIndex = 0;
+        setTransition(false);
+        applyTransform();
+        prev.disabled = true;
+        next.disabled = true;
+        prev.style.display = 'none';
+        next.style.display = 'none';
+        return;
+      }
+
+      loopEnabled = true;
+      cloneCount = visible;
+
+      for (var i = total - cloneCount; i < total; i++) {
+        var prependClone = originalSlides[i].cloneNode(true);
+        prependClone.setAttribute('data-loop-clone', 'true');
+        track.insertBefore(prependClone, track.firstChild);
+      }
+
+      for (var j = 0; j < cloneCount; j++) {
+        var appendClone = originalSlides[j].cloneNode(true);
+        appendClone.setAttribute('data-loop-clone', 'true');
+        track.appendChild(appendClone);
+      }
+
+      currentIndex = cloneCount;
+      setTransition(false);
+      applyTransform();
+      track.getBoundingClientRect();
+      setTransition(true);
+
+      prev.disabled = false;
+      next.disabled = false;
+      prev.style.display = 'inline-flex';
+      next.style.display = 'inline-flex';
+    }
+
+    prev.addEventListener('click', function () {
+      if (!loopEnabled || isTransitioning) return;
+      isTransitioning = true;
+      currentIndex -= 1;
+      setTransition(true);
+      applyTransform();
+    });
+
+    next.addEventListener('click', function () {
+      if (!loopEnabled || isTransitioning) return;
+      isTransitioning = true;
+      currentIndex += 1;
+      setTransition(true);
+      applyTransform();
+    });
+
+    track.addEventListener('transitionend', function (event) {
+      if (event.propertyName !== 'transform') return;
+
+      if (!loopEnabled) {
+        isTransitioning = false;
+        return;
+      }
+
+      var total = originalSlides.length;
+      if (currentIndex >= cloneCount + total) {
+        setTransition(false);
+        currentIndex = cloneCount;
+        applyTransform();
+        track.getBoundingClientRect();
+        setTransition(true);
+      } else if (currentIndex < cloneCount) {
+        setTransition(false);
+        currentIndex = cloneCount + total - 1;
+        applyTransform();
+        track.getBoundingClientRect();
+        setTransition(true);
+      }
+
+      isTransitioning = false;
+    });
+
+    window.addEventListener('resize', buildLoop);
+    buildLoop();
+  })();
+</script>
+
+{% schema %}
+{
+  "class": "venustas-tech-featured-blogs-section",
+  "name": "Blog Featured Articles",
+  "templates": ["blog", "product", "page"],
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Section anchor ID",
+      "default": "blog-featured-articles"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Check Our Expert Blogs"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Dive deeper into the technology behind Venustas innovation - from heating systems and smart protection to fabric engineering and performance insights."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Learn More >>"
+    },
+    {
+      "type": "range",
+      "id": "excerpt_length",
+      "label": "Excerpt length",
+      "min": 60,
+      "max": 240,
+      "step": 10,
+      "default": 130
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Desktop content width (%)",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 84,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_width",
+      "label": "Mobile content width (%)",
+      "min": 88,
+      "max": 100,
+      "step": 1,
+      "default": 94,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Desktop card gap",
+      "min": 8,
+      "max": 36,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_gap",
+      "label": "Mobile card gap",
+      "min": 8,
+      "max": 28,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "min": 20,
+      "max": 180,
+      "step": 2,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom padding",
+      "min": 20,
+      "max": 180,
+      "step": 2,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 12,
+      "max": 120,
+      "step": 2,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 12,
+      "max": 120,
+      "step": 2,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#f1f1f1"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#6f6f6f"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#101010"
+    },
+    {
+      "type": "color",
+      "id": "excerpt_color",
+      "label": "Excerpt color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "cta_color",
+      "label": "CTA color",
+      "default": "#d8501e"
+    },
+    {
+      "type": "color",
+      "id": "nav_bg_color",
+      "label": "Nav button background",
+      "default": "#F1EADD"
+    },
+    {
+      "type": "color",
+      "id": "nav_icon_color",
+      "label": "Nav button icon color",
+      "default": "#B93205"
+    },
+    {
+      "type": "color",
+      "id": "nav_hover_bg_color",
+      "label": "Nav hover background",
+      "default": "#B93205"
+    },
+    {
+      "type": "color",
+      "id": "nav_hover_icon_color",
+      "label": "Nav hover icon color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 22,
+      "max": 64,
+      "step": 1,
+      "default": 52,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Desktop subheading size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Desktop title size",
+      "min": 13,
+      "max": 26,
+      "step": 1,
+      "default": 17,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "excerpt_size",
+      "label": "Desktop excerpt size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "cta_size",
+      "label": "Desktop CTA size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 20,
+      "max": 44,
+      "step": 1,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_subheading_size",
+      "label": "Mobile subheading size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "article",
+      "name": "Article",
+      "settings": [
+        {
+          "type": "article",
+          "id": "article",
+          "label": "Article"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Featured Articles",
+      "blocks": [
+        { "type": "article" },
+        { "type": "article" },
+        { "type": "article" }
+      ]
+    }
+  ]
+}
+{% endschema %}

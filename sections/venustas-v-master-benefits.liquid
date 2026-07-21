@@ -1,0 +1,202 @@
+{% render 'v-master-base-css', section: section %}
+{% render 'v-master-layout-css', section: section %}
+{% render 'v-master-mobile-carousel-css', section: section %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: var(--v-cream);
+  }
+
+  #shopify-section-{{ section.id }} .v-master-benefits__header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-benefits__title {
+    font-size: clamp(22px, 2.4vw, 32px);
+  }
+
+  #shopify-section-{{ section.id }} .v-master-benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-benefits__card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 22px;
+    background: #fff;
+    border-radius: var(--v-radius);
+    box-shadow: 0 2px 12px rgba(185, 50, 5, 0.06);
+  }
+
+  #shopify-section-{{ section.id }} .v-master-benefits__icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    color: var(--v-brand);
+  }
+
+  #shopify-section-{{ section.id }} .v-master-benefits__icon-placeholder {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-benefits__text {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #444;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .v-master-benefits__grid[data-v-carousel-track] {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-benefits__grid[data-v-carousel-track]::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-benefits__grid [data-v-carousel-slide] {
+      flex: 0 0 88%;
+      max-width: 320px;
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-carousel__dots {
+      display: flex;
+    }
+  }
+</style>
+
+<div class="v-master">
+  <div class="v-master-container">
+    <div class="v-master-benefits__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="v-master__heading v-master-benefits__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div
+        class="v-master-benefits__carousel"
+        data-v-carousel
+        data-autoplay="{% if section.settings.mobile_autoplay == false %}false{% else %}true{% endif %}"
+        data-interval-ms="{{ section.settings.mobile_autoplay_interval | times: 1000 }}"
+        data-dot-class="v-master-carousel__dot"
+        data-scroll-align="start"
+      >
+        <div class="v-master-benefits__grid" data-v-carousel-track>
+        {%- for block in section.blocks -%}
+          <article class="v-master-benefits__card" data-v-carousel-slide {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != blank -%}
+              {{
+                block.settings.icon
+                | image_url: width: 80
+                | image_tag: class: 'v-master-benefits__icon', loading: 'lazy', alt: ''
+              }}
+            {%- elsif block.settings.icon_emoji != blank -%}
+              <span class="v-master-benefits__icon-placeholder" aria-hidden="true">{{ block.settings.icon_emoji }}</span>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="v-master-benefits__text">{{ block.settings.text }}</p>
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+        </div>
+        <div class="v-master-carousel__dots" data-v-carousel-dots hidden></div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% render 'v-talents-carousel-js', section: section %}
+
+{% schema %}
+{
+  "name": "V+ Master Benefits",
+  "tag": "section",
+  "class": "venustas-v-master-benefits-section",
+  "settings": [
+    { "type": "color", "id": "brand_color", "label": "Brand color", "default": "#B93205" },
+    { "type": "color", "id": "text_brown_color", "label": "Heading color (optional)", "default": "#B93205" },
+    { "type": "color", "id": "cream_color", "label": "Cream background", "default": "#F9F5F0" },
+    { "type": "range", "id": "container_width_desktop", "min": 70, "max": 100, "step": 5, "unit": "%", "label": "Desktop width", "default": 90 },
+    { "type": "range", "id": "container_width_mobile", "min": 85, "max": 100, "step": 5, "unit": "%", "label": "Mobile width", "default": 90 },
+    { "type": "range", "id": "padding_top_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding top", "default": 56 },
+    { "type": "range", "id": "padding_bottom_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding bottom", "default": 56 },
+    { "type": "range", "id": "padding_top_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding top", "default": 36 },
+    { "type": "range", "id": "padding_bottom_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding bottom", "default": 36 },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "As a V+ Master, you can enjoy:"
+    },
+    { "type": "header", "content": "Mobile carousel" },
+    {
+      "type": "checkbox",
+      "id": "mobile_autoplay",
+      "label": "Auto-scroll on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "mobile_autoplay_interval",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Auto-scroll interval",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon image" },
+        { "type": "text", "id": "icon_emoji", "label": "Icon emoji (if no image)", "default": "📦" },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Early access to new products before public launch"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "V+ Master Benefits",
+      "category": "V+ Master",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon_emoji": "📦", "text": "Early access to new products before public launch" } },
+        { "type": "benefit", "settings": { "icon_emoji": "🎁", "text": "Sponsored giveaway opportunities and exclusive gear" } },
+        { "type": "benefit", "settings": { "icon_emoji": "❤️", "text": "Long-term partnership with dedicated brand support" } },
+        { "type": "benefit", "settings": { "icon_emoji": "🏷️", "text": "Special pricing and affiliate commission opportunities" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

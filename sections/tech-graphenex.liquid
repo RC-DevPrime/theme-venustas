@@ -1,0 +1,754 @@
+{% assign section_anchor = section.settings.anchor_id | default: 'graphenex' | strip %}
+<section
+  id="{{ section_anchor | escape }}"
+  class="venustas-graphenex-feature{% if section.settings.right_image == blank %} venustas-graphenex-feature--no-media{% endif %}"
+>
+  <div class="venustas-graphenex-feature__inner">
+
+    <div class="venustas-graphenex-feature__content">
+      {% if section.settings.heading != blank %}
+        <h2 class="venustas-graphenex-feature__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <p class="venustas-graphenex-feature__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="venustas-graphenex-feature__description">{{ section.settings.description }}</div>
+      {% endif %}
+
+      <div class="venustas-graphenex-feature__icons">
+        {%- comment -%}Row 1{%- endcomment -%}
+        <div class="venustas-graphenex-feature__icons-row">
+          <div class="venustas-graphenex-feature__icon-item">
+            {% if section.settings.icon_1_image != blank %}
+              <img class="venustas-graphenex-feature__icon-img"
+                src="{{ section.settings.icon_1_image | image_url: width: 80 }}"
+                alt="{{ section.settings.icon_1_label | escape }}"
+                loading="lazy" width="44" height="44">
+            {% endif %}
+            {% if section.settings.icon_1_label != blank %}
+              <span class="venustas-graphenex-feature__icon-label">{{ section.settings.icon_1_label }}</span>
+            {% endif %}
+          </div>
+          <div class="venustas-graphenex-feature__icon-sep"></div>
+          <div class="venustas-graphenex-feature__icon-item">
+            {% if section.settings.icon_2_image != blank %}
+              <img class="venustas-graphenex-feature__icon-img"
+                src="{{ section.settings.icon_2_image | image_url: width: 80 }}"
+                alt="{{ section.settings.icon_2_label | escape }}"
+                loading="lazy" width="44" height="44">
+            {% endif %}
+            {% if section.settings.icon_2_label != blank %}
+              <span class="venustas-graphenex-feature__icon-label">{{ section.settings.icon_2_label }}</span>
+            {% endif %}
+          </div>
+        </div>
+        {%- comment -%}Row 2{%- endcomment -%}
+        <div class="venustas-graphenex-feature__icons-row">
+          <div class="venustas-graphenex-feature__icon-item">
+            {% if section.settings.icon_3_image != blank %}
+              <img class="venustas-graphenex-feature__icon-img"
+                src="{{ section.settings.icon_3_image | image_url: width: 80 }}"
+                alt="{{ section.settings.icon_3_label | escape }}"
+                loading="lazy" width="44" height="44">
+            {% endif %}
+            {% if section.settings.icon_3_label != blank %}
+              <span class="venustas-graphenex-feature__icon-label">{{ section.settings.icon_3_label }}</span>
+            {% endif %}
+          </div>
+          <div class="venustas-graphenex-feature__icon-sep"></div>
+          <div class="venustas-graphenex-feature__icon-item">
+            {% if section.settings.icon_4_image != blank %}
+              <img class="venustas-graphenex-feature__icon-img"
+                src="{{ section.settings.icon_4_image | image_url: width: 80 }}"
+                alt="{{ section.settings.icon_4_label | escape }}"
+                loading="lazy" width="44" height="44">
+            {% endif %}
+            {% if section.settings.icon_4_label != blank %}
+              <span class="venustas-graphenex-feature__icon-label">{{ section.settings.icon_4_label }}</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="venustas-graphenex-feature__media">
+      {% if section.settings.right_image != blank %}
+        <img
+          class="venustas-graphenex-feature__image"
+          src="{{ section.settings.right_image | image_url: width: 1200 }}"
+          srcset="
+            {{ section.settings.right_image | image_url: width: 600 }} 600w,
+            {{ section.settings.right_image | image_url: width: 900 }} 900w,
+            {{ section.settings.right_image | image_url: width: 1200 }} 1200w
+          "
+          sizes="(max-width: 749px) 90vw, 48vw"
+          alt="{{ section.settings.right_image.alt | default: section.settings.heading | escape }}"
+          loading="lazy"
+        >
+      {% else %}
+        <div class="venustas-graphenex-feature__placeholder">Add transparent PNG image</div>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #{{ section_anchor | escape }} {
+    --bg: {{ section.settings.bg_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    --subheading-color: {{ section.settings.subheading_color }};
+    --desc-color: {{ section.settings.description_color }};
+    --icon-label-color: {{ section.settings.icon_label_color }};
+    --divider-color: {{ section.settings.divider_color }};
+    --content-pt: {{ section.settings.padding_top }}px;
+    --content-pb: {{ section.settings.padding_bottom }}px;
+    --content-pad-left: {{ section.settings.content_left_padding_percent }}%;
+    --content-pad-right: {{ section.settings.content_right_padding_percent }}%;
+    --inner-width: {{ section.settings.content_width_percent | default: 85 }}%;
+    --mobile-content-h-pad: {{ section.settings.mobile_content_horizontal_padding | default: 0 }}px;
+    --heading-size: {{ section.settings.heading_size }}px;
+    --subheading-size: {{ section.settings.subheading_size }}px;
+    --desc-size: {{ section.settings.description_size }}px;
+    --icon-label-size: {{ section.settings.icon_label_size }}px;
+    --media-height: {{ section.settings.media_height }}px;
+    --mobile-media-height: {{ section.settings.mobile_media_height }}px;
+    --image-pos-x: {{ section.settings.image_position_x }}%;
+    --image-pos-y: {{ section.settings.image_position_y }}%;
+    --media-shift-x: {{ section.settings.media_shift_x_percent }}%;
+  }
+
+  #{{ section_anchor | escape }} {
+    {% if section.settings.background_image != blank %}
+      background-image: url('{{ section.settings.background_image | image_url: width: 2400 }}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    {% else %}
+      background: var(--bg);
+    {% endif %}
+    padding: 0;
+    overflow: hidden;
+  }
+
+  /* Same width model as Tech Heatwave / PowerCore (no theme page-width) */
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__inner {
+    width: var(--inner-width);
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 50%) minmax(0, 50%);
+    gap: 0;
+    align-items: center;
+    min-height: var(--media-height);
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__content {
+    padding: var(--content-pt) var(--content-pad-right) var(--content-pb) var(--content-pad-left);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__heading {
+    margin: 0 0 10px;
+    color: var(--heading-color);
+    font-size: var(--heading-size);
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    text-align: left;
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__subheading {
+    margin: 0 0 22px;
+    color: var(--subheading-color);
+    font-size: var(--subheading-size);
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: left;
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__description,
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__description p,
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__description a {
+    text-align: left;
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__description {
+    margin: 0 0 34px;
+    color: var(--desc-color);
+    font-size: var(--desc-size);
+    line-height: 1.55;
+    max-width: 560px;
+  }
+
+  /* Icons: 2 rows, [icon | separator | icon] */
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__icons {
+    width: min(100%, 420px);
+    /*margin: 0 auto;*/
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__icons-row {
+    display: grid;
+    grid-template-columns: 37% 26% 37%;
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__icon-item {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 0 8px;
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__icon-sep {
+    width: 1px;
+    min-height: 50px;
+    background: var(--divider-color);
+    justify-self: center;
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__icon-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__icon-label {
+    color: var(--icon-label-color);
+    font-size: var(--icon-label-size);
+    font-weight: 600;
+    line-height: 1.22;
+    text-align: center;
+    white-space: pre-line;
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__media {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: var(--media-height);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: var(--image-pos-x) var(--image-pos-y);
+    transform: translateX(var(--media-shift-x));
+  }
+
+  #{{ section_anchor | escape }} .venustas-graphenex-feature__placeholder {
+    width: 100%;
+    min-height: var(--media-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+  }
+
+  @media (max-width: 989px) {
+    #{{ section_anchor | escape }} .venustas-graphenex-feature__inner {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    #{{ section_anchor | escape }} .venustas-graphenex-feature__content {
+      padding: 0;
+    }
+
+    #{{ section_anchor | escape }} .venustas-graphenex-feature__icons {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  @media (max-width: 749px) {
+    #{{ section_anchor | escape }} {
+      --content-pt: {{ section.settings.mobile_padding_top }}px;
+      --content-pb: {{ section.settings.mobile_padding_bottom }}px;
+      --heading-size: {{ section.settings.mobile_heading_size }}px;
+      --subheading-size: {{ section.settings.mobile_subheading_size }}px;
+      --desc-size: {{ section.settings.mobile_description_size }}px;
+      --icon-label-size: {{ section.settings.mobile_icon_label_size }}px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-graphenex-feature__content {
+      padding: var(--content-pt) var(--mobile-content-h-pad) var(--content-pb) var(--mobile-content-h-pad);
+    }
+
+    #{{ section_anchor | escape }} .venustas-graphenex-feature__description {
+      margin-bottom: 24px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-graphenex-feature__icons {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    #{{ section_anchor | escape }} .venustas-graphenex-feature__icons-row {
+      grid-template-columns: 46% 8% 46%;
+      padding: 8px 0;
+    }
+
+    #{{ section_anchor | escape }} .venustas-graphenex-feature__icon-item {
+      gap: 6px;
+      padding: 0 6px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-graphenex-feature__icon-sep {
+      min-height: 40px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-graphenex-feature__icon-img {
+      width: 28px;
+      height: 28px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-graphenex-feature__media {
+      min-height: var(--mobile-media-height);
+      padding-left: {{ section.settings.mobile_side_padding_percent }}%;
+    }
+
+    #{{ section_anchor | escape }} .venustas-graphenex-feature__placeholder {
+      min-height: var(--mobile-media-height);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "GrapheneX Feature",
+  "tag": "section",
+  "class": "venustas-graphenex-feature-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Section anchor ID",
+      "default": "graphenex",
+      "info": "Used for navigation jumps. Example: graphenex"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Venustas GrapheneX™"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Smart Thermal Regulation"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Engineered with our advanced graphene technology, Venustas high-performance lining rapidly transfers and evenly distributes heat to maintain optimal body balance in any condition, delivering lightweight flexibility and a smarter, more comfortable wearing experience.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Feature Icon 1 (Top Left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_1_image",
+      "label": "Icon 1 image"
+    },
+    {
+      "type": "textarea",
+      "id": "icon_1_label",
+      "label": "Icon 1 label",
+      "default": "Rapid & Even\nHeat Transfer"
+    },
+    {
+      "type": "header",
+      "content": "Feature Icon 2 (Top Right)"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_2_image",
+      "label": "Icon 2 image"
+    },
+    {
+      "type": "textarea",
+      "id": "icon_2_label",
+      "label": "Icon 2 label",
+      "default": "Far-Infrared\nEffect"
+    },
+    {
+      "type": "header",
+      "content": "Feature Icon 3 (Bottom Left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_3_image",
+      "label": "Icon 3 image"
+    },
+    {
+      "type": "textarea",
+      "id": "icon_3_label",
+      "label": "Icon 3 label",
+      "default": "Anti-Static &\nBreathable"
+    },
+    {
+      "type": "header",
+      "content": "Feature Icon 4 (Bottom Right)"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_4_image",
+      "label": "Icon 4 image"
+    },
+    {
+      "type": "textarea",
+      "id": "icon_4_label",
+      "label": "Icon 4 label",
+      "default": "Lightweight &\nAll-Day Comfort"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Right image (transparent PNG recommended)"
+    },
+    {
+      "type": "range",
+      "id": "media_height",
+      "label": "Desktop media height",
+      "min": 280,
+      "max": 800,
+      "step": 10,
+      "default": 520,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_media_height",
+      "label": "Mobile media height",
+      "min": 180,
+      "max": 540,
+      "step": 10,
+      "default": 340,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_position_x",
+      "label": "Image position X",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "image_position_y",
+      "label": "Image position Y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "media_shift_x_percent",
+      "label": "Image horizontal shift",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#0d1a2e"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image (overrides color)"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ff4b15"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#ff4b15"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#c8d0e4"
+    },
+    {
+      "type": "color",
+      "id": "icon_label_color",
+      "label": "Icon label color",
+      "default": "#c8d0e4"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Icon divider color",
+      "default": "#3a4a6a"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "content_width_percent",
+      "label": "Content width",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 85,
+      "unit": "%",
+      "info": "Align with Tech Heatwave and PowerCore (e.g. 85%). Replaces theme page-width for this section."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "min": 20,
+      "max": 220,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom padding",
+      "min": 20,
+      "max": 220,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 12,
+      "max": 140,
+      "step": 2,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 12,
+      "max": 140,
+      "step": 2,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "content_left_padding_percent",
+      "label": "Desktop content left padding",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 6,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "content_right_padding_percent",
+      "label": "Desktop content right padding",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 4,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_padding_percent",
+      "label": "Mobile media side padding",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "%",
+      "info": "Applied to the image column on screens ≤749px only (not the whole section)."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_left_padding_percent",
+      "label": "Mobile content left padding (legacy)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "%",
+      "info": "Unused in CSS. Use Mobile text horizontal padding below."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_right_padding_percent",
+      "label": "Mobile content right padding (legacy)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "%",
+      "info": "Unused in CSS. Use Mobile text horizontal padding below."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_horizontal_padding",
+      "label": "Mobile text horizontal padding",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 0,
+      "unit": "px",
+      "info": "Left/right padding for the text block on screens ≤749px. Use 0 to match other tech sections."
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "default": 52,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Desktop subheading size",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Desktop description size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "icon_label_size",
+      "label": "Desktop icon label size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 20,
+      "max": 52,
+      "step": 1,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_subheading_size",
+      "label": "Mobile subheading size",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "label": "Mobile description size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_label_size",
+      "label": "Mobile icon label size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "GrapheneX Feature"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,572 @@
+{% comment %}
+  Section: Tech Hero Banner
+  File: sections/venustas-hero.liquid
+  Design: orange-red title at top center, white subtitle, dark bottom info bar
+{% endcomment %}
+
+<section id="venustas-hero-{{ section.id }}" class="venustas-hero">
+
+  {%- comment -%} Background image {%- endcomment -%}
+  <div class="venustas-hero__bg">
+    {% if section.settings.bg_image != blank %}
+      <img
+        src="{{ section.settings.bg_image | image_url: width: 2000 }}"
+        srcset="
+          {{ section.settings.bg_image | image_url: width: 750 }} 750w,
+          {{ section.settings.bg_image | image_url: width: 1200 }} 1200w,
+          {{ section.settings.bg_image | image_url: width: 2000 }} 2000w,
+          {{ section.settings.bg_image | image_url: width: 2800 }} 2800w,
+          {{ section.settings.bg_image | image_url: width: 3200 }} 3200w,
+          {{ section.settings.bg_image | image_url: width: 3840 }} 3840w
+        "
+        sizes="100vw"
+        alt="{{ section.settings.bg_image.alt | escape }}"
+        loading="eager"
+        fetchpriority="high"
+        class="venustas-hero__bg-img"
+      >
+    {% else %}
+      <div class="venustas-hero__bg-placeholder"></div>
+    {% endif %}
+    <div class="venustas-hero__overlay"></div>
+  </div>
+
+  {%- comment -%} Top text area (heading + subheading) {%- endcomment -%}
+  <div class="venustas-hero__top">
+    {% if section.settings.heading != blank %}
+      <h1 class="venustas-hero__heading">{{ section.settings.heading }}</h1>
+    {% endif %}
+    {% if section.settings.subheading != blank %}
+      <p class="venustas-hero__subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+  </div>
+
+  {%- comment -%} Bottom info bar {%- endcomment -%}
+  <div class="venustas-hero__bottom-bar">
+    <div class="venustas-hero__bottom-inner">
+
+      {%- comment -%} Left stats group (added via blocks) {%- endcomment -%}
+      <div class="venustas-hero__stats">
+        {% for block in section.blocks %}
+          {% if block.type == 'stat_item' %}
+            <div class="venustas-hero__stat" {{ block.shopify_attributes }}>
+              {% if block.settings.stat_icon != blank %}
+                <img
+                  src="{{ block.settings.stat_icon | image_url: width: 48 }}"
+                  alt="{{ block.settings.stat_label | escape }}"
+                  class="venustas-hero__stat-icon"
+                  width="36"
+                  height="36"
+                >
+              {% endif %}
+              <div class="venustas-hero__stat-text">
+                {% if block.settings.stat_label != blank %}
+                  <span class="venustas-hero__stat-label">{{ block.settings.stat_label }}</span>
+                {% endif %}
+                {% if block.settings.stat_value != blank %}
+                  <span class="venustas-hero__stat-value">{{ block.settings.stat_value }}</span>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {%- comment -%} Right brand tagline {%- endcomment -%}
+      {% if section.settings.bottom_tagline != blank %}
+        <p class="venustas-hero__tagline">{{ section.settings.bottom_tagline }}</p>
+      {% endif %}
+
+    </div>
+  </div>
+
+</section>
+
+<style>
+  #venustas-hero-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.hero_height }}px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    --inner-width: {{ section.settings.content_width_percent | default: 85 }}%;
+    --content-pad-x: {{ section.settings.content_horizontal_padding | default: 20 }}px;
+    --mobile-content-h-pad: {{ section.settings.mobile_content_horizontal_padding | default: 0 }}px;
+    --hero-bg-x: {{ section.settings.bg_position_x | default: 50 }}%;
+    --hero-bg-y: {{ section.settings.bg_position_y | default: 0 }}%;
+    --hero-bg-y-narrow: {{ section.settings.bg_position_y_narrow | default: 20 }}%;
+    --hero-top-pad: {{ section.settings.top_padding }}px;
+    --hero-narrow-top-extra: {{ section.settings.narrow_viewport_extra_top | default: 12 }}px;
+  }
+
+  /* -- Background -- */
+  #venustas-hero-{{ section.id }} .venustas-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--hero-bg-x) var(--hero-bg-y);
+    display: block;
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__bg-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #1c2a3a;
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+  }
+
+  /* -- Top text (same width model as Tech Heatwave / Core Tech; no page-width) -- */
+  #venustas-hero-{{ section.id }} .venustas-hero__top {
+    position: relative;
+    z-index: 1;
+    width: var(--inner-width);
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    text-align: center;
+    padding: var(--hero-top-pad) var(--content-pad-x) 0;
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__heading {
+    font-size: clamp(28px, 5.5vw, 72px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 10px;
+    color: {{ section.settings.heading_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__subheading {
+    font-size: clamp(13px, 1.65vw, 22px);
+    font-weight: 500;
+    line-height: 1.45;
+    margin: 0 auto;
+    max-width: min(36rem, 100%);
+    color: {{ section.settings.subheading_color }};
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Bottom info bar ── */
+  #venustas-hero-{{ section.id }} .venustas-hero__bottom-bar {
+    position: relative;
+    z-index: 1;
+    background: rgba({{ section.settings.bar_bg_color | color_extract: 'red' }}, {{ section.settings.bar_bg_color | color_extract: 'green' }}, {{ section.settings.bar_bg_color | color_extract: 'blue' }}, {{ section.settings.bar_bg_opacity | times: 0.01 }});
+    padding: 14px 0;
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__bottom-inner {
+    width: var(--inner-width);
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--content-pad-x);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__stats {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__stat-icon {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    flex-shrink: 0;
+    {%- if section.settings.icon_filter == 'orange' -%}
+    filter: invert(58%) sepia(80%) saturate(600%) hue-rotate(340deg) brightness(105%);
+    {%- endif -%}
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__stat-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__stat-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: {{ section.settings.bar_text_color }};
+    opacity: 0.85;
+    line-height: 1.3;
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__stat-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: {{ section.settings.bar_text_color }};
+    line-height: 1.3;
+  }
+
+  #venustas-hero-{{ section.id }} .venustas-hero__tagline {
+    font-size: clamp(12px, 1.2vw, 16px);
+    font-weight: 400;
+    color: {{ section.settings.bar_text_color }};
+    margin: 0 !important;
+    text-align: right;
+    opacity: 0.9;
+  }
+
+  /* Narrow desktop / tablet: shift bg crop + lower text stack so wrapped subheading clears faces */
+  @media (max-width: 1100px) {
+    #venustas-hero-{{ section.id }} .venustas-hero__bg-img {
+      object-position: var(--hero-bg-x) var(--hero-bg-y-narrow);
+    }
+
+    #venustas-hero-{{ section.id }} .venustas-hero__top {
+      padding-top: calc(var(--hero-top-pad) + var(--hero-narrow-top-extra));
+    }
+  }
+
+  @media (max-width: 989px) {
+    #venustas-hero-{{ section.id }} .venustas-hero__top {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    #venustas-hero-{{ section.id }} .venustas-hero__bottom-inner {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  /* -- Mobile (matches other tech sections ≤749px) -- */
+  @media (max-width: 749px) {
+    #venustas-hero-{{ section.id }} {
+      height: {{ section.settings.mobile_height }}px;
+    }
+
+    #venustas-hero-{{ section.id }} .venustas-hero__top {
+      padding: calc({{ section.settings.top_padding | divided_by: 1.5 | round }}px + var(--hero-narrow-top-extra)) var(--mobile-content-h-pad) 0;
+    }
+
+    #venustas-hero-{{ section.id }} .venustas-hero__bottom-inner {
+      flex-direction: column;
+      align-items: center;
+      padding: 0 var(--mobile-content-h-pad);
+      gap: 8px;
+    }
+
+    #venustas-hero-{{ section.id }} .venustas-hero__stats {
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+
+    #venustas-hero-{{ section.id }} .venustas-hero__tagline {
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+
+  /* Ultra-wide desktops: avoid awkward top-cropping on very large resolutions */
+  @media (min-width: 1600px) {
+    #venustas-hero-{{ section.id }} {
+      height: clamp({{ section.settings.hero_height }}px, 36vw, 920px);
+    }
+
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Tech Hero",
+  "tag": "section",
+  "class": "venustas-hero-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background image",
+      "info": "Recommended size: 2000 x 900px or larger"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity (higher = darker)",
+      "min": 0,
+      "max": 70,
+      "step": 5,
+      "default": 10,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "bg_position_x",
+      "label": "Background horizontal focus",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "bg_position_y",
+      "label": "Background vertical focus (wide)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 0,
+      "unit": "%",
+      "info": "0% anchors to the top of the photo. Higher values move the crop down."
+    },
+    {
+      "type": "range",
+      "id": "bg_position_y_narrow",
+      "label": "Background vertical focus (narrow)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 20,
+      "unit": "%",
+      "info": "Used below 1100px width (step 5%). Raise if the subheading overlaps people when the window is narrow."
+    },
+    {
+      "type": "range",
+      "id": "narrow_viewport_extra_top",
+      "label": "Extra top spacing when narrow",
+      "min": 0,
+      "max": 48,
+      "step": 4,
+      "default": 12,
+      "unit": "px",
+      "info": "Added below 1100px (and on mobile) so multi-line subheading sits higher."
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "Desktop height",
+      "min": 400,
+      "max": 1000,
+      "step": 20,
+      "default": 680,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile height",
+      "min": 300,
+      "max": 700,
+      "step": 20,
+      "default": 480,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Top text"
+    },
+    {
+      "type": "range",
+      "id": "top_padding",
+      "label": "Distance from top",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "VENUSTAS TECHNOLOGY"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#E8420A"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Trusted. Tested. Trailblazing."
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Layout width"
+    },
+    {
+      "type": "range",
+      "id": "content_width_percent",
+      "label": "Content width",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 85,
+      "unit": "%",
+      "info": "Heading area and bottom bar use the same width. Matches Tech Heatwave / Core Tech (e.g. 85%). Max width 1600px."
+    },
+    {
+      "type": "range",
+      "id": "content_horizontal_padding",
+      "label": "Horizontal padding (desktop)",
+      "min": 0,
+      "max": 56,
+      "step": 2,
+      "default": 20,
+      "unit": "px",
+      "info": "Left/right padding inside the content band on screens ≥990px. Set to 0 from 989px down (width % provides inset)."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_horizontal_padding",
+      "label": "Mobile horizontal padding",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 0,
+      "unit": "px",
+      "info": "Screens ≤749px for heading row and bottom bar. Use 0 to align with other tech sections."
+    },
+    {
+      "type": "header",
+      "content": "Bottom info bar"
+    },
+    {
+      "type": "color",
+      "id": "bar_bg_color",
+      "label": "Bar background color",
+      "default": "#1a2533"
+    },
+    {
+      "type": "range",
+      "id": "bar_bg_opacity",
+      "label": "Bar background opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "color",
+      "id": "bar_text_color",
+      "label": "Bar text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "icon_filter",
+      "label": "Icon color filter",
+      "info": "If the icon already has color, choose 'Original'",
+      "options": [
+        { "value": "original", "label": "Original (keep icon colors)" },
+        { "value": "orange", "label": "Orange (best for white icons)" }
+      ],
+      "default": "orange"
+    },
+    {
+      "type": "textarea",
+      "id": "bottom_tagline",
+      "label": "Right brand tagline",
+      "default": "When warmth matters, you can count on Venustas."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat_item",
+      "name": "Stat item",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "stat_icon",
+          "label": "Icon (white or orange PNG, 48x48px recommended)"
+        },
+        {
+          "type": "text",
+          "id": "stat_label",
+          "label": "Label (small text above)",
+          "default": "founded in"
+        },
+        {
+          "type": "text",
+          "id": "stat_value",
+          "label": "Value (bold text below)",
+          "default": "2018"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tech Hero",
+      "settings": {
+        "heading": "VENUSTAS TECHNOLOGY",
+        "subheading": "Trusted. Tested. Trailblazing.",
+        "heading_color": "#E8420A",
+        "subheading_color": "#ffffff",
+        "content_width_percent": 85,
+        "content_horizontal_padding": 20,
+        "mobile_content_horizontal_padding": 0,
+        "overlay_opacity": 10,
+        "hero_height": 680,
+        "mobile_height": 480,
+        "top_padding": 48,
+        "bar_bg_color": "#1a2533",
+        "bar_bg_opacity": 100,
+        "bar_text_color": "#ffffff",
+        "bottom_tagline": "When warmth matters, you can count on Venustas."
+      },
+      "blocks": [
+        {
+          "type": "stat_item",
+          "settings": {
+            "stat_label": "founded in",
+            "stat_value": "2018"
+          }
+        },
+        {
+          "type": "stat_item",
+          "settings": {
+            "stat_label": "Trusted by",
+            "stat_value": "3M+ Customers"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

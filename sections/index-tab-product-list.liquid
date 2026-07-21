@@ -1,0 +1,293 @@
+<div class="section-content">
+    <div class="container">
+        <div class="tabs mb-lg-5 mb-md-5 mb-sm-3" id="tabs-container">
+            {% for block in section.blocks %}
+                <input type="radio" name="tabs" id="tabs-{{ forloop.index }}" {% if forloop.index == 1 %}checked{% endif %} data-tab-id="tabs-{{ forloop.index }}">
+                <label for="tabs-{{ forloop.index }}" class="tab">
+                    <span class="pp-semibold body-lg d-lg-block d-md-block d-sm-none">
+                        {{ block.settings.tab_label }}
+                    </span>
+                    <span class="pp-semibold body d-lg-none d-md-none d-sm-block">
+                        {{ block.settings.tab_label }}
+                    </span>
+                </label>
+            {% endfor %}
+            <span class="glider"></span>
+        </div>
+    </div>
+
+    {% for product in section.blocks %}
+    <div class="tab-container-item" data-tab-id="tabs-{{ forloop.index }}" {% if forloop.index != 1 %} style="display:none" {% endif %} >
+        <div class="container px-0">
+            <div class="tab-product-list-slider position-relative overflow-hidden">
+                <div class="swiper-wrapper">
+                    {% for product in product.settings.collection.products limit: section.settings.maximum_number_product_display %}
+                        <div class="swiper-slide">
+                            {% render 'product-item', product: product, sale_badge_type: section.settings.sale_badge_type, badge_detail: true, section: section %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="float-nav d-lg-block d-md-block d-sm-block">
+            <button type="button" class="owl-prev" disabled>
+                <i class="fa-solid fa-chevron-left f-white"></i>
+            </button>
+            <button type="button" class="owl-next" disabled>
+                <i class="fa-solid fa-chevron-right f-white"></i>
+            </button>
+        </div>
+    </div>
+    {% endfor %}    
+</div>
+{% style %}
+    .tab-product-list-section{
+        opacity:0;
+    }
+    .tab-product-list-section .tabs {
+        display: flex;
+        position: relative;
+        padding: 0px;
+        border-radius: 10px;
+        background-color: #FFF;
+        width: fit-content;
+        margin: auto;
+        border:1px solid #B93205;
+        overflow:hidden;
+    }
+
+    .tab-product-list-section .tabs * {
+        z-index: 2;
+    }
+
+    .tab-product-list-section input[type=radio] {
+        display: none;
+    }
+
+    .tab-product-list-section input[type=radio]:checked + label {
+        color: #F5F3F1;
+    }
+
+    .tab-product-list-section .tab {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        padding: 0 25px;
+        border-radius: 0;
+        cursor: pointer;
+        transition: color 0.15s ease-in;
+        color:#B93205;
+        white-space: nowrap;
+    }
+
+    .tab-product-list-section .glider {
+        position: absolute;
+        display: flex;
+        height: 50px;
+        background-color:#B93205;
+        z-index: 1;
+        border-radius: 8px;
+        transition: 0.25s ease-out;
+        width: var(--glider-width, 0px);
+        transform: translateX(var(--glider-x, 0px));
+    }
+
+    .tab-product-list-section .float-nav button{
+        background: #F1EADD;
+    }
+    .tab-product-list-section .float-nav button:hover{
+        background: #B93205;
+    }
+    .tab-product-list-section .float-nav button:hover .fa-chevron-left:before,
+    .tab-product-list-section .float-nav button:hover .fa-chevron-right:before{
+        color: #FFF;
+    }
+    .tab-product-list-section .float-nav .fa-chevron-left:before,
+    .tab-product-list-section .float-nav .fa-chevron-right:before{
+        color: #B93205;
+    }
+    .tab-product-list-section .tab-product-list-slider .swiper-slide{
+        height:auto;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .tab-product-list-section .tabs{
+            border-radius:6px;
+        }
+        .tab-product-list-section .tab{
+            height:35px;
+            padding:0px 16px;
+        }
+        .tab-product-list-section .glider{
+            height:35px;
+            border-radius:6px;
+        }
+        .tab-product-list-section .float-nav button{
+            --btn-pos:5px;
+        }
+        .tab-product-list-section .float-nav{
+            top:220px;
+        }
+    }
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+    }
+    @media only screen and (min-width: 375px) {
+    }
+    @media only screen and (min-width: 390px) {
+    }
+    @media only screen and (min-width: 414px) {
+    }
+    @media only screen and (min-width: 428px) {
+    }
+    @media only screen and (min-width: 480px) {
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+    }
+    @media only screen and (min-width: 1366px) {
+    }
+    @media only screen and (min-width: 1440px) {
+    }
+    @media only screen and (min-width: 1536px) {
+    }
+    @media only screen and (min-width: 1600px) {
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .tab-product-list-section .float-nav button{
+            --btn-pos: 50px;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .tab-product-list-section .float-nav button{
+            --btn-pos: 50px;
+        }
+    }
+{% endstyle %}
+
+{% javascript %}
+    const tabsContainer = document.getElementById('tabs-container');
+    const tabs = tabsContainer.querySelectorAll('.tab');
+    const radios = tabsContainer.querySelectorAll('input[type=radio]');
+    const glider = tabsContainer.querySelector('.glider');
+    const tabItems = document.querySelectorAll('.tab-container-item');
+
+    function moveGlider() {
+        const selectedIndex = Array.from(radios).findIndex(r => r.checked);
+        const activeTab = tabs[selectedIndex];
+        const width = activeTab.offsetWidth;
+        const x = activeTab.offsetLeft;
+
+        glider.style.setProperty('--glider-width', width + 'px');
+        glider.style.setProperty('--glider-x', x + 'px');
+    }
+
+    function switchTabs() {
+        const selectedRadio = this;
+        const tabId = selectedRadio.dataset.tabId;
+
+        // First hide all tabs completely
+        tabItems.forEach(item => {
+            item.style.display = "none";
+            item.style.opacity = 0;
+            item.style.transition = "none"; // reset to avoid unwanted animation
+        });
+
+        // Then show the selected tab and fade it in
+        const selectedItem = Array.from(tabItems).find(
+            item => item.dataset.tabId === tabId
+        );
+
+        if (selectedItem) {
+            selectedItem.style.display = "block";
+            selectedItem.style.transition = "opacity 0.3s ease 0.1s";
+            requestAnimationFrame(() => {
+                selectedItem.style.opacity = 1;
+            });
+        }
+
+        moveGlider();
+    }
+
+    moveGlider();
+
+
+    radios.forEach(radio => {
+        radio.addEventListener('change', switchTabs);
+    });
+
+    // Initialize on load
+    window.addEventListener('load', moveGlider);
+    window.addEventListener('resize', moveGlider);
+{% endjavascript %}
+
+{% schema %}
+{
+    "class": "tab-product-list-section position-relative",
+    "name": "Tab Product List",
+    "limit": 1,
+    "templates": ["index"],
+    "settings": [
+        {
+            "type": "select",
+            "id": "sale_badge_type",
+            "label": "Sale Badge Type",
+            "options": [
+                {
+                    "label": "Percentage",
+                    "value": "discount"
+                },
+                {
+                    "label": "Text Discount",
+                    "value": "text_discount"
+                }
+            ],
+            "default": "discount"
+        }
+    ],
+    "max_blocks": 2,
+    "blocks": [
+        {
+            "type": "tab",
+            "name": "Tab",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "tab_label",
+                    "label": "Tab Label"
+                },
+                {
+                    "type": "collection",
+                    "id":"collection",
+                    "label": "Collection List",
+                },
+                {
+                    "type": "number",
+                    "id": "maximum_number_product_display",
+                    "label": "Maximum Number Product Display",
+                    "default": 20
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Tab Product List"
+        }
+    ]
+}
+{% endschema %}

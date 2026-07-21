@@ -1,0 +1,261 @@
+/* MOBILES ----------------------------------------------------------------------------------- */
+
+@media only screen and (min-width: 0px) {
+    .product-item .product-image{
+        height: 250px;
+        border-radius: 6px;
+    }
+    .variant-option-block .variant-colors{
+        gap:10px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 18px;
+        height: 18px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 4px;
+    }
+}
+@media only screen and (min-width: 375px) {
+    .product-item .product-image{
+        height: 250px;
+        border-radius: 6px;
+    }
+    .variant-option-block .variant-colors{
+        gap:10px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 18px;
+        height: 18px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 4px;
+    }
+}
+@media only screen and (min-width: 390px) {
+    .product-item .product-image{
+        height: 250px;
+        border-radius: 6px;
+    }
+    .variant-option-block .variant-colors{
+        gap:8px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 18px;
+        height: 18px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 4px;
+    }
+}
+@media only screen and (min-width: 414px) {
+    .product-item .product-image{
+        height: 250px;
+        border-radius: 6px;
+    }
+    .variant-option-block .variant-colors{
+        gap:8px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 18px;
+        height: 18px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 4px;
+    }
+}
+@media only screen and (min-width: 428px) {
+    .product-item .product-image{
+        height: 270px;
+        border-radius: 6px;
+    }
+    .variant-option-block .variant-colors{
+        gap:8px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 18px;
+        height: 18px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 4px;
+    }
+}
+@media only screen and (min-width: 480px) {
+    .product-item .product-image{
+        height: 270px;
+        border-radius: 6px;
+    }
+    .variant-option-block .variant-colors{
+        gap:8px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 20px;
+        height: 20px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 4px;
+    }
+}
+
+/* TABLETS ----------------------------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) {
+    .product-item .product-image{
+        height: 300px;
+        border-radius: 7px;
+    }
+    .variant-option-block .variant-colors{
+        gap:6px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 20px;
+        height: 20px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction:row;
+    }
+}
+
+
+/* LAPTOPS --------------------------------------------------------------------------------- */
+
+@media only screen and (min-width: 1280px) {
+    .product-item .product-image{
+        height: 450px;
+        border-radius: 8px;
+    }
+    .variant-option-block .variant-colors{
+        gap:6px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 20px;
+        height: 20px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction:row;
+    }
+}
+@media only screen and (min-width: 1366px) {
+    .product-item .product-image{
+        height: 450px;
+        border-radius: 8px;
+    }
+    .variant-option-block .variant-colors{
+        gap:8px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 22px;
+        height: 22px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction:row;
+    }
+}
+@media only screen and (min-width: 1440px) {
+    .product-item .product-image{
+        height: 470px;
+        border-radius: 8px;
+    }
+    .variant-option-block .variant-colors{
+        gap:8px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 22px;
+        height: 22px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction:row;
+    }
+}
+@media only screen and (min-width: 1536px) {
+    .product-item .product-image{
+        height: 470px;
+        border-radius: 8px;
+    }
+    .variant-option-block .variant-colors{
+        gap:10px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 23px;
+        height: 23px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction:row;
+    }
+}
+@media only screen and (min-width: 1600px) {
+    .product-item .product-image{
+        height: 470px;
+        border-radius: 8px;
+    }
+    .variant-option-block .variant-colors{
+        gap:10px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 23px;
+        height: 23px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction:row;
+    }
+}
+
+/* COMPUTERS --------------------------------------------------------------------------------- */
+@media only screen and (min-width: 1920px) {
+    .product-item .product-image{
+        height: 500px;
+        border-radius: 8px;
+    }
+    .variant-option-block .variant-colors{
+        gap:12px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 25px;
+        height: 25px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction:row;
+    }
+}
+@media only screen and (min-width: 2560px) {
+    .product-item .product-image{
+        height: 500px;
+        border-radius: 8px;
+    }
+    .variant-option-block .variant-colors{
+        gap:12px;
+    }
+    .variant-option-block .variant-color-box{
+        width: 25px;
+        height: 25px;
+    }
+    .product-item .footer-details .price-container{
+        flex-direction:row;
+    }
+}
+
+/* FOR MOBILE PHONE */
+@media only screen and (max-width: 768px) {
+    .product-item .price-container{
+        /* flex-direction:column; */
+        gap:2px;
+    }
+}
+
+/* ipad Air */
+@media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px){
+}

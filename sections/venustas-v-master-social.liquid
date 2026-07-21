@@ -1,0 +1,230 @@
+{% render 'v-master-base-css', section: section %}
+{% render 'v-master-layout-css', section: section %}
+{% render 'v-master-mobile-carousel-css', section: section %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-social__grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-rows: 52px auto;
+    column-gap: 28px;
+    row-gap: 8px;
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-social__item {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+    min-width: 0;
+    align-items: center;
+    justify-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-social__item:hover .v-master-social__handle {
+    color: var(--v-brand);
+  }
+
+  #shopify-section-{{ section.id }} .v-master-social__icon-wrap {
+    grid-row: 1;
+    align-self: end;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-social__icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    object-fit: contain;
+    object-position: bottom center;
+    display: block;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-social__handle {
+    grid-row: 2;
+    align-self: end;
+    width: 100%;
+    font-size: 12px;
+    line-height: 1.35;
+    color: #666;
+    text-align: center;
+    word-break: break-word;
+  }
+
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .v-master-social__grid[data-v-carousel-track] {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: stretch;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-social__grid[data-v-carousel-track]::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-social__grid [data-v-carousel-slide] {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      grid-row: auto;
+      grid-template-rows: none;
+      min-width: min(40vw, 140px);
+      max-width: 140px;
+      scroll-snap-align: center;
+      align-self: stretch;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-social__grid .v-master-social__icon-wrap {
+      flex: 0 0 52px;
+      height: 52px;
+      grid-row: auto;
+      align-self: auto;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-social__grid .v-master-social__handle {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      grid-row: auto;
+      align-self: auto;
+      margin-top: auto;
+      min-height: calc(2 * 1.35 * 12px);
+    }
+
+    #shopify-section-{{ section.id }} .v-master-carousel__dots {
+      display: flex;
+    }
+  }
+</style>
+
+<div class="v-master">
+  <div class="v-master-container">
+    <div
+      class="v-master-social__carousel"
+      data-v-carousel
+      data-autoplay="{% if section.settings.mobile_autoplay == false %}false{% else %}true{% endif %}"
+      data-interval-ms="{{ section.settings.mobile_autoplay_interval | times: 1000 }}"
+      data-dot-class="v-master-carousel__dot"
+      data-scroll-align="start"
+    >
+      <div class="v-master-social__grid" data-v-carousel-track>
+      {%- for i in (1..5) -%}
+        {%- assign icon_key = 'social_' | append: i | append: '_icon' -%}
+        {%- assign url_key = 'social_' | append: i | append: '_url' -%}
+        {%- assign handle_key = 'social_' | append: i | append: '_handle' -%}
+        {%- assign social_icon = section.settings[icon_key] -%}
+        {%- assign social_url = section.settings[url_key] -%}
+        {%- assign social_handle = section.settings[handle_key] -%}
+        {%- if social_icon != blank or social_handle != blank -%}
+          {%- if social_url != blank -%}
+            <a href="{{ social_url }}" class="v-master-social__item" data-v-carousel-slide style="grid-column: {{ forloop.index }};" target="_blank" rel="noopener noreferrer">
+          {%- else -%}
+            <div class="v-master-social__item" data-v-carousel-slide style="grid-column: {{ forloop.index }};">
+          {%- endif -%}
+            <span class="v-master-social__icon-wrap">
+              {%- if social_icon != blank -%}
+                {{
+                  social_icon
+                  | image_url: width: 96
+                  | image_tag: class: 'v-master-social__icon', loading: 'lazy', alt: social_handle
+                }}
+              {%- endif -%}
+            </span>
+            {%- if social_handle != blank -%}
+              <span class="v-master-social__handle">{{ social_handle }}</span>
+            {%- endif -%}
+          {%- if social_url != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+      </div>
+      <div class="v-master-carousel__dots" data-v-carousel-dots hidden></div>
+    </div>
+  </div>
+</div>
+
+{% render 'v-talents-carousel-js', section: section %}
+
+{% schema %}
+{
+  "name": "V+ Master Social",
+  "tag": "section",
+  "class": "venustas-v-master-social-section",
+  "settings": [
+    { "type": "color", "id": "brand_color", "label": "Brand color", "default": "#B93205" },
+    { "type": "color", "id": "text_brown_color", "label": "Heading color (optional)", "default": "#B93205" },
+    { "type": "color", "id": "cream_color", "label": "Cream", "default": "#F9F5F0" },
+    { "type": "range", "id": "container_width_desktop", "min": 70, "max": 100, "step": 5, "unit": "%", "label": "Desktop width", "default": 90 },
+    { "type": "range", "id": "container_width_mobile", "min": 85, "max": 100, "step": 5, "unit": "%", "label": "Mobile width", "default": 90 },
+    { "type": "range", "id": "padding_top_desktop", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Desktop padding top", "default": 40 },
+    { "type": "range", "id": "padding_bottom_desktop", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Desktop padding bottom", "default": 48 },
+    { "type": "range", "id": "padding_top_mobile", "min": 0, "max": 60, "step": 4, "unit": "px", "label": "Mobile padding top", "default": 28 },
+    { "type": "range", "id": "padding_bottom_mobile", "min": 0, "max": 60, "step": 4, "unit": "px", "label": "Mobile padding bottom", "default": 36 },
+    { "type": "header", "content": "Mobile carousel" },
+    {
+      "type": "checkbox",
+      "id": "mobile_autoplay",
+      "label": "Auto-scroll on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "mobile_autoplay_interval",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Auto-scroll interval",
+      "default": 5
+    },
+    { "type": "header", "content": "Facebook" },
+    { "type": "image_picker", "id": "social_1_icon", "label": "Icon" },
+    { "type": "url", "id": "social_1_url", "label": "URL" },
+    { "type": "text", "id": "social_1_handle", "label": "Label", "default": "Venustas Heated Apparel" },
+    { "type": "header", "content": "Instagram" },
+    { "type": "image_picker", "id": "social_2_icon", "label": "Icon" },
+    { "type": "url", "id": "social_2_url", "label": "URL" },
+    { "type": "text", "id": "social_2_handle", "label": "Label", "default": "venustas.official" },
+    { "type": "header", "content": "TikTok" },
+    { "type": "image_picker", "id": "social_3_icon", "label": "Icon" },
+    { "type": "url", "id": "social_3_url", "label": "URL" },
+    { "type": "text", "id": "social_3_handle", "label": "Label", "default": "venustas.official" },
+    { "type": "header", "content": "YouTube" },
+    { "type": "image_picker", "id": "social_4_icon", "label": "Icon" },
+    { "type": "url", "id": "social_4_url", "label": "URL" },
+    { "type": "text", "id": "social_4_handle", "label": "Label", "default": "Venustas Heated Apparel" },
+    { "type": "header", "content": "X (Twitter)" },
+    { "type": "image_picker", "id": "social_5_icon", "label": "Icon" },
+    { "type": "url", "id": "social_5_url", "label": "URL" },
+    { "type": "text", "id": "social_5_handle", "label": "Label", "default": "Venustas Heated Apparel" }
+  ],
+  "presets": [{ "name": "V+ Master Social", "category": "V+ Master" }]
+}
+{% endschema %}

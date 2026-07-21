@@ -1,0 +1,245 @@
+{{ 'special-discount.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="sd-special-intro-{{ section.id }}"
+  class="sd-sp sd-special-intro"
+  style="
+    --sd-accent: {{ section.settings.accent_color }};
+    --sd-pad-x: {{ section.settings.content_horizontal_padding | default: 20 }}px;
+    --sd-pad-x-mobile: {{ section.settings.mobile_content_horizontal_padding | default: 16 }}px;
+  "
+>
+  <div class="sd-sp-container sd-special-intro__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="sd-sp-section-heading sd-special-intro__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.body != blank %}
+      <div class="sd-special-intro__body rte">{{ section.settings.body }}</div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #shopify-section-{{ section.id }} > section {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+  }
+
+  #sd-special-intro-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #sd-special-intro-{{ section.id }} .sd-sp-container.sd-special-intro__inner {
+    width: {{ section.settings.content_width_percent | default: 85 }}%;
+    max-width: min(1600px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #sd-special-intro-{{ section.id }} .sd-special-intro__heading {
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    margin-bottom: {{ section.settings.heading_margin_bottom }}px;
+    text-align: center;
+  }
+
+  #sd-special-intro-{{ section.id }} .sd-special-intro__body {
+    max-width: none;
+    width: 100%;
+    text-align: center;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.body_size }}px;
+    line-height: 1.75;
+  }
+
+  #sd-special-intro-{{ section.id }} .sd-special-intro__body p {
+    margin: 0 0 1.1em;
+  }
+
+  #sd-special-intro-{{ section.id }} .sd-special-intro__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 749px) {
+    #sd-special-intro-{{ section.id }} {
+      padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    #sd-special-intro-{{ section.id }} .sd-sp-container.sd-special-intro__inner {
+      width: {{ section.settings.mobile_content_width_percent | default: 100 }}%;
+    }
+
+    #sd-special-intro-{{ section.id }} .sd-special-intro__body {
+      font-size: {{ section.settings.mobile_body_size }}px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "SD — Intro",
+  "tag": "section",
+  "class": "sd-special-intro-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Content width"
+    },
+    {
+      "type": "range",
+      "id": "content_width_percent",
+      "label": "Content width",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 85,
+      "unit": "%",
+      "info": "% of the full row (centered); left/right show as empty margin. Max width 1600px."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_width_percent",
+      "label": "Content width (mobile)",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "unit": "%",
+      "info": "Screens ≤749px. Band width inside the section row (centered)."
+    },
+    {
+      "type": "range",
+      "id": "content_horizontal_padding",
+      "label": "Desktop horizontal inset",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 20,
+      "unit": "px",
+      "info": "Inside the band on screens ≥990px."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_horizontal_padding",
+      "label": "Mobile horizontal inset",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 16,
+      "unit": "px",
+      "info": "Screens ≤749px."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Warmth with Honor™ Programme"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+        "default": "<p>At Venustas, we believe warmth is more than comfort — it is about staying focused, protected, and ready when it matters most.</p><p>We are proud to offer a 25% discount to those who serve and support our communities.</p><p>This is our way of saying thank you — for your service, your dedication, and your commitment to others.</p>"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Heading accent",
+      "default": "#b93205"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body font size (desktop)",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "default": 17,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_body_size",
+      "label": "Body font size (mobile)",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "label": "Space below heading",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "default": 24,
+      "unit": "px"
+    }
+  ],
+  "presets": [{ "name": "SD — Intro" }]
+}
+{% endschema %}

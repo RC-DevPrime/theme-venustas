@@ -1,0 +1,165 @@
+{% style %}
+    .product-featured-content-icons-section{
+        background: #1C1C1C;
+    }
+    .product-featured-content-icons-section .inner-section{
+        background: #232323;
+        border-radius: 46px 46px 46px 46px;
+        padding:60px 20px;
+    }
+    .product-featured-content-icons-section .icon-container{
+        display:flex;
+        gap:10px;
+        align-items:center;
+        justify-content:center;
+        background: #1F1F1F;
+        border-radius: 4px 4px 4px 4px;
+        padding: 40px 20px;
+    }
+    .product-featured-content-icons-section .icon-container img{
+        height:60px;
+        width:fit-content;
+        object-fit:contain;
+    }   
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .product-featured-content-icons-section .row{
+            --bs-gutter-x: 10px;
+            --bs-gutter-y: 10px;
+        }
+        .product-featured-content-icons-section .inner-section{
+            border-radius:26px;
+            padding:30px 10px;
+        }
+        .product-featured-content-icons-section .icon-container img{
+            height:35px;
+            width:35px;
+        }
+        .product-featured-content-icons-section .icon-container{
+            padding: 20px 10px;
+            justify-content:flex-start;
+            gap:8px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content 
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}> 
+    <div class="inner-section">
+        <div class="col-lg-7 col-md-7 col-sm-12 mx-auto">
+            <div class="pp-bold title-sm f-white text-center pb-lg-4 pb-md-4 pb-sm-3">
+                <span class="title-sm d-lg-block d-md-block d-sm-none">
+                    {{ section.settings.heading }}
+                </span>
+                <span class="title d-lg-none d-md-none d-sm-block">
+                    {{ section.settings.heading }}
+                </span>
+            </div>
+            <div class="section-description pp-regular f-white-gray body-lg text-center">
+                <span class="body-lg d-lg-block d-md-block d-sm-none">
+                    {{ section.settings.description }}
+                </span>
+                <span class="body d-lg-none d-md-none d-sm-block">
+                    {{ section.settings.description }}
+                </span>
+            </div>
+        </div>
+        <div class="row pt-lg-5 pt-md-5 pt-sm-3 justify-content-center">
+            {% for block in section.blocks %}
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <div class="icon-container h-100">
+                        <img src="{{ block.settings.image | img_url: 'master' }}">
+                        <div class="pp-regular pretitle f-white"> 
+                            <span class="pretitle d-lg-block d-md-block d-sm-none">
+                                {{ block.settings.heading }}
+                            </span>
+                            <span class="body d-lg-none d-md-none d-sm-block">
+                                {{ block.settings.heading }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>  
+</div>
+{% schema %}
+{
+    "class": "product-featured-content-icons-section",
+    "name": "Featured Content Icons",
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled_section_child_scroll",
+            "label": "Enabled Section Child Scroll"
+        },
+        {
+            "type": "text",
+            "id": "section_scroll_nav",
+            "label": "Section Scroll Nav",
+            "info": "Need to Enabled first Section Scroll"
+        },
+        {
+            "type": "text",
+            "id": "nav_title",
+            "label": "Navigation Title"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Caringly Tend, Extend Garment Longevity"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>To ensure your heated gloves always perform at their best and provide lasting warmth and comfort, please keep the following points in mind during use and care.</p>"
+        }
+    ],
+    "max_blocks": 4,
+    "blocks": [
+        {
+            "type": "icon",
+            "name": "Icon",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                }
+            ]   
+        }
+    ],
+    "presets": [
+        {
+            "name": "Featured Content Icons"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,206 @@
+{{ 'special-discount.css' | asset_url | stylesheet_tag }}
+{{ 'special-carousel.css' | asset_url | stylesheet_tag }}
+{{ 'special-who.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'special-carousel.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign who_audience_count = 0
+  for block in section.blocks
+    if block.type == 'audience_card'
+      assign who_audience_count = who_audience_count | plus: 1
+    endif
+  endfor
+  assign accent = section.settings.accent_color | default: '#b93205'
+  assign ap_ms = section.settings.slider_autoplay_interval | default: 5 | times: 1000
+  assign who_arrow_v = section.settings.mobile_carousel_arrow_vertical | default: 'center'
+  if who_arrow_v != 'top' and who_arrow_v != 'bottom'
+    assign who_arrow_v = 'center'
+  endif
+%}
+
+<section
+  id="sd-special-who-{{ section.id }}"
+  class="sd-sp sd-special-who"
+  style="
+    --sd-accent: {{ accent }};
+    --sd-pad-x: {{ section.settings.content_horizontal_padding | default: 20 }}px;
+    --sd-pad-x-mobile: {{ section.settings.mobile_content_horizontal_padding | default: 16 }}px;
+    --who-bg: {{ section.settings.bg_color | default: '#ffffff' }};
+    --who-pt: {{ section.settings.padding_top | default: 56 }}px;
+    --who-pb: {{ section.settings.padding_bottom | default: 56 }}px;
+    --who-pt-m: {{ section.settings.mobile_padding_top | default: 36 }}px;
+    --who-pb-m: {{ section.settings.mobile_padding_bottom | default: 36 }}px;
+    --who-band: {{ section.settings.content_width_percent | default: 85 }}%;
+    --who-band-mobile: {{ section.settings.mobile_content_width_percent | default: 100 }}%;
+    --who-head-mb: {{ section.settings.heading_margin_bottom | default: 32 }}px;
+    --who-card-gap: {{ section.settings.card_gap | default: 20 }}px;
+    --who-m-card-gap: {{ section.settings.mobile_card_gap | default: 16 }}px;
+    --who-card-radius: {{ section.settings.card_radius | default: 14 }}px;
+    --who-aspect-w: {{ section.settings.card_aspect_w | default: 4 }};
+    --who-aspect-h: {{ section.settings.card_aspect_h | default: 5 }};
+    --who-title: {{ section.settings.card_title_size | default: 22 }}px;
+    --who-sub: {{ section.settings.card_sub_size | default: 15 }}px;
+    --who-m-title: {{ section.settings.mobile_card_title_size | default: 20 }}px;
+    --who-m-sub: {{ section.settings.mobile_card_sub_size | default: 14 }}px;
+    --who-btn-mt: {{ section.settings.button_margin_top | default: 36 }}px;
+  "
+>
+  <div class="sd-sp-container">
+    {% if section.settings.heading != blank %}
+      <h2 class="sd-sp-section-heading sd-special-who__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div
+      class="sd-special-who__slider sd-car-arrow-pos-{{ who_arrow_v }}{% if who_audience_count > 1 %} sd-special-who__slider--multi{% endif %}"
+      id="sd-special-who-slider-{{ section.id }}"
+      data-sd-carousel="who"
+      data-sd-multi-slides="{% if who_audience_count > 1 %}true{% else %}false{% endif %}"
+      data-mobile-arrows="{% if section.settings.mobile_carousel_show_arrows == false %}false{% else %}true{% endif %}"
+      data-autoplay="{% if section.settings.slider_autoplay == false %}false{% else %}true{% endif %}"
+      data-interval-ms="{{ ap_ms }}"
+      style="--sd-car-arrow-h-inset: {{ section.settings.mobile_carousel_arrow_inset_h | default: 10 }}px; --sd-car-arrow-v-inset: {{ section.settings.mobile_carousel_arrow_inset_v | default: 20 }}px;"
+    >
+      <div class="sd-special-who__stage">
+        <div class="sd-special-who__viewport">
+          <div class="sd-special-who__grid">
+            {% for block in section.blocks %}
+              {% if block.type == 'audience_card' %}
+                {% assign card_href = block.settings.card_link | default: section.settings.verify_url %}
+                <article class="sd-special-who__card" {{ block.shopify_attributes }}>
+                  {% if card_href != blank %}
+                    <a class="sd-special-who__card-link" href="{{ card_href }}" target="_blank" rel="noopener noreferrer">
+                  {% else %}
+                    <div class="sd-special-who__card-link sd-special-who__card-link--nohref">
+                  {% endif %}
+                  <div class="sd-special-who__media">
+                    {% if block.settings.image != blank %}
+                      <img
+                        class="sd-special-who__img"
+                        src="{{ block.settings.image | image_url: width: 900 }}"
+                        srcset="{{ block.settings.image | image_url: width: 500 }} 500w, {{ block.settings.image | image_url: width: 700 }} 700w, {{ block.settings.image | image_url: width: 900 }} 900w"
+                        sizes="(max-width: 749px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                        alt="{{ block.settings.title | escape }}"
+                        loading="lazy"
+                      >
+                    {% else %}
+                      <div class="sd-special-who__placeholder">Image</div>
+                    {% endif %}
+                    <div class="sd-special-who__gradient"></div>
+                    <div class="sd-special-who__caption">
+                      {% if block.settings.title != blank %}
+                        <h3 class="sd-special-who__card-title">{{ block.settings.title }}</h3>
+                      {% endif %}
+                      {% if block.settings.subtitle != blank %}
+                        <p class="sd-special-who__card-sub">{{ block.settings.subtitle }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% if card_href != blank %}
+                    </a>
+                  {% else %}
+                    </div>
+                  {% endif %}
+                </article>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <button type="button" class="sd-special-who__arrow sd-special-who__arrow--prev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button type="button" class="sd-special-who__arrow sd-special-who__arrow--next" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+
+      {% if who_audience_count > 1 %}
+        <div class="sd-special-who__dots" id="sd-special-who-dots-{{ section.id }}">
+          {% assign who_dot_i = 0 %}
+          {% for block in section.blocks %}
+            {% if block.type == 'audience_card' %}
+              <button type="button" class="sd-special-who__dot{% if who_dot_i == 0 %} sd-special-who__dot--active{% endif %}" data-index="{{ who_dot_i }}" aria-label="Show slide {{ who_dot_i | plus: 1 }}"></button>
+              {% assign who_dot_i = who_dot_i | plus: 1 %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% assign btn_href = section.settings.verify_url | default: section.settings.button_link %}
+    {% if section.settings.button_label != blank and btn_href != blank %}
+      <div class="sd-special-who__actions">
+        <a class="sd-sp-btn sd-special-who__btn" href="{{ btn_href }}" target="_blank" rel="noopener noreferrer">{{ section.settings.button_label }}</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "SD — Who we offer",
+  "tag": "section",
+  "class": "sd-special-who-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 24, "max": 100, "step": 4, "default": 56, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 24, "max": 100, "step": 4, "default": 56, "unit": "px" },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile padding top", "min": 20, "max": 80, "step": 4, "default": 36, "unit": "px" },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile padding bottom", "min": 20, "max": 80, "step": 4, "default": 36, "unit": "px" },
+    { "type": "header", "content": "Content width" },
+    { "type": "range", "id": "content_width_percent", "label": "Content width", "min": 70, "max": 100, "step": 1, "default": 85, "unit": "%" },
+    { "type": "range", "id": "mobile_content_width_percent", "label": "Content width (mobile)", "min": 70, "max": 100, "step": 1, "default": 100, "unit": "%", "info": "Screens ≤749px. Band width inside the section row (centered)." },
+    { "type": "range", "id": "content_horizontal_padding", "label": "Desktop horizontal inset", "min": 0, "max": 48, "step": 2, "default": 20, "unit": "px" },
+    { "type": "range", "id": "mobile_content_horizontal_padding", "label": "Mobile horizontal inset", "min": 0, "max": 48, "step": 2, "default": 16, "unit": "px" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Who We Offer?" },
+    { "type": "range", "id": "heading_margin_bottom", "label": "Space below heading", "min": 16, "max": 56, "step": 4, "default": 32, "unit": "px" },
+    { "type": "range", "id": "card_gap", "label": "Card gap (desktop)", "min": 8, "max": 40, "step": 2, "default": 20, "unit": "px" },
+    { "type": "range", "id": "mobile_card_gap", "label": "Card gap (mobile)", "min": 8, "max": 28, "step": 2, "default": 16, "unit": "px" },
+    { "type": "range", "id": "card_radius", "label": "Card corner radius", "min": 0, "max": 28, "step": 2, "default": 14, "unit": "px" },
+    { "type": "range", "id": "card_aspect_w", "label": "Card aspect width", "min": 3, "max": 5, "step": 1, "default": 4 },
+    { "type": "range", "id": "card_aspect_h", "label": "Card aspect height", "min": 4, "max": 6, "step": 1, "default": 5 },
+    { "type": "range", "id": "card_title_size", "label": "Card title size (desktop)", "min": 16, "max": 32, "step": 1, "default": 22, "unit": "px" },
+    { "type": "range", "id": "card_sub_size", "label": "Card subtitle size (desktop)", "min": 12, "max": 20, "step": 1, "default": 15, "unit": "px" },
+    { "type": "range", "id": "mobile_card_title_size", "label": "Card title size (mobile)", "min": 16, "max": 26, "step": 1, "default": 20, "unit": "px" },
+    { "type": "range", "id": "mobile_card_sub_size", "label": "Card subtitle size (mobile)", "min": 12, "max": 18, "step": 1, "default": 14, "unit": "px" },
+    { "type": "header", "content": "Mobile carousel (≤749px)" },
+    { "type": "checkbox", "id": "slider_autoplay", "label": "Autoplay", "default": true },
+    { "type": "range", "id": "slider_autoplay_interval", "label": "Autoplay interval", "min": 3, "max": 12, "step": 1, "default": 5, "unit": "sec" },
+    { "type": "checkbox", "id": "mobile_carousel_show_arrows", "label": "Show arrow buttons", "default": true },
+    { "type": "select", "id": "mobile_carousel_arrow_vertical", "label": "Arrow vertical position", "default": "center", "options": [
+      { "value": "center", "label": "Centered on slide" },
+      { "value": "top", "label": "Toward top" },
+      { "value": "bottom", "label": "Toward bottom" }
+    ]},
+    { "type": "range", "id": "mobile_carousel_arrow_inset_h", "label": "Horizontal inset from edge", "min": -40, "max": 40, "step": 2, "default": 10, "unit": "px", "info": "Negative values move arrows outward past the edge (e.g. -20)." },
+    { "type": "range", "id": "mobile_carousel_arrow_inset_v", "label": "Vertical offset (top / bottom)", "min": 8, "max": 80, "step": 4, "default": 20, "unit": "px" },
+    { "type": "url", "id": "verify_url", "label": "GovX verification URL" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Verify Now" },
+    { "type": "url", "id": "button_link", "label": "Button link (fallback)" },
+    { "type": "range", "id": "button_margin_top", "label": "Space above button", "min": 16, "max": 56, "step": 4, "default": 36, "unit": "px" },
+    { "type": "color", "id": "accent_color", "label": "Accent / button", "default": "#b93205" }
+  ],
+  "blocks": [
+    {
+      "type": "audience_card",
+      "name": "Audience card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Military" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle line", "default": "(Active Duty & Veterans)" },
+        { "type": "url", "id": "card_link", "label": "Card link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SD — Who we offer",
+      "blocks": [
+        { "type": "audience_card", "settings": { "title": "Military", "subtitle": "(Active Duty & Veterans)" } },
+        { "type": "audience_card", "settings": { "title": "Military Families", "subtitle": "" } },
+        { "type": "audience_card", "settings": { "title": "First Responders", "subtitle": "" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

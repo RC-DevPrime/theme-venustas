@@ -1,0 +1,788 @@
+{% style %}
+    .campaign-flash-sale-section{
+        background: linear-gradient( 182deg, #2E2A29 0%, #1E1E1E 100%);
+    }
+    .campaign-flash-sale-section .section-heading{
+    }
+    .campaign-flash-sale-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    
+    .campaign-flash-sale-section .inner-section{
+        background-image:url({{ section.settings.background_image | img_url: 'master' }});
+        background-size:cover;
+        background-position:center;
+        padding:40px;
+        border-radius: 12px 12px 12px 12px;
+    }
+    
+    .campaign-flash-sale-section .inner-section .row.flash-row{
+        --bs-gutter-x: 60px;
+    }
+    .campaign-flash-sale-section .left-content-container .image-container{
+        width:100%;
+        height:100%;
+    }
+    .campaign-flash-sale-section .left-content-container .image-container img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+    }
+    .campaign-flash-sale-section .newsletter__message.newsletter__message--success{
+      color:#000;
+    }
+
+
+    /* Countdown container */
+    .campaign-flash-sale-section .countdown {
+        display: flex;
+        gap: 2rem;
+        text-align: center;
+        align-items: center;
+    }
+
+    /* Time box */
+    .campaign-flash-sale-section .time-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #FFF;
+        padding: 15px 7px 7px;
+        width: 85px;
+        border-radius: 4px 4px 4px 4px;
+        position:relative;
+    }
+    .campaign-flash-sale-section .time-box:after{
+    content:":";    
+    position: absolute;
+    right: -20%;
+    top: 30%;
+    color: #000;
+    font-weight:500;
+
+    }
+    .campaign-flash-sale-section .time-box:last-child:after{
+    display:none;
+    }
+        
+    /* Number layout */
+    .campaign-flash-sale-section .number {
+    --size: 34px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15em;
+    font-size: var(--size);
+    font-weight: 700;
+    line-height: 1;
+    height: 1em;
+    overflow: hidden;
+    font-variant-numeric: tabular-nums;
+    }
+
+    /* Digit wrapper */
+    .campaign-flash-sale-section .digit {
+    position: relative;
+    width: 1ch;
+    height: 1em;
+    overflow: hidden;
+    }
+
+    /* Each moving digit */
+    .campaign-flash-sale-section .digit span {
+        position: absolute;
+        color: #B93205;
+        left: 0;
+        right: 0;
+        text-align: center;
+        transform: translateY(0);
+        opacity: 1;
+        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        font-weight: 700 !important;
+    }
+
+    /* old number goes up */
+    .campaign-flash-sale-section .digit span.to-up {
+    transform: translateY(-100%);
+    opacity: 0;
+    }
+
+    /* new number starts below and rises */
+    .campaign-flash-sale-section .digit span.below {
+    transform: translateY(100%);
+    opacity: 0;
+    }
+    .campaign-flash-sale-section .digit span.below.rise {
+    transform: translateY(0);
+    opacity: 1;
+    }
+
+    /* Label */
+    .campaign-flash-sale-section .label {
+    font-size: 16px;
+    margin-top: 10px;
+    line-height:normal;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+    .campaign-flash-sale-section .digit span {
+        transition: none;
+    }
+    }
+
+    .campaign-flash-sale-section .fill-heading{
+        background: #B93205;
+        padding:6px 30px;
+        width:fit-content;
+        border-radius:10px;
+        position:relative;
+    }
+    .campaign-flash-sale-section .fill-heading .element-img{
+        position: absolute;
+        width: 60px;
+        right: -11%;
+        bottom: -40%;
+    }
+    .campaign-flash-sale-section .fill-heading span{
+        font-size:94px;
+        line-height: 105px;
+    }
+    .campaign-flash-sale-section .outline-heading{
+        width:fit-content;
+        transform: rotate(353deg) translateY(20%) translateX(2%);
+        position: relative;
+        z-index: 1;
+    }
+    .campaign-flash-sale-section .outline-heading span{
+        font-size:100px;
+        color: #000000;
+        -webkit-text-stroke: 1px #ffffff;
+    }
+    .campaign-flash-sale-section .form-subscription-container .form-container-newsletter{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        width:80%;
+        margin-top:30px;
+    }
+    .campaign-flash-sale-section .form-subscription-container input{
+        flex:1;
+        background: #FFF;
+        border:none;
+        border-radius: 12px 12px 12px 12px;
+        padding:15px 15px;
+    }
+    .campaign-flash-sale-section .form-subscription-container button{
+        border:none;
+        padding:10px 35px;
+        background: #B93205;
+        border-radius: 12px 12px 12px 12px;
+        transition: all .5s ease;
+    }
+    .campaign-flash-sale-section .form-subscription-container button:hover{
+        background: #161616;
+    }
+
+    .campaign-flash-sale-section .limited-time-offer-slider .float-nav button{
+        --btn-pos:-65px;
+        background: #F2E0BD;
+        width:45px;
+        height:45px;
+    }
+    .campaign-flash-sale-section .limited-time-offer-slider .float-nav button:hover{
+        background: #B93205;
+    }
+    .campaign-flash-sale-section .limited-time-offer-slider .float-nav button:hover i{
+      color:#FFF;
+    }
+    .campaign-flash-sale-section .limited-time-offer-slider .swiper-slide{
+        height:auto;
+    }
+    .campaign-flash-sale-section .limited-time-offer-slider .swiper-slide .product-item{
+        background-color:#FFF;
+        padding:10px;
+    }
+    .campaign-flash-sale-section .limited-time-offer-slider .float-nav button i{
+        font-size:16px;
+    }
+
+    
+    .campaign-flash-sale-section  .section-heading{
+        margin-left:-30px;
+    }
+    .campaign-flash-sale-section .section-heading span{
+        position:relative;
+    }
+    .campaign-flash-sale-section .section-heading:before{
+        content:"";
+        display:inline-block;
+        height:35px;
+        width:35px;
+        top:0;
+        position:relative;
+        background-image:url({{ section.settings.heading_element | img_url: 'master' }});
+        background-size:contain;
+        background-repeat:no-repeat;
+    }
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .campaign-flash-sale-section  .section-heading{
+            margin-left:-25px;
+        }
+        .campaign-flash-sale-section .section-heading:before{
+            height:30px;
+            width:30px;
+        }
+        .campaign-flash-sale-section .form-subscription-container{
+            width:92%;
+        }
+        .campaign-flash-sale-section .inner-section{
+            padding:30px 10px;
+        }
+        .campaign-flash-sale-section .inner-section .row.flash-row{
+            --bs-gutter-x: 0px;
+        }
+        .campaign-flash-sale-section .countdown{
+            justift-content:center;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+
+/* MOBILES ----------------------------------------------------------------------------------- */
+
+@media only screen and (min-width: 0px) {
+  .campaign-flash-sale-section .number {
+    --size: 24px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:1.4rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:11px;
+  }
+}
+@media only screen and (min-width: 375px) {
+  .campaign-flash-sale-section .number {
+    --size: 24px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:1.4rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:11px;
+  }
+}
+@media only screen and (min-width: 390px) {
+  .campaign-flash-sale-section .number {
+    --size: 24px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:1.4rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:11px;
+  }
+}
+@media only screen and (min-width: 414px) {
+  .campaign-flash-sale-section .number {
+    --size: 24px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:1.4rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:11px;
+  }
+}
+@media only screen and (min-width: 428px) {
+  .campaign-flash-sale-section .number {
+    --size: 26px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:1.4rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:11px;
+  }
+}
+@media only screen and (min-width: 480px) {
+  .campaign-flash-sale-section .number {
+    --size: 26px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:1.4rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:12px;
+  }
+}
+
+/* TABLETS ----------------------------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) {
+  .campaign-flash-sale-section .number {
+    --size: 26px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:1.2rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:15px;
+  }
+}
+
+
+/* LAPTOPS --------------------------------------------------------------------------------- */
+
+@media only screen and (min-width: 1280px) {
+  .campaign-flash-sale-section .number {
+    --size: 26px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:1.4rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:16px;
+  }
+}
+@media only screen and (min-width: 1366px) {
+  .campaign-flash-sale-section .number {
+    --size: 28px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:1.6rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:16px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .campaign-flash-sale-section .number {
+    --size: 28px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:1.6rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:16px;
+  }
+}
+@media only screen and (min-width: 1536px) {
+  .campaign-flash-sale-section .number {
+    --size: 30px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:1.8rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:16px;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .campaign-flash-sale-section .number {
+    --size: 30px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:1.8rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:16px;
+  }
+}
+
+/* COMPUTERS --------------------------------------------------------------------------------- */
+@media only screen and (min-width: 1920px) {
+  .campaign-flash-sale-section .number {
+    --size: 34px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:2rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:16px;
+  }
+}
+@media only screen and (min-width: 2560px) {
+  .campaign-flash-sale-section .number {
+    --size: 34px;
+  }
+  .campaign-flash-sale-section .countdown{
+    gap:2rem
+  }
+  .campaign-flash-sale-section .label{
+    font-size:16px;
+  }
+}
+
+{% endstyle %}
+<div data-target-date="2025-12-31T23:59:59"  class="campaign-flash-sale-section   
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}> 
+    <div class="container section-content">
+        <div class="pb-lg-5 pb-md-5 pb-sm-4">
+            <h2 class="section-heading pp-semibold f-white title-sm text-center">
+                {{ section.settings.heading }}
+            </h2>
+        </div>
+
+        <div class="inner-section">
+            <div class="row flash-row">
+                <div class="col-lg-5 col-md-5 col-sm-12">
+                    <div class="left-content-container">
+                        <div class="image-container">
+                            <img src="{{ section.settings.featured_banner | img_url: 'master' }}" width="100%" height="100%">
+                        </div>
+                        <div class="countdown-banner-container mt-lg-5 mt-md-5 mt-sm-4 ps-lg-4 ps-md-4 ps-sm-0">
+                            <p class="pp-semibold body-lg f-black pb-lg-3 pb-md-3 pb-sm-2">
+                                Limited-Time Offer:
+                            </p>
+                            <div class="countdown">
+                                <div class="time-box">
+                                <div class="number" id="days">
+                                    <span class="digit tens"><span>0</span></span>
+                                    <span class="digit ones"><span>0</span></span>
+                                </div>
+                                <div class="label">Days</div>
+                                </div>
+
+                                <div class="time-box">
+                                <div class="number" id="hours">
+                                    <span class="digit tens"><span>0</span></span>
+                                    <span class="digit ones"><span>0</span></span>
+                                </div>
+                                <div class="label">Hours</div>
+                                </div>
+
+                                <div class="time-box">
+                                <div class="number" id="minutes">
+                                    <span class="digit tens"><span>0</span></span>
+                                    <span class="digit ones"><span>0</span></span>
+                                </div>
+                                <div class="label">Minutes</div>
+                                </div>
+
+                                <div class="time-box">
+                                <div class="number" id="seconds">
+                                    <span class="digit tens"><span>0</span></span>
+                                    <span class="digit ones"><span>0</span></span>
+                                </div>
+                                <div class="label">Seconds</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-subscription-container ps-lg-4 ps-md-4 ps-sm-0"> 
+                            {%- form 'customer', id: 'newsletter-deals-form-001', class: 'form-subscription-container', novalidate: 'novalidate' -%}
+
+                            <p class="pp-semibold body-xl f-black">
+                                Get Notified on More Deals
+                            </p>
+
+                            <div class="form-container-newsletter">
+                                <input
+                                    type="email"
+                                    name="contact[email]"
+                                    placeholder="Email"
+                                    class="pp-regular body-lg"
+                                    required
+                                    aria-label="Email address"
+                                >
+
+                                <button type="submit" class="btn-submit">
+                                    <span class="pp-regular body-lg f-white">Get Notified</span>
+                                </button>
+                            </div>
+
+                            <!-- Error & Success messages -->
+                            <p class="newsletter__message newsletter__message--error" role="alert" style="display:none;"></p>
+                            <p class="newsletter__message newsletter__message--success" role="status" style="display:none;"></p>
+                            
+                            <!-- Success & Error Messages -->
+                            {%- if form.posted_successfully? -%}
+                              <p class="newsletter__message newsletter__message--success" role="status">
+                                Thanks for subscribing! 🎉
+                              </p>
+                              <script>
+                                // prevent page redirect by using history.replaceState
+                                if (window.history.replaceState) {
+                                  window.history.replaceState(null, null, window.location.href);
+                                }
+                              </script>
+                            {%- endif -%}
+
+                            <!-- Honeypot -->
+                            <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                                <input type="text" name="contact[website]" tabindex="-1" autocomplete="off">
+                            </div>
+
+                          {%- endform -%}
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-12 ">
+                    <div class="col-lg-11 col-md-11 col-sm-12 position-relative">
+                        <div class="limited-time-offer-slider overflow-hidden pt-lg-0 pt-md-0 pt-sm-4">
+                            <div class="swiper-wrapper">
+                                
+                                {% for product in section.settings.product-list %}
+                                    <div class="swiper-slide">
+                                        {% render 'product-item', product: product, sale_badge_type: section.settings.sale_badge_type, badge_detail: true, %}
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                            <div class="float-nav d-lg-block d-md-block d-sm-none">
+                                <button type="button" class="owl-prev" disabled>
+                                    <i class="fa-solid fa-chevron-left f-main"></i>
+                                </button>
+                                <button type="button" class="owl-next" disabled>
+                                    <i class="fa-solid fa-chevron-right f-main"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // fallback for older browsers
+    window.requestAnimationFrame = window.requestAnimationFrame || function(cb){ return setTimeout(cb, 16); };
+
+    function setupDigits(section) {
+    section.querySelectorAll('.digit').forEach(digit => {
+        const value = digit.textContent.trim() || '0';
+        digit.textContent = '';
+        const span = document.createElement('span');
+        span.textContent = value;
+        digit.appendChild(span);
+        digit.dataset.value = value;
+    });
+    }
+
+    function animateDigit(digitEl, newVal) {
+    const oldVal = digitEl.dataset.value;
+    if (oldVal === String(newVal)) return;
+    digitEl.dataset.value = newVal;
+
+    const oldSpan = document.createElement('span');
+    oldSpan.textContent = oldVal ?? '';
+
+    const newSpan = document.createElement('span');
+    newSpan.textContent = newVal;
+    newSpan.classList.add('below');
+
+    digitEl.innerHTML = '';
+    digitEl.appendChild(oldSpan);
+    digitEl.appendChild(newSpan);
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+        oldSpan.classList.add('to-up');
+        newSpan.classList.add('rise');
+        });
+    });
+
+    setTimeout(() => {
+        digitEl.innerHTML = '';
+        const final = document.createElement('span');
+        final.textContent = newVal;
+        digitEl.appendChild(final);
+    }, 550);
+    }
+
+    function setupCountdown(section) {
+    setupDigits(section);
+
+    const targetDateStr = section.dataset.targetDate; // e.g. data-target-date="2025-12-31T23:59:59"
+    if (!targetDateStr) return;
+
+    const targetDate = new Date(targetDateStr).getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        const countdownContainer = section.querySelector('.countdown');
+        if (!countdownContainer) return;
+
+        if (distance <= 0) {
+        countdownContainer.innerHTML = '<div class="label">Countdown finished!</div>';
+        return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const timeMap = [
+        { id: 'days', value: days },
+        { id: 'hours', value: hours },
+        { id: 'minutes', value: minutes },
+        { id: 'seconds', value: seconds },
+        ];
+
+        timeMap.forEach(({ id, value }) => {
+        const el = section.querySelector(`#${id}`);
+        if (!el) return;
+
+        const tensEl = el.querySelector('.tens');
+        const onesEl = el.querySelector('.ones');
+        if (!tensEl || !onesEl) return;
+
+        const tens = Math.floor(value / 10);
+        const ones = value % 10;
+
+        if (tensEl.dataset.value !== String(tens)) animateDigit(tensEl, tens);
+        if (onesEl.dataset.value !== String(ones)) animateDigit(onesEl, ones);
+        });
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    }
+
+    // Initialize for all campaign countdowns
+    document.querySelectorAll('.campaign-flash-sale-section').forEach(section => {
+    setupCountdown(section);
+    });
+
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('#newsletter-deals-form-001');
+    if (!form) return;
+
+    const emailInput = form.querySelector('input[name="contact[email]"]');
+    const errorMsg = form.querySelector('.newsletter__message--error');
+    const successMsg = form.querySelector('.newsletter__message--success');
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const showError = (message) => {
+        errorMsg.textContent = message;
+        errorMsg.style.display = 'block';
+        errorMsg.style.color = '#cc0023';
+        successMsg.style.display = 'none';
+    };
+
+    const showSuccess = (message) => {
+        successMsg.textContent = message;
+        successMsg.style.display = 'block';
+        successMsg.style.color = 'green';
+        errorMsg.style.display = 'none';
+    };
+
+    const clearError = () => {
+        errorMsg.textContent = '';
+        errorMsg.style.display = 'none';
+    };
+
+    emailInput.addEventListener('input', clearError);
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        clearError();
+
+        const value = emailInput.value.trim();
+
+        if (!value) {
+            showError('Please enter your email address.');
+            emailInput.focus();
+            return;
+        }
+
+        if (!emailRegex.test(value)) {
+            showError('Please enter a valid email address.');
+            emailInput.focus();
+            return;
+        }
+
+        // ✅ Valid email → allow Shopify form submission
+        form.submit();
+    }, true);
+});
+</script>
+
+{% schema %}
+    {
+        "name": "Campaign Flash Sale",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enabled_section_child_scroll",
+                "label": "Enabled Section Child Scroll"
+            },
+            {
+                "type": "text",
+                "id": "section_scroll_nav",
+                "label": "Section Scroll Nav",
+                "info": "Need to Enabled first Section Scroll"
+            },
+            {
+                "type": "text",
+                "id": "nav_title",
+                "label": "Navigation Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image",
+                "label": "Background Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "heading_element",
+                "label": "Heading Element"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Limited-Time Offer"
+            },
+            {
+                "type": "image_picker",
+                "id": "featured_banner",
+                "label": "Featured Banner"
+            },
+            {
+                "type": "product_list",
+                "id": "product-list",
+                "label": "Product List"
+            }
+        ],
+        "presets" :[{
+            "name" : "Campaign Flash Sale"
+        }]
+    }
+  {% endschema %} 

@@ -1,0 +1,621 @@
+{% include 'global-vars' %}
+<style>
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .main-cart .product-recommendations .float-nav{
+            top:230px;
+        }
+    }
+
+</style>
+<section class="main-cart">
+    <div class="el-overlay">
+        <div class="el-spinner"></div>
+    </div>
+    <div class="main-cart-data">
+        <div class="container section-content">
+            <div class="row cart-row">
+
+                {% if cart.item_count > 0 %}
+
+                    {% assign totalLess = 0 %}
+
+                    <div class="col-lg-8 col-md-12 col-sm-12">
+                      
+                        <div class="col-12 mb-4 ">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h1 class="title-sm pp-semibold f-black">
+                                    Cart
+                                    <span class="total-item body-lg pp-regular f-black">
+                                        Items (<span>{{ cart.item_count }}</span>)
+                                    </span>
+                                </h1>
+                                <div class="secured-list-container">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76283_2x_b33787a1-f8ca-4370-877d-058350f4a480.png?v=1760536562" width="20px" height="20px">
+                                    <p class="pp-regular f-gray body">
+                                        Secure Shopping Guarantee
+                                    </p>
+                                </div>
+                            </div>
+                            {% render 'free-shipping-progress',
+                                enable: settings.enable_calculator_free_shipping,
+                                threshold: settings.total_price,
+                                text_color: settings.text_color,
+                                background_color: settings.background_color,
+                                bg_30: settings.bg_30,
+                                bg_60: settings.bg_60,
+                                bg_100: settings.bg_100,
+                                enable_animation_progress_bar: settings.enable_animation_progress_bar
+                            %}
+                        </div>
+                        <table>
+                            <tbody>
+                                {% for item in cart.items %}
+                                    <tr class="main-cart-item" 
+                                        data-cart-id="main-cart-{{ item.id }}"
+                                        data-line-key="{{ item.key }}"
+                                        data-key="{{ item.key }}"
+                                        >
+                                        <td>
+                                            <div class="product-details">
+                                                <div class="product-image">
+                                                    {% if item.variant.image %}
+                                                        <img src="{{ item.variant.image | img_url: 'master' }}">
+                                                    {% else %}
+                                                        <img src="{{ item.image | img_url: 'master' }}">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="d-block">
+                                                    <div class="d-lg-block d-md-block d-sm-none">
+                                                        <a href="{{ item.url }}" class="product-title body-lg pp-semibold f-black mb-1 l-h-normal">
+                                                            {{ item.title }}
+                                                        </a>
+                                                        {% if item.variant.title != "Default Title" %}
+                                                            <div class="product-variant mb-lg-3 mb-md-3 mb-sm-2">
+                                                                {% for options in item.options_with_values %}
+                                                                    {% if forloop.last %}
+                                                                    <div class="body-sm pp-medium f-gray d-flex align-items-center gap-2">{{ options.name }}: {{ options.value }}
+
+                                                                        <div class="btn-update">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12.218" height="12.218" viewBox="0 0 12.218 12.218">
+                                                                                <path d="M118.062 106.808a.482.482 0 1 1 .682.682l-6.82 6.82a.482.482 0 0 1-.682-.682zm-.141 5a.482.482 0 1 1 .965 0v5.305a1.77 1.77 0 0 1-1.768 1.768h-8.681a1.77 1.77 0 0 1-1.768-1.768v-8.681a1.77 1.77 0 0 1 1.768-1.768h5.144a.482.482 0 1 1 0 .965h-5.144a.8.8 0 0 0-.8.8v8.681a.8.8 0 0 0 .8.8h8.681a.8.8 0 0 0 .8-.8v-5.305Z" transform="translate(-106.667 -106.667)" style="fill:#7e7e7e"/>
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="product-update popup-modal" 
+                                                                            data-cart-id="main-cart-{{ item.id }}"
+                                                                            data-line-key="{{ item.key }}"
+                                                                            data-current-variant-id="{{ item.variant_id }}"
+                                                                        >
+                                                                            {% render 'product-update-popup', product: item.product, selected_variant: item.selected_or_first_available_variant, item: item %}
+                                                                        </div>
+                                                                    </div>
+                                                                    {% else %}
+                                                                    <p class="body-sm pp-medium f-gray">{{ options.name }}: {{ options.value }}</p>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="d-lg-none d-md-none d-sm-flex flex-column h-100 position-relative">
+                                                        <div class="f-layer d-flex pb-1">
+                                                            <a href="{{ item.url }}" class="product-title body-sm pp-semibold f-black l-h-normal">
+                                                                {{ item.title }}
+                                                            </a>
+                                                            <div class="wishlist-button">
+                                                                <!-- Swym Wishlist Plus EPI Button with default first variant -->
+                                                                <button aria-label="Add to Wishlist" data-with-epi="true" class="swym-button swym-add-to-wishlist-view-product product_{{item.id}}" data-swaction="addToWishlist" data-product-id="{{item.id | json}}" data-variant-id="{{item.variants[0].id}}" data-product-url="{{ shop.url }}{{ item.url }}">
+                                                                </button>
+                                                                <!-- Swym Wishlist Plus EPI Button-->
+                                                                {% comment %} <svg class="icon-outline" xmlns="http://www.w3.org/2000/svg" width="35.999" height="31.29" viewBox="0 0 35.999 31.29">
+                                                                    <path d="m34.632 15.965 1.676-1.682a9.374 9.374 0 0 1 13.538 0 9.987 9.987 0 0 1 0 13.839l-13.538 13.84a2.31 2.31 0 0 1-3.354 0L19.418 28.121a9.985 9.985 0 0 1 0-13.839 9.37 9.37 0 0 1 13.536 0l1.677 1.682Zm13.537 10.472a7.51 7.51 0 0 0 0-10.351 6.93 6.93 0 0 0-10.063 0l-2.639 2.529a1.153 1.153 0 0 1-1.674 0l-2.515-2.65a6.93 6.93 0 0 0-10.065 0 7.52 7.52 0 0 0 0 10.351l13.419 13.961z" transform="translate(-16.632 -11.393)" />
+                                                                </svg>
+                                                                <svg class="icon-filled" xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32">
+                                                                    <path 
+                                                                        d="M18.001 31.29c-.6 0-1.2-.23-1.66-.69L2.92 17.03a9.99 9.99 0 0 1 0-13.84 9.38 9.38 0 0 1 13.54 0l1.54 1.54 1.54-1.54a9.38 9.38 0 0 1 13.54 0 9.99 9.99 0 0 1 0 13.84L19.66 30.6c-.46.46-1.06.69-1.66.69Z"
+                                                                        fill="currentColor"
+                                                                    />
+                                                                </svg> {% endcomment %}
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="s-layer d-flex flex-column position-relative flex-auto h-100 justify-content-between">
+                                                            <div class="d-flex justify-content-between">
+                                                                
+                                                                {% if item.variant.title != "Default Title" %}
+                                                                    <div class="product-variant mb-lg-3 mb-md-3 mb-sm-2">
+                                                                        {% for options in item.options_with_values %}
+                                                                            {% if forloop.last %}
+                                                                            <div class="body-sm pp-medium f-gray d-flex align-items-center gap-2">{{ options.name }}: {{ options.value }}
+
+                                                                                <div class="btn-update">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.218" height="12.218" viewBox="0 0 12.218 12.218">
+                                                                                        <path d="M118.062 106.808a.482.482 0 1 1 .682.682l-6.82 6.82a.482.482 0 0 1-.682-.682zm-.141 5a.482.482 0 1 1 .965 0v5.305a1.77 1.77 0 0 1-1.768 1.768h-8.681a1.77 1.77 0 0 1-1.768-1.768v-8.681a1.77 1.77 0 0 1 1.768-1.768h5.144a.482.482 0 1 1 0 .965h-5.144a.8.8 0 0 0-.8.8v8.681a.8.8 0 0 0 .8.8h8.681a.8.8 0 0 0 .8-.8v-5.305Z" transform="translate(-106.667 -106.667)" style="fill:#7e7e7e"/>
+                                                                                    </svg>
+                                                                                </div>
+                                                                                <div class="product-update popup-modal" 
+                                                                                    data-cart-id="main-cart-{{ item.id }}"
+                                                                                    data-line-key="{{ item.key }}"
+                                                                                >
+                                                                                    {% render 'product-update-popup', product: item.product, selected_variant: item.selected_or_first_available_variant, item: item %}
+                                                                                </div>
+                                                                            </div>
+                                                                            {% else %}
+                                                                            <p class="body-sm pp-medium f-gray">{{ options.name }}: {{ options.value }}</p>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                {% endif %}
+                                                                
+                                                                {%- assign max_qty = blank -%}
+                                                                {%- if item.variant.inventory_management and item.variant.inventory_policy == 'deny' -%}
+                                                                {%- assign max_qty = item.variant.inventory_quantity -%}
+                                                                {%- endif -%}
+
+                                                                {%- assign is_at_max = false -%}
+                                                                {%- if max_qty != blank and item.quantity >= max_qty -%}
+                                                                {%- assign is_at_max = true -%}
+                                                                {%- endif -%}
+
+                                                                {%- assign is_at_min = false -%}
+                                                                {%- if item.quantity <= 0 -%}
+                                                                {%- assign is_at_min = true -%}
+                                                                {%- endif -%}
+
+                                                                <div class="product-quantity"
+                                                                data-key="{{ item.key }}"
+                                                                data-max="{{ max_qty }}"
+                                                                data-available="{{ item.variant.available }}">
+
+                                                                    <button
+                                                                        name="minus"
+                                                                        type="button"
+                                                                        class="less_qty{% if is_at_min %} disabled{% endif %}"
+                                                                        data-key="{{ item.key }}"
+                                                                        {% if is_at_min %}disabled{% endif %}
+                                                                        style="margin-right: 5px;">-</button>
+
+                                                                    <input class="qty quantity__input"
+                                                                        type="number"
+                                                                        name="quantity"
+                                                                        min="0"
+                                                                        max="{{ max_qty }}"
+                                                                        readonly
+                                                                        value="{{ item.quantity }}"
+                                                                        data-key="{{ item.key }}"
+                                                                    >
+
+                                                                    <button
+                                                                        name="plus"
+                                                                        type="button"
+                                                                        class="add_qty{% if is_at_max or item.variant.available == false %} disabled{% endif %}"
+                                                                        data-key="{{ item.key }}"
+                                                                        data-max="{{ max_qty }}"
+                                                                        data-available="{{ item.variant.available }}"
+                                                                        {% if is_at_max or item.variant.available == false %}disabled{% endif %}
+                                                                        style="margin-left: 5px;">+</button>
+                                                                </div>
+
+
+
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="product-price ">
+                                                                    <span class="final">
+                                                                        {{ item.final_line_price | money | prepend: curSym }}
+                                                                    </span>
+                                                                    
+                                                                    {% assign final_compare = item.quantity | times: item.variant.compare_at_price  %}
+                                                                    {% if final_compare > 0 %}
+                                                                        <span class="original">
+                                                                            {{ final_compare | money | prepend: curSym }}
+                                                                        </span>
+
+                                                                        {% assign totalLess = totalLess | plus: final_compare %}
+                                                                    {% else %}
+                                                                        {% assign totalLess = totalLess | plus: item.final_line_price %}
+                                                                    {% endif %}
+                                                                    
+                                                                    {% assign discounted_price = item.total_discount %}
+                                                    
+                                                                    {% assign totalSavings = 0 %}
+                                                
+                                                                    {% assign compare_price = item.variant.compare_at_price %}
+                                                                    {% assign original_price = item.variant.price %}
+                                                                    {% assign final_price = item.final_price %}
+                                                                    {% assign quantity = item.quantity %}
+                                                                    
+                                                                    {% if compare_price > original_price %}
+                                                                    {% assign price_saving = compare_price | minus: original_price %}
+                                                                    {% else %}
+                                                                    {% assign price_saving = 0 %}
+                                                                    {% endif %}
+                                                                
+                                                                    {% assign additional_discount = original_price | minus: final_price %}
+                                                                
+                                                                    {% assign savings_per_item = price_saving | plus: additional_discount %}
+                                                                    {% assign savings_total = savings_per_item | times: quantity %}
+                                                                    {% assign totalSavings = totalSavings | plus: savings_total %}
+                                                                    
+                                                                    {% comment %} {% if totalSavings > 0 %}
+                                                                        <span class="discounted">
+                                                                        Save {{ totalSavings | money_without_trailing_zeros | prepend: curSym }}
+                                                                        </span>
+                                                                    {% endif %} {% endcomment %}
+                                                    
+                                                                </div>
+
+                                                                
+                                                                <a href="{{ item.url_to_remove }}" class="product-remove">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16.003" height="15.615" viewBox="0 0 16.003 15.615">
+                                                                        <path d="M12.49 26.265a.976.976 0 0 1-.975.975H4.488a.976.976 0 0 1-.975-.975V15.913h8.977Zm-7.026-12.1a.2.2 0 0 1 .2-.2h4.688a.2.2 0 0 1 .2.2v.588H5.463Zm9.952.588h-3.7v-.588a1.366 1.366 0 0 0-1.364-1.365H5.663A1.366 1.366 0 0 0 4.3 14.163v.588H.588a.588.588 0 0 0 0 1.175h1.75v10.339a2.15 2.15 0 0 0 2.15 2.15h7.026a2.15 2.15 0 0 0 2.15-2.15V15.913h1.75a.587.587 0 0 0 .586-.588.576.576 0 0 0-.585-.575ZM8 25.477a.587.587 0 0 0 .588-.588v-6.25a.588.588 0 1 0-1.175 0v6.251a.587.587 0 0 0 .587.587m-2.738 0a.587.587 0 0 0 .588-.588v-6.25a.588.588 0 1 0-1.175 0v6.251a.6.6 0 0 0 .588.588m5.476 0a.587.587 0 0 0 .588-.588v-6.251a.588.588 0 1 0-1.175 0v6.251a.587.587 0 0 0 .588.588" transform="translate(0 -12.8)" style="fill:#b4b4b4"/>
+                                                                    </svg>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="product-price d-lg-flex d-md-flex d-sm-none">
+                                                        <span class="final">
+                                                            {{ item.final_line_price | money | prepend: curSym }}
+                                                        </span>
+                                                        
+                                                        {% assign final_compare = item.quantity | times: item.variant.compare_at_price  %}
+                                                        {% if final_compare > 0 %}
+                                                            <span class="original">
+                                                                {{ final_compare | money | prepend: curSym }}
+                                                            </span>
+
+                                                            {% assign totalLess = totalLess | plus: final_compare %}
+                                                        {% else %}
+                                                            {% assign totalLess = totalLess | plus: item.final_line_price %}
+                                                        {% endif %}
+                                                        
+                                                        {% assign discounted_price = item.total_discount %}
+                                        
+                                                        {% assign totalSavings = 0 %}
+                                    
+                                                        {% assign compare_price = item.variant.compare_at_price %}
+                                                        {% assign original_price = item.variant.price %}
+                                                        {% assign final_price = item.final_price %}
+                                                        {% assign quantity = item.quantity %}
+                                                        
+                                                        {% if compare_price > original_price %}
+                                                        {% assign price_saving = compare_price | minus: original_price %}
+                                                        {% else %}
+                                                        {% assign price_saving = 0 %}
+                                                        {% endif %}
+                                                    
+                                                        {% assign additional_discount = original_price | minus: final_price %}
+                                                    
+                                                        {% assign savings_per_item = price_saving | plus: additional_discount %}
+                                                        {% assign savings_total = savings_per_item | times: quantity %}
+                                                        {% assign totalSavings = totalSavings | plus: savings_total %}
+                                                        
+                                                        {% comment %} {% if totalSavings > 0 %}
+                                                            <span class="discounted">
+                                                            Save {{ totalSavings | money_without_trailing_zeros | prepend: curSym }}
+                                                            </span>
+                                                        {% endif %} {% endcomment %}
+                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-lg-block d-md-block d-sm-none">
+                                                <div class="d-flex flex-column align-items-end justify-content-between gap-lg-4 gap-md-4 gap-sm-2">
+                                                    <div class="wishlist-button">
+                                                        <!-- Swym Wishlist Plus EPI Button with default first variant -->
+                                                        <button 
+                                                            aria-label="Add to Wishlist" 
+                                                            class="swym-button swym-add-to-wishlist-view-product product_{{item.product.id}}" 
+                                                            data-with-epi="true" 
+                                                            data-swaction="addToWishlist" 
+                                                            data-product-id="{{item.product.id | json}}" 
+                                                            data-variant-id="{{item.product.variants[0].id}}" 
+                                                            data-product-url="{{ shop.url }}{{ item.url }}"
+                                                        >
+                                                        </button>
+                                                        <!-- Swym Wishlist Plus EPI Button-->
+                                                        {% comment %} <svg class="icon-outline" xmlns="http://www.w3.org/2000/svg" width="35.999" height="31.29" viewBox="0 0 35.999 31.29">
+                                                            <path d="m34.632 15.965 1.676-1.682a9.374 9.374 0 0 1 13.538 0 9.987 9.987 0 0 1 0 13.839l-13.538 13.84a2.31 2.31 0 0 1-3.354 0L19.418 28.121a9.985 9.985 0 0 1 0-13.839 9.37 9.37 0 0 1 13.536 0l1.677 1.682Zm13.537 10.472a7.51 7.51 0 0 0 0-10.351 6.93 6.93 0 0 0-10.063 0l-2.639 2.529a1.153 1.153 0 0 1-1.674 0l-2.515-2.65a6.93 6.93 0 0 0-10.065 0 7.52 7.52 0 0 0 0 10.351l13.419 13.961z" transform="translate(-16.632 -11.393)" />
+                                                        </svg>
+                                                        <svg class="icon-filled" xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32">
+                                                            <path 
+                                                                d="M18.001 31.29c-.6 0-1.2-.23-1.66-.69L2.92 17.03a9.99 9.99 0 0 1 0-13.84 9.38 9.38 0 0 1 13.54 0l1.54 1.54 1.54-1.54a9.38 9.38 0 0 1 13.54 0 9.99 9.99 0 0 1 0 13.84L19.66 30.6c-.46.46-1.06.69-1.66.69Z"
+                                                                fill="currentColor"
+                                                            />
+                                                        </svg> {% endcomment %}
+
+                                                    </div>
+
+                                                    {%- assign max_qty = blank -%}
+                                                    {%- if item.variant.inventory_management and item.variant.inventory_policy == 'deny' -%}
+                                                    {%- assign max_qty = item.variant.inventory_quantity -%}
+                                                    {%- endif -%}
+
+                                                    {%- assign is_at_max = false -%}
+                                                    {%- if max_qty != blank and item.quantity >= max_qty -%}
+                                                    {%- assign is_at_max = true -%}
+                                                    {%- endif -%}
+
+                                                    {%- assign is_at_min = false -%}
+                                                    {%- if item.quantity <= 0 -%}
+                                                    {%- assign is_at_min = true -%}
+                                                    {%- endif -%}
+
+                                                    <div class="product-quantity"
+                                                    data-key="{{ item.key }}"
+                                                    data-max="{{ max_qty }}"
+                                                    data-available="{{ item.variant.available }}">
+
+                                                        <button
+                                                            name="minus"
+                                                            type="button"
+                                                            class="less_qty{% if is_at_min %} disabled{% endif %}"
+                                                            data-key="{{ item.key }}"
+                                                            {% if is_at_min %}disabled{% endif %}
+                                                            style="margin-right: 5px;">-</button>
+
+                                                        <input class="qty quantity__input"
+                                                            type="number"
+                                                            name="quantity"
+                                                            min="0"
+                                                            max="{{ max_qty }}"
+                                                            readonly
+                                                            value="{{ item.quantity }}"
+                                                            data-key="{{ item.key }}"
+                                                        >
+
+                                                        <button
+                                                            name="plus"
+                                                            type="button"
+                                                            class="add_qty{% if is_at_max or item.variant.available == false %} disabled{% endif %}"
+                                                            data-key="{{ item.key }}"
+                                                            data-max="{{ max_qty }}"
+                                                            data-available="{{ item.variant.available }}"
+                                                            {% if is_at_max or item.variant.available == false %}disabled{% endif %}
+                                                            style="margin-left: 5px;">+</button>
+                                                    </div>
+
+                                                    
+                                                    <a href="{{ item.url_to_remove }}" class="product-remove">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.003" height="15.615" viewBox="0 0 16.003 15.615">
+                                                            <path d="M12.49 26.265a.976.976 0 0 1-.975.975H4.488a.976.976 0 0 1-.975-.975V15.913h8.977Zm-7.026-12.1a.2.2 0 0 1 .2-.2h4.688a.2.2 0 0 1 .2.2v.588H5.463Zm9.952.588h-3.7v-.588a1.366 1.366 0 0 0-1.364-1.365H5.663A1.366 1.366 0 0 0 4.3 14.163v.588H.588a.588.588 0 0 0 0 1.175h1.75v10.339a2.15 2.15 0 0 0 2.15 2.15h7.026a2.15 2.15 0 0 0 2.15-2.15V15.913h1.75a.587.587 0 0 0 .586-.588.576.576 0 0 0-.585-.575ZM8 25.477a.587.587 0 0 0 .588-.588v-6.25a.588.588 0 1 0-1.175 0v6.251a.587.587 0 0 0 .587.587m-2.738 0a.587.587 0 0 0 .588-.588v-6.25a.588.588 0 1 0-1.175 0v6.251a.6.6 0 0 0 .588.588m5.476 0a.587.587 0 0 0 .588-.588v-6.251a.588.588 0 1 0-1.175 0v6.251a.587.587 0 0 0 .588.588" transform="translate(0 -12.8)" style="fill:#b4b4b4"/>
+                                                        </svg>
+                                                    </a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                        <a href="{{ section.settings.shop_url }}" class="btn-hover btn-main py-lg-2 py-md-2 py-sm-2 px-lg-4 px-md-4 px-sm-3 d-flex w-fit-content">
+                            <span class="body-lg d-lg-block d-md-block d-sm-none">
+                                Continue Shopping
+                            </span>
+                            <span class="body d-lg-none d-md-none d-sm-block">
+                                Continue Shopping
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <p class="body-lg pp-bold f-black mb-lg-3 mb-md-3 mb-sm-2">
+                            Order Summary
+                        </p>
+                        <div class="order-summary">
+                            <div class="d-flex justify-content-between mb-3">
+                                <p class="body pp-semibold f-black">
+                                    Sub-total (<span class="total-item-2">{{ cart.item_count }}</span>)
+                                </p>
+                                <span class="body pp-semibold f-black cart-total-price">
+                                    {{ cart.total_price | money | prepend: curSym }}
+                                </span>
+                            </div>
+                            <div class="d-flex justify-content-between d-none">
+                                <p class="body pp-medium f-black">
+                                    Shipping
+                                </p>
+                                <span class="body pp-medium f-black">
+                                    Calculated at checkout
+                                </span>
+                            </div>
+                            <div class="discount-wrapper">
+                                <small>
+                                    Discount Code
+                                </small>
+                                <div class="discount-form">
+                                    <input type="text" name="discount-input" placeholder="Enter a coupon">
+                                    <button type="button">
+                                        Apply
+                                    </button>
+                                </div>
+                                <div class="discount-code-wrapper">
+
+                                    {% assign unique_discounts = "" %}
+                                    {% for item in cart.items %}
+                                        {% for discount in item.discounts %}
+                                            {% if unique_discounts contains discount.title %}
+                                                {% continue %}
+                                            {% else %}
+
+                                                <div class="discount-code">
+                                                    <i class="fa-solid fa-tags"></i> 
+                                                        {{ discount.title }} 
+                                                    <i class="fa-solid fa-xmark remove-discount" data-code="{{ discount.title }}"></i>
+                                                </div>
+
+                                                {% assign unique_discounts = unique_discounts | append: discount.title | append: "," %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+
+                                    {% assign unique_discounts_2 = "" %}
+                                    {% for discount in cart.cart_level_discount_applications %}
+                                        {% if unique_discounts_2 contains discount.title %}
+                                            {% continue %}
+                                        {% else %}
+
+                                            <div class="discount-code">
+                                                <i class="fa-solid fa-tags"></i> 
+                                                    {{ discount.title }} 
+                                                <i class="fa-solid fa-xmark remove-discount" data-code="{{ discount.title }}"></i>
+                                            </div>
+
+                                            {% assign unique_discounts_2 = unique_discounts_2 | append: discount.title | append: "," %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                </div>
+                                <p class="discount-message">
+                                    Please enter a valid code.
+                                </p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="body pp-regular f-black">
+                                    Discount
+                                </p>
+                                <p class="body mu-semibold f-green discount-applied">
+                                    -{{ cart.total_discount | money | prepend: curSym }}
+                                </p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-lg-4 mb-md-4 mb-sm-3">
+                                <p class="body pp-bold f-black">
+                                    TOTAL
+                                </p>
+                                <p class="body-lg pp-bold f-black cart-total-price">
+                                    {% if totalLess > cart.total_price %}
+                                        <span class="cart-total-less">{{ totalLess | money | prepend: curSym }}</span>
+                                    {% endif %}
+                                    <span class="f-main">
+                                        {{ cart.total_price | money | prepend: curSym }}
+                                    </span>
+                                </p>
+                            </div>
+                          {% comment %}
+                            <textarea name="order-note" placeholder="Order note" rows="4" val=""></textarea>
+                          {% endcomment %}
+                            <div class='cart-checkout'>
+                                <a href="javascript:void(0)">
+                                    Checkout
+                                </a>
+                            </div>
+                            <div class="klarna-message">
+                                {% assign quarter_price = cart.total_price | times: 0.25 %}
+                                <p class="pp-regular body-sm">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/Klarna_Logo_black_svg.png?v=1764311100" height="14px">
+                                    available: Pay in 4 interest-free payments of <span class="pp-bold">{{ quarter_price  | money | prepend: curSym }}</span> or <span class="pp-bold">flexible monthly</span> installments
+                                </p>
+                            </div>
+                        </div>
+
+                        <a href="{{ section.settings.shop_url }}" class="body pp-regular f-black mt-4 d-lg-none d-md-inline-block d-sm-inline-block">
+                            << Continue Shopping
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="col-12">
+                      
+                        <div class="cart-heading-title col-12 mb-lg-5 mb-md-5 mb-sm-4 d-flex justify-content-between align-items-center">
+                            <h1 class="title-sm pp-semibold f-black">
+                                Cart
+                                <span class="total-item body-lg pp-regular f-black">
+                                    Items (<span>{{ cart.item_count }}</span>)
+                                </span>
+                            </h1>
+                        </div>
+
+                        <h5 class="pretitle-lg pp-bold f-black mb-4 text-lg-start text-md-start text-sm-center">
+                            Your cart is empty
+                        </h5>
+                        <h6 class="pp-semibold body-lg f-black text-lg-start text-md-start text-sm-center mb-2">
+                            Want to Shop? 
+                        </h6>
+                        <p class="pp-regular body f-gray pb-lg-5 pb-md-5 pb-sm-4 text-lg-start text-md-start text-sm-center">
+                            Now’s the time to add the gear you’ve been eyeing to your cart!
+                        </p>
+                        <div class="d-flex justify-content-lg-start justify-content-md-start justify-content-sm-center mb-lg-0 mb-md-0 mb-sm-5">
+                            <a href="{{ section.settings.shop_url }}" class="btn-hover btn-main py-lg-2 py-md-2 py-sm-2 px-lg-4 px-md-4 px-sm-3">
+                                <span class="body-lg d-lg-block d-md-block d-sm-none">
+                                    Continue Shopping
+                                </span>
+                                <span class="body d-lg-none d-md-none d-sm-block">
+                                    Continue Shopping
+                                </span>
+                            </a>
+                        </div>
+
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+  const standardSizes = [
+    'XS',
+    'S',
+    'M',
+    'L',
+    'XL',
+    '2XL',
+    '3XL',
+    '4XL',
+  ];
+
+  // Add tall sizes if needed
+  const tallSizes = [
+    '5XL',
+    '6XL'
+  ];
+
+</script>
+
+{% schema %}
+{
+    "name": "Main Cart",
+    "limit": 1,
+    "templates": ["cart"],
+    "settings": [
+        {
+            "type": "url",
+            "id": "shop_url",
+            "label": "Shop URL"
+        },
+        {
+            "type": "checkbox", 
+            "id": "banner_links_display",
+            "label": "Banner Links Display",
+            "info": "Display only if cart is empty"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "banner_link",
+            "name": "Banner Link",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

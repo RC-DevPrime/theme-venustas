@@ -1,0 +1,183 @@
+{% style %}
+    .custom-column-section{
+        content-visibility:auto;
+        contain-intrinsic-size: 1px 820px;
+    }
+    .custom-column-section{
+    }
+    .custom-column-section .custom-column-item{
+        position:relative;
+        overflow:hidden;
+        border-radius: 16px 16px 16px 16px;
+        height:500px;
+        flex-grow: 1;
+        flex:1;
+        transition: all 0.3s ease;
+    }
+    .custom-column-section .custom-column-item:hover{
+        flex-grow:1.2
+    }
+    .custom-column-section .custom-column-item img.background-image{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .custom-column-section .custom-column-item .custom-column-content{
+        display: flex;
+        position: relative;
+        justify-content: space-between;
+        height: 100%;
+        padding:30px 40px;
+        align-items: flex-end;
+    }
+    .custom-column-section .custom-column-item .custom-column-content .block-btn {
+        width:fit-content;
+    }
+    .custom-column-section .custom-column-item .custom-column-content .block-btn .btn-icon{
+        width:20px;
+        height:20px;
+        object-fit:contain;
+        position:relative;
+        z-index:1;
+    }
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .custom-column-section .custom-column-item .custom-column-content{
+            padding: 10px 15px 13px;
+        }
+        .custom-column-section .custom-column-item{
+            border-radius:8px;
+            flex:unset;
+            height:260px;
+        }
+        .custom-column-section .custom-column-item .custom-column-content .block-btn{
+            width:fit-content;
+            padding: 5px 20px !important;
+            border-radius:4px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content">
+    <div class="d-flex flex-lg-row flex-md-row flex-sm-column gap-lg-3 gap-md-3 gap-sm-2">
+        {% for block in section.blocks %}
+                <div class="custom-column-item">
+                    <img
+                        class="background-image"
+                        src="{{ block.settings.logo | image_url: width: 960 }}"
+                        srcset="
+                            {{ block.settings.logo | image_url: width: 480 }} 480w,
+                            {{ block.settings.logo | image_url: width: 768 }} 768w,
+                            {{ block.settings.logo | image_url: width: 960 }} 960w,
+                            {{ block.settings.logo | image_url: width: 1280 }} 1280w
+                        "
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        width="{{ block.settings.logo.width }}"
+                        height="{{ block.settings.logo.height }}"
+                        alt="{{ block.settings.logo.alt | escape }}"
+                        loading="lazy"
+                        fetchpriority="auto"
+                        decoding="async"
+                    >
+                    <div class="custom-column-content">
+                        <div class="row align-items-end">
+                            <div class="top-content col-lg-9 col-md-9 col-sm-12">
+                                <div class="block-heading pp-bold pretitle-xl f-white d-lg-block d-md-block d-sm-none">
+                                    {{ block.settings.heading }}
+                                </div>
+                                <div class="block-heading pp-bold pretitle f-white d-lg-none d-md-none d-sm-block">
+                                    {{ block.settings.heading }}
+                                </div>
+                                <div class="block-description pp-regular body f-white d-lg-block d-md-block d-sm-none">
+                                    {{ block.settings.description }}
+                                </div>
+                                <div class="block-description pp-regular body-sm f-white d-lg-none d-md-none d-sm-block">
+                                    {{ block.settings.description }}
+                                </div>
+                            </div>
+                            <div class="bottom-content col-lg-3 col-md-3 col-sm-12">
+                                <a href="{{ block.settings.link }}" class="block-btn btn btn-main btn-no-animation d-lg-flex d-md-flex d-sm-none">
+                                    <span class="pp-regular body l-h-normal px-1">
+                                        {{ block.settings.btn_label }}
+                                    </span>
+                                </a>
+                                <a href="{{ block.settings.link }}" class="block-btn btn-hover btn-main btn-no-animation d-lg-none d-md-none d-sm-flex py-lg-2 py-md-2 py-sm-1 px-lg-4 px-md-4 px-sm-4 mt-2">
+                                    <span class="pp-regular f-white body-sm l-h-normal">
+                                        {{ block.settings.btn_label }}
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+</div>
+{% schema %}
+{
+    "class": "custom-column-section",
+    "name": "Custom Column",
+    "limit": 1,
+    "templates": ["index"],
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "As Seen In"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>Venustas has earned the trust of businesses worldwide through continuous innovation and building relationships based on mutual trust.</p>"
+        },
+    ],
+    "max_blocks": 2,
+    "blocks": [
+        {
+            "type": "item",
+            "name": "Item",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "logo",
+                    "label": "Background"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "textarea",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "text",
+                    "id": "btn_label",
+                    "label": "Button Label"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                }
+            ]
+        },
+    ],
+    "presets": [
+        {
+            "name": "Custom Column"
+        }
+    ]
+}
+{% endschema %}

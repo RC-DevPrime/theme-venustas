@@ -1,0 +1,413 @@
+{% render 'v-master-base-css', section: section %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    --v-plus-h: {{ section.settings.v_plus_height }}px;
+    --v-plus-h-m: {{ section.settings.v_plus_height_mobile }}px;
+    --v-plus-max-w: {{ section.settings.v_plus_max_width }}px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-hero {
+    position: relative;
+    width: 100%;
+    min-height: {{ section.settings.hero_height_desktop }}px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: #2a1206;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-hero__bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    margin: 0;
+    object-fit: cover;
+    object-position: {{ section.settings.bg_position_desktop }};
+  }
+
+  #shopify-section-{{ section.id }} .v-master-hero__bg-img--mobile {
+    display: none;
+    object-position: {{ section.settings.bg_position_mobile }};
+  }
+
+  #shopify-section-{{ section.id }} .v-master-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, calc(var(--hero-overlay) / 100));
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 40px 24px;
+    width: 100%;
+    max-width: 720px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-hero__brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: {{ section.settings.logo_gap }}px;
+    margin: 0 0 {{ section.settings.spacing_logo_to_subtitle }}px;
+  }
+
+  #shopify-section-{{ section.id }} img.v-master-hero__v-plus {
+    display: block;
+    width: auto !important;
+    height: var(--v-plus-h) !important;
+    max-width: var(--v-plus-max-w) !important;
+    max-height: var(--v-plus-h) !important;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-hero__master {
+    margin: 0;
+    font-size: clamp(44px, 7.5vw, 72px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-hero__subtitle {
+    font-size: clamp(15px, 2vw, 20px);
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.35;
+    opacity: 0.95;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-hero__cta {
+    margin-top: {{ section.settings.spacing_subtitle_to_cta }}px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-hero__tagline {
+    font-size: 14px;
+    margin: 0 0 {{ section.settings.spacing_tagline_to_button }}px;
+    opacity: 0.92;
+    letter-spacing: 0.02em;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-hero__cta .v-master__btn {
+    min-width: 200px;
+    padding: 14px 40px;
+    font-size: 13px;
+  }
+
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .v-master-hero {
+      min-height: {{ section.settings.hero_height_mobile }}px;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-hero__bg-img--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-hero__bg-img--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} img.v-master-hero__v-plus {
+      height: var(--v-plus-h-m) !important;
+      max-height: var(--v-plus-h-m) !important;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-hero__master {
+      font-size: clamp(36px, 11vw, 52px);
+    }
+  }
+</style>
+
+{% render 'v-talents-powr-modal-css', brand_color: section.settings.brand_color %}
+
+<div class="v-master">
+  <div class="v-master-hero">
+    <div class="v-master-hero__bg" aria-hidden="true">
+      {%- if section.settings.hero_bg_desktop != blank -%}
+        {{
+          section.settings.hero_bg_desktop
+          | image_url: width: 2400
+          | image_tag:
+            class: 'v-master-hero__bg-img v-master-hero__bg-img--desktop',
+            loading: 'eager',
+            widths: '800,1200,1600,2000,2400',
+            sizes: '100vw',
+            alt: ''
+        }}
+      {%- endif -%}
+      {%- if section.settings.hero_bg_mobile != blank -%}
+        {{
+          section.settings.hero_bg_mobile
+          | image_url: width: 1200
+          | image_tag:
+            class: 'v-master-hero__bg-img v-master-hero__bg-img--mobile',
+            loading: 'eager',
+            widths: '400,600,800,1000,1200',
+            sizes: '100vw',
+            alt: ''
+        }}
+      {%- elsif section.settings.hero_bg_desktop != blank -%}
+        {{
+          section.settings.hero_bg_desktop
+          | image_url: width: 1200
+          | image_tag:
+            class: 'v-master-hero__bg-img v-master-hero__bg-img--mobile',
+            loading: 'eager',
+            widths: '400,600,800,1000,1200',
+            sizes: '100vw',
+            alt: ''
+        }}
+      {%- endif -%}
+    </div>
+    <div
+      class="v-master-hero__overlay"
+      style="--hero-overlay: {{ section.settings.overlay_opacity }};"
+    ></div>
+
+    <div class="v-master-hero__content">
+      <div class="v-master-hero__top">
+        {%- if section.settings.v_plus_image != blank or section.settings.master_title != blank -%}
+          <div class="v-master-hero__brand">
+            {%- if section.settings.v_plus_image != blank -%}
+              <img
+                class="v-master-hero__v-plus"
+                src="{{ section.settings.v_plus_image | image_url: width: 800 }}"
+                alt="V+"
+                loading="eager"
+                decoding="async"
+              >
+            {%- endif -%}
+            {%- if section.settings.master_title != blank -%}
+              <h1 class="v-master-hero__master">{{ section.settings.master_title }}</h1>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.program_subtitle != blank -%}
+          <p class="v-master-hero__subtitle">{{ section.settings.program_subtitle }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="v-master-hero__cta">
+        {%- if section.settings.hero_tagline != blank -%}
+          <p class="v-master-hero__tagline">{{ section.settings.hero_tagline }}</p>
+        {%- endif -%}
+        {% render 'v-master-apply-button', section: section %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% render 'v-talents-powr-modals', section: section %}
+
+{% schema %}
+{
+  "name": "V+ Master Hero",
+  "tag": "section",
+  "class": "venustas-v-master-hero-section",
+  "settings": [
+    { "type": "color", "id": "brand_color", "label": "Brand color", "default": "#B93205" },
+    { "type": "color", "id": "text_brown_color", "label": "Heading color (optional)", "default": "#B93205" },
+    { "type": "color", "id": "cream_color", "label": "Cream background", "default": "#F9F5F0" },
+    { "type": "header", "content": "Background" },
+    { "type": "image_picker", "id": "hero_bg_desktop", "label": "Desktop background (full image)" },
+    { "type": "image_picker", "id": "hero_bg_mobile", "label": "Mobile background (full image)" },
+    {
+      "type": "select",
+      "id": "bg_position_desktop",
+      "label": "Desktop image focus",
+      "default": "center center",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "center top", "label": "Top" },
+        { "value": "center bottom", "label": "Bottom" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bg_position_mobile",
+      "label": "Mobile image focus",
+      "default": "center center",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "center top", "label": "Top" },
+        { "value": "center bottom", "label": "Bottom" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Dark overlay",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "hero_height_desktop",
+      "min": 400,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Desktop height",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "min": 400,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Mobile height",
+      "default": 520
+    },
+    { "type": "header", "content": "Logo" },
+    {
+      "type": "image_picker",
+      "id": "v_plus_image",
+      "label": "V+ logo (PNG)",
+      "info": "Orange brush V+ graphic only"
+    },
+    {
+      "type": "text",
+      "id": "master_title",
+      "label": "MASTER title text",
+      "default": "MASTER"
+    },
+    {
+      "type": "range",
+      "id": "v_plus_height",
+      "min": 40,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "V+ image height (desktop)",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "v_plus_height_mobile",
+      "min": 32,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "V+ image height (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "v_plus_max_width",
+      "min": 80,
+      "max": 400,
+      "step": 20,
+      "unit": "px",
+      "label": "V+ max width",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "logo_gap",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between V+ and MASTER",
+      "default": 8
+    },
+    { "type": "header", "content": "Copy & spacing" },
+    {
+      "type": "text",
+      "id": "program_subtitle",
+      "label": "Subtitle under logo",
+      "default": "Brand Ambassador Program"
+    },
+    {
+      "type": "text",
+      "id": "hero_tagline",
+      "label": "Tagline above button",
+      "default": "Step Outside with Us"
+    },
+    {
+      "type": "range",
+      "id": "spacing_logo_to_subtitle",
+      "min": 0,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Logo to subtitle",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "spacing_subtitle_to_cta",
+      "min": 24,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Subtitle to tagline/button",
+      "default": 64,
+      "info": "Large gap between upper copy and CTA block"
+    },
+    {
+      "type": "range",
+      "id": "spacing_tagline_to_button",
+      "min": 4,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Tagline to button",
+      "default": 16
+    },
+    { "type": "header", "content": "Apply button & popup" },
+    {
+      "type": "text",
+      "id": "hero_btn_apply_label",
+      "label": "Button label",
+      "default": "APPLY NOW"
+    },
+    {
+      "type": "checkbox",
+      "id": "apply_use_powr_popup",
+      "label": "Open POWR form in popup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "powr_form_id",
+      "label": "POWR form ID",
+      "default": "e4cff6f3_1765265255"
+    },
+    {
+      "type": "url",
+      "id": "hero_btn_apply_link",
+      "label": "Button link (when popup off)"
+    }
+  ],
+  "presets": [{ "name": "V+ Master Hero", "category": "V+ Master" }]
+}
+{% endschema %}

@@ -1,0 +1,111 @@
+{% style %}
+    .premium-selection-icon-list-section{
+
+    }
+    .premium-selection-icon-list-section .row{
+        --bs-gutter-x: 1.5rem;
+        --bs-gutter-y: 1.5rem;
+    }
+    .premium-selection-icon-list-section .icon-list-item{
+        background: #F9F9F9;
+        border-radius:8px;
+        overflow:hidden;
+        padding:40px 30px;
+    }
+    .premium-selection-icon-list-section .icon-list-item .icon-img{
+        width:45px;
+        height:45px;
+        object-fit:contain;
+    }
+
+    
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .premium-selection-icon-list-section .icon-list-item{
+            padding:20px 30px;
+        }
+        .premium-selection-icon-list-section .icon-list-slider-container{
+            padding:0px 30px;
+        }
+        .premium-selection-icon-list-section .icon-list-slider-container .swiper-slide{
+            height:auto;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content">
+    <div class="row d-lg-flex d-md-flex- d-sm-none">
+        {% for block in section.blocks %}
+            <div class="col-lg-4 col-md-4 col-ms-12" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="{{ forloop.index }}00" data-aos-duration="500">
+                <div class="icon-list-item h-100">
+                    <img src="{{ block.settings.icon | img_url: '200x200' }}" width="45px" height="45px" class="icon-img mb-3">
+                    <h3 class="pp-bold pretitle-lg f-black pb-3">
+                        {{ block.settings.heading }}
+                    </h3>
+                    <p class="pp-regular body-lg f-black">
+                        {{ block.settings.description }}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="icon-list-slider-container position-relative d-lg-none d-md-none d-sm-block">
+        <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+                <div class="swiper-slide">
+                    <div class="icon-list-item h-100">
+                        <img src="{{ block.settings.icon | img_url: '200x200' }}" width="45px" height="45px" class="icon-img mb-3">
+                        <h3 class="pp-bold body-xl f-black pb-2">
+                            {{ block.settings.heading }}
+                        </h3>
+                        <p class="pp-regular body-sm f-black">
+                            {{ block.settings.description }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "premium-selection-icon-list-section overflow-hidden",
+        "name": "Premium Icon List",
+        "templates": ["page"],
+        "blocks": [
+            {
+                "type": "icon",
+                "name": "Icon",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "icon",
+                        "label": "Icon"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Heading"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "description",
+                        "label": "Description",
+                        "default": "<p>Description</p>"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Premium Icon List"
+        }]
+    }
+  {% endschema %} 

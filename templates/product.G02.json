@@ -1,0 +1,618 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "tags_VbTTx6": {
+          "type": "tags",
+          "settings": {}
+        },
+        "title_kNgEjj": {
+          "type": "title",
+          "settings": {}
+        },
+        "okendo_star_rating_rNkzy6": {
+          "type": "shopify://apps/okendo/blocks/star-rating/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "price_efrDnx": {
+          "type": "price",
+          "settings": {}
+        },
+        "payment_installment_8PywPB": {
+          "type": "payment_installment",
+          "settings": {}
+        },
+        "discount_banner_ja6qra": {
+          "type": "discount_banner",
+          "settings": {
+            "discount_amount": "5",
+            "show_percent_off": false,
+            "description": "Join now for an extra 5% member discount!",
+            "description_2": "Become a member >",
+            "link": "/pages/reward"
+          }
+        },
+        "divider_FmYRAm": {
+          "type": "divider",
+          "settings": {}
+        },
+        "variant_option_Gm9UTe": {
+          "type": "variant_option",
+          "settings": {}
+        },
+        "divider_JBC3FR": {
+          "type": "divider",
+          "settings": {}
+        },
+        "hightlights_4aek9f": {
+          "type": "hightlights",
+          "settings": {
+            "heading": "HIGHLIGHTS",
+            "description": "<p>{{ product.metafields.c_f.highlights | metafield_tag }}</p>"
+          }
+        },
+        "divider_PUdp4i": {
+          "type": "divider",
+          "settings": {}
+        },
+        "availability_VXL6mU": {
+          "type": "availability",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
+        "support_product_RGhgRP": {
+          "type": "support_product",
+          "settings": {
+            "icon_1": "shopify://shop_images/47494_2x_50cbcdba-e5ec-4541-a4a2-fcd51740ea9b.png",
+            "heading_1": "<p><strong>3-Year</strong> Limited Warranty on heating elements</p>",
+            "icon_2": "shopify://shop_images/47768_2x_55d5aef8-5c10-4dfb-aac9-a5aa82ef92d6.png",
+            "heading_2": "<p><strong>1-Year</strong> Limited Warranty on battery</p>",
+            "icon_3": "shopify://shop_images/47496_2x_113086b9-9973-4a17-943c-63937d66fb74.png",
+            "heading_3": "<p><strong>Free </strong>Shipping in the U.S.&CA </p>",
+            "icon_4": "shopify://shop_images/47501_2x_b12b7c51-283f-4077-9d15-d8673a0d2ce8.png",
+            "heading_4": "<p><strong>Free</strong> Return Shipping in the U.S.</p>"
+          }
+        },
+        "selleasy_lb_upsell_widget_cpal_xqCjU6": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-cpal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "tags_VbTTx6",
+        "title_kNgEjj",
+        "okendo_star_rating_rNkzy6",
+        "price_efrDnx",
+        "payment_installment_8PywPB",
+        "discount_banner_ja6qra",
+        "divider_FmYRAm",
+        "variant_option_Gm9UTe",
+        "divider_JBC3FR",
+        "hightlights_4aek9f",
+        "divider_PUdp4i",
+        "availability_VXL6mU",
+        "quantity_atc_nEzPi6",
+        "support_product_RGhgRP",
+        "selleasy_lb_upsell_widget_cpal_xqCjU6"
+      ],
+      "settings": {}
+    },
+    "size_chart_table_VeP3zR": {
+      "type": "size-chart-table",
+      "name": "Size Chart Table",
+      "settings": {
+        "heading": "",
+        "description": ""
+      }
+    },
+    "product_nav_EP4CHB": {
+      "type": "product-nav",
+      "blocks": {
+        "navigation_mL7Yjy": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "Features",
+            "nav_color": "#ffffff"
+          }
+        },
+        "navigation_4Wa7nT": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "Specifications",
+            "nav_color": "#ffffff"
+          }
+        },
+        "navigation_6hrEtc": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "What's Included",
+            "nav_color": "#ffffff"
+          }
+        },
+        "navigation_FcwHKc": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "Reviews",
+            "nav_color": "#ffffff"
+          }
+        },
+        "navigation_ycXUfN": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "FAQs",
+            "nav_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "navigation_mL7Yjy",
+        "navigation_4Wa7nT",
+        "navigation_6hrEtc",
+        "navigation_FcwHKc",
+        "navigation_ycXUfN"
+      ],
+      "name": "Navigation Header",
+      "settings": {
+        "background_color": "#2a2a2a",
+        "custom_product_title": "",
+        "title_color": "#ffffff"
+      }
+    },
+    "product_image_content_g3c3AM": {
+      "type": "product-image-content",
+      "name": "Image Content ",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "Features",
+        "background_image": "shopify://shop_images/Venustas-product-page-logo.jpg",
+        "counter_number": "",
+        "style_design": "style_1",
+        "heading": "Venustas-Warm™ Heating Technology",
+        "description": "<p>Exclusively developed by Venustas, our advanced carbon fiber Heatwave™ system sets a new standard for cold-weather performance—delivering 3X faster heat, intelligent protection that minimizes heat loss, and durable, enhanced comfort for every member of the family.</p>",
+        "link_label": "",
+        "link_url": "",
+        "icon_1": "shopify://shop_images/icon-1.png",
+        "heading_1": "12,000+Carbon Fibers",
+        "icon_2": "shopify://shop_images/icon-2.png",
+        "heading_2": "AdvancedNTC Protection",
+        "icon_3": "shopify://shop_images/icon-3.png",
+        "heading_3": "Smart Chip Technology",
+        "heading_4": ""
+      }
+    },
+    "product_battery_performance_YwTnXi": {
+      "type": "product-battery-performance-v2",
+      "blocks": {
+        "smart_PUEVKL": {
+          "type": "smart",
+          "settings": {
+            "low_range_temperature": 113,
+            "low_range_heating_duration": 10,
+            "medium_range_temperature": 122,
+            "medium_range_heating_duration": 6,
+            "high_range_temperature": 131,
+            "high_range_heating_duration": 3
+          }
+        }
+      },
+      "block_order": [
+        "smart_PUEVKL"
+      ],
+      "name": "Battery Performance - V2",
+      "settings": {
+        "enabled_section_child_scroll": true,
+        "section_scroll_nav": "Features",
+        "nav_title": "",
+        "heading": "One Press, Three Heat Levels - Warmth Your Way",
+        "heading_1": "Four-Setting Adjustment",
+        "description": "<p>Precisely matching your every need for thermal energy, we ensure that every user can find the product that best suits their requirements.</p>",
+        "image": "shopify://shop_images/G02_heated_gloves_6.jpg",
+        "unit": "℉"
+      }
+    },
+    "product_expand_image_dT7V9E": {
+      "type": "product-expand-image",
+      "blocks": {
+        "content_bM7YpB": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/G02_heated_gloves_1.jpg",
+            "heading": "Touch-Screen Compatible",
+            "description": "<p>The gloves feature touch-screen compatible fingertips, allowing you to use your devices without removing them. This design ensures that you can stay connected and productive even in cold weather conditions.</p>"
+          }
+        },
+        "content_mFja7k": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/G02_heated_gloves_2.jpg",
+            "heading": "Adjustable Drawstring",
+            "description": "<p>Equipped with an adjustable drawstring, these gloves offer a customizable fit to ensure they stay securely in place. This feature helps prevent heat loss and keeps the gloves from slipping off during use.</p>"
+          }
+        },
+        "content_QraHdL": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/G02_heated_gloves_3.jpg",
+            "heading": "Anti-Lost Buckle",
+            "description": "<p>The anti-lost buckle provides added security by keeping the gloves attached to your wrist when not in use. This prevents accidental loss and ensures that your gloves are always within reach.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_bM7YpB",
+        "content_mFja7k",
+        "content_QraHdL"
+      ],
+      "name": "Expand Image",
+      "settings": {
+        "enabled_section_child_scroll": true,
+        "section_scroll_nav": "Features",
+        "nav_title": ""
+      }
+    },
+    "product_row_layout_content_xfiwBy": {
+      "type": "product-row-layout-content",
+      "blocks": {
+        "right_content_y3aqyH": {
+          "type": "right_content",
+          "settings": {
+            "image": "shopify://shop_images/G02_heated_gloves_4.jpg",
+            "heading": "Portable & Reliable Battery",
+            "description": "<ul><li>7.4V DC output provides strong, consistent heating power </li><li>Each battery weighs only 3.17 oz (90g) for comfortable all-day wear </li><li>Fully recharges in 2.5 hours with a Type-C 5V 2.1A charger (charger not included) </li><li>Certified safe by CE, UKCA, FCC, and ETL </li><li>High-quality cells support up to 1,000 recharge cycles</li></ul>"
+          }
+        },
+        "left_content_MXUGYE": {
+          "type": "left_content",
+          "settings": {
+            "image": "shopify://shop_images/G02_heated_gloves_5.jpg",
+            "heading": "Excellent Waterproof Performance",
+            "description": "<p>Crafted with high-quality waterproof fabric, it effectively blocks the penetration of rain and snow, ensuring you stay dry and comfortable during outdoor activities without worrying about dampness or cold.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "right_content_y3aqyH",
+        "left_content_MXUGYE"
+      ],
+      "name": "Row Layout",
+      "settings": {
+        "enabled_section_child_scroll": true,
+        "section_scroll_nav": "Features",
+        "nav_title": ""
+      }
+    },
+    "product_featured_content_icons_Wj7DLM": {
+      "type": "product-featured-content-icons",
+      "blocks": {
+        "icon_rFDpXg": {
+          "type": "icon",
+          "settings": {
+            "image": "shopify://shop_images/43971_2x_1.png",
+            "heading": "Hand & Machine Washable"
+          }
+        },
+        "icon_rAcxtG": {
+          "type": "icon",
+          "settings": {
+            "image": "shopify://shop_images/43973_2x_1.png",
+            "heading": "Do not dry clean"
+          }
+        },
+        "icon_QYeXNp": {
+          "type": "icon",
+          "settings": {
+            "image": "shopify://shop_images/43972_2x_1.png",
+            "heading": "Do not iron"
+          }
+        },
+        "icon_jqyLLh": {
+          "type": "icon",
+          "settings": {
+            "image": "shopify://shop_images/43974_2x_95d84fed-3659-4698-8998-3e1d110c5216.png",
+            "heading": "Do not machine dry"
+          }
+        }
+      },
+      "block_order": [
+        "icon_rFDpXg",
+        "icon_rAcxtG",
+        "icon_QYeXNp",
+        "icon_jqyLLh"
+      ],
+      "name": "Featured Content Icons",
+      "settings": {
+        "enabled_section_child_scroll": true,
+        "section_scroll_nav": "Features",
+        "nav_title": "",
+        "heading": "Caringly Tend, Extend Garment Longevity",
+        "description": "<p>To ensure your heated gloves always perform at their best and provide lasting warmth and comfort, please keep the following points in mind during use and care.</p>"
+      }
+    },
+    "product_specification_8nyhRL": {
+      "type": "product-specification",
+      "blocks": {
+        "icon_bd8XQP": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/7795645_weather_warm_termometer_hot_temperature_icon_2x_3dec281e-2537-425d-8b83-bce9b4347620.png",
+            "heading": "Smart Heating & \nLong-Lasting Warmth"
+          }
+        },
+        "icon_GJhkff": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/Layer_3_2x_4b73c427-8391-41e4-a1f8-179fad99b5da.png",
+            "heading": "Premium Waterproof & \nBreathable Fabric"
+          }
+        },
+        "icon_VMC44Q": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/5724975_antivirus_clothing_dress_mask_protective_icon_2x_d959e1f3-e063-4106-bd83-1613a7ff7684.png",
+            "heading": "Durable Practical Design"
+          }
+        }
+      },
+      "block_order": [
+        "icon_bd8XQP",
+        "icon_GJhkff",
+        "icon_VMC44Q"
+      ],
+      "name": "Specification",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "Specifications",
+        "heading": "Specifications"
+      }
+    },
+    "product_included_FGKBYF": {
+      "type": "product-included",
+      "blocks": {
+        "icon_P9Jtrk": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/76292_2x_977464df-9af7-498e-a92b-52c6046d2a2f.png",
+            "heading": "Heated Gloves for Men & Women 7.4V 2.0 *1"
+          }
+        },
+        "icon_fytpHj": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/48085_2x_93a289c5-f012-4948-94c5-a39ad55e2572.png",
+            "heading": "2.5K Rechargeable Lithium-Ion Battery *2"
+          }
+        },
+        "icon_DnC4Jd": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/47909_2x_4097a123-dff8-478b-8d5f-61437d59f8eb.png",
+            "heading": "User Manual (English) *1"
+          }
+        },
+        "icon_TwHK9q": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/venustas_cable_icon_7d9ad909-02a9-4f7d-a53e-1a0c8b1fab28.png",
+            "heading": "USB to Two Type-C Charging Cable *1"
+          }
+        }
+      },
+      "block_order": [
+        "icon_P9Jtrk",
+        "icon_fytpHj",
+        "icon_DnC4Jd",
+        "icon_TwHK9q"
+      ],
+      "name": "What’s Included?",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "What's Included",
+        "heading": "What’s Included?"
+      }
+    },
+    "product_review_section_nwk9r6": {
+      "type": "product-review-section",
+      "blocks": {
+        "okendo_reviews_widget_QzGk6b": {
+          "type": "shopify://apps/okendo/blocks/reviews-widget/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{product}}",
+            "widget_type": "combined_widget"
+          }
+        }
+      },
+      "block_order": [
+        "okendo_reviews_widget_QzGk6b"
+      ],
+      "name": "Review Section",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "Reviews",
+        "heading": "Reviews"
+      }
+    },
+    "product_review_blog_carousel_cMVigw": {
+      "type": "product-review-blog-carousel",
+      "blocks": {
+        "review_Y7Xq6E": {
+          "type": "review",
+          "settings": {
+            "article": "news/trusted-by-good-housekeeping-g02-venustas-heated-gloves-expert-review",
+            "top_badge_logo": "shopify://shop_images/good-housekeeping-vector-logo-1.png",
+            "top_badge_text": "Recommended",
+            "image_caption": "Venustas stayed at a consistent temperature for six hours on the warmest level.",
+            "verdict_label": "Expert Verdict",
+            "rating_score": "4.8",
+            "intro_text": "",
+            "detail_text": "<ul><li><strong>Performance</strong>: Long-lasting warmth that outperforms competitors</li><li><strong>Heating</strong>: Quick, even heat for instant comfort</li><li><strong>Comfort</strong>: Soft, cozy fit for all-day outdoor use</li></ul>",
+            "button_label": "Read More >>"
+          }
+        },
+        "review_6m3nYx": {
+          "type": "review",
+          "settings": {
+            "article": "news/yahoo-life-reviews-venustas-heated-gloves-for-all-day-outdoor-comfort",
+            "top_badge_logo": "shopify://shop_images/Yahoo_life.png",
+            "top_badge_text": "Recommended",
+            "image_caption": "Venustas Heated Gloves deliver strong warmth and durability, with limited dexterity.",
+            "verdict_label": "Expert Verdict",
+            "rating_score": "4.4",
+            "intro_text": "",
+            "detail_text": "<ul><li><strong>Performance: </strong>Highly effective in extreme cold with rugged, weatherproof build.</li><li><strong>Durability:</strong> Fast, even heat distribution with up to 8 hours of runtime.</li><li><strong>Comfort:</strong> Warm and protective, but slightly bulky with reduced finger flexibility.</li></ul>",
+            "button_label": "Read More >>"
+          }
+        }
+      },
+      "block_order": [
+        "review_Y7Xq6E",
+        "review_6m3nYx"
+      ],
+      "name": "Product Review Blogs",
+      "settings": {
+        "bg_color": "#ffffff",
+        "title_color": "#b93205",
+        "meta_color": "#8a8a8a",
+        "text_color": "#202020",
+        "accent_color": "#c43606",
+        "star_color": "#f3bd2a",
+        "star_empty_color": "#d9d9d9",
+        "button_bg_color": "#b93205",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#8f2604",
+        "button_hover_text_color": "#ffffff",
+        "top_badge_bg_color": "#ffffff",
+        "top_badge_text_color": "#222222",
+        "top_badge_star_color": "#f3bd2a",
+        "image_caption_color": "#ffffff",
+        "use_article_title_as_caption": true,
+        "enable_auto_article_excerpt": true,
+        "auto_excerpt_length": 230,
+        "padding_top": 24,
+        "padding_bottom": 28,
+        "content_width_percent": 92,
+        "mobile_content_width_percent": 90,
+        "desktop_media_width_percent": 38,
+        "mobile_media_width_percent": 100,
+        "image_radius": 10,
+        "image_caption_size": 16,
+        "title_size": 30,
+        "meta_size": 18,
+        "body_size": 17,
+        "verdict_size": 18,
+        "star_size": 18,
+        "button_size": 16,
+        "mobile_image_caption_size": 14,
+        "mobile_title_size": 20,
+        "mobile_meta_size": 14,
+        "mobile_body_size": 15,
+        "mobile_verdict_size": 16,
+        "mobile_star_size": 14,
+        "mobile_button_size": 14,
+        "date_format": "%b %d, %Y",
+        "enable_autoplay": true,
+        "autoplay_seconds": 5
+      }
+    },
+    "product_faqs_section_9y4Ffk": {
+      "type": "product-faqs-section",
+      "blocks": {
+        "faq_TQWcGq": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "How long does shipping take and how can I track my package?",
+            "body": "<p>Usually delivered within 5-7 business days. You can track your package here: <a href=\"https://venustas.aftership.com/\" target=\"_blank\" title=\"https://venustas.aftership.com/\">https://venustas.aftership.com/</a></p>"
+          }
+        },
+        "faq_rLzrGb": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "Are heated gloves safe?",
+            "body": "<p>Yes, our heated gloves are completely safe. However, please ensure the gloves are fully dry before using the heating function. Additionally, if you have a cardiac device, we recommend consulting with your doctor or the pacemaker manufacturer before use.</p>"
+          }
+        },
+        "faq_UnKerq": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "Can I wash the heated gloves?",
+            "body": "<p>Yes, they are hand-washable or machine-washable. If machine washing, please use a laundry bag (not included) to protect the internal cables. Please air dry naturally and do not use a dryer.</p>"
+          }
+        },
+        "faq_KJf4tg": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "Can I take heated gloves on a plane?",
+            "body": "<p>Yes, our heated gloves are TSA-friendly. Both the power bank and the gloves can be taken on a plane. However, if you check your gloves in, you must remove the batteries and carry them with you in your carry-on luggage.</p>"
+          }
+        },
+        "faq_RqJg9h": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "How to turn on the heated gloves?",
+            "body": "<p>To turn on, press and hold the power button for 3 seconds. The gloves will begin to preheat for 5 minutes (blinking red LED), then automatically adjust to medium heat (white LED). To turn off, press and hold the power button for 3 seconds until the LED turns off. Please unplug the batteries if not in use for an extended period.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_TQWcGq",
+        "faq_rLzrGb",
+        "faq_UnKerq",
+        "faq_KJf4tg",
+        "faq_RqJg9h"
+      ],
+      "name": "FAQs Section",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "FAQs",
+        "heading": "Frequently asked questions"
+      }
+    },
+    "product_recommendation_bgYVqc": {
+      "type": "product-recommendation",
+      "name": "Recommendation",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "",
+        "heading": "You May Also Like",
+        "collection": "",
+        "number_product": 8
+      }
+    }
+  },
+  "order": [
+    "main-product",
+    "size_chart_table_VeP3zR",
+    "product_nav_EP4CHB",
+    "product_image_content_g3c3AM",
+    "product_battery_performance_YwTnXi",
+    "product_expand_image_dT7V9E",
+    "product_row_layout_content_xfiwBy",
+    "product_featured_content_icons_Wj7DLM",
+    "product_specification_8nyhRL",
+    "product_included_FGKBYF",
+    "product_review_section_nwk9r6",
+    "product_review_blog_carousel_cMVigw",
+    "product_faqs_section_9y4Ffk",
+    "product_recommendation_bgYVqc"
+  ]
+}

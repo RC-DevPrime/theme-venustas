@@ -1,0 +1,450 @@
+{% assign section_anchor = section.settings.anchor_id | default: 'tech-expert-highlights' | strip %}
+<section id="{{ section_anchor | escape }}" class="venustas-tech-expert-highlights">
+  <div class="venustas-tech-expert-highlights__inner page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="venustas-tech-expert-highlights__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="venustas-tech-expert-highlights__grid">
+      {% for i in (1..4) %}
+        {% liquid
+          assign icon_key = 'item_' | append: i | append: '_icon'
+          assign text_key = 'item_' | append: i | append: '_text'
+          assign icon = section.settings[icon_key]
+          assign text = section.settings[text_key]
+        %}
+        {% if icon != blank or text != blank %}
+          <div class="venustas-tech-expert-highlights__item">
+            <div class="venustas-tech-expert-highlights__icon-wrap">
+              {% if icon != blank %}
+                <img
+                  class="venustas-tech-expert-highlights__icon"
+                  src="{{ icon | image_url: width: 96 }}"
+                  alt="{{ text | strip_html | escape }}"
+                  loading="lazy"
+                  width="40"
+                  height="40"
+                >
+              {% else %}
+                <span class="venustas-tech-expert-highlights__icon-fallback" aria-hidden="true"></span>
+              {% endif %}
+            </div>
+            {% if text != blank %}
+              <p class="venustas-tech-expert-highlights__text">{{ text }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_anchor | escape }} {
+    --bg-color: {{ section.settings.bg_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    --text-color: {{ section.settings.text_color }};
+    --divider-color: {{ section.settings.divider_color }};
+    --fallback-icon-color: {{ section.settings.icon_fallback_color }};
+
+    --pt: {{ section.settings.padding_top }}px;
+    --pb: {{ section.settings.padding_bottom }}px;
+    --content-width: {{ section.settings.content_width_percent }}%;
+
+    --heading-size: {{ section.settings.heading_size }}px;
+    --item-text-size: {{ section.settings.item_text_size }}px;
+    --icon-size: {{ section.settings.icon_size }}px;
+    --item-gap: {{ section.settings.item_gap }}px;
+    --grid-gap-x: {{ section.settings.grid_gap_x }}px;
+  }
+
+  #{{ section_anchor | escape }} {
+    background: var(--bg-color);
+    padding: var(--pt) 0 var(--pb);
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-expert-highlights__inner {
+    width: var(--content-width);
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-expert-highlights__heading {
+    margin: 0 0 54px;
+    text-align: center;
+    color: var(--heading-color);
+    font-size: var(--heading-size);
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-expert-highlights__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--grid-gap-x);
+    row-gap: 14px;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-expert-highlights__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--item-gap);
+    min-width: 0;
+    text-align: left;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-expert-highlights__icon-wrap {
+    flex: 0 0 auto;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-expert-highlights__icon {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-expert-highlights__icon-fallback {
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    background: var(--fallback-icon-color);
+    display: inline-block;
+  }
+
+  #{{ section_anchor | escape }} .venustas-tech-expert-highlights__text {
+    margin: 0;
+    color: var(--text-color);
+    font-size: var(--item-text-size);
+    line-height: 1.2;
+    font-weight: 700;
+    white-space: pre-line;
+  }
+
+  @media (max-width: 989px) {
+    #{{ section_anchor | escape }} .venustas-tech-expert-highlights__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 18px;
+    }
+  }
+
+  @media (max-width: 749px) {
+    #{{ section_anchor | escape }} {
+      --pt: {{ section.settings.mobile_padding_top }}px;
+      --pb: {{ section.settings.mobile_padding_bottom }}px;
+      --content-width: {{ section.settings.mobile_content_width_percent }}%;
+      --heading-size: {{ section.settings.mobile_heading_size }}px;
+      --item-text-size: {{ section.settings.mobile_item_text_size }}px;
+      --icon-size: {{ section.settings.mobile_icon_size }}px;
+      --item-gap: {{ section.settings.mobile_item_gap }}px;
+      --grid-gap-x: {{ section.settings.mobile_grid_gap_x }}px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-tech-expert-highlights__heading {
+      margin-bottom: 24px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Tech Expert Highlights",
+  "tag": "section",
+  "class": "venustas-tech-expert-highlights-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Section Anchor ID",
+      "default": "tech-expert-highlights"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Expert in Heated Apparel Industry"
+    },
+
+    {
+      "type": "header",
+      "content": "Item 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_1_icon",
+      "label": "Item 1 icon"
+    },
+    {
+      "type": "textarea",
+      "id": "item_1_text",
+      "label": "Item 1 text",
+      "default": "3M+ Products\nDelivered Worldwide"
+    },
+
+    {
+      "type": "header",
+      "content": "Item 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_2_icon",
+      "label": "Item 2 icon"
+    },
+    {
+      "type": "textarea",
+      "id": "item_2_text",
+      "label": "Item 2 text",
+      "default": "2M+ Customers\nTrust Venustas"
+    },
+
+    {
+      "type": "header",
+      "content": "Item 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_3_icon",
+      "label": "Item 3 icon"
+    },
+    {
+      "type": "textarea",
+      "id": "item_3_text",
+      "label": "Item 3 text",
+      "default": "3-Year Heating\nSystem Warranty"
+    },
+
+    {
+      "type": "header",
+      "content": "Item 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_4_icon",
+      "label": "Item 4 icon"
+    },
+    {
+      "type": "textarea",
+      "id": "item_4_text",
+      "label": "Item 4 text",
+      "default": "30-Day Risk-Free\nExperience"
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#e9e9e9"
+    },
+    {
+      "type": "color",
+      "id": "icon_fallback_color",
+      "label": "Fallback icon color",
+      "default": "#e44b10"
+    },
+
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_width_percent",
+      "label": "Desktop content width (%)",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 90,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_width_percent",
+      "label": "Mobile content width (%)",
+      "min": 88,
+      "max": 100,
+      "step": 1,
+      "default": 94,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop padding top",
+      "min": 12,
+      "max": 120,
+      "step": 2,
+      "default": 26,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop padding bottom",
+      "min": 12,
+      "max": 120,
+      "step": 2,
+      "default": 26,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 10,
+      "max": 100,
+      "step": 2,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 10,
+      "max": 100,
+      "step": 2,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_x",
+      "label": "Desktop item gap X",
+      "min": 8,
+      "max": 70,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_grid_gap_x",
+      "label": "Mobile item gap X",
+      "min": 6,
+      "max": 40,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "label": "Desktop icon-text gap",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_item_gap",
+      "label": "Mobile icon-text gap",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+
+    {
+      "type": "header",
+      "content": "Typography & Icon"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 20,
+      "max": 64,
+      "step": 1,
+      "default": 54,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 18,
+      "max": 44,
+      "step": 1,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "item_text_size",
+      "label": "Desktop item text size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_item_text_size",
+      "label": "Mobile item text size",
+      "min": 11,
+      "max": 22,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Desktop icon size",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "default": 42,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_size",
+      "label": "Mobile icon size",
+      "min": 16,
+      "max": 56,
+      "step": 1,
+      "default": 30,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tech Expert Highlights"
+    }
+  ]
+}
+{% endschema %}

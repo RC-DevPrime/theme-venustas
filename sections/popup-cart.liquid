@@ -1,0 +1,705 @@
+{% include 'global-vars' %}
+
+{% assign membership_points_rate = section.settings.membership_points_rate | default: 1 %}
+{% assign membership_points = cart.items_subtotal_price | times: membership_points_rate | divided_by: 100 %}
+{% assign membership_points_text = section.settings.membership_points_text | default: 'and earn [points] points on this order now!' %}
+{% assign membership_points_rendered = membership_points_text | replace: '[points]', membership_points %}
+
+<div id="popup-cart">
+
+    <div class="overlay"></div>
+
+    <div class="cart">
+
+        <div class="el-overlay">
+            <div class="el-spinner"></div>
+        </div>
+
+        <div class="cart-header">
+            <div class="cart-header-con">
+                <p class="cart-header-title pretitle pp-bold f-black d-lg-block d-md-block d-sm-none">
+                    Shopping Cart {% if cart.item_count > 0 %}({{ cart.item_count }}){% endif %}
+                </p>
+                <p class="cart-header-title pretitle pp-semibold f-black d-lg-none d-md-none d-sm-block">
+                    Shopping Cart {% if cart.item_count > 0 %}({{ cart.item_count }}){% endif %}
+                </p>
+                <button class="cart-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24.771" height="24.771" viewBox="0 0 24.771 24.771">
+                        <path d="M0 0h24.771v24.771H0Z" style="fill:transparent"/>
+                        <path d="m171.66 158.039.057.052 7.013 7.014 6.755-6.755a1.032 1.032 0 0 1 1.512 1.4l-.052.057-6.756 6.754 6.756 6.755a1.032 1.032 0 0 1-1.4 1.513l-.057-.053-6.755-6.755-7.013 7.014a1.032 1.032 0 0 1-1.512-1.4l.052-.057 7.014-7.014-7.013-7.013a1.032 1.032 0 0 1 1.4-1.512Z" transform="translate(-165.843 -153.975)" style="fill:#111"/>
+                    </svg>
+                </button>
+            </div>
+            {% render 'free-shipping-progress',
+                enable: settings.enable_calculator_free_shipping,
+                threshold: settings.total_price,
+                text_color: settings.text_color,
+                background_color: settings.background_color,
+                bg_30: settings.bg_30,
+                bg_60: settings.bg_60,
+                bg_100: settings.bg_100,
+                enable_animation_progress_bar: settings.enable_animation_progress_bar
+            %}
+        </div>
+        {% if section.settings.promotion_text != blank %}
+            <div class="cart-promotion" {% if cart.item_count == 0 %} style="display:none" {% endif %}>
+                {% comment %} <p class="body-sm pp-semibold f-black">
+                    {{ section.settings.promotion_text }}
+                </p> {% endcomment %}
+            </div>
+        {% endif %}
+
+        <div class="cart-content-scroll">
+            
+            <div class="cart-body" {% if cart.item_count == 0 %} style="display:none" {% endif %}>
+
+                {% assign totalLess = 0 %}
+                {% assign totalDiscount = 0 %}
+
+                {% if cart.item_count > 0 %}
+                    {% for item in cart.items %}
+
+                        <div class="product-cart"  class="product-cart" 
+                            data-product-id="{{ item.product_id }}"
+                            data-product-title="{{ item.product.title }}"
+                            data-key="{{ item.key }}"
+                        >
+                            <a href="{{ item.url }}">
+                                <div class="product-image">
+                                    {% if item.variant.image %}
+                                        <img src="{{ item.variant.image | img_url: 'master' }}">
+                                    {% else %}
+                                        <img src="{{ item.image | img_url: 'master' }}">
+                                    {% endif %}
+                                </div>
+                            </a>
+                            <div class="product-details">
+                                <div class="d-flex flex-column h-100 position-relative">
+                                    <div class="f-layer d-flex pb-1">
+                                        <a href="{{ item.product.url }}" class="product-title pp-semibold f-black pe-4">
+                                            {{ item.product.title }}
+                                        </a>
+
+                                        <div class="wishlist-button">
+                                            <!-- Swym Wishlist Plus EPI Button with default first variant -->
+                                            <button
+                                                aria-label="Add to Wishlist"
+                                                data-with-epi="true"
+                                                class="swym-button swym-add-to-wishlist-view-product product_{{ item.product.id }}"
+                                                data-swaction="addToWishlist"
+                                                data-product-id="{{ item.product.id | json }}"
+                                                data-variant-id="{{ item.product.variants[0].id | json }}"
+                                                data-product-url="{{ shop.url }}{{ item.product.url }}">
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    <div class="s-layer d-flex flex-column position-relative flex-auto h-100 justify-content-between">
+                                        <div class="d-flex justify-content-between">
+                                            
+                                            {% if item.variant.title != "Default Title" %}
+                                                <div class="product-variant flex items-center">
+                                                    <span>
+                                                        {{ item.options_with_values | map: 'value' | join: ' / ' }}
+                                                    </span>
+
+                                                    <!-- icon svg -->
+                                                    <div class="update-btn">
+                                                        <svg  xmlns="http://www.w3.org/2000/svg" width="12.218" height="12.218" viewBox="0 0 12.218 12.218">
+                                                            <path d="M118.062 106.808a.482.482 0 1 1 .682.682l-6.82 6.82a.482.482 0 0 1-.682-.682zm-.141 5a.482.482 0 1 1 .965 0v5.305a1.77 1.77 0 0 1-1.768 1.768h-8.681a1.77 1.77 0 0 1-1.768-1.768v-8.681a1.77 1.77 0 0 1 1.768-1.768h5.144a.482.482 0 1 1 0 .965h-5.144a.8.8 0 0 0-.8.8v8.681a.8.8 0 0 0 .8.8h8.681a.8.8 0 0 0 .8-.8v-5.305Z" transform="translate(-106.667 -106.667)" />
+                                                        </svg>
+                                                    </div>
+                                                    
+                                                    <div class="product-update popup-modal" 
+                                                        data-cart-id="main-cart-{{ item.id }}"
+                                                        data-line-key="{{ item.key }}"
+                                                    >
+                                                        {% render 'product-update-popup', product: item.product, selected_variant: item.variant, item: item %}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            
+                                            {%- assign max_qty = blank -%}
+                                            {%- if item.variant.inventory_management and item.variant.inventory_policy == 'deny' -%}
+                                            {%- assign max_qty = item.variant.inventory_quantity -%}
+                                            {%- endif -%}
+
+                                            {%- assign is_at_max = false -%}
+                                            {%- if max_qty != blank and item.quantity >= max_qty -%}
+                                            {%- assign is_at_max = true -%}
+                                            {%- endif -%}
+
+                                            {%- assign is_at_min = false -%}
+                                            {%- if item.quantity <= 0 -%}
+                                            {%- assign is_at_min = true -%}
+                                            {%- endif -%}
+
+                                            <div class="product-quantity"
+                                            data-key="{{ item.key }}"
+                                            data-max="{{ max_qty }}"
+                                            data-available="{{ item.variant.available }}">
+
+                                                <button
+                                                    name="minus"
+                                                    type="button"
+                                                    class="less_qty{% if is_at_min %} disabled{% endif %}"
+                                                    data-key="{{ item.key }}"
+                                                    {% if is_at_min %}disabled{% endif %}
+                                                    style="margin-right: 5px;">-</button>
+
+                                                <input class="qty quantity__input"
+                                                    type="number"
+                                                    name="quantity"
+                                                    min="0"
+                                                    max="{{ max_qty }}"
+                                                    readonly
+                                                    value="{{ item.quantity }}"
+                                                    data-key="{{ item.key }}"
+                                                >
+
+                                                <button
+                                                    name="plus"
+                                                    type="button"
+                                                    class="add_qty{% if is_at_max or item.variant.available == false %} disabled{% endif %}"
+                                                    data-key="{{ item.key }}"
+                                                    data-max="{{ max_qty }}"
+                                                    data-available="{{ item.variant.available }}"
+                                                    {% if is_at_max or item.variant.available == false %}disabled{% endif %}
+                                                    style="margin-left: 5px;">+</button>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="product-price">
+                                                    {% if item.final_line_price > 0 %}
+                                                        {% assign final_compare = item.quantity | times: item.variant.compare_at_price  %}
+                                                        <span class="final pp-semibold f-main body-lg">
+                                                            {{ item.final_line_price | money | prepend: curSym }}
+                                                        </span>
+
+                                                        {% if final_compare > 0 %}
+                                                            <span class="original">
+                                                                {{ final_compare | money | prepend: curSym }}
+                                                            </span>
+
+                                                            {% assign totalLess = totalLess | plus: final_compare %}
+                                                        {% else %}
+                                                            {% assign totalLess = totalLess | plus: item.final_line_price %}
+                                                        {% endif %}
+                                                
+                                                            {% assign totalSavings = 0 %}
+                                        
+                                                            {% assign compare_price = item.variant.compare_at_price %}
+                                                            {% assign original_price = item.variant.price %}
+                                                            {% assign final_price = item.final_price %}
+                                                            {% assign quantity = item.quantity %}
+                                                            
+                                                            {% if compare_price > original_price %}
+                                                                {% assign price_saving = compare_price | minus: original_price %}
+                                                            {% else %}
+                                                                {% assign price_saving = 0 %}
+                                                            {% endif %}
+                                                            
+                                                            {% assign additional_discount = original_price | minus: final_price %}
+                                                            
+                                                            {% assign savings_per_item = price_saving | plus: additional_discount %}
+                                                            {% assign savings_total = savings_per_item | times: quantity %}
+                                                            {% assign totalSavings = totalSavings | plus: savings_total %}
+                                                            
+                                                            {% comment %} {% if totalSavings > 0 %}
+                                                            <span class="discounted">
+                                                                Save {{ totalSavings | money_without_trailing_zeros | prepend: curSym }}
+                                                            </span>
+                                                            {% endif %} {% endcomment %}
+
+                                                        {% if final_compare > 0 and discounted_price > 0 %}
+                                                            {% assign totalLess = totalLess | minus: discounted_price %}
+                                                        {% endif %}
+
+                                                    {% else %}
+                                                        <p class="body-sm pp-regular f-main">
+                                                            Free
+                                                        </p>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <a href="{{ item.url_to_remove }}" class="product-remove">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16.003" height="15.615" viewBox="0 0 16.003 15.615">
+                                                    <path d="M12.49 26.265a.976.976 0 0 1-.975.975H4.488a.976.976 0 0 1-.975-.975V15.913h8.977Zm-7.026-12.1a.2.2 0 0 1 .2-.2h4.688a.2.2 0 0 1 .2.2v.588H5.463Zm9.952.588h-3.7v-.588a1.366 1.366 0 0 0-1.364-1.365H5.663A1.366 1.366 0 0 0 4.3 14.163v.588H.588a.588.588 0 0 0 0 1.175h1.75v10.339a2.15 2.15 0 0 0 2.15 2.15h7.026a2.15 2.15 0 0 0 2.15-2.15V15.913h1.75a.587.587 0 0 0 .586-.588.576.576 0 0 0-.585-.575ZM8 25.477a.587.587 0 0 0 .588-.588v-6.25a.588.588 0 1 0-1.175 0v6.251a.587.587 0 0 0 .587.587m-2.738 0a.587.587 0 0 0 .588-.588v-6.25a.588.588 0 1 0-1.175 0v6.251a.6.6 0 0 0 .588.588m5.476 0a.587.587 0 0 0 .588-.588v-6.251a.588.588 0 1 0-1.175 0v6.251a.587.587 0 0 0 .588.588" transform="translate(0 -12.8)"/>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                {% else %}
+                    <div class="d-flex align-items-center justify-content-center h-100">
+                        <p class="subtitle pp-regular f-light">
+                            There's no item in your cart.
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if section.settings.ymal_product != blank %}
+                <div class="yml-container" {% if cart.item_count == 0 %} style="display:none" {% endif %}>
+                    <div class="cart-ymal">
+                        <div class="d-flex justify-content-between mb-2">
+                            
+                            <p class="body pp-semibold f-black">
+                                You May Also Like
+                            </p>
+                            <div class="arrows-container">
+                                <span class="slide-prev d-flex">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="slide-next d-flex">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="slider">
+                            <div class="swiper cart-ymal-swiper">
+                                <div class="swiper-wrapper">
+                                    {% for ymal in section.settings.ymal_product %}
+                                        {% if ymal.available %}
+                                            <div class="swiper-slide item">
+                                                <div class="ymal">
+                                                    <div class="details">
+                                                        <div class="free-image">
+                                                            <img src="{{ ymal.featured_image | img_url: 'master' }}" alt="ymal-product-image">
+                                                        </div>
+                                                        <div class="free-text">
+                                                            <a href="{{ ymal.url }}" class="product-title body-sm pp-semibold f-black mb-lg-4 mb-md-4 mb-sm-3 truncate-2-text">
+                                                                {{ ymal.title }}
+                                                            </a>
+                                                            
+                                                            <div class="wishlist-button">
+                                                                <!-- Swym Wishlist Plus EPI Button with default first variant -->
+                                                                <button aria-label="Add to Wishlist" data-with-epi="true" class="swym-button swym-add-to-wishlist-view-product product_{{ymal.id}}" data-swaction="addToWishlist" data-product-id="{{ymal.id | json}}" data-variant-id="{{ymal.variants[0].id}}" data-product-url="{{ shop.url }}{{ ymal.url }}">
+                                                                </button>
+
+                                                            </div>
+
+                                                            <div class="price-atc-container">
+                                                                <p class="body pp-semibold f-main">
+                                                                    {{ ymal.selected_or_first_available_variant.price | money | prepend: curSym }}
+                                                                    {% if ymal.selected_or_first_available_variant.compare_at_price %}
+                                                                        <small class="pp-regular f-gray body-sm">
+                                                                            {{ ymal.selected_or_first_available_variant.compare_at_price | money | prepend: curSym }}
+                                                                        </small>
+                                                                    {% endif %}
+                                                                </p>
+
+                                                            {% if ymal.has_only_default_variant %}
+                                                                {% form 'product', ymal, id: ymal.id, class: 'ymal-form form', novalidate: 'novalidate', data-type: 'add-to-cart-form', action: 'javascript:void(0)' %}
+                                                                    <input type="hidden" name="id" value="{{ ymal.selected_or_first_available_variant.id }}">
+                                                                    <div class="form-btn">
+                                                                        <button type='submit' name="add" class="btn-atc btn-hover btn-main" {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
+                                                                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc" alt="cart-icon">
+                                                                    
+                                                                            <div class="position-relative">
+                                                                                <span class="body-sm pp-semibold f-white">
+                                                                                    {% if ymal.selected_or_first_available_variant.available == false %}Sold{% else %}Add{% endif %}
+                                                                                </span>
+                                                                                <div class="atc-overlay">
+                                                                                    <div class="atc-spinner"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </button>
+                                                                    </div>
+                                                                {% endform %}
+                                                            {% else %}
+                                                                <div class="form-btn popup-atc">
+                                                                    <button class="btn-atc btn-hover btn-main" data-popup-handle="{{ ymal.handle }}">
+                                                                        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc" alt="cart-icon">
+                                                                
+                                                                        <div class="position-relative">
+                                                                            <span class="body-sm pp-semibold f-white">
+                                                                                {% if ymal.selected_or_first_available_variant.available == false %}Sold{% else %}Add{% endif %}
+                                                                            </span>
+                                                                            <div class="atc-overlay">
+                                                                                <div class="atc-spinner"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </button>
+                                                                </div>
+                                                            {% endif %}
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="cart-footer" {% if cart.item_count == 0 %} style="display:none" {% endif %}>
+                <div class="text-lg-center text-md-center text-sm-left d-lg-block d-md-block d-sm-flex pb-lg-3 pb-md-3 pb-sm-2">
+                    <svg class="d-inline" xmlns="http://www.w3.org/2000/svg" width="17.625" height="21.231" viewBox="0 0 17.625 21.231">
+                        <path d="M146.816 86.025s-7.1-1.051-7.1-7.1S149 72.3 146.945 64.794c0 0 6.952 2.176 5.254 8.949a5.8 5.8 0 0 0 1.622-1.73s3.52 2.719 3.52 6.856-4.878 7.18-7.19 7.152c0 0 2.495-3.367.226-5.538-3.221-3.082-1.848-5.059-1.848-5.059s-7.848 3.839-1.713 10.6" transform="translate(-139.716 -64.794)" style="fill:#B93205"/>
+                    </svg>
+                    <p
+                        class="pp-regular body-sm f-black d-inline ms-2 cart-membership-message"
+                        data-membership-points-message
+                        data-points-rate="{{ membership_points_rate }}"
+                        data-points-template="{{ membership_points_text | escape }}"
+                    >
+                        {{ section.settings.membership_intro_text }}
+                        <a href="#" class="icon-gift pp-regular body-sm f-main text-underline" onclick="return false;">
+                            {{ section.settings.membership_link_text }}
+                        </a>
+                        <span data-membership-points-copy>{{ membership_points_rendered }}</span>
+                    </p>
+
+                </div>
+
+                <div class="discount-wrapper">
+                    <small>
+                        Discount Code
+                    </small>
+                    <div class="discount-form">
+                        <input type="text" name="discount-input" placeholder="Enter a coupon">
+                        <button type="button">
+                            Apply
+                        </button>
+                    </div>
+                    <div class="discount-code-wrapper">
+                        {% assign unique_discounts = "" %}
+                            {% for item in cart.items %}
+                                {% for discount in item.discounts %}
+                                    {% if unique_discounts contains discount.title %}
+                                        {% continue %}
+                                    {% else %}
+
+                                        <div class="discount-code">
+                                            <i class="fa-solid fa-tags"></i> 
+                                                {{ discount.title }} 
+                                            <i class="fa-solid fa-xmark remove-discount" data-code="{{ discount.title }}"></i>
+                                        </div>
+
+                                        {% assign unique_discounts = unique_discounts | append: discount.title | append: "," %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+
+                            {% assign unique_discounts_2 = "" %}
+                            {% for discount in cart.cart_level_discount_applications %}
+                                {% if unique_discounts_2 contains discount.title %}
+                                    {% continue %}
+                                {% else %}
+
+                                    <div class="discount-code">
+                                        <i class="fa-solid fa-tags"></i> 
+                                            {{ discount.title }} 
+                                        <i class="fa-solid fa-xmark remove-discount" data-code="{{ discount.title }}"></i>
+                                    </div>
+
+                                    {% assign unique_discounts_2 = unique_discounts_2 | append: discount.title | append: "," %}
+                                {% endif %}
+                            {% endfor %}
+                    </div>
+                    <p class="discount-message">
+                        Please enter a valid code.
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center pb-lg-2 pb-md-2 pb-sm-1">
+                    <p class="body pp-medium f-gray">
+                        Subtotal
+                    </p>
+                    <p class="body-lg pp-medium f-gray cart-total-price">
+                        <span class="cart-total-less">
+                            {{ cart.items_subtotal_price  | money | prepend: curSym }}
+                        </span>
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center pb-lg-2 pb-md-2 pb-sm-1">
+                    <p class="body pp-medium f-gray">
+                        Discount
+                    </p>
+                    <p class="body pp-semibold f-gray discount-applied">
+                        -{{ cart.total_discount | money | prepend: curSym }}
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="body pp-bold f-black">
+                        TOTAL
+                    </p>
+                    <p class="total-price body-lg pp-semibold f-main">
+                        <span>
+                            {{ cart.total_price | money | prepend: curSym }}
+                        </span>
+                    </p>
+                </div>
+                <p class="body-sm pp-medium f-black text-center mt-1 mb-1">
+                    {% assign saving = totalLess | minus: cart.total_price %}
+                    You're Saving <span class="total-save f-main">{{ saving | money | prepend: curSym }}</span>
+                </p>
+                <small class="text-center d-block pp-regular f-gray body-xs">
+                    Shipping and Taxes calculated at checkout.
+                </small>
+            </div>
+        </div>
+
+        <div class='cart-checkout' {% if cart.item_count == 0 %} style="display:none" {% endif %}>
+            {% if cart.item_count > 0 %}
+                <a href="/checkout">
+                    Check Out
+                </a>
+            {% else %}
+                <a href="/checkout" class="disabled">
+                    Check Out
+                </a>
+            {% endif %}
+
+            <div class="d-flex justify-content-center pt-3">
+                <ul class="list list-payment" role="list">
+                    <li class="list-payment__item visa"><svg class="icon icon--full-color" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24" aria-labelledby="pi-visa">
+                            <title id="pi-visa">Visa</title>
+                            <path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                            <path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
+                            <path d="M28.3 10.1H28c-.4 1-.7 1.5-1 3h1.9c-.3-1.5-.3-2.2-.6-3zm2.9 5.9h-1.7c-.1 0-.1 0-.2-.1l-.2-.9-.1-.2h-2.4c-.1 0-.2 0-.2.2l-.3.9c0 .1-.1.1-.1.1h-2.1l.2-.5L27 8.7c0-.5.3-.7.8-.7h1.5c.1 0 .2 0 .2.2l1.4 6.5c.1.4.2.7.2 1.1.1.1.1.1.1.2zm-13.4-.3l.4-1.8c.1 0 .2.1.2.1.7.3 1.4.5 2.1.4.2 0 .5-.1.7-.2.5-.2.5-.7.1-1.1-.2-.2-.5-.3-.8-.5-.4-.2-.8-.4-1.1-.7-1.2-1-.8-2.4-.1-3.1.6-.4.9-.8 1.7-.8 1.2 0 2.5 0 3.1.2h.1c-.1.6-.2 1.1-.4 1.7-.5-.2-1-.4-1.5-.4-.3 0-.6 0-.9.1-.2 0-.3.1-.4.2-.2.2-.2.5 0 .7l.5.4c.4.2.8.4 1.1.6.5.3 1 .8 1.1 1.4.2.9-.1 1.7-.9 2.3-.5.4-.7.6-1.4.6-1.4 0-2.5.1-3.4-.2-.1.2-.1.2-.2.1zm-3.5.3c.1-.7.1-.7.2-1 .5-2.2 1-4.5 1.4-6.7.1-.2.1-.3.3-.3H18c-.2 1.2-.4 2.1-.7 3.2-.3 1.5-.6 3-1 4.5 0 .2-.1.2-.3.2M5 8.2c0-.1.2-.2.3-.2h3.4c.5 0 .9.3 1 .8l.9 4.4c0 .1 0 .1.1.2 0-.1.1-.1.1-.1l2.1-5.1c-.1-.1 0-.2.1-.2h2.1c0 .1 0 .1-.1.2l-3.1 7.3c-.1.2-.1.3-.2.4-.1.1-.3 0-.5 0H9.7c-.1 0-.2 0-.2-.2L7.9 9.5c-.2-.2-.5-.5-.9-.6-.6-.3-1.7-.5-1.9-.5L5 8.2z" fill="#142688"></path>
+                        </svg></li>
+                    <li class="list-payment__item master"><svg class="icon icon--full-color" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24" aria-labelledby="pi-master">
+                            <title id="pi-master">Mastercard</title>
+                            <path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                            <path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
+                            <circle fill="#EB001B" cx="15" cy="12" r="7"></circle>
+                            <circle fill="#F79E1B" cx="23" cy="12" r="7"></circle>
+                            <path fill="#FF5F00" d="M22 12c0-2.4-1.2-4.5-3-5.7-1.8 1.3-3 3.4-3 5.7s1.2 4.5 3 5.7c1.8-1.2 3-3.3 3-5.7z"></path>
+                        </svg></li>
+                    <li class="list-payment__item maestro"><svg class="icon icon--full-color" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" width="38" height="24" role="img" aria-labelledby="pi-maestro">
+                            <title id="pi-maestro">Maestro</title>
+                            <path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                            <path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
+                            <circle fill="#EB001B" cx="15" cy="12" r="7"></circle>
+                            <circle fill="#00A2E5" cx="23" cy="12" r="7"></circle>
+                            <path fill="#7375CF" d="M22 12c0-2.4-1.2-4.5-3-5.7-1.8 1.3-3 3.4-3 5.7s1.2 4.5 3 5.7c1.8-1.2 3-3.3 3-5.7z"></path>
+                        </svg></li>
+                    <li class="list-payment__item american_express"><svg class="icon icon--full-color" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="pi-american_express" viewBox="0 0 38 24" width="38" height="24">
+                            <title id="pi-american_express">American Express</title>
+                            <path fill="#000" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3Z" opacity=".07"></path>
+                            <path fill="#006FCF" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32Z"></path>
+                            <path fill="#FFF" d="M22.012 19.936v-8.421L37 11.528v2.326l-1.732 1.852L37 17.573v2.375h-2.766l-1.47-1.622-1.46 1.628-9.292-.02Z"></path>
+                            <path fill="#006FCF" d="M23.013 19.012v-6.57h5.572v1.513h-3.768v1.028h3.678v1.488h-3.678v1.01h3.768v1.531h-5.572Z"></path>
+                            <path fill="#006FCF" d="m28.557 19.012 3.083-3.289-3.083-3.282h2.386l1.884 2.083 1.89-2.082H37v.051l-3.017 3.23L37 18.92v.093h-2.307l-1.917-2.103-1.898 2.104h-2.321Z"></path>
+                            <path fill="#FFF" d="M22.71 4.04h3.614l1.269 2.881V4.04h4.46l.77 2.159.771-2.159H37v8.421H19l3.71-8.421Z"></path>
+                            <path fill="#006FCF" d="m23.395 4.955-2.916 6.566h2l.55-1.315h2.98l.55 1.315h2.05l-2.904-6.566h-2.31Zm.25 3.777.875-2.09.873 2.09h-1.748Z"></path>
+                            <path fill="#006FCF" d="M28.581 11.52V4.953l2.811.01L32.84 9l1.456-4.046H37v6.565l-1.74.016v-4.51l-1.644 4.494h-1.59L30.35 7.01v4.51h-1.768Z"></path>
+                        </svg>
+                    </li>
+                    <li class="list-payment__item diners_club"><svg class="icon icon--full-color" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24" aria-labelledby="pi-diners_club">
+                            <title id="pi-diners_club">Diners Club</title>
+                            <path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                            <path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
+                            <path d="M12 12v3.7c0 .3-.2.3-.5.2-1.9-.8-3-3.3-2.3-5.4.4-1.1 1.2-2 2.3-2.4.4-.2.5-.1.5.2V12zm2 0V8.3c0-.3 0-.3.3-.2 2.1.8 3.2 3.3 2.4 5.4-.4 1.1-1.2 2-2.3 2.4-.4.2-.4.1-.4-.2V12zm7.2-7H13c3.8 0 6.8 3.1 6.8 7s-3 7-6.8 7h8.2c3.8 0 6.8-3.1 6.8-7s-3-7-6.8-7z" fill="#3086C8"></path>
+                        </svg></li>
+                    <li class="list-payment__item discover"><svg class="icon icon--full-color" viewBox="0 0 38 24" width="38" height="24" role="img" aria-labelledby="pi-discover" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <title id="pi-discover">Discover</title>
+                            <path fill="#000" opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                            <path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32z" fill="#fff"></path>
+                            <path d="M3.57 7.16H2v5.5h1.57c.83 0 1.43-.2 1.96-.63.63-.52 1-1.3 1-2.11-.01-1.63-1.22-2.76-2.96-2.76zm1.26 4.14c-.34.3-.77.44-1.47.44h-.29V8.1h.29c.69 0 1.11.12 1.47.44.37.33.59.84.59 1.37 0 .53-.22 1.06-.59 1.39zm2.19-4.14h1.07v5.5H7.02v-5.5zm3.69 2.11c-.64-.24-.83-.4-.83-.69 0-.35.34-.61.8-.61.32 0 .59.13.86.45l.56-.73c-.46-.4-1.01-.61-1.62-.61-.97 0-1.72.68-1.72 1.58 0 .76.35 1.15 1.35 1.51.42.15.63.25.74.31.21.14.32.34.32.57 0 .45-.35.78-.83.78-.51 0-.92-.26-1.17-.73l-.69.67c.49.73 1.09 1.05 1.9 1.05 1.11 0 1.9-.74 1.9-1.81.02-.89-.35-1.29-1.57-1.74zm1.92.65c0 1.62 1.27 2.87 2.9 2.87.46 0 .86-.09 1.34-.32v-1.26c-.43.43-.81.6-1.29.6-1.08 0-1.85-.78-1.85-1.9 0-1.06.79-1.89 1.8-1.89.51 0 .9.18 1.34.62V7.38c-.47-.24-.86-.34-1.32-.34-1.61 0-2.92 1.28-2.92 2.88zm12.76.94l-1.47-3.7h-1.17l2.33 5.64h.58l2.37-5.64h-1.16l-1.48 3.7zm3.13 1.8h3.04v-.93h-1.97v-1.48h1.9v-.93h-1.9V8.1h1.97v-.94h-3.04v5.5zm7.29-3.87c0-1.03-.71-1.62-1.95-1.62h-1.59v5.5h1.07v-2.21h.14l1.48 2.21h1.32l-1.73-2.32c.81-.17 1.26-.72 1.26-1.56zm-2.16.91h-.31V8.03h.33c.67 0 1.03.28 1.03.82 0 .55-.36.85-1.05.85z" fill="#231F20"></path>
+                            <path d="M20.16 12.86a2.931 2.931 0 100-5.862 2.931 2.931 0 000 5.862z" fill="url(#pi-paint0_linear)"></path>
+                            <path opacity=".65" d="M20.16 12.86a2.931 2.931 0 100-5.862 2.931 2.931 0 000 5.862z" fill="url(#pi-paint1_linear)"></path>
+                            <path d="M36.57 7.506c0-.1-.07-.15-.18-.15h-.16v.48h.12v-.19l.14.19h.14l-.16-.2c.06-.01.1-.06.1-.13zm-.2.07h-.02v-.13h.02c.06 0 .09.02.09.06 0 .05-.03.07-.09.07z" fill="#231F20"></path>
+                            <path d="M36.41 7.176c-.23 0-.42.19-.42.42 0 .23.19.42.42.42.23 0 .42-.19.42-.42 0-.23-.19-.42-.42-.42zm0 .77c-.18 0-.34-.15-.34-.35 0-.19.15-.35.34-.35.18 0 .33.16.33.35 0 .19-.15.35-.33.35z" fill="#231F20"></path>
+                            <path d="M37 12.984S27.09 19.873 8.976 23h26.023a2 2 0 002-1.984l.024-3.02L37 12.985z" fill="#F48120"></path>
+                            <defs>
+                                <linearGradient id="pi-paint0_linear" x1="21.657" y1="12.275" x2="19.632" y2="9.104" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#F89F20"></stop>
+                                    <stop offset=".25" stop-color="#F79A20"></stop>
+                                    <stop offset=".533" stop-color="#F68D20"></stop>
+                                    <stop offset=".62" stop-color="#F58720"></stop>
+                                    <stop offset=".723" stop-color="#F48120"></stop>
+                                    <stop offset="1" stop-color="#F37521"></stop>
+                                </linearGradient>
+                                <linearGradient id="pi-paint1_linear" x1="21.338" y1="12.232" x2="18.378" y2="6.446" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#F58720"></stop>
+                                    <stop offset=".359" stop-color="#E16F27"></stop>
+                                    <stop offset=".703" stop-color="#D4602C"></stop>
+                                    <stop offset=".982" stop-color="#D05B2E"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg></li>
+                    <li class="list-payment__item paypal"><svg class="icon icon--full-color" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" width="38" height="24" role="img" aria-labelledby="pi-paypal">
+                            <title id="pi-paypal">PayPal</title>
+                            <path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                            <path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
+                            <path fill="#003087" d="M23.9 8.3c.2-1 0-1.7-.6-2.3-.6-.7-1.7-1-3.1-1h-4.1c-.3 0-.5.2-.6.5L14 15.6c0 .2.1.4.3.4H17l.4-3.4 1.8-2.2 4.7-2.1z"></path>
+                            <path fill="#3086C8" d="M23.9 8.3l-.2.2c-.5 2.8-2.2 3.8-4.6 3.8H18c-.3 0-.5.2-.6.5l-.6 3.9-.2 1c0 .2.1.4.3.4H19c.3 0 .5-.2.5-.4v-.1l.4-2.4v-.1c0-.2.3-.4.5-.4h.3c2.1 0 3.7-.8 4.1-3.2.2-1 .1-1.8-.4-2.4-.1-.5-.3-.7-.5-.8z"></path>
+                            <path fill="#012169" d="M23.3 8.1c-.1-.1-.2-.1-.3-.1-.1 0-.2 0-.3-.1-.3-.1-.7-.1-1.1-.1h-3c-.1 0-.2 0-.2.1-.2.1-.3.2-.3.4l-.7 4.4v.1c0-.3.3-.5.6-.5h1.3c2.5 0 4.1-1 4.6-3.8v-.2c-.1-.1-.3-.2-.5-.2h-.1z"></path>
+                        </svg></li>
+                    <li class="list-payment__item jcb"><svg class="icon icon--full-color" width="38" height="24" role="img" aria-labelledby="pi-jcb" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg">
+                            <title id="pi-jcb">JCB</title>
+                            <g fill="none" fill-rule="evenodd">
+                                <g fill-rule="nonzero">
+                                    <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000" opacity=".07"></path>
+                                    <path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32" fill="#FFF"></path>
+                                </g>
+                                <path d="M11.5 5H15v11.5a2.5 2.5 0 0 1-2.5 2.5H9V7.5A2.5 2.5 0 0 1 11.5 5z" fill="#006EBC"></path>
+                                <path d="M18.5 5H22v11.5a2.5 2.5 0 0 1-2.5 2.5H16V7.5A2.5 2.5 0 0 1 18.5 5z" fill="#F00036"></path>
+                                <path d="M25.5 5H29v11.5a2.5 2.5 0 0 1-2.5 2.5H23V7.5A2.5 2.5 0 0 1 25.5 5z" fill="#2AB419"></path>
+                                <path d="M10.755 14.5c-1.06 0-2.122-.304-2.656-.987l.78-.676c.068 1.133 3.545 1.24 3.545-.19V9.5h1.802v3.147c0 .728-.574 1.322-1.573 1.632-.466.144-1.365.221-1.898.221zm8.116 0c-.674 0-1.388-.107-1.965-.366-.948-.425-1.312-1.206-1.3-2.199.012-1.014.436-1.782 1.468-2.165 1.319-.49 3.343-.261 3.926.27v.972c-.572-.521-1.958-.898-2.919-.46-.494.226-.737.917-.744 1.448-.006.56.245 1.252.744 1.497.953.467 2.39.04 2.919-.441v1.01c-.358.255-1.253.434-2.129.434zm8.679-2.587c.37-.235.582-.567.582-1.005 0-.438-.116-.687-.348-.939-.206-.207-.58-.469-1.238-.469H23v5h3.546c.696 0 1.097-.23 1.315-.415.283-.25.426-.53.426-.96 0-.431-.155-.908-.737-1.212zm-1.906-.281h-1.428v-1.444h1.495c.956 0 .944 1.444-.067 1.444zm.288 2.157h-1.716v-1.513h1.716c.986 0 1.083 1.513 0 1.513z" fill="#FFF" fill-rule="nonzero"></path>
+                            </g>
+                        </svg></li>
+                    <li class="list-payment__item afterpay"><svg class="icon icon--full-color" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 38 24" width="38" height="24" aria-labelledby="pi-afterpay">
+                            <title id="pi-afterpay">Afterpay</title>
+                            <path fill="#b2fce4" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                            <path d="m27.4 6.8-2.7-1.6-2.7-1.6c-1.8-1-4.1.3-4.1 2.4v.4c0 .2.1.4.3.5l1.3.7c.4.2.8-.1.8-.5v-.8c0-.4.4-.7.8-.5l2.5 1.4 2.4 1.5c.4.2.4.7 0 .9l-2.5 1.4-2.5 1.6c-.4.2-.8-.1-.8-.5v-.4c0-2.1-2.3-3.4-4.1-2.4l-2.7 1.6-2.7 1.6c-1.8 1-1.8 3.7 0 4.7l2.7 1.6 2.7 1.6c1.8 1 4.1-.3 4.1-2.4v-.4c0-.2-.1-.4-.3-.5l-1.3-.7c-.4-.2-.8.1-.8.5v.8c0 .4-.4.7-.8.5l-2.5-1.4-2.5-1.5c-.4-.2-.4-.7 0-.9l2.5-1.4 2.5-1.4c.4-.2.8.1.8.5v.4c0 2.1 2.3 3.4 4.1 2.4l2.7-1.6 2.7-1.6c1.9-1.2 1.9-3.8.1-4.9z"></path>
+                        </svg></li>
+                    <li class="list-payment__item google_pay"><svg class="icon icon--full-color" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 38 24" width="38" height="24" aria-labelledby="pi-google_pay">
+                            <title id="pi-google_pay">Google Pay</title>
+                            <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000" opacity=".07"></path>
+                            <path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32" fill="#FFF"></path>
+                            <path d="M18.093 11.976v3.2h-1.018v-7.9h2.691a2.447 2.447 0 0 1 1.747.692 2.28 2.28 0 0 1 .11 3.224l-.11.116c-.47.447-1.098.69-1.747.674l-1.673-.006zm0-3.732v2.788h1.698c.377.012.741-.135 1.005-.404a1.391 1.391 0 0 0-1.005-2.354l-1.698-.03zm6.484 1.348c.65-.03 1.286.188 1.778.613.445.43.682 1.03.65 1.649v3.334h-.969v-.766h-.049a1.93 1.93 0 0 1-1.673.931 2.17 2.17 0 0 1-1.496-.533 1.667 1.667 0 0 1-.613-1.324 1.606 1.606 0 0 1 .613-1.336 2.746 2.746 0 0 1 1.698-.515c.517-.02 1.03.093 1.49.331v-.208a1.134 1.134 0 0 0-.417-.901 1.416 1.416 0 0 0-.98-.368 1.545 1.545 0 0 0-1.319.717l-.895-.564a2.488 2.488 0 0 1 2.182-1.06zM23.29 13.52a.79.79 0 0 0 .337.662c.223.176.5.269.785.263.429-.001.84-.17 1.146-.472.305-.286.478-.685.478-1.103a2.047 2.047 0 0 0-1.324-.374 1.716 1.716 0 0 0-1.03.294.883.883 0 0 0-.392.73zm9.286-3.75l-3.39 7.79h-1.048l1.281-2.728-2.224-5.062h1.103l1.612 3.885 1.569-3.885h1.097z" fill="#5F6368"></path>
+                            <path d="M13.986 11.284c0-.308-.024-.616-.073-.92h-4.29v1.747h2.451a2.096 2.096 0 0 1-.9 1.373v1.134h1.464a4.433 4.433 0 0 0 1.348-3.334z" fill="#4285F4"></path>
+                            <path d="M9.629 15.721a4.352 4.352 0 0 0 3.01-1.097l-1.466-1.14a2.752 2.752 0 0 1-4.094-1.44H5.577v1.17a4.53 4.53 0 0 0 4.052 2.507z" fill="#34A853"></path>
+                            <path d="M7.079 12.05a2.709 2.709 0 0 1 0-1.735v-1.17H5.577a4.505 4.505 0 0 0 0 4.075l1.502-1.17z" fill="#FBBC04"></path>
+                            <path d="M9.629 8.44a2.452 2.452 0 0 1 1.74.68l1.3-1.293a4.37 4.37 0 0 0-3.065-1.183 4.53 4.53 0 0 0-4.027 2.5l1.502 1.171a2.715 2.715 0 0 1 2.55-1.875z" fill="#EA4335"></path>
+                        </svg>
+                    </li>
+                    <li class="list-payment__item klarna"><svg class="icon icon--full-color" xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24" viewBox="0 0 38 24" aria-labelledby="pi-klarna" fill="none">
+                            <title id="pi-klarna">Klarna</title>
+                            <rect width="38" height="24" rx="2" fill="#FFA8CD"></rect>
+                            <rect x=".5" y=".5" width="37" height="23" rx="1.5" stroke="#000" stroke-opacity=".07"></rect>
+                            <path d="M30.62 14.755c-.662 0-1.179-.554-1.179-1.226 0-.673.517-1.226 1.18-1.226.663 0 1.18.553 1.18 1.226 0 .672-.517 1.226-1.18 1.226zm-.33 1.295c.565 0 1.286-.217 1.686-1.068l.04.02c-.176.465-.176.742-.176.81v.11h1.423v-4.786H31.84v.109c0 .069 0 .346.175.81l-.039.02c-.4-.85-1.121-1.068-1.687-1.068-1.355 0-2.31 1.088-2.31 2.522 0 1.433.955 2.521 2.31 2.521zm-4.788-5.043c-.643 0-1.15.228-1.56 1.068l-.039-.02c.175-.464.175-.741.175-.81v-.11h-1.423v4.787h1.462V13.4c0-.662.38-1.078.995-1.078.614 0 .917.356.917 1.068v2.532h1.462v-3.046c0-1.088-.838-1.869-1.989-1.869zm-4.963 1.068l-.039-.02c.176-.464.176-.741.176-.81v-.11h-1.424v4.787h1.463l.01-2.304c0-.673.35-1.078.926-1.078.156 0 .282.02.429.06v-1.464c-.644-.139-1.22.109-1.54.94zm-4.65 2.68c-.664 0-1.18-.554-1.18-1.226 0-.673.516-1.226 1.18-1.226.662 0 1.179.553 1.179 1.226 0 .672-.517 1.226-1.18 1.226zm-.332 1.295c.565 0 1.287-.217 1.687-1.068l.038.02c-.175.465-.175.742-.175.81v.11h1.424v-4.786h-1.424v.109c0 .069 0 .346.175.81l-.038.02c-.4-.85-1.122-1.068-1.687-1.068-1.356 0-2.311 1.088-2.311 2.522 0 1.433.955 2.521 2.31 2.521zm-4.349-.128h1.463V9h-1.463v6.922zM10.136 9H8.644c0 1.236-.751 2.343-1.892 3.134l-.448.317V9h-1.55v6.922h1.55V12.49l2.564 3.43h1.892L8.293 12.64c1.121-.82 1.852-2.096 1.843-3.639z" fill="#0B051D"></path>
+                        </svg></li>
+                    <li class="list-payment__item shopify_pay"><svg class="icon icon--full-color" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 38 24" width="38" height="24" aria-labelledby="pi-shopify_pay">
+                            <title id="pi-shopify_pay">Shop Pay</title>
+                            <path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000"></path>
+                            <path d="M35.889 0C37.05 0 38 .982 38 2.182v19.636c0 1.2-.95 2.182-2.111 2.182H2.11C.95 24 0 23.018 0 21.818V2.182C0 .982.95 0 2.111 0H35.89z" fill="#5A31F4"></path>
+                            <path d="M9.35 11.368c-1.017-.223-1.47-.31-1.47-.705 0-.372.306-.558.92-.558.54 0 .934.238 1.225.704a.079.079 0 00.104.03l1.146-.584a.082.082 0 00.032-.114c-.475-.831-1.353-1.286-2.51-1.286-1.52 0-2.464.755-2.464 1.956 0 1.275 1.15 1.597 2.17 1.82 1.02.222 1.474.31 1.474.705 0 .396-.332.582-.993.582-.612 0-1.065-.282-1.34-.83a.08.08 0 00-.107-.035l-1.143.57a.083.083 0 00-.036.111c.454.92 1.384 1.437 2.627 1.437 1.583 0 2.539-.742 2.539-1.98s-1.155-1.598-2.173-1.82v-.003zM15.49 8.855c-.65 0-1.224.232-1.636.646a.04.04 0 01-.069-.03v-2.64a.08.08 0 00-.08-.081H12.27a.08.08 0 00-.08.082v8.194a.08.08 0 00.08.082h1.433a.08.08 0 00.081-.082v-3.594c0-.695.528-1.227 1.239-1.227.71 0 1.226.521 1.226 1.227v3.594a.08.08 0 00.081.082h1.433a.08.08 0 00.081-.082v-3.594c0-1.51-.981-2.577-2.355-2.577zM20.753 8.62c-.778 0-1.507.24-2.03.588a.082.082 0 00-.027.109l.632 1.088a.08.08 0 00.11.03 2.5 2.5 0 011.318-.366c1.25 0 2.17.891 2.17 2.068 0 1.003-.736 1.745-1.669 1.745-.76 0-1.288-.446-1.288-1.077 0-.361.152-.657.548-.866a.08.08 0 00.032-.113l-.596-1.018a.08.08 0 00-.098-.035c-.799.299-1.359 1.018-1.359 1.984 0 1.46 1.152 2.55 2.76 2.55 1.877 0 3.227-1.313 3.227-3.195 0-2.018-1.57-3.492-3.73-3.492zM28.675 8.843c-.724 0-1.373.27-1.845.746-.026.027-.069.007-.069-.029v-.572a.08.08 0 00-.08-.082h-1.397a.08.08 0 00-.08.082v8.182a.08.08 0 00.08.081h1.433a.08.08 0 00.081-.081v-2.683c0-.036.043-.054.069-.03a2.6 2.6 0 001.808.7c1.682 0 2.993-1.373 2.993-3.157s-1.313-3.157-2.993-3.157zm-.271 4.929c-.956 0-1.681-.768-1.681-1.783s.723-1.783 1.681-1.783c.958 0 1.68.755 1.68 1.783 0 1.027-.713 1.783-1.681 1.783h.001z" fill="#fff"></path>
+                        </svg>
+                    </li>
+                </ul>
+            </div>
+        </div> 
+
+        <div class="empty-body" {% if cart.item_count > 0 %} style="display:none" {% endif %}>
+            <div class="top-content col-lg-8 col-md-9 col-sm-12 mx-auto pb-lg-5 pb-md-5 pb-sm-4">
+                <img
+                    class="pb-lg-3 pb-md-3 pb-sm-2"
+                    src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/48156_2x_dd4158c1-259a-4d89-87d4-d07cbe9e6944.png?v=1759925194"
+                    srcset="
+                        https://cdn.shopify.com/s/files/1/0457/1099/9709/files/48156_2x_dd4158c1-259a-4d89-87d4-d07cbe9e6944.png?v=1759925194 600w,
+                        https://cdn.shopify.com/s/files/1/0457/1099/9709/files/48156_2x_dd4158c1-259a-4d89-87d4-d07cbe9e6944.png?v=1759925194 1024w,
+                        https://cdn.shopify.com/s/files/1/0457/1099/9709/files/48156_2x_dd4158c1-259a-4d89-87d4-d07cbe9e6944.png?v=1759925194 1600w"
+                    sizes="100vw"
+                    width="100%"
+                    height="100%"
+                    alt="empty-bg-icon"
+                    loading="lazy"
+                    decoding="async"
+                />
+
+                <p class="pretitle pp-bold f-black text-center pt-lg-4 pt-md-4 pt-sm-3">
+                    Your cart is empty
+                </p>
+            </div>
+            <div class="banner-link-list">
+                <div class="row">
+                    {% for block in section.blocks %}
+                        <div class="col-12">
+                            <div class="banner-link-item">
+                                <img src="{{ block.settings.image | img_url: 'master' }}" width="100%" height="100%">
+                                <a href="{{ block.settings.link }}" class="">
+                                    {{ block.settings.heading }}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30.318" height="11.703" viewBox="0 0 30.318 11.703">
+                                        <path d="m157.89 31.498 4.487-4.825a1.09 1.09 0 0 0 0-1.45l-4.487-4.825a.91.91 0 0 0-1.348 0 1.09 1.09 0 0 0 0 1.45l3.814 4.1-3.814 4.103a1.09 1.09 0 0 0 0 1.45.87.87 0 0 0 .674.3.9.9 0 0 0 .674-.303m11.966 0 4.487-4.825a1.09 1.09 0 0 0 0-1.45l-4.487-4.825a.91.91 0 0 0-1.348 0 1.09 1.09 0 0 0 0 1.45l3.814 4.1-3.814 4.103a1.09 1.09 0 0 0 0 1.45.87.87 0 0 0 .674.3.9.9 0 0 0 .674-.303m11.965 0 4.487-4.825a1.09 1.09 0 0 0 0-1.45l-4.487-4.825a.91.91 0 0 0-1.348 0 1.09 1.09 0 0 0 0 1.45l3.814 4.1-3.814 4.103a1.09 1.09 0 0 0 0 1.45.87.87 0 0 0 .674.3.9.9 0 0 0 .674-.303" transform="translate(-156.266 -20.098)" style="fill:#fff;isolation:isolate"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% schema %}
+{
+    "name": "Popup Cart",
+    "settings": [
+        {
+            "type": "text",
+            "id": "promotion_text",
+            "label": "Promotion Text"
+        },
+        {
+            "type": "text",
+            "id": "membership_intro_text",
+            "label": "Membership Intro Text",
+            "default": "Join"
+        },
+        {
+            "type": "text",
+            "id": "membership_link_text",
+            "label": "Membership Link Text",
+            "default": "Venustas Heatwave Club"
+        },
+        {
+            "type": "url",
+            "id": "membership_link_url",
+            "label": "Membership Link URL"
+        },
+        {
+            "type": "text",
+            "id": "membership_points_text",
+            "label": "Membership Points Text",
+            "info": "Use [points] where the dynamic points total should appear.",
+            "default": "and earn [points] points on this order now!"
+        },
+        {
+            "type": "number",
+            "id": "membership_points_rate",
+            "label": "Points per $1 of subtotal",
+            "default": 1
+        },
+        {
+            "type": "product_list",
+            "id": "ymal_product",
+            "label": "You May Also Like Product"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "banner_link",
+            "name": "Banner Link",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

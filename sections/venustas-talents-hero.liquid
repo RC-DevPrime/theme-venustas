@@ -1,0 +1,375 @@
+{% render 'v-talents-base-css', section: section %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__visual {
+    position: relative;
+    width: 100%;
+    height: clamp(500px, 52vw, 600px);
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__visual img.v-talents-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    object-fit: cover;
+    object-position: 75% center;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__placeholder {
+    position: absolute;
+    inset: 0;
+    background: #3a3a3a;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.25) 42%,
+      rgba(0, 0, 0, 0.05) 62%,
+      transparent 100%
+    );
+    display: flex;
+    align-items: center;
+    padding: 8% 6%;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__content {
+    max-width: 52%;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__tagline {
+    font-size: 15px;
+    font-weight: 400;
+    margin: 0 0 14px;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__title {
+    margin: 0 0 26px;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__title-line {
+    display: block;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__actions .v-talents__btn {
+    min-width: 140px;
+    padding: 12px 28px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border-width: 1.5px;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__actions .v-talents__btn--outline-white {
+    border-color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__bar {
+    width: 100%;
+    padding: 16px 6%;
+    background: var(--v-brand);
+    color: #fff;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__bar-line1 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-hero__bar-line2 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .v-talents-hero__visual {
+      height: {{ section.settings.hero_height_mobile }}px;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-hero__overlay {
+      align-items: flex-end;
+      padding: 10% 5% 12%;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.15) 0%,
+        rgba(0, 0, 0, 0.45) 55%,
+        rgba(0, 0, 0, 0.55) 100%
+      );
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-hero__content {
+      max-width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-hero__tagline {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-hero__title {
+      margin-bottom: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-hero__title-line {
+      font-size: 34px;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-hero__actions {
+      gap: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-hero__actions .v-talents__btn {
+      min-width: 0;
+      flex: 1 1 calc(50% - 5px);
+      max-width: calc(50% - 5px);
+      padding: 11px 16px;
+      font-size: 11px;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-hero__bar {
+      padding: 12px 16px;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-hero__bar-line1 {
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-hero__bar-line2 {
+      font-size: 12px;
+    }
+  }
+
+</style>
+
+{% render 'v-talents-powr-modal-css', brand_color: section.settings.brand_color %}
+
+{%- liquid
+  assign hero_alt = section.settings.hero_title_line_1
+  if section.settings.hero_title_line_2 != blank
+    assign hero_alt = hero_alt | append: ' ' | append: section.settings.hero_title_line_2
+  endif
+-%}
+
+<div class="v-talents">
+  <div class="v-talents-hero">
+    <div class="v-talents-hero__visual">
+      {%- if section.settings.hero_image != blank -%}
+        {{
+          section.settings.hero_image
+          | image_url: width: 2400
+          | image_tag:
+            class: 'v-talents-hero__bg',
+            loading: 'eager',
+            widths: '400,600,800,1000,1200,1600,2000,2400',
+            sizes: '100vw',
+            alt: section.settings.hero_image.alt | default: hero_alt
+        }}
+      {%- else -%}
+        <div class="v-talents-hero__placeholder" aria-hidden="true"></div>
+      {%- endif -%}
+
+      <div class="v-talents-hero__overlay">
+        <div class="v-talents-hero__content">
+          {%- if section.settings.hero_tagline != blank -%}
+            <p class="v-talents-hero__tagline">{{ section.settings.hero_tagline }}</p>
+          {%- endif -%}
+          {%- if section.settings.hero_title_line_1 != blank or section.settings.hero_title_line_2 != blank -%}
+            <h1 class="v-talents-hero__title">
+              {%- if section.settings.hero_title_line_1 != blank -%}
+                <span class="v-talents-hero__title-line">{{ section.settings.hero_title_line_1 }}</span>
+              {%- endif -%}
+              {%- if section.settings.hero_title_line_2 != blank -%}
+                <span class="v-talents-hero__title-line">{{ section.settings.hero_title_line_2 }}</span>
+              {%- endif -%}
+            </h1>
+          {%- endif -%}
+          <div class="v-talents-hero__actions">
+            {% render 'v-talents-powr-buttons', section: section, outline_style: 'white' %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- if section.settings.bar_line_1 != blank or section.settings.bar_line_2 != blank -%}
+      <div class="v-talents-hero__bar">
+        {%- if section.settings.bar_line_1 != blank -%}
+          <p class="v-talents-hero__bar-line1">{{ section.settings.bar_line_1 }}</p>
+        {%- endif -%}
+        {%- if section.settings.bar_line_2 != blank -%}
+          <p class="v-talents-hero__bar-line2">{{ section.settings.bar_line_2 }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% render 'v-talents-powr-modals', section: section %}
+
+{% schema %}
+{
+  "name": "Talents Hero",
+  "tag": "section",
+  "class": "venustas-talents-hero-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "brand_color",
+      "label": "Brand color",
+      "default": "#B93205"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "min": 360,
+      "max": 640,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile image height",
+      "default": 480
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "hero_tagline",
+      "label": "Tagline",
+      "default": "Create • Share • Earn"
+    },
+    {
+      "type": "text",
+      "id": "hero_title_line_1",
+      "label": "Heading line 1",
+      "default": "Venustas Talents"
+    },
+    {
+      "type": "text",
+      "id": "hero_title_line_2",
+      "label": "Heading line 2",
+      "default": "Program"
+    },
+    {
+      "type": "header",
+      "content": "Apply button"
+    },
+    {
+      "type": "text",
+      "id": "hero_btn_apply_label",
+      "label": "Apply button label",
+      "default": "APPLY NOW"
+    },
+    {
+      "type": "checkbox",
+      "id": "apply_use_powr_popup",
+      "label": "Open POWR registration form in popup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "powr_form_id",
+      "label": "POWR form ID",
+      "default": "e4cff6f3_1765265255",
+      "info": "From your embed code: powr-form-builder u=\"YOUR_ID_HERE\""
+    },
+    {
+      "type": "url",
+      "id": "hero_btn_apply_link",
+      "label": "Apply button link (when popup is off)"
+    },
+    {
+      "type": "header",
+      "content": "Rewards button"
+    },
+    {
+      "type": "text",
+      "id": "hero_btn_rewards_label",
+      "label": "Rewards button label",
+      "default": "CLAIM REWARDS"
+    },
+    {
+      "type": "checkbox",
+      "id": "rewards_use_powr_popup",
+      "label": "Open POWR form in popup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "powr_rewards_form_id",
+      "label": "POWR form ID (Rewards)",
+      "info": "Leave blank to use the same form as Apply."
+    },
+    {
+      "type": "url",
+      "id": "hero_btn_rewards_link",
+      "label": "Rewards button link (when popup is off)"
+    },
+    {
+      "type": "text",
+      "id": "bar_line_1",
+      "label": "Banner line 1 (bold)",
+      "default": "Apply to Become Our UGC Creators."
+    },
+    {
+      "type": "text",
+      "id": "bar_line_2",
+      "label": "Banner line 2",
+      "default": "Earn Monthly Gift Cards & Exclusive Prizes"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Talents Hero",
+      "category": "Venustas Talents"
+    }
+  ]
+}
+{% endschema %}

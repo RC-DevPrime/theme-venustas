@@ -1,0 +1,31 @@
+
+{% schema %}
+{
+    "name": "Size Chart Table",
+    "templates": ["product"],
+    "limit": 1,
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "size-chart-header-item",
+        },
+    ],
+    "presets": [
+        {
+            "name": "Size Chart Table"
+        }
+    ]
+
+}
+{% endschema %}

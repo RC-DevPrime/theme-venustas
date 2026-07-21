@@ -1,0 +1,338 @@
+{% style %}
+    .product-compare-tab-section{
+
+    }
+    .product-compare-tab-section .compare-tab-inner-section{
+        background-color:#000;
+        border-radius:46px;
+    }
+
+    
+    .product-compare-tab-section .compare-table .row{
+        --bs-gutter-x:0;
+    }
+    .product-compare-tab-section .compare-table .white-logo{
+        height:20px;
+        width:100%;
+        object-fit:contain;
+    }
+    .product-compare-tab-section .compare-table .content-header .content-body{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        height:80px;
+    }
+    .product-compare-tab-section .compare-table .content-body{
+        background: #1C1C1C;
+        overflow:hidden;
+        height:100%;
+    }
+    .product-compare-tab-section .compare-table .response-body {
+        height:100%;
+    }
+    .product-compare-tab-section .compare-table .response-body .content-body{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        height:100%;
+    }
+    .product-compare-tab-section .compare-table .compare-item .content-body{
+        padding: 0.6rem 1rem;
+    }
+    .product-compare-tab-section .compare-table .icon-response{
+        height:14px;
+        width:100%;
+        object-fit:contain;
+    }
+
+    
+    .product-compare-tab-section .compare-table .compare-item:nth-child(odd) .content-body {
+        background: #ffffff26;
+    }
+
+    /* BORDER LINES ----------------------- */
+    .product-compare-tab-section .compare-table .border-top{
+        border-top: 1px solid #70707066 !important;
+    }
+    .product-compare-tab-section .compare-table .border-bottom{
+        border-bottom: 1px solid #70707066 !important;
+    }
+    .product-compare-tab-section .compare-table .border-left{
+        border-left: 1px solid #70707066 !important;
+    }
+    .product-compare-tab-section .compare-table .border-right{
+        border-right: 1px solid #70707066 !important;
+    }
+
+    /* BORDER RADIUS ----------------------- */
+    .product-compare-tab-section .compare-table .border-radius-top-left{
+        border-top-left-radius:8px;
+    }
+    .product-compare-tab-section .compare-table .border-radius-top-right{
+        border-top-right-radius:8px;
+    }
+    .product-compare-tab-section .compare-table .border-radius-bottom-left{
+        border-bottom-left-radius:8px;
+    }
+    .product-compare-tab-section .compare-table .border-radius-bottom-right{
+        border-bottom-right-radius:8px;
+    }
+
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .product-compare-tab-section .compare-tab-inner-section{
+            border-radius:26px;
+            padding-left:15px;
+            padding-right:15px;
+        }
+        .product-compare-tab-section .compare-table .compare-item .content-body{
+            padding:0.5rem 8px;
+        }
+        .product-compare-tab-section .compare-table .icon-response{
+            height:10px;
+        }
+        .product-compare-tab-section .compare-table .white-logo{
+            width:75%;
+        }
+        .product-compare-tab-section .compare-table .content-header .content-body{
+            height:60px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content  
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}>
+
+    <div class="compare-tab-inner-section section-content">
+        <h2 class="pp-bold title-sm f-white text-center pb-lg-4 pb-md-4 pb-sm-3">
+            {{ section.settings.heading }}
+        </h2>
+        <div class="pp-regular f-white text-center pb-lg-5 pb-md-5 pb-sm-4">
+            <span class="pretitle d-lg-block d-md-block d-sm-none">
+                {{ section.settings.description }}
+            </span>
+            <span class="body d-lg-none d-md-none d-sm-block">
+                {{ section.settings.description }}
+            </span>
+        </div>
+
+        <div class="compare-table py-lg-3 py-md-3 py-sm-2">
+        <div class="compare-body">
+            <!-- HEADER -->
+            <div class="compare-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6"></div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="row content-header">
+                    <div class="col-lg-6 col-md-6 col-sm-8">
+                    <div class="content-body border-top border-left border-right border-radius-top-left">
+                        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/44021_2x_d8cf557d-9491-4665-bb78-aac63e67a86f.png?v=1758894791" width="100%" height="100%" class="white-logo" alt="white-logo">
+                    </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-4">
+                    <div class="content-body border-top border-right border-radius-top-right">
+                        <div class="pp-regular body-lg f-white">
+                            <span class="body-lg d-lg-block d-md-block d-sm-none">
+                                Others
+                            </span>
+                            <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                Others
+                            </span>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+
+            {% comment %} LOOP THROUGH BLOCKS {% endcomment %}
+            {% for block in section.blocks %}
+            {% assign is_first = forloop.first %}
+            {% assign is_last = forloop.last %}
+            
+            <div class="compare-item">
+                <div class="row">
+                <!-- LEFT COLUMN (TEXT) -->
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="content-body 
+                    {% if is_first %} border-top border-left border-radius-top-left
+                    {% elsif is_last %} border-bottom border-top border-left border-radius-bottom-left
+                    {% else %} border-top border-left {% endif %}
+                    ">
+                    <div class="pp-medium body-xl f-white">
+                        <span class="body-xl d-lg-block d-md-block d-sm-none"> 
+                            {{ block.settings.heading }}
+                        </span>
+                        <span class="body d-lg-none d-md-none d-sm-block">
+                            {{ block.settings.heading }}
+                        </span>
+                    </div>
+                    <div class="pp-regular body f-gray">
+                        <span class="body d-lg-block d-md-block d-sm-none">
+                            {{ block.settings.description }}
+                        </span>
+                        <span class="body-xs d-lg-none d-md-none d-sm-block">
+                            {{ block.settings.description }}
+                        </span>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN (RESPONSES) -->
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="row response-body">
+                    <div class="col-lg-6 col-md-6 col-sm-8">
+                        <div class="content-body 
+                        {% if is_first %} border-top border-left border-right
+                        {% elsif is_last %} border-bottom border-top border-left border-right
+                        {% else %} border-top border-left border-right {% endif %}
+                        ">
+                        <img 
+                            src="{% if block.settings.response_1 == 'check' %}
+                                https://cdn.shopify.com/s/files/1/0457/1099/9709/files/check-icon.png?v=1758895742
+                                {% else %}
+                                https://cdn.shopify.com/s/files/1/0457/1099/9709/files/wrong-icon.png?v=1758895742
+                                {% endif %}" 
+                            width="100%" height="100%" class="icon-response" alt="check-wrong-icon">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-4">
+                        <div class="content-body 
+                        {% if is_first %} border-top border-right
+                        {% elsif is_last %} border-bottom border-top border-right border-radius-bottom-right
+                        {% else %} border-top border-right {% endif %}
+                        ">
+                        <img 
+                            src="{% if block.settings.response_2 == 'check' %}
+                                https://cdn.shopify.com/s/files/1/0457/1099/9709/files/check-icon.png?v=1758895742
+                                {% else %}
+                                https://cdn.shopify.com/s/files/1/0457/1099/9709/files/wrong-icon.png?v=1758895742
+                                {% endif %}" 
+                            width="100%" height="100%" class="icon-response" alt="check-wrong-icon">
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+
+    </div>
+</div>
+{% schema %}
+{
+    "class": "product-compare-tab-section",
+    "name": "Compare Tab Section",
+    "limit": 1,
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled_section_child_scroll",
+            "label": "Enabled Section Child Scroll"
+        },
+        {
+            "type": "text",
+            "id": "section_scroll_nav",
+            "label": "Section Scroll Nav",
+            "info": "Need to Enabled first Section Scroll"
+        },
+        {
+            "type": "text",
+            "id": "nav_title",
+            "label": "Navigation Title"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Why Should You Pick Venustas?"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>Explore the secret code of Venustas’ advantages and feel the power of quality.</p>"
+        }, 
+    ],
+    "blocks": [
+        {
+            "type": "compare_item",
+            "name": "Compare Item",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading",
+                    "default": "Sample Heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description",
+                    "default": "<p>Sample Description</p>"
+                },
+                {
+                    "type": "select",
+                    "id": "response_1",
+                    "label": "Response Column - 1",
+                    "options": [
+                        {
+                            "label": "Check",
+                            "value": "check"
+                        },
+                        {
+                            "label": "Ex",
+                            "value": "ex"
+                        }
+                    ],
+                    "default": "check"
+                },
+                {
+                    "type": "select",
+                    "id": "response_2",
+                    "label": "Response Column - 2",
+                    "options": [
+                        {
+                            "label": "Check",
+                            "value": "check"
+                        },
+                        {
+                            "label": "Ex",
+                            "value": "ex"
+                        }
+                    ],
+                    "default": "check"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Compare Tab Section"
+        }
+    ]
+}
+{% endschema %}

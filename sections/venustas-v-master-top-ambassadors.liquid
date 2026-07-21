@@ -1,0 +1,526 @@
+{% render 'v-master-base-css', section: section %}
+{% render 'v-master-layout-css', section: section %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__header {
+    margin-bottom: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__title-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__crown {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    max-width: 28px;
+    max-height: 28px;
+    object-fit: contain;
+    display: block;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__title {
+    font-size: clamp(24px, 2.6vw, 36px);
+    margin: 0;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: var(--v-cream);
+    border-radius: var(--v-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(185, 50, 5, 0.08);
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} [data-v-master-carousel-track] {
+    display: grid;
+    grid-template-columns: 1fr;
+    cursor: grab;
+    touch-action: pan-y;
+  }
+
+  #shopify-section-{{ section.id }} [data-v-master-carousel-track].is-dragging {
+    cursor: grabbing;
+    user-select: none;
+  }
+
+  #shopify-section-{{ section.id }} [data-v-master-carousel-track].is-dragging .v-master-featured__card-link,
+  #shopify-section-{{ section.id }} [data-v-master-carousel-track].is-dragging .v-master-featured__story-btn {
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} [data-v-master-carousel-track] > [data-v-master-carousel-slide] {
+    grid-area: 1 / 1;
+  }
+
+  #shopify-section-{{ section.id }} [data-v-master-carousel-slide]:not(.is-active) {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__photo {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    background: #ddd;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__info {
+    position: relative;
+    z-index: 2;
+    padding: clamp(24px, 4vw, 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__name {
+    font-size: clamp(22px, 2.4vw, 28px);
+    font-weight: 700;
+    color: var(--v-brand);
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__flag {
+    width: 24px;
+    height: auto;
+    border-radius: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__role-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    min-height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__role-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    max-width: 24px;
+    max-height: 24px;
+    object-fit: contain;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__role-icon-slot {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__role {
+    font-size: 14px;
+    color: #888;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__bio {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #555;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__bio p {
+    margin: 0 0 0.85em;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__bio p:last-child {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__story-btn {
+    position: relative;
+    z-index: 2;
+    margin-top: 20px;
+    align-self: flex-start;
+  }
+
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .v-master-featured__story-btn {
+      margin-top: 16px;
+      padding: 12px 28px;
+      font-size: 13px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__carousel--nav {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__arrow {
+    display: none;
+    position: absolute;
+    top: 42%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--v-cream);
+    color: var(--v-brand);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    transition: background-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__arrow:hover:not(:disabled) {
+    background: var(--v-brand);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__arrow:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__arrow svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+
+  @media screen and (min-width: 992px) {
+    #shopify-section-{{ section.id }} {
+      overflow: visible;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-container {
+      overflow: visible;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-featured__carousel--nav .v-master-featured__arrow {
+      display: inline-flex;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-featured__carousel--nav .v-master-featured__arrow--prev {
+      left: -56px;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-featured__carousel--nav .v-master-featured__arrow--next {
+      right: -56px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #d4ccc4;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-featured__dot.is-active {
+    background: var(--v-brand);
+    transform: scale(1.15);
+  }
+
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .v-master-featured__card {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="v-master">
+  <div class="v-master-container">
+    <div class="v-master-featured__header">
+      <div class="v-master-featured__title-row">
+        {%- if section.settings.crown_icon != blank -%}
+          {{
+            section.settings.crown_icon
+            | image_url: width: 56
+            | image_tag: class: 'v-master-featured__crown', loading: 'lazy', alt: ''
+          }}
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="v-master__heading v-master-featured__title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div
+        class="v-master-featured__carousel{% if section.blocks.size > 1 %} v-master-featured__carousel--nav{% endif %}"
+        data-v-master-carousel
+        data-dot-class="v-master-featured__dot"
+        data-autoplay="{{ section.settings.autoplay }}"
+        data-interval-ms="{{ section.settings.autoplay_interval | times: 1000 }}"
+      >
+        {%- if section.blocks.size > 1 -%}
+          <button
+            type="button"
+            class="v-master-featured__arrow v-master-featured__arrow--prev"
+            data-v-master-carousel-prev
+            aria-label="Previous ambassador"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+        {%- endif -%}
+
+        <div data-v-master-carousel-track>
+          {%- for block in section.blocks -%}
+            <article
+              class="v-master-featured__card{% if forloop.first %} is-active{% endif %}"
+              data-v-master-carousel-slide
+              aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="v-master-featured__photo v-master__rounded">
+                {%- if block.settings.photo != blank -%}
+                  {{
+                    block.settings.photo
+                    | image_url: width: 900, height: 900, crop: 'center'
+                    | image_tag: class: 'v-master-featured__photo-img', loading: 'lazy', alt: block.settings.name, width: 900, height: 900
+                  }}
+                {%- endif -%}
+              </div>
+              <div class="v-master-featured__info">
+                <div class="v-master-featured__name-row">
+                  {%- if block.settings.name != blank -%}
+                    <h3 class="v-master-featured__name">{{ block.settings.name }}</h3>
+                  {%- endif -%}
+                  {% render 'v-master-country-flag',
+                    country: block.settings.country,
+                    class: 'v-master-featured__flag',
+                    flag_image: block.settings.flag_image
+                  %}
+                </div>
+                {%- if block.settings.role != blank or block.settings.role_icon != blank -%}
+                  <div class="v-master-featured__role-row">
+                    {%- if block.settings.role_icon != blank -%}
+                      {{
+                        block.settings.role_icon
+                        | image_url: width: 48
+                        | image_tag: class: 'v-master-featured__role-icon', loading: 'lazy', alt: ''
+                      }}
+                    {%- else -%}
+                      <span class="v-master-featured__role-icon-slot" aria-hidden="true"></span>
+                    {%- endif -%}
+                    {%- if block.settings.role != blank -%}
+                      <p class="v-master-featured__role">{{ block.settings.role }}</p>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.bio != blank -%}
+                  <div class="v-master-featured__bio rte">{{ block.settings.bio }}</div>
+                {%- endif -%}
+                {%- assign story_link = block.settings.story_link -%}
+                {%- if story_link != blank -%}
+                  <a
+                    href="{{ story_link }}"
+                    class="v-master__btn v-master-featured__story-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {{ block.settings.story_button_label | default: section.settings.story_button_label | default: 'Read Their Story' }}
+                  </a>
+                {%- endif -%}
+              </div>
+              {%- if block.settings.profile_link != blank -%}
+                <a
+                  href="{{ block.settings.profile_link }}"
+                  class="v-master-featured__card-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="{{ block.settings.name | escape }} profile"
+                ></a>
+              {%- endif -%}
+            </article>
+          {%- endfor -%}
+        </div>
+
+        {%- if section.blocks.size > 1 -%}
+          <button
+            type="button"
+            class="v-master-featured__arrow v-master-featured__arrow--next"
+            data-v-master-carousel-next
+            aria-label="Next ambassador"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        {%- endif -%}
+
+        <div class="v-master-featured__dots" data-v-master-carousel-dots></div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% render 'v-master-featured-carousel-js', section: section %}
+
+{% schema %}
+{
+  "name": "V+ Master Top Amb",
+  "tag": "section",
+  "class": "venustas-v-master-top-ambassadors-section",
+  "settings": [
+    { "type": "color", "id": "brand_color", "label": "Brand color", "default": "#B93205" },
+    { "type": "color", "id": "text_brown_color", "label": "Heading color (optional)", "default": "#B93205" },
+    { "type": "color", "id": "cream_color", "label": "Cream", "default": "#F9F5F0" },
+    { "type": "range", "id": "container_width_desktop", "min": 70, "max": 100, "step": 5, "unit": "%", "label": "Desktop width", "default": 90 },
+    { "type": "range", "id": "container_width_mobile", "min": 85, "max": 100, "step": 5, "unit": "%", "label": "Mobile width", "default": 90 },
+    { "type": "range", "id": "padding_top_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding top", "default": 48 },
+    { "type": "range", "id": "padding_bottom_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding bottom", "default": 48 },
+    { "type": "range", "id": "padding_top_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding top", "default": 32 },
+    { "type": "range", "id": "padding_bottom_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding bottom", "default": 32 },
+    { "type": "image_picker", "id": "crown_icon", "label": "Crown icon (optional)" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Top Ambassadors" },
+    {
+      "type": "text",
+      "id": "story_button_label",
+      "label": "Story button label",
+      "default": "Read Their Story"
+    },
+    { "type": "checkbox", "id": "autoplay", "label": "Auto-rotate slides", "default": true },
+    {
+      "type": "range",
+      "id": "autoplay_interval",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "unit": "s",
+      "label": "Autoplay interval",
+      "default": 6
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ambassador",
+      "name": "Ambassador",
+      "settings": [
+        { "type": "image_picker", "id": "photo", "label": "Photo" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Sheri Skocdopole" },
+        {
+          "type": "select",
+          "id": "country",
+          "label": "Country",
+          "default": "ca",
+          "options": [
+            { "value": "none", "label": "No flag" },
+            { "value": "us", "label": "United States" },
+            { "value": "ca", "label": "Canada" },
+            { "value": "gb", "label": "United Kingdom" },
+            { "value": "de", "label": "Germany" },
+            { "value": "fr", "label": "France" },
+            { "value": "au", "label": "Australia" },
+            { "value": "nl", "label": "Netherlands" },
+            { "value": "se", "label": "Sweden" },
+            { "value": "no", "label": "Norway" },
+            { "value": "ch", "label": "Switzerland" },
+            { "value": "it", "label": "Italy" },
+            { "value": "es", "label": "Spain" },
+            { "value": "jp", "label": "Japan" },
+            { "value": "at", "label": "Austria" },
+            { "value": "dk", "label": "Denmark" },
+            { "value": "ie", "label": "Ireland" },
+            { "value": "nz", "label": "New Zealand" },
+            { "value": "pl", "label": "Poland" },
+            { "value": "be", "label": "Belgium" },
+            { "value": "fi", "label": "Finland" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "flag_image",
+          "label": "Custom flag (optional)",
+          "info": "Overrides country dropdown"
+        },
+        { "type": "image_picker", "id": "role_icon", "label": "Role icon (left of title)" },
+        { "type": "text", "id": "role", "label": "Title / role", "default": "Aurora Photographer" },
+        { "type": "richtext", "id": "bio", "label": "Biography" },
+        {
+          "type": "url",
+          "id": "story_link",
+          "label": "Story link",
+          "info": "Blog article URL for this ambassador's story."
+        },
+        {
+          "type": "text",
+          "id": "story_button_label",
+          "label": "Story button label (optional)",
+          "info": "Leave blank to use the section default."
+        },
+        { "type": "url", "id": "profile_link", "label": "Profile link (optional)", "info": "When set, the entire card becomes clickable." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "V+ Master Top Amb",
+      "category": "V+ Master",
+      "blocks": [
+        {
+          "type": "ambassador",
+          "settings": {
+            "name": "Sheri Skocdopole",
+            "role": "Aurora Photographer",
+            "country": "ca"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

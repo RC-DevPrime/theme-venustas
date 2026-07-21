@@ -1,0 +1,392 @@
+{% style %}
+    .influencer-slider-section .featured-image-item {
+        position:relative;
+        transition: all 0.3s ease;
+    } 
+    .influencer-slider-section .product-item-displayed{
+        background: #F9F6EF;
+        padding:10px;
+        border-radius:8px;
+        margin-top:15px;
+        opacity:0;
+        transform: translateY(30px);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+    .influencer-slider-section .featured-image-item.open + .product-item-displayed{
+        transform: translateY(0px);
+        opacity:1;
+    }
+    .influencer-slider-section .product-item-displayed .product-featured-image{
+        height: 90px;
+        width: 70px;
+    }
+    .influencer-slider-section .product-item-displayed .product-featured-image img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+    }
+    .influencer-slider-section .featured-image-item.open{
+        margin-top:-30px;
+    }
+    .influencer-slider-section .featured-image-item .image-container {
+        display:block;
+        overflow:hidden;
+        position:relative;
+        border-radius:8px;
+        height:500px;
+    }
+    .influencer-slider-section .featured-image-item .image-container:before{
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 45%;                 /* adjust overlay height */
+        background: linear-gradient(
+            to top,
+            rgba(0,0,0,0.85),
+            rgba(0,0,0,0)
+        );
+        pointer-events: none;
+        z-index: 1;
+    }
+    .influencer-slider-section .featured-image-item .image-container img,
+    .influencer-slider-section .featured-image-item .image-container video{
+        width:100%;
+        height:100%;
+        transition: all 0.3s ease;
+        position:relative;
+        object-fit: cover;
+    }
+    .influencer-slider-section .featured-image-item .featured-content{
+        position:absolute;
+        bottom:0;
+        padding:15px 15px;
+        display: flex;
+        align-items: flex-end;
+        z-index:2;
+    }
+    /* .influencer-slider-section .featured-image-item .image-container:hover img{
+        transform: scale(1.1);
+    } */
+    .influencer-slider-section .float-nav {
+        position:unset;
+        transform:unset;
+        gap:16px;
+    }
+    .influencer-slider-section .float-nav button{
+        position:unset;
+        transform:unset;
+        background: #f8f6f2;
+    }
+    .influencer-slider-section .float-nav button i{
+        color:#B93205;
+    }
+    .influencer-slider-section .float-nav button:hover{
+        background: #B93205;
+    }
+    .influencer-slider-section .float-nav button:hover i{
+        color:#FFF;
+    }
+
+    .influencer-slider-section .swiper-pagination{
+        width:fit-content;
+        margin-top:0;
+        display: flex;
+        align-items: center;
+    }
+    .influencer-slider-section .swiper-pagination span{
+        width:12px;
+        height:5px;
+        border-radius:4px;
+    }
+    .influencer-slider-section .swiper-pagination span.swiper-pagination-bullet-active{
+        width:60px;
+    }
+
+    .flat-button-navigation{
+        margin-top:-15px;
+    }
+    
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .influencer-slider-section .section-content{
+            padding-left:0;
+            padding-right:0;
+        }
+        .influencer-slider-section .product-item-displayed{
+            opacity:0;
+            transform:unset;
+            padding: 8px;
+            gap: 8px;
+        }
+        .influencer-slider-section .float-nav{
+            margin-top:20px;
+        }
+        .influencer-slider-section .swiper-pagination span{
+            background: #B9320599;
+        }
+        .influencer-slider-section .featured-image-item.open{
+            margin-top:0px;
+        }
+        .influencer-slider-section .product-item-displayed .product-featured-image{
+            height:70px;
+            width:50px;
+        }
+        .influencer-slider-section .featured-image-slider .swiper-slide.swiper-slide-active .featured-image-item{
+            margin-top: -20px;
+        }
+        .influencer-slider-section .featured-image-slider .swiper-slide.swiper-slide-active .product-item-displayed{
+            opacity: 1;
+        }
+
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content">
+    <div class="row">
+        <div class="col-12">
+            <div class="section-heading pp-bold title-sm f-black text-center pb-2">
+                {{ section.settings.heading }}
+            </div>
+        </div>
+    </div>
+    <div class="featured-image-slider pt-lg-5 pt-md-4 pt-sm-4 overflow-lg-hidden overflow-md-hidden overflow-sm-unset">
+        <div class="swiper-wrapper">
+
+            {% for block in section.blocks %}
+                <div class="swiper-slide">
+                    <div class="featured-image-item">
+                        <div class="image-container" aria-label="{{ block.settings.heading }}">
+
+                            {% if block.type == 'video' %}
+                            {% assign v = block.settings.Video %}
+
+                            {% if v != blank %}
+                                {% assign poster_img = v.preview_image %}
+
+                                {% if poster_img != blank %}
+                                {% assign poster_url = poster_img | image_url: width: 2000 %}
+                                {% else %}
+                                {% assign poster_url = blank %}
+                                {% endif %}
+
+                                <video
+                                playsinline
+                                webkit-playsinline
+                                loop
+                                preload="auto"
+                                {% if poster_url != blank %}poster="{{ poster_url }}"{% endif %}
+                                >
+                                {% assign mp4 = v.sources | where: 'mime_type', 'video/mp4' | first %}
+                                {% if mp4 and mp4.url != blank %}
+                                    <source src="{{ mp4.url }}" type="{{ mp4.mime_type }}">
+                                {% else %}
+                                    {%- for s in v.sources -%}
+                                    {% if s.url != blank %}
+                                        <source src="{{ s.url }}" type="{{ s.mime_type }}">
+                                    {% endif %}
+                                    {%- endfor -%}
+                                {% endif %}
+
+                                {% if poster_img != blank %}
+                                    <img
+                                    src="{{ poster_img | image_url: width: 1200 }}"
+                                    alt="{{ block.settings.heading | default: 'Background video' | escape }}"
+                                    loading="lazy"
+                                    decoding="async"
+                                    >
+                                {% endif %}
+                                </video>
+                            {% endif %}
+
+                            {% else %}
+                            {% assign img = block.settings.image %}
+                            {% if img != blank %}
+                                <img
+                                class="featured-img"
+                                src="{{ img | image_url: width: 460, format: 'webp', quality: 60 }}"
+                                srcset="
+                                    {{ img | image_url: width: 230, format: 'webp', quality: 60 }} 230w,
+                                    {{ img | image_url: width: 460, format: 'webp', quality: 60 }} 460w,
+                                    {{ img | image_url: width: 920, format: 'webp', quality: 60 }} 920w
+                                "
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                width="458"
+                                height="608"
+                                alt="{{ img.alt | default: block.settings.heading | default: 'Image' | escape }}"
+                                loading="lazy"
+                                decoding="async"
+                                />
+                            {% endif %}
+                            {% endif %}
+
+                        </div>
+
+                        <div class="featured-content">
+                            <div class="col-10">
+                                <div class="block-title f-white pp-bold body-lg l-h-normal pt-lg-3 pt-md-2 pt-sm-2 pb-lg-2 pb-md-1 pb-sm-1">
+                                    {{ block.settings.heading }}
+                                </div>
+                                <div class="block-description f-white-gray pp-regular body-sm">
+                                    {{ block.settings.description }}
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46">
+                                    <g transform="translate(-473 -14992)">
+                                        <circle cx="23" cy="23" r="23" transform="translate(473 14992)" fill="#fff" opacity="0.3"/>
+                                        <path d="M206.737,114.813a.632.632,0,0,1-.658-.6v-18.8a.6.6,0,0,1,.356-.534.708.708,0,0,1,.68.043l14.655,9.4a.578.578,0,0,1,0,1.023L207.116,114.7a.7.7,0,0,1-.379.112Z"
+                                            transform="translate(283.92 14910.188)" fill="#fff"/>
+                                    </g>
+                                </svg>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <a href="{{ block.settings.product.url }}" class="product-item-displayed" >
+                        <div class="product-image">
+                            
+                            {% assign p = block.settings.product %}
+
+                            {% if p != blank and p.featured_image != blank %}
+                            {% assign img = p.featured_image %}
+
+                            {{ img
+                                | image_url: width: 1400
+                                | image_tag:
+                                widths: '360,540,720,900,1080,1440',
+                                sizes: '(min-width: 990px) 50vw, 100vw',
+                                loading: 'lazy',
+                                decoding: 'async',
+                                class: 'product-featured-image',
+                                alt: img.alt | default: p.title | escape
+                            }}
+                            {% endif %}
+
+                        </div>
+                        <div class="product-content">
+                            <div class="product-title pp-regular body f-black excerpt-2">
+                                {{ block.settings.product.title }}
+                            </div>
+                            <div class="pp-regular body-sm f-main excerpt-2">
+                                {{ block.settings.sub_title }}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="flat-button-navigation">
+            <div class="float-nav d-lg-flex d-md-flex d-sm-flex justify-content-center">
+                <button type="button" class="owl-prev" disabled>
+                    <i class="fa-solid fa-chevron-left f-white"></i>
+                </button>
+                <!-- ✅ Pagination Dots -->
+                <div class="swiper-pagination"></div>
+                <button type="button" class="owl-next" disabled>
+                    <i class="fa-solid fa-chevron-right f-white"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% schema %}
+{
+    "class": "influencer-slider-section overflow-hidden",
+    "name": "Influencer Slider",
+    "limit": 1,
+    "templates": ["index"],
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Browse to unlock similar outfits"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "video",
+            "name": "Video",
+            "settings": [
+                {
+                    "type": "video",
+                    "id": "Video",
+                    "label": "Video"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading",
+                },
+                {
+                    "type": "textarea",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "product",
+                    "id": "product",
+                    "label": "Product"
+                },
+                {
+                    "type": "text",
+                    "id": "sub_title",
+                    "label": "Sub Title",
+                    "default": "Buy the same style"
+                }
+            ]
+        },
+        {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading",
+                },
+                {
+                    "type": "textarea",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "product",
+                    "id": "product",
+                    "label": "Product"
+                },
+                {
+                    "type": "text",
+                    "id": "sub_title",
+                    "label": "Sub Title",
+                    "default": "Buy the same style"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Influencer Slider"
+        }
+    ]
+}
+{% endschema %}

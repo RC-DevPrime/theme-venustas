@@ -1,0 +1,57 @@
+<a href="{{ article.url }}" class="featured-article-item d-flex flex-lg-row flex-md-row flex-column">
+    <div class="article-image-container position-relative overflow-hidden w-100">
+        {% if article.tags.size > 0 %}
+        <!-- Always FIRST tag in initial render -->
+        <p class="pp-regular article-tag">{{ article.tags.first }}</p>
+        {% endif %} 
+        <img src="{{ article.image | img_url: '1400x1400' }}" width="100%" height="100%" class="featured-image-bg">
+    </div>
+    <div class="article-content d-lg-flex d-md-flex d-sm-none">
+        <div class="col-lg-8 col-md-9 col-sm-12">
+            <div class="article-title pp-bold f-white l-h-normal pb-1">
+                <span class="pretitle-lg ">
+                    {{ article.title }}
+                </span>
+            </div>
+            <div class="article-description pp-regular f-white-gray l-h-normal pb-1">
+                <div class="">
+                    <span class="body-xl excerpt-2">
+                        {% if article.excerpt_or_content != blank %}
+                            {{ article.excerpt_or_content }}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="article-date-time pp-regular f-white-gray l-h-normal">
+                <span class="body-xl">
+                    {{ article.created_at | date: '%b %d, %Y' }}
+                </span>
+            </div>
+
+        </div>
+    </div>
+    <div class="article-content d-lg-none d-md-none d-sm-block">
+        <div class="col-lg-8 col-md-9 col-sm-12">
+            <div class="article-title pp-bold f-black l-h-normal pb-1">
+                <span class="body-xl ">
+                    {{ article.title }}
+                </span>
+            </div>
+            <div class="article-description pp-regular f-white-gray l-h-normal pb-1">
+                <div class="">
+                    <span class="body excerpt-2">
+                        {% if article.excerpt_or_content != blank %}
+                            {{ article.excerpt_or_content }}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="article-date-time pp-regular f-white-gray l-h-normal">
+                <span class="body">
+                    {{ article.created_at | date: '%b %d, %Y' }}
+                </span>
+            </div>
+
+        </div>
+    </div>
+</a>

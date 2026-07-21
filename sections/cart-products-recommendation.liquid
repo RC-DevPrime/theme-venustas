@@ -1,0 +1,165 @@
+{% style %}
+    
+    .collection-recommendation-section {
+        position:relative;
+    }
+    .collection-recommendation-section .float-nav button{
+        background: #F1EADD;
+    }
+    .collection-recommendation-section .float-nav button:hover{
+        background: #B93205;
+    }
+    .collection-recommendation-section .float-nav button:hover .fa-chevron-left:before,
+    .collection-recommendation-section .float-nav button:hover .fa-chevron-right:before{
+        color: #FFF;
+    }
+    .collection-recommendation-section .float-nav .fa-chevron-left:before,
+    .collection-recommendation-section .float-nav .fa-chevron-right:before{
+        color: #B93205;
+    }
+    .collection-recommendation-section .tab-product-list-slider .swiper-slide{
+        height:auto;
+    }
+    .collection-recommendation-section .swiper-slide{
+        height:auto;
+    }
+
+    
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+      .collection-recommendation-section .container{
+        padding:0px;
+      }
+        .collection-recommendation-section .float-nav button{
+            --btn-pos:5px;
+        }
+        .collection-recommendation-section .float-nav{
+            top:220px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+      and (min-device-width : 768px) 
+      and (max-device-width : 1024px){
+    }
+    
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+    }
+    @media only screen and (min-width: 375px) {
+    }
+    @media only screen and (min-width: 390px) {
+    }
+    @media only screen and (min-width: 414px) {
+    }
+    @media only screen and (min-width: 428px) {
+    }
+    @media only screen and (min-width: 480px) {
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+    }
+    @media only screen and (min-width: 1366px) {
+    }
+    @media only screen and (min-width: 1440px) {
+    }
+    @media only screen and (min-width: 1536px) {
+    }
+    @media only screen and (min-width: 1600px) {
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .collection-recommendation-section .float-nav button{
+            --btn-pos: 50px;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .collection-recommendation-section .float-nav button{
+            --btn-pos: 50px;
+        }
+    }
+{% endstyle %}
+<div class="section-content collection-recommendation-section overflow-lg-unset overflow-md-unset overflow-sm-hidden">
+  <h2 class="pp-bold title-sm text-center pb-lg-4 pb-md-4 pb-sm-3">
+    {{ section.settings.heading }}
+  </h2>
+
+  <div class="product-recommendations">
+    <div class="container ">
+        <div class="recommendation-slider position-relative overflow-lg-hidden overflow-md-hidden overflow-sm-unset">
+        <div class="swiper-wrapper">
+            {%- assign random_products = collections.all.products | sample: 8 -%}
+            {% if section.settings.collection %}    
+              {% for product in section.settings.collection.products limit: section.settings.number_product %}
+              <div class="swiper-slide">
+                  {% render 'product-item', product: product, sale_badge_type: section.settings.sale_badge_type, badge_detail: true %}
+              </div>
+              {% endfor %}
+            {% else %}
+              {% for product in random_products %}
+              <div class="swiper-slide">
+                  {% render 'product-item', product: product, sale_badge_type: section.settings.sale_badge_type, badge_detail: true %}
+              </div>
+              {% endfor %}
+            {% endif %}
+        </div>
+        </div>
+
+        <div class="float-nav d-lg-block d-md-block d-sm-block">
+        <button type="button" class="owl-prev">
+            <i class="fa-solid fa-chevron-left f-white"></i>
+        </button>
+        <button type="button" class="owl-next">
+            <i class="fa-solid fa-chevron-right f-white"></i>
+        </button>
+        </div>
+            
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+    "class": "collection-recommendation-section",
+    "name": "Recommendation",
+    "limit": 1,
+    "templates": ["cart"],
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Recently Viewed"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+            "type": "range",
+            "id": "number_product",
+            "label": "Number Of Products",
+            "min": 6,
+            "max": 30,
+            "step": 1,
+            "default": 8
+        },
+    ],
+    "presets": [
+        {
+            "name": "Recommendation"
+        }
+    ]
+}
+{% endschema %}

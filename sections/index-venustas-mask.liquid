@@ -1,0 +1,823 @@
+{% style %}
+/* JMGO MASK --------------------------------------------------------------- */
+
+.venustas-mask {
+    position: relative;
+    height: 200vh;
+}
+.venustas-mask .sticky {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+}
+.venustas-mask .sticky:before{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    background: rgb(0 0 0 / 45%);
+    pointer-events: none;
+    z-index: 2;
+    opacity:0;
+    transition: all 0.3s ease;
+}
+.venustas-mask .sticky.is-in:before{
+    opacity:1;
+}
+.venustas-mask .sticky video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+.venustas-mask .sticky .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://cdn.shopify.com/s/files/1/0474/8365/0202/files/desktop-mask.svg?v=1746518610');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    z-index: 2;
+    transition: all .5s ease;
+}
+.venustas-mask .sticky .mask-m {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://cdn.shopify.com/s/files/1/0474/8365/0202/files/mobile-mask.svg?v=1746518610');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    z-index: 2;
+    transition: all .5s ease;
+}
+.venustas-mask .sticky .mask::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20vh;
+    background: #fff;
+    opacity:0;
+}
+.venustas-mask .sticky .mask::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20vh;
+    background: #fff;
+    opacity:0;
+}
+.venustas-mask .sticky .mask-m::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20vh;
+    background: #fff;
+    display:none;
+}
+.venustas-mask .sticky .mask-m::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20vh;
+    background: #fff;
+    display:none;
+}
+.venustas-mask .container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    padding-top: 180px;
+    padding-bottom: 50px;
+    z-index: 3;
+}
+.venustas-mask .container .btn {
+    font-weight: 700;
+}
+
+    /* VENUSTAS MASK --------------------------------------------------------------- */
+
+    .venustas-mask {
+        position: relative;
+        height: 200vh;
+    }
+    .venustas-mask .sticky {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1;
+    }
+    .venustas-mask .sticky video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+    .venustas-mask .sticky .mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url({{ section.settings.mask | img_url: 'master' }});
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        z-index: 2;
+        transition: all .5s ease;
+    }
+    .venustas-mask .sticky .mask-m {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url({{ section.settings.mask_mobile | img_url: 'master' }});
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        z-index: 2;
+        transition: all .5s ease;
+    }
+    .venustas-mask .sticky .mask::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 20vh;
+        background: #F9F6EF;
+        display:none;
+    }
+    .venustas-mask .sticky .mask::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 20vh;
+        background: #F9F6EF;
+        display:none;
+    }
+    .venustas-mask .sticky .mask-m::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 20vh;
+        background: #fff;
+        opacity:0;
+    }
+    .venustas-mask .sticky .mask-m::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 20vh;
+        background: #fff;
+        opacity:0;
+    }
+    .venustas-mask .container {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%);
+        padding-top: 180px;
+        padding-bottom: 50px;
+        z-index: 3;
+    }
+    .venustas-mask .container .btn {
+        font-weight: 700;
+    }
+    .venustas-mask .image-container-mask{
+        height:400px;
+        position:relative;
+        border-radius: 20px 20px 20px 20px;
+        overflow:hidden;
+    }
+    .venustas-mask .bg-image{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .venustas-mask .image-container-mask .btn{
+      display:none;
+      transition: all 0.3s ease
+    }
+    .venustas-mask .image-container-mask:hover .btn{
+      display:block;
+      width: fit-content;
+    }
+    .venustas-mask .image-container-mask img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition: all 0.3s ease;
+    }
+    .venustas-mask .image-container-mask .content-info{
+        position:absolute;
+        bottom:0;
+        width:100%;
+    }
+    .venustas-mask .venustas-mask-slider .owl-stage{
+        padding-left:0px !important;
+    }
+    .venustas-mask .container{
+        width:100%;
+    }
+
+
+    /* Fade-up base state */
+    .venustas-mask .fadeup {
+        opacity: 0;
+        transform: translate3d(0, 180px, 0);
+        transition: opacity 500ms ease, transform 500ms ease;
+        will-change: opacity, transform;
+    }
+
+    /* Active state */
+    .venustas-mask .fadeup.is-in {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+    .venustas-mask .fadeup:nth-of-type(2) { transition-delay: 0ms; }
+    .venustas-mask .fadeup:nth-of-type(1) { transition-delay: 140ms; }
+
+
+    /* Optional: respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        .venustas-mask .fadeup {
+            transition: none;
+            transform: none;
+        }
+    }
+
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .venustas-mask .sticky .mask-m {
+            margin-top:-6px;
+        }
+      .venustas-mask .venustas-mask-slider .owl-stage{
+          padding-left:20px !important;
+      }
+      
+      .venustas-mask .container{
+          padding-left:0px;
+          padding-right:0px;
+          overflow:hidden;
+      }
+      .venustas-mask .venustas-mask-slider .slider-description{
+        padding:0px 20px;
+        
+      }
+      .venustas-mask .image-container-mask img{
+          scale:1;
+      }
+      .venustas-mask .image-container-mask .btn{
+          width:fit-content;
+          display:block
+      }
+      .venustas-mask .image-container-mask:hover img{
+          scale:1;
+      }
+      .venustas-mask .image-container-mask{
+          background:#000;
+      }
+      .venustas-mask .image-container-mask .content-info{
+          position:relative;
+      }
+      
+        .venustas-mask .sticky .mask::before ,
+        .venustas-mask .sticky .mask::after {
+            opacity:1;
+        }
+    }
+    
+    /* ipad Air */
+    @media only screen 
+      and (min-device-width : 768px) 
+      and (max-device-width : 1024px){
+      .venustas-mask .venustas-mask-slider .owl-stage{
+          padding-left:30px !important;
+      }
+      .venustas-mask .container{
+          padding-left:0px;
+          padding-right:0px;
+          overflow:hidden;
+      }
+      .venustas-mask .venustas-mask-slider .slider-description{
+        padding:0px 30px;
+        
+      }
+      .venustas-mask .image-container-mask img{
+          scale:1;
+      }
+      .venustas-mask .image-container-mask .btn{
+          width:fit-content;
+          display:block
+      }
+      .venustas-mask .image-container-mask:hover img{
+        scale:1;
+      }
+      .venustas-mask .image-container-mask{
+          background:#000;
+      }
+      .venustas-mask .image-container-mask .content-info{
+          position:relative;
+      }
+    }
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+    
+    @media only screen and (min-width: 0px) {
+      .venustas-mask .image-container-mask img{
+          height:250px;
+      }
+      .venustas-mask .image-container-mask{
+          height:fit-content;
+      }
+      .venustas-mask .container .btn{
+          padding:8px 16px;
+      }
+      .venustas-mask .sticky{
+          height:110vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:40vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:40vh;
+      }
+    }
+    @media only screen and (min-width: 375px) {
+      .venustas-mask .image-container-mask img{
+          height:250px;
+      }
+      .venustas-mask .image-container-mask{
+          height:fit-content;
+      }
+      .venustas-mask .container .btn{
+        padding:8px 16px;
+      }
+      .venustas-mask .sticky{
+          height:110vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:40vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:40vh;
+      }
+    }
+    @media only screen and (min-width: 390px) {
+      .venustas-mask .image-container-mask img{
+          height:250px;
+      }
+      .venustas-mask .image-container-mask{
+          height:fit-content;
+      }
+      .venustas-mask .container .btn{
+          padding:8px 16px;
+      }
+      .venustas-mask .sticky{
+          height:100vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:40vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:40vh;
+      }
+    }
+    @media only screen and (min-width: 414px) {
+      .venustas-mask .image-container-mask img{
+          height:250px;
+      }
+      .venustas-mask .image-container-mask{
+          height:fit-content;
+      }
+      .venustas-mask .container .btn{
+          padding:8px 16px;
+      }
+      .venustas-mask .sticky{
+          height:100vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:40vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:40vh;
+      }
+    }
+    @media only screen and (min-width: 428px) {
+      .venustas-mask .image-container-mask img{
+          height:250px;
+      }
+      .venustas-mask .image-container-mask{
+          height:fit-content;
+      }
+      .venustas-mask .container .btn{
+          padding:8px 16px;
+      }
+      .venustas-mask .sticky{
+          height:100vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:40vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:40vh;
+      }
+    }
+    @media only screen and (min-width: 480px) {
+      .venustas-mask .image-container-mask img{
+          height:250px;
+      }
+      .venustas-mask .image-container-mask{
+          height:fit-content;
+      }
+      .venustas-mask .container .btn{
+          padding:8px 16px;
+      }
+      .venustas-mask .sticky{
+          height:100vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:40vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:40vh;
+      }
+    }
+    
+    /* TABLETS ----------------------------------------------------------------------------------- */
+    
+    @media only screen and (min-width: 768px) {
+      .venustas-mask .image-container-mask img{
+          height:100%;
+      }
+      .venustas-mask .image-container-mask{
+          height:350px;
+      }
+      .venustas-mask .container .btn{
+          padding:8px 18px;
+      }
+      .venustas-mask .sticky{
+          height:100vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:20vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:20vh;
+      }
+    }
+    
+    
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+    
+    @media only screen and (min-width: 1280px) {
+      .venustas-mask .image-container-mask img{
+          height:100%;
+      }
+      .venustas-mask .image-container-mask{
+          height:350px;
+      }
+      .venustas-mask .container .btn{
+        padding:8px 18px;
+      }
+      .venustas-mask .sticky{
+          height:100vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:20vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:20vh;
+      }
+    }
+    @media only screen and (min-width: 1366px) {
+      .venustas-mask .image-container-mask img{
+          height:100%;
+      }
+      .venustas-mask .image-container-mask{
+          height:350px;
+      }
+      .venustas-mask .container .btn{
+          padding:8px 18px;
+      }
+      .venustas-mask .sticky{
+          height:100vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:20vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:20vh;
+      }
+    }
+    @media only screen and (min-width: 1440px) {
+      .venustas-mask .image-container-mask img{
+          height:100%;
+      }
+      .venustas-mask .image-container-mask{
+          height:350px;
+      }
+      .venustas-mask .container .btn{
+          padding:8px 18px;
+      }
+      .venustas-mask .sticky{
+          height:100vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:20vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:20vh;
+      }
+    }
+    @media only screen and (min-width: 1536px) {
+      .venustas-mask .image-container-mask img{
+          height:100%;
+      }
+      .venustas-mask .image-container-mask{
+          height:380px;
+      }
+      .venustas-mask .container .btn{
+          padding:9px 19px;
+      }
+      .venustas-mask .sticky{
+          height:100vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:20vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:20vh;
+      }
+    }
+    @media only screen and (min-width: 1600px) {
+      .venustas-mask .image-container-mask img{
+          height:100%;
+      }
+      .venustas-mask .image-container-mask{
+          height:380px;
+      }
+      .venustas-mask .container .btn{
+          padding:9px 19px;
+      }
+      .venustas-mask .sticky{
+          height:100vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:20vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:20vh;
+      }
+    }
+    
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+      .venustas-mask .image-container-mask img{
+          height:100%;
+      }
+      .venustas-mask .image-container-mask{
+          height:400px;
+      }
+      .venustas-mask .container .btn{
+          padding:10px 20px;
+      }
+      .venustas-mask .sticky{
+          height:100vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:20vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:20vh;
+      }
+    }
+    @media only screen and (min-width: 2560px) {
+      .venustas-mask .image-container-mask img{
+          height:100%;
+      }
+      .venustas-mask .image-container-mask{
+          height:400px;
+      }
+      .venustas-mask .container .btn{
+          padding:10px 20px;
+      }
+      .venustas-mask .sticky{
+          height:100vh;
+      }
+      .venustas-mask .sticky .mask:before{
+          height:20vh;
+      }
+      .venustas-mask .sticky .mask:after{
+          height:20vh;
+      }
+    }
+
+  
+{% endstyle %}
+
+<section class="venustas-mask">
+  <div class="sticky">
+    {% if section.settings.select_bg_type == 'video' %}
+
+      {% if section.settings.background_video_mobile != blank %}
+        {% assign desktop_poster = section.settings.background_video.preview_image | image_url: width: 2000 %}
+        {% assign mobile_poster  = section.settings.background_video_mobile.preview_image | image_url: width: 2000 %}
+
+        {{
+          section.settings.background_video | video_tag:
+          autoplay: true,
+          loop: true,
+          muted: true,
+          playsinline: true,
+          poster: desktop_poster,
+          class: 'd-lg-block d-md-block d-sm-none'
+        }}
+
+        {{
+          section.settings.background_video_mobile | video_tag:
+          autoplay: true,
+          loop: true,
+          muted: true,
+          playsinline: true,
+          poster: mobile_poster,
+          class: 'd-lg-none d-md-none d-sm-block'
+        }}
+
+      {% else %}
+        {% assign large_poster = section.settings.background_video.preview_image | image_url: width: 2000 %}
+
+        {{
+          section.settings.background_video | video_tag:
+          autoplay: true,
+          loop: true,
+          muted: true,
+          playsinline: true,
+          poster: large_poster
+        }}
+      {% endif %}
+
+    {% else %}
+      <img src="{{ section.settings.background_image | img_url: 'master' }}" class="bg-image d-lg-block d-md-block d-sm-none" width="100%" height="100%">
+      <img src="{{ section.settings.background_image_mobile | img_url: 'master' }}" class="bg-image d-lg-none d-md-none d-sm-block" width="100%" height="100%">
+    {% endif %}
+
+    <div class="mask d-lg-block d-md-block d-sm-none"></div>
+    <div class="mask-m  d-lg-none d-md-none d-sm-block"></div>
+
+    <div class="container section-content h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-12 overflow-hidden">
+
+          <div class="row d-lg-flex d-md-none d-sm-none">
+            <div class="col-lg-8 col-md-8 col-sm-12 mx-auto">
+                <div class="fadeup">
+                    <div class="title-lg pp-bold text-center mb-2" style="color: {{ section.settings.title_color }}">
+                        {{ section.settings.title | newline_to_br }}
+                    </div>
+                </div>
+                <div class="fadeup">
+                    <div class="pretitle pp-regular text-center" style="color: {{ section.settings.desc_color }}">
+                        {{ section.settings.description | newline_to_br }}
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="row d-lg-none d-md-flex d-sm-flex">
+            <div class="col-12 fadeup">
+              <div class="pretitle-xl pp-semibold text-center mb-2" style="color: {{ section.settings.title_color }}">
+                {{ section.settings.title | newline_to_br }}
+              </div>
+            </div>
+            <div class="col-12 fadeup">
+              <div class="body pp-regular text-center mb-4 px-3" style="color: {{ section.settings.desc_color }}">
+                {{ section.settings.description | newline_to_br }}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+    "class": "venustas-mask-section",
+    "name": "Venustas Mask",
+    "limit": 1,
+    "templates": ["index"],
+    "settings": [
+        {
+            "type": "select",
+            "id": "select_bg_type",
+            "label": "Background Type",
+            "options": [
+               {
+                   "label": "Video",
+                   "value": "video"
+               },
+               {
+                   "label": "Image",
+                   "value": "image"
+               } 
+            ],
+            "default": "video"
+        },
+        {
+            "type": "video",
+            "id": "background_video",
+            "label": "Background Video"
+        },
+        {
+            "type": "video",
+            "id": "background_video_mobile",
+            "label": "Background Video - Mobile"
+        },
+        {
+            "type": "image_picker",
+            "id": "background_image",
+            "label": "Background Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "background_image_mobile",
+            "label": "Background Image - Mobile"
+        },
+        {
+            "type": "image_picker",
+            "id": "mask",
+            "label": "Mask"
+        },
+        {
+            "type": "image_picker",
+            "id": "mask_mobile",
+            "label": "Mask - Mobile"
+        },
+        {
+            "type": "textarea",
+            "id": "title",
+            "label": "Title"
+        },
+        {
+            "type": "color",
+            "id": "title_color",
+            "label": "Title Color",
+            "default": "#fff"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description"
+        },
+        {
+            "type": "color",
+            "id": "desc_color",
+            "label": "Description Color",
+            "default": "#fff"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Venustas Mask"
+        }
+    ]
+}
+{% endschema %}

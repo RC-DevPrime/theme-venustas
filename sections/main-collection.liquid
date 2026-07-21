@@ -1,0 +1,912 @@
+{% assign collection_count = collection.products_count %}
+
+{% style %}
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: var(--bs-gutter-x);
+        row-gap: var(--bs-gutter-y);
+    }
+
+    .g-col-1 { grid-column: span 1; }
+    .g-col-2 { grid-column: span 2; }
+    .g-col-3 { grid-column: span 3; }
+    .g-col-4 { grid-column: span 4; }
+    .g-col-5 { grid-column: span 5; }
+    .g-col-6 { grid-column: span 6; }
+    .g-col-7 { grid-column: span 7; }
+    .g-col-8 { grid-column: span 8; }
+    .g-col-9 { grid-column: span 9; }
+    .g-col-10 { grid-column: span 10; }
+    .g-col-11 { grid-column: span 11; }
+    .g-col-12 { grid-column: span 12; }
+
+    aside{
+        display:block;
+        background-color:#FFF;
+        position:relative;
+        overflow:hidden;
+        border-radius:8px;
+    }
+    aside:hover img.bg-image,
+    aside:hover video{
+        scale:1.1;
+    }
+    aside.promotion-box .promotion-content{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 30px 25px;
+    }
+    aside.promotion-box .promotion-content .element-img{
+        height:25px;
+        width:fit-content;
+        object-fit:cover;
+        margin-top:14px;
+    }
+    aside.promotion-box .promotion-content .sub-heading{
+        display:flex;
+        position:relative;
+        gap:5px;
+    }
+    aside.promotion-box.promotion-sale .promotion-content{
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        height:100%;
+    }
+    .promotion-box img.bg-image,
+    .promotion-box video{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        position:absolute;
+        transition: all 0.3s ease;
+    }
+    .grid-column-1{
+        grid-column: 1;
+    }
+    .grid-column-2{
+        grid-column: 2;
+    }
+    .grid-column-3{
+        grid-column: 3;
+    }
+
+    .grid-row-1{
+        grid-row:1;
+    }
+    .grid-row-2{
+        grid-row:2;
+    }
+    .grid-row-3{
+        grid-row:3;
+    }
+    .grid-row-4{
+        grid-row:4;
+    }
+    .grid-row-5{
+        grid-row:6;
+    }
+    .grid-row-6{
+        grid-row:6;
+    }
+    .grid-row-7{
+        grid-row:7;
+    }
+    .grid-row-8{
+        grid-row:8;
+    }
+    .grid-row-9{
+        grid-row:9;
+    }
+
+    .main-collection .toggle-filter{
+        background: #B93205;
+        border-radius: 6px 6px 6px 6px;
+        padding:8px 15px;
+        color:#FFF;
+    }
+    .main-collection .filter-list-container{
+        display:block
+    }
+    .main-collection .remove-filter{
+        display:flex;
+    }
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .main-collection .filter-list-container{
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999999;
+            width: 100%;
+            height: 100vh;
+            pointer-events:none;
+        }
+        .main-collection .filter-list-container.show{
+             pointer-events:auto;
+        }
+        .main-collection .filter-list-container .inner-filter-container{
+            background-color: #FFF;
+            height: 100vh;
+            width: 85%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding:30px 20px;
+            position:relative;
+            z-index:2;
+            transform: translateX(-150%); /* hidden left */
+            transition: transform .35s ease;
+        }
+        .main-collection .filter-list-container.show .inner-filter-container{
+            transform: translateX(0); /* slide open */
+        }
+
+        .main-collection .filter-list-container .overlay{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #00000029;
+            z-index: 1;
+            opacity:0;
+            transition:opacity .3s ease;
+        }
+        .main-collection .filter-list-container.show .overlay{
+            opacity:1;
+        }
+        .main-collection .filter-list-container .inner-filter-container .sticky-filter{
+            position:unset;
+        }
+        .main-collection .filter-list-container .inner-filter-container .filter-form.desktop{
+            overflow-y: scroll;
+            height: 80vh;
+        }
+        .main-collection .filter-list-container .btn-mav-close{
+            position: absolute;
+            top: 0;
+            right: -40px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            background: #B93205;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top-right-radius: 50%;
+            border-bottom-right-radius: 50%;
+        }
+        .main-collection .filter-list-container .btn-mav-close img{
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .main-collection .filter-list-container-tab{
+            margin-bottom:0.5rem;
+        }
+
+        .main-collection .mobile-toggle{
+            padding-left:0px;
+            padding-right:0px;
+        }
+        .grid-column-3{
+            grid-column: 2;
+        }
+        aside.promotion-box .promotion-content{
+            padding:5px;
+        }
+        aside.promotion-box .promotion-content .element-img{
+            height:20px;
+            margin-left: -10px;
+        }
+        aside.promotion-box.promotion-image .promotion-content{
+            padding:15px 10px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+{% endstyle %}
+<section class="container main-collection section-content pt-0">
+
+    <div class="container mobile-toggle d-lg-none d-md-flex d-sm-flex pb-lg-0 pb-md-0 pb-sm-3">
+        <p class="item-found d-lg-block d-md-block d-sm-none">
+            <span>{{ collection_count }}</span> Item(s) Found
+        </p>
+        <div class="d-lg-none d-md-flex d-sm-flex">
+            <div class="toggle-filter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14.39" height="13.978" viewBox="0 0 14.39 13.978">
+                    <path fill="#fff" stroke="#fff" stroke-width=".5" d="M7.948 13.728a.456.456 0 0 1-.456-.456V5.479a.46.46 0 0 1 .11-.3l3.457-4.021H1.684l3.174 4.036a.46.46 0 0 1 .1.282v4.653l1.372 1.372a.456.456 0 0 1-.645.644L4.18 10.64a.45.45 0 0 1-.133-.322V5.634L.39.985A.455.455 0 0 1 .748.248h11.306a.456.456 0 0 1 .345.753L8.407 5.65v7.624a.456.456 0 0 1-.455.456Z"/>
+                    <path fill="#fff" stroke="#fff" stroke-width=".5" d="M10.159 12.515a.456.456 0 0 1 0-.911h3.522a.456.456 0 0 1 0 .911h-3.525Zm0-2.852a.456.456 0 0 1 0-.911h3.522a.456.456 0 0 1 0 .911h-3.525Zm0-2.819a.456.456 0 0 1 0-.911h3.522a.456.456 0 0 1 0 .911h-3.525Z"/>
+                </svg>
+                Filters
+            </div>
+        </div>
+    </div>
+    <div class="main-collection-top">
+        <div class="row d-lg-flex d-md-none d-sm-none align-items-center justify-content-between mb-lg-4 mb-md-4 mb-sm-3">
+            <div class="width-fit-content">
+                <div class="filter-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20.574" height="19.985" viewBox="0 0 20.574 19.985">
+                        <path class="a" d="M11.372 19.735a.66.66 0 0 1-.659-.659V7.809a.66.66 0 0 1 .159-.429l5-5.813H2.318l4.589 5.835a.66.66 0 0 1 .141.407v6.727l1.984 1.984a.659.659 0 0 1-.932.931l-2.176-2.176a.66.66 0 0 1-.193-.466V8.038L.445 1.316A.658.658 0 0 1 .962.25h16.345a.659.659 0 0 1 .5 1.088l-5.774 6.716v11.023a.66.66 0 0 1-.658.659Z"/>
+                        <path class="a" d="M14.568 17.98a.659.659 0 0 1 0-1.317h5.1a.659.659 0 0 1 0 1.317zm0-4.123a.659.659 0 0 1 0-1.317h5.1a.659.659 0 0 1 0 1.317zm0-4.075a.659.659 0 0 1 0-1.317h5.095a.659.659 0 0 1 0 1.317h-5.1Z"/>
+                    </svg>
+                    <span class="pp-semibold body-lg">
+                        Filters
+                    </span>
+                </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-between width-fit-content">
+                <div class="sort-by desktop">
+                    <label for="collection-sort">Sort By:</label>
+                    {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+                    <select id="collection-sort">
+                        {% for option in collection.sort_options %}
+                            <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>
+                                {{ option.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="desktop-toggle">
+        <div class="row collections-row">
+            <div class="filter-list-container col-3">
+                <div class="overlay"></div>
+                <div class="inner-filter-container">
+                    <div class="btn-mav-close d-lg-none d-md-none d-sm-flex">
+                        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/close-nav-mobile.png?v=1761785925" width="100%" height="100%" alt="close-nav-mobile-btn">
+                    </div>
+                    {% comment %} <h5 class="pp-bold body-xl f-black pb-3">Sidebar</h5> {% endcomment %}
+                    <div class="sticky-filter">
+                        <div class="d-flex align-items-center justify-content-between pb-lg-3 pb-md-3 pb-sm-2">
+
+                            <span class="pp-semibold body-lg filters filter-counter-products">
+                                All
+                            </span>
+                            <div class="clear-filter desktop">
+                                <div class="pp-regular body"><i class="fa-solid fa-trash-can"></i> Clear Filter</div>
+                            </div>
+                        </div>
+                        <div class="filter-list-container-tab">
+
+                        </div>
+                        <form class="filter-form desktop">
+
+                            {% for filter in collection.filters %}
+
+                                {% assign filterCounter = filterCounter | plus: 1 %}
+
+                                <div class="accordion filter-container">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="filterDHeading-{{ filterCounter }}">
+                                            <button class="body-lg mt-medium f-black mb-2 accordion-button {% if filter.type == 'price_range' %}{% else %}collapsed{% endif %} " type="button" data-bs-toggle="collapse" data-bs-target="#filterDCollapse-{{ filterCounter }}" aria-expanded="false" aria-controls="filterDCollapse-{{ filterCounter }}">
+                                                <span>{{ filter.label }}</span>
+                                            </button>
+                                        </h2>
+                                        <div id="filterDCollapse-{{ filterCounter }}" class="accordion-collapse collapse {% if filter.type == 'price_range' %}show{% endif %}" aria-labelledby="filterDHeading-{{ filterCounter }}">
+                                            <div class="accordion-body filter-container-{{ filter.label | handleize }}">
+                                                    {% case filter.type %}
+                                        
+                                                        {% when 'boolean' or 'list' %}
+                                                            
+                                                            {% for filter_value in filter.values %}
+                                                                
+                                                                {% if filter.label == 'Color' %}
+                                                                    {% assign color_value_raw = filter_value.label | downcase %}
+                                                                    {% assign words = color_value_raw | split: ' ' %}
+                                                                    {% assign base_color = words.last %}
+                                                                    {% assign color_handle = color_value_raw | handle %}
+
+                                                                    {% if color_value_raw == 'hi-vis orange' %}
+                                                                    {% assign base_color = '#ff6a13' %}
+                                                                    {% elsif color_value_raw == 'hi-vis yellow' %}
+                                                                    {% assign base_color = '#ffd400' %}
+                                                                    {% elsif color_value_raw == 'hi-vis blue' %}
+                                                                    {% assign base_color = '#2563eb' %}
+                                                                    {% elsif color_value_raw == 'hi-vis gray' or color_value_raw == 'hi-vis grey' %}
+                                                                    {% assign base_color = '#9ca3af' %}
+                                                                    {% elsif color_value_raw == 'silver pine' %}
+                                                                    {% assign base_color = '#6e7f6a' %}
+                                                                    {% elsif color_value_raw == 'grey' %}
+                                                                    {% assign base_color = '#808080' %}
+                                                                    {% elsif color_value_raw == 'navy' %}
+                                                                    {% assign base_color = '#1f2a44' %}
+                                                                    {% elsif color_value_raw == 'olive' %}
+                                                                    {% assign base_color = '#708238' %}
+                                                                    {% elsif color_value_raw == 'camo' %}
+                                                                    {% assign base_color = '#6b7753' %}
+                                                                    {% endif %}
+
+                                                                    {% assign swatch_file_name_exact = filter_value.label | strip | append: '.png' %}
+                                                                    {% assign swatch_file_name_handle = color_handle | append: '.png' %}
+
+                                                                    {%- comment -%} Safe image lookup (NO file_url) {%- endcomment -%}
+                                                                    {% assign swatch_exact = images[swatch_file_name_exact] %}
+                                                                    {% assign swatch_handle = images[swatch_file_name_handle] %}
+
+                                                                    {% if swatch_exact == blank and swatch_handle == blank %}
+                                                                    {% assign fallback_swatch_handle = blank %}
+                                                                    {% if color_value_raw == 'hi-vis orange' %}
+                                                                        {% assign fallback_swatch_handle = 'orange.png' %}
+                                                                    {% elsif color_value_raw == 'hi-vis yellow' %}
+                                                                        {% assign fallback_swatch_handle = 'yellow.png' %}
+                                                                    {% elsif color_value_raw == 'hi-vis blue' %}
+                                                                        {% assign fallback_swatch_handle = 'blue.png' %}
+                                                                    {% elsif color_value_raw == 'hi-vis gray' or color_value_raw == 'hi-vis grey' %}
+                                                                        {% assign fallback_swatch_handle = 'grey.png' %}
+                                                                    {% endif %}
+
+                                                                    {% if fallback_swatch_handle != blank %}
+                                                                        {% assign swatch_handle = images[fallback_swatch_handle] %}
+                                                                    {% endif %}
+                                                                    {% endif %}
+
+                                                                    {% assign swatch_primary = blank %}
+                                                                    {% assign swatch_secondary = blank %}
+
+                                                                    {% if swatch_exact != blank %}
+                                                                    {% assign swatch_primary = swatch_exact %}
+                                                                    {% endif %}
+
+                                                                    {% if swatch_handle != blank %}
+                                                                    {% assign swatch_secondary = swatch_handle %}
+                                                                    {% endif %}
+
+                                                                    {% assign swatch_bg = blank %}
+                                                                    {% if swatch_primary != blank %}
+                                                                    {% assign swatch_bg = swatch_primary | image_url %}
+                                                                    {% elsif swatch_secondary != blank %}
+                                                                    {% assign swatch_bg = swatch_secondary | image_url %}
+                                                                    {% endif %}
+
+                                                                    <div class="filter-group-display__list-item">
+                                                                    <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+
+                                                                        {{ filter_value.label }}{% if filter.label != 'Size' %} ({{ filter_value.count }}){% endif %}
+
+                                                                        <input
+                                                                        type="checkbox"
+                                                                        name="{{ filter_value.param_name }}"
+                                                                        value="{{ filter_value.value }}"
+                                                                        id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                                                                        {% if filter_value.active %}checked{% endif %}
+                                                                        >
+
+                                                                        <span
+                                                                        class="variant-color-box"
+                                                                        style="
+                                                                            background-color: {{ base_color }};
+                                                                            {% if swatch_bg != blank %}
+                                                                            background-image: url('{{ swatch_bg }}');
+                                                                            background-size: cover;
+                                                                            background-position: center;
+                                                                            background-repeat: no-repeat;
+                                                                            {% endif %}
+                                                                        "
+                                                                        data-swatch-primary="{% if swatch_primary != blank %}{{ swatch_primary | image_url }}{% endif %}"
+                                                                        data-swatch-secondary="{% if swatch_secondary != blank %}{{ swatch_secondary | image_url }}{% endif %}"
+                                                                        ></span>
+
+                                                                        <span class="color-text">{{ filter_value.label }}</span>
+
+                                                                    </label>
+                                                                    </div>
+                                                                {% else %}
+                                                                    <div class="filter-group-display__list-item">
+                                                                        <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">{{ filter_value.label }}{%  if filter.label != 'Size' %}({{ filter_value.count }}){% endif %}
+
+                                                                            <input type="checkbox" name="{{ filter_value.param_name }}"
+                                                                                value="{{ filter_value.value }}"
+                                                                                id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                                                                                {% if filter_value.active %}checked{% endif %}
+                                                                                >
+                                                                                <span class="checkmark"></span>
+                                                                                </label>
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                        
+                                                        {% when 'price_range' %}
+                        
+                                                            <div class="filter-group-display__price-range">
+
+                                                                <div class="slider">
+                                                                    <div class="progress"></div>
+                                                                </div>
+                                                                <div class="range-input">
+                                                                    <input type="range"
+                                                                            class="range-min"
+                                                                            min="0"
+                                                                            max="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                            {% if filter.min_value.value %}
+                                                                            value="{{ filter.min_value.value | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                            {% else %}
+                                                                            value="0"
+                                                                            {% endif %}
+                                                                            step="1"
+                                                                            aria-label="Minimum Price">
+
+                                                                    <input type="range"
+                                                                            class="range-max"
+                                                                            min="0"
+                                                                            max="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                            {% if filter.max_value.value %}
+                                                                            value="{{ filter.max_value.value | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                            {% else %}
+                                                                            value="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                            {% endif %}
+                                                                            step="1"
+                                                                        aria-label="Maximum Price">
+                                                                </div>
+
+
+                                                                <div class="range-data">
+                                                                    <div class="filter-group-display__price-range-from">
+                                                    
+                                                                        <input name="{{ filter.min_value.param_name }}"
+                                                                            class="input-min"
+                                                                            id="Filter-{{ filter.min_value.param_name }}"
+                                                                            {% if filter.min_value.value %}
+                                                                                value="{{ filter.min_value.value | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                            {% else %}
+                                                                                value="0"
+                                                                            {% endif %}
+                                                                            type="number"
+                                                                            placeholder="From"
+                                                                            min="0"
+                                                                            readonly
+                                                                            max="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                        >
+                                                        
+                                                                    </div>
+                                                                    to
+                                                                    <div class="filter-group-display__price-range-to">
+                                                        
+                                                                        <input name="{{ filter.max_value.param_name }}"
+                                                                            class="input-max"
+                                                                            id="Filter-{{ filter.max_value.param_name }}"
+                                                                            {% if filter.max_value.value %}
+                                                                                value="{{ filter.max_value.value | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                            {% else %}
+                                                                                value="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                            {% endif %}
+                                                                            type="number"
+                                                                            placeholder="To"
+                                                                            min="0"
+                                                                            readonly
+                                                                            max="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                        >
+                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                                
+                                                    {% endcase %}
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="product-list-container col-lg-9 col-md-12 col-sm-12">
+
+
+                <div class="main-collection-product-list product-card">
+
+                    {% paginate collection.products by 9 %}
+                        {% if collection_count > 0 %}
+                            <div class="grid products-row">
+                                {% for block in section.blocks %}
+                                    {% if block.type == 'promotion_image' %}
+                                        <aside class="promotion-box promotion-image g-col-1 grid-row-{{ block.settings.grid_range_row }} grid-column-{{ block.settings.grid_range_column }}">
+                                            <img
+                                                src="{{ block.settings.background_image | img_url: '1024x1024' }}"
+                                                srcset="
+                                                    {{ block.settings.background_image | img_url: '480x480' }} 480w,
+                                                    {{ block.settings.background_image | img_url: '768x768' }} 768w,
+                                                    {{ block.settings.background_image | img_url: '1024x1024' }} 1024w,
+                                                    {{ block.settings.background_image | img_url: '1600x1600' }} 1600w"
+                                                sizes="100vw"
+                                                width="100%"
+                                                height="100%"
+                                                alt="{{ block.settings.background_image.alt | escape }}"
+                                                loading="lazy"
+                                                decoding="async"
+                                                class="bg-image"
+                                            />
+
+                                            <div class="promotion-content">
+                                                <div class="pp-bold pretitle-lg pb-1 d-lg-block d-md-block d-sm-none" style="color: {{ block.settings.heading_color }}">{{ block.settings.heading }}</div>
+                                                <div class="pp-bold pretitle pb-1 d-lg-none d-md-none d-sm-block" style="color: {{ block.settings.heading_color }}">{{ block.settings.heading }}</div>
+                                                <div class="pp-regular f-white body-lg pb-3 d-lg-block d-md-block d-sm-none" style="color: {{ block.settings.description_color }}">{{block.settings.description }}</div>
+                                                <div class="pp-regular f-white body pb-3 d-lg-none d-md-none d-sm-block" style="color: {{ block.settings.description_color }}">{{block.settings.description }}</div>
+                                                <a href="{{ block.settings.btn_link }}" class="btn-hover btn-main py-lg-2 py-md-2 py-sm-2">
+                                                    <span class="pp-semibold body f-white">
+                                                        {{ block.settings.btn_label }}
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </aside>
+                                    {% elsif block.type == 'promotion_sale' %}
+                                        <aside class="promotion-box promotion-sale g-col-1 grid-row-{{ block.settings.grid_range_row }} grid-column-{{ block.settings.grid_range_column }}">
+                                            <img
+                                                src="{{ block.settings.background_image | img_url: '1024x1024' }}"
+                                                srcset="
+                                                    {{ block.settings.background_image | img_url: '480x480' }} 480w,
+                                                    {{ block.settings.background_image | img_url: '768x768' }} 768w,
+                                                    {{ block.settings.background_image | img_url: '1024x1024' }} 1024w,
+                                                    {{ block.settings.background_image | img_url: '1600x1600' }} 1600w"
+                                                sizes="100vw"
+                                                width="100%"
+                                                height="100%"
+                                                alt="{{ block.settings.background_image.alt | escape }}"
+                                                loading="lazy"
+                                                decoding="async"
+                                                class="bg-image"
+                                            />
+                                            <div class="promotion-content d-flex flex-column align-items-center justify-content-center">
+                                                <div class="pp-bold text-center title-md pb-1" style="color: {{ block.settings.heading_color }}">
+                                                    {% if collection.metafields.custom.banner_heading_sale != blank %}
+                                                        {{ collection.metafields.custom.banner_heading_sale }}
+                                                    {% else %}
+                                                        {{ block.settings.heading }}
+                                                    {% endif %}
+                                                </div>
+                                                <div class="sub-heading">
+                                                    <div class="pp-bold text-center pretitle-lg pb-1 d-lg-block d-md-block d-sm-none" style="color: {{ block.settings.sub_heading_color }}">
+                                                        {% if collection.metafields.custom.banner_sub_heading_sale != blank %}
+                                                            {{ collection.metafields.custom.banner_sub_heading_sale }}
+                                                        {% else %}
+                                                            {{ block.settings.sub_heading }}
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="pp-bold text-center body-xl pb-1 d-lg-none d-md-none d-sm-block" style="color: {{ block.settings.sub_heading_color }}">
+                                                        
+                                                        {% if collection.metafields.custom.banner_sub_heading_sale != blank %}
+                                                            {{ collection.metafields.custom.banner_sub_heading_sale }}
+                                                        {% else %}
+                                                            {{ block.settings.sub_heading }}
+                                                        {% endif %}
+                                                    </div>
+                                                    <img
+                                                        src="{{ block.settings.element_image | img_url: '1024x1024' }}"
+                                                        srcset="
+                                                            {{ block.settings.element_image | img_url: '480x480' }} 480w,
+                                                            {{ block.settings.element_image | img_url: '768x768' }} 768w,
+                                                            {{ block.settings.element_image | img_url: '1024x1024' }} 1024w,
+                                                            {{ block.settings.element_image | img_url: '1600x1600' }} 1600w"
+                                                        sizes="100vw"
+                                                        width="100%"
+                                                        height="100%"
+                                                        alt="{{ block.settings.element_image.alt | escape }}"
+                                                        loading="lazy"
+                                                        decoding="async"
+                                                        class="element-img"
+                                                    />
+
+                                                </div>
+                                                <p class="pp-regular text-center body-lg pb-3" style="color: {{ block.settings.description_color }}">{{block.settings.description }}</p>
+                                                <a href="{{ block.settings.btn_link }}" class="btn-hover btn-main py-lg-2 py-md-2 py-sm-2">
+                                                    <span class="pp-semibold body f-white">
+                                                        {{ block.settings.btn_label }}
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </aside>
+                                    {% else %}
+                                        <aside class="promotion-box promotion-video g-col-1 grid-row-{{ block.settings.grid_range_row }} grid-column-{{ block.settings.grid_range_column }}">
+                                            {% assign large_poster = block.settings.video.preview_image | image_url: width: 2000 %}
+
+                                            {{ block.settings.video | video_tag: 
+                                                autoplay: true, 
+                                                loop: true, 
+                                                muted: true, 
+                                                playsinline: true, 
+                                                poster: large_poster 
+                                            }}
+                                            <div class="promotion-content">
+                                                <h4 class="pp-bold pretitle-lg pb-1" style="color: {{ block.settings.heading_color }}">{{ block.settings.heading }}</h4>
+                                                <p class="pp-regular f-white body-lg pb-3" style="color: {{ block.settings.description_color }}">{{block.settings.description }}</p>
+                                                <a href="{{ block.settings.btn_link }}" class="btn-hover btn-main py-lg-2 py-md-2 py-sm-2">
+                                                    <span class="pp-semibold body f-white">
+                                                        {{ block.settings.btn_label }}
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </aside>
+                                    {% endif %}
+                                {% endfor %}
+                                {% for product in collection.products %}
+
+                                    <div class="g-col-1 products">
+                                        {% render 'product-collection', product: product, sale_badge_type: section.settings.sale_badge_type, badge_detail: true, %}
+                                    </div>
+                    
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <h3 class="pretitle-lg mt-bold f-black">No product found.</h3>
+                        {% endif %}
+                            <div class="row" >
+                                <div class="collection-footer" data-product-count="{{ collection.products_count }}">
+                                    {% if paginate.next %}
+                                        <button class="load-more-btn btn-hover btn-main" data-next-url="{{ paginate.next.url }}">
+                                            <span>Load More</span>
+                                        </button>
+                                    {% endif %}
+
+                                    <div class="product-count-text f-gray">
+                                        Showing <span class="current-range">1–{{ collection.products_count | at_most: paginate.page_size }}</span> of {{ collection.products_count }} products
+                                    </div>
+
+                                </div>
+                            </div>
+
+                    {% endpaginate %}
+                    
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<script>
+    var curUrl = '{{ shop.url }}{{ collection.url }}';
+</script>
+
+{% schema %}
+{
+    "class": "main-collection-page main-collection-section",
+    "name": "Main Collection",
+    "limit": 1,
+    "templates": ["collection"],
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Find Your Ideal Match"
+        },
+        {
+            "type": "text",
+            "id": "btn_label",
+            "label": "Button Label",
+            "default": "Apparel Finder"
+        },
+        {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "promotion_image",
+            "name": "Promotion Box - Image",
+            "settings": [   
+                {
+                    "type": "image_picker",
+                    "id": "background_image",
+                    "label": "Background Image"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "color",
+                    "id": "heading_color",
+                    "label": "Heading Color",
+                    "default": "#FFFFFF"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "color",
+                    "id": "description_color",
+                    "label": "Description Color",
+                    "default": "#FFFFFF"
+                },
+                {
+                    "type": "text",
+                    "id": "btn_label",
+                    "label": "Button Label",
+                    "default": "Explore"
+                },
+                {
+                    "type": "url",
+                    "id": "btn_link",
+                    "label": "Button Link"
+                },
+                {
+                    "type": "range",
+                    "id": "grid_range_row",
+                    "min": 1,
+                    "max": 9,
+                    "step": 1,
+                    "label": "Grid Range - Row",
+                    "default": 1
+                },
+                {
+                    "type": "range",
+                    "id": "grid_range_column",
+                    "min": 1,
+                    "max": 3,
+                    "step": 1,
+                    "label": "Grid Range - Column",
+                    "default": 1
+                }
+            ]
+        },
+        {
+            "type": "promotion_video",
+            "name": "Promotion Box - Video",
+            "settings": [   
+                {
+                    "type": "video",
+                    "id": "background_video",
+                    "label": "Background Video"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "color",
+                    "id": "heading_color",
+                    "label": "Heading Color",
+                    "default": "#FFFFFF"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "color",
+                    "id": "description_color",
+                    "label": "Description Color",
+                    "default": "#FFFFFF"
+                },
+                {
+                    "type": "text",
+                    "id": "btn_label",
+                    "label": "Button Label",
+                    "default": "Explore"
+                },
+                {
+                    "type": "url",
+                    "id": "btn_link",
+                    "label": "Button Link"
+                },
+                {
+                    "type": "range",
+                    "id": "grid_range_row",
+                    "min": 1,
+                    "max": 9,
+                    "step": 1,
+                    "label": "Grid Range - Row",
+                    "default": 1
+                },
+                {
+                    "type": "range",
+                    "id": "grid_range_column",
+                    "min": 1,
+                    "max": 3,
+                    "step": 1,
+                    "label": "Grid Range - Column",
+                    "default": 1
+                }
+            ]
+        },
+        {
+            "type": "promotion_sale",
+            "name": "Promotion Box - Sale",
+            "settings": [   
+                {
+                    "type": "image_picker",
+                    "id": "background_image",
+                    "label": "Background Image"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "color",
+                    "id": "heading_color",
+                    "label": "Heading Color",
+                    "default": "#FFFFFF"
+                },
+                {
+                    "type": "textarea",
+                    "id": "sub_heading",
+                    "label": "Sub Heading"
+                },
+                {
+                    "type": "color",
+                    "id": "sub_heading_color",
+                    "label": "Sub Heading Color",
+                    "default": "#FFFFFF"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "color",
+                    "id": "description_color",
+                    "label": "Description Color",
+                    "default": "#FFFFFF"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "element_image",
+                    "label": "element_image"
+                },
+                {
+                    "type": "text",
+                    "id": "btn_label",
+                    "label": "Button Label",
+                    "default": "Explore"
+                },
+                {
+                    "type": "url",
+                    "id": "btn_link",
+                    "label": "Button Link"
+                },
+                {
+                    "type": "range",
+                    "id": "grid_range_row",
+                    "min": 1,
+                    "max": 9,
+                    "step": 1,
+                    "label": "Grid Range - Row",
+                    "default": 1
+                },
+                {
+                    "type": "range",
+                    "id": "grid_range_column",
+                    "min": 1,
+                    "max": 3,
+                    "step": 1,
+                    "label": "Grid Range - Column",
+                    "default": 1
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

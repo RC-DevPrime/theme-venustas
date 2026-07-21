@@ -1,0 +1,710 @@
+{% style %}
+    .text-policy-content-section .row{
+        --bs-gutter-x: 80px;
+    }
+    .text-policy-content-section .text-policy-link-menu-list .link-item {
+        border-top:1px solid #E5E5E5;
+    }
+    
+    .text-policy-content-section .text-policy-link-menu-list .link-item:first-child{
+        border:none;
+    }
+
+    .text-policy-content-section .text-policy-link-menu-list .link-item a{
+        padding:12px 0px;
+        display:block;
+    }
+
+    .text-policy-content-section .text-policy-link-menu-list .link-item:hover a{
+        text-decoration:underline;
+    }
+
+    .text-policy-content-section .text-policy-link-menu-list .link-item a.active{
+        color:#B93205;
+    }
+
+    .text-policy-content-section .text-policy-link-menu-list .link-item:last-child{
+        border-bottom:1px solid #E5E5E5;
+    }
+
+    .text-policy-content-section .policy-details{
+        background: #F9F6EF;
+        border-radius: 10px 10px 10px 10px;
+        padding:25px 15px 10px;
+        margin-top:15px;
+    }
+
+    .text-policy-content-section  .text-policy-content image,
+    .text-policy-content-section  .text-policy-content video{
+        width:100%;
+        height:100%;
+    }
+    .text-policy-content-section  .text-policy-content p{
+        font-size:16px;
+        margin-bottom:10px;
+    }
+    .text-policy-content-section  .text-policy-content a{
+        font-size:16px;
+        color: #B93205;
+    }
+
+    .text-policy-content-section .details-list{
+        display:flex;
+        flex-direction:column;
+    }
+    .text-policy-content-section  .details-list .item-detail{
+        padding:10px;
+        border-bottom: 1px solid #E2DDD1;
+        display:flex;
+        align-items:center;
+        gap:1rem;
+    }
+    .text-policy-content-section .details-list .item-detail:last-child{
+        border-bottom:none;
+    }
+    .text-policy-content-section .details-list .item-detail .icon-img{
+        width:20px;
+        height:20px;
+        object-fit:contain;
+    }
+    .text-policy-content-section .sticky-nav{
+        position:sticky;
+    }
+
+    .text-policy-content-section .nav-hover-toc {
+        position: fixed;
+        left: 0;
+        top: 20vh;
+        background: #B93205;
+        width: fit-content;
+        padding: 13px 20px 13px 15px;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        display: flex;
+        z-index: 999;
+        cursor: pointer;
+    }
+
+    .text-policy-content-section .nav-hover-toc img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+    }
+
+    /* --- MOBILE TOC NAV WRAPPER --- */
+    .text-policy-content-section .mobile-toc-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background-color: transparent;
+        z-index: 999999;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    /* overlay fade */
+    .text-policy-content-section .mobile-toc-nav .overlay {
+        position: fixed;
+        z-index: 1;
+        height: 100%;
+        width: 100%;
+        background-color: #000;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    /* side panel */
+    .text-policy-content-section .mobile-toc-nav .inner-section {
+        background-color: #FFF;
+        height: 100%;
+        width: 89%;
+        position: relative;
+        z-index: 2;
+        transform: translateX(-100%);
+        opacity: 0;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    /* open state */
+    .text-policy-content-section .mobile-toc-nav.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .text-policy-content-section .mobile-toc-nav.open .overlay {
+        opacity: 0.32;
+    }
+
+    .text-policy-content-section .mobile-toc-nav.open .inner-section {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    /* close button */
+    .text-policy-content-section .btn-close-toc {
+        position: absolute;
+        top: 0;
+        right: -40px;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        background: #B93205;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
+    }
+
+    .text-policy-content-section .btn-close-toc img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+    }
+    
+    .text-policy-content-section .text-policy-content ul,
+    .text-policy-content-section .text-policy-content ol{
+        padding-left:30px;
+        margin-bottom:20px;
+    }
+    .text-policy-content-section .text-policy-content li{
+        margin-bottom:8px;
+    }
+    .text-policy-content-section .text-policy-content table {
+        font-family: 'Montserrat';
+    }
+    .text-policy-content-section .text-policy-content table tr:nth-child(4n+3),
+    .text-policy-content-section .text-policy-content table tr:nth-child(4n+4) {
+        background-color: #f4f4f4; 
+    }
+
+    .text-policy-content-section .text-policy-content table{
+        margin-bottom:30px;
+    }
+    .text-policy-content-section .text-policy-content .powr-form-builder{
+        font-family: 'Montserrat';
+    }
+    .text-policy-content-section .text-policy-content .shipping-section{
+        font-family: 'Montserrat';
+    }
+    .text-policy-content-section .text-policy-content .shipping-section h3,
+    .text-policy-content-section .text-policy-content h3{
+        font-weight:700;
+        margin-bottom:16px;
+        font-size:26px;
+    }
+    .text-policy-content-section .text-policy-content h4{
+        font-weight:700;
+        margin-bottom:16px;
+        font-size:22px;
+    }
+
+    .text-policy-content-section .warranty-registration-btn,
+    .text-policy-content-section .warranty-claim-btn{
+        margin-top:10px;
+        margin-bottom:20px;
+    }
+    .text-policy-content-section .popup-modal .popup-close img{
+        width:18px;
+        height:18px;
+    }
+    .text-policy-content-section .popup-modal .popup-header{
+        padding: 10px 15px 10px;
+    }
+    .text-policy-content-section .popup-container{
+        padding-top:0px;
+        padding-bottom:30px;
+    }
+    .text-policy-content-section .popup-modal .popup-content{
+        max-width: 800px;
+    }
+    .return-flowchart{
+        background: #F9F9F9;
+        padding:30px 20px;
+        border-radius:8px;
+        text-align:center;
+    }
+    .return-flowchart .flow-cart-container{
+        display:flex;
+        align-items:center;
+        justify-content: space-evenly;
+    }
+    .return-flowchart .image-icon{
+        height:100px;
+        object-fit:contain;
+        
+    }   
+    .return-flowchart .img-arrow{
+        width:50px;
+        object-fit:contain;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+    
+        /* .text-policy-content-section .text-policy-link-menu-list .link-item:first-child{
+            border-top:1px solid #E5E5E5;
+        } */
+        .text-policy-content-section .text-policy-content .shipping-section h3{
+            margin-top:30px;
+        }
+        .text-policy-content-section .row{
+            --bs-gutter-x: 0px;
+        }
+        .text-policy-content-section .warranty-registration-btn,
+        .text-policy-content-section .warranty-claim-btn{
+            margin-top:10px;
+            margin-bottom:20px;
+            padding:8px 15px !important;
+        }
+        .text-policy-content-section .text-policy-content .shipping-section h3,
+        .text-policy-content-section .text-policy-content h3{
+            font-size:20px;
+        }
+        .text-policy-content-section .text-policy-content h4{
+            font-size:18px;
+        }
+        .text-policy-content-section .text-policy-content p,
+        .text-policy-content-section .text-policy-content li,
+        .text-policy-content-section .text-policy-content a{
+            font-size:14px;
+        }
+        .text-policy-content-section .popup-modal .popup-close{
+            background:unset !important;
+        }
+        .text-policy-content-section .text-policy-content ul,
+        .text-policy-content-section .text-policy-content ol{
+            padding-left:20px;
+            margin-bottom:10px;
+        }
+        .return-flowchart .image-icon{
+            height:55px;
+            
+        }   
+        .return-flowchart .flow-cart-container{
+            justify-content: space-between;
+        }
+        .return-flowchart .img-arrow{
+            width:40px;
+            margin-top:-20px;
+        }
+        .return-flowchart .img-arrow.revise{
+            margin-top: 0;
+            transform: scaleY(-1) rotate(200deg);
+            width: 85px;
+            margin-right: 20px;
+        }
+        .flow-cart-container .flow-item{
+            max-width:150px;
+            min-width:100px;
+        }
+    }
+
+{% endstyle %}
+<div class="container section-content">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12 d-lg-block d-md-block d-sm-none">
+            <div class="sticky-nav">
+                <div class="text-policy-link-menu-list">
+                {% for block in section.blocks %}
+                    {% assign current_path = request.path %}
+                    {% assign link_path = block.settings.link | remove: shop.url %}
+                    <div class="link-item">
+                    <a 
+                        href="{{ block.settings.link }}" 
+                        class="pp-semibold body-lg{% if current_path == link_path %} active{% endif %}"
+                    >
+                        {{ block.settings.link_title }}
+                    </a>
+                    </div>
+                {% endfor %}
+                </div>
+
+                <div class="policy-details">
+                    <div class="d-flex flex-column gap-2">
+                        <h4 class="pp-semibold body-lg f-main">{{ section.settings.heading }}</h4>
+                        <p class="pp-regular body">{{ section.settings.description }}</p>
+                        <div class="details-list">
+
+                            <a href="{{ section.settings.icon_url_1 }}" class="item-detail">
+                                <img src="{{ section.settings.icon_1 | img_url: '500x500' }}" class="icon-img">
+                                <span class="pp-semibold body f-main">
+                                    {{ section.settings.icon_label_1 }}
+                                </span>
+                            </a>
+                            <a href="{{ section.settings.icon_url_2 }}" class="item-detail">
+                                <img src="{{ section.settings.icon_2 | img_url: '500x500' }}" class="icon-img">
+                                <span class="pp-semibold body f-main">
+                                    {{ section.settings.icon_label_2 }}
+                                </span>
+                            </a>
+                            <a href="{{ section.settings.icon_url_3 }}" class="item-detail">
+                                <img src="{{ section.settings.icon_3 | img_url: '500x500' }}" class="icon-img">
+                                <span class="pp-semibold body f-main">
+                                    {{ section.settings.icon_label_3 }}
+                                </span>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12">
+            <div class="text-policy-content">
+                {{ page.content }}
+            </div>
+            {% for block in section.blocks %}
+                {% if block.type == 'return_policy' %}
+                        <div class="return-flowchart">
+                            <h4 class="pp-bold pretitle f-black pb-lg-5 pb-md-5 pb-sm-3">
+                                {{ block.settings.heading }}
+                            </h4>
+                            <div class="flow-cart-container d-lg-flex d-md-flex d-sm-none">
+                                <div class="flow-item">
+                                    <img src="{{ block.settings.image_1 | img_url: '400x400' }}" width="100%" height="100%" class="image-icon">
+                                    <p class="pp-regular body-lg f-gray text-center mt-3">
+                                        {{ block.settings.label_1 }}
+                                    </p>
+                                </div>
+                                <div class="flow-arrow">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77933_2x_46951757-e1a9-4e87-9d9d-64fd8bb31aae.png?v=1764934636" width="100%" height="100%" class="img-arrow">
+                                </div>
+                                <div class="flow-item">
+                                    <img src="{{ block.settings.image_2 | img_url: '400x400' }}" width="100%" height="100%" class="image-icon">
+                                    <p class="pp-regular body-lg f-gray text-center mt-3">
+                                        {{ block.settings.label_2 }}
+                                    </p>
+                                </div>
+                                <div class="flow-arrow">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77933_2x_46951757-e1a9-4e87-9d9d-64fd8bb31aae.png?v=1764934636" width="100%" height="100%" class="img-arrow">
+                                </div>
+                                <div class="flow-item">
+                                    <img src="{{ block.settings.image_3 | img_url: '400x400' }}" width="100%" height="100%" class="image-icon">
+                                    <p class="pp-regular body-lg f-gray text-center mt-3">
+                                        {{ block.settings.label_3 }}
+                                    </p>
+                                </div>
+                                <div class="flow-arrow">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77933_2x_46951757-e1a9-4e87-9d9d-64fd8bb31aae.png?v=1764934636" width="100%" height="100%" class="img-arrow">
+                                </div>
+                                <div class="flow-item">
+                                    <img src="{{ block.settings.image_4 | img_url: '400x400' }}" width="100%" height="100%" class="image-icon">
+                                    <p class="pp-regular body-lg f-gray text-center mt-3">
+                                        {{ block.settings.label_4 }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="d-lg-none d-md-none d-sm-block">
+                                <div class="d-flex flex-column">
+                                    <div class="col-12 flow-cart-container">
+                                        <div class="flow-item">
+                                            <img src="{{ block.settings.image_1 | img_url: '400x400' }}" width="100%" height="100%" class="image-icon">
+                                            <p class="pp-regular body-sm f-gray text-center mt-3">
+                                                {{ block.settings.label_1 }}
+                                            </p>
+                                        </div>
+                                        <div class="flow-arrow">
+                                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77933_2x_46951757-e1a9-4e87-9d9d-64fd8bb31aae.png?v=1764934636" width="100%" height="100%" class="img-arrow">
+                                        </div>
+                                        <div class="flow-item">
+                                            <img src="{{ block.settings.image_2 | img_url: '400x400' }}" width="100%" height="100%" class="image-icon">
+                                            <p class="pp-regular body-sm f-gray text-center mt-3">
+                                                {{ block.settings.label_2 }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="flow-arrow my-2">
+                                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77933_2x_46951757-e1a9-4e87-9d9d-64fd8bb31aae.png?v=1764934636" width="100%" height="100%" class="img-arrow revise">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 flow-cart-container">
+                                        <div class="flow-item">
+                                            <img src="{{ block.settings.image_3 | img_url: '400x400' }}" width="100%" height="100%" class="image-icon">
+                                            <p class="pp-regular body-sm f-gray text-center mt-3">
+                                                {{ block.settings.label_3 }}
+                                            </p>
+                                        </div>
+                                        <div class="flow-arrow">
+                                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77933_2x_46951757-e1a9-4e87-9d9d-64fd8bb31aae.png?v=1764934636" width="100%" height="100%" class="img-arrow">
+                                        </div>
+                                        <div class="flow-item">
+                                            <img src="{{ block.settings.image_4 | img_url: '400x400' }}" width="100%" height="100%" class="image-icon">
+                                            <p class="pp-regular body-sm f-gray text-center mt-3">
+                                                {{ block.settings.label_4 }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mt-lg-5 mt-md-5 mt-sm-4">
+                                <a href="{{ block.settings.btn_link }}" class="btn-hover btn-main py-lg-3 py-md-3 py-sm-2" target="_blank">
+                                    <span class="f-white pp-regular body">{{ block.settings.btn_label }}</span>
+                                </a>
+                            </div>
+                        </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="d-lg-none d-md-none d-sm-block">
+    <div class="nav-hover-toc">
+        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/nav-mobile-icon.png?v=1761784876" width="100%" height="100%">
+    </div>
+    <div class="mobile-toc-nav">
+        <div class="overlay"></div>
+        <div class="inner-section">
+            <div class="btn-close-toc">
+                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/close-nav-mobile.png?v=1761785925" width="100%" height="100%">
+            </div>
+            <div class="py-5 px-4">
+                <div class="text-policy-link-menu-list">
+                {% for block in section.blocks %}
+                    {% assign current_path = request.path %}
+                    {% assign link_path = block.settings.link | remove: shop.url %}
+                    <div class="link-item">
+                    <a 
+                        href="{{ block.settings.link }}" 
+                        class="pp-semibold body-lg{% if current_path == link_path %} active{% endif %}"
+                    >
+                        {{ block.settings.link_title }}
+                    </a>
+                    </div>
+                {% endfor %}
+                </div>
+                <div class="policy-details">
+                    <div class="d-flex flex-column gap-2">
+                        <h4 class="pp-semibold body-lg f-main">Need Help?</h4>
+                        <p class="pp-regular body">Have questions? Contact us via phone, email, or Support Center for assistance.</p>
+                        <div class="details-list">
+
+                            <div class="item-detail">
+                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77936_2x_b688946e-f1fa-4ada-a6ec-46d8597cb277.png?v=1761715728" class="icon-img">
+                                <span class="pp-semibold body f-main">
+                                    +(1)888 836 6460
+                                </span>
+                            </div>
+                            <div class="item-detail">
+                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77641_2x_e046bf5a-84e1-45cd-9d9a-e2da3febb627.png?v=1761715728" class="icon-img">
+                                <span class="pp-semibold body f-main">
+                                    Contact Us
+                                </span>
+                            </div>
+                            <div class="item-detail">
+                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/50656_2x_ca44dc6f-d928-4ec1-9aef-443fdb5e4401.png?v=1761715728" class="icon-img">
+                                <span class="pp-semibold body f-main">
+                                    Support
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="warranty-claim-modal popup-modal">
+    <div class="popup-overlay">
+    </div>
+    <div class="popup-content"> 
+        <div class="popup-header">
+            <button class="popup-close" type="button">
+                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/close-btn-popup.png?v=1761207016">
+            </button>
+        </div>
+        
+        <div class="popup-container">
+            <div class="powr-form-builder" id="15e419ae_1636368920"></div>
+        </div>
+    </div>
+</div>
+<div class="register-warranty-modal popup-modal">
+    <div class="popup-overlay">
+    </div>
+    <div class="popup-content"> 
+        <div class="popup-header">
+            <button class="popup-close" type="button">
+                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/close-btn-popup.png?v=1761207016">
+            </button>
+        </div>
+        
+        <div class="popup-container">
+            <iframe style="font-family: Montserrat;" height="2800" width="100%" src="https://docs.google.com/forms/d/e/1FAIpQLSfGEh2JVsXWxEEAbPVx1yePrqhU8KkuekBQevp0rB8VKNVRUw/viewform?embedded=true" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "text-policy-content-section",
+        "name": "Text Policy - Content",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "header",
+                "content": "Policy Details",
+                
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Need Help?"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>Have questions? Contact us via phone, email, or Support Center for assistance.</p>"
+            },
+            {
+                "type": "image_picker",
+                "id": "icon_1",
+                "label": "Icon - 1"
+            },
+            {
+                "type": "text",
+                "id": "icon_label_1",
+                "label": "Icon Label - 1",
+                "default": "+(1)888 836 6460"
+            },
+            {
+                "type": "url",
+                "id": "icon_url_1",
+                "label": "Icon URL - 1"
+            },
+            {
+                "type": "image_picker",
+                "id": "icon_2",
+                "label": "Icon - 2"
+            },
+            {
+                "type": "text",
+                "id": "icon_label_2",
+                "label": "Icon Label - 2",
+                "default": "Contact Us"
+            },
+            {
+                "type": "url",
+                "id": "icon_url_2",
+                "label": "Icon URL - 2"
+            },
+            {
+                "type": "image_picker",
+                "id": "icon_3",
+                "label": "Icon - 3"
+            },
+            {
+                "type": "text",
+                "id": "icon_label_3",
+                "label": "Icon Label - 3",
+                "default": "Support"
+            },
+            {
+                "type": "url",
+                "id": "icon_url_3",
+                "label": "Icon URL - 3"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "link",
+                "name": "Link",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "link_title",
+                        "label": "Link Title"
+                    },
+                    {
+                        "type": "url", 
+                        "id": "link",
+                        "label": "Link"
+                    }
+                ]
+            },
+            {
+                "type": "return_policy",
+                "name": "Return Policy Box",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Renturn Flowchart"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image_1",
+                        "label": "Icon - 1"
+                    },
+                    {
+                        "type": "text",
+                        "id": "label_1",
+                        "label": "Lable - 1",
+                        "default": "Submit Request"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image_2",
+                        "label": "Icon - 2"
+                    },
+                    {
+                        "type": "text",
+                        "id": "label_2",
+                        "label": "Lable - 2",
+                        "default": "Submit Request"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image_3",
+                        "label": "Icon - 3"
+                    },
+                    {
+                        "type": "text",
+                        "id": "label_3",
+                        "label": "Lable - 3",
+                        "default": "Submit Request"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image_4",
+                        "label": "Icon - 4"
+                    },
+                    {
+                        "type": "text",
+                        "id": "label_4",
+                        "label": "Lable - 4",
+                        "default": "Submit Request"
+                    },
+                    {
+                        "type": "text",
+                        "id": "btn_label",
+                        "label": "Button Label",
+                        "default": "Request Return Or Exchange"
+                    },
+                    {
+                        "type": "url",
+                        "id": "btn_link",
+                        "label": "Button Link"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Text Policy - Content"
+        }]
+    }
+{% endschema %} 

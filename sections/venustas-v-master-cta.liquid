@@ -1,0 +1,151 @@
+{% render 'v-master-base-css', section: section %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-cta {
+    position: relative;
+    padding: clamp(48px, 6vw, 72px) 24px;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-cta__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: var(--v-brand);
+  }
+
+  #shopify-section-{{ section.id }} .v-master-cta__bg img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-cta__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(185, 50, 5, 0.75) 0%, rgba(185, 50, 5, 0.92) 100%);
+  }
+
+  #shopify-section-{{ section.id }} .v-master-cta__inner {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-cta__heading {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 700;
+    margin: 0 0 16px;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-cta__body {
+    font-size: 15px;
+    line-height: 1.65;
+    margin: 0 0 12px;
+    opacity: 0.95;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-cta__body a:not(.v-master__powr-link) {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-cta__closing {
+    font-size: 14px;
+    margin: 0;
+    opacity: 0.9;
+  }
+</style>
+
+<div class="v-master">
+  <div class="v-master-cta">
+    <div class="v-master-cta__bg" aria-hidden="true">
+      {%- if section.settings.background_image != blank -%}
+        {{
+          section.settings.background_image
+          | image_url: width: 2000
+          | image_tag: loading: 'lazy', alt: ''
+        }}
+      {%- endif -%}
+    </div>
+    <div class="v-master-cta__overlay"></div>
+
+    <div class="v-master-cta__inner">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="v-master-cta__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      <p class="v-master-cta__body">
+        {%- if section.settings.link_text != blank -%}
+          <button type="button" class="v-master__powr-link" data-v-talents-powr-open="apply">
+            {{- section.settings.link_text -}}
+          </button>
+        {%- endif -%}
+        {%- if section.settings.body_after_link != blank -%}
+          {{ section.settings.body_after_link }}
+        {%- endif -%}
+      </p>
+
+      {%- if section.settings.closing_text != blank -%}
+        <p class="v-master-cta__closing">{{ section.settings.closing_text }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "V+ Master CTA",
+  "tag": "section",
+  "class": "venustas-v-master-cta-section",
+  "settings": [
+    { "type": "color", "id": "brand_color", "label": "Brand color", "default": "#B93205" },
+    { "type": "color", "id": "text_brown_color", "label": "Heading color (optional)", "default": "#B93205" },
+    { "type": "color", "id": "cream_color", "label": "Cream", "default": "#F9F5F0" },
+    { "type": "image_picker", "id": "background_image", "label": "Background texture image" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Interested in becoming a V+ Master?"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Popup trigger link text",
+      "default": "Click here"
+    },
+    {
+      "type": "text",
+      "id": "body_after_link",
+      "label": "Text after link",
+      "default": " to submit your application form, or feel free to contact us directly at influence@venustas.com."
+    },
+    {
+      "type": "text",
+      "id": "closing_text",
+      "label": "Closing line",
+      "default": "We look forward to building a long-term partnership with you!"
+    },
+    {
+      "type": "paragraph",
+      "content": "Opens the same POWR application popup as the Hero section. Configure the form in V+ Master — Hero."
+    }
+  ],
+  "presets": [{ "name": "V+ Master CTA", "category": "V+ Master" }]
+}
+{% endschema %}

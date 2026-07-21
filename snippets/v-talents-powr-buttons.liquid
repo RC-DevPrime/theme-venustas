@@ -1,0 +1,62 @@
+{%- comment -%}
+  Shared Apply / Rewards buttons (same labels & POWR popup as Hero).
+  Pass: section (CTA or Hero) with button settings.
+  Optional: outline_style = 'white' | 'brand'
+  Optional: use_hero_modals = true — CTA only: always open Hero POWR modals (no duplicate POWR settings)
+{%- endcomment -%}
+{%- liquid
+  assign outline_style = outline_style | default: 'brand'
+  assign outline_class = 'v-talents__btn--outline-brand'
+  if outline_style == 'white'
+    assign outline_class = 'v-talents__btn--outline-white'
+  endif
+
+  assign apply_label = section.settings.hero_btn_apply_label | default: 'APPLY NOW'
+  assign rewards_label = section.settings.hero_btn_rewards_label | default: 'CLAIM REWARDS'
+
+  assign powr_apply_popup = false
+  assign powr_rewards_popup = false
+  assign rewards_powr_target = 'rewards'
+
+  if use_hero_modals
+    assign powr_apply_popup = true
+    assign powr_rewards_popup = true
+    assign rewards_powr_target = 'rewards'
+  else
+    assign powr_apply_id = section.settings.powr_form_id
+    assign powr_rewards_id = section.settings.powr_rewards_form_id | default: powr_apply_id
+    if section.settings.apply_use_powr_popup and powr_apply_id != blank
+      assign powr_apply_popup = true
+    endif
+    if section.settings.rewards_use_powr_popup and powr_rewards_id != blank
+      assign powr_rewards_popup = true
+    endif
+    if powr_rewards_popup and powr_apply_popup and powr_rewards_id == powr_apply_id
+      assign rewards_powr_target = 'apply'
+    endif
+  endif
+-%}
+
+{%- if apply_label != blank -%}
+  {%- if powr_apply_popup -%}
+    <button type="button" class="v-talents__btn v-talents__btn--solid" data-v-talents-powr-open="apply">
+      {{ apply_label }}
+    </button>
+  {%- else -%}
+    <a href="{{ section.settings.hero_btn_apply_link | default: '#' }}" class="v-talents__btn v-talents__btn--solid">
+      {{ apply_label }}
+    </a>
+  {%- endif -%}
+{%- endif -%}
+
+{%- if rewards_label != blank -%}
+  {%- if powr_rewards_popup -%}
+    <button type="button" class="v-talents__btn {{ outline_class }}" data-v-talents-powr-open="{{ rewards_powr_target }}">
+      {{ rewards_label }}
+    </button>
+  {%- else -%}
+    <a href="{{ section.settings.hero_btn_rewards_link | default: '#' }}" class="v-talents__btn {{ outline_class }}">
+      {{ rewards_label }}
+    </a>
+  {%- endif -%}
+{%- endif -%}

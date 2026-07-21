@@ -1,0 +1,309 @@
+{% render 'v-talents-base-css', section: section %}
+{% render 'v-talents-layout-css', section: section %}
+
+<style>
+  #shopify-section-{{ section.id }} .v-talents-steps__header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-steps__title {
+    font-size: clamp(26px, 2.8vw, 40px);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-steps__track {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-steps__card {
+    flex: 1 1 0;
+    min-width: 0;
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 20px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-steps__icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 16px;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-steps__card-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-steps__card-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-steps__arrow {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    color: #bbb;
+    font-size: 22px;
+    user-select: none;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-steps__disclaimer {
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    margin: 28px auto 0;
+    line-height: 1.6;
+    max-width: 90%;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-steps__dots {
+    display: none;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-steps__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: #d0d0d0;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-steps__dot.is-active {
+    background: var(--v-brand);
+    transform: scale(1.15);
+  }
+
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .v-talents-steps__arrow {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-steps__track {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-steps__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-steps__card {
+      flex: 0 0 82%;
+      scroll-snap-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-steps__dots {
+      display: flex;
+    }
+  }
+</style>
+
+<div class="v-talents">
+  <div class="v-talents-master-container">
+    <div class="v-talents-steps__header">
+      {%- if section.settings.steps_heading != blank -%}
+        <h2 class="v-talents-steps__title v-talents__brand">{{ section.settings.steps_heading }}</h2>
+      {%- endif -%}
+    </div>
+    {%- assign steps_ap_ms = section.settings.mobile_autoplay_interval | default: 5 | times: 1000 -%}
+    <div
+      class="v-talents-steps__track-wrap"
+      data-v-carousel
+      data-dot-class="v-talents-steps__dot"
+      data-autoplay="{% if section.settings.mobile_autoplay == false %}false{% else %}true{% endif %}"
+      data-interval-ms="{{ steps_ap_ms }}"
+    >
+      <div class="v-talents-steps__track" data-v-carousel-track>
+        {%- assign step_blocks = section.blocks | where: 'type', 'step' -%}
+        {%- for block in step_blocks -%}
+          {%- unless forloop.first -%}
+            <span class="v-talents-steps__arrow" aria-hidden="true">&gt;</span>
+          {%- endunless -%}
+          <article class="v-talents-steps__card" data-v-carousel-slide {{ block.shopify_attributes }}>
+            {%- if block.settings.step_icon != blank -%}
+              {{
+                block.settings.step_icon
+                | image_url: width: 96
+                | image_tag: class: 'v-talents-steps__icon', loading: 'lazy', alt: block.settings.step_title
+              }}
+            {%- endif -%}
+            {%- if block.settings.step_title != blank -%}
+              <h3 class="v-talents-steps__card-title">{{ block.settings.step_title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.step_text != blank -%}
+              <p class="v-talents-steps__card-text">{{ block.settings.step_text }}</p>
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+      <div class="v-talents-steps__dots" data-v-carousel-dots hidden></div>
+    </div>
+    {%- if section.settings.steps_disclaimer != blank -%}
+      <p class="v-talents-steps__disclaimer">{{ section.settings.steps_disclaimer | newline_to_br }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% render 'v-talents-carousel-js', section: section %}
+
+{% schema %}
+{
+  "name": "Talents — How It Works",
+  "tag": "section",
+  "class": "venustas-talents-steps-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "color",
+      "id": "brand_color",
+      "label": "Brand color",
+      "default": "#B93205"
+    },
+    {
+      "type": "range",
+      "id": "container_width_desktop",
+      "min": 70,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Desktop container width",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "container_width_mobile",
+      "min": 80,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Mobile container width",
+      "default": 95
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop padding bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding top",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding bottom",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Mobile carousel"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_autoplay",
+      "label": "Autoplay slides on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "mobile_autoplay_interval",
+      "label": "Autoplay interval",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 5,
+      "unit": "sec"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "steps_heading",
+      "label": "Heading",
+      "default": "How It Works"
+    },
+    {
+      "type": "textarea",
+      "id": "steps_disclaimer",
+      "label": "Disclaimer",
+      "default": "*Program terms apply. Rewards and selection criteria may vary.",
+      "info": "Press Enter in this field to start a new line on the page."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Process step",
+      "settings": [
+        { "type": "image_picker", "id": "step_icon", "label": "Step icon" },
+        { "type": "text", "id": "step_title", "label": "Step title" },
+        { "type": "textarea", "id": "step_text", "label": "Step description" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Talents — How It Works",
+      "category": "Venustas Talents",
+      "blocks": [
+        { "type": "step", "settings": { "step_title": "Apply", "step_text": "Fill out the application form." } },
+        { "type": "step", "settings": { "step_title": "Review", "step_text": "Our team reviews your profile within 5–7 business days." } },
+        { "type": "step", "settings": { "step_title": "You're in!", "step_text": "Receive your welcome kit and dashboard access." } },
+        { "type": "step", "settings": { "step_title": "Share & Earn", "step_text": "Post UGC and start earning monthly rewards." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

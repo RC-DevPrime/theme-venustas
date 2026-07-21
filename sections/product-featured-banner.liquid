@@ -1,0 +1,131 @@
+{% style %}
+    .product-featured-banner-section {
+        height:60vh;
+        position:relative;
+    }
+    .product-featured-banner-section .background-image{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .product-featured-banner-section .content-container{
+        position:absolute;
+        top:0;
+        width:100%;
+        height:100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .product-featured-banner-section {
+            height:350px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class=" h-100
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}>
+
+    <img src="{{ section.settings.background_image | img_url: 'master' }}" class="background-image d-lg-block d-md-block d-sm-none" width="100%" height="100%" alt="{{ section.settings.background_image.alt }}">
+    <img src="{{ section.settings.background_image_mobile | img_url: 'master' }}" class="background-image d-lg-none d-md-none d-sm-block" width="100%" height="100%" alt="{{ section.settings.background_image_mobile.alt }}">
+    <div class="content-container">
+        <div class="container section-content">
+            <div class="col-lg-6 col-md-6 col-sm-12 mx-auto d-flex flex-column align-items-center justify-content-center">
+                <p class="pp-regular body text-center f-white l-h-normal">
+                    {{ section.settings.sub_heading }}
+                </p>
+                <h2 class="pp-semibold title-xs text-center f-white l-h-normal pb-lg-4 pb-md-4 pb-sm-3">
+                    {{ section.settings.heading }}
+                </h2>
+                <a href="{{ section.settings.btn_url }}" class="btn btn-white-o px-5">
+                    <span class="body-lg pp-regular">{{ section.settings.btn_label }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+{
+    "class": "product-featured-banner-section",
+    "name": "Featured Banner",
+    "limit": 1,
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled_section_child_scroll",
+            "label": "Enabled Section Child Scroll"
+        },
+        {
+            "type": "text",
+            "id": "section_scroll_nav",
+            "label": "Section Scroll Nav",
+            "info": "Need to Enabled first Section Scroll"
+        },
+        {
+            "type": "text",
+            "id": "nav_title",
+            "label": "Navigation Title"
+        },
+        {
+            "type": "image_picker",
+            "id": "background_image",
+            "label": "Background Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "background_image_mobile",
+            "label": "Background Image - Mobile"
+        },
+        {
+            "type": "text",
+            "id": "sub_heading",
+            "label": "Sub Heading",
+            "default": "VENUSTAS"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Driving technology with an inclination on adventure!"
+        },
+        {
+            "type": "text",
+            "id": "btn_label",
+            "label": "Button Label",
+            "default": "TECHNOLOGY"
+        },
+        {
+            "type": "url",
+            "id": "btn_url",
+            "label": "Button URL"
+        }   
+    ],
+    "presets": [
+        {
+            "name": "Featured Banner"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,115 @@
+{%- comment -%}
+  Country flag from dropdown or optional image override.
+  US/CA use Venustas Shopify CDN; other countries use flagcdn (24x18 PNG).
+{%- endcomment -%}
+
+{%- liquid
+  assign iso = ''
+  assign flag_alt = ''
+  assign flag_url = ''
+
+  unless country == blank or country == 'none'
+    assign c = country | downcase | strip
+
+    if c == 'us' or c == 'usa' or c == 'united-states' or c == 'united states'
+      assign iso = 'us'
+      assign flag_alt = 'United States'
+    elsif c == 'ca' or c == 'canada'
+      assign iso = 'ca'
+      assign flag_alt = 'Canada'
+    elsif c == 'uk' or c == 'gb' or c == 'united-kingdom' or c == 'united kingdom'
+      assign iso = 'gb'
+      assign flag_alt = 'United Kingdom'
+    elsif c == 'de' or c == 'germany'
+      assign iso = 'de'
+      assign flag_alt = 'Germany'
+    elsif c == 'fr' or c == 'france'
+      assign iso = 'fr'
+      assign flag_alt = 'France'
+    elsif c == 'au' or c == 'australia'
+      assign iso = 'au'
+      assign flag_alt = 'Australia'
+    elsif c == 'nl' or c == 'netherlands'
+      assign iso = 'nl'
+      assign flag_alt = 'Netherlands'
+    elsif c == 'se' or c == 'sweden'
+      assign iso = 'se'
+      assign flag_alt = 'Sweden'
+    elsif c == 'no' or c == 'norway'
+      assign iso = 'no'
+      assign flag_alt = 'Norway'
+    elsif c == 'ch' or c == 'switzerland'
+      assign iso = 'ch'
+      assign flag_alt = 'Switzerland'
+    elsif c == 'it' or c == 'italy'
+      assign iso = 'it'
+      assign flag_alt = 'Italy'
+    elsif c == 'es' or c == 'spain'
+      assign iso = 'es'
+      assign flag_alt = 'Spain'
+    elsif c == 'jp' or c == 'japan'
+      assign iso = 'jp'
+      assign flag_alt = 'Japan'
+    elsif c == 'kz' or c == 'kazakhstan'
+      assign iso = 'kz'
+      assign flag_alt = 'Kazakhstan'
+    elsif c == 'ru' or c == 'russia'
+      assign iso = 'ru'
+      assign flag_alt = 'Russia'
+    elsif c == 'cn' or c == 'china'
+      assign iso = 'cn'
+      assign flag_alt = 'China'
+    elsif c == 'at' or c == 'austria'
+      assign iso = 'at'
+      assign flag_alt = 'Austria'
+    elsif c == 'be' or c == 'belgium'
+      assign iso = 'be'
+      assign flag_alt = 'Belgium'
+    elsif c == 'dk' or c == 'denmark'
+      assign iso = 'dk'
+      assign flag_alt = 'Denmark'
+    elsif c == 'fi' or c == 'finland'
+      assign iso = 'fi'
+      assign flag_alt = 'Finland'
+    elsif c == 'ie' or c == 'ireland'
+      assign iso = 'ie'
+      assign flag_alt = 'Ireland'
+    elsif c == 'nz' or c == 'new-zealand' or c == 'new zealand'
+      assign iso = 'nz'
+      assign flag_alt = 'New Zealand'
+    elsif c == 'pl' or c == 'poland'
+      assign iso = 'pl'
+      assign flag_alt = 'Poland'
+    elsif c.size == 2
+      assign iso = c
+      assign flag_alt = c | upcase
+    endif
+  endunless
+
+  if iso == 'us'
+    assign flag_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/47418_2x_79fee34e-897e-40a2-ae59-9fbf71aa792f.png?v=1758130779'
+  elsif iso == 'ca'
+    assign flag_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/47457_2x_8d8e549f-d9b8-4385-9446-8560729eacaf.png?v=1758463194'
+  elsif iso != blank
+    assign flag_url = 'https://flagcdn.com/24x18/' | append: iso | append: '.png'
+  endif
+-%}
+
+{%- if flag_image != blank -%}
+  {{
+    flag_image
+    | image_url: width: 96
+    | image_tag: class: class, loading: 'lazy', alt: flag_alt
+  }}
+{%- elsif flag_url != blank -%}
+  <img
+    class="{{ class }}"
+    src="{{ flag_url }}"
+    {% if iso != 'us' and iso != 'ca' %}
+      srcset="https://flagcdn.com/48x36/{{ iso }}.png 2x"
+    {% endif %}
+    alt="{{ flag_alt }}"
+    loading="lazy"
+    decoding="async"
+  >
+{%- endif -%}

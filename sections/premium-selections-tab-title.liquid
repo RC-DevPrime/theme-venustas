@@ -1,0 +1,215 @@
+{% style %}
+    .premium-selections-tab-title-section .tab-list-container .tab-list-item{
+        margin-bottom: 25px;
+    }
+    .premium-selections-tab-title-section .tab-list-container .tab-list-item .block-heading{
+        color:#C0C0C0;
+        cursor:pointer;
+    }
+    .premium-selections-tab-title-section .tab-list-container .tab-list-item.active .block-heading{
+        color: transparent;
+        background-image: linear-gradient(108deg, #B93205, #ef7e00 29%, #d94e0f 62%, #B93205);
+        background-size: 200% 200%;
+        background-clip: text;
+        -webkit-background-clip: text;
+    }
+    .premium-selections-tab-title-section .tab-list-container .tab-list-item .tab-content{
+        display:none;
+    }
+    .premium-selections-tab-title-section .tab-list-container .tab-list-item .tab-content ul,
+    .premium-selections-tab-title-section .tab-list-container .tab-list-item .tab-content ol{
+        padding:20px 30px;
+    }
+    .premium-selections-tab-title-section .tab-list-container .tab-list-item .tab-content ul li,
+    .premium-selections-tab-title-section .tab-list-container .tab-list-item .tab-content ol li{
+        margin-bottom:10px;
+    }
+    .premium-selections-tab-title-section .tab-list-container .tab-list-item.active .tab-content {
+        display:block;
+    }
+    .premium-selections-tab-title-section .tab-image-list {
+        position:relative;
+    }
+    .premium-selections-tab-title-section .tab-image-list .tab-image-item{
+        height:600px;
+        position:absolute;
+        top:0;
+        left:0;
+        opacity:0;
+        transition: all 0.3s ease;
+        overflow:hidden;
+        border-radius:12px;
+    }
+    .premium-selections-tab-title-section .tab-image-list .tab-image-item img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .premium-selections-tab-title-section .tab-image-list .tab-image-item.active{
+        opacity:1;
+    }
+
+
+    .premium-selections-tab-title-section .block-btn img{
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        position: relative;
+        z-index: 1;
+    }
+
+    
+    
+    .premium-selections-tab-title-section .mobile-tab-list-container .tab-list-item{
+        margin-bottom:30px;
+    }
+    
+    .premium-selections-tab-title-section .mobile-tab-list-container .tab-list-item:last-child{
+        margin-bottom:0;
+    }
+    .premium-selections-tab-title-section .mobile-tab-list-container .tab-list-item .block-heading{
+        color: transparent;
+        background-image: linear-gradient(108deg, #B93205, #ef7e00 29%, #d94e0f 62%, #B93205);
+        background-size: 200% 200%;
+        background-clip: text;
+        -webkit-background-clip: text;
+    }
+    .premium-selections-tab-title-section .mobile-tab-list-container .tab-list-item .tab-content ul,
+    .premium-selections-tab-title-section .mobile-tab-list-container .tab-list-item .tab-content ol{
+        padding:20px ;
+    }
+    .premium-selections-tab-title-section .mobile-tab-list-container .tab-list-item .tab-content ul li::marker {
+        color: #B93205;
+    }
+{% endstyle %}
+<div class="container section-content">
+    <div class="d-lg-block d-md-block d-sm-none">
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-12">
+                <div class="content-container">
+                    <div class="tab-list-container">
+
+                        {% for block in section.blocks %}
+                            <div class="tab-list-item {% if forloop.index == 1 %}active{% endif %}" data-tab-item="tab-{{ forloop.index }}">
+                                <div class="tab-heading">
+                                    <h3 class="block-heading pp-bold title gradient-text ">
+                                        {{ block.settings.heading }}
+                                    </h3>
+                                </div>
+                                <div class="tab-content pb-lg-3 pb-md-3 pb-sm-2 pt-lg-4 pt-md-4 pt-sm-3">
+                                    <div class="block-description pp-regular body-xl">
+                                        {{ block.settings.description }}
+                                    </div>    
+                                    <div class="block-description pp-regular body-xl">
+                                        {{ block.settings.description_list }}
+                                    </div>                    
+                                    <a href="{{ block.settings.btn_url }}" class="block-btn btn-hover btn-main btn-no-animation px-lg-3 px-md-3 px-sm-3 py-2 ">
+                                        <span class="pp-regular body-lg l-h-normal px-1">
+                                            {{ block.settings.btn_label }}
+                                        </span>
+                                        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/47420_2x_bf9f4027-13f9-4344-a883-453f60bc5d25.png?v=1758125303" width="100%" height="100%" class="btn-icon">
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-12">
+                <div class="tab-image-list">
+                    {% for block in section.blocks %}
+                        <div class="tab-image-item {% if forloop.index == 1 %}active{% endif %}" data-tab-item="tab-{{ forloop.index }}">
+                            <img src="{{ block.settings.image | img_url: '1400x1400' }}" width="100%" height="100%">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-lg-none d-md-none d-sm-block">
+        <div class="content-container">
+            <div class="mobile-tab-list-container">
+
+                {% for block in section.blocks %}
+                    <div class="tab-list-item">
+                        <div class="tab-heading">
+                            <h3 class="block-heading pp-bold title gradient-text text-center">
+                                {{ block.settings.heading }}
+                            </h3>
+                        </div>
+                        <div class="tab-content pb-lg-3 pb-md-3 pb-sm-2 pt-lg-4 pt-md-4 pt-sm-3">
+                            <div class="block-description pp-regular body text-center pb-3">
+                                {{ block.settings.description }}
+                            </div>  
+                            <div class="tab-image-item {% if forloop.index == 1 %}active{% endif %}" data-tab-item="tab-{{ forloop.index }}">
+                                <img src="{{ block.settings.image | img_url: '1400x1400' }}" width="100%" height="100%">
+                            </div>  
+                            <div class="block-description pp-regular body">
+                                {{ block.settings.description_list }}
+                            </div>                    
+                            <a href="{{ block.settings.btn_url }}" class="block-btn btn-hover btn-main btn-no-animation px-lg-3 px-md-3 px-sm-3 py-2 ">
+                                <span class="pp-regular body-lg l-h-normal px-1">
+                                    {{ block.settings.btn_label }}
+                                </span>
+                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/47420_2x_bf9f4027-13f9-4344-a883-453f60bc5d25.png?v=1758125303" width="100%" height="100%" class="btn-icon">
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "premium-selections-tab-title-section overflow-hidden",
+        "name": "Premium Tab Title",
+        "templates": ["page"],
+        "blocks": [
+            {
+                "type": "item",
+                "name": "Item",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Heading"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "description",
+                        "label": "Description",
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "description_list",
+                        "label": "Description ( List )"    
+                    },
+                    {
+                        "type": "text",
+                        "id": "btn_label",
+                        "label": "Button Label",
+                        "default": "Shop Now"
+                    },
+                    {
+                        "type": "url",
+                        "id": "btn_link",
+                        "label": "Button Link",
+                    },
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Premium Tab Title"
+        }]
+    }
+  {% endschema %} 

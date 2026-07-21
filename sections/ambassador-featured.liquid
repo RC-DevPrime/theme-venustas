@@ -1,0 +1,155 @@
+{% style %}
+    .ambassador-featured-section{
+    }
+    .ambassador-featured-section .section-heading{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+    }
+    .ambassador-featured-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+
+    .ambassador-featured-section .featurd-ambassador-image{
+        height:600px;
+        position:relative;
+    }
+    .ambassador-featured-section .featurd-ambassador-image.desktop .ambassador-detail{
+        position:absolute;
+        bottom:50px;
+        left:-10%;
+        background: #F9F6EF;
+        border-radius: 16px 16px 16px 16px;
+        border: 1px solid #B93205;
+        padding:10px 15px;
+    }
+    .ambassador-featured-section .featurd-ambassador-image.mobile{
+        height:fit-content;
+    }
+    .ambassador-featured-section .featurd-ambassador-image.mobile{
+        padding-bottom:40px;
+    }
+    .ambassador-featured-section .featurd-ambassador-image.mobile .ambassador-detail{
+        position:absolute;
+        bottom:20px;
+        left:0;
+        right:0;
+        margin:auto;
+        background: #F9F6EF;
+        border-radius: 8px;
+        border: 1px solid #B93205;
+        padding:8px 15px;
+        width:fit-content;
+    }
+    .ambassador-featured-section .featurd-ambassador-image.desktop img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        border-radius:24px;
+        overflow:hidden;
+    }
+    .ambassador-featured-section .featurd-ambassador-image.desktop img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        border-radius:12px;
+        overflow:hidden;
+    }
+    .ambassador-featured-section .section-btn .btn-icon{
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        position: relative;
+        z-index: 1;
+    }
+{% endstyle %}
+<div class="container section-content">
+    <div class="row align-items-center">
+        <div class="col-lg-6 col-md-6 col-sm-12">   
+            <div class="content-container col-lg-10 col-md-10 col-sm-12">
+                <h3 class="section-sub-heading text-lg-left text-md-left text-sm-center pp-bold title-xs f-main pb-2" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="100" data-aos-duration="500">{{ section.settings.sub_heading }}</h3>
+                <h2 class="section-heading pp-bold title-xl f-black pb-3 d-lg-block d-md-block d-sm-none" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="150" data-aos-duration="500">{{ section.settings.heading }}</h2>
+                <h2 class="section-heading text-center pp-bold title f-black pb-3 d-lg-none d-md-none d-sm-block" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="200" data-aos-duration="500">{{ section.settings.heading }}</h2>
+                
+                <div class="featurd-ambassador-image mobile d-lg-none d-md-none d-sm-block" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="220" data-aos-duration="500">
+                    <img src="{{ section.settings.image_mobile | img_url: 'master' }}" width="100%" height="100%">
+                    <div class="ambassador-detail">
+                        <p class="pp-semibold body-lg l-h-normal f-main">Sheri Skocdopole -CA</p>
+                    </div>
+                </div>
+                <div class="section-description pp-regular body-lg pb-4" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="250" data-aos-duration="500">
+                    {{ section.settings.description }}
+                </div>
+                <a href="{{ section.settings.btn_link }}" class="section-btn btn-hover btn-main btn-no-animation py-2" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="300" data-aos-duration="500">
+                    <span class="pp-regular body l-h-normal px-1">
+                        {{ section.settings.btn_label }}
+                    </span>
+                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/47420_2x_bf9f4027-13f9-4344-a883-453f60bc5d25.png?v=1758125303" width="100%" height="100%" class="btn-icon">
+                </a>
+            </div> 
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 d-lg-block d-md-block d-sm-none">
+            <div class="featurd-ambassador-image desktop">
+                <img src="{{ section.settings.image | img_url: 'master' }}" width="100%" height="100%">
+                <div class="ambassador-detail">
+                    <p class="pp-semibold body-lg l-h-normal f-main">Sheri Skocdopole<br>-CA</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "ambassador-featured-section",
+        "name": "Ambassador Featured",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "Sub Heading",
+                "default": "Hottest"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Venustas Brand Ambassador"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>As an aurora chaser and photographer as well as a hot air balloon crew chief from Alberta Canada who spends a great deal of time taking photos during the night and early morning’s the temperature can be quite chilly and even frigid at times,especially during our long Canadian winters. I needed to find ways to stay warm so I can spend more time capturing photos of this beautiful country. </p>"
+            },
+            {
+                "type": "text",
+                "id": "btn_label",
+                "label": "Button Label",
+                "default": "Learn More"
+            },
+            {
+                "type": "url",
+                "id": "btn_link",
+                "label": "Button Link"
+            },
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "image_mobile",
+                "label": "Image - Mobile"
+            }
+        ],
+        "presets" :[{
+            "name" : "Ambassador Featured"
+        }]
+    }
+  {% endschema %} 

@@ -1,0 +1,1087 @@
+<section id="venustas-product-review-{{ section.id }}" class="venustas-product-review">
+  <div class="venustas-product-review__inner page-width">
+    <div class="venustas-product-review__viewport" id="venustas-product-review-viewport-{{ section.id }}">
+      <div class="venustas-product-review__track">
+        {% assign rendered_count = 0 %}
+        {% for block in section.blocks %}
+          {% assign article = block.settings.article %}
+          {% if article != blank %}
+            {% assign rendered_count = rendered_count | plus: 1 %}
+            {% assign rating_input = block.settings.rating_score | default: 0 | replace: ',', '.' | strip %}
+            {% assign rating = rating_input | plus: 0 %}
+            {% if rating < 0 %}
+              {% assign rating = 0 %}
+            {% endif %}
+            {% if rating > 5 %}
+              {% assign rating = 5 %}
+            {% endif %}
+            {% assign rating_percent = rating | times: 20.0 %}
+            {% assign cover_image = block.settings.cover_image | default: article.image %}
+            {% assign caption_text = block.settings.image_caption | strip %}
+            {% assign auto_excerpt_text = article.excerpt_or_content | strip_html | strip %}
+            <article
+              class="venustas-product-review__slide"
+              data-article-url="{{ article.url }}"
+              tabindex="0"
+              role="link"
+              aria-label="Open review: {{ article.title | escape }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="venustas-product-review__media">
+                {% assign badge_logo = block.settings.top_badge_logo %}
+                {% assign badge_text = block.settings.top_badge_text | strip %}
+                {% if badge_logo != blank or rating > 0 or badge_text != blank %}
+                  <div class="venustas-product-review__top-badge">
+                    {% if badge_logo != blank %}
+                      <div class="venustas-product-review__top-badge-logo">
+                        <img
+                          src="{{ badge_logo | image_url: width: 280 }}"
+                          alt="Badge logo"
+                          loading="lazy"
+                        >
+                      </div>
+                    {% endif %}
+
+                    {% if rating > 0 %}
+                      <div class="venustas-product-review__top-badge-stars" style="--top-rating-fill: {{ rating_percent }}%;" aria-label="{{ rating }} stars">
+                        <span class="venustas-product-review__top-badge-stars-base">★★★★★</span>
+                        <span class="venustas-product-review__top-badge-stars-fill">★★★★★</span>
+                      </div>
+                    {% endif %}
+
+                    {% if badge_text != blank %}
+                      <div class="venustas-product-review__top-badge-text">{{ block.settings.top_badge_text }}</div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {% if cover_image != blank %}
+                  <img
+                    class="venustas-product-review__image"
+                    src="{{ cover_image | image_url: width: 1200 }}"
+                    srcset="
+                      {{ cover_image | image_url: width: 600 }} 600w,
+                      {{ cover_image | image_url: width: 900 }} 900w,
+                      {{ cover_image | image_url: width: 1200 }} 1200w
+                    "
+                    sizes="(max-width: 768px) 100vw, 42vw"
+                    alt="{{ article.title | escape }}"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <div class="venustas-product-review__placeholder">Upload image</div>
+                {% endif %}
+                {% if caption_text != blank or section.settings.use_article_title_as_caption %}
+                  <div class="venustas-product-review__image-caption">
+                    {% if caption_text != blank %}
+                      {{ block.settings.image_caption }}
+                    {% elsif section.settings.use_article_title_as_caption %}
+                      {{ article.title }}
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="venustas-product-review__content">
+                <h3 class="venustas-product-review__title">{{ article.title }}</h3>
+                <p class="venustas-product-review__meta">
+                  {% if article.author != blank %}{{ article.author }}{% endif %}
+                  {% if article.author != blank %} · {% endif %}
+                  {{ article.published_at | date: section.settings.date_format }}
+                </p>
+
+                {% if block.settings.intro_text != blank %}
+                  <div class="venustas-product-review__intro">
+                    {{ block.settings.intro_text }}
+                  </div>
+                {% elsif section.settings.enable_auto_article_excerpt and auto_excerpt_text != blank %}
+                  <div class="venustas-product-review__intro">
+                    <p>{{ auto_excerpt_text | truncate: section.settings.auto_excerpt_length }}</p>
+                  </div>
+                {% endif %}
+
+                <div class="venustas-product-review__verdict">
+                  <span class="venustas-product-review__verdict-label">
+                    {{ block.settings.verdict_label }} ({{ rating }})
+                  </span>
+                  <span class="venustas-product-review__stars" style="--rating-fill: {{ rating_percent }}%;">
+                    <span class="venustas-product-review__stars-base">★★★★★</span>
+                    <span class="venustas-product-review__stars-fill">★★★★★</span>
+                  </span>
+                </div>
+
+                {% if block.settings.detail_text != blank %}
+                  <div class="venustas-product-review__details">
+                    {{ block.settings.detail_text }}
+                  </div>
+                {% endif %}
+
+                <a
+                  class="venustas-product-review__btn"
+                  href="{{ article.url }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{ block.settings.button_label }}
+                </a>
+              </div>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if rendered_count > 1 %}
+      <div class="venustas-product-review__controls" id="venustas-product-review-controls-{{ section.id }}">
+        <button type="button" class="venustas-product-review__arrow venustas-product-review__arrow--prev" aria-label="Previous review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <div class="venustas-product-review__dots">
+          {% assign dot_index = -1 %}
+          {% for block in section.blocks %}
+            {% if block.settings.article != blank %}
+              {% assign dot_index = dot_index | plus: 1 %}
+              <button
+                type="button"
+                class="venustas-product-review__dot{% if dot_index == 0 %} is-active{% endif %}"
+                data-index="{{ dot_index }}"
+                aria-label="Go to review {{ forloop.index }}"
+              ></button>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <button type="button" class="venustas-product-review__arrow venustas-product-review__arrow--next" aria-label="Next review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  #venustas-product-review-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color }};
+    --title-color: {{ section.settings.title_color }};
+    --meta-color: {{ section.settings.meta_color }};
+    --text-color: {{ section.settings.text_color }};
+    --accent-color: {{ section.settings.accent_color }};
+    --star-color: {{ section.settings.star_color }};
+    --star-empty-color: {{ section.settings.star_empty_color }};
+    --button-bg: {{ section.settings.button_bg_color }};
+    --button-color: {{ section.settings.button_text_color }};
+    --button-hover-bg: {{ section.settings.button_hover_bg_color }};
+    --button-hover-color: {{ section.settings.button_hover_text_color }};
+    --caption-color: {{ section.settings.image_caption_color }};
+    --top-badge-bg: {{ section.settings.top_badge_bg_color }};
+    --top-badge-text: {{ section.settings.top_badge_text_color }};
+    --top-badge-star: {{ section.settings.top_badge_star_color }};
+    --pt: {{ section.settings.padding_top }}px;
+    --pb: {{ section.settings.padding_bottom }}px;
+    --image-radius: {{ section.settings.image_radius }}px;
+    --content-width: {{ section.settings.content_width_percent }}%;
+    --media-col-width: {{ section.settings.desktop_media_width_percent }}%;
+    --media-col-width-mobile: {{ section.settings.mobile_media_width_percent }}%;
+    --title-size: {{ section.settings.title_size }}px;
+    --meta-size: {{ section.settings.meta_size }}px;
+    --body-size: {{ section.settings.body_size }}px;
+    --verdict-size: {{ section.settings.verdict_size }}px;
+    --star-size: {{ section.settings.star_size }}px;
+    --button-size: {{ section.settings.button_size }}px;
+    --caption-size: {{ section.settings.image_caption_size }}px;
+  }
+
+  #venustas-product-review-{{ section.id }} {
+    background: var(--section-bg);
+    padding: var(--pt) 0 var(--pb);
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__inner {
+    width: var(--content-width);
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__viewport {
+    overflow: hidden;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__track {
+    display: flex;
+    transition: transform .4s ease;
+    will-change: transform;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: var(--media-col-width) minmax(0, 1fr);
+    gap: 28px;
+    align-items: stretch;
+    position: relative;
+    cursor: pointer;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__media {
+    position: relative;
+    border-radius: var(--image-radius);
+    overflow: hidden;
+    min-height: 320px;
+    background: #e9e9e9;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__image,
+  #venustas-product-review-{{ section.id }} .venustas-product-review__placeholder {
+    width: 100%;
+    height: 100%;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__top-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 2;
+    max-width: calc(100% - 32px);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--top-badge-bg);
+    color: var(--top-badge-text);
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__top-badge-logo img {
+    display: block;
+    width: auto;
+    height: 24px;
+    max-width: 180px;
+    object-fit: contain;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__top-badge-stars {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--star-size);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__top-badge-stars-base {
+    color: #d8d8d8;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__top-badge-stars-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--top-rating-fill);
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--top-badge-star);
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__top-badge-text {
+    padding: 2px 10px;
+    border-radius: 8px;
+    background: #efefef;
+    color: #3a3a3a;
+    font-size: 13px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__image {
+    display: block;
+    object-fit: cover;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 14px;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__image-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 16px 18px;
+    color: var(--caption-color);
+    font-size: var(--caption-size);
+    line-height: 1.2;
+    font-weight: 600;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .7) 75%, rgba(0, 0, 0, .85) 100%);
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__content {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6px 0;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__title {
+    margin: 0 0 6px;
+    color: var(--title-color);
+    font-size: var(--title-size);
+    line-height: 1.15;
+    font-weight: 700;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__meta {
+    margin: 0 0 8px;
+    color: var(--meta-color);
+    font-size: var(--meta-size);
+    line-height: 1.35;
+    font-weight: 500;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__intro,
+  #venustas-product-review-{{ section.id }} .venustas-product-review__details {
+    color: var(--text-color);
+    font-size: var(--body-size);
+    line-height: 1.45;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__intro p,
+  #venustas-product-review-{{ section.id }} .venustas-product-review__details p {
+    margin: 0 0 8px;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__details ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__details li {
+    margin: 4px 0;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__details li::marker {
+    color: var(--accent-color);
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__verdict {
+    margin: 8px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__verdict-label {
+    color: var(--accent-color);
+    font-size: var(--verdict-size);
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__stars {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    font-size: var(--star-size);
+    letter-spacing: 1px;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__stars-base {
+    color: var(--star-empty-color);
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__stars-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--rating-fill);
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--star-color);
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    width: fit-content;
+    min-width: 132px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--button-bg);
+    background: var(--button-bg);
+    color: var(--button-color);
+    text-decoration: none;
+    font-size: var(--button-size);
+    line-height: 1;
+    font-weight: 700;
+    transition: background-color .2s ease, color .2s ease;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__btn:hover {
+    background: var(--button-hover-bg);
+    color: var(--button-hover-color);
+    border-color: var(--button-hover-bg);
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__controls {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #B93205;
+    background: #F1EADD;
+    color: #B93205;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color .25s ease, color .25s ease, transform .15s ease;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__arrow:hover {
+    background: #B93205;
+    color: #FFFFFF;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__arrow:active {
+    transform: scale(0.92);
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__dots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 0;
+    background: #c7c7c7;
+    padding: 0;
+    cursor: pointer;
+    transition: transform .2s ease, background-color .2s ease;
+  }
+
+  #venustas-product-review-{{ section.id }} .venustas-product-review__dot.is-active {
+    background: var(--accent-color);
+    transform: scale(1.2);
+  }
+
+  @media (max-width: 989px) {
+    #venustas-product-review-{{ section.id }} {
+      --content-width: {{ section.settings.mobile_content_width_percent }}%;
+      --title-size: {{ section.settings.mobile_title_size }}px;
+      --meta-size: {{ section.settings.mobile_meta_size }}px;
+      --body-size: {{ section.settings.mobile_body_size }}px;
+      --verdict-size: {{ section.settings.mobile_verdict_size }}px;
+      --star-size: {{ section.settings.mobile_star_size }}px;
+      --button-size: {{ section.settings.mobile_button_size }}px;
+      --caption-size: {{ section.settings.mobile_image_caption_size }}px;
+    }
+
+    #venustas-product-review-{{ section.id }} .venustas-product-review__slide {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    #venustas-product-review-{{ section.id }} .venustas-product-review__media {
+      min-height: 260px;
+      width: var(--media-col-width-mobile);
+      margin: 0 auto;
+    }
+
+    #venustas-product-review-{{ section.id }} .venustas-product-review__top-badge {
+      top: 12px;
+      left: 12px;
+      gap: 8px;
+      padding: 8px 10px;
+      max-width: calc(100% - 24px);
+    }
+
+    #venustas-product-review-{{ section.id }} .venustas-product-review__top-badge-logo img {
+      height: 20px;
+      max-width: 120px;
+    }
+
+    #venustas-product-review-{{ section.id }} .venustas-product-review__top-badge-text {
+      font-size: 10px;
+      padding: 2px 8px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var sectionEl = document.getElementById('venustas-product-review-{{ section.id }}');
+    if (!sectionEl) return;
+
+    var track = sectionEl.querySelector('.venustas-product-review__track');
+    if (!track) return;
+
+    var slides = Array.prototype.slice.call(sectionEl.querySelectorAll('.venustas-product-review__slide'));
+    var viewport = sectionEl.querySelector('.venustas-product-review__viewport');
+    var controlsRoot = sectionEl.querySelector('#venustas-product-review-controls-{{ section.id }}');
+    var prev = controlsRoot ? controlsRoot.querySelector('.venustas-product-review__arrow--prev') : null;
+    var next = controlsRoot ? controlsRoot.querySelector('.venustas-product-review__arrow--next') : null;
+    var dots = controlsRoot ? Array.prototype.slice.call(controlsRoot.querySelectorAll('.venustas-product-review__dot')) : [];
+    var autoplayEnabled = {{ section.settings.enable_autoplay | json }};
+    var autoplayDelay = {{ section.settings.autoplay_seconds }} * 1000;
+
+    function openCardUrl(slide) {
+      var url = slide ? slide.getAttribute('data-article-url') : '';
+      if (!url) return;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    sectionEl.addEventListener('click', function (event) {
+      var target = event.target && event.target.nodeType === 1 ? event.target : event.target.parentElement;
+      if (!target) return;
+      if (target.closest('.venustas-product-review__btn')) return;
+      if (controlsRoot && controlsRoot.contains(target)) return;
+      var slide = target.closest('.venustas-product-review__slide[data-article-url]');
+      if (!slide) return;
+      openCardUrl(slide);
+    });
+
+    slides.forEach(function (slide) {
+      slide.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openCardUrl(slide);
+        }
+      });
+    });
+
+    function syncHeights() {
+      if (!slides.length) return;
+      var maxHeight = 0;
+      slides.forEach(function (slide) {
+        slide.style.minHeight = '';
+        maxHeight = Math.max(maxHeight, slide.offsetHeight);
+      });
+      if (!maxHeight) return;
+      slides.forEach(function (slide) {
+        slide.style.minHeight = maxHeight + 'px';
+      });
+      if (viewport) viewport.style.minHeight = maxHeight + 'px';
+    }
+
+    var queueSync = function () { requestAnimationFrame(syncHeights); };
+    window.addEventListener('resize', queueSync);
+    window.addEventListener('load', queueSync);
+    Array.prototype.forEach.call(sectionEl.querySelectorAll('.venustas-product-review__image'), function (img) {
+      if (img.complete) return;
+      img.addEventListener('load', queueSync);
+      img.addEventListener('error', queueSync);
+    });
+    queueSync();
+
+    if (slides.length <= 1) return;
+
+    var current = 0;
+    var total = slides.length;
+    var timer = null;
+
+    function render() {
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dots.forEach(function (dot, idx) {
+        dot.classList.toggle('is-active', idx === current);
+      });
+    }
+
+    function goTo(index) {
+      current = (index + total) % total;
+      render();
+    }
+
+    function stopAuto() {
+      if (!timer) return;
+      clearInterval(timer);
+      timer = null;
+    }
+
+    function startAuto() {
+      stopAuto();
+      if (!autoplayEnabled) return;
+      timer = setInterval(function () { goTo(current + 1); }, autoplayDelay);
+    }
+
+    if (prev) prev.addEventListener('click', function () { goTo(current - 1); startAuto(); });
+    if (next) next.addEventListener('click', function () { goTo(current + 1); startAuto(); });
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        var idx = parseInt(dot.getAttribute('data-index'), 10);
+        if (!isNaN(idx)) {
+          goTo(idx);
+          startAuto();
+        }
+      });
+    });
+
+    sectionEl.addEventListener('mouseenter', stopAuto);
+    sectionEl.addEventListener('mouseleave', startAuto);
+
+    render();
+    startAuto();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product Review Blogs",
+  "tag": "section",
+  "class": "venustas-product-review-blogs-section",
+  "templates": ["product"],
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#b93205"
+    },
+    {
+      "type": "color",
+      "id": "meta_color",
+      "label": "Author/date color",
+      "default": "#8a8a8a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text color",
+      "default": "#202020"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#c43606"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star fill color",
+      "default": "#f3bd2a"
+    },
+    {
+      "type": "color",
+      "id": "star_empty_color",
+      "label": "Star empty color",
+      "default": "#d9d9d9"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#b93205"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#8f2604"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "top_badge_bg_color",
+      "label": "Top badge background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "top_badge_text_color",
+      "label": "Top badge text color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "top_badge_star_color",
+      "label": "Top badge star color",
+      "default": "#f3bd2a"
+    },
+    {
+      "type": "color",
+      "id": "image_caption_color",
+      "label": "Image caption color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_article_title_as_caption",
+      "label": "Use article title as image caption when caption is empty",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_auto_article_excerpt",
+      "label": "Use article excerpt when intro text is empty",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "auto_excerpt_length",
+      "label": "Auto excerpt length",
+      "min": 80,
+      "max": 420,
+      "step": 10,
+      "default": 230
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "content_width_percent",
+      "label": "Desktop section width (%)",
+      "min": 60,
+      "max": 100,
+      "step": 1,
+      "default": 92,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_width_percent",
+      "label": "Mobile section width (%)",
+      "min": 88,
+      "max": 100,
+      "step": 1,
+      "default": 90,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "desktop_media_width_percent",
+      "label": "Desktop image column width (%)",
+      "min": 28,
+      "max": 60,
+      "step": 1,
+      "default": 38,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "mobile_media_width_percent",
+      "label": "Mobile image width (%)",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_caption_size",
+      "label": "Desktop image caption size",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Desktop title size",
+      "min": 16,
+      "max": 56,
+      "step": 1,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "meta_size",
+      "label": "Desktop author/date size",
+      "min": 11,
+      "max": 22,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Desktop body text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 17,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "verdict_size",
+      "label": "Desktop verdict text size",
+      "min": 12,
+      "max": 34,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "star_size",
+      "label": "Desktop star size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Desktop button text size",
+      "min": 11,
+      "max": 22,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_caption_size",
+      "label": "Mobile image caption size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_size",
+      "label": "Mobile title size",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_meta_size",
+      "label": "Mobile author/date size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_body_size",
+      "label": "Mobile body text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_verdict_size",
+      "label": "Mobile verdict text size",
+      "min": 12,
+      "max": 26,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_star_size",
+      "label": "Mobile star size",
+      "min": 12,
+      "max": 26,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_size",
+      "label": "Mobile button text size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "date_format",
+      "label": "Date format",
+      "default": "%b %d, %Y",
+      "info": "Liquid date format, e.g. %b %d, %Y"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable autoplay (2+ slides)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_seconds",
+      "label": "Autoplay interval",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 5,
+      "unit": "s"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review blog item",
+      "settings": [
+        {
+          "type": "article",
+          "id": "article",
+          "label": "Blog article"
+        },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Left cover image (manual upload)"
+        },
+        {
+          "type": "image_picker",
+          "id": "top_badge_logo",
+          "label": "Top badge logo (optional)"
+        },
+        {
+          "type": "text",
+          "id": "top_badge_text",
+          "label": "Top badge text",
+          "default": "Recommended"
+        },
+        {
+          "type": "text",
+          "id": "image_caption",
+          "label": "Image bottom caption",
+          "default": "Recommended"
+        },
+        {
+          "type": "text",
+          "id": "verdict_label",
+          "label": "Verdict label",
+          "default": "Expert Verdict"
+        },
+        {
+          "type": "text",
+          "id": "rating_score",
+          "label": "Rating score (controls both star displays)",
+          "default": "4.8",
+          "info": "Supports decimals. Recommended range: 0 to 5."
+        },
+        {
+          "type": "richtext",
+          "id": "intro_text",
+          "label": "Intro text (manual)",
+          "default": "<p>----</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "detail_text",
+          "label": "Detail text / bullet points (manual)",
+          "default": "<ul><li><strong>Performance:</strong> Lasting warmth in cold weather.</li><li><strong>Durability:</strong> Built to handle outdoor use.</li><li><strong>Comfort:</strong> Lightweight and easy to move in.</li></ul>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Read More >>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Review Blogs",
+      "blocks": [
+        {
+          "type": "review"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

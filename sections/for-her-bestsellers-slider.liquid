@@ -1,0 +1,241 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+  #shopify-section-{{ section.id }} .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .container {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers {
+    padding: 80px 0;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__heading {
+    font-size: clamp(24px, 2.8vw, 40px);
+    font-weight: 700;
+    color: {{ section.settings.accent_color }};
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__subheading {
+    text-align: center;
+    color: #777;
+    font-size: 15px;
+    margin-bottom: 48px;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__slider-wrap {
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers-swiper {
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers-swiper .swiper-slide {
+    height: auto;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__nav {
+    position: absolute;
+    top: 35%;
+    transform: translateY(-50%);
+    width: 100%;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__nav button {
+    pointer-events: all;
+    width: 44px;
+    height: 44px;
+    background: {{ section.settings.accent_color }};
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__nav .btn-prev {
+    transform: translateX(-50%);
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__nav .btn-next {
+    transform: translateX(50%);
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__nav button svg {
+    width: 18px;
+    height: 18px;
+    stroke: #fff;
+    display: block;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__nav button:hover {
+    opacity: 0.88;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__nav button.swiper-button-disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__pagination {
+    text-align: center;
+    margin-top: 30px;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__pagination .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: #ccc;
+    opacity: 1;
+    margin: 0 4px;
+  }
+  #shopify-section-{{ section.id }} .for-her-bestsellers__pagination .swiper-pagination-bullet-active {
+    background: #E85D26;
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .for-her-bestsellers {
+      padding: 50px 0;
+    }
+    #shopify-section-{{ section.id }} .for-her-bestsellers__nav button {
+      width: 36px;
+      height: 36px;
+    }
+  }
+{% endstyle %}
+
+<div class="for-her-bestsellers">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <h2 class="for-her-bestsellers__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.subheading != blank %}
+      <p class="for-her-bestsellers__subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+
+    <div class="for-her-bestsellers__slider-wrap">
+      <div class="for-her-bestsellers-swiper swiper" id="for-her-bestsellers-{{ section.id }}">
+        <div class="swiper-wrapper">
+          {% if section.settings.collection != blank %}
+            {% for product in section.settings.collection.products limit: section.settings.products_limit %}
+              <div class="swiper-slide">
+                {% render 'product-item', product: product %}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="for-her-bestsellers__nav" id="for-her-bs-nav-{{ section.id }}">
+        <button type="button" class="btn-prev" id="for-her-bs-prev-{{ section.id }}" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button type="button" class="btn-next" id="for-her-bs-next-{{ section.id }}" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="for-her-bestsellers__pagination" id="for-her-bs-pag-{{ section.id }}"></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('#for-her-bestsellers-{{ section.id }}', {
+      slidesPerView: 2,
+      spaceBetween: 16,
+      navigation: {
+        nextEl: '#for-her-bs-next-{{ section.id }}',
+        prevEl: '#for-her-bs-prev-{{ section.id }}',
+      },
+      pagination: {
+        el: '#for-her-bs-pag-{{ section.id }}',
+        clickable: true,
+      },
+      breakpoints: {
+        768: { slidesPerView: 3, spaceBetween: 20 },
+        1024: { slidesPerView: {{ section.settings.slides_per_view }}, spaceBetween: 24 }
+      }
+    });
+
+    // Vertically center the arrows on the product image (not the whole card)
+    function positionBsNav() {
+      var sw = document.getElementById('for-her-bestsellers-{{ section.id }}');
+      var nav = document.getElementById('for-her-bs-nav-{{ section.id }}');
+      if (!sw || !nav) return;
+      var img = sw.querySelector('.product-image');
+      if (img && img.offsetHeight > 0) {
+        nav.style.top = (img.offsetHeight / 2) + 'px';
+      }
+    }
+    positionBsNav();
+    window.addEventListener('load', positionBsNav);
+    window.addEventListener('resize', positionBsNav);
+    setTimeout(positionBsNav, 600);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "For Her - Best Sellers",
+  "class": "for-her-bestsellers-slider-section",
+  "templates": ["page"],
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Heading Color",
+      "default": "#B93205"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Explore Our Best-sellers"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Because you deserve the very best"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Max Products",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view",
+      "label": "Slides per view (Desktop)",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "presets": [{ "name": "For Her - Best Sellers" }]
+}
+{% endschema %}

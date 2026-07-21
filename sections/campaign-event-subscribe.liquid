@@ -1,0 +1,204 @@
+{% style %}
+    .campaign-event-subscribe-section{
+        background-color:#242424;
+        height:80vh;
+        position:relative;
+    }
+    .campaign-event-subscribe-section .mid-container{
+        max-width:1200px;
+    }
+    .campaign-event-subscribe-section .section-heading{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+    }
+    .campaign-event-subscribe-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+
+    
+    .campaign-event-subscribe-section .background-image{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .campaign-event-subscribe-section .event-subscribe-inner-section{
+        border: 2px solid #B93205;
+        border-style: dashed;
+        border-radius: 20px 20px 20px 20px;
+        padding:40px 20px 40px;
+        background: #F9F6EF;
+    }
+    .campaign-event-subscribe-section .content-container{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        display: flex;
+        align-items: center;
+    }
+    .campaign-event-subscribe-section .section-date-container{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        gap:20px;
+    }
+    .campaign-event-subscribe-section .section-date-container .col-text{
+        background: #F0EBE0;
+        border-radius: 12px 12px 12px 12px;
+        padding:15px 20px;
+    }
+    .campaign-event-subscribe-section .section-date-container .col-text:last-child{
+        padding:15px 40px;
+        background: #B93205;
+        color:#FFF;
+    }
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .campaign-event-subscribe-section .event-subscribe-inner-section{
+            padding:30px 15px;
+            width:90%;
+            margin:auto;
+        }
+        .campaign-event-subscribe-section .section-date-container .col-text{
+            padding:10px 15px;
+        }
+        .campaign-event-subscribe-section .section-date-container .col-text:last-child{
+            padding:10px 30px;
+        }
+        .campaign-event-subscribe-section{
+            height:70vh;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="campaign-event-subscribe-section 
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}> 
+    <img src="{{ section.settings.background_image | img_url: 'master' }}" width="100%" height="100%" class="background-image">
+    <div class="content-container">
+        <div class="mid-container">
+            <div class="event-subscribe-inner-section">
+                <h5 class="section-sub-heading pp-semibold body-xl text-center pb-2">{{ section.settings.sub_heading }}</h5>
+                <h3 class="section-heading pp-bold title-xxl f-main text-center pb-2 d-lg-block d-md-block d-sm-none">{{ section.settings.heading }}</h3>
+                <h3 class="section-heading pp-bold title-md f-main text-center pb-2 d-lg-none d-md-none d-sm-block">{{ section.settings.heading }}</h3>
+                <div class="section-date-container pb-3">
+                    <span class="col-text pp-semibold pretitle-xl f-black d-lg-block d-md-block d-sm-none">
+                        {{ section.settings.col_1_text }}
+                    </span>
+                    <span class="col-text pp-semibold pretitle-xl f-black d-lg-block d-md-block d-sm-none">
+                        {{ section.settings.col_2_text }}
+                    </span>
+                    <span class="col-text pp-semibold pretitle-xl f-black d-lg-block d-md-block d-sm-none">
+                        {{ section.settings.col_3_text }}
+                    </span>
+
+                    <span class="col-text pp-semibold body-lg f-black d-lg-none d-md-none d-sm-block">
+                        {{ section.settings.col_1_text }}
+                    </span>
+                    <span class="col-text pp-semibold body-lg f-black d-lg-none d-md-none d-sm-block">
+                        {{ section.settings.col_2_text }}
+                    </span>
+                    <span class="col-text pp-semibold body-lg f-black d-lg-none d-md-none d-sm-block">
+                        {{ section.settings.col_3_text }}
+                    </span>
+                </div>
+                <div class="pp-regular body-xl f-gray text-center col-lg-8 col-md-9 col-sm-12 mx-auto pb-2 d-lg-block d-md-block d-sm-none">
+                    {{ section.settings.description }}
+                </div>
+                <div class="pp-regular body f-gray text-center col-lg-8 col-md-9 col-sm-12 mx-auto pb-2 d-lg-none d-md-none d-sm-block">
+                    {{ section.settings.description }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Campaign Event Subscribe",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enabled_section_child_scroll",
+                "label": "Enabled Section Child Scroll"
+            },
+            {
+                "type": "text",
+                "id": "section_scroll_nav",
+                "label": "Section Scroll Nav",
+                "info": "Need to Enabled first Section Scroll"
+            },
+            {
+                "type": "text",
+                "id": "nav_title",
+                "label": "Navigation Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image",
+                "label": "Background Image"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "Sub Heading",
+                "default": "Be The First To Feel The Heat Of "
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": " Black Friday Sale"
+            },
+            {
+                "type": "text",
+                "id": "col_1_text",
+                "label": "Column - 1 Text",
+                "default": "27."
+            },
+            {
+                "type": "text",
+                "id": "col_2_text",
+                "label": "Column - 2 Text",
+                "default": "11."
+            },
+            {
+                "type": "text",
+                "id": "col_3_text",
+                "label": "Column - 3 Text",
+                "default": "18:00"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>Enter your email to receive your exclusive Black Friday discount code. Be the first to unlock our biggest savings of the year and enjoy early access to limited-time offers before anyone else.</p>"
+            }
+        ],
+        "presets" :[{
+            "name" : "Campaign Event Subscribe"
+        }]
+    }
+  {% endschema %} 

@@ -1,0 +1,168 @@
+{% style %}
+    .ambassador-banner-section{
+        background-color:#000;
+        position:relative;
+        overflow:hidden;
+    }
+    .ambassador-banner-section .section-heading{
+        display:flex;
+        align-items:center;
+        gap:10px;
+    }
+    .ambassador-banner-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    
+    .ambassador-banner-section .bg-image{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        transition: all 0.3s ease;
+    }
+    .ambassador-banner-section .bg-image {
+        scale:1.2;
+    }
+    .ambassador-banner-section.animate .bg-image{
+        scale:1;
+    }
+    .ambassador-banner-section .content-container{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        display: flex;
+        align-items: center;
+    }
+
+
+    .ambassador-banner-main-section .banner-join-section .popup-content{
+        max-width: 1000px;
+    }
+    .ambassador-banner-main-section .banner-join-section .popup-header{
+        padding-top:10px;
+    }
+    .ambassador-banner-main-section .banner-join-section .popup-header .popup-close img{
+        width:18px;
+        height:18px;
+        object-fit:contain;
+    }
+    .ambassador-banner-main-section .btn-join-banner:hover {
+        background:#161616;
+    }
+    .ambassador-banner-main-section .btn:not(.btn-atc,.btn-no-animation):has(span):after {
+        display:none;
+    }
+
+    .ambassador-banner-main-section .popup-container{
+        padding-top:20px;
+    }
+    .ambassador-banner-main-section .formBuilder{
+        padding: 0;
+        border: none;
+    }
+
+{% endstyle %}
+<div class="ambassador-banner-section animate-section">
+    <img src="{{ section.settings.background_image | img_url: 'master' }}" width="100%" height="100%" class="bg-image d-lg-block d-md-block d-sm-none">
+    <img src="{{ section.settings.background_image_mobile | img_url: 'master' }}" width="100%" height="100%" class="bg-image d-lg-none d-md-none d-sm-block">
+    <div class="content-container">
+        <div class="container section-content">
+            <div class="col-7 d-lg-block d-md-block d-sm-none">
+                <h2 class="section-heading pp-semibold f-white title-xl pb-lg-3 pb-md-3 pb-sm-2" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="100" data-aos-duration="500">
+                    {{ section.settings.heading }}
+                </h2>
+                <div class="section-description pp-regular body-xl f-white pb-lg-4 pb-md-4 pb-sm-3" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="150" data-aos-duration="500">
+                    {{ section.settings.description }}
+                </div>
+                <div class="btn-join-banner btn-hover btn-main py-2 w-fit-content" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="200" data-aos-duration="500">
+                    <span class="f-white pp-regular body-lg">
+                        {{ section.settings.btn_label }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-10 mx-auto d-lg-none d-md-none d-sm-block">
+                <h2 class="section-heading pp-semibold f-white text-center title-sm pb-3" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="100" data-aos-duration="500">
+                    {{ section.settings.heading }}
+                </h2>
+                <div class="section-description pp-regular body text-center f-white pb-3" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="150" data-aos-duration="500">
+                    {{ section.settings.description }}
+                </div>
+                <div class="d-flex justify-content-center" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="200" data-aos-duration="500">
+                    <div class="btn-join-banner btn-hover btn-main py-2 w-fit-content">
+                        <span class="f-white pp-regular body">
+                            {{ section.settings.btn_label }}
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="banner-join-section popup-modal">
+    <div class="popup-overlay">
+    </div>
+    <div class="popup-content"> 
+        <div class="popup-header">
+            <button class="popup-close" type="button">
+                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/close-btn-popup.png?v=1761207016">
+            </button>
+        </div>
+        
+        <div class="popup-container">
+            <div style="" class="powr-form-builder powrLoaded" id="08d552be_1650268578">
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "ambassador-banner-main-section",
+        "name": "Ambassador Banner",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "background_image",
+                "label": "Background Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image_mobile",
+                "label": "Background Image - Mobile"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Meet Venustas Ambassador"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>Venustas is delighted to convene a distin-guished and diverse group of individuals fromdifferent backgrounds, and share their uniqueand inspiring life journeys.</p>"
+            },
+            {
+                "type": "text",
+                "id": "btn_label",
+                "label": "Button Label",
+                "default": "Join now"
+            },
+            {
+                "type": "url",
+                "id": "btn_link",
+                "label": "Button Link"
+            }
+        ],
+        "presets" :[{
+            "name" : "Ambassador Banner"
+        }]
+    }
+  {% endschema %} 

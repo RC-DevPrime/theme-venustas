@@ -1,0 +1,24 @@
+{% style %}
+    .text-policy-banner-section{
+        background: #F9F6EF;
+        height:25vh;
+    }
+{% endstyle %}
+<div class="container section-content h-100 d-flex align-items-center justify-content-center">
+    <div class="text-policy-heading">
+        <h2 class="pp-bold text-center title-md f-black">
+            {{ page.title }}
+        </h2>
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "text-policy-banner-section",
+        "name": "Text Policy - Banner",
+        "templates": ["page"],
+        "limit": 1, 
+        "presets" :[{
+            "name" : "Text Policy - Banner"
+        }]
+    }
+  {% endschema %} 

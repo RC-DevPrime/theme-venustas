@@ -1,0 +1,225 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Venustas x Futura",
+    "theme_version": "1.1.0",
+    "theme_author": "Simon",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Website favicon"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo",
+        "info": "Website Logo"
+      }
+    ]
+  },
+  {
+    "name": "Product Form",
+    "settings": [
+      {
+        "type": "url",
+        "id": "payment_url",
+        "label": "Payment URL"
+      },
+      {
+        "type": "image_picker",
+        "id": "payment_option_desktop",
+        "label": "Payment Option (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "payment_option_mobile",
+        "label": "Payment Option (Mobile)"
+      },
+      {
+        "type": "url",
+        "id": "delivery_url",
+        "label": "Delivery & Shipping URL"
+      },
+      {
+        "type": "image_picker",
+        "id": "delivery_courier",
+        "label": "Delivery Courier"
+      },
+      {
+        "type": "text",
+        "id": "warranty",
+        "label": "Month Warranty"
+      },
+      {
+        "type": "text",
+        "id": "price_guarantee",
+        "label": "Day Price Guarantee"
+      },
+      {
+        "type": "text",
+        "id": "return",
+        "label": "Day Return"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_social",
+        "label": "Enable Share Socials",
+        "default": true
+      },
+      {
+        "type": "product_list",
+        "id": "display_all_products_list",
+        "label": "Display All Products",
+        "limit": 2
+      },
+      {
+        "type": "textarea",
+        "id": "standard_sizes",
+        "label": "Standard Sizes"
+      },
+      {
+        "type": "textarea",
+        "id": "tall_sizes",
+        "label": "Tall Sizes"
+      }
+    ]
+  },
+  {
+    "name": "Calculator Free Shipping Message",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_calculator_free_shipping",
+        "label": "Show Calculator Free Shipping Message?"
+      },
+      {
+        "type": "number",
+        "id": "total_price",
+        "label": "Enter Total Price Of Order To Offer Free Shipping",
+        "default": 300
+      },
+      {
+        "type": "text",
+        "id": "text_1",
+        "label": "Text - 1",
+        "default": "Calculating free shipping…"
+      },
+      {
+        "type": "text",
+        "id": "text_2",
+        "label": "Text - 2",
+        "default": "more to get free shipping."
+      },
+      {
+        "type": "text",
+        "id": "text_3",
+        "label": "Text - 3",
+        "default": "Congrats! You're eligible for free shipping!"
+      },
+      {
+        "type": "header",
+        "content": "Progress Bar"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_animation_progress_bar",
+        "label": "Enabled Animation Progress bar",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "color",
+        "id": "bg_30",
+        "label": "Background Color < 30%"
+      },
+      {
+        "type": "color",
+        "id": "bg_60",
+        "label": "Background Color < 60%"
+      },
+      {
+        "type": "color",
+        "id": "bg_100",
+        "label": "Background Color < 100%"
+      }
+    ]
+  },
+  {
+    "name": "Socials",
+    "settings": [
+      {
+        "type": "url",
+        "id": "facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "instagram",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "youtube",
+        "label": "Youtube"
+      },
+      {
+        "type": "url",
+        "id": "tiktok",
+        "label": "Tiktok"
+      },
+      {
+        "type": "url",
+        "id": "pinterest",
+        "label": "Pinterest"
+      },
+      {
+        "type": "url",
+        "id": "twitter",
+        "label": "X/Twitter"
+      },
+      {
+        "type": "url",
+        "id": "linkedIn",
+        "label": "LinkedIn"
+      },
+      {
+        "type": "url",
+        "id": "telegram",
+        "label": "Telegram"
+      },
+      {
+        "type": "url",
+        "id": "tumblr",
+        "label": "Tumblr"
+      }
+    ]
+  },
+  {
+    "name": "Quiz Matching",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "quiz_matching_metafields",
+        "label": "Quiz Matching Metafields",
+        "info": "Enter one product metafield per line. Use deals, features, runtime or full keys like custom.deals.",
+        "default": "deals\nfeatures\nruntime"
+      }
+    ]
+  }
+]

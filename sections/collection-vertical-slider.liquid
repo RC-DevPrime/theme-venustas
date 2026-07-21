@@ -1,0 +1,258 @@
+{% style %}
+    .collection-vertical-slider-section{
+        height:250vh;
+    }
+    .sticky-section{
+        position: sticky;
+        top: 0;
+        height: 90vh;
+        display: flex;
+        align-items: center;
+    }
+    .image-slider-container{
+        height:550px;
+        position:relative;
+    }
+    .image-slider-container .image-item{
+        position:absolute;
+        height:100%;
+        width:100%;
+        border-radius:12px;
+        overflow:hidden;
+        transition: all 0.3s ease;
+    }
+    .image-slider-container .image-item img{
+        height:100%;
+        width:100%;
+        object-fit:cover;
+    }
+    .vertical-slider-container{
+        margin-top:50px;
+        overflow:hidden;
+    }
+    .vertical-slider-container .row{
+        --bs-gutter-x: 80px;
+    }
+    .content-slider-container .content-slide-item a{
+        color:#B93205;
+        font-size:16px;
+    }
+
+    .content-swiper {
+    height: 550px;
+    overflow: visible;
+    }
+
+    .content-swiper .swiper-slide {
+    opacity: 0.4;
+    transition: all 0.6s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+
+    .content-swiper .swiper-slide-active {
+    opacity: 1;
+    transform: scale(1);
+    }
+    .collection-vertical-slider .float-nav button:hover{
+        background-color: #B93205;
+    }
+    .collection-vertical-slider .float-nav button:hover i{
+        color:#FFF;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .collection-vertical-slider-section{
+            height:fit-content;
+        }
+        .collection-vertical-slider .block-description a{
+            font-size:14px;
+            color: #B93205;
+        }
+        .collection-vertical-slider .float-nav{
+            top: 30%;
+        }
+        .collection-vertical-slider .float-nav button{
+            --btn-pos:0;
+            background: #F1EADD;
+            opacity:1;
+        }
+        .collection-vertical-slider .float-nav button i{
+            color: #B93205;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="sticky-section d-lg-block d-md-block d-sm-none">
+    <div class="container section-content pt-lg-3 pt-md-3 pt-sm-2">
+        <div class="col-lg-10 col-md-10 col-sm-12 mx-auto">
+            <h2 class="pp-bold f-black title-sm text-center pb-lg-4 pb-md-4 pb-sm-3">
+                {{ section.settings.heading }}
+            </h2>
+            <div class="col-lg-9 col-md-9 col-sm-12 mx-auto">
+                <div class="section-description text-center pp-regular body-lg">
+                    {{ section.settings.description }}
+                </div>
+            </div>
+        </div>
+        <div class="vertical-slider-container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="image-slider-container">
+                        {% for block in section.blocks %}
+                            <div class="image-item" {% if forloop.index != 1 %}style="opacity:0;"{% endif %}>
+                                <img
+                                    src="{{ block.settings.image | img_url: '1024x1024' }}"
+                                    srcset="
+                                        {{ block.settings.image | img_url: '480x480' }} 480w,
+                                        {{ block.settings.image | img_url: '768x768' }} 768w,
+                                        {{ block.settings.image | img_url: '1024x1024' }} 1024w,
+                                        {{ block.settings.image | img_url: '1400x1400' }} 1400w,
+                                        {{ block.settings.image | img_url: '1600x1600' }} 1600w"
+                                    sizes="100vw"
+                                    width="100%"
+                                    height="100%"
+                                    alt="{{ block.settings.image.alt | escape }}"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="swiper content-swiper">
+                        <div class="swiper-wrapper">
+                        {% for block in section.blocks %}
+                            <div class="swiper-slide">
+                                <h3 class="block-heading pp-bold pretitle-lg pb-lg-4 pb-md-4 pb-sm-3">
+                                    {{ block.settings.heading }}
+                                </h3>
+                                <div class="block-description pp-regular body">
+                                    {{ block.settings.body }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="mobile-side-content d-lg-none d-md-none d-sm-block">
+    <div class="container section-content pt-lg-3 pt-md-3 pt-sm-2">
+        <div class="col-lg-10 col-md-10 col-sm-12 mx-auto">
+            <h2 class="pp-bold f-black title-sm text-center pb-lg-4 pb-md-4 pb-sm-3">
+                {{ section.settings.heading }}
+            </h2>
+            <div class="col-lg-9 col-md-9 col-sm-12 mx-auto">
+                <div class="section-description text-center pp-regular body">
+                    {{ section.settings.description }}
+                </div>
+            </div>
+        </div>
+        <div class="collection-vertical-slider d-lg-none d-md-none d-sm-block mt-3 overflow-hidden position-relative">
+            <div class="swiper-wrapper">
+                {% for block in section.blocks %}
+                    <div class="swiper-slide">
+                        <div class="image-item" >
+                            <img
+                                src="{{ block.settings.image | img_url: '1024x1024' }}"
+                                srcset="
+                                    {{ block.settings.image | img_url: '480x480' }} 480w,
+                                    {{ block.settings.image | img_url: '768x768' }} 768w,
+                                    {{ block.settings.image | img_url: '1024x1024' }} 1024w,
+                                    {{ block.settings.image | img_url: '1400x1400' }} 1400w,
+                                    {{ block.settings.image | img_url: '1600x1600' }} 1600w"
+                                sizes="100vw"
+                                width="100%"
+                                height="100%"
+                                alt="{{ block.settings.image.alt | escape }}"
+                                loading="lazy"
+                                decoding="async"
+                            />
+
+                        </div>
+                        <div class="content-container pt-3">
+                            <h3 class="block-heading pp-bold body-xl pb-2">
+                                {{ block.settings.heading }}
+                            </h3>
+                            <div class="block-description pp-regular body">
+                                {{ block.settings.body }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="float-nav d-lg-flex d-md-flex d-sm-flex gap-lg-3 gap-md-3 gap-sm-2">
+                <button type="button" class="owl-prev" disabled>
+                    <i class="fa-solid fa-chevron-left f-white"></i>
+                </button>
+                <button type="button" class="owl-next" disabled>
+                    <i class="fa-solid fa-chevron-right f-white"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+{
+    "class": "collection-vertical-slider-section",
+    "name": "Verical Slider",
+    "limit": 1,
+    "templates": ["collection"],
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "How to Choose Heated Clothing for Men?"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>It’s exciting to find the perfect outerwear to match your needs. We offer a wide range of men’s heated jackets, vests, and hoodies to help you find the best fit. So, how do you choose? The most important thing is to consider your local climate and needs.</p>"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "slide",
+            "name": "Slide",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "body",
+                    "label": "Body"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Verical Slider"
+        }
+    ]
+}
+{% endschema %}

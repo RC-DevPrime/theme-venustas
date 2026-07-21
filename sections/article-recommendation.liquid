@@ -1,0 +1,130 @@
+{% style %}
+    .article-recommendation-section{
+        position:relative;
+        overflow:hidden;
+    }
+    .article-recommendation-section .swiper-slide{
+        height:auto;
+    }
+    .article-recommendation-section .article-reco-item{
+        overflow:hidden;
+        background: #FFFFFF;
+        box-shadow: 0px 3px 10px 1px rgba(0,0,0,0.08);
+        border-radius: 16px;
+        height:100%;
+    }
+    .article-recommendation-section .article-reco-item .article-featured-image {
+        height:300px;
+        overflow:hidden;
+        display:block;
+        position:relative;
+    }
+    .article-recommendation-section .article-reco-item .article-featured-image img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        transition: all 0.3s ease;
+    }
+    .article-recommendation-section .article-reco-item .article-featured-image:hover img{
+        transform:scale(1.2);
+    }
+    .article-recommendation-section .article-reco-item .article-detail{
+        padding:15px 15px 20px;
+    }
+    .article-recommendation-section .float-nav{
+        max-width:1600px;
+    }
+    .article-recommendation-section .float-nav button{
+        background: #F1EADD;
+    }
+    .article-recommendation-section .float-nav button i{
+        color:#B93205;
+    }
+    .article-recommendation-section .float-nav button:hover {
+        background-color: #B93205;
+    }
+    .article-recommendation-section .float-nav button:hover i{
+        color:#FFF;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .article-recommendation-section .float-nav button{
+            --btn-pos:5px;
+        }
+        .article-recommendation-section .float-nav{
+            top:220px;
+        }
+    }
+{% endstyle %}
+<div class="container section-content">
+    <div class="pp-bold text-center pb-lg-5 pb-md-5 pb-sm-4">
+        <span class="title-sm d-lg-block d-md-block d-sm-none">
+            {{ section.settings.heading }}
+        </span>
+        <span class="title d-lg-none d-md-none d-sm-block">
+            {{ section.settings.heading }}
+        </span>
+    </div>
+
+    <div class="article-recommendation-slider">
+        <div class="swiper-wrapper">
+            {% assign random_articles = blogs['news'].articles | sample: 10 %}
+
+            {% for article in random_articles limit: 6 %}
+            <div class="swiper-slide">
+                <div class="article-reco-item">
+                    <a href="{{ article.url }}" class="article-featured-image">
+                        {% if article.tags.size > 0 %}
+                        <!-- Always FIRST tag in initial render -->
+                        <p class="pp-regular article-tag">{{ article.tags.first }}</p>
+                        {% endif %} 
+                        <img src="{{ article.image | img_url: '600x600' }}" width="100%" height="100%">
+                    </a>
+                    <div class="article-detail">
+                        <a href="{{ article.url }}" class="pp-bold body-xl f-black pb-2">{{ article.title }}</a>
+                        <div class="pp-regular body f-white-gray pb-2 ">
+                            <div class="excerpt-3">
+                                {{ article.excerpt_or_content | strip_html  }}
+                            </div>
+                        </div>
+                        <span class="pp-regular body f-main">{{ article.created_at | date: "%b %d, %Y" }}</span>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="float-nav d-lg-block d-md-block d-sm-none">
+            <button type="button" class="owl-prev" disabled>
+                <i class="fa-solid fa-chevron-left f-white"></i>
+            </button>
+            <button type="button" class="owl-next" disabled>
+                <i class="fa-solid fa-chevron-right f-white"></i>
+            </button>
+        </div>
+        <div class="swiper-pagination d-lg-none d-lg-none d-sm-block"></div>        
+    </div>
+
+</div>
+{% schema %}
+{
+    "class": "article-recommendation-section",
+    "name": "Article Recommendation",
+    "limit": 1,
+    "templates": ["article"],
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "You Might Also Like To Read"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Article Recommendation"  
+        }
+    ]
+}
+{% endschema %}

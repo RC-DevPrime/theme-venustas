@@ -1,0 +1,696 @@
+{% assign section_anchor = section.settings.anchor_id | default: 'tech-heatwave' | strip %}
+<section id="{{ section_anchor | escape }}" class="venustas-blue-split-feature">
+  <div class="venustas-blue-split-feature__inner">
+    <div class="venustas-blue-split-feature__content">
+      {% if section.settings.heading != blank %}
+        <h2 class="venustas-blue-split-feature__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="venustas-blue-split-feature__description">{{ section.settings.description }}</div>
+      {% endif %}
+
+      {% if section.settings.metric_1_label != blank or section.settings.metric_1_value != blank %}
+        <div class="venustas-blue-split-feature__metric">
+          <div class="venustas-blue-split-feature__metric-head">
+            <span class="venustas-blue-split-feature__metric-label">{{ section.settings.metric_1_label }}</span>
+            {% if section.settings.metric_1_value != blank and section.settings.metric_1_value != '-' %}
+              <span class="venustas-blue-split-feature__metric-value">{{ section.settings.metric_1_value }}</span>
+            {% endif %}
+          </div>
+          <div class="venustas-blue-split-feature__bar">
+            <span class="venustas-blue-split-feature__bar-fill" style="width: {{ section.settings.metric_1_percent }}%;"></span>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if section.settings.metric_2_label != blank or section.settings.metric_2_value != blank %}
+        <div class="venustas-blue-split-feature__metric">
+          <div class="venustas-blue-split-feature__metric-head">
+            <span class="venustas-blue-split-feature__metric-label">{{ section.settings.metric_2_label }}</span>
+            {% if section.settings.metric_2_value != blank and section.settings.metric_2_value != '-' %}
+              <span class="venustas-blue-split-feature__metric-value">{{ section.settings.metric_2_value }}</span>
+            {% endif %}
+          </div>
+          <div class="venustas-blue-split-feature__bar venustas-blue-split-feature__bar--secondary">
+            <span class="venustas-blue-split-feature__bar-fill" style="width: {{ section.settings.metric_2_percent }}%;"></span>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="venustas-blue-split-feature__media">
+      {% if section.settings.right_image != blank %}
+        <img
+          class="venustas-blue-split-feature__image"
+          src="{{ section.settings.right_image | image_url: width: 1200 }}"
+          srcset="
+            {{ section.settings.right_image | image_url: width: 600 }} 600w,
+            {{ section.settings.right_image | image_url: width: 900 }} 900w,
+            {{ section.settings.right_image | image_url: width: 1200 }} 1200w
+          "
+          sizes="(max-width: 749px) 80vw, 42vw"
+          alt="{{ section.settings.right_image.alt | default: section.settings.heading | escape }}"
+          loading="lazy"
+        >
+      {% else %}
+        <div class="venustas-blue-split-feature__placeholder">Add transparent PNG image</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_anchor | escape }} {
+    --bg: {{ section.settings.bg_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    --desc-color: {{ section.settings.description_color }};
+    --metric-label-color: {{ section.settings.metric_label_color }};
+    --metric-value-color: {{ section.settings.metric_value_color }};
+    --bar-bg: {{ section.settings.bar_bg_color }};
+    --bar-fill: {{ section.settings.bar_fill_color }};
+    --bar-bg-secondary: {{ section.settings.bar_bg_secondary_color }};
+    --bar-fill-secondary: {{ section.settings.bar_fill_secondary_color }};
+    --content-pt: {{ section.settings.padding_top }}px;
+    --content-pb: {{ section.settings.padding_bottom }}px;
+    --side-padding: {{ section.settings.side_padding_percent }}%;
+    --content-pad-left: {{ section.settings.content_left_padding_percent }}%;
+    --content-pad-right: {{ section.settings.content_right_padding_percent }}%;
+    --inner-width: {{ section.settings.content_width_percent | default: 85 }}%;
+    --mobile-content-h-pad: {{ section.settings.mobile_content_horizontal_padding | default: 0 }}px;
+    --media-shift-x: {{ section.settings.media_shift_x_percent }}%;
+    --heading-size: {{ section.settings.heading_size }}px;
+    --desc-size: {{ section.settings.description_size }}px;
+    --metric-label-size: {{ section.settings.metric_label_size }}px;
+    --metric-value-size: {{ section.settings.metric_value_size }}px;
+    --media-height: {{ section.settings.media_height }}px;
+    --mobile-media-height: {{ section.settings.mobile_media_height }}px;
+    --image-pos-x: {{ section.settings.image_position_x }}%;
+    --image-pos-y: {{ section.settings.image_position_y }}%;
+  }
+
+  #{{ section_anchor | escape }} {
+    {% if section.settings.background_image != blank %}
+      background-image: url('{{ section.settings.background_image | image_url: width: 2200 }}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    {% else %}
+      background: var(--bg);
+    {% endif %}
+    padding: 0;
+    overflow: hidden;
+  }
+
+  /* Same horizontal model as Heatwave Technology (hw-wrap): width % + max-width, no theme page-width */
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__inner {
+    width: var(--inner-width);
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 50%) minmax(0, 50%);
+    gap: 0;
+    align-items: stretch;
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__content {
+    max-width: 100%;
+    padding: var(--content-pt) var(--content-pad-right) var(--content-pb) var(--content-pad-left);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__heading {
+    margin: 0 0 18px;
+    color: var(--heading-color);
+    font-size: var(--heading-size);
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__description {
+    margin: 0 0 30px;
+    color: var(--desc-color);
+    font-size: var(--desc-size);
+    line-height: 1.45;
+    max-width: 100%;
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__metric + .venustas-blue-split-feature__metric {
+    margin-top: 20px;
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__metric-head {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__metric-label {
+    color: var(--metric-label-color);
+    font-size: var(--metric-label-size);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__metric-value {
+    color: var(--metric-value-color);
+    font-size: var(--metric-value-size);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__bar {
+    width: 100%;
+    max-width: 430px;
+    height: 11px;
+    border-radius: 999px;
+    background: var(--bar-bg);
+    overflow: hidden;
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__bar-fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--bar-fill);
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__bar--secondary {
+    background: var(--bar-bg-secondary);
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__bar--secondary .venustas-blue-split-feature__bar-fill {
+    background: var(--bar-fill-secondary);
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__media {
+    position: relative;
+    display: flex;
+    justify-content: stretch;
+    width: 100%;
+    min-height: var(--media-height);
+    overflow: hidden;
+    padding-left: var(--side-padding);
+    box-sizing: border-box;
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: var(--image-pos-x) var(--image-pos-y);
+    transform: translateX(var(--media-shift-x));
+  }
+
+  #{{ section_anchor | escape }} .venustas-blue-split-feature__placeholder {
+    width: 100%;
+    min-height: var(--media-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+  }
+
+  @media (max-width: 989px) {
+    #{{ section_anchor | escape }} .venustas-blue-split-feature__inner {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-blue-split-feature__content {
+      max-width: 100%;
+      padding: 0;
+    }
+  }
+
+  @media (max-width: 749px) {
+    #{{ section_anchor | escape }} {
+      --content-pt: {{ section.settings.mobile_padding_top }}px;
+      --content-pb: {{ section.settings.mobile_padding_bottom }}px;
+      --heading-size: {{ section.settings.mobile_heading_size }}px;
+      --desc-size: {{ section.settings.mobile_description_size }}px;
+      --metric-label-size: {{ section.settings.mobile_metric_label_size }}px;
+      --metric-value-size: {{ section.settings.mobile_metric_value_size }}px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-blue-split-feature__content {
+      padding: var(--content-pt) var(--mobile-content-h-pad) var(--content-pb) var(--mobile-content-h-pad);
+    }
+
+    #{{ section_anchor | escape }} .venustas-blue-split-feature__description {
+      margin-bottom: 22px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-blue-split-feature__media {
+      min-height: var(--mobile-media-height);
+      padding-left: {{ section.settings.mobile_side_padding_percent }}%;
+    }
+
+    #{{ section_anchor | escape }} .venustas-blue-split-feature__placeholder {
+      min-height: var(--mobile-media-height);
+    }
+
+    #{{ section_anchor | escape }} .venustas-blue-split-feature__bar {
+      height: 10px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Tech Heatwave",
+  "tag": "section",
+  "class": "venustas-blue-split-feature-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Section anchor ID",
+      "default": "tech-heatwave",
+      "info": "Used for navigation jumps. Example: tech-heatwave"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Venustas Heatwave™"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Exclusively developed by Venustas, our advanced carbon fiber heating system sets a new standard for cold-weather performance and comfort.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Right transparent image"
+    },
+    {
+      "type": "range",
+      "id": "image_max_width",
+      "label": "Right image max width",
+      "min": 260,
+      "max": 820,
+      "step": 10,
+      "default": 620,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "media_height",
+      "label": "Desktop right image height",
+      "min": 260,
+      "max": 760,
+      "step": 10,
+      "default": 500,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_media_height",
+      "label": "Mobile right image height",
+      "min": 180,
+      "max": 520,
+      "step": 10,
+      "default": 320,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_position_x",
+      "label": "Image position X",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 55,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "image_position_y",
+      "label": "Image position Y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Metric line 1"
+    },
+    {
+      "type": "text",
+      "id": "metric_1_label",
+      "label": "Label",
+      "default": "VENUSTAS HEATWAVE™"
+    },
+    {
+      "type": "text",
+      "id": "metric_1_value",
+      "label": "Value",
+      "default": "3X Faster"
+    },
+    {
+      "type": "range",
+      "id": "metric_1_percent",
+      "label": "Progress width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 90,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Metric line 2"
+    },
+    {
+      "type": "text",
+      "id": "metric_2_label",
+      "label": "Label",
+      "default": "Typical Heated Jackets - Standard Heat-Up"
+    },
+    {
+      "type": "text",
+      "id": "metric_2_value",
+      "label": "Value",
+      "default": "-"
+    },
+    {
+      "type": "range",
+      "id": "metric_2_percent",
+      "label": "Progress width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 34,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#00185a"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ff4b15"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#d7def0"
+    },
+    {
+      "type": "color",
+      "id": "metric_label_color",
+      "label": "Metric label color",
+      "default": "#d4dbec"
+    },
+    {
+      "type": "color",
+      "id": "metric_value_color",
+      "label": "Metric value color",
+      "default": "#ff4b15"
+    },
+    {
+      "type": "color",
+      "id": "bar_bg_color",
+      "label": "Progress bar background",
+      "default": "#9ca9c9"
+    },
+    {
+      "type": "color",
+      "id": "bar_fill_color",
+      "label": "Progress bar fill",
+      "default": "#ff4b15"
+    },
+    {
+      "type": "color",
+      "id": "bar_bg_secondary_color",
+      "label": "Secondary bar background",
+      "default": "#8f9aba"
+    },
+    {
+      "type": "color",
+      "id": "bar_fill_secondary_color",
+      "label": "Secondary bar fill",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Spacing and size"
+    },
+    {
+      "type": "range",
+      "id": "content_width_percent",
+      "label": "Content width",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 85,
+      "unit": "%",
+      "info": "Matches Heatwave Technology when set to the same value (e.g. 85%). Replaces theme page-width for this section."
+    },
+    {
+      "type": "range",
+      "id": "side_padding_percent",
+      "label": "Desktop side padding",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 6,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_padding_percent",
+      "label": "Mobile media side padding",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "%",
+      "info": "Applied to the image column on small screens only (not the whole section)."
+    },
+    {
+      "type": "range",
+      "id": "content_left_padding_percent",
+      "label": "Desktop content left padding",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 6,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "content_right_padding_percent",
+      "label": "Desktop content right padding",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 6,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_left_padding_percent",
+      "label": "Mobile content left padding (legacy)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "%",
+      "info": "Unused in CSS. Use Mobile text horizontal padding below."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_right_padding_percent",
+      "label": "Mobile content right padding (legacy)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "%",
+      "info": "Unused in CSS. Use Mobile text horizontal padding below."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_horizontal_padding",
+      "label": "Mobile text horizontal padding",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 0,
+      "unit": "px",
+      "info": "Left/right padding inside the text block on screens ≤749px. Use 0 to align with Heatwave Technology edges."
+    },
+    {
+      "type": "range",
+      "id": "media_shift_x_percent",
+      "label": "Image horizontal shift",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "min": 20,
+      "max": 220,
+      "step": 4,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom padding",
+      "min": 20,
+      "max": 220,
+      "step": 4,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 12,
+      "max": 140,
+      "step": 2,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 12,
+      "max": 140,
+      "step": 2,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 20,
+      "max": 72,
+      "step": 2,
+      "default": 62,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Desktop description size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 18,
+      "max": 48,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "label": "Mobile description size",
+      "min": 11,
+      "max": 22,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "metric_label_size",
+      "label": "Desktop metric label size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "default": 22,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "metric_value_size",
+      "label": "Desktop metric value size",
+      "min": 16,
+      "max": 64,
+      "step": 1,
+      "default": 42,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_metric_label_size",
+      "label": "Mobile metric label size",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_metric_value_size",
+      "label": "Mobile metric value size",
+      "min": 14,
+      "max": 44,
+      "step": 1,
+      "default": 31,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tech Heatwave"
+    }
+  ]
+}
+{% endschema %}

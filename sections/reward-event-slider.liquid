@@ -1,0 +1,453 @@
+{% style %}
+    .reward-event-slider-section {
+
+    }
+    .reward-event-slider-section .swiper-slide{
+        height:auto;
+    }
+    .reward-event-slider-section .reward-event-item{
+        border-radius:16px;
+        position:relative;
+        overflow:hidden;
+        height:100%; 
+
+    }
+    .reward-event-slider-section .reward-event-item .featured-image{
+        height:420px;
+    }
+    .reward-event-slider-section .reward-slider-event-container .swiper-slide{
+        height:auto;
+    }
+    .reward-event-slider-section .reward-event-item .featured-image img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .reward-event-slider-section  .float-nav {
+        top: 55%;
+    }
+    .reward-event-slider-section  .float-nav button{
+        background: #F1EADD;
+    }
+    .reward-event-slider-section  .float-nav button i{
+        color: #B93205;
+    }
+    .reward-event-slider-section  .float-nav button:hover{
+        background: #B93205;
+    }
+    .reward-event-slider-section  .float-nav button:hover i{
+        color: #fff;
+    }
+    
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .reward-event-slider-section .reward-event-item .content-container .block-heading_2{
+            font-size:31px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:180px;
+        }
+    }
+    @media only screen and (min-width: 375px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:180px;
+        }
+    }
+    @media only screen and (min-width: 390px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:180px;
+        }
+    }
+    @media only screen and (min-width: 414px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:180px;
+        }
+    }
+    @media only screen and (min-width: 428px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:200px;
+        }
+    }
+    @media only screen and (min-width: 480px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:200px;
+        }
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:330px;
+        }
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:350px;
+        }
+    }
+    @media only screen and (min-width: 1366px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:380px;
+        }
+    }
+    @media only screen and (min-width: 1440px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:390px;
+        }
+    }
+    @media only screen and (min-width: 1536px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:400px;
+        }
+    }
+    @media only screen and (min-width: 1600px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:400px;
+        }
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:420px;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .reward-event-slider-section .reward-event-item .featured-image{
+            height:420px;
+        }
+    }
+{% endstyle %}
+<div class="container section-content position-relative">
+    <h2 class="pp-bold f-black title-sm text-center">
+        {{ section.settings.heading }}
+    </h2>
+
+    <div class="mt-lg-5 mt-md-5 mt-sm-4 position-relative ">
+        <div class="reward-slider-event-container position-relative overflow-lg-hidden overflow-md-hidden overflow-sm-unset">
+            <div class="swiper-wrapper">
+                {% for block in section.blocks %}
+                    <div class="swiper-slide">
+                        {% if block.type == 'right_content' %}
+                            <div class="reward-event-item" style="background-color: {{ block.settings.backgroung_color }}">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="featured-image">
+                                            <img src="{{ block.settings.image | img_url: '1400x1400' }}" width="100%" height="100%">
+                                        </div>    
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="h-100 d-flex align-items-center col-lg-10 col-md-10 col-sm-12 mx-auto">
+                                            <div class="content-container px-lg-0 px-md-0 px-sm-3 py-lg-0 py-md-0 py-sm-5">
+                                                <h3 class="block-heading pp-bold title-sm pb-3 d-lg-block d-md-block d-sm-none" style="color:{{ block.settings.heading_color }}">
+                                                    {{ block.settings.heading }}
+                                                </h3>
+                                                <h3 class="block-heading pp-bold body-xl pb-2 d-lg-none d-md-none d-sm-block" style="color:{{ block.settings.heading_color }}">
+                                                    {{ block.settings.heading }}
+                                                </h3>
+                                                <div class="block-description pp-regular body-lg  {% if block.settings.btn_label != blank %} pb-3{% endif %} d-lg-block d-md-block d-sm-none" style="color:{{ block.settings.description_color }}">
+                                                    {{ block.settings.desceription }}
+                                                </div>
+                                                <div class="block-description pp-regular body  {% if block.settings.btn_label != blank %} pb-3{% endif %} d-lg-none d-md-none d-sm-block" style="color:{{ block.settings.description_color }}">
+                                                    {{ block.settings.desceription }}
+                                                </div>
+                                                {% if block.settings.btn_label != blank %}
+                                                    <a href="javascript:void(0)" class="icon-gift btn-hover btn-black py-lg-2 py-md-2 py-sm-1 px-lg-4 px-md-4 px-sm-3"> 
+                                                        <span class="pp-regular body">
+                                                            {{ block.settings.btn_label }}
+                                                        </span>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% elsif block.type == 'left_content' %}
+                            <div class="reward-event-item" style="background-color: {{ block.settings.backgroung_color }}">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 d-lg-none d-md-none d-sm-block">
+                                        <div class="featured-image">
+                                            <img src="{{ block.settings.image | img_url: '1400x1400' }}" width="100%" height="100%">
+                                        </div>    
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="h-100 d-flex align-items-center col-lg-10 col-md-10 col-sm-12 mx-auto">
+                                            <div class="content-container px-lg-0 px-md-0 px-sm-3 py-lg-0 py-md-0 py-sm-5">
+                                                <h3 class="block-heading pp-bold title-sm pb-3 d-lg-block d-md-block d-sm-none" style="color:{{ block.settings.heading_color }}">
+                                                    {{ block.settings.heading }}
+                                                </h3>
+                                                <h3 class="block-heading pp-bold body-xl pb-2 d-lg-none d-md-none d-sm-block" style="color:{{ block.settings.heading_color }}">
+                                                    {{ block.settings.heading }}
+                                                </h3>
+                                                <div class="block-description pp-regular body-lg  {% if block.settings.btn_label != blank %} pb-3{% endif %} d-lg-block d-md-block d-sm-none" style="color:{{ block.settings.description_color }}">
+                                                    {{ block.settings.desceription }}
+                                                </div>
+                                                <div class="block-description pp-regular body  {% if block.settings.btn_label != blank %} pb-3{% endif %} d-lg-none d-md-none d-sm-block" style="color:{{ block.settings.description_color }}">
+                                                    {{ block.settings.desceription }}
+                                                </div>
+                                                {% if block.settings.btn_label != blank %}
+                                                    <a href="javascript:void(0)" class="icon-gift btn-hover btn-black py-lg-2 py-md-2 py-sm-1 px-lg-4 px-md-4 px-sm-3"> 
+                                                        <span class="pp-regular body">
+                                                            {{ block.settings.btn_label }}
+                                                        </span>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 d-lg-block d-md-block d-sm-none">
+                                        <div class="featured-image">
+                                            <img src="{{ block.settings.image | img_url: '1400x1400' }}" width="100%" height="100%">
+                                        </div>    
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="reward-event-item" style="background-color: {{ block.settings.backgroung_color }}">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 d-lg-none d-md-none d-sm-block">
+                                        <div class="featured-image">
+                                            <img src="{{ block.settings.image | img_url: '1400x1400' }}" width="100%" height="100%">
+                                        </div>    
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="h-100 d-flex align-items-center col-lg-9 col-md-9 col-sm-12 mx-auto">
+                                            <div class="content-container px-lg-0 px-md-0 px-sm-3 py-lg-0 py-md-0 py-sm-5">
+                                                <h3 class="block-heading pp-bold title-sm pb-3 d-lg-block d-md-block d-sm-none" style="color:{{ block.settings.heading_color }}">
+                                                    {{ block.settings.heading }}
+                                                </h3>
+                                                <h3 class="block-heading pp-bold body-xl pb-2 d-lg-none d-md-none d-sm-block" style="color:{{ block.settings.heading_color }}">
+                                                    {{ block.settings.heading }}
+                                                </h3>
+                                                <div class="block-heading_2 pp-bold title-lg  {% if block.settings.btn_label != blank %} pb-3{% endif %} d-lg-block d-md-block d-sm-none"  style="color:{{ block.settings.heading_2_color }}">
+                                                    {{ block.settings.heading_2 }}
+                                                </div>
+                                                <div class="block-heading_2 pp-bold  {% if block.settings.btn_label != blank %} pb-3{% endif %} d-lg-none d-md-none d-sm-block"  style="color:{{ block.settings.heading_2_color }}">
+                                                    {{ block.settings.heading_2 }}
+                                                </div>
+                                                {% if block.settings.btn_label != blank %}
+                                                    <a href="javascript:void(0)" class="icon-gift btn-hover btn-black py-lg-2 py-md-2 py-sm-1 px-lg-4 px-md-4 px-sm-3"> 
+                                                        <span class="pp-regular body">
+                                                            {{ block.settings.btn_label }}
+                                                        </span>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 d-lg-block d-md-block d-sm-none">
+                                        <div class="featured-image">
+                                            <img src="{{ block.settings.image | img_url: '1400x1400' }}" width="100%" height="100%">
+                                        </div>    
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination mt-lg-3 mt-md-3 mt-sm-2"></div>
+        </div>
+    </div>
+</div>
+<div class="float-nav d-lg-block d-md-block d-sm-none">
+    <button type="button" class="owl-prev" disabled>
+        <i class="fa-solid fa-chevron-left f-white"></i>
+    </button>
+    <button type="button" class="owl-next" disabled>
+        <i class="fa-solid fa-chevron-right f-white"></i>
+    </button>
+</div>
+{% schema %}
+    {
+        "class": "reward-event-slider-section overflow-lg-unset overflow-md-unset overflow-sm-hidden position-relative",
+        "name": "Reward Event Slider",
+        "limit": 1,
+        "templates": ["page"],
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Welfare Event"
+            },
+        ],
+        "blocks": [
+            {
+                "type": "right_content",
+                "name": "Right Content",
+                "settings": [
+                    {
+                        "type": "color",
+                        "id": "backgroung_color",
+                        "label": "Background Color",
+                        "default": "#F9F6EF"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Heading"
+                    },
+                    {
+                        "type": "color",
+                        "id": "heading_color",
+                        "label": "Heading Color",
+                        "default": "#000000"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "desceription",
+                        "label": "Description",
+                        "default": "<p>Description</p>"
+                    },
+                    {
+                        "type": "color",
+                        "id": "description_color",
+                        "label": "Description Color",
+                        "default": "#000000"
+                    },
+                    {
+                        "type": "text",
+                        "id": "btn_label",
+                        "label": "Button Label",
+                        "default": "Learn More"
+                    },
+                    {
+                        "type": "url",
+                        "id": "btn_link",
+                        "label": "Button Link"
+                    },
+                ]
+            },
+            {
+                "type": "left_content",
+                "name": "Left Content",
+                "settings": [
+                    {
+                        "type": "color",
+                        "id": "backgroung_color",
+                        "label": "Background Color",
+                        "default": "#F9F6EF"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Heading"
+                    },
+                    {
+                        "type": "color",
+                        "id": "heading_color",
+                        "label": "Heading Color",
+                        "default": "#000000"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "desceription",
+                        "label": "Description",
+                        "default": "<p>Description</p>"
+                    },
+                    {
+                        "type": "color",
+                        "id": "description_color",
+                        "label": "Description Color",
+                        "default": "#000000"
+                    },
+                    {
+                        "type": "text",
+                        "id": "btn_label",
+                        "label": "Button Label",
+                        "default": "Learn More"
+                    },
+                    {
+                        "type": "url",
+                        "id": "btn_link",
+                        "label": "Button Link"
+                    },
+                ]
+            },
+            {
+                "type": "custom",
+                "name": "Custom",
+                "settings": [
+                    {
+                        "type": "color",
+                        "id": "backgroung_color",
+                        "label": "Background Color",
+                        "default": "#F9F6EF"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Heading"
+                    },
+                    {
+                        "type": "color",
+                        "id": "heading_color",
+                        "label": "Heading Color",
+                        "default": "#000000"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading_2",
+                        "label": "Heading",
+                        "default": "Heading"
+                    },
+                    {
+                        "type": "color",
+                        "id": "heading_2_color",
+                        "label": "Heading - 2 - Color",
+                        "default": "#B93205 "
+                    },
+                    {
+                        "type": "text",
+                        "id": "btn_label",
+                        "label": "Button Label",
+                        "default": "Learn More"
+                    },
+                    {
+                        "type": "url",
+                        "id": "btn_link",
+                        "label": "Button Link"
+                    },
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Reward Event Slider"
+        }]
+    }
+  {% endschema %} 

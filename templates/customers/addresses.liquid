@@ -1,0 +1,203 @@
+<section class="accounts">
+    <div class="container section-content">
+        <div class="row">
+            <div class="col-lg-6 col-md-10 col-sm-12 mx-auto">
+                <div class="customer-container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 mb-lg-5 mb-md-4 mb-sm-4">
+                            <h1 class="title-xs mt-bold f-black">Addresses</h1>
+                            <a class="body mt-regular f-black" href="{{ routes.account_url }}">
+                                Return to account details
+                            </a>
+                        </div>
+                        {% assign counter = 0 %}
+                        {% for address in customer.addresses %}
+                            {% assign counter = counter | plus: 1 %}
+                        {% endfor %}
+                        {% if counter > 0 %}
+                            <div class="col-lg-12 col-md-12 col-sm-12 mb-lg-5 mb-md-4 mb-sm-4">
+                                {% for address in customer.addresses %}
+                                    {% if address == customer.default_address %}
+                                        <p class="body mt-regular f-black mb-3" style="margin: 0;">
+                                            <strong>Default Address</strong>
+                                        </p>
+                                    {% endif %}
+                                    <div class="body-lg f-black mt-light mb-2">
+                                        {{ address | format_address }}
+                                    </div>
+        
+                                    <form class="address-delete-form" method="post" action="/account/addresses/{{ address.id }}" id="formDelete_{{ address.id }}" style="display: none;">
+                                        <input type="hidden" name="_method" value="delete">
+                                    </form>
+        
+                                    <a  type="button"
+                                        class="body mt-regular f-black" 
+                                        id="EditFormButton_{{ address.id }}" 
+                                        aria-label="Updated {{ forloop.index }}"
+                                        aria-controls="EditAddress_{{ address.id }}"
+                                        aria-expanded="false"
+                                        data-address-id="{{ address.id }}"
+                                        onclick="updateAddress({{ address.id }})"
+                                        style="display: inline-block">
+                                        Update
+                                    </a>
+                                    |
+                                    <a  href="javascript:void(0)"
+                                        type="button"
+                                        class="body mt-regular f-black"
+                                        aria-label="Delete {{ forloop.index }}"
+                                        data-target="{{ address.url }}"
+                                        onclick="deleteAddress('deleteID_{{ address.id }}')"
+                                        style="display: inline-block">
+                                        Delete
+                                    </a>
+        
+                                    <div class="delete-confirmation deleteID_{{ address.id }}">
+                                        <p class="body-sm mt-regular f-black">
+                                            Are you sure you want to delete this address? <a href="javascript:void(0)" onclick="deleteIt('formDelete_{{ address.id }}')" style="color: #94F250; display: inline-block;">Yes</a> | <a href="javascript:void(0)" onclick="dontDelete('deleteID_{{ address.id }}')" style="color: #94F250; display: inline-block;">No</a>
+                                        </p>
+                                    </div>
+
+                                    <div class="row form-edit mt-3" id="EditAddress_{{ address.id }}">
+                                        <div class="col-lg-12 col-md-12">
+                                            {% form 'customer_address', address, class: "form-bordered" %}
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                                        <label>First Name</label>
+                                                        <input type="text" class="form-control form-customer" value="{{ form.first_name }}" name="address[first_name]" required>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                                        <label>Last Name</label>
+                                                        <input type="text" class="form-control form-customer" value="{{ form.last_name }}" name="address[last_name]" required>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <label>Company</label>
+                                                        <input type="text" class="form-control form-customer" value="{{ form.company }}" name="address[company]">
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <label>Address 1</label>
+                                                        <input type="text" class="form-control form-customer" value="{{ form.address1 }}" name="address[address1]" required>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <label>Address 2</label>
+                                                        <input type="text" class="form-control form-customer" value="{{ form.address2 }}" name="address[address2]">
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <label>City</label>
+                                                        <input type="text" class="form-control form-customer" value="{{ form.city }}" name="address[city]" required>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <label>Country</label>
+                                                        <select class="form-control form-customer update-country" name="address[country]" id="AddressCountry_{{ form.id }}" data-address-country-select data-default="{{ form.country }}" data-form-id="{{ form.id }}" required>
+                                                            {{ all_country_option_tags }}
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group update-province-container" id="updateProvince_container_{{form.id}}" style="display: none;">
+                                                        <label>Province</label>
+                                                        <select class="form-control form-customer update-province" name="address[province]" id="AddressProvince_{{ form.id }}" data-default="{{ form.province }}">
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                                        <label>Postal / Zip Code</label>
+                                                        <input type="text" class="form-control form-customer" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" required>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                                        <label>Phone Number</label>
+                                                        <input type="tel" class="form-control form-customer" name="address[phone]" value="{{ form.phone }}" required>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        {{ form.set_as_default_checkbox }} <p class="async-body f-black d-inline-block">Set as default address</p>
+                                                    </div>
+                    
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                                                        <button type="submit" class="btn btn-green mb-2">
+                                                            UPDATE ADDRESS
+                                                        </button>
+                                                        <button type="reset" class="btn btn-black-o" onclick="cancelUpdateAddress()">
+                                                            CANCEL
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            {% endform %}
+                                        </div>
+                                    </div>
+        
+                                    <hr>
+
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 mb-4 text-center">
+                            <button role="button" class="btn btn-green" onclick="addAddress()">
+                                ADD NEW ADDRESS
+                            </button>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12" id="AddAddress">
+                            {% form 'customer_address', customer.new_address, class: "form-bordered" %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                        <label>First Name</label>
+                                        <input type="text" class="form-control form-customer" name="address[first_name]" required>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                        <label>Last Name</label>
+                                        <input type="text" class="form-control form-customer" name="address[last_name]" required>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <label>Company</label>
+                                        <input type="text" class="form-control form-customer" name="address[company]">
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <label>Address 1</label>
+                                        <input type="text" class="form-control form-customer" name="address[address1]" required>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <label>Address 2</label>
+                                        <input type="text" class="form-control form-customer" name="address[address2]">
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <label>City</label>
+                                        <input type="text" class="form-control form-customer" name="address[city]" required>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <label>Country</label>
+                                        <select class="form-control form-customer" id="new_country" name="address[country]" required>
+                                            {{ all_country_option_tags }}
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group" id="newProvince_container" style="display: none;">
+                                        <label>Province</label>
+                                        <select class="form-control form-customer" id="new_province" name="address[province]">
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                        <label>Postal / Zip Code</label>
+                                        <input type="text" class="form-control form-customer" name="address[zip]" autocapitalize="characters" required>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                        <label>Phone Number</label>
+                                        <input type="tel" class="form-control form-customer" name="address[phone]" required>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        {{ form.set_as_default_checkbox }} <p class="async-body f-black d-inline-block">Set as default address</p>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                                        <button type="submit" class="btn btn-green mb-2" onclick="addAddress()">
+                                            ADD ADDRESS
+                                        </button>
+                                        <button type="reset" class="btn btn-black-o" onclick="cancelAddAddress()">
+                                            CANCEL
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endform %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

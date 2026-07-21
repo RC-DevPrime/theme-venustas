@@ -1,0 +1,285 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+  #shopify-section-{{ section.id }} .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .container {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  #shopify-section-{{ section.id }} .for-her-premium {
+    padding: 80px 0;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__heading {
+    font-size: clamp(26px, 3vw, 44px);
+    font-weight: 800;
+    color: {{ section.settings.accent_color }};
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__subheading {
+    font-size: clamp(16px, 1.6vw, 22px);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 18px;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__desc {
+    color: #888;
+    font-size: 15px;
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__swiper {
+    overflow: hidden;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__swiper .swiper-slide {
+    height: auto;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__item {
+    height: 100%;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__item-img {
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background: #f2f2f2;
+    margin-bottom: 16px;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__item-img img,
+  #shopify-section-{{ section.id }} .for-her-premium__item-img svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__item:hover .for-her-premium__item-img img {
+    transform: scale(1.04);
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__item-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__item-subtitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: {{ section.settings.accent_color }};
+    margin-bottom: 16px;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__item-btn {
+    display: inline-block;
+    background: {{ section.settings.accent_color }};
+    color: #fff;
+    padding: 10px 26px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__item-btn:hover {
+    opacity: 0.88;
+    color: #fff;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__pagination {
+    display: none;
+    text-align: center;
+    margin-top: 28px;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__pagination .swiper-pagination-bullet {
+    width: 9px;
+    height: 9px;
+    background: #d9b8ac;
+    opacity: 1;
+    margin: 0 5px;
+  }
+  #shopify-section-{{ section.id }} .for-her-premium__pagination .swiper-pagination-bullet-active {
+    background: {{ section.settings.accent_color }};
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .for-her-premium {
+      padding: 50px 0;
+    }
+    #shopify-section-{{ section.id }} .for-her-premium__pagination {
+      display: block;
+    }
+  }
+{% endstyle %}
+
+<div class="for-her-premium">
+  <div class="container">
+    <div class="for-her-premium__header">
+      {% if section.settings.heading != blank %}
+        <h2 class="for-her-premium__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="for-her-premium__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <p class="for-her-premium__desc">{{ section.settings.description }}</p>
+      {% endif %}
+    </div>
+
+    <div class="for-her-premium__swiper swiper" id="for-her-premium-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="for-her-premium__item">
+              <div class="for-her-premium__item-img">
+                {% if block.settings.image != blank %}
+                  <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+              {% if block.settings.title != blank %}
+                <p class="for-her-premium__item-title">{{ block.settings.title }}</p>
+              {% endif %}
+              {% if block.settings.subtitle != blank %}
+                <p class="for-her-premium__item-subtitle">{{ block.settings.subtitle }}</p>
+              {% endif %}
+              {% if block.settings.btn_label != blank and block.settings.btn_link != blank %}
+                <a href="{{ block.settings.btn_link }}" class="for-her-premium__item-btn">{{ block.settings.btn_label }}</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="for-her-premium__pagination" id="for-her-premium-pag-{{ section.id }}"></div>
+  </div>
+</div>
+
+{% case section.settings.col_lg %}
+  {% when '6' %}{% assign premium_desktop_slides = 2 %}
+  {% when '4' %}{% assign premium_desktop_slides = 3 %}
+  {% when '3' %}{% assign premium_desktop_slides = 4 %}
+  {% else %}{% assign premium_desktop_slides = 3 %}
+{% endcase %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('#for-her-premium-{{ section.id }}', {
+      slidesPerView: 1.15,
+      spaceBetween: 16,
+      pagination: {
+        el: '#for-her-premium-pag-{{ section.id }}',
+        clickable: true,
+      },
+      breakpoints: {
+        481: { slidesPerView: 2.2, spaceBetween: 20 },
+        769: { slidesPerView: {{ premium_desktop_slides }}, spaceBetween: 24, allowTouchMove: false }
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "For Her - Premium",
+  "class": "for-her-premium-collection-section",
+  "templates": ["page"],
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Heading, Subtitle & Button)",
+      "default": "#B93205"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Premium Down Collection"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Because you deserve the very best"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "col_lg",
+      "label": "Columns (Desktop)",
+      "options": [
+        { "value": "6", "label": "2 columns" },
+        { "value": "4", "label": "3 columns" },
+        { "value": "3", "label": "4 columns" }
+      ],
+      "default": "4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Product Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "The Quilted Heated Down Coat | W62"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Powerful, elegant warmth"
+        },
+        {
+          "type": "text",
+          "id": "btn_label",
+          "label": "Button Label",
+          "default": "Learn More"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "For Her - Premium",
+    "blocks": [
+      { "type": "item" },
+      { "type": "item" },
+      { "type": "item" }
+    ]
+  }]
+}
+{% endschema %}

@@ -1,0 +1,8 @@
+{% layout none %}
+<div id="productEditPopupHTML" style="display:none!important;" data-size-option-indicator="{{ product.metafields.custom.size_option_indicator.value }}">
+  <div class="popup-container">
+    <div class="product-update popup-modal">
+      {% render 'product-edit-option', product: product, selected_variant: product.selected_or_first_available_variant %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+{% style %}
+    
+{% endstyle %}
+<div class="container section-content  
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}>
+
+    <h2 class="pp-bold title-sm text-center pb-lg-4 pb-md-4 pb-sm-3">
+        {{ section.settings.heading }}
+    </h2>
+    <div class="review-container">
+        {% for block in section.blocks %}
+            {% if block.type == '@app' %}
+                {% render block %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% schema %}
+{
+    "class": "product-review-section",
+    "name": "Review Section",
+    "limit": 1,
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled_section_child_scroll",
+            "label": "Enabled Section Child Scroll"
+        },
+        {
+            "type": "text",
+            "id": "section_scroll_nav",
+            "label": "Section Scroll Nav",
+            "info": "Need to Enabled first Section Scroll"
+        },
+        {
+            "type": "text",
+            "id": "nav_title",
+            "label": "Navigation Title"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Reviews"
+        }
+    ],
+    "max_blocks": 1,
+    "blocks": [
+        {
+            "type": "@app",
+        }
+    ],
+    "presets": [
+        {
+            "name": "Review Section"
+        }
+    ]
+}
+{% endschema %}

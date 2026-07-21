@@ -1,0 +1,929 @@
+{{ 'special-discount.css' | asset_url | stylesheet_tag }}
+{{ 'special-carousel.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'special-carousel.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign sd_steps_count = section.blocks | where: 'type', 'step' | size
+  assign steps_arrow_v = section.settings.mobile_carousel_arrow_vertical | default: 'center'
+  if steps_arrow_v != 'top' and steps_arrow_v != 'bottom'
+    assign steps_arrow_v = 'center'
+  endif
+  assign steps_ap_ms = section.settings.mobile_carousel_autoplay_interval | default: 5 | times: 1000
+%}
+
+<section
+  id="sd-special-steps-{{ section.id }}"
+  class="sd-sp sd-special-steps"
+  style="
+    --sd-accent: {{ section.settings.accent_color | default: '#b93205' }};
+    --sd-pad-x: {{ section.settings.content_horizontal_padding | default: 20 }}px;
+    --sd-pad-x-mobile: {{ section.settings.mobile_content_horizontal_padding | default: 16 }}px;
+  "
+>
+  <div class="sd-sp-container">
+    {% if section.settings.heading != blank %}
+      <h2 class="sd-sp-section-heading sd-special-steps__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div
+      class="sd-special-steps__slider sd-car-arrow-pos-{{ steps_arrow_v }}{% if sd_steps_count > 1 %} sd-special-steps__slider--multi{% endif %}"
+      id="sd-special-steps-slider-{{ section.id }}"
+      data-sd-carousel="steps"
+      data-sd-multi-slides="{% if sd_steps_count > 1 %}true{% else %}false{% endif %}"
+      data-mobile-arrows="{% if section.settings.mobile_carousel_show_arrows == false %}false{% else %}true{% endif %}"
+      data-autoplay="{% if section.settings.mobile_carousel_autoplay == false %}false{% else %}true{% endif %}"
+      data-interval-ms="{{ steps_ap_ms }}"
+      style="--sd-car-arrow-h-inset: {{ section.settings.mobile_carousel_arrow_inset_h | default: 10 }}px; --sd-car-arrow-v-inset: {{ section.settings.mobile_carousel_arrow_inset_v | default: 20 }}px;"
+    >
+      <button
+        type="button"
+        class="sd-special-steps__arrow sd-special-steps__arrow--prev"
+        aria-label="Previous"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <div class="sd-special-steps__viewport">
+        <div class="sd-special-steps__row" role="list">
+    {% assign sd_steps_list = section.blocks | where: 'type', 'step' %}
+    {% for block in sd_steps_list %}
+        <div class="sd-special-steps__step" role="listitem" {{ block.shopify_attributes }}>
+          {% if block.settings.icon != blank %}
+            <div class="sd-special-steps__icon-wrap">
+              <img
+                class="sd-special-steps__icon"
+                src="{{ block.settings.icon | image_url: width: 120 }}"
+                alt=""
+                width="64"
+                height="64"
+                loading="lazy"
+              >
+            </div>
+          {% else %}
+            <div class="sd-special-steps__icon-wrap sd-special-steps__icon-wrap--empty" aria-hidden="true"></div>
+          {% endif %}
+          {% if block.settings.step_label != blank %}
+            <span class="sd-special-steps__badge">{{ block.settings.step_label }}</span>
+          {% endif %}
+          {% if block.settings.title != blank %}
+            <h3 class="sd-special-steps__title">{{ block.settings.title }}</h3>
+          {% endif %}
+          {% if block.settings.body != blank %}
+            <div class="sd-special-steps__body rte">{{ block.settings.body }}</div>
+          {% endif %}
+        </div>
+        {% unless forloop.last %}
+          <div class="sd-special-steps__connector" aria-hidden="true"></div>
+        {% endunless %}
+      {% endfor %}
+        </div>
+      </div>
+      <button
+        type="button"
+        class="sd-special-steps__arrow sd-special-steps__arrow--next"
+        aria-label="Next"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
+      {% if sd_steps_count > 1 %}
+        <div class="sd-special-steps__dots" id="sd-special-steps-dots-{{ section.id }}">
+          {% assign steps_dot_i = 0 %}
+          {% for block in sd_steps_list %}
+            <button
+              type="button"
+              class="sd-special-steps__dot{% if steps_dot_i == 0 %} sd-special-steps__dot--active{% endif %}"
+              data-index="{{ steps_dot_i }}"
+              aria-label="Show slide {{ steps_dot_i | plus: 1 }}"
+            ></button>
+            {% assign steps_dot_i = steps_dot_i | plus: 1 %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="sd-special-steps__notes">
+      <div class="sd-special-steps__notes-main">
+        {% if section.settings.notes_heading != blank %}
+          <h4 class="sd-special-steps__notes-heading">{{ section.settings.notes_heading }}</h4>
+        {% endif %}
+        {% if section.settings.notes_body != blank %}
+          <div class="sd-special-steps__notes-body rte">{{ section.settings.notes_body }}</div>
+        {% endif %}
+      </div>
+      <div class="sd-special-steps__notes-aside">
+        <div class="sd-special-steps__notes-aside-inner">
+          {% if section.settings.contact_column_icon != blank %}
+            <div class="sd-special-steps__notes-aside-icon">
+              <img
+                class="sd-special-steps__notes-aside-icon-img"
+                src="{{ section.settings.contact_column_icon | image_url: width: 200 }}"
+                srcset="{{ section.settings.contact_column_icon | image_url: width: 100 }} 100w, {{ section.settings.contact_column_icon | image_url: width: 200 }} 200w"
+                sizes="72px"
+                alt="{{ section.settings.contact_column_icon.alt | escape }}"
+                width="72"
+                height="72"
+                loading="lazy"
+              >
+            </div>
+          {% endif %}
+          {% if section.settings.contact_block != blank %}
+            <div class="sd-special-steps__contact rte">{{ section.settings.contact_block }}</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #shopify-section-{{ section.id }} > section {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+  }
+
+  #sd-special-steps-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #sd-special-steps-{{ section.id }} > .sd-sp-container {
+    width: {{ section.settings.content_width_percent | default: 85 }}%;
+    max-width: min(1600px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__heading {
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    margin-bottom: {{ section.settings.heading_margin_bottom }}px;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__slider {
+    position: relative;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__viewport {
+    width: 100%;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__arrow {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--sd-accent, #b93205);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__arrow svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__arrow:hover:not(:disabled) {
+    background: {{ section.settings.accent_color | default: '#b93205' }};
+    color: #fff;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__arrow:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__arrow--prev {
+    left: var(--sd-car-arrow-h-inset, 10px);
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__arrow--next {
+    right: var(--sd-car-arrow-h-inset, 10px);
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__dots {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    margin-bottom: 10px;
+    padding: 0;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--sd-accent, #b93205);
+    opacity: 0.32;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__dot--active {
+    background: var(--sd-accent, #b93205);
+    opacity: 1;
+    transform: scale(1.35);
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0;
+    margin-bottom: {{ section.settings.notes_margin_top }}px;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__step {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__connector {
+    flex: 1 1 0;
+    min-width: 20px;
+    max-width: 140px;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 40px;
+    padding: 0 2px;
+    box-sizing: border-box;
+    height: 12px;
+    flex-shrink: 1;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__connector::before {
+    content: "";
+    flex: 1 1 auto;
+    min-width: 8px;
+    height: 0;
+    border: 0;
+    border-top: 2px dotted var(--sd-accent, #b93205);
+    opacity: 0.95;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__connector::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 0 5px 9px;
+    border-color: transparent transparent transparent var(--sd-accent, #b93205);
+    flex-shrink: 0;
+    opacity: 0.95;
+    margin-left: -1px;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__icon-wrap {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__icon-wrap--empty {
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__icon {
+    max-width: 64px;
+    max-height: 64px;
+    object-fit: contain;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: {{ section.settings.step_badge_bg | default: '#1a1a1a' }};
+    color: {{ section.settings.step_badge_text | default: '#ffffff' }};
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__title {
+    margin: 0 0 10px;
+    font-size: {{ section.settings.step_title_size }}px;
+    font-weight: 800;
+    color: {{ section.settings.step_title_color }};
+    line-height: 1.25;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__body {
+    font-size: {{ section.settings.step_body_size }}px;
+    line-height: 1.65;
+    color: {{ section.settings.step_body_color }};
+    text-align: center;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__body p {
+    margin: 0 0 0.5em;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__body strong {
+    color: var(--sd-accent, #b93205);
+    font-weight: 700;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__notes {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24px 40px;
+    align-items: start;
+    padding: {{ section.settings.notes_padding }}px;
+    background: {{ section.settings.notes_bg }};
+    border: 2px solid {{ section.settings.notes_border }};
+    border-radius: {{ section.settings.notes_radius }}px;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__notes-main {
+    min-width: 0;
+    text-align: left;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__notes-aside {
+    border-left: 1px solid {{ section.settings.notes_divider }};
+    padding-left: 20px;
+    min-width: 0;
+    align-self: center;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__notes-aside-inner {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 26px;
+    text-align: left;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__notes-aside-icon {
+    flex: 0 0 auto;
+    line-height: 0;
+    align-self: center;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__notes-aside-icon-img {
+    display: block;
+    width: 48px;
+    height: auto;
+    max-height: 56px;
+    object-fit: contain;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__contact {
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: left;
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__notes-heading {
+    margin: 0 0 12px;
+    font-size: {{ section.settings.notes_heading_size }}px;
+    font-weight: 800;
+    color: var(--sd-accent, #b93205);
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__notes-body,
+  #sd-special-steps-{{ section.id }} .sd-special-steps__contact {
+    font-size: {{ section.settings.notes_text_size }}px;
+    line-height: 1.65;
+    color: {{ section.settings.notes_text_color }};
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__notes-body ul {
+    margin: 0;
+    padding-left: 1.2em;
+    list-style-color: var(--sd-accent, #b93205);
+  }
+
+  #sd-special-steps-{{ section.id }} .sd-special-steps__contact a {
+    color: var(--sd-accent, #b93205);
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) and (min-width: 750px) {
+    #sd-special-steps-{{ section.id }} .sd-special-steps__row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__connector {
+      display: none;
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__step {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__step:last-of-type {
+      border-bottom: 0;
+    }
+  }
+
+  @media (max-width: 749px) {
+    #sd-special-steps-{{ section.id }} > .sd-sp-container {
+      width: {{ section.settings.mobile_content_width_percent | default: 100 }}%;
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__slider--multi .sd-special-steps__dots {
+      display: flex;
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__viewport {
+      overflow: hidden;
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__row {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 12px;
+      transition: transform 0.4s ease;
+      will-change: transform;
+      padding-bottom: 8px;
+      margin-bottom: 0;
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__notes {
+      margin-top: {{ section.settings.notes_margin_top }}px;
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__connector {
+      display: none;
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__step {
+      flex: 0 0 100%;
+      min-width: 0;
+      padding: 16px 12px 20px;
+      border-bottom: 0;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.65);
+      box-sizing: border-box;
+    }
+
+    #sd-special-steps-{{ section.id }} {
+      padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__notes {
+      grid-template-columns: 1fr;
+      padding: 20px;
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__notes-aside {
+      grid-column: 1;
+      border-left: 0;
+      border-top: 1px solid {{ section.settings.notes_divider }};
+      padding-left: 0;
+      padding-top: 20px;
+      margin-top: 8px;
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__notes-aside-inner {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+      text-align: left;
+      gap: 8px;
+    }
+
+    #sd-special-steps-{{ section.id }} .sd-special-steps__contact {
+      text-align: left;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "SD — How to get discount",
+  "tag": "section",
+  "class": "sd-special-steps-section",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 24,
+      "max": 100,
+      "step": 4,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 24,
+      "max": 100,
+      "step": 4,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Content width"
+    },
+    {
+      "type": "range",
+      "id": "content_width_percent",
+      "label": "Content width",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 85,
+      "unit": "%",
+      "info": "% of the full row (centered); left/right show as empty margin. Max width 1600px."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_width_percent",
+      "label": "Content width (mobile)",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "unit": "%",
+      "info": "Screens ≤749px. Band width inside the section row (centered)."
+    },
+    {
+      "type": "range",
+      "id": "content_horizontal_padding",
+      "label": "Desktop horizontal inset",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 20,
+      "unit": "px",
+      "info": "Inside the band on screens ≥990px."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_horizontal_padding",
+      "label": "Mobile horizontal inset",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 16,
+      "unit": "px",
+      "info": "Screens ≤749px."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How to Get Your Discount?"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "label": "Space below heading",
+      "min": 16,
+      "max": 56,
+      "step": 4,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "step_badge_bg",
+      "label": "Step badge background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "step_badge_text",
+      "label": "Step badge text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "step_title_size",
+      "label": "Step title size",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "default": 17,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "step_title_color",
+      "label": "Step title color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "step_body_size",
+      "label": "Step body size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "step_body_color",
+      "label": "Step body color",
+      "default": "#444444"
+    },
+    {
+      "type": "range",
+      "id": "notes_margin_top",
+      "label": "Space above notes box",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "notes_padding",
+      "label": "Notes box padding",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "notes_radius",
+      "label": "Notes box radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "notes_bg",
+      "label": "Notes box background",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "color",
+      "id": "notes_border",
+      "label": "Notes box border",
+      "default": "#b93205"
+    },
+    {
+      "type": "color",
+      "id": "notes_divider",
+      "label": "Notes column divider",
+      "default": "#cccccc"
+    },
+    {
+      "type": "text",
+      "id": "notes_heading",
+      "label": "Notes column heading",
+      "default": "Notes"
+    },
+    {
+      "type": "richtext",
+      "id": "notes_body",
+      "label": "Notes / terms (list)",
+      "default": "<ul><li>Discount applies to eligible verification only.</li><li>Cannot be combined with other offers unless stated.</li><li>Exclusions may apply per promotion.</li></ul>"
+    },
+    {
+      "type": "richtext",
+      "id": "contact_block",
+      "label": "Contact column",
+      "default": "<p>For any questions, please contact us at <a href=\"mailto:marketing@venustas.com\">marketing@venustas.com</a></p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "contact_column_icon",
+      "label": "Contact column icon",
+      "info": "Optional. Appears beside the contact text (e.g. envelope or support mark)."
+    },
+    {
+      "type": "range",
+      "id": "notes_heading_size",
+      "label": "Notes heading size",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "default": 17,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "notes_text_size",
+      "label": "Notes body size",
+      "min": 12,
+      "max": 17,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "notes_text_color",
+      "label": "Notes text color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Mobile carousel (≤749px)"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_carousel_autoplay",
+      "label": "Autoplay slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "mobile_carousel_autoplay_interval",
+      "label": "Autoplay interval",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 5,
+      "unit": "sec"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_carousel_show_arrows",
+      "label": "Show arrow buttons",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "mobile_carousel_arrow_vertical",
+      "label": "Arrow vertical position",
+      "default": "center",
+      "options": [
+        { "value": "center", "label": "Centered on slide" },
+        { "value": "top", "label": "Toward top" },
+        { "value": "bottom", "label": "Toward bottom" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "mobile_carousel_arrow_inset_h",
+      "label": "Horizontal inset from edge",
+      "min": -40,
+      "max": 40,
+      "step": 2,
+      "default": 10,
+      "unit": "px",
+      "info": "Negative values move arrows outward past the edge (e.g. -20)."
+    },
+    {
+      "type": "range",
+      "id": "mobile_carousel_arrow_inset_v",
+      "label": "Vertical offset (top / bottom)",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#b93205"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "step_label",
+          "label": "Badge text",
+          "default": "Step 1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Verify Your Eligibility"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Description",
+          "default": "<p>Complete verification through our partner flow.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SD — How to get discount",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "step_label": "Step 1",
+            "title": "Verify Your Eligibility",
+            "body": "<p>Submit your information to confirm eligibility.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_label": "Step 2",
+            "title": "Receive Your Code",
+            "body": "<p>You'll get a single-use discount code by email.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_label": "Step 3",
+            "title": "Apply at Checkout",
+            "body": "<p>Enter your code at checkout. <strong>The discount applies on full-price items.</strong></p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

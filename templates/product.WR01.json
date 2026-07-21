@@ -1,0 +1,607 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "tags_VbTTx6": {
+          "type": "tags",
+          "settings": {}
+        },
+        "title_kNgEjj": {
+          "type": "title",
+          "settings": {}
+        },
+        "okendo_star_rating_tWQPkb": {
+          "type": "shopify://apps/okendo/blocks/star-rating/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "price_efrDnx": {
+          "type": "price",
+          "settings": {}
+        },
+        "payment_installment_8PywPB": {
+          "type": "payment_installment",
+          "settings": {}
+        },
+        "discount_banner_ja6qra": {
+          "type": "discount_banner",
+          "settings": {
+            "discount_amount": "5",
+            "show_percent_off": false,
+            "description": "Join now for an extra 5% member discount!",
+            "description_2": "Become a member >",
+            "link": ""
+          }
+        },
+        "divider_FmYRAm": {
+          "type": "divider",
+          "settings": {}
+        },
+        "variant_option_Gm9UTe": {
+          "type": "variant_option",
+          "settings": {}
+        },
+        "divider_JBC3FR": {
+          "type": "divider",
+          "settings": {}
+        },
+        "hightlights_4aek9f": {
+          "type": "hightlights",
+          "settings": {
+            "heading": "HIGHLIGHTS",
+            "description": "<p>{{ product.metafields.c_f.highlights | metafield_tag }}</p>"
+          }
+        },
+        "divider_PUdp4i": {
+          "type": "divider",
+          "settings": {}
+        },
+        "availability_VXL6mU": {
+          "type": "availability",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
+        "support_product_RGhgRP": {
+          "type": "support_product",
+          "disabled": true,
+          "settings": {
+            "icon_1": "shopify://shop_images/47494_2x_50cbcdba-e5ec-4541-a4a2-fcd51740ea9b.png",
+            "heading_1": "<p><strong>3-Year</strong> Limited Warranty on heating elements</p>",
+            "icon_2": "shopify://shop_images/47768_2x_55d5aef8-5c10-4dfb-aac9-a5aa82ef92d6.png",
+            "heading_2": "<p><strong>1-Year</strong> Limited Warranty on battery</p>",
+            "icon_3": "shopify://shop_images/47496_2x_113086b9-9973-4a17-943c-63937d66fb74.png",
+            "heading_3": "<p><strong>Free </strong>Shipping in the U.S.&CA </p>",
+            "icon_4": "shopify://shop_images/47501_2x_b12b7c51-283f-4077-9d15-d8673a0d2ce8.png",
+            "heading_4": "<p><strong>Free</strong> Return Shipping in the U.S.</p>"
+          }
+        },
+        "selleasy_lb_upsell_widget_cpal_L6Rjdz": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-cpal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "tags_VbTTx6",
+        "title_kNgEjj",
+        "okendo_star_rating_tWQPkb",
+        "price_efrDnx",
+        "payment_installment_8PywPB",
+        "discount_banner_ja6qra",
+        "divider_FmYRAm",
+        "variant_option_Gm9UTe",
+        "divider_JBC3FR",
+        "hightlights_4aek9f",
+        "divider_PUdp4i",
+        "availability_VXL6mU",
+        "quantity_atc_nEzPi6",
+        "support_product_RGhgRP",
+        "selleasy_lb_upsell_widget_cpal_L6Rjdz"
+      ],
+      "settings": {}
+    },
+    "product_nav_EP4CHB": {
+      "type": "product-nav",
+      "blocks": {
+        "navigation_mL7Yjy": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "Features",
+            "nav_color": "#ffffff"
+          }
+        },
+        "navigation_4Wa7nT": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "Specifications",
+            "nav_color": "#ffffff"
+          }
+        },
+        "navigation_6hrEtc": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "What's Included",
+            "nav_color": "#ffffff"
+          }
+        },
+        "navigation_FcwHKc": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "Reviews",
+            "nav_color": "#ffffff"
+          }
+        },
+        "navigation_ycXUfN": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "FAQs",
+            "nav_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "navigation_mL7Yjy",
+        "navigation_4Wa7nT",
+        "navigation_6hrEtc",
+        "navigation_FcwHKc",
+        "navigation_ycXUfN"
+      ],
+      "name": "Navigation Header",
+      "settings": {
+        "background_color": "#2a2a2a",
+        "custom_product_title": "",
+        "title_color": "#ffffff"
+      }
+    },
+    "product_content_slider_RtFp6p": {
+      "type": "product-content-slider",
+      "blocks": {
+        "video_fRFaJm": {
+          "type": "video",
+          "settings": {
+            "heading": "Premium Insulation",
+            "description": "<p>Filled with recycled down that meets the Responsible Down Standard, Venustas long puffer coat for women offers exceptional warmth and insulation without the bulk. The down’s natural loft traps heat efficiently, keeping you cozy on chilly winter days.</p>",
+            "video_or_image": "image",
+            "image": "shopify://shop_images/product_recycle_down.jpg"
+          }
+        },
+        "video_GTAwUn": {
+          "type": "video",
+          "settings": {
+            "heading": "Stay Dry, Stay Comfortable",
+            "description": "<p>Rain, wind, or snow, this long puffer jacket has you covered. It features a non-PFC DWR finish and laminated membrane for reliable waterproofing, and the removable hood makes it easy to adjust as the weather changes.</p>",
+            "video_or_image": "video",
+            "video": "shopify://files/videos/防水.mp4"
+          }
+        }
+      },
+      "block_order": [
+        "video_fRFaJm",
+        "video_GTAwUn"
+      ],
+      "name": "Content Slider",
+      "settings": {
+        "enabled_section_child_scroll": true,
+        "section_scroll_nav": "Features",
+        "nav_title": "",
+        "enable_desktop_slider_autoplay": false,
+        "enable_mobile_slider_autoplay": false
+      }
+    },
+    "product_image_content_expand_e6hnbV": {
+      "type": "product-image-content-expand",
+      "blocks": {
+        "image_jEmG4r": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/WR01_details_1.jpg"
+          }
+        },
+        "image_hDtQzV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/WR01_details_2.jpg"
+          }
+        },
+        "image_7ecRT9": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/WR01_details_3.jpg"
+          }
+        },
+        "image_da7eQX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/WR01_details_4.jpg"
+          }
+        },
+        "image_AGBEWV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/WR01_details_5.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "image_jEmG4r",
+        "image_hDtQzV",
+        "image_7ecRT9",
+        "image_da7eQX",
+        "image_AGBEWV"
+      ],
+      "name": "Image Content Expand",
+      "settings": {
+        "enabled_section_child_scroll": true,
+        "section_scroll_nav": "Features",
+        "nav_title": "",
+        "image": "shopify://shop_images/WR01_details_6.jpg",
+        "heading": "Dual Heating, Ultimate Comfort",
+        "description": "<p>Built with PFC-free water-repellent fabric and a reflective silver Mylar thermal lining, this jacket features a detachable hood, secure YKK zippered pockets, and an adjustable hem to block out cold and keep you warm all day</p>",
+        "btn_label": "Explore"
+      }
+    },
+    "product_content_counter_TfRrFU": {
+      "type": "product-content-counter",
+      "name": "Content Counter",
+      "settings": {
+        "enabled_section_child_scroll": true,
+        "section_scroll_nav": "Features",
+        "nav_title": "",
+        "image": "shopify://shop_images/WR01_material.jpg",
+        "heading": "Graphene-Enhanced Fabric",
+        "description": "<p>Infused with graphene fibers, this fabric helps distribute heat evenly and improves thermal efficiency. Paired with the heating system, it delivers more consistent warmth while staying lightweight and breathable.</p>",
+        "col_1_label": "Shell",
+        "col_1_description": "<p><strong>100%</strong> Polyester</p>",
+        "col_1_description_2": "",
+        "col_2_label": "Filling",
+        "col_2_description": "<p><strong>75%</strong> Recycled Down (650-fill)</p>",
+        "col_2_description_2": "<p><strong>25%</strong> Feathers</p>",
+        "col_3_label": "Lining",
+        "col_3_description": "<p><strong>93%</strong> Nylon</p>",
+        "col_3_description_2": "<p><strong>7%</strong> Graphene Nylon</p>",
+        "col_4_label": "",
+        "col_4_description": "",
+        "col_4_description_2": ""
+      }
+    },
+    "product_video_with_icon_list_XEdCFU": {
+      "type": "product-video-with-icon-list",
+      "blocks": {
+        "icon_aUwG7T": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/43971_2x_ccc56a36-9494-4455-8f93-2fe9ccb54fbb.png",
+            "heading": "Hand & Machine Washable"
+          }
+        },
+        "icon_gGMjRw": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/43973_2x_97bf6f8f-d884-405d-8ab0-12b95794aed1.png",
+            "heading": "Do not dry clean"
+          }
+        },
+        "icon_HxFCEH": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/43972_2x_bfe59cf0-22ff-45ce-a8b2-c00f49208a03.png",
+            "heading": "Do not iron"
+          }
+        },
+        "icon_XPnEYe": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/43971_2x_ccc56a36-9494-4455-8f93-2fe9ccb54fbb.png",
+            "heading": "Tumble dry"
+          }
+        }
+      },
+      "block_order": [
+        "icon_aUwG7T",
+        "icon_gGMjRw",
+        "icon_HxFCEH",
+        "icon_XPnEYe"
+      ],
+      "name": "Video With Icon List",
+      "settings": {
+        "enabled_section_child_scroll": true,
+        "section_scroll_nav": "Features",
+        "nav_title": "",
+        "video": "shopify://files/videos/洗衣机.mp4",
+        "heading": "Caringly Tend, Extend Garment Longevity"
+      }
+    },
+    "product_centered_image_slider_ypDqaV": {
+      "type": "product-centered-image-slider",
+      "blocks": {
+        "image_7aM6n3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/WR01_heated_apparel_influencer_3.jpg"
+          }
+        },
+        "image_T8zVV6": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/WR01_heated_apparel_influencer_1.jpg"
+          }
+        },
+        "image_afj6Dn": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/WR01_heated_apparel_influencer_4.jpg"
+          }
+        },
+        "image_Yc7FC9": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/WR01_heated_apparel_influencer_2.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "image_7aM6n3",
+        "image_T8zVV6",
+        "image_afj6Dn",
+        "image_Yc7FC9"
+      ],
+      "name": "Centered Image Slider",
+      "settings": {
+        "enabled_section_child_scroll": true,
+        "section_scroll_nav": "Features",
+        "nav_title": "",
+        "heading": "Fight the cold easily",
+        "description": "<p>In the cold winter, VENUSTAS is your best partner! It heats up quickly and stays warm during outdoor activities, making it perfect for daily commuting or casual outings.</p>"
+      }
+    },
+    "product_specification_8nyhRL": {
+      "type": "product-specification",
+      "blocks": {
+        "icon_bd8XQP": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/7795645_weather_warm_termometer_hot_temperature_icon_2x_3dec281e-2537-425d-8b83-bce9b4347620.png",
+            "heading": "Eco-Friendly Warm Insulation"
+          }
+        },
+        "icon_GJhkff": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/Layer_3_2x_4b73c427-8391-41e4-a1f8-179fad99b5da.png",
+            "heading": "Weather-Repellent Breathable Shell"
+          }
+        },
+        "icon_VMC44Q": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/5724975_antivirus_clothing_dress_mask_protective_icon_2x_d959e1f3-e063-4106-bd83-1613a7ff7684.png",
+            "heading": "Premium Functional Winter Design"
+          }
+        }
+      },
+      "block_order": [
+        "icon_bd8XQP",
+        "icon_GJhkff",
+        "icon_VMC44Q"
+      ],
+      "name": "Specification",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "Specifications",
+        "heading": "Specifications"
+      }
+    },
+    "product_included_FGKBYF": {
+      "type": "product-included",
+      "blocks": {
+        "icon_P9Jtrk": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/heated_jacket_icon_1.png",
+            "heading": "Women's Recycled Down Parka (Non-Heated) *1"
+          }
+        },
+        "icon_DnC4Jd": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/47909_2x_4097a123-dff8-478b-8d5f-61437d59f8eb.png",
+            "heading": "User Manual (English) *1"
+          }
+        },
+        "icon_BYaqwb": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/49703_2x_4a8a27df-2c50-4d36-b479-2755206ec7cf.png",
+            "heading": "Carry Bag *1"
+          }
+        }
+      },
+      "block_order": [
+        "icon_P9Jtrk",
+        "icon_DnC4Jd",
+        "icon_BYaqwb"
+      ],
+      "name": "What’s Included?",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "What's Included",
+        "heading": "What’s Included?"
+      }
+    },
+    "product_review_section_nwk9r6": {
+      "type": "product-review-section",
+      "blocks": {
+        "okendo_reviews_widget_GJpkfr": {
+          "type": "shopify://apps/okendo/blocks/reviews-widget/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{product}}",
+            "widget_type": "combined_widget"
+          }
+        }
+      },
+      "block_order": [
+        "okendo_reviews_widget_GJpkfr"
+      ],
+      "name": "Review Section",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "Reviews",
+        "heading": "Reviews"
+      }
+    },
+    "product_faqs_section_9y4Ffk": {
+      "type": "product-faqs-section",
+      "blocks": {
+        "faq_TQWcGq": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "How long does shipping take and how can I track my package?",
+            "body": "<p>Usually delivered within 5-7 business days. You can track your package here: <a href=\"https://venustas.aftership.com/\" target=\"_blank\" title=\"https://venustas.aftership.com/\">https://venustas.aftership.com/</a></p>"
+          }
+        },
+        "faq_rLzrGb": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "Is the jacket true to size? How should I choose my size?",
+            "body": "<p>Our jackets are designed with a [Standard/Slim] fit. We recommend choosing your usual size for a tailored look, or sizing up if you plan to wear thick layers underneath. Please refer to our size chart for detailed measurements.</p>"
+          }
+        },
+        "faq_KJf4tg": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "What temperature is this jacket suitable for?",
+            "body": "<p>This jacket is a versatile mid-weight layer, ideal for temperatures between [0°C to 15°C]. Its breathable lining provides warmth without overheating, making it perfect for daily commuting and outdoor activities.</p>"
+          }
+        },
+        "faq_RqJg9h": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "Is this jacket waterproof? How does it handle rain and snow?",
+            "body": "<p>This long puffer is built for maximum protection. It features a <strong>non-PFC DWR finish</strong> and a <strong>laminated membrane</strong> to provide reliable waterproofing against rain, wind, and snow. For added versatility, it comes with a <strong>removable hood</strong>, allowing you to easily adapt to changing weather conditions while staying dry and comfortable.</p>"
+          }
+        },
+        "faq_UnKerq": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "Can I machine wash the jacket?",
+            "body": "<p>Yes, our jackets are easy to care for. You can machine wash it in cold water on a gentle cycle. To maintain the fabric's quality, we recommend air drying and avoiding bleach or high-heat ironing.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_TQWcGq",
+        "faq_rLzrGb",
+        "faq_KJf4tg",
+        "faq_RqJg9h",
+        "faq_UnKerq"
+      ],
+      "name": "FAQs Section",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "FAQs",
+        "heading": "Frequently Asked Questions"
+      }
+    },
+    "product_recommendation_bgYVqc": {
+      "type": "product-recommendation",
+      "name": "Recommendation",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "",
+        "heading": "You May Also Like",
+        "collection": "",
+        "number_product": 8
+      }
+    },
+    "product_featured_banner_mazp9M": {
+      "type": "product-featured-banner",
+      "name": "Featured Banner",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "",
+        "background_image": "shopify://shop_images/50850_2x_ee444194-7f34-4148-838c-a264624fb59e.png",
+        "background_image_mobile": "shopify://shop_images/50850_2x_1.png",
+        "sub_heading": "VENUSTAS",
+        "heading": "Driving technology with an inclination on adventure!",
+        "btn_label": "TECHNOLOGY",
+        "btn_url": "https://venustas.com/pages/technology"
+      }
+    },
+    "footer_support_icon_list_WDDHND": {
+      "type": "footer-support-icon-list",
+      "blocks": {
+        "logo_XDgxnL": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/truck-fast_2x_33ce6c44-79d4-4241-97f3-d3f218da92d0.png",
+            "heading": "Free Shipping"
+          }
+        },
+        "logo_XMdVwM": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/back-square_2x_55b01681-0f89-4f81-8bc0-166122ef4d6f.png",
+            "heading": "30-Day Return"
+          }
+        },
+        "logo_rHFFMD": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/3638439_emoji_emoticon_happy_laugh_smile_icon_2x_a617c6e6-a788-4053-8abb-30fabbe2a1e3.png",
+            "heading": "1,000,000 + Happy Users"
+          }
+        },
+        "logo_UzrkXY": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/38746_2x_327b8151-ddea-45ff-83b6-6fbed2356f1c.png",
+            "heading": "Ensured Warranty"
+          }
+        }
+      },
+      "block_order": [
+        "logo_XDgxnL",
+        "logo_XMdVwM",
+        "logo_rHFFMD",
+        "logo_UzrkXY"
+      ],
+      "name": "Support Icon List",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main-product",
+    "product_nav_EP4CHB",
+    "product_content_slider_RtFp6p",
+    "product_image_content_expand_e6hnbV",
+    "product_content_counter_TfRrFU",
+    "product_video_with_icon_list_XEdCFU",
+    "product_centered_image_slider_ypDqaV",
+    "product_specification_8nyhRL",
+    "product_included_FGKBYF",
+    "product_review_section_nwk9r6",
+    "product_faqs_section_9y4Ffk",
+    "product_recommendation_bgYVqc",
+    "product_featured_banner_mazp9M",
+    "footer_support_icon_list_WDDHND"
+  ]
+}

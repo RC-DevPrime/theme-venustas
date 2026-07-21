@@ -1,0 +1,780 @@
+{% style %}
+    nav.header.header-hide{
+      display:none;
+    }
+    .product-page-nav-header-section .main-nav-header-section{
+        background: {{ section.settings.background_color }};
+        padding:12px 0px;
+    }
+    .product-page-nav-header-section .nav-header-container{
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .product-page-nav-header-section .product-info{
+        display:flex;
+        max-width:650px;
+    }
+    .product-page-nav-header-section .product-info h5{
+        padding-right: 1rem;
+        border-right: 1px solid #3B3B3B;
+        max-width:600px;
+    }
+    .product-page-nav-header-section .product-info p{
+        padding-left:1rem;
+    }
+    .product-page-nav-header-section .link-nav{
+        display: flex;
+        gap:15px;
+        align-items: center;
+    }
+    .product-page-nav-header-section .link-nav .link-nav-item{
+        cursor:pointer;
+        opacity: .6;
+    }
+    .product-page-nav-header-section .link-nav .link-nav-item.active{
+        opacity: 1;
+    }
+    .product-page-nav-header-section .nav-content{
+        display:flex;
+        gap:2rem;
+        padding-left:1rem;
+    }
+    .product-page-nav-header-section .btn.buy-now{
+        padding: 8px 2.5rem;
+        background: #B93205;
+        border-radius: 4px;
+        cursor:pointer;
+        transition: all .5s ease;
+    }
+    .product-page-nav-header-section .btn.buy-now:hover{
+        color: #FFF;
+        background: #161616;
+    }
+    .product-page-nav-header-section .btn.buy-amazon{
+        padding: 8px 10px;
+        background: #FFF;
+        border-radius: 4px;
+        cursor:pointer;
+    }
+    .product-page-nav-header-section .btn.buy-amazon:hover{
+        background: #B93205;
+    }
+    .product-page-nav-header-section .btn.buy-amazon span{
+        color:#000;
+    }
+    .product-page-nav-header-section .btn.buy-amazon:hover span{
+        color:#FFF;
+    }
+  
+    .product-page-nav-header-section .product-header-sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 4; /* Make sure it's above other content */
+    }
+
+    .product-page-nav-header-section .custom-select-nav{
+      border-radius:6px;
+      background:#fff;
+      border:1px solid #EEE;
+      padding:8px 16px;
+      line-height:normal;
+      position:relative;
+      width:130px;
+    }
+    .product-page-nav-header-section .custom-select-nav .select-tag{
+      display:flex;
+      gap:0.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-page-nav-header-section .custom-select-nav .select-tag img{
+      width:14px;
+      height:14px;
+      object-fit:contain;
+      transition: all 0.3s ease;
+    }
+    .product-page-nav-header-section .custom-select-nav.active .select-tag img{
+      transform:rotate(180deg)
+    }
+    .product-page-nav-header-section .custom-select-nav .custom-select-list{
+      position: absolute;
+      top: 35px;
+      left: 0;
+      background: #fff;
+      z-index: 5;
+      border-bottom-left-radius:5px;
+      border-bottom-right-radius:5px;
+      display:none;
+      width:100%;
+    }
+    .product-page-nav-header-section .custom-select-nav.active .custom-select-list{
+      display:block;
+    }
+  
+    .product-page-nav-header-section .custom-select-nav .custom-select-list .nav-content .link-nav{
+      display:flex;
+      flex-direction:column;
+      gap:0;
+      padding:10px 0px;
+      align-items:flex-start;
+    }
+    .product-page-nav-header-section .custom-select-nav .custom-select-list .nav-content .link-nav .link-nav-item{
+      padding:6px 15px;
+      color:#000;
+      font-size:14px;
+    }
+    .product-page-nav-header-section .custom-select-nav .custom-select-list .nav-content .link-nav span.active{
+      color:#000;
+    }
+    .product-page-nav-header-section .amazon-icon{
+        height:20px;
+        width:20px;
+        object-fit:contain;
+        position: relative;
+        z-index: 2;
+        mix-blend-mode: multiply;
+    }
+    .mobile-nav{
+        padding:10px 0px;
+        border-top: 1px solid #3c3c3c;
+    }
+  
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .product-page-nav-header-section .link-nav{
+            display: flex;
+            gap:0;
+            align-items: center;
+            overflow:hidden;
+        }
+        .product-page-nav-header-section .main-nav-header-section{
+            padding:0;
+        }
+        .product-page-nav-header-section .selected-nav{
+            font-size:12px;
+        }
+        .product-page-nav-header-section .nav-content{
+            padding-left:0px;
+        }
+        .product-page-nav-header-section .product-info .description{
+            display:none;
+        }
+        .product-page-nav-header-section .nav-content .btn.buy-now{
+            padding:8px 16px;
+        }
+        .product-page-nav-header-section .product-info h5{
+            padding-right:0.5rem;
+            border:none;
+        }
+        .product-page-nav-header-section .custom-select-nav .custom-select-list .nav-content .link-nav span{
+            font-size:11px;
+        }
+        .product-page-nav-header-section .custom-select-nav{
+            padding:4px 10px;
+            width:fit-content;
+        }
+        .product-page-nav-header-section .btn.buy-now{
+            padding: 8px 2.5rem;
+            border-radius: 8px 8px 8px 8px;
+        }
+        .product-page-nav-header-section .btn.buy-amazon{
+            padding-top:0px;
+            padding-bottom:0px;
+        }
+        .product-page-nav-header-section .main-nav-header-section .upper-detail{
+            background-color:#FFF;
+            box-shadow: 0px -3px 6px 1px rgba(56, 56, 56, 0.1);
+            position:fixed;
+            bottom:0;
+            z-index:99999;
+        }
+        .product-page-nav-header-section .main-nav-header-section .bottom-detail{
+            padding-left:0;
+            padding-right:0;
+        }
+        .product-page-nav-header-section .main-nav-header-section .bottom-detail .link-nav{
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: none;
+            gap:20px;
+        }
+        .product-page-nav-header-section .main-nav-header-section .bottom-detail .link-nav .link-nav-item{
+            flex: 0 0 auto;
+            white-space: nowrap;
+            padding:14px 0px;
+            position:relative;
+        }
+        .product-page-nav-header-section .main-nav-header-section .bottom-detail .link-nav .link-nav-item:after{
+            content:"";
+            display:block;
+            position:absolute;
+            bottom:0;
+            height:2px;
+            width:100%;
+            background-color:#2a2a2a;
+        }   
+        .product-page-nav-header-section .main-nav-header-section .bottom-detail .link-nav .link-nav-item:first-child{
+            margin-left:20px;
+        }
+        .product-page-nav-header-section .main-nav-header-section .bottom-detail .link-nav .link-nav-item:last-child{
+            margin-right:20px;
+        }
+        .product-page-nav-header-section .main-nav-header-section .bottom-detail .link-nav .link-nav-item.active:after{
+            background-color:#B93205;
+        }
+        .mobile-nav{
+            padding:0px 0px;
+        }
+        .product-page-nav-header-section .product-variant-selector.popup-modal{
+            bottom: 0;
+            top: unset;
+        }
+        .product-page-nav-header-section .product-variant-selector.popup-modal .popup-content{
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+        .product-page-nav-header-section .product-variant-selector.popup-modal .popup-container{
+            padding-top:15px;
+
+        }
+        .product-page-nav-header-section .product-variant-selector.popup-modal .popup-close{
+            background:unset;
+        }
+        .product-page-nav-header-section .product-variant-selector.popup-modal .popup-close svg path{
+            stroke-width: 2px;
+        }
+    }
+    
+    /* ipad Air */
+    @media only screen 
+      and (min-device-width : 768px) 
+      and (max-device-width : 1024px){
+        .product-page-nav-header-section .main-nav-header-section{
+            padding:0;
+        }
+        .product-page-nav-header-section .selected-nav{
+            font-size:12px;
+        }
+        .product-page-nav-header-section .nav-content{
+            padding-left:0px;
+        }
+        .product-page-nav-header-section .product-info .description{
+            display:none;
+        }
+        .product-page-nav-header-section .nav-content .btn.buy-now{
+            padding:8px 16px;
+        }
+        .product-page-nav-header-section .product-info h5{
+            padding-right:0.5rem;
+            border:none;
+        }
+        .product-page-nav-header-section .custom-select-nav{
+            display:block;
+        }
+    }
+
+
+    /* PRODUCT VARIANT SELECTOR in NAV */
+    .product-variant-selector .product .variants fieldset{
+        margin-bottom: 15px;
+    }
+    .product-variant-selector .variants fieldset{
+        margin-bottom:30px;
+    }
+    .product-variant-selector .variants .variant .variant-name{
+        font-family: Montserrat;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #161616;
+        line-height: normal;
+    }
+    .product-variant-selector .variant .nav-variants-selector.color{
+        border-radius: 50%;
+        border-color: transparent;
+        border: none !important;
+        margin-right: 8px;
+        outline: 1px solid #00000047;
+        outline-offset: 2px;
+    }
+    .product-variant-selector .variant .nav-variants-selector.color.selected{
+        outline: 1px solid #161616;
+    }
+    .product-variant-selector .variant.color-variant .nav-variants-selector{
+        border: 1px solid black;
+    }
+    .product-variant-selector .variant .nav-variants-selector{
+        font-family: Montserrat;
+        font-weight: 500;
+        font-size: 16px;
+        border: 1px solid #DEDEDE;
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        margin: 0;
+    }
+    .product-variant-selector  .variant .nav-variants-selector.disabled{
+        color: #ccc !important;
+    }
+    .product-variant-selector  .variant .nav-variants-selector.disabled:before{
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 150%;
+        height: 1px;
+        background-color: #dedede;
+        transform-origin: top right;
+        transform: rotate(-38deg);
+    }
+    .product-variant-selector .variant .nav-variants-selector.color.disabled:before{
+        content: "";
+        position: absolute;
+        top: 20%;
+        left: 30%;
+        width: 100%;
+        height: 2px;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        background: #d1d1d1;
+    }
+    
+    .product-variant-selector .variant .nav-variants-selector.soldout{
+        opacity: .6;
+    }
+    .product-variant-selector .variant .nav-variants-selector.soldout:before{
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 150%;
+        height: 1px;
+        background-color: #dedede;
+        transform-origin: top right;
+        transform: rotate(-38deg);
+
+    }
+    .product-variant-selector .variant .nav-variants-selector.color.soldout:before{
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        right:unset;
+        width: 100%;
+        height: 2px;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        transform-origin:unset;
+        background: #d1d1d1;
+    }
+    .product-variant-selector .variant .nav-variants-selector.color .color-swatch{
+        width: 28px;
+        height: 28px;
+        border-radius: inherit;
+        display: block;
+    }
+    .product-variant-selector .nav-variants-option input{
+        display:none;
+    }
+
+    .product-variant-selector .variant.variant-size .nav-variants-selector{
+        height: 40px;
+        width: fit-content;
+        min-width:50px;
+        padding: 0;
+        text-align: center;
+        line-height: 40px;
+    }
+    .product-variant-selector .variant .nav-variants-selector.default.selected{
+        border-color: #000;
+        color: #fff;
+        background: #000;
+    }
+
+    .product-variant-selector .quantity{
+        background: #fff;
+        border: 1px solid #A0A0A0;
+        border-radius: 5px;
+        overflow: hidden;
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+    .product-variant-selector .quantity button {
+        padding: 6px 15px;
+        font-family: Montserrat;
+        font-size: 20px;
+        font-weight: 600;
+        color: #1a1a1a;
+        background: none;
+    }
+    .product-variant-selector .quantity>* {
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+    .product-variant-selector .quantity input {
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        width: 40px;
+        padding: 0;
+        color: #1a1a1a;
+        background: none;
+        -moz-appearance: textfield;
+    }
+    .product-variant-selector .quantity input::-webkit-inner-spin-button,
+    .product-variant-selector .quantity input::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .product-variant-selector .product-form{
+        width: 100%;
+    }
+    .product-variant-selector .product-form button{
+        width:100%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+    }
+    @media only screen and (min-width: 375px) {
+    }
+    @media only screen and (min-width: 390px) {
+    }
+    @media only screen and (min-width: 414px) {
+    }
+    @media only screen and (min-width: 428px) {
+    }
+    @media only screen and (min-width: 480px) {
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+        .product-page-nav-header-section .nav-header-container .nav-column:first-child{
+            max-width:450px;
+        }
+    }
+    @media only screen and (min-width: 1366px) {
+        .product-page-nav-header-section .nav-header-container .nav-column:first-child{
+            max-width:450px;
+        }
+    }
+    @media only screen and (min-width: 1440px) {
+        .product-page-nav-header-section .nav-header-container .nav-column:first-child{
+            max-width:500px;
+        }
+    }
+    @media only screen and (min-width: 1536px) {
+        .product-page-nav-header-section .nav-header-container .nav-column:first-child{
+            max-width:500px;
+        }
+    }
+    @media only screen and (min-width: 1600px) {
+        .product-page-nav-header-section .nav-header-container .nav-column:first-child{
+            max-width:500px;
+        }
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .product-page-nav-header-section .nav-header-container .nav-column:first-child{
+            max-width:unset;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .product-page-nav-header-section .nav-header-container .nav-column:first-child{
+            max-width:unset;
+        }
+
+    }
+{% endstyle %}
+<div class="main-div-header">
+    <div class="main-nav-header-section">
+        <div class="container section-content py-0 upper-detail py-lg-0 py-md-0 py-sm-1">
+            <div class="nav-header-container py-lg-0 py-md-0 py-sm-1">
+                <div class="nav-column">
+                    <div class="product-info flex-lg-row flex-md-row flex-sm-column">
+                        <div class="body-lg pp-bold d-lg-block d-md-block d-sm-none" style="color: {{ section.settings.title_color }}">
+                        {% if section.settings.custom_product_title != blank %}
+                            {{ section.settings.custom_product_title }}
+                        {% else %}
+                            {{ product.title | replace: '- Development', '' }}
+                        {% endif %}
+                        </div>
+
+                    
+                        <div class="product-price ">
+                            <div class="price d-flex gap-2 align-items-center h-100 ms-lg-3 ms-md-3 ms-sm-0">
+                                <span class=" pp-bold price-regular price-item--regular f-main l-h-normal">
+                                    <span class="body d-lg-block d-md-block d-sm-none">
+                                        {{ product.selected_or_first_available_variant.price | money | prepend: curSym }}
+                                    </span>
+                                    <span class="body-xl d-lg-none d-md-none d-sm-block">
+                                        {{ product.selected_or_first_available_variant.price | money | prepend: curSym }}
+                                    </span>
+                                </span>
+                                {% if product.selected_or_first_available_variant.compare_at_price %}
+                                    <span class="body-sm pp-regular product-compare-price price-item--sale f-gray t-d-strike l-h-normal">
+                                        {{ product.selected_or_first_available_variant.compare_at_price | money | prepend: curSym }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    
+                        <div class="custom-select-nav d-lg-none d-md-none d-sm-none">
+                        <div class="select-tag body pp-medium"><span class="selected-nav">Overview</span>
+                            <img src="https://cdn.shopify.com/s/files/1/0688/8642/9983/files/arrow-down.png?v=1743449790">
+                        </div>
+                        <div class="custom-select-list">
+                            <div class="nav-content">
+                                <div class="link-nav">
+                                    {% for block in section.blocks %}
+                                        <div class="link-nav-item pp-regular {% if forloop.index == 1 %}active{% endif %}" data-scroll="{{ block.settings.nav_title | handleize }}" style="color: {{ block.settings.nav_color }}">{{ block.settings.nav_title }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-column btn-nav d-flex align-items-center gap-lg-5 gap-md-4 gap-sm-0">
+                    <div class="nav-content d-lg-block d-md-block d-sm-none pe-lg-4 pe-md-3 pe-sm-0">
+                        <div class="link-nav">
+                            {% for block in section.blocks %}
+                            <div class="link-nav-item pp-semibold {% if forloop.index == 1 %}active{% endif %}" data-scroll="{{ block.settings.nav_title | handleize }}" style="color: {{ block.settings.nav_color }}">{{ block.settings.nav_title }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="btn-container d-flex gap-2">
+                        <div class="nav-header-buy-now btn buy-now body f-white pp-medium">
+                            <span class="body d-lg-block d-md-block d-sm-none">
+                                Add To Cart
+                            </span>
+                            <span class="body d-lg-none d-md-none d-sm-block">
+                                Add To Cart
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-nav d-lg-none d-md-none d-sm-block ">
+        <div class="container section-content py-0 bottom-detail">
+            <div class="nav-content">
+                <div class="link-nav justify-content-between w-100">
+                    {% for block in section.blocks %}
+                        <div class="link-nav-item body pp-medium {% if forloop.index == 1 %}active{% endif %}" data-scroll="{{ block.settings.nav_title | handleize }}" style="color: {{ block.settings.nav_color }}">
+                            <span class="body d-lg-block d-md-block d-sm-none">
+                                {{ block.settings.nav_title }}
+                            </span>
+                            <span class="body-lg d-lg-none d-md-none d-sm-block">
+                                {{ block.settings.nav_title }}
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="product-variant-selector popup-modal">
+    <div class="popup-overlay">
+    </div>
+    <div class="popup-content"> 
+        <div class="popup-header">
+            <button class="popup-close" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="23" viewBox="0 0 21 23" fill="none">
+                    <path d="M18.3666 2.78979L2.19995 20.0271M2.19995 2.78979L18.3666 20.0271" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="popup-container d-flex justify-content-center pb-3">
+            <div class="col-lg-11 col-md-11 col-sm-12">
+                {% unless product.has_only_default_variant %}
+                    {% render 'nav-product-variant', product: product %}
+                {% endunless %}
+
+                <div class="product-details nav-product-details">
+                    <div class="nav-availability-section">
+                        <div class="heading-content">
+                            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.791 2.253l-.597 3.583A1 1 0 002.18 7h.893a1.5 1.5 0 001.342-.83L5 5l.585 1.17A1.5 1.5 0 006.927 7h1.146a1.5 1.5 0 001.342-.83L10 5l.585 1.17a1.5 1.5 0 001.342.83h1.146a1.5 1.5 0 001.342-.83L15 5l.585 1.17a1.5 1.5 0 001.342.83h.893a1 1 0 00.986-1.164l-.597-3.583A1.5 1.5 0 0016.729 1H3.271a1.5 1.5 0 00-1.48 1.253z" fill="#5C5F62"></path>
+                                <path d="M18 9H2v8.5A1.5 1.5 0 003.5 19H7v-7h6v7h3.5a1.5 1.5 0 001.5-1.5V9z" fill="#5C5F62"></path>
+                            </svg>
+                            <span class="body-lg pp-bold d-lg-block d-md-block d-sm-none">Availability</span>
+                            <span class="body pp-bold d-lg-none d-md-none d-sm-block">Availability</span>
+                        </div>
+                        <div class="nav-inventory-info-app"></div>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-lg-3 gap-md-3 gap-sm-2 mt-lg-5 mt-md-5 mt-sm-3">
+                    <div class="quantity-container flex-1">
+                        <quantity-input class="quantity">
+                            <!-- Minus button with accessible label -->
+                            <button type="button" 
+                                    name="minus" 
+                                    class="less_qty" 
+                                    aria-label="Decrease quantity">
+                                -
+                            </button>
+
+                            <!-- Quantity input with label for accessibility -->
+                            <label for="nav-Quantity-nav-{{ product.id }}" class="sr-only">Quantity</label>
+                            <input class="qty quantity__input nav-quantity__input"
+                                type="number"
+                                name="quantity"
+                                id="nav-Quantity-nav-{{ product.id }}"
+                                min="1"
+                                value="1"
+                                readonly
+                                aria-live="polite"
+                            >
+
+                            <!-- Plus button with accessible label -->
+                            <button type="button" 
+                                    name="plus" 
+                                    class="add_qty" 
+                                    aria-label="Increase quantity">
+                                +
+                            </button>
+                        </quantity-input>
+                    </div>
+ 
+                    <div class="product-form">
+                        {% form 'product', product, id: 'header-nav-product-form', class: 'product-atc-form form h-100', novalidate: 'novalidate', data-type: 'add-to-cart-form', action: 'javascript:void(0)' %}
+                            <input type="hidden" name="id" id="main-product-id-nav" value="{{ product.selected_or_first_available_variant.id }}">
+                            <div class="form-btn h-100">
+                                <button type='submit' name="add" class="btn-atc btn-hover btn-main h-100" {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
+                                    <span class="body-lg pp-semibold f-white">
+                                            Add To Cart
+                                    </span>
+                                </button>
+                            </div>
+                        {% endform %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var navSection = document.querySelector('.product-page-nav-header-section');
+        if (!navSection || navSection.dataset.navInventorySyncReady === 'true') return;
+
+        navSection.dataset.navInventorySyncReady = 'true';
+
+        function getInventorySource() {
+            return document.querySelector('.product .availability-section .iia-container')
+                || document.querySelector('.product #inventory-info-app .iia-container')
+                || document.querySelector('#inventory-info-app .iia-container');
+        }
+
+        function syncNavInventoryMarkup() {
+            var target = navSection.querySelector('.nav-inventory-info-app');
+            var source = getInventorySource();
+
+            if (!target) return;
+            if (target.querySelector('.iia-list-item, .iia-details-container, .iia-list')) return;
+
+            if (!source) {
+                return;
+            }
+
+            var nextMarkup = source.outerHTML;
+            if (target.innerHTML === nextMarkup) {
+                return;
+            }
+
+            target.innerHTML = nextMarkup;
+
+            var mirrored = target.querySelector('.iia-container');
+            if (mirrored) {
+                mirrored.style.display = 'block';
+            }
+        }
+
+        syncNavInventoryMarkup();
+        window.setTimeout(syncNavInventoryMarkup, 300);
+        window.setTimeout(syncNavInventoryMarkup, 1000);
+
+        navSection.addEventListener('click', function (event) {
+            if (event.target.closest('.nav-header-buy-now')) {
+                window.setTimeout(syncNavInventoryMarkup, 0);
+            }
+        });
+    });
+</script>
+{% schema %}
+    {
+        "class": "product-page-nav-header-section",
+        "name": "Navigation Header",
+        "templates": ["product"],
+        "limit": 1, 
+        "max_blocks": 6,
+        "settings": [
+            {
+                "type": "color",
+                "id": "background_color",
+                "label": "Background Color",
+                "default":"#2a2a2a"
+            },
+            {
+              "type": "text",
+              "id": "custom_product_title",
+              "label": "Custom product Title"
+            },
+            {
+                "type": "color",
+                "id": "title_color",
+                "label": "Title Color",
+                "default":"#fff"
+            },
+        ],
+        "blocks": [
+            {
+              "type": "Navigation",
+              "name":"Navigation",
+              "settings": [
+                  {
+                    "type": "text",
+                    "id": "nav_title",
+                    "label": "Nav Title"
+                  },
+                    {
+                        "type": "color",
+                        "id": "nav_color",
+                        "label": "Nav Color",
+                        "default":"#fff"
+                    }
+              ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Navigation Header"
+        }]
+    }
+  {% endschema %} 

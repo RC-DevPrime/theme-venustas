@@ -1,0 +1,124 @@
+{% comment %} COMMENT/REVIEWS {% endcomment %}
+{% if article.comments_enabled? %}
+<div class="article-comments-section">
+    <h3 class="pp-bold body-xl">{{ article.comments_count }} Comment{%- if article.comments_count > 1 -%}s{%- endif -%}</h3>
+
+    {% if article.comments_count > 0 %}
+    <ul class="article-comments-list">
+        {% for comment in article.comments %}
+        <li class="article-comment">
+            <p class="comment-author pp-semibold">{{ comment.author }}</p>
+            <p class="comment-date body-sm">{{ comment.created_at | date: "%B %d, %Y" }}</p>
+            <div class="comment-body">{{ comment.content }}</div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="pp-regular body">No comments yet. Be the first to comment!</p>
+    {% endif %}
+
+    <div class="comment-form-container">
+        <h4 class="pp-bold body-xl pb-lg-4 pb-md-4 pb-sm-3">Leave a comment</h4>
+
+        {% form 'new_comment', article %}
+        <div class="row">
+            <div class="form-field col-lg-6 col-md-6 col-sm-12">
+                <label for="CommentAuthor">Name</label>
+                <input type="text" name="comment[author]" id="CommentAuthor" value="{{ form.author }}">
+                <p id="commentAuthorError" class="comment-error-message" style="display:none;color:#cc0023;font-weight:500;margin-top:5px;"></p>
+            </div>
+
+            <div class="form-field col-lg-6 col-md-6 col-sm-12">
+                <label for="CommentEmail">Email</label>
+                <input type="text" name="comment[email]" id="CommentEmail" value="{{ form.email }}">
+                <p id="commentEmailError" class="comment-error-message" style="display:none;color:#cc0023;font-weight:500;margin-top:5px;"></p>
+            </div>
+
+            <div class="form-field pt-lg-5 pt-md-5 pt-sm-3">
+                <label for="CommentBody">Comment</label>
+                <textarea name="comment[body]" id="CommentBody" rows="5">{{ form.body }}</textarea>
+                <p id="commentBodyError" class="comment-error-message" style="display:none;color:#cc0023;font-weight:500;margin-top:5px;"></p>
+            </div>
+        </div>
+
+        <p class="bottom-description pp-semibold body pt-2 pb-lg-5 pb-md-5 pb-sm-4">
+            Please note, comments need to be approved before they are published.
+        </p>
+
+        <button type="button" id="commentSubmit" class="btn-hover btn-main py-lg-3 py-md-3 py-sm-2 px-lg-5 px-md-5 px-sm-3 btn-submit">
+            <span>Post Comment</span>
+        </button>
+        {% endform %}
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('comment_form');
+    const submitBtn = document.getElementById('commentSubmit');
+
+    const nameInput = document.getElementById('CommentAuthor');
+    const emailInput = document.getElementById('CommentEmail');
+    const bodyInput = document.getElementById('CommentBody');
+
+    const nameError = document.getElementById('commentAuthorError');
+    const emailError = document.getElementById('commentEmailError');
+    const bodyError = document.getElementById('commentBodyError');
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const showError = (element, msg) => {
+        element.textContent = msg;
+        element.style.display = 'block';
+    };
+
+    const clearError = (element) => {
+        element.textContent = '';
+        element.style.display = 'none';
+    };
+
+    [nameInput, emailInput, bodyInput].forEach(input => {
+        input.addEventListener('input', () => {
+            clearError(nameError);
+            clearError(emailError);
+            clearError(bodyError);
+        });
+    });
+
+    submitBtn.addEventListener('click', function () {
+        let valid = true;
+
+        // Clear previous errors
+        clearError(nameError);
+        clearError(emailError);
+        clearError(bodyError);
+
+        // Validate name
+        if (!nameInput.value.trim()) {
+            showError(nameError, 'Please enter your name.');
+            valid = false;
+        }
+
+        // Validate email
+        if (!emailInput.value.trim()) {
+            showError(emailError, 'Please enter your email address.');
+            valid = false;
+        } else if (!emailRegex.test(emailInput.value.trim())) {
+            showError(emailError, 'Please enter a valid email address.');
+            valid = false;
+        }
+
+        // Validate comment
+        if (!bodyInput.value.trim()) {
+            showError(bodyError, 'Please enter your comment.');
+            valid = false;
+        }
+
+        // Submit only if all fields are valid
+        if (valid) {
+            form.submit();
+        }
+    });
+});
+</script>
+
+{% endif %}

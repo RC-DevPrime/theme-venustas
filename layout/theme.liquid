@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}" dir="{{ request.locale.direction }}">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="google-site-verification" content="6-VIw-j4ylQ3btZXguOnhuY8QcyQWeXxG-bKYFvh338">
+      <meta name="msvalidate.01" content="0A2AF29235ED58F48CBA16BF71C229D8">
+      <meta name="trustpilot-one-time-domain-verification-id" content="d11e688e-7f3d-4289-9bfe-98313f0ebb5f">
+      <script>
+        (function () {
+          if (typeof Storage === 'undefined') return;
+
+          var originalSetItem = Storage.prototype.setItem;
+          if (!originalSetItem || Storage.prototype._venustasStorageGuardInstalled) return;
+
+          Storage.prototype._venustasStorageGuardInstalled = true;
+          Storage.prototype.setItem = function (key, value) {
+            try {
+              return originalSetItem.call(this, key, value);
+            } catch (error) {
+              var isQuotaError = error && (
+                error.name === 'QuotaExceededError' ||
+                error.name === 'NS_ERROR_DOM_QUOTA_REACHED' ||
+                error.code === 22 ||
+                error.code === 1014
+              );
+
+              if (!isQuotaError) throw error;
+
+              if (key === 'EVENTS_MAP' || key === 'beacon') {
+                try {
+                  this.removeItem(key);
+                } catch (removeError) {}
+                return null;
+              }
+
+              throw error;
+            }
+          };
+        })();
+      </script>
+      {%- assign odometer_templates = 'page,product' | split: ',' -%}
+      {%- assign aos_templates = 'page,product' | split: ',' -%}
+      {%- assign load_odometer_assets = false -%}
+      {%- assign load_aos_assets = false -%}
+      {%- if odometer_templates contains template.name -%}
+        {%- assign load_odometer_assets = true -%}
+      {%- endif -%}
+      {%- if aos_templates contains template.name -%}
+        {%- assign load_aos_assets = true -%}
+      {%- endif -%}
+
+      <!-- Canonical URL -->
+      {% if template.name == 'collection' and collection %}
+        {% assign has_active_filters = false %}
+        {% for filter in collection.filters %}
+          {% if filter.active_values.size > 0 %}
+            {% assign has_active_filters = true %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+        {% if has_active_filters or current_tags.size > 0 %}
+          <link rel="canonical" href="{{ shop.url }}{{ collection.url }}">
+        {% else %}
+          <link rel="canonical" href="{{ canonical_url }}">
+        {% endif %}
+      {% else %}
+        <link rel="canonical" href="{{ canonical_url }}">
+      {% endif %}
+      <!-- Hreflang -->
+      {% assign hreflang_path = request.path | split: '?' | first %}
+      {% if hreflang_path == blank %}{% assign hreflang_path = '/' %}{% endif %}
+      <link rel="alternate" hreflang="x-default" href="https://venustas.com{{ hreflang_path }}">
+      <link rel="alternate" hreflang="en-US" href="https://venustas.com{{ hreflang_path }}">
+      <link rel="alternate" hreflang="en-CA" href="https://www.venustas.ca{{ hreflang_path }}">
+
+      <title>
+        {{ page_title }}{% if current_tags %} – {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} – Page {{ current_page }}{% endif %} – {{ shop.name }}
+      </title>
+
+      {%- comment -%} SEO essentials {%- endcomment -%}
+      <link rel="canonical" href="{{ canonical_url }}">
+
+      {%- if page_description and page_description != blank -%}
+        <meta name="description" content="{{ page_description | escape }}">
+      {%- elsif template.name == 'product' and product and product.description != blank -%}
+        <meta name="description" content="{{ product.description | strip_html | strip_newlines | truncate: 160 | escape }}">
+      {%- elsif template.name == 'collection' and collection and collection.description != blank -%}
+        <meta name="description" content="{{ collection.description | strip_html | strip_newlines | truncate: 160 | escape }}">
+      {%- elsif shop.description != blank -%}
+        <meta name="description" content="{{ shop.description | strip_html | strip_newlines | truncate: 160 | escape }}">
+      {%- endif -%}
+      {%- if request.page_type == 'index' -%}
+      <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"Organization","name":"Venustas","url":"https://venustas.com","logo":"https:{{ settings.logo | image_url: width: 600 }}","sameAs":["https://www.facebook.com/VenustasOfficial","https://www.instagram.com/venustas.official","https://www.youtube.com/@venustasheatedapparel","https://www.tiktok.com/@venustas.official"]}
+      </script>
+      <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"WebSite","name":"Venustas","url":"https://venustas.com","potentialAction":{"@type":"SearchAction","target":"https://venustas.com/search?q={search_term_string}","query-input":"required name=search_term_string"}}
+      </script>
+      {%- endif -%}
+      {%- if template.name == 'product' -%}
+  {%- assign bc_col = collection | default: product.collections.first -%}
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}/"}
+    {%- if bc_col %},{"@type":"ListItem","position":2,"name":{{ bc_col.title | json }},"item":"{{ shop.url }}{{ bc_col.url }}"}{%- endif -%}
+    ,{"@type":"ListItem","position":{% if bc_col %}3{% else %}2{% endif %},"name":{{ product.title | json }},"item":"{{ shop.url }}{{ product.url }}"}
+  ]}
+  </script>
+{%- endif -%}
+
+{%- if template.name == 'collection' -%}
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}/"},
+    {"@type":"ListItem","position":2,"name":{{ collection.title | json }},"item":"{{ shop.url }}{{ collection.url }}"}
+  ]}
+  </script>
+{%- endif -%}
+      {%- assign noindex_templates = 'cart,search,customers,challenge,checkout' | split: ',' -%}
+      {%- if noindex_templates contains template.name -%}
+        <meta name="robots" content="noindex,nofollow">
+      {%- else -%}
+        <meta name="robots" content="index,follow">
+      {%- endif -%}
+
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 192, height: 192 }}">
+
+      {{ content_for_header }}
+
+      <!-- Preconnect to font origins -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+      <!-- Vendor CSS -->
+      {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+
+      <link rel="preload" as="style" href="{{ 'all.min.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'all.min.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript>{{ 'all.min.css' | asset_url | stylesheet_tag }}</noscript>
+      {% style %}
+        @font-face {
+          font-family: "Font Awesome 6 Brands";
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+          src: url("{{ 'fa-brands-400.woff2' | asset_url }}") format("woff2");
+        }
+
+        @font-face {
+          font-family: "Font Awesome 6 Free";
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+          src: url("{{ 'fa-regular-400.woff2' | asset_url }}") format("woff2");
+        }
+
+        @font-face {
+          font-family: "Font Awesome 6 Free";
+          font-style: normal;
+          font-weight: 900;
+          font-display: swap;
+          src: url("{{ 'fa-solid-900.woff2' | asset_url }}") format("woff2");
+        }
+
+        @font-face {
+          font-family: "Font Awesome 5 Brands";
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+          src: url("{{ 'fa-brands-400.woff2' | asset_url }}") format("woff2");
+        }
+
+        @font-face {
+          font-family: "Font Awesome 5 Free";
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+          src: url("{{ 'fa-regular-400.woff2' | asset_url }}") format("woff2");
+        }
+
+        @font-face {
+          font-family: "Font Awesome 5 Free";
+          font-style: normal;
+          font-weight: 900;
+          font-display: swap;
+          src: url("{{ 'fa-solid-900.woff2' | asset_url }}") format("woff2");
+        }
+
+        @font-face {
+          font-family: "FontAwesome";
+          font-style: normal;
+          font-weight: 900;
+          font-display: swap;
+          src: url("{{ 'fa-solid-900.woff2' | asset_url }}") format("woff2");
+        }
+
+        @font-face {
+          font-family: "FontAwesome";
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+          src: url("{{ 'fa-regular-400.woff2' | asset_url }}") format("woff2");
+          unicode-range: u+f003,u+f006,u+f014,u+f016-f017,u+f01a-f01b,u+f01d,u+f022,u+f03e,u+f044,u+f046,u+f05c-f05d,u+f06e,u+f070,u+f087-f088,u+f08a,u+f094,u+f096-f097,u+f09d,u+f0a0,u+f0a2,u+f0a4-f0a7,u+f0c5,u+f0c7,u+f0e5-f0e6,u+f0eb,u+f0f6-f0f8,u+f10c,u+f114-f115,u+f118-f11a,u+f11c-f11d,u+f133,u+f147,u+f14e,u+f150-f152,u+f185-f186,u+f18e,u+f190-f192,u+f196,u+f1c1-f1c9,u+f1d9,u+f1db,u+f1e3,u+f1ea,u+f1f7,u+f1f9,u+f20a,u+f247-f248,u+f24a,u+f24d,u+f255-f25b,u+f25d,u+f271-f274,u+f278,u+f27b,u+f28c,u+f28e,u+f29c,u+f2b5,u+f2b7,u+f2ba,u+f2bc,u+f2be,u+f2c0-f2c1,u+f2c3,u+f2d0,u+f2d2,u+f2d4,u+f2dc;
+        }
+
+        @font-face {
+          font-family: "FontAwesome";
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+          src: url("{{ 'fa-v4compatibility.woff2' | asset_url }}") format("woff2");
+          unicode-range: u+f041,u+f047,u+f065-f066,u+f07d-f07e,u+f080,u+f08b,u+f08e,u+f090,u+f09a,u+f0ac,u+f0ae,u+f0b2,u+f0d0,u+f0d6,u+f0e4,u+f0ec,u+f10a-f10b,u+f123,u+f13e,u+f148-f149,u+f14c,u+f156,u+f15e,u+f160-f161,u+f163,u+f175-f178,u+f195,u+f1f8,u+f219,u+f27a;
+        }
+      {% endstyle %}
+
+      <!-- Fonts -->
+      <link rel="preload"
+            as="style"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+      <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+            media="print"
+            onload="this.media='all'">
+      <noscript>
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+      </noscript>
+
+      <!-- Plugins CSS -->
+      {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+      {% if load_aos_assets %}
+        {{ 'aos.css' | asset_url | stylesheet_tag }}
+      {% endif %}
+      {% if load_odometer_assets %}
+        {{ 'odometer-theme-default.min.css' | asset_url | stylesheet_tag }}
+      {% endif %}
+
+      <!-- Theme CSS -->
+      {{ 'bootstrap-custom.css' | asset_url | stylesheet_tag }}
+
+      {{ 'style.css' | asset_url | stylesheet_tag }}
+      {{ 'mega-menu.css' | asset_url | stylesheet_tag }}
+      <link rel="preload" as="style" href="{{ 'popup-cart.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'popup-cart.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript>{{ 'popup-cart.css' | asset_url | stylesheet_tag }}</noscript>
+
+      {{ 'res-base.css' | asset_url | stylesheet_tag }}
+      {{ 'res-font.css' | asset_url | stylesheet_tag }}
+      {{ 'res-product-item.css' | asset_url | stylesheet_tag }}
+      <link rel="preload" as="style" href="{{ 'res-popup-cart.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'res-popup-cart.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript>{{ 'res-popup-cart.css' | asset_url | stylesheet_tag }}</noscript>
+
+      {%- if template.name == 'product' -%}
+        {{ 'product.css' | asset_url | stylesheet_tag }}
+
+        <link rel="preload"
+              href="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/Proxima-Novacond-ExtraBold.woff2?v=1758608017"
+              as="font"
+              type="font/woff2"
+              crossorigin>
+
+        {% style %}
+          @font-face {
+            font-family: 'Proxima-Novacond-ExtraBold';
+            src: url('https://cdn.shopify.com/s/files/1/0457/1099/9709/files/Proxima-Novacond-ExtraBold.woff2?v=1758608017') format('woff2');
+            font-display: swap;
+          }
+        {% endstyle %}
+      {%- endif -%}
+
+      {%- if template.name == 'collection' or template.name == 'search' -%}
+        {{ 'collection.css' | asset_url | stylesheet_tag }}
+      {%- endif -%}
+
+      {%- if template.name == 'article' -%}
+        {{ 'article.css' | asset_url | stylesheet_tag }}
+      {%- endif -%}
+
+      {%- if template.name == 'search' -%}
+        {{ 'search.css' | asset_url | stylesheet_tag }}
+      {%- endif -%}
+
+      
+
+      <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-P6CFQL5');</script>
+      <!-- End Google Tag Manager -->
+
+      <!-- Microsoft Clarity -->
+      <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "r4b4llvep5");
+      </script>
+      <!-- End Microsoft Clarity -->
+      
+    {% include 'pagefly-app-header' %}</head>
+
+    <body>
+
+      <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6CFQL5"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+
+
+        {% sections 'header-group' %}
+
+        {% if template.name == 'index' %}
+          <!-- FOR SEO H1 Tag -->
+          <h1 class="d-none">Venustas® Heated Apparel</h1>
+        {% endif %}
+
+        {% if template.name == 'page' %}
+          <!-- FOR SEO H1 Tag -->
+          <h1 class="d-none">{{ page.title }}</h1>
+        {% endif %}
+        {% if template.name == 'collection' %}
+         <h1 class="d-none">{{ collection.title }}</h1>
+        {% endif %}
+        {% if template.name == 'article' %}
+          <h1 class="d-none">{{ article.title }}</h1>
+        {% endif %}
+
+        {{ content_for_layout }}
+
+        {% sections 'footer-group' %}
+        
+
+        <!-- Vendor JS (defer to reduce blocking) -->
+        <script src="{{ 'jquery.min.js' | asset_url }}" defer></script>
+        <script src="{{ 'bootstrap.bundle.min.js' | asset_url }}" defer></script>
+
+        <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+        <script defer>
+          const standardSizesRaw = {{ settings.standard_sizes | json }};
+          const tallSizesRaw = {{ settings.tall_sizes | json }};
+
+          const toArray = (str) =>
+            str.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+
+          const standardSizes = toArray(standardSizesRaw);
+          const tallSizes = toArray(tallSizesRaw);
+
+        </script>
+        <!-- Theme JS -->
+        <script src="{{ 'main.js' | asset_url }}" defer></script>
+
+        {% if template.name == 'index' %}
+          <script src="{{ 'index.js' | asset_url }}" defer></script>
+        {% endif %}
+
+        {% if template.name == 'product' %}
+          <script src="{{ 'product.js' | asset_url }}" defer></script>
+        {% endif %}
+
+        <script src="{{ 'global.js' | asset_url }}" defer></script>
+
+        {% if template.name == 'collection' %}
+          <script src="{{ 'collection.js' | asset_url }}" defer></script>
+        {% endif %}
+
+        <script src="{{ 'popup-cart.js' | asset_url }}" defer></script>
+
+        {% if template.name == 'page' %}
+          <script src="{{ 'page.js' | asset_url }}" defer></script>
+        {% endif %}
+
+        {% if template.name == 'cart' %}
+          <script src="{{ 'cart.js' | asset_url }}" defer></script>
+        {% endif %}
+
+        {% if template.name == 'blog' %}
+          <script src="{{ 'blog.js' | asset_url }}" defer></script>
+        {% endif %}
+
+        {% if template.name == 'article' %}
+          <script src="{{ 'article.js' | asset_url }}" defer></script>
+        {% endif %}
+
+        {% if template.name == 'search' %}
+          <script src="{{ 'search.js' | asset_url }}" defer></script>
+        {% endif %}
+
+        <!-- Truly non-critical -->
+        {% if load_odometer_assets %}
+          <script src="{{ 'odometer.min.js' | asset_url }}" defer></script>
+        {% endif %}
+        {% if load_aos_assets %}
+          <script src="{{ 'aos.js' | asset_url }}" defer></script>
+        {% endif %}
+
+        <script defer>
+          document.addEventListener('DOMContentLoaded', function() {
+            if (window.AOS) AOS.init();
+          });
+        </script>
+        <script defer>
+          function swymCallbackFn(swat){
+            document.addEventListener('swym:collections-loaded', function () {
+              setTimeout(function () {
+                swat.initializeActionButtons('body', '[data-swaction]');
+              }, 0);
+            });
+          }
+          window.SwymCallbacks = window.SwymCallbacks || [];
+          window.SwymCallbacks.push(swymCallbackFn);
+      </script>
+
+      {% comment %} {% include 'swym-custom' %} {% endcomment %}
+    </body>
+</html>

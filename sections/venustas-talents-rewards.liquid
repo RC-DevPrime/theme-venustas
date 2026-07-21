@@ -1,0 +1,267 @@
+{% render 'v-talents-base-css', section: section %}
+{% render 'v-talents-layout-css', section: section %}
+
+<style>
+  #shopify-section-{{ section.id }} .v-talents-rewards__header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__title {
+    font-size: clamp(26px, 2.8vw, 40px);
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: var(--v-brand);
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__subtitle {
+    font-size: 15px;
+    color: #555;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__grid {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__card {
+    flex: 0 0 88%;
+    min-width: 280px;
+    scroll-snap-align: center;
+    background: #fafafa;
+    border-radius: var(--v-radius);
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 28px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__card-img {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__card-img img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__card-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 12px 10px;
+    color: var(--v-brand);
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__card-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+    margin: 0 16px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__card-text p {
+    margin: 0;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__card-text strong {
+    font-weight: 700;
+    color: #333;
+    word-break: normal;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: #d0d0d0;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-rewards__dot.is-active {
+    background: var(--v-brand);
+    transform: scale(1.15);
+  }
+
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .v-talents-rewards__grid {
+      overflow: visible;
+      scroll-snap-type: none;
+      gap: 4%;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-rewards__card {
+      flex: 1 1 0;
+      min-width: 0;
+      scroll-snap-align: none;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-rewards__card-title {
+      font-size: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-rewards__dots {
+      display: none;
+    }
+  }
+</style>
+
+{%- assign rewards_ap_ms = section.settings.mobile_autoplay_interval | default: 5 | times: 1000 -%}
+
+<div class="v-talents">
+  <div class="v-talents-master-container">
+    <div class="v-talents-rewards__header">
+      {%- if section.settings.rewards_heading != blank -%}
+        <h2 class="v-talents-rewards__title">{{ section.settings.rewards_heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.rewards_subtitle != blank -%}
+        <p class="v-talents-rewards__subtitle">{{ section.settings.rewards_subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    <div
+      class="v-talents-rewards__carousel"
+      data-v-carousel
+      data-dot-class="v-talents-rewards__dot"
+      data-autoplay="{% if section.settings.mobile_autoplay == false %}false{% else %}true{% endif %}"
+      data-interval-ms="{{ rewards_ap_ms }}"
+    >
+      <div class="v-talents-rewards__grid" data-v-carousel-track>
+        <article class="v-talents-rewards__card" data-v-carousel-slide>
+          {%- if section.settings.reward_1_image != blank -%}
+            <div class="v-talents-rewards__card-img">
+              {{
+                section.settings.reward_1_image
+                | image_url: width: 1000
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '400,600,800,1000',
+                  sizes: '(min-width: 768px) 42vw, 82vw',
+                  alt: section.settings.reward_1_title
+              }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.reward_1_title != blank -%}
+            <h3 class="v-talents-rewards__card-title">{{ section.settings.reward_1_title }}</h3>
+          {%- endif -%}
+          {%- if section.settings.reward_1_text != blank -%}
+            <div class="v-talents-rewards__card-text">{{ section.settings.reward_1_text }}</div>
+          {%- endif -%}
+        </article>
+        <article class="v-talents-rewards__card" data-v-carousel-slide>
+          {%- if section.settings.reward_2_image != blank -%}
+            <div class="v-talents-rewards__card-img">
+              {{
+                section.settings.reward_2_image
+                | image_url: width: 1000
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '400,600,800,1000',
+                  sizes: '(min-width: 768px) 42vw, 82vw',
+                  alt: section.settings.reward_2_title
+              }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.reward_2_title != blank -%}
+            <h3 class="v-talents-rewards__card-title">{{ section.settings.reward_2_title }}</h3>
+          {%- endif -%}
+          {%- if section.settings.reward_2_text != blank -%}
+            <div class="v-talents-rewards__card-text">{{ section.settings.reward_2_text }}</div>
+          {%- endif -%}
+        </article>
+      </div>
+      <div class="v-talents-rewards__dots" data-v-carousel-dots hidden></div>
+    </div>
+  </div>
+</div>
+
+{% render 'v-talents-carousel-js', section: section %}
+
+{% schema %}
+{
+  "name": "Talents — Rewards",
+  "tag": "section",
+  "class": "venustas-talents-rewards-section",
+  "settings": [
+    { "type": "header", "content": "Layout" },
+    { "type": "color", "id": "brand_color", "label": "Brand color", "default": "#B93205" },
+    { "type": "range", "id": "container_width_desktop", "min": 70, "max": 100, "step": 5, "unit": "%", "label": "Desktop container width", "default": 90 },
+    { "type": "range", "id": "container_width_mobile", "min": 80, "max": 100, "step": 5, "unit": "%", "label": "Mobile container width", "default": 95 },
+    { "type": "range", "id": "padding_top_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding top", "default": 40 },
+    { "type": "range", "id": "padding_bottom_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding bottom", "default": 40 },
+    { "type": "range", "id": "padding_top_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding top", "default": 24 },
+    { "type": "range", "id": "padding_bottom_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding bottom", "default": 24 },
+    { "type": "header", "content": "Mobile carousel" },
+    {
+      "type": "checkbox",
+      "id": "mobile_autoplay",
+      "label": "Autoplay slides on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "mobile_autoplay_interval",
+      "label": "Autoplay interval",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 5,
+      "unit": "sec"
+    },
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "rewards_heading", "label": "Heading", "default": "Rewards" },
+    { "type": "textarea", "id": "rewards_subtitle", "label": "Subheading", "default": "Earn guaranteed monthly rewards and a chance to win exclusive Venustas prizes." },
+    { "type": "image_picker", "id": "reward_1_image", "label": "Left card image" },
+    { "type": "text", "id": "reward_1_title", "label": "Left card title", "default": "Guaranteed Monthly Giftcard" },
+    {
+      "type": "richtext",
+      "id": "reward_1_text",
+      "label": "Left card description",
+      "default": "<p>Every creator who joins our program and submits content will receive a <strong>$20 Gift Card</strong> for Venustas.com as a base reward.</p>",
+      "info": "Select text and click Bold (B) to emphasize key phrases."
+    },
+    { "type": "image_picker", "id": "reward_2_image", "label": "Right card image" },
+    { "type": "text", "id": "reward_2_title", "label": "Right card title", "default": "Chance to Win Big!" },
+    {
+      "type": "richtext",
+      "id": "reward_2_text",
+      "label": "Right card description",
+      "default": "<p>Each month, top-performing creators will be selected as Venustas Talent Stars and rewarded with a best-selling heated vest or a <strong>$100 Gift Card</strong> for Venustas.com.</p>",
+      "info": "Select text and click Bold (B) to emphasize key phrases."
+    }
+  ],
+  "presets": [{ "name": "Talents — Rewards", "category": "Venustas Talents" }]
+}
+{% endschema %}

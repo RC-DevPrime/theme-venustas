@@ -1,0 +1,129 @@
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+  #shopify-section-{{ section.id }} .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .container {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  #shopify-section-{{ section.id }} .for-her-story {
+    padding: 80px 0;
+  }
+  #shopify-section-{{ section.id }} .for-her-story__row {
+    display: flex;
+    align-items: flex-end;
+    gap: 60px;
+  }
+  #shopify-section-{{ section.id }} .for-her-story__left {
+    flex: 0 0 55%;
+  }
+  #shopify-section-{{ section.id }} .for-her-story__right {
+    flex: 1;
+  }
+  #shopify-section-{{ section.id }} .for-her-story__label {
+    color: {{ section.settings.accent_color }};
+    font-size: clamp(20px, 2vw, 30px);
+    font-weight: 600;
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  #shopify-section-{{ section.id }} .for-her-story__heading {
+    font-size: clamp(34px, 4.5vw, 60px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #1a1a1a;
+    margin-bottom: 0;
+  }
+  #shopify-section-{{ section.id }} .for-her-story__body {
+    color: #888;
+    font-size: 14px;
+    line-height: 1.9;
+  }
+  #shopify-section-{{ section.id }} .for-her-story__body p {
+    margin-bottom: 14px;
+  }
+  #shopify-section-{{ section.id }} .for-her-story__body p:last-child {
+    margin-bottom: 0;
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .for-her-story {
+      padding: 50px 0;
+    }
+    #shopify-section-{{ section.id }} .for-her-story__row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    #shopify-section-{{ section.id }} .for-her-story__left,
+    #shopify-section-{{ section.id }} .for-her-story__right {
+      flex: none;
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<div class="for-her-story">
+  <div class="container">
+    <div class="for-her-story__row">
+      <div class="for-her-story__left">
+        {% if section.settings.label != blank %}
+          <p class="for-her-story__label">{{ section.settings.label }}</p>
+        {% endif %}
+        {% if section.settings.heading != blank %}
+          <h2 class="for-her-story__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+      </div>
+      <div class="for-her-story__right">
+        {% if section.settings.body != blank %}
+          <div class="for-her-story__body">{{ section.settings.body }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "For Her - Our Story",
+  "class": "for-her-our-story-section",
+  "templates": ["page"],
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent / Label Color",
+      "default": "#B93205"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Our Story"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "We bring better vision to HER."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body Text"
+    }
+  ],
+  "presets": [{ "name": "For Her - Our Story" }]
+}
+{% endschema %}

@@ -1,0 +1,190 @@
+{% assign color_option_index = 0 %}
+{% assign color_option_size = 0 %}
+
+{% for option in product.options_with_values %}
+  {% assign opt_name = option.name | downcase %}
+  {% if opt_name == 'color' or opt_name == 'colour' %}
+    {% assign color_option_index = forloop.index %}
+    {% assign color_option_size = option.values.size %}
+  {% endif %}
+{% endfor %}
+
+{% if color_option_index > 0 and product.variants.size > 1 %}
+
+  {% assign optionKey = 'option' | append: color_option_index %}
+  {% assign color_option_array_index = color_option_index | minus: 1 %}
+  {% assign color_option_obj = product.options_with_values[color_option_array_index] %}
+
+  <div class="variant-option-block {% if color_option_size == 1 %}one-color{% endif %}">
+    <ul class="variant-colors px-0">
+
+      {% assign count = 0 %}
+      {% assign more_count = 0 %}
+      {% assign active_variant_id = product.selected_or_first_available_variant.id %}
+
+      {% for color_value in color_option_obj.values %}
+
+        {% assign count = count | plus: 1 %}
+
+        {% assign v = product.variants | where: optionKey, color_value | first %}
+        {% if v == blank %}
+          {% continue %}
+        {% endif %}
+
+        {%- comment -%} Base color fallback {%- endcomment -%}
+        {% assign color_value_raw = color_value | downcase %}
+        {% assign words = color_value_raw | split: ' ' %}
+        {% assign base_color = words.last %}
+        {% assign metaobject_color = blank %}
+        {% assign metaobject_color_fallback = blank %}
+        {% assign metaobject_color_value = blank %}
+        {% assign metaobject_color_image = blank %}
+        {% assign metaobject_color_image_url = blank %}
+        {% assign category_color_metafield = product.metafields.shopify['color-pattern'] %}
+        {% if category_color_metafield == blank %}
+          {% assign category_color_metafield = product.metafields.shopify.color_pattern %}
+        {% endif %}
+        {% if category_color_metafield == blank %}
+          {% assign category_color_metafield = product.metafields.custom.color %}
+        {% endif %}
+
+        {%- comment -%} Swatch filenames {%- endcomment -%}
+        {% assign swatch_exact_name = color_value | strip | append: '.png' %}
+        {% assign swatch_handle_name = color_value | handle | append: '.png' %}
+
+        {%- comment -%} Safe asset lookup (NO file_url, NO 404 spam) {%- endcomment -%}
+        {% assign swatch_exact = images[swatch_exact_name] %}
+        {% assign swatch_handle = images[swatch_handle_name] %}
+
+        {% assign swatch_primary = blank %}
+        {% assign swatch_secondary = blank %}
+
+        {% if swatch_exact != blank %}
+          {% assign swatch_primary = swatch_exact %}
+        {% endif %}
+
+        {% if swatch_handle != blank %}
+          {% assign swatch_secondary = swatch_handle %}
+        {% endif %}
+
+        {% assign color_option_loop_index = count | minus: 1 %}
+
+        {% for color_entry in category_color_metafield.value %}
+          {% assign color_entry_label = color_entry.label.value | default: color_entry.label | default: color_entry.name.value | default: color_entry.name | default: color_entry.title.value | default: color_entry.title %}
+          {% assign color_entry_label_downcase = color_entry_label | downcase %}
+          {% if forloop.index0 == color_option_loop_index %}
+            {% assign metaobject_color_fallback = color_entry %}
+          {% endif %}
+          {% if color_entry_label_downcase == color_value_raw %}
+            {% assign metaobject_color = color_entry %}
+          {% endif %}
+        {% endfor %}
+
+        {% if metaobject_color == blank %}
+          {% assign metaobject_color = metaobject_color_fallback %}
+        {% endif %}
+
+        {% if metaobject_color != blank %}
+          {% assign metaobject_color_value = metaobject_color.color.value | default: metaobject_color.color | default: metaobject_color.hex.value | default: metaobject_color.hex %}
+          {% assign metaobject_color_image = metaobject_color.image.value | default: metaobject_color.image | default: metaobject_color.swatch_image.value | default: metaobject_color.swatch_image | default: metaobject_color.pattern.value | default: metaobject_color.pattern %}
+          {% if metaobject_color_image != blank %}
+            {% assign metaobject_color_image_url = metaobject_color_image | image_url %}
+          {% endif %}
+        {% endif %}
+
+        {%- comment -%} Final swatch image URL (safe) {%- endcomment -%}
+        {% assign swatch_bg = blank %}
+        {% if swatch_primary != blank %}
+          {% assign swatch_bg = swatch_primary | image_url %}
+        {% elsif swatch_secondary != blank %}
+          {% assign swatch_bg = swatch_secondary | image_url %}
+        {% endif %}
+
+        {% if count <= 5 %}
+
+          <li
+            data-color="{{ v.id }}"
+            class="variant-color-item color-item-{{ v.id }} {% if v.id == active_variant_id %}active{% endif %} {% if forloop.first %}on{% endif %}"
+            data-id="{{ v.id }}"
+            data-product-img="{% if v.image %}{{ v.image.src | image_url: width: 800 }}{% elsif product.featured_image %}{{ product.featured_image | image_url: width: 800 }}{% endif %}"
+            title="{{ color_value }}"
+          >
+
+            <span
+              class="variant-color-box"
+              style="
+                background-color: {% if metaobject_color_value != blank %}{{ metaobject_color_value }}{% else %}{{ base_color }}{% endif %};
+                {% if metaobject_color_image_url != blank %}
+                  background-image: url('{{ metaobject_color_image_url }}');
+                  background-size: cover;
+                  background-position: center;
+                  background-repeat: no-repeat;
+                {% elsif swatch_bg != blank %}
+                  background-image: url('{{ swatch_bg }}');
+                  background-size: cover;
+                  background-position: center;
+                  background-repeat: no-repeat;
+                {% endif %}
+              "
+              data-swatch-primary="{% if swatch_primary != blank %}{{ swatch_primary | image_url }}{% endif %}"
+              data-swatch-secondary="{% if swatch_secondary != blank %}{{ swatch_secondary | image_url }}{% endif %}"
+            ></span>
+
+            <span class="tooltip">{{ color_value }}</span>
+          </li>
+
+        {% else %}
+
+          {% if more_count == 0 %}
+            <li class="view-all-options-btn" type="button" aria-label="View all color options">
+              <i class="fa-solid fa-chevron-down f-black" aria-hidden="true"></i>
+            </li>
+
+            </ul>
+            <ul class="variant-colors variant-colors-dropdown" style="display:none;">
+          {% endif %}
+
+          <li
+            data-color="{{ v.id }}"
+            class="variant-color-item color-item-{{ v.id }} {% if v.id == active_variant_id %}active{% endif %}"
+            data-id="{{ v.id }}"
+            data-product-img="{% if v.image %}{{ v.image.src | image_url: width: 800 }}{% elsif product.featured_image %}{{ product.featured_image | image_url: width: 800 }}{% endif %}"
+            title="{{ color_value }}"
+          >
+
+            <span
+              class="variant-color-box"
+              style="
+                background-color: {% if metaobject_color_value != blank %}{{ metaobject_color_value }}{% else %}{{ base_color }}{% endif %};
+                {% if metaobject_color_image_url != blank %}
+                  background-image: url('{{ metaobject_color_image_url }}');
+                  background-size: cover;
+                  background-position: center;
+                  background-repeat: no-repeat;
+                {% elsif swatch_bg != blank %}
+                  background-image: url('{{ swatch_bg }}');
+                  background-size: cover;
+                  background-position: center;
+                  background-repeat: no-repeat;
+                {% endif %}
+              "
+              data-swatch-primary="{% if swatch_primary != blank %}{{ swatch_primary | image_url }}{% endif %}"
+              data-swatch-secondary="{% if swatch_secondary != blank %}{{ swatch_secondary | image_url }}{% endif %}"
+            ></span>
+
+            <span class="tooltip">{{ color_value }}</span>
+          </li>
+
+          {% assign more_count = more_count | plus: 1 %}
+        {% endif %}
+
+      {% endfor %}
+
+      {% if more_count > 0 %}
+        </ul>
+      {% endif %}
+
+    </ul>
+  </div>
+
+{% endif %}

@@ -1,0 +1,506 @@
+{% render 'v-master-base-css', section: section %}
+{% render 'v-master-layout-css', section: section %}
+{% render 'v-master-mobile-carousel-css', section: section %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__title {
+    font-size: clamp(24px, 2.6vw, 36px);
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__carousel--paged {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__arrow {
+    display: none;
+    position: absolute;
+    top: 42%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--v-cream);
+    color: var(--v-brand);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    transition: background-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__arrow:hover:not(:disabled) {
+    background: var(--v-brand);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__arrow:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__arrow svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__arrow--prev,
+  #shopify-section-{{ section.id }} .v-master-squad__arrow--next {
+    left: auto;
+    right: auto;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__dots--desktop {
+    display: none;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media screen and (min-width: 992px) {
+    #shopify-section-{{ section.id }} {
+      overflow: visible;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-container {
+      overflow: visible;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__carousel--paged .v-master-squad__arrow {
+      display: inline-flex;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__carousel--paged .v-master-squad__arrow--prev {
+      left: -56px;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__carousel--paged .v-master-squad__arrow--next {
+      right: -56px;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__carousel--paged .v-master-squad__dots--desktop {
+      display: flex;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__carousel--paged .v-master-squad__viewport {
+      cursor: grab;
+      touch-action: pan-y;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__carousel--paged .v-master-squad__viewport.is-dragging {
+      cursor: grabbing;
+      user-select: none;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__page[hidden] {
+      display: none !important;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__card {
+    border-radius: var(--v-radius);
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__photo-wrap {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: #e8e0d8;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transform-origin: center top;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__flag {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    z-index: 2;
+    width: 28px !important;
+    height: 20px !important;
+    max-width: 28px !important;
+    max-height: 20px !important;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__meta {
+    padding: 14px 16px 18px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__handle {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--v-brand);
+    margin: 0 0 4px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__role {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__card-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-squad__card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    #shopify-section-{{ section.id }} .v-master-squad__card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__photo {
+      transition: transform 0.45s ease;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__handle,
+    #shopify-section-{{ section.id }} .v-master-squad__role {
+      transition: color 0.25s ease;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 36px rgba(185, 50, 5, 0.14);
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__card:hover .v-master-squad__photo {
+      transform: scale(1.06);
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__card:hover .v-master-squad__handle {
+      color: var(--v-brown, var(--v-brand));
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__card:hover .v-master-squad__role {
+      color: #555;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__viewport.is-dragging .v-master-squad__card:hover {
+      transform: none;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__viewport.is-dragging .v-master-squad__card:hover .v-master-squad__photo {
+      transform: none;
+    }
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    #shopify-section-{{ section.id }} .v-master-squad__page[hidden] {
+      display: block !important;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    #shopify-section-{{ section.id }} .v-master-squad__page[hidden] {
+      display: block !important;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .v-master-squad__track[data-v-carousel-track] {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__track[data-v-carousel-track]::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__page {
+      display: contents;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__grid {
+      display: contents;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-squad__card[data-v-carousel-slide] {
+      flex: 0 0 72%;
+      max-width: 280px;
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .v-master-carousel__dots {
+      display: flex;
+    }
+  }
+</style>
+
+<div class="v-master">
+  <div class="v-master-container">
+    <div class="v-master-squad__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="v-master__heading v-master-squad__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      {%- assign squad_per_page = 6 -%}
+      {%- assign squad_desktop_carousel = false -%}
+      {%- if section.blocks.size > squad_per_page -%}
+        {%- assign squad_desktop_carousel = true -%}
+      {%- endif -%}
+
+      <div
+        class="v-master-squad__carousel{% if squad_desktop_carousel %} v-master-squad__carousel--paged{% endif %}"
+        data-v-carousel
+        data-autoplay="{% if section.settings.mobile_autoplay == false %}false{% else %}true{% endif %}"
+        data-interval-ms="{{ section.settings.mobile_autoplay_interval | times: 1000 }}"
+        data-dot-class="v-master-carousel__dot"
+        data-scroll-align="start"
+        {% if squad_desktop_carousel %}
+          data-v-squad-desktop-carousel
+        {% endif %}
+      >
+        {%- if squad_desktop_carousel -%}
+          <button
+            type="button"
+            class="v-master-squad__arrow v-master-squad__arrow--prev"
+            data-v-squad-prev
+            aria-label="Previous squad members"
+            disabled
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+        {%- endif -%}
+
+        <div class="v-master-squad__viewport" data-v-squad-viewport>
+          <div class="v-master-squad__track" data-v-carousel-track>
+            {%- for block in section.blocks -%}
+              {%- assign squad_pos = forloop.index0 -%}
+              {%- assign squad_mod = squad_pos | modulo: squad_per_page -%}
+              {%- if squad_mod == 0 -%}
+                <div
+                  class="v-master-squad__page"
+                  data-v-squad-page
+                  {% if squad_pos > 0 %}hidden{% endif %}
+                >
+                  <div class="v-master-squad__grid">
+              {%- endif -%}
+
+              {%- capture card_inner -%}
+                <div class="v-master-squad__photo-wrap">
+                  {%- if block.settings.photo != blank -%}
+                    {{
+                      block.settings.photo
+                      | image_url: width: 800
+                      | image_tag: class: 'v-master-squad__photo', loading: 'lazy', alt: block.settings.handle, widths: '400, 600, 800', sizes: '(min-width: 992px) 30vw, (min-width: 768px) 45vw, 72vw'
+                    }}
+                  {%- endif -%}
+                  {% render 'v-master-country-flag',
+                    country: block.settings.country,
+                    class: 'v-master-squad__flag',
+                    flag_image: block.settings.flag_image
+                  %}
+                </div>
+                <div class="v-master-squad__meta">
+                  {%- if block.settings.handle != blank -%}
+                    <p class="v-master-squad__handle">{{ block.settings.handle }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.role != blank -%}
+                    <p class="v-master-squad__role">{{ block.settings.role }}</p>
+                  {%- endif -%}
+                </div>
+              {%- endcapture -%}
+
+              <article class="v-master-squad__card" data-v-carousel-slide {{ block.shopify_attributes }}>
+                {%- if block.settings.profile_link != blank -%}
+                  <a href="{{ block.settings.profile_link }}" class="v-master-squad__card-link" target="_blank" rel="noopener noreferrer">{{ card_inner }}</a>
+                {%- else -%}
+                  {{ card_inner }}
+                {%- endif -%}
+              </article>
+
+              {%- assign squad_next = squad_pos | plus: 1 | modulo: squad_per_page -%}
+              {%- if squad_next == 0 or forloop.last -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+
+        {%- if squad_desktop_carousel -%}
+          <button
+            type="button"
+            class="v-master-squad__arrow v-master-squad__arrow--next"
+            data-v-squad-next
+            aria-label="Next squad members"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+          <div class="v-master-squad__dots v-master-squad__dots--desktop" data-v-squad-dots role="tablist" aria-label="Squad pages"></div>
+        {%- endif -%}
+
+        <div class="v-master-carousel__dots" data-v-carousel-dots hidden></div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% render 'v-talents-carousel-js', section: section %}
+{% if section.blocks.size > 6 %}
+  {% render 'v-master-squad-desktop-carousel-js', section: section %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "V+ Master Squad",
+  "tag": "section",
+  "class": "venustas-v-master-squad-section",
+  "settings": [
+    { "type": "color", "id": "brand_color", "label": "Brand color", "default": "#B93205" },
+    { "type": "color", "id": "text_brown_color", "label": "Heading color (optional)", "default": "#B93205" },
+    { "type": "color", "id": "cream_color", "label": "Cream", "default": "#F9F5F0" },
+    { "type": "range", "id": "container_width_desktop", "min": 70, "max": 100, "step": 5, "unit": "%", "label": "Desktop width", "default": 90 },
+    { "type": "range", "id": "container_width_mobile", "min": 85, "max": 100, "step": 5, "unit": "%", "label": "Mobile width", "default": 90 },
+    { "type": "range", "id": "padding_top_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding top", "default": 48 },
+    { "type": "range", "id": "padding_bottom_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding bottom", "default": 48 },
+    { "type": "range", "id": "padding_top_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding top", "default": 32 },
+    { "type": "range", "id": "padding_bottom_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding bottom", "default": 32 },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Meet the VENUSTAS Squad"
+    },
+    { "type": "header", "content": "Mobile carousel" },
+    {
+      "type": "checkbox",
+      "id": "mobile_autoplay",
+      "label": "Auto-scroll on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "mobile_autoplay_interval",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Auto-scroll interval",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "member",
+      "name": "Squad member",
+      "settings": [
+        { "type": "image_picker", "id": "photo", "label": "Photo" },
+        {
+          "type": "select",
+          "id": "country",
+          "label": "Country",
+          "default": "us",
+          "options": [
+            { "value": "none", "label": "No flag" },
+            { "value": "us", "label": "United States" },
+            { "value": "ca", "label": "Canada" },
+            { "value": "gb", "label": "United Kingdom" },
+            { "value": "de", "label": "Germany" },
+            { "value": "fr", "label": "France" },
+            { "value": "au", "label": "Australia" },
+            { "value": "nl", "label": "Netherlands" },
+            { "value": "se", "label": "Sweden" },
+            { "value": "no", "label": "Norway" },
+            { "value": "ch", "label": "Switzerland" },
+            { "value": "it", "label": "Italy" },
+            { "value": "es", "label": "Spain" },
+            { "value": "jp", "label": "Japan" },
+            { "value": "kz", "label": "Kazakhstan" },
+            { "value": "ru", "label": "Russia" },
+            { "value": "at", "label": "Austria" },
+            { "value": "dk", "label": "Denmark" },
+            { "value": "ie", "label": "Ireland" },
+            { "value": "nz", "label": "New Zealand" },
+            { "value": "pl", "label": "Poland" },
+            { "value": "be", "label": "Belgium" },
+            { "value": "fi", "label": "Finland" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "flag_image",
+          "label": "Custom flag (optional)",
+          "info": "Overrides country dropdown"
+        },
+        { "type": "text", "id": "handle", "label": "Handle", "default": "@ugc.marii" },
+        { "type": "text", "id": "role", "label": "Title / niche", "default": "Photographer" },
+        { "type": "url", "id": "profile_link", "label": "Profile link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "V+ Master Squad",
+      "category": "V+ Master",
+      "blocks": [
+        { "type": "member", "settings": { "handle": "@ugc.marii", "role": "Photographer", "country": "us" } },
+        { "type": "member", "settings": { "handle": "@outdoor.creator", "role": "Adventurer", "country": "ca" } },
+        { "type": "member", "settings": { "handle": "@warmth.seeker", "role": "Content Creator", "country": "us" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

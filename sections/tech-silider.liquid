@@ -1,0 +1,1026 @@
+{% comment %}
+  Section: Venustas Image-Text Slider
+  File: sections/venustas-slider.liquid
+  Design: Left media + right text, arrow navigation, up to 3 slides
+  Media: select_type per slide (image or video), no fallback logic
+{% endcomment %}
+
+<section id="venustas-slider-{{ section.id }}" class="venustas-slider">
+  <div class="venustas-slider__outer">
+
+    {% comment %} Left arrow {% endcomment %}
+    <button class="venustas-slider__arrow venustas-slider__arrow--prev" aria-label="Previous slide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+
+    {% comment %} Slides track {% endcomment %}
+    <div class="venustas-slider__track">
+      {% for block in section.blocks %}
+        {% if block.type == 'slide' %}
+          <div class="venustas-slider__slide {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }}>
+
+            {% comment %} Left: image OR video, no overlap {% endcomment %}
+            <div class="venustas-slider__media">
+              {% if block.settings.media_type == 'video' %}
+                {% if block.settings.slide_video_url != blank %}
+                  <video
+                    class="venustas-slider__media-el"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                  >
+                    <source src="{{ block.settings.slide_video_url }}" type="video/mp4">
+                  </video>
+                {% else %}
+                  <div class="venustas-slider__placeholder">Add video URL in block settings</div>
+                {% endif %}
+              {% else %}
+                {% if block.settings.slide_image != blank %}
+                  <img
+                    src="{{ block.settings.slide_image | image_url: width: 900 }}"
+                    srcset="
+                      {{ block.settings.slide_image | image_url: width: 600 }} 600w,
+                      {{ block.settings.slide_image | image_url: width: 900 }} 900w
+                    "
+                    sizes="50vw"
+                    alt="{{ block.settings.slide_image.alt | default: block.settings.heading | escape }}"
+                    class="venustas-slider__media-el"
+                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                  >
+                {% else %}
+                  <div class="venustas-slider__placeholder">Add image in block settings</div>
+                {% endif %}
+              {% endif %}
+            </div>
+
+            {% comment %} Right: text content {% endcomment %}
+            <div class="venustas-slider__content">
+              {% if block.settings.heading != blank %}
+                <h3 class="venustas-slider__heading">{{ block.settings.heading }}</h3>
+              {% endif %}
+              {% if block.settings.body_text != blank %}
+                <p class="venustas-slider__body">{{ block.settings.body_text }}</p>
+              {% endif %}
+
+              {% comment %} Optional icon group {% endcomment %}
+              {% if block.settings.icon1_image != blank or block.settings.icon2_image != blank or block.settings.icon3_image != blank %}
+                <div class="venustas-slider__icons">
+                  {% if block.settings.icon1_image != blank %}
+                    <div class="venustas-slider__icon-item">
+                      <img src="{{ block.settings.icon1_image | image_url: width: 120 }}" alt="{{ block.settings.icon1_label | escape }}" class="venustas-slider__icon-img" loading="lazy">
+                      {% if block.settings.icon1_label != blank %}<span class="venustas-slider__icon-label">{{ block.settings.icon1_label }}</span>{% endif %}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.icon2_image != blank %}
+                    <div class="venustas-slider__icon-item">
+                      <img src="{{ block.settings.icon2_image | image_url: width: 120 }}" alt="{{ block.settings.icon2_label | escape }}" class="venustas-slider__icon-img" loading="lazy">
+                      {% if block.settings.icon2_label != blank %}<span class="venustas-slider__icon-label">{{ block.settings.icon2_label }}</span>{% endif %}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.icon3_image != blank %}
+                    <div class="venustas-slider__icon-item">
+                      <img src="{{ block.settings.icon3_image | image_url: width: 120 }}" alt="{{ block.settings.icon3_label | escape }}" class="venustas-slider__icon-img" loading="lazy">
+                      {% if block.settings.icon3_label != blank %}<span class="venustas-slider__icon-label">{{ block.settings.icon3_label }}</span>{% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% comment %} Right arrow {% endcomment %}
+    <button class="venustas-slider__arrow venustas-slider__arrow--next" aria-label="Next slide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+
+  </div>
+
+  {% comment %} Dot indicators {% endcomment %}
+  {% if section.blocks.size > 1 %}
+    <div class="venustas-slider__dots">
+      {% for block in section.blocks %}
+        {% if block.type == 'slide' %}
+          <button
+            class="venustas-slider__dot {% if forloop.first %}is-active{% endif %}"
+            aria-label="Go to slide {{ forloop.index }}"
+            data-index="{{ forloop.index0 }}"
+          ></button>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+</section>
+
+<style>
+  #venustas-slider-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    padding: {{ section.settings.section_padding_top }}px 0 {{ section.settings.section_padding_bottom }}px;
+    overflow: hidden;
+    --arrow-bg: {{ section.settings.arrow_bg_color }};
+    --arrow-color: {{ section.settings.arrow_icon_color }};
+    --arrow-hover-bg: {{ section.settings.arrow_hover_color }};
+    --arrow-hover-color: {{ section.settings.arrow_hover_icon_color }};
+    --mobile-content-h-pad: {{ section.settings.mobile_content_horizontal_padding | default: 0 }}px;
+  }
+
+  /* ---- Outer: same horizontal model as Tech Heatwave / PowerCore (width % + max-width, no page-width) ---- */
+  #venustas-slider-{{ section.id }} .venustas-slider__outer {
+    display: flex;
+    align-items: center;
+    width: {{ section.settings.desktop_content_width_percent | default: 85 }}%;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    box-sizing: border-box;
+    gap: 0;
+    position: relative;
+  }
+
+  /* ---- Arrows ---- */
+  #venustas-slider-{{ section.id }} .venustas-slider__arrow {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--arrow-bg);
+    color: var(--arrow-color);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color .25s ease, color .25s ease, transform .15s ease;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__arrow:hover:not(:disabled) {
+    background: var(--arrow-hover-bg);
+    color: var(--arrow-hover-color);
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__arrow:active {
+    transform: translateY(-50%) scale(0.92);
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__arrow:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__arrow svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__arrow--prev { left: {{ section.settings.arrow_gap }}px; }
+  #venustas-slider-{{ section.id }} .venustas-slider__arrow--next { right: {{ section.settings.arrow_gap }}px; }
+
+  /* ---- Track: grid stack so every slide stays in layout — row height = tallest slide (no JS min-height jump) ---- */
+  #venustas-slider-{{ section.id }} .venustas-slider__track {
+    flex: 1;
+    overflow: hidden;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    align-content: start;
+  }
+
+  /* ---- Slide: all flex for sizing; inactive hidden but still measured by grid ---- */
+  #venustas-slider-{{ section.id }} .venustas-slider__slide {
+    grid-area: 1 / 1;
+    align-self: start;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: {{ section.settings.slide_gap }}px;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__slide.is-active {
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 1;
+  }
+
+  /* ---- Media ---- */
+  #venustas-slider-{{ section.id }} .venustas-slider__media {
+    flex: 0 0 {{ section.settings.image_width }}%;
+    max-width: {{ section.settings.image_width }}%;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__media-el {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: {{ section.settings.image_radius }}px;
+    object-fit: cover;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #2a2a2a;
+    border-radius: {{ section.settings.image_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 14px;
+  }
+
+  /* ---- Text content ---- */
+  #venustas-slider-{{ section.id }} .venustas-slider__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__heading {
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 700;
+    color: {{ section.settings.heading_color }};
+    line-height: 1.2;
+    margin: 0 0 {{ section.settings.heading_gap }}px;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__body {
+    font-size: {{ section.settings.body_size }}px;
+    font-weight: 400;
+    color: {{ section.settings.body_color }};
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ---- Icon group ---- */
+  #venustas-slider-{{ section.id }} .venustas-slider__icons {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 28px;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__icon-img {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    object-fit: contain;
+    border-radius: 8px;
+    display: block;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__icon-label {
+    font-size: {{ section.settings.icon_label_size }}px;
+    font-weight: 600;
+    color: {{ section.settings.heading_color }};
+    text-align: center;
+  }
+
+  /* ---- Dots ---- */
+  #venustas-slider-{{ section.id }} .venustas-slider__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: #cccccc;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  #venustas-slider-{{ section.id }} .venustas-slider__dot.is-active {
+    background: {{ section.settings.dot_active_color }};
+    transform: scale(1.3);
+  }
+
+  /* ---- Mobile (matches other tech sections ≤749px) ---- */
+  @media (max-width: 749px) {
+    #venustas-slider-{{ section.id }} {
+      padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    /* Column layout; outer width independent from desktop */
+    #venustas-slider-{{ section.id }} .venustas-slider__outer {
+      flex-direction: column;
+      padding: 0;
+      gap: 16px;
+      width: {{ section.settings.mobile_content_width_percent | default: 100 }}%;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Optional inset for the whole slide strip; text can add px padding below */
+    #venustas-slider-{{ section.id }} .venustas-slider__track {
+      width: 100%;
+      flex: none;
+      padding: 0 {{ section.settings.mobile_side_padding }}px;
+      box-sizing: border-box;
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto;
+      align-content: start;
+    }
+
+    /* All slides use column stack on mobile so heights match real layout */
+    #venustas-slider-{{ section.id }} .venustas-slider__slide {
+      flex-direction: column;
+      gap: {{ section.settings.mobile_slide_gap }}px;
+    }
+
+    /* Image width controlled by slider, centered */
+    #venustas-slider-{{ section.id }} .venustas-slider__media {
+      flex: none;
+      width: {{ section.settings.mobile_image_width }}%;
+      max-width: {{ section.settings.mobile_image_width }}%;
+      margin: 0 auto;
+    }
+
+    #venustas-slider-{{ section.id }} .venustas-slider__content {
+      width: 100%;
+      padding: 0 var(--mobile-content-h-pad);
+      box-sizing: border-box;
+      text-align: {{ section.settings.mobile_text_align }};
+    }
+
+    #venustas-slider-{{ section.id }} .venustas-slider__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    #venustas-slider-{{ section.id }} .venustas-slider__body {
+      font-size: {{ section.settings.mobile_body_size }}px;
+    }
+
+    #venustas-slider-{{ section.id }} .venustas-slider__icons {
+      justify-content: {% if section.settings.mobile_text_align == 'center' %}center{% else %}flex-start{% endif %};
+    }
+
+    /* Mobile arrows visible (desktop hidden) */
+    #venustas-slider-{{ section.id }} .venustas-slider__arrow {
+      display: flex;
+    }
+
+    #venustas-slider-{{ section.id }} .venustas-slider__arrow--prev {
+      left: 8px;
+    }
+
+    #venustas-slider-{{ section.id }} .venustas-slider__arrow--next {
+      right: 8px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var section = document.getElementById('venustas-slider-{{ section.id }}');
+    if (!section) return;
+
+    var slides   = section.querySelectorAll('.venustas-slider__slide');
+    var dots     = section.querySelectorAll('.venustas-slider__dot');
+    var prev     = section.querySelector('.venustas-slider__arrow--prev');
+    var next     = section.querySelector('.venustas-slider__arrow--next');
+    var track    = section.querySelector('.venustas-slider__track');
+    var total    = slides.length;
+    var current  = 0;
+    var autoplayEnabled = {{ section.settings.autoplay_enabled }};
+    var autoplayDelay   = {{ section.settings.autoplay_delay }} * 1000;
+    var timer    = null;
+
+    function updateAriaHidden() {
+      slides.forEach(function (s, i) {
+        if (i === current) {
+          s.removeAttribute('aria-hidden');
+        } else {
+          s.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+
+    function syncVideos() {
+      slides.forEach(function (slide, i) {
+        slide.querySelectorAll('video').forEach(function (v) {
+          if (i === current) {
+            var p = v.play();
+            if (p && p.catch) p.catch(function () {});
+          } else {
+            v.pause();
+          }
+        });
+      });
+    }
+
+    /* ---- Core: go to slide ---- */
+    function goTo(index) {
+      slides[current].classList.remove('is-active');
+      if (dots[current]) dots[current].classList.remove('is-active');
+      current = (index + total) % total;
+      slides[current].classList.add('is-active');
+      if (dots[current]) dots[current].classList.add('is-active');
+      updateAriaHidden();
+      syncVideos();
+    }
+
+    /* ---- Autoplay ---- */
+    function startAutoplay() {
+      if (!autoplayEnabled || total <= 1) return;
+      timer = setInterval(function () { goTo(current + 1); }, autoplayDelay);
+    }
+
+    function stopAutoplay() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    function resetAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    /* ---- Arrow buttons ---- */
+    if (prev) prev.addEventListener('click', function () { goTo(current - 1); resetAutoplay(); });
+    if (next) next.addEventListener('click', function () { goTo(current + 1); resetAutoplay(); });
+
+    /* ---- Dot buttons ---- */
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        goTo(parseInt(dot.getAttribute('data-index')));
+        resetAutoplay();
+      });
+    });
+
+    /* ---- Drag / swipe (mouse + touch) ---- */
+    var dragStartX = 0;
+    var dragDelta  = 0;
+    var isDragging = false;
+    var THRESHOLD  = 50; // px needed to trigger slide change
+
+    function onDragStart(x) {
+      dragStartX = x;
+      dragDelta  = 0;
+      isDragging = true;
+      stopAutoplay();
+    }
+
+    function onDragMove(x) {
+      if (!isDragging) return;
+      dragDelta = x - dragStartX;
+    }
+
+    function onDragEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      if (dragDelta < -THRESHOLD) {
+        goTo(current + 1);
+      } else if (dragDelta > THRESHOLD) {
+        goTo(current - 1);
+      }
+      resetAutoplay();
+    }
+
+    /* Mouse events */
+    track.addEventListener('mousedown',  function (e) { onDragStart(e.clientX); });
+    track.addEventListener('mousemove',  function (e) { onDragMove(e.clientX); });
+    track.addEventListener('mouseup',    function ()  { onDragEnd(); });
+    track.addEventListener('mouseleave', function ()  { if (isDragging) onDragEnd(); });
+
+    /* Touch events */
+    track.addEventListener('touchstart', function (e) { onDragStart(e.touches[0].clientX); }, { passive: true });
+    track.addEventListener('touchmove',  function (e) { onDragMove(e.touches[0].clientX); },  { passive: true });
+    track.addEventListener('touchend',   function ()  { onDragEnd(); });
+
+    /* Pause autoplay on hover */
+    section.addEventListener('mouseenter', stopAutoplay);
+    section.addEventListener('mouseleave', startAutoplay);
+
+    /* Prevent accidental link/image drag */
+    track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+    updateAriaHidden();
+    syncVideos();
+    startAutoplay();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Venustas Slider",
+  "tag": "section",
+  "class": "venustas-slider-section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "desktop_content_width_percent",
+      "label": "Desktop content width",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 85,
+      "unit": "%",
+      "info": "Desktop / tablet row layout. Matches Tech Heatwave and PowerCore (e.g. 85%). Max width 1600px."
+    },
+    {
+      "type": "range",
+      "id": "section_side_padding",
+      "label": "Side padding (desktop, legacy)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "info": "Not applied on desktop when using content width above. Kept for older theme data."
+    },
+    {
+      "type": "range",
+      "id": "slide_gap",
+      "label": "Gap between media and text",
+      "min": 16,
+      "max": 100,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Media column width",
+      "min": 30,
+      "max": 60,
+      "step": 2,
+      "default": 44,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Media border radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Arrows"
+    },
+    {
+      "type": "range",
+      "id": "arrow_gap",
+      "label": "Arrow side gap",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "arrow_bg_color",
+      "label": "Arrow background",
+      "default": "#F1EADD"
+    },
+    {
+      "type": "color",
+      "id": "arrow_hover_color",
+      "label": "Arrow hover background",
+      "default": "#B93205"
+    },
+    {
+      "type": "color",
+      "id": "arrow_icon_color",
+      "label": "Arrow icon color",
+      "default": "#B93205"
+    },
+    {
+      "type": "color",
+      "id": "arrow_hover_icon_color",
+      "label": "Arrow hover icon color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size",
+      "min": 16,
+      "max": 56,
+      "step": 2,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_gap",
+      "label": "Gap below heading",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Body text"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text color",
+      "default": "#444444"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Icon group"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon image size",
+      "min": 40,
+      "max": 100,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "icon_label_size",
+      "label": "Icon label font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_width_percent",
+      "label": "Mobile content width",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "unit": "%",
+      "info": "Screens ≤749px. Centers the slider column; independent from desktop width."
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_padding",
+      "label": "Mobile track inset",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "info": "Left/right padding on the slide track at ≤749px (media + text). Use 0 to align with other tech sections."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_horizontal_padding",
+      "label": "Mobile text horizontal padding",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 0,
+      "unit": "px",
+      "info": "Extra left/right padding on the text block only at ≤749px."
+    },
+    {
+      "type": "range",
+      "id": "mobile_slide_gap",
+      "label": "Mobile gap between media and text",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_width",
+      "label": "Mobile image width",
+      "min": 60,
+      "max": 100,
+      "step": 4,
+      "default": 88,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "mobile_text_align",
+      "label": "Mobile text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Mobile font sizes"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading font size",
+      "min": 14,
+      "max": 40,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_body_size",
+      "label": "Mobile body font size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Autoplay"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay_enabled",
+      "label": "Enable autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Slide interval",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 5,
+      "unit": "s"
+    },
+    {
+      "type": "header",
+      "content": "Dots"
+    },
+    {
+      "type": "color",
+      "id": "dot_active_color",
+      "label": "Active dot color",
+      "default": "#B93205"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Media"
+        },
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "Media type",
+          "options": [
+            { "value": "image", "label": "Image" },
+            { "value": "video", "label": "Video (MOV / MP4)" }
+          ],
+          "default": "image"
+        },
+        {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Image",
+          "info": "Used when media type is set to Image"
+        },
+        {
+          "type": "text",
+          "id": "slide_video_url",
+          "label": "Video URL",
+          "info": "Upload MOV or MP4 via Shopify Admin > Content > Files, paste the URL here. Used when media type is set to Video."
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "One Press. Instant Heat in 3s"
+        },
+        {
+          "type": "textarea",
+          "id": "body_text",
+          "label": "Body text",
+          "default": "No waiting, only one press. Feel warmth in 3 seconds and enjoy up to 20 hours of lasting heat — designed to keep you moving with confidence."
+        },
+        {
+          "type": "header",
+          "content": "Icon group (optional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon1_image",
+          "label": "Icon 1 image"
+        },
+        {
+          "type": "text",
+          "id": "icon1_label",
+          "label": "Icon 1 label",
+          "default": "Low"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon2_image",
+          "label": "Icon 2 image"
+        },
+        {
+          "type": "text",
+          "id": "icon2_label",
+          "label": "Icon 2 label",
+          "default": "Medium"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon3_image",
+          "label": "Icon 3 image"
+        },
+        {
+          "type": "text",
+          "id": "icon3_label",
+          "label": "Icon 3 label",
+          "default": "High"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Venustas Slider",
+      "settings": {
+        "bg_color": "#f0f0f0",
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "desktop_content_width_percent": 85,
+        "mobile_content_width_percent": 100,
+        "section_side_padding": 0,
+        "image_width": 44,
+        "image_radius": 12,
+        "arrow_gap": 12,
+        "heading_color": "#111111",
+        "heading_size": 32,
+        "body_color": "#444444",
+        "body_size": 15,
+        "icon_size": 64,
+        "icon_label_size": 13,
+        "dot_active_color": "#B93205",
+        "autoplay_enabled": true,
+        "autoplay_delay": 5,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "mobile_side_padding": 0,
+        "mobile_content_horizontal_padding": 0,
+        "mobile_slide_gap": 20,
+        "mobile_image_width": 88,
+        "mobile_text_align": "center",
+        "mobile_heading_size": 24,
+        "mobile_body_size": 14
+      },
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "media_type": "image",
+            "heading": "One Press. Instant Heat in 3s",
+            "body_text": "No waiting, only one press. Feel warmth in 3 seconds and enjoy up to 20 hours of lasting heat — designed to keep you moving with confidence."
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "media_type": "image",
+            "heading": "Slide 2 Heading",
+            "body_text": "Slide 2 body text goes here."
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "media_type": "image",
+            "heading": "Slide 3 Heading",
+            "body_text": "Slide 3 body text goes here."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

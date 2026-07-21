@@ -1,0 +1,77 @@
+<section class="accounts">
+    <div class="container section-content">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12 mx-auto">
+                <div class="customer-container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h1 class="title-xs mt-bold f-black mb-4 text-center" id="form_title">Customer's Registration</h1>
+
+                            {% form 'create_customer' %}
+
+                                <div class="form-group">
+                                    <label for="name">First Name</label>
+                                    <input type="text" class="form-control form-customer" name="customer[first_name]" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name">Last Name</label>
+                                    <input type="text" class="form-control form-customer" name="customer[last_name]" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name">Email</label>
+                                    <input type="email" class="form-control form-customer" name="customer[email]" required>
+                                    {% if form.errors contains 'email' %}
+                                        <h4 class="body mt-regular f-black mt-lg-2 mb-md-2">
+                                            {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.
+                                        </h4>
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control form-customer" name="customer[password]" required>
+                                    {% if form.errors contains 'password' %}
+                                        <h4 class="body mt-regular f-black mt-lg-2 mb-md-2">
+                                            {{ form.errors.translated_fields['password'] | capitalize }} {{ form.errors.messages['password'] }}.
+                                        </h4>
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-group text-center mt-lg-5 mt-md-4 mt-sm-4">
+                                    <button class="btn btn-green">
+                                        REGISTER
+                                    </button>
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <a class="body mt-regular f-black" href="/account/login">
+                                        Already have an account?
+                                    </a>
+                                </div>
+
+                                {% if form.errors %}
+                                    <ul class="body mt-regular f-black">
+                                        {%- for field in form.errors -%}
+                                            <li>
+                                            {%- if field == 'form' -%}
+                                                {{ form.errors.messages[field] }}
+                                            {%- else -%}
+                                                <a class="body mt-regular f-black" href="#RegisterForm-{{ field }}">
+                                                {{ form.errors.translated_fields[field] | capitalize }}
+                                                {{ form.errors.messages[field] }}
+                                                </a>
+                                            {%- endif -%}
+                                            </li>
+                                        {%- endfor -%}
+                                    </ul>
+                                {% endif %}
+                            {% endform %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

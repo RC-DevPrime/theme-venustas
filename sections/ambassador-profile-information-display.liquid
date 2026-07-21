@@ -1,0 +1,823 @@
+{% style %}
+    .ambassador-profile-information-display-section .aside-profile-container{
+        background: #F9F6EF;
+        border-radius:24px;
+        height:100%;
+    }
+    .ambassador-profile-information-display-section .aside-profile-container .top-header{
+        border-bottom:1px solid #E2E2E2 ;
+    }
+    .ambassador-profile-information-display-section .aside-profile-container .body-content{
+    }
+    .ambassador-profile-information-display-section .profile-container{
+        display:flex;
+        gap:18px;
+        align-items:center;
+    }
+    .ambassador-profile-information-display-section .profile-container .profile-image{
+        height:110px;
+        width:110px;
+    }
+    .ambassador-profile-information-display-section .profile-container .profile-image img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .ambassador-profile-information-display-section .role-title{
+        color:#2A2A2A ;
+    }
+
+    .ambassador-profile-information-display-section .ambassador-tags .tags-container{
+        display: inline-block;
+    }
+    .ambassador-profile-information-display-section .ambassador-tags .tag-item{
+        background: #B93205;
+        border-radius: 4px;
+        padding: 5px 10px;
+        color: #FFF;
+        margin-right: 8px;
+        margin-bottom: 6px;
+        width: fit-content;
+        display: inline-block;
+    }
+
+    .ambassador-profile-information-display-section .social-item .social-icon{
+        width:30px;
+        height:30px;
+        object-fit:contain;
+    }
+    .ambassador-profile-information-display-section .social-item .social-icon:hover{
+        filter: brightness(0);
+    }
+
+    .ambassador-profile-information-display-section .country-flag{
+        height:22px;
+    }
+    .ambassador-profile-information-display-section .country-flag img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+    }
+
+
+    /* MASONRY SLIDER */
+    .masonry-grid {
+        display: grid;
+        gap: 10px;
+        height: 650px;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(8, 1fr);
+    }
+    .masonry-item img,
+    .masonry-item video{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        object-position: center;
+    }
+    .masonry-grid .masonry-item{
+        border-radius:8px;
+        overflow:hidden;
+        position:relative;
+        cursor:pointer;
+    }
+
+    .ambassador-profile-information-display-section .play-video-icon{
+        position:absolute;
+        top: 8px;
+        right: 10px;
+    }
+    .ambassador-profile-information-display-section .play-video-icon img{
+        width: 26px;
+        height: 26px;
+        object-fit:contain;
+    }
+    .ambassador-profile-information-display-section .media-link{
+        display:block;
+        width:100%;
+        height:100%;
+        position:relative;
+    }
+    .masonry-grid[data-item="5"] {
+        grid-template-columns: repeat(9, 1fr);
+        grid-template-rows: repeat(9, 1fr);
+    }
+
+    /* BLOCK ITEM - 1 ---------------------------------------- */
+    .masonry-grid[data-item="1"] .masonry-item.item-1 {
+        grid-area: 1 / 1 / 9 / 9;
+    }
+
+    /* BLOCK ITEM - 2 ---------------------------------------- */
+    .masonry-grid[data-item="2"] .masonry-item.item-1 {
+        grid-area: 1 / 1 / 9 / 5;
+    }
+    .masonry-grid[data-item="2"] .masonry-item.item-2 {
+        grid-area: 1 / 5 / 9 / 9;
+    }
+
+    /* BLOCK ITEM - 3 ---------------------------------------- */
+    .masonry-grid[data-item="3"] .masonry-item.item-1 {
+        grid-area: 1 / 1 / 9 / 5;
+    }
+    .masonry-grid[data-item="3"] .masonry-item.item-2 {
+        grid-area: 1 / 5 / 4 / 9;
+    }
+    .masonry-grid[data-item="3"] .masonry-item.item-3 {
+        grid-area: 4 / 5 / 9 / 9;
+    }
+
+    /* BLOCK ITEM - 4 ---------------------------------------- */
+    .masonry-grid[data-item="4"] .masonry-item.item-1 {
+        grid-area: 1 / 1 / 6 / 5;
+    }
+    .masonry-grid[data-item="4"] .masonry-item.item-2 {
+        grid-area: 6 / 1 / 9 / 5;
+    }
+    .masonry-grid[data-item="4"] .masonry-item.item-3 {
+        grid-area: 1 / 5 / 4 / 9;
+    }
+    .masonry-grid[data-item="4"] .masonry-item.item-4 {
+        grid-area: 4 / 5 / 9 / 9;
+    }
+
+    /* BLOCK ITEM - 5 ---------------------------------------- */
+    .masonry-grid[data-item="5"] .masonry-item.item-1 {
+        grid-area: 1 / 1 / 7 / 7;
+    }
+    .masonry-grid[data-item="5"] .masonry-item.item-2 {
+        grid-area: 7 / 1 / 10 / 4;
+    }
+    .masonry-grid[data-item="5"] .masonry-item.item-3 {
+        grid-area: 7 / 4 / 10 / 7;
+    }
+    .masonry-grid[data-item="5"] .masonry-item.item-4 {
+        grid-area: 1 / 7 / 7 / 10;
+    }
+    .masonry-grid[data-item="5"] .masonry-item.item-5 {
+        grid-area: 7 / 7 / 10 / 10;
+    }
+
+    /* BLOCK ITEM - 6 ---------------------------------------- */
+    .masonry-grid[data-item="6"] .masonry-item.item-1 {
+        grid-area: 1 / 1 / 6 / 5;
+    }
+    .masonry-grid[data-item="6"] .masonry-item.item-2 {
+        grid-area: 1 / 5 / 4 / 7
+    }
+    .masonry-grid[data-item="6"] .masonry-item.item-3 {
+        grid-area: 1 / 7 / 4 / 9;
+    }
+    .masonry-grid[data-item="6"] .masonry-item.item-4 {
+        grid-area: 6 / 1 / 9 / 3;
+    }
+    .masonry-grid[data-item="6"] .masonry-item.item-5 {
+        grid-area: 6 / 3 / 9 / 5;
+    }
+    .masonry-grid[data-item="6"] .masonry-item.item-6 {
+        grid-area: 9 / 5 / 4 / 9;
+    }
+
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .overlay{
+        background: #000000ad;
+    }
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .float-nav{
+        z-index:99999;
+        max-width: 1200px;
+    }
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .float-nav button{
+        background: #eeeeee36;
+    }
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .float-nav button:hover{
+        background-color: #B93205;
+    }
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .float-nav button:hover i{
+        color: #FFF;
+    }
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .popup-content{
+        max-width:900px;
+        border-radius:0;
+        background-color:unset;
+    }
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .popup-content .popup-container{
+        background-color:#000;
+    }
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .popup-close{
+        position:absolute;
+        top:50px;
+        right:50px;
+        background:unset;
+    }
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .popup-close img{
+        filter: brightness(2);
+        width:25px;
+        height:25px;
+    }
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .popup-container{
+        padding:0;
+        overflow:hidden;
+    }
+
+    
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .ambassador-gallery-modal-slider{
+        height:60vh;
+    }
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .ambassador-gallery-modal-slider .gallery-item{
+        width:100%;
+        height:100%;
+        position:relative;
+    }
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .ambassador-gallery-modal-slider .gallery-item .media-link{
+        display:block;
+        width:100%;
+        height:100%;
+        cursor:pointer;
+    }
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .ambassador-gallery-modal-slider .gallery-item img,
+    .ambassador-profile-information-display-section .mansonry-slider.popup-modal .ambassador-gallery-modal-slider .gallery-item video{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+    }
+
+
+    .ambassador-profile-information-display-section .gallery-mobile-slider .swiper-slide .gallery-item{
+        height:420px;
+        position:relative;
+        overflow:hidden;
+        border-radius: 8px;
+    }
+    .ambassador-profile-information-display-section .gallery-mobile-slider .swiper-slide .gallery-item img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .ambassador-profile-information-display-section .gallery-mobile-slider .float-nav button{
+        --btn-pos:-5px;
+    }
+    .ambassador-profile-information-display-section .gallery-mobile-slider .float-nav button {
+        background: #F1EADD;
+    }
+    .ambassador-profile-information-display-section .gallery-mobile-slider .float-nav button:hover{
+        background:#B93205;
+    }
+    .ambassador-profile-information-display-section .gallery-mobile-slider .float-nav button:hover i{
+        color:#FFF;
+    }
+    .ambassador-profile-information-display-section .role-icon{
+        width:20px;
+        height:20px;
+    }
+    .ambassador-profile-information-display-section .social-container .social-list a{
+        margin-right:5px;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+    
+        .ambassador-profile-information-display-section .aside-profile-container{
+            border-radius:16px;
+        }
+        .ambassador-profile-information-display-section .aside-profile-container .top-header{
+        }
+        .ambassador-profile-information-display-section .aside-profile-container .body-content{
+
+        }
+        .ambassador-profile-information-display-section .social-item .social-icon{
+            width:22px;
+            height:22px;
+        }
+        .ambassador-profile-information-display-section .profile-container{
+            gap:14px;
+        }
+        .ambassador-profile-information-display-section .mansonry-slider.popup-modal .popup-close{
+            right:15px;
+        }
+        .ambassador-profile-information-display-section .mansonry-slider.popup-modal .popup-close img{
+            width: 18px;
+            height: 18px;
+        }
+        .ambassador-profile-information-display-section .mansonry-slider.popup-modal .ambassador-gallery-modal-slider{
+            height: 40vh;
+        }
+        .ambassador-profile-information-display-section .mansonry-slider.popup-modal .float-nav button {
+            background: #ffffff82;
+        }
+        .ambassador-profile-information-display-section .mansonry-slider.popup-modal .popup-overlay{
+            background: #000000b5;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 80px;
+            width: 80px;
+        }
+    }
+    @media only screen and (min-width: 375px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 80px;
+            width: 80px;
+        }
+    }
+    @media only screen and (min-width: 390px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 80px;
+            width: 80px;
+        }
+    }
+    @media only screen and (min-width: 414px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 80px;
+            width: 80px;
+        }
+    }
+    @media only screen and (min-width: 428px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 80px;
+            width: 80px;
+        }
+    }
+    @media only screen and (min-width: 480px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 80px;
+            width: 80px;
+        }
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 90px;
+            width: 90px;
+        }
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 90px;
+            width: 90px;
+        }
+    }
+    @media only screen and (min-width: 1366px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 95px;
+            width: 95px;
+        }
+    }
+    @media only screen and (min-width: 1440px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 95px;
+            width: 95px;
+        }
+    }
+    @media only screen and (min-width: 1536px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 100px;
+            width: 100px;
+        }
+    }
+    @media only screen and (min-width: 1600px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 100px;
+            width: 100px;
+        }
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 110px;
+            width: 110px;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .ambassador-profile-information-display-section .profile-container .profile-image{
+            height: 110px;
+            width: 110px;
+        }
+    }
+    
+{% endstyle %}
+<div class="container section-content">
+    <div class="content-container pb-lg-5 pb-md-5 pb-sm-4">
+        <div class="pp-bold title-sm f-black text-center">
+            <span class="title-sm d-lg-block d-md-block d-sm-none l-h-normal">
+                {{ section.settings.heading }}
+            </span>
+            <span class="title d-lg-none d-md-none d-sm-block l-h-normal">
+                {{ section.settings.heading }}
+            </span>
+        </div>
+    </div>
+
+    <div class="ambassador-profile-section">
+        <div class="row h-100">
+            <div class="col-lg-5 col-md-5 col-sm-12">
+                <div class="aside-profile-container">
+                    <div class="top-header pt-lg-4 pt-md-4 pt-sm-3 px-lg-5 px-md-5 px-sm-3 pb-lg-3 pb-md-3 pb-sm-3">
+                        <div class="profile-container">
+                            <div class="profile-image flex-auto">
+                                <img src="{{ section.settings.profile_image | img_url: '800x800' }}" width="100%" height="100%">
+                            </div>
+                            <div class="profile-info flex-1">
+                                <div class="d-flex align-items-center gap-lg-2 gap-md-2 gap-sm-1 mb-2">
+                                    <span class="pp-bold pretitle-xl f-black d-lg-block d-md-block d-sm-none l-h-normal">
+                                        {{ section.settings.ambassador_name }}
+                                    </span>
+                                    <span class="pp-bold body-xl f-black d-lg-none d-md-none d-sm-block l-h-normal">
+                                        {{ section.settings.ambassador_name }}
+                                    </span>
+                                    <div class="country-flag">
+                                        {% if section.settings.country == 'us' %}
+                                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/47418_2x_79fee34e-897e-40a2-ae59-9fbf71aa792f.png?v=1758130779">
+                                        {% else %}
+                                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/47457_2x_8d8e549f-d9b8-4385-9446-8560729eacaf.png?v=1758463194">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center gap-lg-2 gap-md-2 gap-sm-1">
+                                    {% if section.settings.role_icon %}
+                                    <img src="{{ section.settings.role_icon | img_url: 'master' }}" class="role-icon" width="20px" height="20px">
+                                    {% else %}
+                                    {% endif %}
+                                    <span class="role-title pp-regular body-lg d-lg-block d-md-block d-sm-none">
+                                        {{ section.settings.role_title }}
+                                    </span>
+                                    <span class="role-title pp-regular body-sm d-lg-none d-md-none d-sm-block">
+                                        {{ section.settings.role_title }}
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body-content pt-lg-4 pt-md-4 pt-sm-3 px-lg-5 px-md-5 px-sm-3 pb-5">
+                        <div class="ambassador-tags pb-lg-3 pb-md-3 pb-sm-2">
+                            <div class="tags-container">
+                            {% assign tags = section.settings.tags | newline_to_br | split: '<br />' %}
+                            {% for tag in tags %}
+                                <div class="tag-item">
+                                    <span class="body d-lg-block d-md-block d-sm-none">
+                                        {{ tag }}
+                                    </span>
+                                    <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                        {{ tag }}
+                                    </span>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        <div class="content-description pp-regular body-lg mb-lg-4 mb-md-4 mb-sm-4">
+                            {{ section.settings.description }}
+                        </div>
+                        <div class="social-container">
+                            <h4 class="pp-regular f-gray body-lg pb-2">
+                                Social Media:
+                            </h4>
+                            <div class="social-list">
+                                {% for block in section.blocks %}
+                                    {% if block.type == 'social' %}
+                                        <a href="{{ block.settings.social_link }}" class="social-item">
+                                            <img src="{{ block.settings.social_icon | img_url: '100x100' }}" width="34px" height="34px" class="social-icon">
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mansonry-container-slider col-lg-7 col-md-7 col-sm-12">
+
+                <div class="masonry-swiper swiper h-100 d-lg-block d-md-block d-sm-none">
+                    <div class="swiper-wrapper h-100">
+
+                        {% assign slide_index = 0 %}
+                        {% assign per_slide = 6 %}
+
+                        {%- comment -%}
+                            Count only valid blocks (image + video)
+                        {%- endcomment -%}
+                        {% assign total = 0 %}
+                        {% for block in section.blocks %}
+                            {% if block.type == 'image' or block.type == 'video' %}
+                            {% assign total = total | plus: 1 %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% assign valid_index = 0 %}
+
+                        {% for block in section.blocks %}
+
+                            {%- comment -%} Skip non-image/video blocks (ex: social) {%- endcomment -%}
+                            {% unless block.type == 'image' or block.type == 'video' %}
+                            {% continue %}
+                            {% endunless %}
+
+                            {% assign inside_index = valid_index | modulo: per_slide %}
+                            {% assign last_slide_index = per_slide | minus: 1 %}
+                            {% assign last_valid_index = total | minus: 1 %}
+
+                            {%- comment -%} Boolean: slide ends at 6 items {%- endcomment -%}
+                            {% if inside_index == last_slide_index %}
+                            {% assign is_slide_end = true %}
+                            {% else %}
+                            {% assign is_slide_end = false %}
+                            {% endif %}
+
+                            {%- comment -%} Boolean: block is the last valid block {%- endcomment -%}
+                            {% if valid_index == last_valid_index %}
+                            {% assign is_last_block = true %}
+                            {% else %}
+                            {% assign is_last_block = false %}
+                            {% endif %}
+
+                            {%- comment -%} Start a new slide when inside_index == 0 {%- endcomment -%}
+                            {% if inside_index == 0 %}
+                            {% assign remaining = total | minus: valid_index %}
+                            {% assign slide_items = remaining | at_most: per_slide %}
+
+                            <div class="swiper-slide masonry-slide">
+                                <div class="masonry-grid" data-item="{{ slide_items }}">
+                            {% endif %}
+
+                            {% assign slide_index = slide_index | plus: 1 %}
+
+                            <div class="masonry-item item-{{ inside_index | plus: 1 }}" data-slide-item="{{ slide_index }}">
+                            {% case block.type %}
+
+                                {% when 'image' %}
+                                <a href="#" class="media-link" aria-label="Preview image">
+                                    <img src="{{ block.settings.image | image_url: width: 1200 }}" class="media">
+                                </a>
+
+                                {% when 'video' %}
+                                {% assign poster = block.settings.video.preview_image | image_url: width: 12000 %}
+                                {% assign mp4_source = block.settings.video.sources | where: 'format', 'mp4' | last %}
+                                {% assign original_video_url = mp4_source.url | default: block.settings.video.sources.first.url %}
+                                <a href="#" class="media-link" aria-label="Preview video" data-video-url="{{ original_video_url }}">
+                                    <img src="{{ poster }}" class="media">
+                                    <div class="play-video-icon">
+                                        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/play-video-icon.png?v=1763546846" width="24">
+                                    </div>
+                                </a>
+
+                            {% endcase %}
+                            </div>
+
+                            {%- comment -%} Close the slide if full or last block {%- endcomment -%}
+                            {% if is_slide_end or is_last_block %}
+                                </div> <!-- masonry-grid -->
+                            </div> <!-- swiper-slide -->
+                            {% endif %}
+
+                            {% assign valid_index = valid_index | plus: 1 %}
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <div class="gallery-mobile-slider swiper d-lg-none d-md-none d-sm-block position-relative mt-4">
+                    <div class="swiper-wrapper">
+                        {% assign slide_index = 0 %}
+
+                        {% for block in section.blocks %}
+                            {% unless block.type == 'image' or block.type == 'video' %}
+                                {% continue %}
+                            {% endunless %}
+
+                            {% assign slide_index = slide_index | plus: 1 %}
+
+                            <div class="swiper-slide" >
+                                <div class="gallery-item" data-slide-item="{{ slide_index }}">
+
+                                    {% case block.type %}
+                                        {% when 'image' %}
+                                        <a href="#" class="media-link" aria-label="Preview image">
+                                            <img src="{{ block.settings.image | image_url: width: 1200 }}" class="media">
+                                        </a>
+
+                                        {% when 'video' %}
+                                        {% assign poster = block.settings.video.preview_image | default: block.settings.video | image_url: width: 2000 %}
+                                        {% assign mp4_source = block.settings.video.sources | where: 'format', 'mp4' | last %}
+                                        {% assign original_video_url = mp4_source.url | default: block.settings.video.sources.first.url %}
+                                        <a href="#" class="media-link" aria-label="Preview video" data-video-url="{{ original_video_url }}">
+                                            <img src="{{ poster }}" class="media">
+                                            <div class="play-video-icon">
+                                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/play-video-icon.png?v=1763546846" width="24">
+                                            </div>
+                                        </a>
+                                    {% endcase %}
+
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="float-nav">
+                        <button type="button" class="owl-prev" aria-label="Previous slide">
+                            <i class="fa-solid fa-chevron-left f-main"></i>
+                        </button>
+                        <button type="button" class="owl-next" aria-label="Next slide">
+                            <i class="fa-solid fa-chevron-right f-main"></i>
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12">
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-12 d-lg-block d-md-block d-sm-none">
+                <div class="swiper-pagination-mansonry swiper-pagination mt-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mansonry-slider popup-modal">
+    <div class="popup-overlay">
+        <button class="popup-close" type="button">
+            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/close-white-icon.png?v=1763553891">
+        </button>
+    </div>
+    <div class="popup-content"> 
+
+        <div class="popup-container">
+
+            <div class="ambassador-gallery-modal-slider swiper">
+                <div class="swiper-wrapper">
+
+                    {% assign slide_index = 0 %}
+
+                    {% for block in section.blocks %}
+                        {% unless block.type == 'image' or block.type == 'video' %}
+                            {% continue %}
+                        {% endunless %}
+
+                        {% assign slide_index = slide_index | plus: 1 %}
+
+                        <div class="swiper-slide" data-slide-item="{{ slide_index }}">
+                            <div class="gallery-item">
+
+                                {% case block.type %}
+                                    {% when 'image' %}
+                                    <img src="{{ block.settings.image | image_url: width: block.settings.image.width }}" class="media">
+
+                                    {% when 'video' %}
+                                    {% assign poster = block.settings.video.preview_image | default: block.settings.video | image_url: width: 2000 %}
+                                    {{ block.settings.video | video_tag:
+                                        autoplay: false,
+                                        loop: false,
+                                        muted: false,
+                                        controls: true,
+                                        playsinline: true,
+                                        poster: poster
+                                    }}
+                                {% endcase %}
+
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="swiper-pagination"></div>
+    </div>
+
+    
+    <div class="float-nav">
+        <button type="button" class="owl-prev">
+            <i class="fa-solid fa-chevron-left f-white"></i>
+        </button>
+        <button type="button" class="owl-next">
+            <i class="fa-solid fa-chevron-right f-white"></i>
+        </button>
+    </div>
+
+</div>
+{% schema %}
+    {
+        "class": "ambassador-profile-information-display-section position-relative overflow-hidden",
+        "name": "Ambassador Profile Info",
+        "templates": ["page","article"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Information display"
+            },
+            {
+                "type": "image_picker",
+                "id": "profile_image",
+                "label": "Profile Image"
+            },
+            {
+                "type": "text",
+                "id": "ambassador_name",
+                "label": "Ambassador Name"
+            },
+            {
+                "type": "select",
+                "id": "country",
+                "label": "Country",
+                "options": [
+                    {
+                        "label": "US",
+                        "value": "us"
+                    },
+                    {
+                        "label": "Canada",
+                        "value": "ca"
+                    }
+                ],
+                "default": "ca"
+            },
+            {
+                "type": "image_picker",
+                "id": "role_icon",
+                "label": "Roole Icon"
+            },
+            {
+                "type": "text",
+                "id": "role_title",
+                "label": "Role Title",
+                "default": "---"
+            },
+            {
+                "type": "textarea",
+                "id": "tags",
+                "label": "Tags"
+            },
+            {
+                "type": "textarea",
+                "id": "description",
+                "label": "Description"
+            }
+
+        ],
+        "blocks": [
+            {
+                "type": "image",
+                "name": "Image",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    }
+                ]
+            },
+            {
+                "type": "video",
+                "name": "Video",
+                "settings": [
+                    {
+                        "type": "video",
+                        "id": "video",
+                        "label": "Video"
+                    }
+                ]
+            },
+            {
+                "type": "social",
+                "name": "Social",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "social_icon",
+                        "label": "Social Icon"
+                    },
+                    {
+                        "type": "url",
+                        "id": "social_link",
+                        "label": "Social Link"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Ambassador Profile Info"
+        }]
+    }
+  {% endschema %} 

@@ -1,0 +1,87 @@
+<section class="accounts">
+    <div class="container section-content">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12 mx-auto">
+                <div class="customer-container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h1 class="title-xs mt-bold f-black mb-4 text-center" id="form_title">Customer's Login</h1>
+
+                            {% form 'recover_customer_password', id: "forgot_password" %}
+
+                                <p class="body mt-regular f-black text-center mb-4">We will send you an email to reset your password.</p>
+
+                                {% assign recover_success = form.posted_successfully? %}
+
+                                <div class="form-group">
+                                    <label for="name">Email</label>
+                                    <input type="email" class="form-control form-customer" name="email" required>
+                                </div>
+
+                                <div class="form-group text-center mt-lg-5 mt-md-4">
+                                    <button class="btn btn-green">
+                                        SUBMIT
+                                    </button>
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <a href="#login" id="cancel" class="btn btn-black-o">
+                                        CANCEL
+                                    </a>
+                                </div>
+
+                                {% if form.errors %}
+                                    <h4 class="body mt-light f-black">
+                                        {{ form.errors.messages['form'] }}
+                                    </h4>
+                                {% endif %}
+
+                            {% endform %}
+
+                            {% if recover_success == true %}
+                                <p class="body mt-regular f-black text-center mb-lg-5 mb-md-4 mb-sm-4">We've sent you an email with a link to update your password.</p>
+                            {% endif %}
+
+                            {% form 'customer_login' %}
+
+                                <div class="form-group">
+                                    <label for="name">Email</label>
+                                    <input type="email" class="form-control form-customer" name="customer[email]" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control form-customer" name="customer[password]" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <a href="#recover" id="recover" class="body mt-regular f-black">
+                                        Forgot your password?
+                                    </a>
+                                </div>
+
+                                <div class="form-group text-center mt-lg-5 mt-md-4 mt-sm-4">
+                                    <button type="submit" class="btn btn-green">
+                                        LOGIN
+                                    </button>
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <a class="body mt-regular f-black" href="{{ routes.account_register_url }}">
+                                        Create Account
+                                    </a>
+                                </div>
+
+                                {% if form.errors %}
+                                    <h4 class="body mt-regular f-black">
+                                        {{ form.errors | default_errors }}
+                                    </h4>
+                                {% endif %}
+                            {% endform %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

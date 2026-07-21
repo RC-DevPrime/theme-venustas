@@ -1,0 +1,64 @@
+{% render 'v-master-base-css', section: section %}
+{% render 'v-master-layout-css', section: section %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-intro__body {
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #444;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-intro__body p {
+    margin: 0 0 1em;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-intro__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-intro__body strong {
+    color: var(--v-brand);
+    font-weight: 700;
+  }
+</style>
+
+<div class="v-master">
+  <div class="v-master-container">
+    {%- if section.settings.intro_body != blank -%}
+      <div class="v-master-intro__body rte">{{ section.settings.intro_body }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "V+ Master Intro",
+  "tag": "section",
+  "class": "venustas-v-master-intro-section",
+  "settings": [
+    { "type": "color", "id": "brand_color", "label": "Brand color", "default": "#B93205" },
+    { "type": "color", "id": "text_brown_color", "label": "Heading color (optional)", "default": "#B93205" },
+    { "type": "color", "id": "cream_color", "label": "Cream", "default": "#F9F5F0" },
+    { "type": "range", "id": "container_width_desktop", "min": 70, "max": 100, "step": 5, "unit": "%", "label": "Desktop width", "default": 85 },
+    { "type": "range", "id": "container_width_mobile", "min": 85, "max": 100, "step": 5, "unit": "%", "label": "Mobile width", "default": 90 },
+    { "type": "range", "id": "padding_top_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding top", "default": 56 },
+    { "type": "range", "id": "padding_bottom_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding bottom", "default": 56 },
+    { "type": "range", "id": "padding_top_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding top", "default": 36 },
+    { "type": "range", "id": "padding_bottom_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding bottom", "default": 36 },
+    {
+      "type": "richtext",
+      "id": "intro_body",
+      "label": "Introduction text",
+      "default": "<p>At Venustas, we believe in the power of authentic storytelling and genuine connections. Our <strong>exclusive ambassador program</strong> is designed for creators, adventurers, and outdoor enthusiasts who share our passion for warmth and exploration.</p><p>We're looking for partners who want to build <strong>long-term partnerships</strong> with us—not just one-off collaborations. As a V+ Master, you'll represent our brand across your platforms and help us reach new audiences who value quality heated apparel.</p><p>Join us and enjoy <strong>exclusive ambassador advantages</strong> including early product access, sponsored opportunities, and more.</p>"
+    }
+  ],
+  "presets": [{ "name": "V+ Master Intro", "category": "V+ Master" }]
+}
+{% endschema %}

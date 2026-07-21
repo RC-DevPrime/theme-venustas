@@ -1,0 +1,579 @@
+{% style %}
+    .product-battery-performance-section{
+        background-color: #1C1C1C;
+        overflow:hidden;
+    }
+    .product-battery-performance-section .row{
+        --bs-gutter-x:80px;
+    }
+    .product-battery-performance-section .main-row.row{
+        width: calc(100% - 40px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .product-battery-performance-section .battery-image .battery-image-element{
+
+    }
+    .battery-performance-image-slider {
+    }
+    
+    .battery-performance-image-slider .battery-image{
+        height:fit-content;
+        width:100%;
+        overflow:hidden;
+        border-radius:8px;
+    }
+    .battery-performance-image-slider .battery-image img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .tab-list-battery{
+        display:flex;
+        gap:1.7rem;
+    }
+    .tab-list-battery .tab-item{
+        border-radius: 10px 10px 10px 10px;
+        background-color:transparent;
+        border:1px solid #B93205;
+        padding: 8px 3rem;
+        cursor:pointer;
+    }
+    .tab-list-battery .tab-item.active{
+        background-color:#B93205;
+    }
+
+    .three-settings{
+        margin-top:50px;
+    }
+    .range-container {
+        width: 100%;
+        --value: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 40px;
+        position: relative; /* for positioning the vertical line */
+    }
+
+    /* 🔹 Add vertical indicator in the middle */
+    .range-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 10px; /* match the track height */
+        width: 2px; /* thin line */
+        background-color: #57565630; /* or #B93205 if you prefer */
+        border-radius: 1px;
+        z-index: 2;
+        pointer-events: none; /* don’t block clicks */
+    }
+
+    .range-container input[type="range"] {
+        width: 100%;
+        appearance: none;
+        height: 10px;
+        border-radius: 5px;
+        background: linear-gradient(
+            to right,
+            #B93205 0%,
+            #B93205 calc(var(--value) * 1%),
+            #331f1a calc(var(--value) * 1%)
+        );
+        outline: none;
+        cursor: pointer;
+        position: relative;
+        z-index: 2; /* make sure it’s above the line for thumb interaction */
+    }
+
+    /* 👇 Square Thumb */
+    .range-container input[type="range"]::-webkit-slider-thumb {
+        appearance: none;
+        width: 60px;
+        height: 33px;
+        background: #B93205;
+        box-shadow: 0 0 4px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-image: url(https://cdn.shopify.com/s/files/1/0457/1099/9709/files/final-1.png?v=1759660486);
+        background-size: 26px;
+        background-position: center;
+        background-repeat: no-repeat;
+        position:relative;
+        z-index:3;
+    }
+
+    .range-container input[type="range"]::-moz-range-thumb {
+        width: 60px;
+        height: 33px;
+        background: #B93205;
+        box-shadow: 0 0 4px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-image: url(https://cdn.shopify.com/s/files/1/0457/1099/9709/files/final-1.png?v=1759660486);
+        background-size: 26px;
+        background-position: center;
+        background-repeat: no-repeat;
+        position:relative;
+        z-index:3;
+    }
+
+    .range-labels {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        margin-top: 8px;
+        color: #555;
+    }
+
+    .heating-duration-range-container{
+    }
+    .temperature-range-container{
+    }
+    .progress-bar-container{
+        display:flex;
+        width:100%;
+        height:10px;
+        background-color:#2D2D2D;
+        border-radius:50px;
+    }
+    .progress-bar-container .progress-status{
+        height:100%;
+        background-color:#B93205;
+        border-radius:50px;
+        width:80%;
+        transition: all 0.3s ease;
+
+    }
+    .product-battery-performance-section .float-nav button{
+        --btn-pos: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        background:#595959;
+    }
+    .product-battery-performance-section .float-nav button i{
+        color:#B93205;
+    }
+    .product-battery-performance-section .float-nav button:hover{
+        background:#B93205;
+    }
+    .product-battery-performance-section .float-nav button:hover i{
+        color:#FFF;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .product-battery-performance-section .float-nav button{
+            --btn-pos: 0;
+            position:relative;
+            transform:unset;
+            width:40px;
+            height:40px;
+            font-size:16px;
+        }
+        .product-battery-performance-section .float-nav{
+            position: unset;
+            transform: unset;
+            margin-top:25px;
+            justify-content: space-around;
+        }
+        .battery-performance-image-slider .battery-image{
+            height:250px;
+        }
+        .product-battery-performance-section .row{
+            --bs-gutter-x: 0px;
+            width: 100%;
+        }
+        .product-battery-performance-section .main-row.row{
+            width: 100%;
+        }
+        .tab-list-battery{
+            gap:10px;
+            justify-content:center;
+        }
+        .tab-list-battery .tab-item{
+            padding:6px 2.5rem;
+        }
+        .three-settings{
+            margin-top:30px;
+        }
+        .product-battery-performance-section .range-labels span{
+            font-size:14px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+        .product-battery-performance-section .row{
+            --bs-gutter-x: 1rem;
+        }
+        .tab-list-battery{
+            gap:10px;
+        }
+        .tab-list-battery .tab-item{
+            padding:6px 2.5rem;
+        }
+    }
+{% endstyle %}
+{% assign has_smart_block = false %}
+
+{% for block in section.blocks %}
+  {% if block.type == 'smart' %}
+    {% assign has_smart_block = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+<div class="position-relative container section-content 
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}>
+
+    <div class="main-row row align-items-center {% if section.settings.image_position == 'right' %} {%  else %} flex-lg-row-reserve flex-md-row-reserve flex-sm-row-row {% endif %}">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="section-heading pp-bold title-sm f-white l-h-normal pb-lg-4 pb-md-4 pb-sm-3 text-lg-start text-md-start text-sm-center">
+                {{ section.settings.heading }}
+            </div>
+            <div class="tab-list-battery">
+                {% for block in section.blocks %}
+                    <div class="tab-item {% if forloop.index == 1 %}active{% endif %}">
+                        <span class="pp-semibold f-white body-lg ">
+                            {{ block.settings.heading }}
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="three-settings">
+                <div class="row">
+                
+                    <div class="{% if has_smart_block %}col-9 {% else %}col-12{% endif %}">
+                        <div class="pp-regular f-white pretitle">
+                            {{ section.settings.heading_1 }}
+                        </div>
+                        <div class="range-container" style="--value:0;">
+                            <input 
+                                type="range"  
+                                min="0" 
+                                max="100" 
+                                step="5" 
+                                value="0"
+                                aria-label="Volume"
+                                oninput="this.parentNode.style.setProperty('--value', this.value)"
+                            >
+                            <div class="range-labels pt-3">
+                                <span class="pp-regular body-xl f-white">Low</span>
+                                <span class="pp-regular body-xl f-white">Medium</span>
+                                <span class="pp-regular body-xl f-white">High</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% if has_smart_block %}
+                    <div class="col-3">
+
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+            <div class="temperature-range-container mt-lg-5 mt-md-4 mt-sm-3 pb-lg-3 pb-md-3 pb-sm-2">
+                <div class="d-flex align-items-center justify-content-between pb-2">
+                    <span class="pp-semibold f-white body">
+                        Temperature:
+                    </span>
+                    <span class="temperature-data pp-semibold f-white body">
+                        80{{ section.settings.unit }}
+                    </span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-status">
+                    </div>
+                </div>
+            </div>  
+            <div class="heating-duration-range-container mt-lg-4 mt-md-4 mt-sm-3">
+                <div class="d-flex align-items-center justify-content-between pb-2">
+                    <span class="pp-semibold f-white body">
+                        Heating duration:
+                    </span>
+                    <span class="temperature-data pp-semibold f-white body">
+                        16h
+                    </span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-status">
+                    </div>
+                </div>
+            </div>  
+            <div class="bottom-description  mt-lg-4 mt-md-3 mt-sm-3 d-lg-block d-md-block d-sm-none">
+                <span class="pp-regular body-lg f-white-gray l-h-normal">
+                    {{ section.settings.description }}
+                </span>
+            </div>
+
+
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            {% if section.settings.enabled_image_slider %}
+            <div class="battery-performance-image-slider mt-lg-0 mt-md-0 mt-sm-4">
+                <div class="swiper-wrapper">
+                    {% for block in section.blocks %}
+                        <div class="swiper-slide">
+                            <div class="battery-image">
+                                <img
+                                    src="{{ block.settings.image | img_url: '400x400' | image_url: 'format:auto' }}"
+                                    srcset="
+                                        {{ block.settings.image | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                                        {{ block.settings.image | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                                        {{ block.settings.image | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                                        {{ block.settings.image | img_url: '1400x1400' | image_url: 'format:auto' }} 1400w"
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                    width="100%"
+                                    height="100%"
+                                    class="battery-image-element"
+                                    alt="{{ block.settings.image.alt | escape }}"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+            <div class="battery-performance-image-slider mt-lg-0 mt-md-0 mt-sm-4">
+                <div class="battery-image">
+                    <img
+                        src="{{ section.settings.single_image | img_url: '400x400' | image_url: 'format:auto' }}"
+                        srcset="
+                            {{ section.settings.single_image | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                            {{ section.settings.single_image | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                            {{ section.settings.single_image | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                            {{ section.settings.single_image | img_url: '1400x1400' | image_url: 'format:auto' }} 1400w"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        width="100%"
+                        height="100%"
+                        class="battery-image-element"
+                        alt="{{ section.settings.single_image.alt | escape }}"
+                        loading="lazy"
+                        decoding="async"
+                    />
+
+                </div>
+            </div>
+            {% endif %}
+            <div class="bottom-description  mt-lg-4 mt-md-3 mt-sm-3 d-lg-none d-md-none d-sm-block">
+                <span class="pp-regular body f-white-gray l-h-normal">
+                    {{ section.settings.description }}
+                </span>
+            </div>
+        </div>
+    </div>
+    {% if section.settings.enabled_image_slider %}
+        {% if section.blocks.sizes != 1 %}
+        <div class="float-nav d-lg-block d-md-block d-sm-flex">
+            <button type="button" class="owl-prev" aria-label="Previous slide">
+                <i class="fa-solid fa-chevron-left f-white"></i>
+            </button>
+            <button type="button" class="owl-next" aria-label="Next slide">
+                <i class="fa-solid fa-chevron-right f-white"></i>
+            </button>
+        </div>
+        {% endif %}
+    {% endif %}
+
+</div>
+<script>
+
+  const batteryData = {
+    {% for block in section.blocks %}
+      "{{ block.settings.heading | escape }}": {
+        low_range_temperature: {{ block.settings.low_range_temperature | default: 0 }},
+        low_range_heating_duration: {{ block.settings.low_range_heating_duration | default: 0 }},
+        medium_range_temperature: {{ block.settings.medium_range_temperature | default: 0 }},
+        medium_range_heating_duration: {{ block.settings.medium_range_heating_duration | default: 0 }},
+        high_range_temperature: {{ block.settings.high_range_temperature | default: 0 }},
+        high_range_heating_duration: {{ block.settings.high_range_heating_duration | default: 0 }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  };
+  console.log("batteryData:", batteryData);
+
+  const enabled_image_slider = {{ section.settings.enabled_image_slider }};
+  console.log(enabled_image_slider)
+
+  
+const temperature_unit = {{ section.settings.unit | json }};
+</script>
+{% schema %}
+{
+    "class": "product-battery-performance-section",
+    "name": "Battery Performance",
+    "limit": 1,
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled_section_child_scroll",
+            "label": "Enabled Section Child Scroll"
+        },
+        {
+            "type": "text",
+            "id": "section_scroll_nav",
+            "label": "Section Scroll Nav",
+            "info": "Need to Enabled first Section Scroll"
+        },
+        {
+            "type": "text",
+            "id": "nav_title",
+            "label": "Navigation Title"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Super Battery Performance"
+        },
+        {
+            "type": "text",
+            "id": "heading_1",
+            "label": "Heading - 1",
+            "default": "Three-Setting Adjustment"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>Precisely matching your every need for thermal energy, we ensure that every user can find the product that best suits their requirements.</p>"
+        },
+        {
+            "type": "checkbox",
+            "id": "enabled_image_slider",
+            "label": "Enabled Image Slider",
+            "default": true
+        },
+        {
+            "type": "image_picker",
+            "id": "single_image",
+            "label": "Single Image",
+
+        },
+        {
+            "type": "select",
+            "id": "image_position",
+            "options": [
+                {
+                    "label": "Right",
+                    "value": "right"
+                },
+                {
+                    "label": "Left",
+                    "value": "left"
+                }
+            ],
+            "label": "Image Position"
+        },
+        {
+            "type": "text",
+            "id": "unit",
+            "label": "Unit",
+            "default":"℃"    
+        } 
+    ],
+    "blocks": [
+        {
+            "type": "battery",
+            "name": "Battery",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Information",
+                    "info": "Heating duration values are percentages (0–100) based on a 16-hour maximum runtime. The frontend automatically converts these percentages into hours."
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "header",
+                    "content": "Low"
+                },
+                {
+                    "type": "number",
+                    "id": "low_range_temperature",
+                    "label": "Range - Temperature",
+                    "default": 50
+                },
+                {
+                    "type": "number",
+                    "id": "low_range_heating_duration",
+                    "label": "Heating duration (hours)",
+                    "info": "Enter the heating duration in hours (e.g., 13.3)."
+                },
+                {
+                    "type": "header",
+                    "content": "Medium"
+                },
+                {
+                    "type": "number",
+                    "id": "medium_range_temperature",
+                    "label": "Range - Temperature",
+                    "default": 50
+                },
+                {
+                    "type": "number",
+                    "id": "medium_range_heating_duration",
+                    "label": "Heating duration (hours)",
+                    "info": "Enter the heating duration in hours (e.g., 13.3)."
+                },
+                {
+                    "type": "header",
+                    "content": "High"
+                },
+                {
+                    "type": "number",
+                    "id": "high_range_temperature",
+                    "label": "Range - Temperature",
+                    "default": 50
+                },
+                {
+                    "type": "number",
+                    "id": "high_range_heating_duration",
+                    "label": "Heating duration (hours)",
+                    "info": "Enter the heating duration in hours (e.g., 13.3)."
+                },
+            ]
+        },
+        {
+            "type": "smart",
+            "name": "Smart",
+            "limit": 1,
+            "settings": [
+
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Battery Performance"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,767 @@
+{% assign section_anchor = section.settings.anchor_id | default: 'powercore-cards' | strip %}
+<section id="{{ section_anchor | escape }}" class="venustas-powercore-cards">
+  <div class="venustas-powercore-cards__bg"></div>
+
+  <div class="venustas-powercore-cards__inner page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="venustas-powercore-cards__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="venustas-powercore-cards__slider-root" id="powercore-slider-{{ section.id }}">
+      <button class="venustas-powercore-cards__arrow venustas-powercore-cards__arrow--prev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button class="venustas-powercore-cards__arrow venustas-powercore-cards__arrow--next" aria-label="Next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
+      <div class="venustas-powercore-cards__track-outer">
+        <div class="venustas-powercore-cards__grid">
+          {% for i in (1..3) %}
+            {% liquid
+              assign image_key = 'card_' | append: i | append: '_image'
+              assign title_key = 'card_' | append: i | append: '_title'
+              assign desc_key = 'card_' | append: i | append: '_description'
+              assign card_image = section.settings[image_key]
+              assign card_title = section.settings[title_key]
+              assign card_desc = section.settings[desc_key]
+            %}
+
+            <article class="venustas-powercore-cards__item" data-index="{{ forloop.index0 }}">
+              <div class="venustas-powercore-cards__media">
+                {% if card_image != blank %}
+                  <img
+                    class="venustas-powercore-cards__image"
+                    src="{{ card_image | image_url: width: 900 }}"
+                    srcset="
+                      {{ card_image | image_url: width: 480 }} 480w,
+                      {{ card_image | image_url: width: 720 }} 720w,
+                      {{ card_image | image_url: width: 900 }} 900w
+                    "
+                    sizes="(max-width: 749px) 92vw, (max-width: 1200px) 31vw, 360px"
+                    alt="{{ card_image.alt | default: card_title | escape }}"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <div class="venustas-powercore-cards__placeholder">Add image</div>
+                {% endif %}
+              </div>
+
+              {% if card_title != blank %}
+                <h3 class="venustas-powercore-cards__title">{{ card_title }}</h3>
+              {% endif %}
+
+              {% if card_desc != blank %}
+                <p class="venustas-powercore-cards__desc">{{ card_desc }}</p>
+              {% endif %}
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="venustas-powercore-cards__dots" id="powercore-dots-{{ section.id }}">
+      {% for i in (1..3) %}
+        <span class="venustas-powercore-cards__dot{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}"></span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_anchor | escape }} {
+    --bg-color: {{ section.settings.bg_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    --title-color: {{ section.settings.card_title_color }};
+    --desc-color: {{ section.settings.card_desc_color }};
+    --content-width: {{ section.settings.content_width_percent }}%;
+    --card-radius: {{ section.settings.card_radius }}px;
+    --section-pt: {{ section.settings.padding_top }}px;
+    --section-pb: {{ section.settings.padding_bottom }}px;
+    --heading-size: {{ section.settings.heading_size }}px;
+    --title-size: {{ section.settings.card_title_size }}px;
+    --desc-size: {{ section.settings.card_desc_size }}px;
+    --grid-gap: {{ section.settings.grid_gap }}px;
+    --arrow-bg: {{ section.settings.arrow_bg_color }};
+    --arrow-color: {{ section.settings.arrow_color }};
+    --arrow-hover-bg: {{ section.settings.arrow_hover_bg_color }};
+    --arrow-hover-color: {{ section.settings.arrow_hover_color }};
+  }
+
+  #{{ section_anchor | escape }} {
+    position: relative;
+    overflow: hidden;
+    padding: var(--section-pt) 0 var(--section-pb);
+    background: var(--bg-color);
+    isolation: isolate;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    {% if section.settings.background_image != blank %}
+      background-image: url('{{ section.settings.background_image | image_url: width: 2200 }}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: {{ section.settings.background_opacity | times: 0.01 }};
+    {% else %}
+      background:
+        radial-gradient(55% 70% at 50% 0%, rgba(255, 92, 25, 0.12) 0%, rgba(255, 92, 25, 0) 80%),
+        linear-gradient(180deg, rgba(1, 11, 36, 0.95) 0%, rgba(1, 11, 36, 1) 100%);
+    {% endif %}
+    pointer-events: none;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__inner {
+    position: relative;
+    z-index: 1;
+    width: var(--content-width);
+    max-width: 1680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__heading {
+    margin: 0 0 40px;
+    text-align: center;
+    color: var(--heading-color);
+    font-size: var(--heading-size);
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--grid-gap);
+    align-items: start;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__slider-root {
+    position: relative;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__track-outer {
+    width: 100%;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__item {
+    min-width: 0;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__media {
+    width: 100%;
+    aspect-ratio: 1.12 / 1;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+    margin-bottom: 14px;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.75);
+    border: 1px dashed rgba(255, 255, 255, 0.25);
+    font-size: 14px;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__title {
+    margin: 0 0 8px;
+    color: var(--title-color);
+    font-size: var(--title-size);
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__desc {
+    margin: 0;
+    color: var(--desc-color);
+    font-size: var(--desc-size);
+    line-height: 1.35;
+    font-weight: 500;
+  }
+
+  #{{ section_anchor | escape }} .venustas-powercore-cards__arrow,
+  #{{ section_anchor | escape }} .venustas-powercore-cards__dots {
+    display: none;
+  }
+
+  @media (max-width: 989px) {
+    #{{ section_anchor | escape }} .venustas-powercore-cards__inner {
+      width: var(--content-width);
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__media {
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__title,
+    #{{ section_anchor | escape }} .venustas-powercore-cards__desc {
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  @media (max-width: 749px) {
+    #{{ section_anchor | escape }} {
+      --section-pt: {{ section.settings.mobile_padding_top }}px;
+      --section-pb: {{ section.settings.mobile_padding_bottom }}px;
+      --heading-size: {{ section.settings.mobile_heading_size }}px;
+      --title-size: {{ section.settings.mobile_card_title_size }}px;
+      --desc-size: {{ section.settings.mobile_card_desc_size }}px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__heading {
+      margin-bottom: 18px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__track-outer {
+      overflow: hidden;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__grid {
+      display: flex;
+      gap: 0;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__item {
+      flex: 0 0 100%;
+      width: 100%;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__media,
+    #{{ section_anchor | escape }} .venustas-powercore-cards__title,
+    #{{ section_anchor | escape }} .venustas-powercore-cards__desc {
+      max-width: none;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__arrow {
+      display: flex;
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--arrow-bg);
+      color: var(--arrow-color);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      transition: background-color .25s ease, color .25s ease, transform .15s ease;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__arrow:hover:not(:disabled) {
+      background: var(--arrow-hover-bg);
+      color: var(--arrow-hover-color);
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__arrow:active {
+      transform: scale(0.92);
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__arrow:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__arrow svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__arrow--prev { left: 8px; }
+    #{{ section_anchor | escape }} .venustas-powercore-cards__arrow--next { right: 8px; }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    #{{ section_anchor | escape }} .venustas-powercore-cards__dot.is-active {
+      background: #B93205;
+      transform: scale(1.35);
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var ROOT_ID = 'powercore-slider-{{ section.id }}';
+    var DOTS_ID = 'powercore-dots-{{ section.id }}';
+    var TOTAL = 3;
+    var INTERVAL = 5000;
+
+    var sliderEl = document.getElementById(ROOT_ID);
+    if (!sliderEl) return;
+
+    var track = sliderEl.querySelector('.venustas-powercore-cards__grid');
+    var outer = sliderEl.querySelector('.venustas-powercore-cards__track-outer');
+    var btnPrev = sliderEl.querySelector('.venustas-powercore-cards__arrow--prev');
+    var btnNext = sliderEl.querySelector('.venustas-powercore-cards__arrow--next');
+    var dotsWrap = document.getElementById(DOTS_ID);
+    var dots = dotsWrap ? Array.prototype.slice.call(dotsWrap.querySelectorAll('.venustas-powercore-cards__dot')) : [];
+
+    if (!track || !outer) return;
+
+    var current = 0;
+    var timer = null;
+    var isMobile = false;
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var dragging = false;
+
+    function checkMobile() {
+      isMobile = window.innerWidth <= 749;
+    }
+
+    function updateDots() {
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle('is-active', i === current);
+      });
+    }
+
+    function goTo(index) {
+      if (!isMobile) return;
+      current = (index + TOTAL) % TOTAL;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      updateDots();
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function stopAuto() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function startAuto() {
+      stopAuto();
+      if (!isMobile) return;
+      timer = setInterval(next, INTERVAL);
+    }
+
+    function positionArrows() {
+      if (!isMobile || !btnPrev || !btnNext) return;
+      var media = sliderEl.querySelector('.venustas-powercore-cards__media');
+      if (!media) return;
+      var top = (media.offsetHeight - btnPrev.offsetHeight) / 2;
+      btnPrev.style.top = top + 'px';
+      btnNext.style.top = top + 'px';
+    }
+
+    if (btnNext) {
+      btnNext.addEventListener('click', function () {
+        stopAuto();
+        next();
+        startAuto();
+      });
+    }
+
+    if (btnPrev) {
+      btnPrev.addEventListener('click', function () {
+        stopAuto();
+        prev();
+        startAuto();
+      });
+    }
+
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        stopAuto();
+        goTo(parseInt(dot.getAttribute('data-index'), 10) || 0);
+        startAuto();
+      });
+    });
+
+    outer.addEventListener('touchstart', function (event) {
+      if (!isMobile) return;
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+      dragging = true;
+      stopAuto();
+    }, { passive: true });
+
+    outer.addEventListener('touchend', function (event) {
+      if (!dragging || !isMobile) return;
+      dragging = false;
+      var dx = event.changedTouches[0].clientX - touchStartX;
+      var dy = event.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        if (dx < 0) {
+          next();
+        } else {
+          prev();
+        }
+      }
+      startAuto();
+    }, { passive: true });
+
+    function handleResize() {
+      checkMobile();
+      if (isMobile) {
+        goTo(current);
+        startAuto();
+        positionArrows();
+      } else {
+        stopAuto();
+        track.style.transform = '';
+        if (btnPrev) btnPrev.style.top = '';
+        if (btnNext) btnNext.style.top = '';
+      }
+    }
+
+    checkMobile();
+    if (isMobile) {
+      goTo(0);
+      startAuto();
+      positionArrows();
+    } else {
+      updateDots();
+    }
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', positionArrows);
+    window.addEventListener('load', positionArrows);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', positionArrows);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Tech PowerCore Cards",
+  "tag": "section",
+  "class": "venustas-powercore-cards-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Section anchor ID",
+      "default": "powercore-cards"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "PowerCore™: Built for Reliable Power"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image (optional)"
+    },
+    {
+      "type": "range",
+      "id": "background_opacity",
+      "label": "Background image opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 100,
+      "unit": "%"
+    },
+
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_1_image",
+      "label": "Card 1 image"
+    },
+    {
+      "type": "text",
+      "id": "card_1_title",
+      "label": "Card 1 title",
+      "default": "Rapid & Even Heat Transfer"
+    },
+    {
+      "type": "textarea",
+      "id": "card_1_description",
+      "label": "Card 1 description",
+      "default": "Quickly warms or helps cool the body by distributing temperature evenly."
+    },
+
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_2_image",
+      "label": "Card 2 image"
+    },
+    {
+      "type": "text",
+      "id": "card_2_title",
+      "label": "Card 2 title",
+      "default": "Far-Infrared Effect"
+    },
+    {
+      "type": "textarea",
+      "id": "card_2_description",
+      "label": "Card 2 description",
+      "default": "Deep-penetrating infrared warmth supports blood circulation and comfort."
+    },
+
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_3_image",
+      "label": "Card 3 image"
+    },
+    {
+      "type": "text",
+      "id": "card_3_title",
+      "label": "Card 3 title",
+      "default": "Anti-Static & Breathable"
+    },
+    {
+      "type": "textarea",
+      "id": "card_3_description",
+      "label": "Card 3 description",
+      "default": "Reduces discomfort while maintaining a comfortable body climate."
+    },
+
+    {
+      "type": "header",
+      "content": "Styles"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#010b24"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ff4b15"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_desc_color",
+      "label": "Card description color",
+      "default": "#aeb8cf"
+    },
+    {
+      "type": "color",
+      "id": "arrow_bg_color",
+      "label": "Arrow background color",
+      "default": "#F1EADD"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow icon color",
+      "default": "#B93205"
+    },
+    {
+      "type": "color",
+      "id": "arrow_hover_bg_color",
+      "label": "Arrow hover background color",
+      "default": "#B93205"
+    },
+    {
+      "type": "color",
+      "id": "arrow_hover_color",
+      "label": "Arrow hover icon color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "content_width_percent",
+      "label": "Content Width (%)",
+      "min": 60,
+      "max": 100,
+      "step": 1,
+      "default": 85,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Image Border Radius (px)",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap Between Cards — Desktop (px)",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (px)",
+      "min": 20,
+      "max": 180,
+      "step": 2,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 20,
+      "max": 180,
+      "step": 2,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 12,
+      "max": 120,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 12,
+      "max": 120,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 20,
+      "max": 64,
+      "step": 1,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Desktop card title size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size",
+      "label": "Desktop card description size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 18,
+      "max": 44,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_title_size",
+      "label": "Mobile card title size",
+      "min": 13,
+      "max": 24,
+      "step": 1,
+      "default": 17,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_desc_size",
+      "label": "Mobile card description size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tech PowerCore Cards"
+    }
+  ]
+}
+{% endschema %}

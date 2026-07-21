@@ -1,0 +1,223 @@
+{%- comment -%}
+  Free Shipping Progress Bar (starts at 0% on load)
+  Usage:
+    {% render 'free-shipping-progress',
+      enable: section.settings.enable_calculator_free_shipping,
+      threshold: section.settings.total_price,
+      text_color: section.settings.text_color,
+      background_color: section.settings.background_color,
+      bg_30: section.settings.bg_30,
+      bg_60: section.settings.bg_60,
+      bg_100: section.settings.bg_100,
+      enable_animation_progress_bar: section.settings.enable_animation_progress_bar
+    %}
+{%- endcomment -%}
+
+{%- if enable -%}
+  {%- assign threshold_cents = threshold | default: 300 | times: 100 -%}
+  {%- if threshold_cents <= 0 -%}{%- assign threshold_cents = 30000 -%}{%- endif -%}
+
+  {%- assign percent = 0 -%}
+
+  <div
+    class="jm-free-ship"
+    data-free-ship
+    data-threshold="{{ threshold_cents }}"
+    data-anim="{% if enable_animation_progress_bar %}1{% else %}0{% endif %}"
+    style="
+      --jm-fs-text: {{ text_color | default: '#111111' }};
+      --jm-fs-bg: {{ background_color | default: '#eeeeee' }};
+      --jm-fs-30: {{ bg_30 | default: '#ffb020' }};
+      --jm-fs-60: {{ bg_60 | default: '#ffd45a' }};
+      --jm-fs-100: {{ bg_100 | default: '#22c55e' }};
+    "
+  >
+    <div class="jm-free-ship__top">
+      <p class="jm-free-ship__msg" data-free-ship-msg>
+        {{ settings.text_1 }}
+      </p>
+
+      <p class="jm-free-ship__meta" style="display:none;">
+        <span data-free-ship-current>{{ 0 | money }}</span>
+        <span class="jm-free-ship__sep">/</span>
+        <span data-free-ship-goal>{{ threshold_cents | money }}</span>
+      </p>
+    </div>
+
+    <div class="jm-free-ship__bar" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100">
+      <div class="jm-free-ship__fill" data-free-ship-fill style="width: 0%;"></div>
+    </div>
+  </div>
+
+  <style>
+    .jm-free-ship {
+      margin-top: 14px;
+      color: var(--jm-fs-text);
+      width: 100%;
+    }
+
+    .jm-free-ship__top {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .jm-free-ship__msg {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.25;
+      flex: 1;
+    }
+
+    .jm-free-ship__sep { padding: 0 6px; }
+
+    .jm-free-ship__bar {
+      width: 100%;
+      height: 10px;
+      background: var(--jm-fs-bg);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .jm-free-ship__fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      transition: width .35s ease;
+
+      /* ✅ IMPORTANT: use background-color so stripes (background-image) won't be overwritten */
+      background-color: var(--jm-fs-30);
+    }
+
+    /* ✅ Stripes only if enabled */
+    .jm-free-ship[data-anim="1"] .jm-free-ship__fill.is-striped {
+      animation: 2s linear 0s infinite progress-bar-stripes;
+
+      background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, .15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, .15) 50%,
+        rgba(255, 255, 255, .15) 75%,
+        transparent 75%,
+        transparent
+      );
+
+      background-size: 40px 40px;
+    }
+
+    @keyframes progress-bar-stripes {
+      from { background-position: 0 0; }
+      to   { background-position: 40px 0; }
+    }
+  </style>
+
+  <script>
+    (function() {
+      function formatMoneyCents(cents) {
+        if (window.Shopify && typeof Shopify.formatMoney === "function") {
+          var format = (window.theme && theme.moneyFormat) ? theme.moneyFormat : "{{ shop.money_format }}";
+          return Shopify.formatMoney(cents, format);
+        }
+
+        var value = (cents / 100);
+        try {
+          return new Intl.NumberFormat(undefined, {
+            style: "currency",
+            currency: "{{ cart.currency.iso_code | default: shop.currency }}"
+          }).format(value);
+        } catch(e) {
+          return value.toFixed(2);
+        }
+      }
+
+      function pickFillColor(root, percent) {
+        var c30 = getComputedStyle(root).getPropertyValue("--jm-fs-30").trim() || "#ffb020";
+        var c60 = getComputedStyle(root).getPropertyValue("--jm-fs-60").trim() || "#ffd45a";
+        var c100 = getComputedStyle(root).getPropertyValue("--jm-fs-100").trim() || "#22c55e";
+
+        if (percent < 30) return c30;
+        if (percent < 60) return c60;
+        return c100;
+      }
+
+      function updateAllBarsFromCart(cartData) {
+        var bars = document.querySelectorAll("[data-free-ship]");
+        if (!bars.length) return;
+
+        bars.forEach(function(root) {
+          var threshold = parseInt(root.getAttribute("data-threshold"), 10) || 0;
+          var total = (cartData && typeof cartData.total_price === "number") ? cartData.total_price : 0;
+          if (!threshold) return;
+
+          var percent = Math.min(100, Math.floor((total / threshold) * 100));
+          var remaining = Math.max(0, threshold - total);
+
+          var fill = root.querySelector("[data-free-ship-fill]");
+          var msg = root.querySelector("[data-free-ship-msg]");
+          var elCurrent = root.querySelector("[data-free-ship-current]");
+          var elGoal = root.querySelector("[data-free-ship-goal]");
+
+          if (fill) {
+            requestAnimationFrame(function() {
+              fill.style.width = percent + "%";
+
+              /* ✅ IMPORTANT: use backgroundColor so background-image (stripes) stays */
+              fill.style.backgroundColor = pickFillColor(root, percent);
+
+              // ✅ Add stripes ONLY if enabled, and only while < 100%
+              var animEnabled = root.getAttribute("data-anim") === "1";
+              if (animEnabled && percent < 100) {
+                fill.classList.add("is-striped");
+              } else {
+                fill.classList.remove("is-striped");
+              }
+            });
+          }
+
+          root.setAttribute("aria-valuenow", String(percent));
+
+          if (elCurrent) elCurrent.textContent = formatMoneyCents(total);
+          if (elGoal) elGoal.textContent = formatMoneyCents(threshold);
+
+          if (total >= threshold) {
+            if (msg) msg.textContent = "{{ settings.text_3 }}";
+          } else {
+            if (msg) {
+              msg.innerHTML = "Add <span data-free-ship-remaining>" + formatMoneyCents(remaining) + "</span> {{ settings.text_2 }}";
+            }
+          }
+        });
+      }
+
+      function fetchCartAndUpdate() {
+        fetch("/cart.js", { credentials: "same-origin" })
+          .then(function(r) { return r.json(); })
+          .then(function(cartData) { updateAllBarsFromCart(cartData); })
+          .catch(function() {});
+      }
+
+      // Start at 0%, then update to real value
+      fetchCartAndUpdate();
+
+      // Theme events
+      document.addEventListener("cart:build", fetchCartAndUpdate);
+      document.addEventListener("cart:updated", fetchCartAndUpdate);
+      document.addEventListener("cart:refresh", fetchCartAndUpdate);
+
+      // Fallback: quantity changes
+      document.addEventListener("change", function(e) {
+        if (!e.target) return;
+
+        if (e.target.name === "updates[]" ||
+            e.target.classList.contains("quantity__input") ||
+            (e.target.closest && e.target.closest("[data-quantity-input]"))) {
+          setTimeout(fetchCartAndUpdate, 350);
+        }
+      });
+    })();
+  </script>
+{%- endif -%}

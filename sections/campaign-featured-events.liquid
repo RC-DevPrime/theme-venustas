@@ -1,0 +1,216 @@
+{% style %}
+    .campaign-featured-events-section{
+        background-color:#000;
+    }
+    .campaign-featured-events-section .container{
+        overflow:hidden;
+    }
+    .campaign-featured-events-section .section-heading{
+    }
+    .campaign-featured-events-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    .campaign-featured-events-section .event-list-container-slider .swiper-pagination{
+        position:relative;
+        margin-top:0;
+        width:fit-content;
+    }
+    .campaign-featured-events-section .event-list-container-slider .swiper-pagination span{
+        width:12px;
+        height:12px;
+        background: #818181;
+        opacity:1;
+    }
+    .campaign-featured-events-section .event-list-container-slider .swiper-pagination span.swiper-pagination-bullet-active{
+        background: #B93205;
+    }
+    .campaign-featured-events-section .swiper-slide{
+        position:relative;
+    }
+    .campaign-featured-events-section .swiper-slide img{
+        width:100%;
+        height:100%;
+    }
+    .campaign-featured-events-section .event-item{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+    }
+    .campaign-featured-events-section .icon-container{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+    .campaign-featured-events-section .icon-container img{
+        width:60%;
+        height:60%;
+        object-fit:contain;
+    }
+    .campaign-featured-events-section .content-container{
+        display:flex;
+        align-items: center;
+    }
+
+    
+    .campaign-featured-events-section .float-nav{
+        position:unset !important;
+        transform:unset !important;
+        margin-top:30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap:15px;
+    }
+    .campaign-featured-events-section .float-nav button{
+        position:unset !important;
+        transform:unset !important;
+        background:#373737;
+    }
+    .campaign-featured-events-section .float-nav button:hover{
+        background:#c7360f;
+    }
+
+    .campaign-featured-events-section .section-heading{
+        margin-left:-30px;
+    }
+    .campaign-featured-events-section .section-heading span{
+        position:relative;
+    }
+    .campaign-featured-events-section .section-heading:before{
+        content:"";
+        display:inline-block;
+        height:35px;
+        width:35px;
+        top:0;
+        position:relative;
+        background-image:url({{ section.settings.heading_element | img_url: 'master' }});
+        background-size:contain;
+        background-repeat:no-repeat;
+    }
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .campaign-featured-events-section .section-heading{
+            margin-left:-25px;
+        }
+        .campaign-featured-events-section .section-heading:before{
+            height:30px;
+            width:30px;
+        }
+        .campaign-featured-events-section .section-content{
+            padding-left:0;
+            padding-right:0;
+        }   
+        .campaign-featured-events-section .event-list-container-slider .swiper-pagination span{
+            width:8px;
+            height:4px;
+            background: #343434;
+            opacity:1;
+            border-radius:2px;
+        }
+        .campaign-featured-events-section .event-list-container-slider .swiper-pagination span.swiper-pagination-bullet-active{
+            width:35px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="section-content">
+    <div class="container">
+        <div class="pb-lg-5 pb-md-5 pb-sm-4">
+            <h2 class="section-heading pp-semibold f-white title-sm text-center px-lg-0 px-md-0 px-sm-3">
+                {{ section.settings.heading }}
+            </h2>
+        </div>
+        <div class="event-list-container-slider position-relative">
+            <div class="swiper-wrapper">
+                {% for block in section.blocks %}
+                    <div class="swiper-slide">
+                        {% assign odd_check = forloop.index | modulo: 2 %}
+                        {% if odd_check == 1 %}
+                            <img class="bg-image" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/50851_2x_1.png?v=1761046815" alt="">
+                        {% else %}
+                            <img class="bg-image" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/50852_2x_775a7d33-043e-4581-8e87-943cf4473f4f.png?v=1761046816" alt="">
+                        {% endif %}
+
+                        <div class="event-item h-100">
+                            <div class="row h-100">
+                                <div class="col-5 h-100">
+                                    <div class="icon-container h-100">
+                                        <img src="{{ block.settings.icon | img_url: 'master' }}" width="100%" height="100%">
+                                    </div>
+                                </div>
+                                <div class="col-7 h-100">
+                                    <div class="content-container col-lg-10 col-md-10 col-sm-11 h-100 f-white body-lg">
+                                        {{ block.settings.heading }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="float-nav">
+                <button type="button" class="owl-prev d-lg-none d-md-none d-sm-block" disabled>
+                    <i class="fa-solid fa-chevron-left f-main"></i>
+                </button>
+                <div class="swiper-pagination"></div>
+                <button type="button" class="owl-next d-lg-none d-md-none d-sm-block" disabled>
+                    <i class="fa-solid fa-chevron-right f-main"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% schema %}
+    {
+        "class": "campaign-featured-events-section",
+        "name": "Campaign Featured Events",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "heading_element",
+                "label": "Heading Element"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Featured Events Overview"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "event",
+                "name": "Event",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "icon",
+                        "label": "Icon"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "heading",
+                        "label": "Heading"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Campaign Featured Events"
+        }]
+    }
+  {% endschema %} 

@@ -1,0 +1,1049 @@
+{% style %}
+    .main-article-section{
+
+    }
+    .main-article-section .top-detail{
+        background: #F9F6EF;
+        padding-bottom:100px;
+    }
+    
+    .main-article-section .sticky-article-tag{
+        position:sticky;
+        top:0;
+    }
+    .main-article-section .share-content-corner .social-container{
+        display:inline-block;
+        width:100%;
+    }
+    .main-article-section .share-content-corner .social-container a{
+        width:fit-content;
+    }
+    .main-article-section .share-content-corner .social-container .social-icon img{
+        width:fit-content;
+        height:35px;
+        display:inline-block;
+        object-fit:contain;
+        margin-right:15px;
+        margin-bottom:10px;
+    }
+    .main-article-section .share-content-corner .social-container .social-icon:nth-child(2) img{
+        width:30px;
+        height:30px;
+    }
+
+    .main-article-section .article-tags-container{
+        display:flex;
+        flex-direction:column;
+    }
+    .main-article-section .article-tags-container .list-tags-container{
+        display: inline-block;
+    }
+
+    .main-article-section .article-tags-container .list-tags-container .tags-item{
+        padding: 6px 15px;
+        color: #FFF;
+        background: #B93205;
+        border-radius: 4px;
+        display: inline;
+        align-items: center;
+        margin-right: 10px;
+        line-height: normal;
+    }
+
+    .main-article-section .list-article-tags {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .main-article-section .list-article-tags .list-article-item {
+        padding: 12px 0px;
+        border-top: 1px solid #CCCCCC;
+        color: #656565;
+    }
+
+    .main-article-section .list-article-tags .list-article-item.active {
+        color: #B93205;
+    }
+
+    .main-article-section .list-article-tags .list-article-item:last-child {
+        border-bottom: 1px solid #CCCCCC;
+    }
+
+
+    /* MAIN CONTENT */
+    
+    .main-article-section .main-content{
+        
+    }
+    .main-article-section .main-content .article-content p{
+        margin-bottom:15px;
+    }
+    .main-article-section .main-content .article-content a{
+        font-size:16px;
+    }
+    .main-article-section .main-content .article-content h1{
+        font-size:28px;
+        margin-bottom:15px;
+    }
+    .main-article-section .main-content .article-content h2{
+        font-size:26px;
+        margin-bottom:15px;
+    }
+    .main-article-section .main-content .article-content h3{
+        font-size:24px;
+        margin-bottom:15px;
+    }
+    .main-article-section .main-content .article-content h4{
+        font-size:22px;
+        margin-bottom:15px;
+    }
+    .main-article-section .main-content .article-content h5{
+        font-size:20px;
+        margin-bottom:15px;
+    }
+    .main-article-section .main-content .article-content h6{
+        font-size:18px;
+        margin-bottom:15px;
+    }
+    .main-article-section .main-content .article-content ul{
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .main-article-section .main-content .article-content img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+        margin-bottom:15px;
+    }
+    .main-article-section .main-content .row{
+        --bs-gutter-x: 40px;
+    }
+
+    .main-article-section .article-featured-image{
+        margin-top:-150px;
+        margin-bottom: 20px;
+    }
+
+    .main-article-section .article-featured-image img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+    }
+    .main-article-section .author-corner .author-heading{
+        border-bottom: 1px solid #CCCCCC;
+    }
+    .main-article-section .author-corner .row{
+        --bs-gutter-x: 20px;
+    }
+    .main-article-section .author-corner .author-image{
+        height:120px;
+        width:100%;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .main-article-section .author-corner .author-image img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .main-article-section .author-corner .author-image .author-placeholder{
+        width:100%;
+        height:100%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background: #B93205;
+        color:#FFF;
+        font-size:42px;
+        line-height:1;
+        text-transform:uppercase;
+    }
+
+    
+    .main-article-section .featured-product .featured-product-heading{
+        border-bottom: 1px solid #CCCCCC;
+    }
+
+    .main-article-section .main-content .nav-article-image{
+        height:65px;
+        width:100%;
+        overflow:hidden;
+        border-radius:2px;
+    }
+    .main-article-section .main-content .bottom-article-nav {
+        margin-top:30px;
+        border-top: 1px solid #D3D3D3;
+        border-bottom: 1px solid #D3D3D3;
+    }
+    .main-article-section .main-content .bottom-article-nav .row{
+        --bs-gutter-x: 20px;
+    }
+    .main-article-section .main-content .bottom-article-nav .prev-article-btn{
+        border-right: 1px solid #D3D3D3;
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+    .main-article-section .main-content .bottom-article-nav .next-article-btn{
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+    .main-article-section .main-content .bottom-article-nav .prev-article-btn .row,
+    .main-article-section .main-content .bottom-article-nav .next-article-btn .row{
+        --bs-gutter-x: 10px;
+    }
+    .main-article-section .main-content .nav-article-image img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        transition: all 0.3s ease;
+    }
+    .main-article-section .main-content .nav-article-image:hover img{
+        transform:scale(1.2);
+    }
+    .main-article-section .product-item .product-image .badge.sale-badge span{
+        padding:3px 7px;
+        font-size:9px;
+    }
+    .main-article-section .product-item .product-image .badge.sale-badge{
+        left:10px;
+        top:10px;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .main-article-section .main-content .article-content h2{
+            font-size:20px;
+        }
+        .main-article-section .float-nav button{
+            --btn-pos:-10px;
+        }
+        .main-article-section .float-nav{
+            top:160px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+        .main-article-section .article-featured-image{
+            margin-top:-110px;
+        }
+        .main-article-section .article-featured-image{
+            margin-top:-120px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:14px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:25px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:18px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:14px;
+        }
+    }
+    @media only screen and (min-width: 375px) {
+        .main-article-section .article-featured-image{
+            margin-top:-110px;
+        }
+        .main-article-section .article-featured-image{
+            margin-top:-120px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:14px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:25px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:18px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:14px;
+        }
+    }
+    @media only screen and (min-width: 390px) {
+        .main-article-section .article-featured-image{
+            margin-top:-110px;
+        }
+        .main-article-section .article-featured-image{
+            margin-top:-120px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:14px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:25px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:18px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:14px;
+        }
+    }
+    @media only screen and (min-width: 414px) {
+        .main-article-section .article-featured-image{
+            margin-top:-110px;
+        }
+        .main-article-section .article-featured-image{
+            margin-top:-120px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:25px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:18px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:14px;
+        }
+    }
+    @media only screen and (min-width: 428px) {
+        .main-article-section .article-featured-image{
+            margin-top:-110px;
+        }
+        .main-article-section .article-featured-image{
+            margin-top:-120px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:25px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:18px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:14px;
+        }
+    }
+    @media only screen and (min-width: 480px) {
+        .main-article-section .article-featured-image{
+            margin-top:-110px;
+        }
+        .main-article-section .article-featured-image{
+            margin-top:-120px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:25px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:18px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:14px;
+        }
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+        .main-article-section .article-featured-image{
+            margin-top:-120px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:24px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:14px;
+        }
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+        .main-article-section .article-featured-image{
+            margin-top:-120px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:26px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:24px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:18px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:16px;
+        }
+    }
+    @media only screen and (min-width: 1366px) {
+        .main-article-section .article-featured-image{
+            margin-top:-125px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:26px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:24px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:18px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:16px;
+        }
+    }
+    @media only screen and (min-width: 1440px) {
+        .main-article-section .article-featured-image{
+            margin-top:-130px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:26px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:24px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:18px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:16px;
+        }
+    }
+    @media only screen and (min-width: 1536px) {
+        .main-article-section .article-featured-image{
+            margin-top:-130px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:26px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:24px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:18px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:16px;
+        }
+    }
+    @media only screen and (min-width: 1600px) {
+        .main-article-section .article-featured-image{
+            margin-top:-140px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:26px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:24px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:18px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:16px;
+        }
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .main-article-section .article-featured-image{
+            margin-top:-150px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:28px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:26px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:24px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:18px;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .main-article-section .article-featured-image{
+            margin-top:-150px;
+        }
+        
+        .main-article-section .main-content .article-content a{
+            font-size:16px;
+        }
+        .main-article-section .main-content .article-content h1{
+            font-size:28px;
+        }
+        .main-article-section .main-content .article-content h2{
+            font-size:26px;
+        }
+        .main-article-section .main-content .article-content h3{
+            font-size:24px;
+        }
+        .main-article-section .main-content .article-content h4{
+            font-size:22px;
+        }
+        .main-article-section .main-content .article-content h5{
+            font-size:20px;
+        }
+        .main-article-section .main-content .article-content h6{
+            font-size:18px;
+        }
+    }
+
+{% endstyle %}
+<div class="top-detail">
+    <div class="container section-content pt-lg-5 pt-md-5 pt-sm-4">
+        <div class="d-flex align-items-center">
+            <a href="/blogs/news" class="btn-back f-gray">
+                <i class="fa-solid fa-chevron-left body-sm"></i>
+                <span class="ps-2 pp-medium body">
+                    Back To Blog
+                </span>
+            </a>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 d-lg-block d-md-block d-sm-none">
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="article-date-time pp-regular f-gray text-center l-h-normal pb-2">
+                    <span class="body d-lg-block d-md-block d-sm-none">
+                        {{ article.created_at | date: '%b %d, %Y' }}
+                    </span>
+                    <span class="body-sm d-lg-none d-md-none d-sm-block">
+                        {{ article.created_at | date: '%b %d, %Y' }}
+                    </span>
+                </div>
+                <h2 class="pp-bold text-center f-black title-sm pb-3">
+                    {{ article.title }}
+                </h2>
+                <div class="article-except pp-regular text-center body-lg">
+                    {{ article.excerpt }}
+                </div>
+                
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 d-lg-block d-md-block d-sm-none">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-content">
+    <div class="container section-content pt-lg-5 pt-md-5 pt-sm-4">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 d-lg-block d-md-block d-sm-none">
+                <div class="sticky-article-tag"> 
+                    <div class="pp-bold pretitle f-black pb-4">
+                        Blog Tags
+                    </div>
+
+                    <!-- Sidebar Tags (Liquid unique-collector, no active classes from Liquid) -->
+                    <div class="list-article-tags">
+                        <a href="/blogs/{{ blog.handle }}" class="list-article-item">
+                            <span class="pp-semibold body-lg">All Posts</span>
+                        </a>
+
+                        {% assign collected_tags = "" %}
+                        {% paginate blogs['news'].articles by 999 %}
+                            {% for article in blogs['news'].articles %}
+                            {% for tag in article.tags %}
+                                {% unless collected_tags contains tag %}
+                                {% assign collected_tags = collected_tags | append: tag | append: "||" %}
+                                {% endunless %}
+                            {% endfor %}
+                            {% endfor %}
+                        {% endpaginate %}
+
+                        {% assign tag_array = collected_tags | split: "||" %}
+                        {% for t in tag_array %}
+                            {% unless t == blank %}
+                            {% assign t_handle = t | handleize %}
+                            <a href="/blogs/{{ blog.handle }}/tagged/{{ t_handle }}" class="list-article-item">
+                                <span class="pp-semibold body-xl">{{ t }}</span>
+                            </a>
+                            {% endunless %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="share-content-corner pt-lg-5 pt-md-5 pt-sm-4">
+                        <span class="pp-regular f-gray body ">Share This Post:</span>
+                        <div class="social-container mt-2">
+                            {% if settings.facebook %}
+                                <a href="https://www.facebook.com/share.php?u={{ shop.url }}{{ article.url }}"  class="social-icon">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/facebook-main-icon.png?v=1762499942" width="36px" height="36px">
+                                </a>
+                            {% endif %}
+                            {% if settings.twitter %}
+                                <a href="{{ settings.twitter }}" class="social-icon">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/x-main-icon.png?v=1762499942" width="36px" height="36px">
+                                </a>
+                            {% endif %}
+                            {% if settings.pinterest %}
+                                <a href="{{ settings.pinterest }}" class="social-icon">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/pinterest-main-icon.png?v=1762499942" width="36px" height="36px">
+                                </a>
+                            {% endif %}
+                            {% if settings.tumblr %}
+                                <a href="{{ settings.tumblr }}" class="social-icon">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/t-main-icon.png?v=1762499942" width="36px" height="36px">
+                                </a>
+                            {% endif %}
+                            {% if settings.telegram %}
+                                <a href="{{ settings.telegram }}" class="social-icon">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/telegram-main-icon.png?v=1762499942" width="36px" height="36px">
+                                </a>
+                            {% endif %}
+                            <a href="mailto:?subject=&amp;body={{ shop.url }}{{ article.url }}"  class="social-icon">
+                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/mail-main-icon.png?v=1762499942" width="36px" height="36px">
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="article-tags-container pt-lg-5 pt-md-5 pt-sm-4">
+                        <span class="pp-regular f-gray body ">Tag:</span>
+                        <div class="list-tags-container mt-2">
+                            {% for tag in article.tags %}
+                                <a href="/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}" class="tags-item pp-regular body-sm">
+                                    {{ tag }}
+                                </a> 
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="article-featured-image">
+                    <img src="{{ article.image | img_url: '1400x1400' }}" width="100%" height="100%">
+                </div>
+                <div class="article-content">
+                    {{ article.content }}
+                </div>
+
+                {% assign current_blog = blog %}
+
+                {% for a in current_blog.articles %}
+                {% if a.id == article.id %}
+                    {% assign current_index = forloop.index0 %}
+                {% endif %}
+                {% endfor %}
+
+                {% assign prev_index = current_index | minus: 1 %}
+                {% assign next_index = current_index | plus: 1 %}
+
+                {% assign prevArticle = current_blog.articles[prev_index] %}
+                {% assign nextArticle = current_blog.articles[next_index] %}
+
+                {%- comment -%}
+                Fallbacks
+                {%- endcomment -%}
+
+                {% if prevArticle == nil %}
+                {% assign prevArticle = current_blog.articles | last %}
+                {% endif %}
+
+                {% if nextArticle == nil %}
+                {% assign nextArticle = current_blog.articles | first %}
+                {% endif %}
+
+                <div class="bottom-article-nav px-lg-3 px-md-3 px-sm-0">
+                    <div class="row">
+                        <a class="prev-article-btn col-lg-6 col-md-6 col-sm-12" href="{{ prevArticle.url }}">
+                            <div class="d-flex align-items-center gap-1 pb-2 f-main">
+                                <span class="pe-1 pp-medium body">
+                                    Previous
+                                </span>
+                                <i class="fa-solid fa-chevron-right body-xs"></i>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4">
+                                    <div class="nav-article-image">
+                                        <img src="{{ prevArticle.image | img_url: '600x600' }}" width="100%" height="100%">
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <h5 class="pp-bold f-black body-sm"> 
+                                        {{ prevArticle.title }}
+                                    </h5>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="next-article-btn col-lg-6 col-md-6 col-sm-12" href="{{ nextArticle.url }}">
+                            <div class="d-flex align-items-center gap-1 pb-2 f-main">
+                                <span class="pe-1 pp-medium body">
+                                    Next
+                                </span>
+                                <i class="fa-solid fa-chevron-right body-xs"></i>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4">
+                                    <div class="nav-article-image">
+                                        <img src="{{ nextArticle.image | img_url: '600x600' }}" width="100%" height="100%">
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <h5 class="pp-bold f-black body-sm"> 
+                                        {{ nextArticle.title }}
+                                    </h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                {% assign author_image = article.metafields.custom.author_image.value %}
+                {% assign author_initial = article.author | strip | slice: 0, 1 | upcase %}
+                <div class="author-corner pb-4">
+                    <div class="author-heading pp-bold pretitle f-black pb-lg-4 pb-md-4 pb-sm-2">
+                        Meet The Author
+                    </div>
+                    <div class="row align-items-center mt-lg-4 mt-md-4 mt-sm-3">
+                        <div class="col-4">
+                            <div class="author-image">
+                                {% if author_image != blank %}
+                                    {{ author_image | image_url: width: 240 | image_tag: alt: article.author, widths: '120, 180, 240', loading: 'lazy' }}
+                                {% else %}
+                                    <div class="author-placeholder pp-bold" aria-label="{{ article.author }}">
+                                        {{ author_initial }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="pp-bold body-xl f-black">
+                                {{ article.author }}
+                            </div>
+                            <p class="pp-regular f-gray body-sm"> 
+                                {% if article.metafields.custom.author_description != blank %}
+                                    {{ article.metafields.custom.author_description }}
+                                {% else %}
+                                    An experienced science popularization expert
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% if article.metafields.custom.related_products %}
+                <div class="featured-product position-relative">
+                    <div class="featured-product-heading pp-bold pretitle f-black pb-lg-4 pb-md-4 pb-sm-2">
+                        Featured Products
+                    </div>
+                    <div class="product-list-container mt-lg-4 mt-md-4 mt-sm-3">
+                        <div class="d-lg-block d-md-block d-sm-none">
+                            {% for product in article.metafields.custom.related_products.value %}
+                                <div class="product-item-col pb-lg-4 pb-md-4 pb-sm-3 ">
+                                    {% render 'product-item', product: product %}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-lg-none d-md-none d-sm-block">
+                            <div class="featured-product-slider overflow-hidden">
+                                <div class="swiper-wrapper">
+                                    {% for product in article.metafields.custom.related_products.value %}
+                                        <div class="swiper-slide">
+                                            {% render 'product-item', product: product %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="float-nav d-lg-block d-md-block d-sm-block">
+                                    <button type="button" class="owl-prev" disabled>
+                                        <i class="fa-solid fa-chevron-left f-main"></i>
+                                    </button>
+                                    <button type="button" class="owl-next" disabled>
+                                        <i class="fa-solid fa-chevron-right f-main"></i>
+                                    </button>
+                                </div>
+                                <div class="swiper-pagination d-lg-none d-lg-none d-sm-block"></div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        {% render 'article-comment', article: article %}
+
+    </div>
+</div>
+<div class="main-article-nav d-lg-none d-md-none d-sm-block">
+    <div class="nav-hover-toc">
+        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/nav-mobile-icon.png?v=1761784876" width="100%" height="100%">
+    </div>
+    <div class="mobile-toc-nav">
+        <div class="overlay"></div>
+        <div class="inner-section">
+            <div class="btn-close-toc">
+                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/close-nav-mobile.png?v=1761785925" width="100%" height="100%">
+            </div>
+            <div class="py-5 px-4">
+                
+                <div class="sticky-article-tag"> 
+                    <div class="pp-bold pretitle f-black pb-4">
+                        Blog Tags
+                    </div>
+
+                    <!-- Sidebar Tags (Liquid unique-collector, no active classes from Liquid) -->
+                    <div class="list-article-tags">
+                        <a href="/blogs/{{ blog.handle }}" class="list-article-item">
+                            <span class="pp-semibold body-lg">All Posts</span>
+                        </a>
+
+                        {% assign collected_tags = "" %}
+                        {% paginate blogs['news'].articles by 999 %}
+                            {% for article in blogs['news'].articles %}
+                            {% for tag in article.tags %}
+                                {% unless collected_tags contains tag %}
+                                {% assign collected_tags = collected_tags | append: tag | append: "||" %}
+                                {% endunless %}
+                            {% endfor %}
+                            {% endfor %}
+                        {% endpaginate %}
+
+                        {% assign tag_array = collected_tags | split: "||" %}
+                        {% for t in tag_array %}
+                            {% unless t == blank %}
+                            {% assign t_handle = t | handleize %}
+                            <a href="/blogs/{{ blog.handle }}/tagged/{{ t_handle }}" class="list-article-item">
+                                <span class="pp-semibold body-xl">{{ t }}</span>
+                            </a>
+                            {% endunless %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="share-content-corner pt-lg-5 pt-md-5 pt-sm-4">
+                        <span class="pp-regular f-gray body ">Share This Post:</span>
+                        <div class="social-container mt-2 ">
+                            {% if settings.facebook %}
+                                <a href="https://www.facebook.com/share.php?u={{ shop.url }}{{ article.url }}"  class="social-icon">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/facebook-main-icon.png?v=1762499942" width="36px" height="36px">
+                                </a>
+                            {% endif %}
+                            {% if settings.twitter %}
+                                <a href="{{ settings.twitter }}" class="social-icon">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/x-main-icon.png?v=1762499942" width="36px" height="36px">
+                                </a>
+                            {% endif %}
+                            {% if settings.pinterest %}
+                                <a href="{{ settings.pinterest }}" class="social-icon">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/pinterest-main-icon.png?v=1762499942" width="36px" height="36px">
+                                </a>
+                            {% endif %}
+                            {% if settings.tumblr %}
+                                <a href="{{ settings.tumblr }}" class="social-icon">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/t-main-icon.png?v=1762499942" width="36px" height="36px">
+                                </a>
+                            {% endif %}
+                            {% if settings.telegram %}
+                                <a href="{{ settings.telegram }}" class="social-icon">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/telegram-main-icon.png?v=1762499942" width="36px" height="36px">
+                                </a>
+                            {% endif %}
+                            <a href="mailto:?subject=&amp;body={{ shop.url }}{{ article.url }}"  class="social-icon">
+                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/mail-main-icon.png?v=1762499942" width="36px" height="36px">
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="article-tags-container pt-lg-5 pt-md-5 pt-sm-4">
+                        <span class="pp-regular f-gray body ">Tag:</span>
+                        <div class="list-tags-container mt-2">
+                            {% for tag in article.tags %}
+                                <a href="/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}" class="tags-item pp-regular body-sm">
+                                    {{ tag }}
+                                </a> 
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  var products_judgeme = [
+    {% paginate collections['all'].products by 999 %}
+        {% for product in collections['all'].products %}
+            {
+                "handle": "{{ product.handle }}",
+            "judgeme_badge": {{ product.metafields.judgeme.badge | json }}
+            }{% if forloop.last == false %},{% endif %}
+        {% endfor %}
+    {% endpaginate %}
+  ];
+
+
+</script>
+{% schema %}
+{
+    "class": "main-article-section",
+    "name": "Main Article",
+    "limit": 1,
+    "templates": ["article"],
+    "presets": [
+        {
+            "name": "Main Article"
+        }
+    ]
+}
+{% endschema %}

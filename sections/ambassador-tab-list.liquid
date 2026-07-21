@@ -1,0 +1,324 @@
+{% style %}
+    .ambassador-tab-list-section{
+    }
+    .ambassador-tab-list-section .section-heading{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+    }
+    .ambassador-tab-list-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    .ambassador-tab-list-section .tab-list-container{
+        display:flex;
+        justify-content: center;
+        margin-top:30px;
+    }
+    .ambassador-tab-list-section .tab-list-container .tab-list-inner-container{
+        display:flex;
+        border-radius:8px;
+        overflow:hidden;
+        border: 1px solid #6E6E6E;
+    }
+    .ambassador-tab-list-section .tab-list-container .tab-item{
+        padding:10px 25px;
+        display:flex;
+        gap:5px;
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
+        
+    }
+    .ambassador-tab-list-section .tab-list-container .tab-item.active{
+        background: #B93205;
+        border-radius:8px;
+        overflow:hidden;
+    }
+    .ambassador-tab-list-section .tab-list-container .tab-item.active span{
+        color:#FFF;
+    }
+    .ambassador-tab-list-section .tab-list-container .tab-item .tab-flag{
+        height:20px;
+        width:fit-content;
+        object-fit:contain;
+    }
+
+    .ambassador-tab-list-section .tab-content-list-container{
+        margin-top:40px;
+    }
+    .ambassador-tab-list-section .tab-content-list-container .tab-content-item .row{
+        --bs-gutter-x: 15px;
+        --bs-gutter-y: 30px;
+    }
+    .ambassador-tab-list-section .ambassador-feauted-image{
+        aspect-ratio:1;
+        width:100%;
+        height:100%;
+        border-radius:20px;
+        overflow:hidden;
+        display:block;
+    }
+    .ambassador-tab-list-section .ambassador-feauted-image img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        transition: all 0.3s ease;
+    }
+    .ambassador-tab-list-section .ambassador-feauted-image:hover img{
+        scale:1.2;
+    }
+    .ambassador-tab-list-section .ambassador-role{
+        display:flex;
+        align-items:center;
+        gap:5px;
+    }
+    .ambassador-tab-list-section .ambassador-role img{
+        height:12px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    .tab-ambassador-item {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .tab-ambassador-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .ambassador-tab-list-section .ambassador-feauted-image{
+        border-radius:8px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content">
+    <div class="section-heading pb-lg-3 pb-md-3 pb-sm-2">
+        <h2 class="pp-bold f-black title-sm text-center">
+            {{ section.settings.heading }}
+        </h2>
+    </div>
+    <div class="section-description pp-regular f-gray text-center">
+        {{ section.settings.description }}
+    </div>
+    
+    <div class="tab-list-container">
+        <div class="tab-list-inner-container">
+            <div class="tab-item active" data-tab="us">
+                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/49762_2x_a60b72fc-fc13-4e8c-b8b7-faa708368a7a.png?v=1761159296" class="tab-flag">
+                <span class="pp-semibold body-lg">
+                    United States
+                </span>
+            </div>
+            <div class="tab-item" data-tab="canada">
+                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/49761_2x_ba914575-079c-460d-8308-28a53f3deef5.png?v=1761159296" class="tab-flag">
+                <span class="pp-semibold body-lg">
+                    Canada
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content-list-container">
+        <div class="tab-content-item" data-tab="us">
+            {% assign canada_blocks = section.blocks | where: 'type', 'us' %}
+            <div class="ambassador-list row">
+            {% for block in canada_blocks %}
+                {%- liquid
+                    assign article_url = ''
+                    assign article_setting = block.settings.article
+                    if article_setting != blank
+                        assign article_url = article_setting.url
+                        if article_url == blank
+                            assign article_object = articles[article_setting]
+                            if article_object != blank
+                                assign article_url = article_object.url
+                            endif
+                        endif
+                    endif
+                    if article_url == blank
+                        assign article_url = '#'
+                    endif
+                -%}
+                <div class="col-lg-3 col-md-3 col-sm-6 tab-ambassador-item" {% if forloop.index > 8 %}style="display:none;"{% endif %}>
+                    <div class="tab-list-ambassador-item">
+                        <a href="{{ article_url }}" class="ambassador-feauted-image"> 
+                            <img src="{{ block.settings.image | img_url:'master' }}" width="100%" height="100%">
+                        </a>
+                        <div class="ambassador-detail">
+                            <h3 class="pp-bold f-black body-xl pt-lg-3 pt-md-3 pt-sm-2 d-lg-block d-md-block d-sm-none">
+                            {{ block.settings.heading }}
+                            </h3>
+                            <h3 class="pp-bold f-black body pt-lg-3 pt-md-3 pt-sm-2 d-lg-none d-md-none d-sm-block">
+                            {{ block.settings.heading }}
+                            </h3>
+                            <div class="ambassador-role mt-lg-2 mt-md-2 mt-sm-1">
+                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77186_2x_8b3f771d-4d29-41d6-8dfc-94aaa85fcd2a.png?v=1761193162">
+                            <p class="pp-regular body d-lg-block d-md-block d-sm-none">{{ block.settings.description }}</p>
+                            <p class="pp-regular body-xs d-lg-none d-md-none d-sm-block">{{ block.settings.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+
+            {% if canada_blocks.size > 8 %}
+            <div class="load-more-btn text-center mt-5">
+                <button class="btn-hover btn-main py-2 load-more-canada">
+                    <span class="pp-semibold body-lg f-white">
+                        Load More
+                    </span>
+                </button>
+            </div>
+            {% endif %}
+        </div>
+        <div class="tab-content-item" data-tab="canada">
+            {% assign canada_blocks = section.blocks | where: 'type', 'canada' %}
+            <div class="ambassador-list row">
+            {% for block in canada_blocks %}
+                {%- liquid
+                    assign article_url = ''
+                    assign article_setting = block.settings.article
+                    if article_setting != blank
+                        assign article_url = article_setting.url
+                        if article_url == blank
+                            assign article_object = articles[article_setting]
+                            if article_object != blank
+                                assign article_url = article_object.url
+                            endif
+                        endif
+                    endif
+                    if article_url == blank
+                        assign article_url = '#'
+                    endif
+                -%}
+                <div class="col-lg-3 col-md-3 col-sm-6 tab-ambassador-item" {% if forloop.index > 8 %}style="display:none;"{% endif %}>
+                    <div class="tab-list-ambassador-item">
+                        <a href="{{ article_url }}" class="ambassador-feauted-image"> 
+                            <img src="{{ block.settings.image | img_url:'master' }}" width="100%" height="100%">
+                        </a>
+                        <div class="ambassador-detail">
+                            <h3 class="pp-bold f-black body-xl pt-lg-3 pt-md-3 pt-sm-2 d-lg-block d-md-block d-sm-none">
+                            {{ block.settings.heading }}
+                            </h3>
+                            <h3 class="pp-bold f-black body pt-lg-3 pt-md-3 pt-sm-2 d-lg-none d-md-none d-sm-block">
+                            {{ block.settings.heading }}
+                            </h3>
+                            <div class="ambassador-role mt-lg-2 mt-md-2 mt-sm-1">
+                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77186_2x_8b3f771d-4d29-41d6-8dfc-94aaa85fcd2a.png?v=1761193162">
+                            <p class="pp-regular body d-lg-block d-md-block d-sm-none">{{ block.settings.description }}</p>
+                            <p class="pp-regular body-xs d-lg-none d-md-none d-sm-block">{{ block.settings.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+
+            {% if canada_blocks.size > 8 %}
+            <div class="load-more-btn text-center mt-5">
+                <button class="btn-hover btn-main py-2 load-more-canada">
+                    <span class="pp-semibold body-lg f-white">
+                        Load More
+                    </span>
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+{% schema %}
+    {
+        "class": "ambassador-tab-list-section",
+        "name": "Ambassador Tab List",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Meet The Venustas Squad"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>Learn More About Your Local Ambassadors.</p>"
+            },
+        ],
+        "blocks": [
+            {
+                "type": "canada",
+                "name": "Canada",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading"
+                    },
+                    {
+                        "type": "text",
+                        "id": "description",
+                        "label": "Description"
+                    },
+                    {
+                        "type": "article",
+                        "id": "article",
+                        "label": "Article"
+                    }
+                ]
+            },
+            {
+                "type": "us",
+                "name": "US",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading"
+                    },
+                    {
+                        "type": "text",
+                        "id": "description",
+                        "label": "Description"
+                    },
+                    {
+                        "type": "article",
+                        "id": "article",
+                        "label": "Article"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Ambassador Tab List"
+        }]
+    }
+  {% endschema %} 

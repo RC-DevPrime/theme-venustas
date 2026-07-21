@@ -1,0 +1,509 @@
+{% style %}
+    .scroll-marquee{
+        height: 300vh;
+    }
+
+    .scroll-marquee__sticky{
+        position: sticky;
+        top: var(--headerHeight);
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+
+    .scroll-marquee__track{
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .scroll-marquee__text{
+        margin: 0;
+        white-space: nowrap;
+        width: max-content;
+        will-change: transform;
+
+        /* FIXED SIZE (change as you want) */
+        font-size: 180px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+
+        transform: translate3d(0,0,0);
+        position:relative;
+        z-index:2;
+        padding-right:50px;
+    }
+    .bg-container{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        display: flex;
+        align-items: flex-end;
+        overflow:hidden;
+    }
+    .bg-container img.bg-image{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .bg-container img.image-element{
+        width:100%;
+        height:100%;
+        position:absolute;
+        left:0;
+        z-index:2;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .scroll-marquee__sticky{
+            align-items: flex-start;
+        }
+        .scroll-marquee__track{
+            padding-top:20px;
+        }
+        .bg-container img.image-element{
+            width:180vw;
+            height:fit-content;
+        }
+        .scroll-marquee{
+            height:fit-content;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+
+    }
+
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+        .scroll-marquee__sticky{
+            height: 50vh;
+        }
+        .scroll-marquee__text{
+            font-size: 80px;
+        }
+    }
+    @media only screen and (min-width: 375px) {
+        .scroll-marquee__sticky{
+            height: 50vh;
+        }
+        .scroll-marquee__text{
+            font-size: 80px;
+        }
+    }
+    @media only screen and (min-width: 390px) {
+        .scroll-marquee__sticky{
+            height: 50vh;
+        }
+        .scroll-marquee__text{
+            font-size: 80px;
+        }
+    }
+    @media only screen and (min-width: 414px) {
+        .scroll-marquee__sticky{
+            height: 50vh;
+        }
+        .scroll-marquee__text{
+            font-size: 80px;
+        }
+    }
+    @media only screen and (min-width: 428px) {
+        .scroll-marquee__sticky{
+            height: 50vh;
+        }
+        .scroll-marquee__text{
+            font-size: 80px;
+        }
+    }
+    @media only screen and (min-width: 480px) {
+        .scroll-marquee__sticky{
+            height: 50vh;
+        }
+        .scroll-marquee__text{
+            font-size: 80px;
+        }
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+        .scroll-marquee__sticky{
+            height: 100vh;
+        }
+        .scroll-marquee__text{
+            font-size: 120px;
+        }
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+        .scroll-marquee__sticky{
+            height: 100vh;
+        }
+        .scroll-marquee__text{
+            font-size: 140px;
+        }
+    }
+    @media only screen and (min-width: 1366px) {
+        .scroll-marquee__sticky{
+            height: 100vh;
+        }
+        .scroll-marquee__text{
+            font-size: 140px;
+        }
+    }
+    @media only screen and (min-width: 1440px) {
+        .scroll-marquee__sticky{
+            height: 100vh;
+        }
+        .scroll-marquee__text{
+            font-size: 150px;
+        }
+    }
+    @media only screen and (min-width: 1536px) {
+        .scroll-marquee__sticky{
+            height: 100vh;
+        }
+        .scroll-marquee__text{
+            font-size: 160px;
+        }
+    }
+    @media only screen and (min-width: 1600px) {
+        .scroll-marquee__sticky{
+            height: 100vh;
+        }
+        .scroll-marquee__text{
+            font-size: 160px;
+        }
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .scroll-marquee__sticky{
+            height: 100vh;
+        }
+        .scroll-marquee__text{
+            font-size: 180px;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .scroll-marquee__sticky{
+            height: 100vh;
+        }
+        .scroll-marquee__text{
+            font-size: 180px;
+        }
+    }
+{% endstyle %}
+
+<section class="scroll-marquee" data-scroll-marquee>
+  <div class="scroll-marquee__sticky">
+
+    <div class="scroll-marquee__track d-lg-block d-md-block d-sm-none">
+    <h2 class="scroll-marquee__text pp-bold f-main" data-marquee-text>Wear Warmth Embrace Nature</h2>
+    </div>
+
+    <div class="scroll-marquee__track d-lg-none d-md-none d-sm-block">
+    <h2 class="scroll-marquee__text pp-bold f-main" data-marquee-text-mobile>Wear Warmth Embrace Nature</h2>
+    </div>
+
+    <div class="bg-container">
+                
+        {{ section.settings.background
+            | image_url: width: 1600
+            | image_tag:
+            widths: '360,540,720,900,1080,1440,1600',
+            sizes: '(min-width: 990px) 50vw, 100vw',
+            loading: 'lazy',
+            decoding: 'async',
+            class: 'bg-image',
+            alt: section.settings.background.alt | escape
+        }}
+
+        {{ section.settings.element
+            | image_url: width: 1600
+            | image_tag:
+            widths: '360,540,720,900,1080,1440,1600',
+            sizes: '(min-width: 990px) 50vw, 100vw',
+            loading: 'lazy',
+            decoding: 'async',
+            class: 'image-element',
+            alt: section.settings.element.alt | escape
+        }}
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  // --------------------------
+  // HELPERS
+  // --------------------------
+  function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function isMobile() {
+    // match your visibility classes intent
+    return window.matchMedia('(max-width: 768px)').matches;
+  }
+
+  function getScrollParent(el) {
+    var p = el.parentElement;
+    while (p && p !== document.body) {
+      var s = getComputedStyle(p);
+      var oy = s.overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && p.scrollHeight > p.clientHeight) return p;
+      p = p.parentElement;
+    }
+    return window;
+  }
+
+  function getScrollTop(scroller) {
+    return scroller === window
+      ? (window.pageYOffset || document.documentElement.scrollTop || 0)
+      : scroller.scrollTop;
+  }
+
+  function getViewportH(scroller) {
+    return scroller === window ? window.innerHeight : scroller.clientHeight;
+  }
+
+  function getSectionTopInScroller(section, scroller) {
+    if (scroller === window) {
+      return section.getBoundingClientRect().top + getScrollTop(window);
+    }
+    var sr = scroller.getBoundingClientRect();
+    var er = section.getBoundingClientRect();
+    return (er.top - sr.top) + getScrollTop(scroller);
+  }
+
+  // --------------------------
+  // MOBILE AUTOPLAY MARQUEE
+  // targets: [data-marquee-text-mobile]
+  // --------------------------
+  function initMobileAuto(section) {
+    if (!section) return;
+
+    var track = section.querySelector('.scroll-marquee__track.d-lg-none, .scroll-marquee__track.d-md-none');
+    var text  = section.querySelector('[data-marquee-text-mobile]');
+    if (!track || !text) return;
+
+    // avoid double init
+    if (section.__marqueeMobileRAF) return;
+
+    track.style.overflow = 'hidden';
+    text.style.whiteSpace = 'nowrap';
+    text.style.willChange = 'transform';
+
+    var x = 0;
+    var last = performance.now();
+    var speed = 50; // px/sec
+
+    function tick(now) {
+      section.__marqueeMobileRAF = requestAnimationFrame(tick);
+
+      if (document.hidden) {
+        last = now;
+        return;
+      }
+
+      var dt = (now - last) / 1000;
+      last = now;
+
+      var trackW = track.clientWidth;
+      var textW  = text.scrollWidth;
+
+      if (textW <= trackW) {
+        text.style.transform = 'translate3d(0,0,0)';
+        return;
+      }
+
+      x -= speed * dt;
+
+      // reset when fully out left
+      if (x <= -textW) x = trackW;
+
+      text.style.transform = 'translate3d(' + x + 'px, 0, 0)';
+    }
+
+    // start
+    section.__marqueeMobileRAF = requestAnimationFrame(tick);
+  }
+
+  function destroyMobileAuto(section) {
+    if (!section) return;
+    if (section.__marqueeMobileRAF) {
+      cancelAnimationFrame(section.__marqueeMobileRAF);
+      section.__marqueeMobileRAF = null;
+    }
+    var text = section.querySelector('[data-marquee-text-mobile]');
+    if (text) text.style.transform = 'translate3d(0,0,0)';
+  }
+
+  // --------------------------
+  // DESKTOP SCROLL MARQUEE
+  // targets: [data-marquee-text]
+  // --------------------------
+  function initDesktopScroll(section) {
+    if (!section) return;
+
+    var track = section.querySelector('.scroll-marquee__track.d-lg-block, .scroll-marquee__track.d-md-block');
+    var text  = section.querySelector('[data-marquee-text]');
+    if (!track || !text) return;
+
+    // avoid double init
+    if (section.__marqueeDesktopRAF) return;
+
+    var scroller = getScrollParent(section);
+
+    var start = 0, end = 0;
+    var startX = 0, endX = 0;
+
+    var currentX = 0;
+    var targetX = 0;
+
+    // tweak these
+    var ease = 0.14;   // higher = snappier, lower = smoother
+    var snapPx = 0.05; // snap threshold to avoid micro jitter
+
+    function computeTargetFromScroll() {
+      var y = getScrollTop(scroller);
+      var range = Math.max(1, end - start);
+      var p = clamp((y - start) / range, 0, 1);
+      return startX + (endX - startX) * p;
+    }
+
+    function recalc() {
+      var trackW = track.clientWidth;
+      var textW  = text.scrollWidth;
+
+      start = getSectionTopInScroller(section, scroller);
+      end   = start + section.offsetHeight - getViewportH(scroller);
+
+      startX = trackW * 0.6;
+      endX   = trackW - textW;
+
+      targetX = computeTargetFromScroll();
+      currentX = targetX;
+      text.style.transform = 'translate3d(' + currentX + 'px, 0, 0)';
+    }
+
+    function tick() {
+      section.__marqueeDesktopRAF = requestAnimationFrame(tick);
+
+      targetX = computeTargetFromScroll();
+      currentX = lerp(currentX, targetX, ease);
+
+      if (Math.abs(targetX - currentX) < snapPx) currentX = targetX;
+
+      text.style.transform = 'translate3d(' + currentX + 'px, 0, 0)';
+    }
+
+    // listeners
+    function onResize() { recalc(); }
+    window.addEventListener('resize', onResize);
+
+    // store cleanup hooks
+    section.__marqueeDesktopCleanup = function () {
+      window.removeEventListener('resize', onResize);
+    };
+
+    // initial layout calc
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(recalc);
+    }
+
+    recalc();
+    setTimeout(recalc, 300);
+    setTimeout(recalc, 1000);
+
+    // start
+    section.__marqueeDesktopRAF = requestAnimationFrame(tick);
+  }
+
+  function destroyDesktopScroll(section) {
+    if (!section) return;
+
+    if (section.__marqueeDesktopRAF) {
+      cancelAnimationFrame(section.__marqueeDesktopRAF);
+      section.__marqueeDesktopRAF = null;
+    }
+    if (section.__marqueeDesktopCleanup) {
+      section.__marqueeDesktopCleanup();
+      section.__marqueeDesktopCleanup = null;
+    }
+    var text = section.querySelector('[data-marquee-text]');
+    if (text) text.style.transform = 'translate3d(0,0,0)';
+  }
+
+  // --------------------------
+  // BOOT
+  // --------------------------
+  function boot() {
+    document.querySelectorAll('[data-scroll-marquee]').forEach(function (section) {
+      if (isMobile()) {
+        // mobile autoplay on
+        destroyDesktopScroll(section);
+        initMobileAuto(section);
+      } else {
+        // desktop scroll on
+        destroyMobileAuto(section);
+        initDesktopScroll(section);
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  window.addEventListener('resize', boot);
+  document.addEventListener('shopify:section:load', boot);
+})();
+
+</script>
+
+
+{% schema %}
+{
+    "class": "scrolling-text-section",
+    "name": "Scrolling Text Section",
+    "limit": 1,
+    "templates": ["index"],
+    "settings": [
+        {
+            "type": "textarea",
+            "id": "scrolling_text",
+            "label": "Scrolling Text",
+            "default": "Wear Warmth Embrace Nature"
+        },
+        {
+            "type": "image_picker",
+            "id": "background",
+            "label": "Background"
+        },
+        {
+            "type": "image_picker",
+            "id": "element",
+            "label": "Element"
+        }   
+    ],
+    "presets": [
+        {
+            "name": "Scrolling Text Section"
+        }
+    ]
+}
+{% endschema %}

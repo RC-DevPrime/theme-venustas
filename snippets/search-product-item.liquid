@@ -1,0 +1,285 @@
+{%- liquid
+assign current_variant = product.selected_or_first_available_variant
+ 
+assign new_badge_type = settings.new_badge_type | default: 'auto' 
+
+
+  assign new_badge = false
+  assign new_badge_limit = 30
+  assign date_difference = 'now' | date: '%s' | minus: product.published_at | date: '%s' | divided_by: 86400
+  if date_difference <= new_badge_limit
+    assign new_badge = true
+  else
+    for tag in product.tags
+      assign tag_handle = tag | handle
+      if tag_handle == 'new'
+        assign new_badge = true
+      endif
+    endfor
+  endif
+
+-%}
+<div class="product-item">
+    
+    <div class="product-image mb-3" data-link="{{ product.url }}">
+
+    {%- comment -%} SALE BADGE {%- endcomment -%}
+    {% if current_variant.compare_at_price > current_variant.price and current_variant.compare_at_price > 0 %}
+        {% assign price_diff = current_variant.compare_at_price | minus: current_variant.price %}
+        {% assign percent_off = price_diff | times: 100.0 | divided_by: current_variant.compare_at_price | round %}
+        {% if percent_off < 0 %}{% assign percent_off = 0 %}{% endif %}
+
+        <span class="badge sale-badge" aria-hidden="true">
+        <span class="body-sm pp-semibold">
+            {% if sale_badge_type == 'discount' %}
+            {% assign off_dollars = price_diff | times: 0.01 | ceil %}
+            {% if off_dollars > 0 %}${{ off_dollars }} OFF{% endif %}
+            {% else %}
+            {{ percent_off }}% OFF
+            {% endif %}
+        </span>
+        </span>
+    {% endif %}
+
+    {%- comment -%} NEW BADGE {%- endcomment -%}
+    {% if new_badge %}
+        <span class="badge new-badge" aria-hidden="true">
+        <span class="body pp-semibold">New</span>
+        </span>
+    {% endif %}
+
+    {% assign active_variant = product.selected_or_first_available_variant %}
+
+    {%- comment -%} Determine color option index {%- endcomment -%}
+    {% assign color_option_index = 0 %}
+    {% for option in product.options_with_values %}
+        {% assign opt_name = option.name | downcase %}
+        {% if opt_name == 'color' or opt_name == 'colour' %}
+        {% assign color_option_index = forloop.index %}
+        {% endif %}
+    {% endfor %}
+
+    {%- comment -%} Render variant images {%- endcomment -%}
+    {% if color_option_index > 0 %}
+        {% assign optionKey = 'option' | append: color_option_index %}
+        {% assign color_option_array_index = color_option_index | minus: 1 %}
+        {% assign color_option_obj = product.options_with_values[color_option_array_index] %}
+        {% assign active_color_value = active_variant.options[color_option_array_index] %}
+
+        {% for color_value in color_option_obj.values %}
+        {% assign matching_variants = product.variants | where: optionKey, color_value %}
+        {% assign variant_with_image = blank %}
+        {% for v in matching_variants %}
+            {% if v.image != blank %}
+                {% assign variant_with_image = v %}
+                {% break %}
+            {% endif %}
+        {% endfor %}
+        {% if variant_with_image != blank %}
+            {% assign img_small = variant_with_image.image | img_url: '400x533' | image_url: 'format:auto' %}
+            {% assign img_large = variant_with_image.image | img_url: '800x1066' | image_url: 'format:auto' %}
+            <img
+                class="{% if color_value == active_color_value %}active{% endif %}"
+                data-variant="{{ variant_with_image.id }}"
+                src="{{ img_small }}"
+                srcset="{{ img_small }} 400w, {{ img_large }} 800w"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                alt="{{ product.title | escape }} - {{ color_value | escape }}"
+                loading="lazy"
+                decoding="async"
+            >
+        {% endif %}
+        {% endfor %}
+    {% else %}
+        {% if product.featured_image != blank %}
+        {% assign img_small = product.featured_image | img_url: '400x533' | image_url: 'format:auto' %}
+        {% assign img_large = product.featured_image | img_url: '800x1066' | image_url: 'format:auto' %}
+        <img
+            class="active"
+            src="{{ img_small }}"
+            srcset="{{ img_small }} 400w, {{ img_large }} 800w"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            alt="{{ product.title | escape }}"
+            loading="lazy"
+            decoding="async"
+        >
+        {% endif %}
+    {% endif %}
+
+    {%- comment -%} Hover image {%- endcomment -%}
+    {% assign hover_img = product.metafields.custom.product_card_hover_image %}
+    {% if hover_img == blank and product.media.size > 1 %}
+        {% assign hover_img = product.media[1].image %}
+    {% endif %}
+
+    {% if hover_img != blank %}
+        {% assign img_small = hover_img | img_url: '300x400' | image_url: 'format:auto' %}
+        {% assign img_large = hover_img | img_url: '600x800' | image_url: 'format:auto' %}
+        <img
+        class="hover-image"
+        src="{{ img_small }}"
+        srcset="{{ img_small }} 300w, {{ img_large }} 600w"
+        sizes="(max-width: 768px) 100vw, 50vw"
+        alt="{{ product.title | escape }} hover"
+        loading="lazy"
+        decoding="async"
+        >
+    {% endif %}
+
+    </div>
+
+    <div class="product-details position-relative">
+        {% assign index = 0 %}
+        {% assign option_index = 0 %}
+        {% assign color_option_size = 0 %}
+
+        {% for option in product.options_with_values %}
+            {% assign index = option_index | plus: 1 %}
+            {% assign _option = option.name | downcase %}
+            {% if _option == 'color' %}
+                {% assign color_option_size = option.values.size %}
+                {% assign option_index = index %}
+            {% endif %}
+        {% endfor %}
+
+        {% if option_index > 0 %}
+            <div class="block-variant-options pb-2">
+                {% render 'product-variant-colors', product: product %}
+            </div>
+        {% endif %}
+        {% if product.metafields.proviews.totalReviewCount != 0 %}
+            <div class="d-flex align-items-center justify-content-between ">
+                <p tabindex="0" 
+                    class="prorw_preview_badge_setup d-block pb-1" 
+                    id="prorw_preview_badge_id_{{ product.id }}" 
+                    data-product-id="{{ product.id }}" 
+                    data-average-ratings="{% if product.metafields.proviews.averageRatings != blank %}{{ product.metafields.proviews.averageRatings}}{% else %}0{% endif %}" 
+                    data-count="{% if product.metafields.proviews.totalReviewCount != blank %}{{ product.metafields.proviews.totalReviewCount}}{% else %}0{% endif %}"> 
+                </p> 
+
+                <div class="wishlist-button">
+                    <!-- Swym Wishlist Plus EPI Button with default first variant -->
+                    <button aria-label="Add to Wishlist" data-with-epi="true" class="swym-button swym-add-to-wishlist-view-product product_{{product.id}}" data-swaction="addToWishlist" data-product-id="{{product.id | json}}" data-variant-id="{{product.variants[0].id}}" data-product-url="{{ shop.url }}{{ product.url }}">
+                    </button>
+                    <!-- Swym Wishlist Plus EPI Button-->
+                    {% comment %} <svg class="icon-outline" xmlns="http://www.w3.org/2000/svg" width="35.999" height="31.29" viewBox="0 0 35.999 31.29">
+                        <path d="m34.632 15.965 1.676-1.682a9.374 9.374 0 0 1 13.538 0 9.987 9.987 0 0 1 0 13.839l-13.538 13.84a2.31 2.31 0 0 1-3.354 0L19.418 28.121a9.985 9.985 0 0 1 0-13.839 9.37 9.37 0 0 1 13.536 0l1.677 1.682Zm13.537 10.472a7.51 7.51 0 0 0 0-10.351 6.93 6.93 0 0 0-10.063 0l-2.639 2.529a1.153 1.153 0 0 1-1.674 0l-2.515-2.65a6.93 6.93 0 0 0-10.065 0 7.52 7.52 0 0 0 0 10.351l13.419 13.961z" transform="translate(-16.632 -11.393)" />
+                    </svg>
+                    <svg class="icon-filled" xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32">
+                        <path 
+                            d="M18.001 31.29c-.6 0-1.2-.23-1.66-.69L2.92 17.03a9.99 9.99 0 0 1 0-13.84 9.38 9.38 0 0 1 13.54 0l1.54 1.54 1.54-1.54a9.38 9.38 0 0 1 13.54 0 9.99 9.99 0 0 1 0 13.84L19.66 30.6c-.46.46-1.06.69-1.66.69Z"
+                            fill="currentColor"
+                        />
+                    </svg> {% endcomment %}
+
+                </div>
+            </div>
+        {% endif %}
+        {%- liquid
+            assign product_label = product.metafields.custom.custom_tag.value
+            if product_label == blank
+                assign product_label = product.metafields.custom.custom_tag
+            endif
+            assign product_label = product_label | strip_html | strip
+            if product_label == blank
+                assign product_label = 'FASHION | CONVENIENT'
+            endif
+        -%}
+        <div class="custom-label pb-1">
+            <span class="pp-semibold body d-lg-block d-md-block d-sm-none">
+                {{ product_label }}
+            </span>
+            <span class="pp-semibold body-xs d-lg-none d-md-none d-sm-block">
+                {{ product_label }}
+            </span>
+        </div>
+        <a href="{{ product.url }}" class="product-title d-block pb-2">
+            <h4 class="d-lg-block d-md-block d-sm-none body-lg pp-bold">
+                <div class="truncate-2-text">
+                    {{ product.title }}
+                </div>
+            </h4>
+            <h4 class="d-lg-none d-md-none d-sm-block body pp-semibold l-h-normal truncate-2-text">
+                <div class="truncate-2-text">
+                    {{ product.title }}
+                </div>
+            </h4>
+        </a>
+{% render 'okendo-reviews-product-rating-summary', product: product %}
+
+        <div class="footer-details">
+            <div class="price-container">
+                {% assign display_price = product.price_min %}
+                
+                <div class="text-sale-price f-main d-flex flex-lg-row flex-md-row flex-sm-column">
+                    <div class="pp-bold body-lg d-lg-block d-md-block d-sm-none">
+                        
+                        {% if product.price_varies %}
+                            <span class="body">From </span> {{ display_price | money }}
+                        {% else %}
+                            {{ product.selected_or_first_available_variant.price | money }}
+                        {% endif %}
+                    </div>
+                    {% if product.price_varies %}
+                        <span class="body-xs d-lg-none d-md-none d-sm-block f-black">From</span>
+                    {% endif %}
+                    <div class="pp-bold body-lg d-lg-none d-md-none d-sm-block l-h-normal">
+                        
+                        {% if product.price_varies %}
+                            {{ display_price | money }}
+                        {% else %}
+                            {{ product.selected_or_first_available_variant.price | money }}
+                        {% endif %}
+                    </div>
+                </div>
+                {% if product.selected_or_first_available_variant.price != product.selected_or_first_available_variant.compare_at_price %}
+                    <div class="text-compare-price f-compare-price d-flex">
+                        <div class="pp-regular body d-lg-block d-md-block d-sm-none">
+                            {{ product.selected_or_first_available_variant.compare_at_price | money }}
+                        </div>
+                        <div class="pp-regular body-xs d-lg-none d-md-none d-sm-block">
+                            {{ product.selected_or_first_available_variant.compare_at_price | money }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            
+            {% if product.has_only_default_variant %}
+                {% assign product_form_id = 'product-form-' | append: product.id %}
+                {% form 'product', product, id: product_form_id, class: 'atc-form form', novalidate: 'novalidate', data-type: 'add-to-cart-form', action: 'javascript:void(0)' %}
+                    <input type="hidden" name="id" class="product-main-id" value="{{ product.selected_or_first_available_variant.id }}">
+                    <div class="form-btn">
+                        <button type='submit' name="add" class="btn-atc btn-hover btn-main">
+                            {% if product.selected_or_first_available_variant.available != false %}
+                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc" alt="cart-icon">
+                            {% endif %}
+                            <div class="position-relative">
+                                <span class="body pp-semibold f-white">
+                                {% if product.selected_or_first_available_variant.available == false %}Sold Out{% else %}Add{% endif %} 
+                                </span>
+                                <div class="atc-overlay">
+                                    <div class="atc-spinner"></div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                {% endform %}
+            {% else %}
+                <div class="form-btn popup-atc">
+                    <button type='submit' name="add" class="btn-atc btn-hover btn-main" data-popup-handle="{{ product.handle }}">
+                        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc" alt="cart-icon">
+                        <div class="position-relative">
+                            <span class="body pp-semibold f-white">
+                                Add
+                            </span>
+                            <div class="atc-overlay">
+                                <div class="atc-spinner"></div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>

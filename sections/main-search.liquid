@@ -1,0 +1,1553 @@
+
+{% style %}
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: var(--bs-gutter-x);
+        row-gap: var(--bs-gutter-y);
+    }
+
+    .g-col-1 { grid-column: span 1; }
+    .g-col-2 { grid-column: span 2; }
+    .g-col-3 { grid-column: span 3; }
+    .g-col-4 { grid-column: span 4; }
+    .g-col-5 { grid-column: span 5; }
+    .g-col-6 { grid-column: span 6; }
+    .g-col-7 { grid-column: span 7; }
+    .g-col-8 { grid-column: span 8; }
+    .g-col-9 { grid-column: span 9; }
+    .g-col-10 { grid-column: span 10; }
+    .g-col-11 { grid-column: span 11; }
+    .g-col-12 { grid-column: span 12; }
+
+    aside{
+        display:block;
+        background-color:#FFF;
+        position:relative;
+        overflow:hidden;
+        border-radius:8px;
+    }
+    aside:hover img.bg-image,
+    aside:hover video{
+        scale:1.1;
+    }
+    aside.promotion-box .promotion-content{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 30px 25px;
+    }
+    aside.promotion-box .promotion-content .element-img{
+        height:25px;
+        width:fit-content;
+        object-fit:cover;
+        margin-top:14px;
+    }
+    aside.promotion-box .promotion-content .sub-heading{
+        display:flex;
+        position:relative;
+        gap:5px;
+    }
+    aside.promotion-box.promotion-sale .promotion-content{
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        height:100%;
+    }
+    .promotion-box img.bg-image,
+    .promotion-box video{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        position:absolute;
+        transition: all 0.3s ease;
+    }
+    .grid-column-1{
+        grid-column: 1;
+    }
+    .grid-column-2{
+        grid-column: 2;
+    }
+    .grid-column-3{
+        grid-column: 3;
+    }
+
+    .grid-row-1{
+        grid-row:1;
+    }
+    .grid-row-2{
+        grid-row:2;
+    }
+    .grid-row-3{
+        grid-row:3;
+    }
+    .grid-row-4{
+        grid-row:4;
+    }
+    .grid-row-5{
+        grid-row:6;
+    }
+    .grid-row-6{
+        grid-row:6;
+    }
+    .grid-row-7{
+        grid-row:7;
+    }
+    .grid-row-8{
+        grid-row:8;
+    }
+    .grid-row-9{
+        grid-row:9;
+    }
+    .main-search-container .collection-footer{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        margin-top: 50px;
+    }
+    .main-collection .toggle-filter{
+        background: #B93205;
+        border-radius: 6px 6px 6px 6px;
+        padding:8px 15px;
+        color:#FFF;
+        display:flex;
+        align-items:center;
+        gap:8px;
+    }
+    .main-collection .filter-list-container{
+        display:block
+    }
+    .main-collection .remove-filter{
+        display:flex;
+    }
+    .search-products-row{
+        --bs-gutter-x: 15px;
+        --bs-gutter-y: 35px;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .search-products-row{
+            --bs-gutter-y: 20px;
+        }
+        .main-collection .filter-list-container{
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999999;
+            width: 100%;
+            height: 100vh;
+            pointer-events:none;
+        }
+        .main-collection .filter-list-container.show{
+             pointer-events:auto;
+        }
+        .main-collection .filter-list-container .inner-filter-container{
+            background-color: #FFF;
+            height: 100vh;
+            width: 85%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding:30px 20px;
+            position:relative;
+            z-index:2;
+            transform: translateX(-150%); /* hidden left */
+            transition: transform .35s ease;
+        }
+        .main-collection .filter-list-container.show .inner-filter-container{
+            transform: translateX(0); /* slide open */
+        }
+
+        .main-collection .filter-list-container .overlay{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #00000029;
+            z-index: 1;
+            opacity:0;
+            transition:opacity .3s ease;
+        }
+        .main-collection .filter-list-container.show .overlay{
+            opacity:1;
+        }
+        .main-collection .filter-list-container .inner-filter-container .sticky-filter{
+            position:unset;
+        }
+        .main-collection .filter-list-container .inner-filter-container .filter-form.desktop{
+            overflow-y: scroll;
+            height: 80vh;
+        }
+        .main-collection .filter-list-container .btn-mav-close{
+            position: absolute;
+            top: 0;
+            right: -40px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            background: #B93205;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top-right-radius: 50%;
+            border-bottom-right-radius: 50%;
+        }
+        .main-collection .filter-list-container .btn-mav-close img{
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .main-collection .filter-list-container-tab{
+            margin-bottom:0.5rem;
+        }
+
+        .main-collection .mobile-toggle{
+            padding-left:0px;
+            padding-right:0px;
+        }
+        .grid-column-3{
+            grid-column: 2;
+        }
+        aside.promotion-box .promotion-content{
+            padding:5px;
+        }
+        aside.promotion-box .promotion-content .element-img{
+            height:20px;
+            margin-left: -10px;
+        }
+        aside.promotion-box.promotion-image .promotion-content{
+            padding:15px 10px;
+        }
+        .main-search-section .link-banner-item{
+            height:200px;
+        }
+        .product-recommendations .float-nav button{
+            --btn-pos:5px;
+        }
+        .product-recommendations .float-nav{
+            top:220px;
+        }
+        .main-collection .accordion-item .accordion-header button span{
+            font-size:18px;
+        }
+        
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+    
+    
+    /* Mobile horizontal scroll for search tabs */
+    @media (max-width: 991px) {
+        .tab-search {
+            display: flex !important;
+            flex-wrap: nowrap;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            -webkit-overflow-scrolling: touch; /* smooth iOS scroll */
+            gap: 0;
+            max-width:400px;
+            
+        }
+
+        .tab-search::-webkit-scrollbar {
+            display: none; /* hide scrollbar */
+        }
+
+        .tab-search .tab-item {
+            flex: 0 0 auto; /* prevent shrinking */
+            white-space: nowrap;
+        }
+    }
+
+{% endstyle %}
+{%- paginate search.results by 99999 -%}
+  {%- assign product_count = 0 -%}
+  {%- assign page_count = 0 -%}
+  {%- assign article_count = 0 -%}
+  {%- assign collection_count = 0 -%}
+
+  {%- for item in search.results -%}
+    {% case item.object_type %}
+      {% when 'product' %}
+        {%- assign product_count = product_count | plus: 1 -%}
+      {% when 'page' %}
+        {%- assign page_count = page_count | plus: 1 -%}
+      {% when 'article' %}
+        {%- assign article_count = article_count | plus: 1 -%}
+      {% when 'collection' %}
+        {%- assign collection_count = collection_count | plus: 1 -%}
+    {% endcase %}
+  {%- endfor -%}
+
+  <div class="container section-content pt-lg-5 pt-md-5 pt-sm-4 pb-0">
+    <div class="row main-search-row">
+      <div class="col-lg-9 col-md-9 col-sm-12 mx-auto mb-lg-4 mb-md-4 mb-sm-3">
+        <main-search>
+          <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form position-relative">
+            <button type="submit" class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+              <img src="https://cdn.shopify.com/s/files/1/0474/8365/0202/files/search-icon.png?v=1747637649" class="icon">
+            </button>
+                <input
+                class="search__input field__input pp-medium"
+                id="Search-In-Template"
+                type="text"
+                name="q"
+                value="{{ search.terms | escape }}"
+                placeholder="Search"
+                >
+
+            <button
+              type="reset"
+              class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"
+              aria-label="{{ 'general.search.reset' | t }}"
+            >
+              <img src="https://cdn.shopify.com/s/files/1/0474/8365/0202/files/add_2x_bc131609-e92a-49f1-886a-390385879bcf.png" class="icon icon-close">
+            </button>
+          </form>
+        </main-search>
+
+        <div class="result-text pp-bold text-center pretitle-lg mt-lg-4 mt-md-4 mt-sm-3" id="search-result-text">
+        Found <span id="search-total-count">{{ search.results_count }}</span> results for "<span id="search-term">{{ search.terms | escape }}</span>"
+        </div>
+
+      </div>
+    </div>
+
+    {%- if search.results_count != 0 -%}
+      <div class="tab-search d-flex justify-content-lg-start justify-content-md-start justify-content-sm-between mt-lg-4 mt-md-4 mt-sm-3">
+        <div class="tab-item active" data-item="product">
+          <div class="pp-semibold body">Products</div>
+          <div class="content-count pp-regular body-xs">--</div>
+        </div>
+
+        <div class="tab-item" data-item="collection">
+          <div class="pp-semibold body">Collections</div>
+          <div class="content-count pp-regular body-xs">--</div>
+        </div>
+
+        <div class="tab-item" data-item="page">
+          <div class="pp-semibold body">Pages</div>
+          <div class="content-count pp-regular body-xs">--</div>
+        </div>
+
+        <div class="tab-item" data-item="article">
+          <div class="pp-semibold body">Blogs</div>
+          <div class="content-count pp-regular body-xs">--</div>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if search.results_count != 0 -%}
+    <div class="main-search-container">
+      <div class="container section-content pt-lg-5 pt-md-4 pt-sm-4">
+        <div class="row main-search-row">
+          <div class="col-12">
+
+            <!-- PRODUCTS TAB -->
+            <div class="products-tab tab-section" data-item="product">
+              {% if product_count == 0 %}
+                <div class="empty-tab">
+                  <h4 class="pp-medium pretitle f-black mb-3">Sorry, the search results could not be found for you.</h4>
+                  <p class="pp-regular f-gray body-sm">Try another keyword</p>
+                </div>
+              {% else %}
+                <div class="search-main-collection main-collection">
+                    <div class="container mobile-toggle d-lg-none d-md-flex d-sm-flex pb-lg-0 pb-md-0 pb-sm-3">
+                        <p class="item-found d-lg-block d-md-block d-sm-none">
+                            <span>{{ product_count }}</span> Item(s) Found
+                        </p>
+                    </div>
+                    <div class="main-collection-top">
+                        <div class="row align-items-center justify-content-between mb-lg-4 mb-md-4 mb-sm-4">
+                            <div class="width-fit-content d-lg-block d-md-none d-sm-none">
+                                <div class="filter-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20.574" height="19.985" viewBox="0 0 20.574 19.985">
+                                        <path class="a" d="M11.372 19.735a.66.66 0 0 1-.659-.659V7.809a.66.66 0 0 1 .159-.429l5-5.813H2.318l4.589 5.835a.66.66 0 0 1 .141.407v6.727l1.984 1.984a.659.659 0 0 1-.932.931l-2.176-2.176a.66.66 0 0 1-.193-.466V8.038L.445 1.316A.658.658 0 0 1 .962.25h16.345a.659.659 0 0 1 .5 1.088l-5.774 6.716v11.023a.66.66 0 0 1-.658.659Z"/>
+                                        <path class="a" d="M14.568 17.98a.659.659 0 0 1 0-1.317h5.1a.659.659 0 0 1 0 1.317zm0-4.123a.659.659 0 0 1 0-1.317h5.1a.659.659 0 0 1 0 1.317zm0-4.075a.659.659 0 0 1 0-1.317h5.095a.659.659 0 0 1 0 1.317h-5.1Z"/>
+                                    </svg>
+                                    <span class="pp-semibold body-lg">
+                                        Filters
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="d-lg-none d-md-flex d-sm-flex width-fit-content">
+                                <a href="javascript:void(0)" class="toggle-filter">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14.39" height="13.978" viewBox="0 0 14.39 13.978">
+                                        <path fill="#fff" stroke="#fff" stroke-width=".5" d="M7.948 13.728a.456.456 0 0 1-.456-.456V5.479a.46.46 0 0 1 .11-.3l3.457-4.021H1.684l3.174 4.036a.46.46 0 0 1 .1.282v4.653l1.372 1.372a.456.456 0 0 1-.645.644L4.18 10.64a.45.45 0 0 1-.133-.322V5.634L.39.985A.455.455 0 0 1 .748.248h11.306a.456.456 0 0 1 .345.753L8.407 5.65v7.624a.456.456 0 0 1-.455.456Z"/>
+                                        <path fill="#fff" stroke="#fff" stroke-width=".5" d="M10.159 12.515a.456.456 0 0 1 0-.911h3.522a.456.456 0 0 1 0 .911h-3.525Zm0-2.852a.456.456 0 0 1 0-.911h3.522a.456.456 0 0 1 0 .911h-3.525Zm0-2.819a.456.456 0 0 1 0-.911h3.522a.456.456 0 0 1 0 .911h-3.525Z"/>
+                                    </svg>
+                                    <span class="body-lg d-lg-block d-md-block d-sm-none">
+                                        Filters
+                                    </span>
+                                    <span class="body d-lg-none d-md-none d-sm-block">
+                                        Filters
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between width-fit-content">
+                                <div class="sort-by desktop">
+                                    <span class="d-lg-block d-md-block d-sm-none body-lg">
+                                        Sort By:
+                                    </span>
+                                    <span class="d-lg-none d-md-none d-sm-block body">
+                                        Sort By:
+                                    </span>
+
+                                    {% assign current_sort = search.sort_by | default: 'relevance' %}
+
+                                    <select id="SearchSortBy">
+                                        <option value="manual"
+                                            {% if search.sort_by == 'manual' %}selected{% endif %}>
+                                            Featured
+                                        </option>
+                                        <option value="best-selling"
+                                            {% if search.sort_by == 'best-selling' %}selected{% endif %}>
+                                            Best selling
+                                        </option>
+                                        <option value="title-ascending"
+                                            {% if search.sort_by == 'title-ascending' %}selected{% endif %}>
+                                            Alphabetically, A–Z
+                                        </option>
+                                        <option value="title-descending"
+                                            {% if search.sort_by == 'title-descending' %}selected{% endif %}>
+                                            Alphabetically, Z–A
+                                        </option>
+                                        <option value="price-ascending"
+                                            {% if search.sort_by == 'price-ascending' %}selected{% endif %}>
+                                            Price, low to high
+                                        </option>
+                                        <option value="price-descending"
+                                            {% if search.sort_by == 'price-descending' %}selected{% endif %}>
+                                            Price, high to low
+                                        </option>
+                                        <option value="created-ascending"
+                                            {% if search.sort_by == 'created-ascending' %}selected{% endif %}>
+                                            Date, old to new
+                                        </option>
+                                        <option value="created-descending"
+                                            {% if search.sort_by == 'created-descending' %}selected{% endif %}>
+                                            Date, new to old
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="desktop-toggle">
+                        <div class="row collections-row">
+                            <div class="filter-list-container col-3">
+                                <div class="overlay"></div>
+                                <div class="inner-filter-container">
+                                    <div class="btn-mav-close d-lg-none d-md-none d-sm-flex">
+                                        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/close-nav-mobile.png?v=1761785925" width="100%" height="100%">
+                                    </div>
+                                    {% comment %} <h5 class="pp-bold body-xl f-black pb-3">Sidebar</h5> {% endcomment %}
+                                    <div class="sticky-filter">
+                                        <div class="d-flex align-items-center justify-content-between pb-lg-3 pb-md-3 pb-sm-2">
+                                            <span class="pp-semibold body-lg filters filter-counter-products">
+                                                All
+                                            </span>
+                                            <div class="clear-filter desktop">
+                                                <div class="pp-regular body"><i class="fa-solid fa-trash-can"></i> Clear Filter</div>
+                                            </div>
+                                        </div>
+                                        <div class="filter-list-container-tab">
+
+                                        </div>
+                                        <form class="filter-form desktop">
+
+                                            {% for filter in search.filters %}
+
+                                                {% assign filterCounter = filterCounter | plus: 1 %}
+
+                                                <div class="accordion filter-container">
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="filterDHeading-{{ filterCounter }}">
+                                                            <button class="body-lg mt-medium f-black mb-2 accordion-button {% if filter.type == 'price_range' %}{% else %}collapsed{% endif %} " type="button" data-bs-toggle="collapse" data-bs-target="#filterDCollapse-{{ filterCounter }}" aria-expanded="false" aria-controls="filterDCollapse-{{ filterCounter }}">
+                                                                <span>{{ filter.label }}</span>
+                                                            </button>
+                                                        </h2>
+                                                        <div id="filterDCollapse-{{ filterCounter }}" class="accordion-collapse collapse {% if filter.type == 'price_range' %}show{% endif %}" aria-labelledby="filterDHeading-{{ filterCounter }}">
+                                                            <div class="accordion-body filter-container-{{ filter.label | handleize }}">
+                                                                    {% case filter.type %}
+                                                        
+                                                                        {% when 'boolean' or 'list' %}
+                                                                            
+                                                                            {% for filter_value in filter.values %}
+                                                                                
+                                                                                {% if filter.label == 'Color' %}
+                                                                                        {% assign color_value_raw = filter_value.label | downcase %}
+                                                                                        {% assign words = color_value_raw | split: ' ' %}
+                                                                                        {% assign base_color = words.last %}
+                                                                                        {% assign color_handle = color_value_raw | handle %}
+
+                                                                                        {% if color_value_raw == 'hi-vis orange' %}
+                                                                                        {% assign base_color = '#ff6a13' %}
+                                                                                        {% elsif color_value_raw == 'hi-vis yellow' %}
+                                                                                        {% assign base_color = '#ffd400' %}
+                                                                                        {% elsif color_value_raw == 'hi-vis blue' %}
+                                                                                        {% assign base_color = '#2563eb' %}
+                                                                                        {% elsif color_value_raw == 'hi-vis gray' or color_value_raw == 'hi-vis grey' %}
+                                                                                        {% assign base_color = '#9ca3af' %}
+                                                                                        {% elsif color_value_raw == 'silver pine' %}
+                                                                                        {% assign base_color = '#6e7f6a' %}
+                                                                                        {% elsif color_value_raw == 'grey' %}
+                                                                                        {% assign base_color = '#808080' %}
+                                                                                        {% elsif color_value_raw == 'navy' %}
+                                                                                        {% assign base_color = '#1f2a44' %}
+                                                                                        {% elsif color_value_raw == 'olive' %}
+                                                                                        {% assign base_color = '#708238' %}
+                                                                                        {% elsif color_value_raw == 'camo' %}
+                                                                                        {% assign base_color = '#6b7753' %}
+                                                                                        {% endif %}
+
+                                                                                        {% assign swatch_file_name_exact = filter_value.label | strip | append: '.png' %}
+                                                                                        {% assign swatch_file_name_handle = color_handle | append: '.png' %}
+                                                                                        {% assign swatch_exact = images[swatch_file_name_exact] %}
+                                                                                        {% assign swatch_handle = images[swatch_file_name_handle] %}
+
+                                                                                        {% if swatch_exact == blank and swatch_handle == blank %}
+                                                                                        {% assign fallback_swatch_handle = blank %}
+                                                                                        {% if color_value_raw == 'hi-vis orange' %}
+                                                                                            {% assign fallback_swatch_handle = 'orange.png' %}
+                                                                                        {% elsif color_value_raw == 'hi-vis yellow' %}
+                                                                                            {% assign fallback_swatch_handle = 'yellow.png' %}
+                                                                                        {% elsif color_value_raw == 'hi-vis blue' %}
+                                                                                            {% assign fallback_swatch_handle = 'blue.png' %}
+                                                                                        {% elsif color_value_raw == 'hi-vis gray' or color_value_raw == 'hi-vis grey' %}
+                                                                                            {% assign fallback_swatch_handle = 'grey.png' %}
+                                                                                        {% endif %}
+
+                                                                                        {% if fallback_swatch_handle != blank %}
+                                                                                            {% assign swatch_handle = images[fallback_swatch_handle] %}
+                                                                                        {% endif %}
+                                                                                        {% endif %}
+
+                                                                                        {% assign swatch_primary = blank %}
+                                                                                        {% assign swatch_secondary = blank %}
+
+                                                                                        {% if swatch_exact != blank %}
+                                                                                        {% assign swatch_primary = swatch_exact %}
+                                                                                        {% endif %}
+
+                                                                                        {% if swatch_handle != blank %}
+                                                                                        {% assign swatch_secondary = swatch_handle %}
+                                                                                        {% endif %}
+
+                                                                                        {% assign swatch_bg = blank %}
+                                                                                        {% if swatch_primary != blank %}
+                                                                                        {% assign swatch_bg = swatch_primary | image_url %}
+                                                                                        {% elsif swatch_secondary != blank %}
+                                                                                        {% assign swatch_bg = swatch_secondary | image_url %}
+                                                                                        {% endif %}
+
+                                                                                        <div class="filter-group-display__list-item">
+                                                                                        <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                                                                                            <div class="label-container d-none">
+                                                                                                <span class="value">{{ filter_value.label }}</span>{%  if filter.label != 'Size' %}<span class="count">{{ filter_value.count }}</span>{% endif %}
+                                                                                            </div>
+                                                                                            <input type="checkbox"
+                                                                                            name="{{ filter_value.param_name }}"
+                                                                                            value="{{ filter_value.value }}"
+                                                                                            id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                                                                                            {% if filter_value.active %}checked{% endif %}>
+                                                                                            
+                                                                                            <span class="variant-color-box" style="
+                                                                                            background-color: {{ base_color }};
+                                                                                            {% if swatch_bg != blank %}
+                                                                                            background-image: url('{{ swatch_bg }}');
+                                                                                            background-size: cover;
+                                                                                            background-position: center;
+                                                                                            background-repeat: no-repeat;
+                                                                                            {% endif %}
+                                                                                            "
+                                                                                            data-swatch-primary="{% if swatch_primary != blank %}{{ swatch_primary | image_url }}{% endif %}"
+                                                                                            data-swatch-secondary="{% if swatch_secondary != blank %}{{ swatch_secondary | image_url }}{% endif %}"></span>
+
+                                                                                            <span class="color-text">{{ filter_value.label }}</span>
+                                                                                        </label>
+                                                                                        </div>
+                                                                                {% else %}
+                                                                                    <div class="filter-group-display__list-item">
+                                                                                        <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                                                                                            <div class="label-container">
+                                                                                                <span class="value">{{ filter_value.label }}</span>{%  if filter.label != 'Size' %}<span class="count">{{ filter_value.count }}</span>{% endif %}
+                                                                                            </div>
+
+                                                                                            <input type="checkbox" name="{{ filter_value.param_name }}"
+                                                                                                value="{{ filter_value.value }}"
+                                                                                                id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                                                                                                {% if filter_value.active %}checked{% endif %}
+                                                                                                >
+                                                                                                <span class="checkmark"></span>
+                                                                                                </label>
+                                                                                    </div>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                        
+                                                                        {% when 'price_range' %}
+                                        
+                                                                            <div class="filter-group-display__price-range">
+
+                                                                                <div class="slider">
+                                                                                    <div class="progress"></div>
+                                                                                </div>
+                                                                                <div class="range-input">
+                                                                                    <input type="range"
+                                                                                            class="range-min"
+                                                                                            min="0"
+                                                                                            max="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                                            {% if filter.min_value.value %}
+                                                                                            value="{{ filter.min_value.value | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                                            {% else %}
+                                                                                            value="0"
+                                                                                            {% endif %}
+                                                                                            step="1"
+                                                                                            aria-label="Minimum Price">
+
+                                                                                    <input type="range"
+                                                                                            class="range-max"
+                                                                                            min="0"
+                                                                                            max="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                                            {% if filter.max_value.value %}
+                                                                                            value="{{ filter.max_value.value | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                                            {% else %}
+                                                                                            value="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                                            {% endif %}
+                                                                                            step="1"
+                                                                                            aria-label="Maximum Price">
+                                                                                </div>
+
+
+                                                                                <div class="range-data">
+                                                                                    <div class="filter-group-display__price-range-from">
+                                                                    
+                                                                                        <input name="{{ filter.min_value.param_name }}"
+                                                                                            class="input-min"
+                                                                                            id="Filter-{{ filter.min_value.param_name }}"
+                                                                                            {% if filter.min_value.value %}
+                                                                                                value="{{ filter.min_value.value | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                                            {% else %}
+                                                                                                value="0"
+                                                                                            {% endif %}
+                                                                                            type="number"
+                                                                                            placeholder="From"
+                                                                                            min="0"
+                                                                                            readonly
+                                                                                            max="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                                        >
+                                                                        
+                                                                                    </div>
+                                                                                    to
+                                                                                    <div class="filter-group-display__price-range-to">
+                                                                        
+                                                                                        <input name="{{ filter.max_value.param_name }}"
+                                                                                            class="input-max"
+                                                                                            id="Filter-{{ filter.max_value.param_name }}"
+                                                                                            {% if filter.max_value.value %}
+                                                                                                value="{{ filter.max_value.value | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                                            {% else %}
+                                                                                                value="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                                            {% endif %}
+                                                                                            type="number"
+                                                                                            placeholder="To"
+                                                                                            min="0"
+                                                                                            readonly
+                                                                                            max="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.00', '' }}"
+                                                                                        >
+                                                                        
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                                
+                                                                    {% endcase %}
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            {% endfor %}
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="search-product-list-container product-list-container col-lg-9 col-md-12 col-sm-12">
+
+                                <div class="search-main-collection-product-list product-card">
+
+                                    {% if product_count > 0 %}
+
+                                    <!-- PRODUCT GRID -->
+                                    <div class="row search-products-row" id="search-results-container"></div>
+
+                                    <!-- FOOTER -->
+                                    <div class="row">
+                                        <div class="collection-footer" data-product-count="{{ product_count }}">
+                                        
+                                        <button id="load-more" class="load-more-btn btn-hover btn-main">
+                                            <span>Load More</span>
+                                        </button>
+
+                                        <div class="product-count-text f-gray">
+                                            Showing 
+                                            <span class="current-range" id="search-range">0–0</span>
+                                            of <span class="final-count">{{ product_count }}</span> products
+                                        </div>
+
+                                        </div>
+                                    </div>
+
+                                    {% else %}
+                                    <h3 class="pretitle-lg mt-bold f-black">No product found.</h3>
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+              {% endif %}
+            </div>
+
+
+            <!-- COLLECTIONS TAB -->
+            <div class="collections-tab tab-section" data-item="collection" style="display:none;">
+                <div class="row" id="collection-results-container"></div>
+
+                <div class="row">
+                    <div id="collection-collection-footer" class="collection-footer" data-collection-count="0">
+                    <button id="collection-load-more" class="load-more-btn btn-hover btn-main">
+                        <span>Load More</span>
+                    </button>
+
+                    <div class="collection-count-text f-gray">
+                        Showing <span id="collection-range">0–0</span>
+                        of <span class="final-count">0</span> collections
+                    </div>
+                    </div>
+                </div>
+
+                <div class="empty-tab" id="collection-empty" style="display:none;">
+                    <h4 class="pp-medium pretitle f-black mb-3">Sorry, the search results could not be found for you.</h4>
+                    <p class="pp-regular f-gray body-sm">Try another keyword</p>
+                </div>
+            </div>
+
+
+            <!-- ARTICLES TAB -->
+            <div class="articles-tab tab-section" data-item="article" style="display:none;">
+              {% if article_count == 0 %}
+                <div class="empty-tab">
+                  <h4 class="pp-medium pretitle f-black mb-3">Sorry, the search results could not be found for you.</h4>
+                  <p class="pp-regular f-gray body-sm">Try another keyword</p>
+                </div>
+              {% else %}
+                <div class="row" id="article-results-container"></div>
+                <div class="row">
+                  <div class="collection-footer" data-article-count="{{ article_count }}">
+                    <button id="article-load-more" class="load-more-btn btn-hover btn-main"><span>Load More</span></button>
+                    <div class="article-count-text f-gray">
+                      Showing <span id="article-range">0–0</span>
+                      of <span class="final-count">{{ article_count }}</span> articles
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- PAGES TAB -->
+            <div class="pages-tab tab-section" data-item="page" style="display:none;">
+              {% if page_count == 0 %}
+                <div class="empty-tab">
+                  <h4 class="pp-medium pretitle f-black mb-3">Sorry, the search results could not be found for you.</h4>
+                  <p class="pp-regular f-gray body-sm">Try another keyword</p>
+                </div>
+              {% else %}
+                <div class="row" id="page-results-container"></div>
+                <div class="row">
+                  <div class="collection-footer" data-page-count="{{ page_count }}">
+                    <button id="page-load-more" class="load-more-btn btn-hover btn-main"><span>Load More</span></button>
+                    <div class="page-count-text f-gray">
+                      Showing <span id="page-range">0–0</span>
+                      of <span class="final-count">{{ page_count }}</span> pages
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- else -%}
+    <div class="container section-content pt-3 pb-3">
+      <div class="empty-tab">
+        <h4 class="pp-bold pretitle-xl text-center f-black mb-3">Sorry, The Search Results Could Not Be Found For You.</h4>
+        <p class="pp-regular f-black body-lg text-center">You can double check the spelling, change the query or be less specific</p>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endpaginate -%}
+
+{% paginate search.results by 250 %}
+  <script>
+    window.SearchData = window.SearchData || { products: [], pages: [], articles: [], collections: [] };
+
+    {% for item in search.results %}
+      {% case item.object_type %}
+
+        {% when 'product' %}
+          {% capture product_html %}{% render 'search-product-item', product: item, badge_detail: true %}{% endcapture %}
+          window.SearchData.products.push({
+            title: {{ item.title | json }},
+            url: {{ item.url | json }},
+            price: {{ item.price | json }},
+            created_at: {{ item.published_at | date: "%Y-%m-%d" | json }},
+            html: {{ product_html | strip | replace: "\n", " " | json }}
+          });
+
+        {% when 'page' %}
+          {% capture page_html %}{% render 'search-page-item', item: item %}{% endcapture %}
+          window.SearchData.pages.push({
+            title: {{ item.title | json }},
+            url: {{ item.url | json }},
+            html: {{ page_html | strip | replace: "\n", " " | json }}
+          });
+
+        {% when 'article' %}
+          {% capture article_html %}{% render 'search-article-item', item: item %}{% endcapture %}
+          window.SearchData.articles.push({
+            title: {{ item.title | json }},
+            url: {{ item.url | json }},
+            html: {{ article_html | strip | replace: "\n", " " | json }}
+          });
+
+        {% when 'collection' %}
+          {% capture collection_html %}{% render 'search-collection-item', collection: item %}{% endcapture %}
+          window.SearchData.collections.push({
+            title: {{ item.title | json }},
+            url: {{ item.url | json }},
+            html: {{ collection_html | strip | replace: "\n", " " | json }}
+          });
+
+      {% endcase %}
+    {% endfor %}
+  </script>
+
+  {% if paginate.next %}
+    <button id="search-next-btn" data-next-url="{{ paginate.next.url }}" style="display:none;">Next</button>
+  {% endif %}
+{% endpaginate %}
+
+<script>
+  // ===========================
+  // SETTINGS
+  // ===========================
+  const productPerPage = 8;
+  const articlePerPage = 8;
+  const pagePerPage = 8;
+  const collectionPerPage = 8;
+
+  // Use Liquid term safely
+  const SEARCH_TERM = {{ search.terms | json }};
+
+  // ===========================
+  // STATE
+  // ===========================
+  window.SearchData = window.SearchData || { products: [], pages: [], articles: [], collections: [] };
+
+  let productIndex = 0;
+  let articleIndex = 0;
+  let pageIndex = 0;
+  let collectionIndex = 0;
+
+  let isAutoLoading = false;
+
+  // ===========================
+  // LOAD ALL PAGINATE PAGES (Liquid-driven)
+  // ===========================
+  async function loadNextPage() {
+    const nextBtn = document.getElementById('search-next-btn');
+    if (!nextBtn || !nextBtn.dataset.nextUrl) return;
+
+    try {
+      const response = await fetch(nextBtn.dataset.nextUrl, { credentials: 'same-origin' });
+      const html = await response.text();
+
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+
+      // Execute scripts that push into window.SearchData (products/pages/articles)
+      doc.querySelectorAll('script').forEach(script => {
+        const code = script.textContent || '';
+        if (code.includes('window.SearchData') && (code.includes('.products.push') || code.includes('.pages.push') || code.includes('.articles.push'))) {
+          try { eval(code); } catch (e) { console.error('eval error:', e); }
+        }
+      });
+
+      // Update next URL and recurse
+      const newNextBtn = doc.querySelector('#search-next-btn');
+      if (newNextBtn && newNextBtn.dataset.nextUrl) {
+        nextBtn.dataset.nextUrl = newNextBtn.dataset.nextUrl;
+        await loadNextPage();
+      } else {
+        nextBtn.removeAttribute('data-next-url');
+      }
+    } catch (err) {
+      console.error('Error loading next page:', err);
+    }
+  }
+
+  // ===========================
+  // FETCH COLLECTIONS (Suggest API)
+  // ===========================
+    async function fetchCollectionsSuggest(term) {
+        if (!term) return;
+
+        try {
+            const res = await fetch(
+            `/search/suggest.json?q=${encodeURIComponent(term)}&resources[type]=collection&resources[limit]=50`,
+            { headers: { Accept: 'application/json' } }
+            );
+
+            if (!res.ok) throw new Error(res.status);
+
+            const data = await res.json();
+            const collections = data?.resources?.results?.collections || [];
+
+            window.SearchData = window.SearchData || { products: [], pages: [], articles: [], collections: [] };
+
+            window.SearchData.collections = collections.map(c => ({
+            title: c.title,
+            url: c.url,
+            html: `
+                <div class="col-12 search-item">
+                    <div class="search-page-item">
+                                        
+                        <a href="${c.url}" class="pp-semibold f-black">
+                            <span class="body-xl d-lg-block d-md-block d-sm-none">
+                                ${escapeHtml(c.title)}
+                            </span>
+                            <span class="body d-lg-none d-md-none d-sm-block">
+                                ${escapeHtml(c.title)}
+                            </span>
+                        </a>
+
+                    </div>
+                </div>
+            `
+            }));
+
+            // toggle empty state
+            const empty = document.getElementById('collection-empty');
+            const footer = document.getElementById('collection-collection-footer');
+            const container = document.getElementById('collection-results-container');
+            const btn = document.getElementById('collection-load-more');
+
+            if (collections.length === 0) {
+                // show empty message
+                if (empty) empty.style.display = '';
+
+                // hide footer + button
+                if (footer) footer.style.display = 'none';
+                if (btn) btn.style.display = 'none';
+
+                // clear results
+                if (container) container.innerHTML = '';
+            } else {
+                // hide empty message
+                if (empty) empty.style.display = 'none';
+
+                // show footer (button visibility handled by pagination logic)
+                if (footer) footer.style.removeProperty('display');
+                if (btn) btn.style.removeProperty('display');
+            }
+
+            // update counts
+            renderCountTab();
+
+        } catch (e) {
+            console.error('Collection suggest fetch error:', e);
+        }
+    }
+
+    function escapeHtml(str) {
+        return String(str || '').replace(/[&<>"']/g, (m) => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[m]));
+    }
+
+
+  // ===========================
+  // UI HELPERS
+  // ===========================
+  function getActiveTabType() {
+    const active = document.querySelector('.tab-search .tab-item.active');
+    return active ? active.dataset.item : 'product';
+  }
+
+  function getActiveContainerAndButton() {
+    const type = getActiveTabType();
+    if (type === 'product') return { container: document.getElementById('search-results-container'), btn: document.getElementById('load-more') };
+    if (type === 'article') return { container: document.getElementById('article-results-container'), btn: document.getElementById('article-load-more') };
+    if (type === 'page') return { container: document.getElementById('page-results-container'), btn: document.getElementById('page-load-more') };
+    if (type === 'collection') return { container: document.getElementById('collection-results-container'), btn: document.getElementById('collection-load-more') };
+    return { container: null, btn: null };
+  }
+
+  function renderCountTab() {
+    const productCountEl = document.querySelector('.tab-search .tab-item[data-item="product"] .content-count');
+    const pageCountEl = document.querySelector('.tab-search .tab-item[data-item="page"] .content-count');
+    const articleCountEl = document.querySelector('.tab-search .tab-item[data-item="article"] .content-count');
+    const collectionCountEl = document.querySelector('.tab-search .tab-item[data-item="collection"] .content-count');
+
+    const productFinal = document.querySelector('.product-count-text .final-count');
+    const pageFinal = document.querySelector('.page-count-text .final-count');
+    const articleFinal = document.querySelector('.article-count-text .final-count');
+    const collectionFinal = document.querySelector('.collection-count-text .final-count');
+
+    if (productCountEl) productCountEl.textContent = window.SearchData.products.length;
+    if (pageCountEl) pageCountEl.textContent = window.SearchData.pages.length;
+    if (articleCountEl) articleCountEl.textContent = window.SearchData.articles.length;
+    if (collectionCountEl) collectionCountEl.textContent = window.SearchData.collections.length;
+
+    if (productFinal) productFinal.textContent = window.SearchData.products.length;
+    if (pageFinal) pageFinal.textContent = window.SearchData.pages.length;
+    if (articleFinal) articleFinal.textContent = window.SearchData.articles.length;
+    if (collectionFinal) collectionFinal.textContent = window.SearchData.collections.length;
+  }
+    function updateTopResultCount() {
+        const total =
+            (window.SearchData?.products?.length || 0) +
+            (window.SearchData?.pages?.length || 0) +
+            (window.SearchData?.articles?.length || 0) +
+            (window.SearchData?.collections?.length || 0);
+
+        const totalEl = document.getElementById('search-total-count');
+        if (totalEl) totalEl.textContent = total;
+    }
+
+function updateSearchPageTitle() {
+  const total =
+    (window.SearchData?.products?.length || 0) +
+    (window.SearchData?.pages?.length || 0) +
+    (window.SearchData?.articles?.length || 0) +
+    (window.SearchData?.collections?.length || 0);
+
+  const term = document.getElementById('search-term')?.textContent || SEARCH_TERM || '';
+
+  const baseTitle = 'Venustas® Heated Apparel';
+  const plural = total === 1 ? 'result' : 'results';
+
+  document.title = `Search: ${total} ${plural} found for "${term}" – ${baseTitle}`;
+}
+
+
+  // ===========================
+  // RENDERERS
+  // ===========================
+  function renderNextProducts() {
+    const container = document.getElementById('search-results-container');
+    if (!container) return;
+
+    const total = window.SearchData.products.length;
+    const batch = window.SearchData.products.slice(productIndex, productIndex + productPerPage);
+
+    batch.forEach(item => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'col-lg-4 col-md-4 col-sm-6 search-item';
+      wrapper.innerHTML = item.html;
+      container.appendChild(wrapper);
+    });
+
+    if (window.applySwatchFallbacks) {
+      window.applySwatchFallbacks(container);
+    }
+
+    const start = total === 0 ? 0 : (productIndex + 1);
+    productIndex += batch.length;
+    const end = Math.min(productIndex, total);
+
+    const rangeEl = document.getElementById('search-range');
+    if (rangeEl) rangeEl.textContent = `${start}–${end}`;
+
+    const btn = document.getElementById('load-more');
+    if (productIndex >= total && btn) btn.style.display = 'none';
+  }
+
+  function renderNextArticles() {
+    const container = document.getElementById('article-results-container');
+    if (!container) return;
+
+    const total = window.SearchData.articles.length;
+    const slice = window.SearchData.articles.slice(articleIndex, articleIndex + articlePerPage);
+
+    slice.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'col-12 search-item';
+      div.innerHTML = item.html;
+      container.appendChild(div);
+    });
+
+    const start = total === 0 ? 0 : (articleIndex + 1);
+    articleIndex += slice.length;
+    const end = Math.min(articleIndex, total);
+
+    const rangeEl = document.getElementById('article-range');
+    if (rangeEl) rangeEl.textContent = `${start}–${end}`;
+
+    const btn = document.getElementById('article-load-more');
+    if (articleIndex >= total && btn) btn.style.display = 'none';
+  }
+
+  function renderNextPages() {
+    const container = document.getElementById('page-results-container');
+    if (!container) return;
+
+    const total = window.SearchData.pages.length;
+    const slice = window.SearchData.pages.slice(pageIndex, pageIndex + pagePerPage);
+
+    slice.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'col-12 search-item';
+      div.innerHTML = item.html;
+      container.appendChild(div);
+    });
+
+    const start = total === 0 ? 0 : (pageIndex + 1);
+    pageIndex += slice.length;
+    const end = Math.min(pageIndex, total);
+
+    const rangeEl = document.getElementById('page-range');
+    if (rangeEl) rangeEl.textContent = `${start}–${end}`;
+
+    const btn = document.getElementById('page-load-more');
+    if (pageIndex >= total && btn) btn.style.display = 'none';
+  }
+
+  function renderNextCollections() {
+    const container = document.getElementById('collection-results-container');
+    if (!container) return;
+
+    const total = window.SearchData.collections.length;
+    const slice = window.SearchData.collections.slice(collectionIndex, collectionIndex + collectionPerPage);
+
+    slice.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'col-12 search-item';
+      div.innerHTML = item.html;
+      container.appendChild(div);
+    });
+
+    const start = total === 0 ? 0 : (collectionIndex + 1);
+    collectionIndex += slice.length;
+    const end = Math.min(collectionIndex, total);
+
+    const rangeEl = document.getElementById('collection-range');
+    if (rangeEl) rangeEl.textContent = `${start}–${end}`;
+
+    const btn = document.getElementById('collection-load-more');
+    if (collectionIndex >= total && btn) btn.style.display = 'none';
+  }
+
+  function renderActiveTabBatch() {
+    const t = getActiveTabType();
+    if (t === 'product') renderNextProducts();
+    if (t === 'article') renderNextArticles();
+    if (t === 'page') renderNextPages();
+    if (t === 'collection') renderNextCollections();
+  }
+
+  function resetAndRerenderAll() {
+    ['search-results-container','article-results-container','page-results-container','collection-results-container'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = '';
+    });
+
+    productIndex = 0;
+    articleIndex = 0;
+    pageIndex = 0;
+    collectionIndex = 0;
+
+    ['load-more','article-load-more','page-load-more','collection-load-more'].forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) btn.style.removeProperty('display');
+    });
+
+    renderActiveTabBatch();
+  }
+
+  // ===========================
+  // EVENTS
+  // ===========================
+  function bindEvents() {
+    document.getElementById('load-more')?.addEventListener('click', renderNextProducts);
+    document.getElementById('article-load-more')?.addEventListener('click', renderNextArticles);
+    document.getElementById('page-load-more')?.addEventListener('click', renderNextPages);
+    document.getElementById('collection-load-more')?.addEventListener('click', renderNextCollections);
+
+    // Tabs
+    document.querySelectorAll('.tab-search .tab-item').forEach(tab => {
+      tab.addEventListener('click', function() {
+        const tabType = this.dataset.item;
+
+        document.querySelectorAll('.tab-search .tab-item').forEach(el => el.classList.remove('active'));
+        this.classList.add('active');
+
+        document.querySelectorAll('.tab-section').forEach(el => el.style.display = 'none');
+        const section = document.querySelector(`.tab-section[data-item="${tabType}"]`);
+        if (section) section.style.display = '';
+
+        resetAndRerenderAll();
+      });
+    });
+
+    // Auto scroll pagination (ACTIVE tab only)
+    window.addEventListener('scroll', () => {
+      const { container, btn } = getActiveContainerAndButton();
+      if (!container || !btn || btn.style.display === 'none') return;
+      if (isAutoLoading) return;
+
+      const scrollBottom = window.scrollY + window.innerHeight;
+      const containerBottom = container.offsetTop + container.offsetHeight;
+
+      if (scrollBottom >= containerBottom - 500) {
+        isAutoLoading = true;
+        btn.click();
+        setTimeout(() => { isAutoLoading = false; }, 150);
+      }
+    }, { passive: true });
+  }
+
+
+
+    function initSearchFilters() {
+    const filterForm = document.querySelector('.filter-form.desktop');
+    if (!filterForm) return;
+
+    const pillsWrap = document.querySelector('.filter-list-container-tab');
+    const counterEl = document.querySelector('.filter-counter-products');
+    const clearBtn = document.querySelector('.clear-filter.desktop'); // ✅ it's a div
+    const sortSelect = document.getElementById('SearchSortBy');
+
+    // ✅ Update URL in address bar (no reload)
+    const updateBrowserUrl = (url) => {
+        window.history.replaceState({}, '', url.toString());
+    };
+
+    // Build URL based on checked filters
+    const buildFilterUrl = () => {
+        const url = new URL(window.location.origin + window.location.pathname);
+
+        // keep term + prefix
+        url.searchParams.set('q', "{{ search.terms | escape }}");
+        url.searchParams.set('options[prefix]', 'last');
+
+        // keep sort
+        if (sortSelect?.value) url.searchParams.set('sort_by', sortSelect.value);
+
+        // add checked filters
+        filterForm.querySelectorAll('input[type="checkbox"]:checked').forEach(chk => {
+        url.searchParams.append(chk.name, chk.value);
+        });
+
+        return url;
+    };
+
+    // Build "selected filters" pills
+    const renderPills = () => {
+        if (!pillsWrap) return;
+
+        const checked = Array.from(filterForm.querySelectorAll('input[type="checkbox"]:checked'));
+
+        pillsWrap.innerHTML = '';
+
+        if (counterEl) {
+        counterEl.textContent = checked.length ? `${checked.length} Selected` : 'All';
+        }
+
+        // hide/show clear
+        if (clearBtn) clearBtn.style.display = checked.length ? '' : 'none';
+
+        checked.forEach(chk => {
+        const label = filterForm.querySelector(`label[for="${CSS.escape(chk.id)}"]`);
+        const valueText =
+            label?.querySelector('.value')?.textContent?.trim() ||
+            label?.querySelector('.color-text')?.textContent?.trim() ||
+            chk.value;
+
+        // ✅ Build URL WITHOUT this filter (so pill can be a link too)
+        const urlWithoutThis = new URL(window.location.origin + window.location.pathname);
+        urlWithoutThis.searchParams.set('q', "{{ search.terms | escape }}");
+        urlWithoutThis.searchParams.set('options[prefix]', 'last');
+        if (sortSelect?.value) urlWithoutThis.searchParams.set('sort_by', sortSelect.value);
+
+        checked.forEach(other => {
+            if (other === chk) return;
+            urlWithoutThis.searchParams.append(other.name, other.value);
+        });
+
+        const pill = document.createElement('div');
+        pill.className = 'filter-item';
+        pill.dataset.id = chk.id;
+
+        // ✅ pill text is now an <a href="..."> (shareable link)
+        pill.innerHTML = `
+            <a class="pp-regular body filter-pill-link" href="${urlWithoutThis.toString()}">
+            ${escapeHtml(valueText)}
+            </a>
+            <button type="button" class="remove-filter" aria-label="Remove filter">×</button>
+        `;
+
+        pillsWrap.appendChild(pill);
+        });
+    };
+
+    // Fetch filtered products (your view=ajax endpoint)
+    const fetchFilteredProducts = async () => {
+        const url = buildFilterUrl();
+
+        // ✅ Update URL in the browser (shareable)
+        updateBrowserUrl(url);
+
+        try {
+        const res = await fetch(url.toString() + '&view=ajax', { credentials: 'same-origin' });
+        if (!res.ok) throw new Error(res.status);
+
+        const data = await res.json();
+
+        // Expecting: data.products = [{html,...}] based on your existing code
+        if (data?.products) {
+            window.SearchData = window.SearchData || { products: [], pages: [], articles: [], collections: [] };
+            window.SearchData.products = data.products;
+
+            // reset product container + pagination index and re-render
+            const productContainer = document.getElementById('search-results-container');
+            if (productContainer) productContainer.innerHTML = '';
+
+            // reset indices
+            if (typeof productIndex !== 'undefined') productIndex = 0;
+            if (typeof currentIndex !== 'undefined') currentIndex = 0;
+
+            // show load more again
+            const loadMoreBtn = document.getElementById('load-more');
+            if (loadMoreBtn) loadMoreBtn.style.removeProperty('display');
+
+            // render first batch
+            if (typeof renderNextProducts === 'function') renderNextProducts();
+
+            if (window.applySwatchFallbacks) {
+                window.applySwatchFallbacks(document.getElementById('search-results-container') || document);
+            }
+
+            // update counts
+            if (typeof renderCountTab === 'function') renderCountTab();
+            if (typeof updateTopResultCount === 'function') updateTopResultCount();
+            if (typeof updateSearchPageTitle === 'function') updateSearchPageTitle();
+        }
+        } catch (e) {
+        console.error('Filter fetch error:', e);
+        }
+    };
+
+    // Sync UI + data
+    const applyFilters = async () => {
+        renderPills();
+        await fetchFilteredProducts();
+    };
+
+    // Checkbox changes
+    filterForm.addEventListener('change', applyFilters);
+
+    // Remove pill (X button)
+    pillsWrap?.addEventListener('click', (e) => {
+        const btn = e.target.closest('.remove-filter');
+        if (!btn) return;
+
+        const pill = btn.closest('.filter-item');
+        if (!pill?.dataset.id) return;
+
+        const chk = filterForm.querySelector(`#${CSS.escape(pill.dataset.id)}`);
+        if (chk) chk.checked = false;
+
+        applyFilters();
+    });
+
+    // ✅ Optional: clicking the pill link applies state WITHOUT reload
+    pillsWrap?.addEventListener('click', (e) => {
+        const link = e.target.closest('a.filter-pill-link');
+        if (!link) return;
+
+        e.preventDefault();
+
+        // Update URL to link target
+        const url = new URL(link.href);
+        updateBrowserUrl(url);
+
+        // Sync checkboxes to match the link's params
+        syncCheckboxesFromUrl(url, filterForm);
+
+        applyFilters();
+    });
+
+    // Clear all
+    clearBtn?.addEventListener('click', () => {
+        filterForm.querySelectorAll('input[type="checkbox"]').forEach(chk => chk.checked = false);
+        applyFilters();
+    });
+
+    // If sort changes, re-apply filters
+    sortSelect?.addEventListener('change', applyFilters);
+
+    // Initial state
+    renderPills();
+    }
+
+    // ✅ Sync checkbox UI from URL params
+    function syncCheckboxesFromUrl(url, filterForm) {
+    filterForm.querySelectorAll('input[type="checkbox"]').forEach(chk => chk.checked = false);
+
+    url.searchParams.forEach((value, key) => {
+        if (!key.startsWith('filter.')) return;
+
+        const inputs = filterForm.querySelectorAll(`input[name="${CSS.escape(key)}"]`);
+        const match = Array.from(inputs).find(chk => chk.value === value);
+        if (match) match.checked = true;
+    });
+    }
+
+    // helper
+    function escapeHtml(str) {
+    return String(str || '').replace(/[&<>"']/g, (m) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[m]));
+    }
+
+  // ===========================
+  // INIT
+  // ===========================
+  document.addEventListener('DOMContentLoaded', async () => {
+    bindEvents();
+
+    // Load all liquid pages AND collections suggest
+    await Promise.all([
+      loadNextPage(),
+      fetchCollectionsSuggest(SEARCH_TERM)
+    ]);
+
+    renderCountTab();
+     updateTopResultCount();   
+  updateSearchPageTitle();  // ✅ updates <title>
+    resetAndRerenderAll();
+    initSearchFilters();
+  });
+
+document.querySelectorAll('.tab-search .tab-item').forEach(tab => {
+  tab.addEventListener('click', () => {
+    if (window.innerWidth <= 991) {
+      tab.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+  });
+});
+
+
+</script>
+
+
+
+{% schema %}
+    {
+        "class": "main-search-section",
+        "name": "Main Search",
+        "limit": 1,
+        "templates": ["search"],
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Redeem Heatwave Points For Benefits"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>Redeem Heatwave Points For Discounts, Free Gifts, Or Shopping Cards—starting At Just 100 Points. Act Now And Make Every Point Count!</p>"
+
+            },
+            {
+                "type": "text",
+                "id": "recomendation_heading",
+                "label": "Heading",
+                "default": "You May Also Like"
+            },
+            {
+                "type": "collection",
+                "id": "collection",
+                "label": "Collection"
+            },
+            {
+                "type": "range",
+                "id": "number_product",
+                "label": "Number Of Products",
+                "min": 6,
+                "max": 30,
+                "step": 1,
+                "default": 8
+            },
+        ],
+        "blocks": [
+            {
+                "type": "link",
+                "name": "Link",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Heading"
+                    },
+                    {
+                        "type": "url",
+                        "id": "link",
+                        "label": "Link"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Main Search"
+            }
+        ]
+    }
+{% endschema %} 

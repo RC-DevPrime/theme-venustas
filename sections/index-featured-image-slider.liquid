@@ -1,0 +1,147 @@
+{% style %}
+    .featured-image-slider-section{
+        content-visibility:auto;
+        contain-intrinsic-size: 1px 1000px;
+    }
+    .featured-image-slider-section .featured-image-item .image-container {
+        display:block;
+        overflow:hidden;
+        position:relative;
+        border-radius:8px;
+    }
+    .featured-image-slider-section .featured-image-item .image-container img{
+        width:100%;
+        height:100%;
+        transition: all 0.3s ease;
+    }
+    .featured-image-slider-section .featured-image-item .image-container:hover img{
+        transform: scale(1.1);
+    }
+    .featured-image-slider-section .float-nav {
+        position:unset;
+        transform:unset;
+        gap:16px;
+    }
+    .featured-image-slider-section .float-nav button{
+        position:unset;
+        transform:unset;
+        background: #F1EADD;
+    }
+    .featured-image-slider-section .float-nav button i{
+        color:#B93205;
+    }
+    .featured-image-slider-section .float-nav button:hover{
+        background: #B93205;
+    }
+    .featured-image-slider-section .float-nav button:hover i{
+        color:#FFF;
+    }
+{% endstyle %}
+<div class="container section-content">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12">
+            <div class="section-heading pp-bold title-sm f-black">
+                {{ section.settings.heading }}
+            </div>
+        </div>
+        <div class="col-4 d-lg-block d-md-block d-sm-none">
+            <div class="float-nav d-lg-flex d-md-flex d-sm-flex justify-content-end">
+                <button type="button" class="owl-prev" disabled>
+                    <i class="fa-solid fa-chevron-left f-white"></i>
+                </button>
+                <button type="button" class="owl-next" disabled>
+                    <i class="fa-solid fa-chevron-right f-white"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="featured-image-slider pt-lg-5 pt-md-4 pt-sm-4">
+        <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+                <div class="swiper-slide">
+                    <div class="featured-image-item">
+                        <a href="{{ block.settings.link }}" class="image-container" aria-label="{{ block.settings.heading }}">
+                            <img
+                                class="featured-img"
+                                src="{{ block.settings.image | image_url: width: 460, format: 'webp', quality: 60 }}"
+                                srcset="
+                                    {{ block.settings.image | image_url: width: 230, format: 'webp', quality: 60 }} 230w,
+                                    {{ block.settings.image | image_url: width: 460, format: 'webp', quality: 60 }} 460w,
+                                    {{ block.settings.image | image_url: width: 920, format: 'webp', quality: 60 }} 920w
+                                "
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                width="458"
+                                height="608"
+                                alt="{{ block.settings.image.alt | escape }}"
+                                loading="lazy"
+                                decoding="async"
+                            />
+
+
+                        </a>
+                        <div class="featured-content">
+                            <div class="block-title pp-bold pretitle-lg py-lg-3 py-md-2 py-sm-2">
+                                {{ block.settings.heading }}
+                            </div>
+                            <div class="block-description pp-regular body">
+                                {{ block.settings.description }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- ✅ Pagination Dots -->
+        <div class="swiper-pagination d-lg-none d-md-none d-sm-block"></div>
+    </div>
+</div>
+{% schema %}
+{
+    "class": "featured-image-slider-section overflow-hidden",
+    "name": "Featured Image Slider",
+    "limit": 1,
+    "templates": ["index"],
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Uncover Your Heated Essentials"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "textarea",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                }
+            ]   
+        }
+    ],
+    "presets": [
+        {
+            "name": "Featured Image Slider"
+        }
+    ]
+}
+{% endschema %}

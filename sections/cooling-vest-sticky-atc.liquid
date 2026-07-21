@@ -1,0 +1,257 @@
+{%- comment -%}
+  Cooling Vest — sticky bottom Add-to-Cart bar
+  Shows product name, selected variant, price, Add to Cart.
+  - Variant / price / availability mirror the main buy box (live).
+  - Add button triggers the main product form (reuses theme cart logic).
+  - Appears after the main Add-to-Cart button scrolls out of view.
+  Cooling-vest only (no preset).
+{%- endcomment -%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .cvbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    background: {{ section.settings.bg_color }};
+    box-shadow: 0 -3px 18px rgba(0,0,0,0.12);
+    transform: translateY(110%);
+    transition: transform .3s ease;
+  }
+  #shopify-section-{{ section.id }} .cvbar.is-visible { transform: translateY(0); }
+  #shopify-section-{{ section.id }} .cvbar__inner {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 12px 40px;
+  }
+  #shopify-section-{{ section.id }} .cvbar__img {
+    width: 52px;
+    height: 52px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #eef1f3;
+    flex: none;
+  }
+  #shopify-section-{{ section.id }} .cvbar__info { min-width: 0; flex: 1 1 auto; }
+  #shopify-section-{{ section.id }} .cvbar__title {
+    font-size: 15px;
+    font-weight: 700;
+    color: {{ section.settings.text_color }};
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #shopify-section-{{ section.id }} .cvbar__variant {
+    font-size: 13px;
+    color: #6a7278;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+  }
+  #shopify-section-{{ section.id }} .cvbar__price {
+    flex: none;
+    font-size: 18px;
+    font-weight: 800;
+    color: {{ section.settings.price_color }};
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  #shopify-section-{{ section.id }} .cvbar__price .product-compare-price,
+  #shopify-section-{{ section.id }} .cvbar__price .price-item--sale {
+    font-size: 14px;
+    font-weight: 600;
+    color: #9aa3ab;
+    text-decoration: line-through;
+  }
+  #shopify-section-{{ section.id }} .cvbar__btn {
+    flex: none;
+    border: 0;
+    border-radius: 8px;
+    background: {{ section.settings.btn_color }};
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 38px;
+    cursor: pointer;
+    transition: background .25s ease, opacity .25s ease;
+  }
+  #shopify-section-{{ section.id }} .cvbar__btn:hover { background: {{ section.settings.btn_color_hover }}; }
+  #shopify-section-{{ section.id }} .cvbar__btn[disabled] { opacity: .5; cursor: not-allowed; }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .cvbar__inner { gap: 10px; padding: 9px 12px; flex-wrap: nowrap; }
+    #shopify-section-{{ section.id }} .cvbar__img { display: none; }
+    #shopify-section-{{ section.id }} .cvbar__info { flex: 1 1 auto; min-width: 0; }
+    #shopify-section-{{ section.id }} .cvbar__title { font-size: 13px; }
+    #shopify-section-{{ section.id }} .cvbar__variant { font-size: 11px; }
+    /* 价格不收缩、不裁切；现价在上、划线原价在下（竖排省横向空间） */
+    #shopify-section-{{ section.id }} .cvbar__price {
+      flex: none;
+      overflow: visible;
+    }
+    #shopify-section-{{ section.id }} .cvbar__price .price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0;
+      line-height: 1.12;
+    }
+    #shopify-section-{{ section.id }} .cvbar__price .price-regular,
+    #shopify-section-{{ section.id }} .cvbar__price .price-item--regular { font-size: 15px; }
+    #shopify-section-{{ section.id }} .cvbar__price .product-compare-price { font-size: 11px; }
+    /* 只隐藏 "Save $X" 省钱标，现价 + 划线原价都保留 */
+    #shopify-section-{{ section.id }} .cvbar__price .product__price-savings { display: none !important; }
+    #shopify-section-{{ section.id }} .cvbar__btn {
+      padding: 10px 16px;
+      font-size: 14px;
+      white-space: nowrap;
+      flex: none;
+    }
+  }
+{% endstyle %}
+
+<div class="cvbar" id="cvbar-{{ section.id }}" aria-hidden="true">
+  <div class="cvbar__inner">
+    <img class="cvbar__img" id="cvbar-img-{{ section.id }}"
+         src="{{ product.featured_image | image_url: width: 120 }}" alt="{{ product.title | escape }}">
+    <div class="cvbar__info">
+      <div class="cvbar__title">{{ section.settings.custom_title | default: product.title }}</div>
+      <div class="cvbar__variant" id="cvbar-variant-{{ section.id }}"></div>
+    </div>
+    <div class="cvbar__price" id="cvbar-price-{{ section.id }}"></div>
+    <button type="button" class="cvbar__btn" id="cvbar-btn-{{ section.id }}">
+      {{ section.settings.btn_label | default: 'Add to Cart' }}
+    </button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var bar = document.getElementById('cvbar-{{ section.id }}');
+    if (!bar) return;
+    var variantEl = document.getElementById('cvbar-variant-{{ section.id }}');
+    var priceEl   = document.getElementById('cvbar-price-{{ section.id }}');
+    var imgEl     = document.getElementById('cvbar-img-{{ section.id }}');
+    var btn       = document.getElementById('cvbar-btn-{{ section.id }}');
+
+    var variants = {{ product.variants | json }};
+
+    function mainScope(el) {
+      return el && !el.closest('.product-page-nav-header-section') && !el.closest('.product-variant-selector');
+    }
+    function mainPriceSource() {
+      return Array.prototype.slice.call(document.querySelectorAll('.product .product-price')).filter(mainScope)[0];
+    }
+    function mainAddButton() {
+      var b = document.querySelector('.product .product-atc-form button[name="add"]');
+      if (b && mainScope(b)) return b;
+      return Array.prototype.slice.call(document.querySelectorAll('.product .btn-atc')).filter(mainScope)[0];
+    }
+
+    // --- selected variant from checked option radios (main buy box only) ---
+    function selectedVariant() {
+      var checked = Array.prototype.slice.call(document.querySelectorAll('.product .variants input.variant-radio:checked')).filter(mainScope);
+      if (!checked.length) return variants[0];
+      var vals = checked.map(function (r) { return r.value; });
+      var found = variants.filter(function (v) {
+        return v.options.length === vals.length && v.options.every(function (o, i) { return o === vals[i]; });
+      })[0];
+      return found || variants[0];
+    }
+
+    function updateVariantBits() {
+      var v = selectedVariant();
+      if (!v) return;
+      if (variantEl) variantEl.textContent = (v.options || []).join(' · ');
+      if (imgEl && v.featured_image && v.featured_image.src) {
+        imgEl.src = v.featured_image.src.split('?')[0] + '?width=120';
+      }
+      if (btn) {
+        btn.disabled = (v.available === false);
+        btn.textContent = (v.available === false) ? 'Out of Stock' : ({{ section.settings.btn_label | default: 'Add to Cart' | json }});
+      }
+    }
+
+    // --- price mirrors the main price block (keeps theme money formatting) ---
+    function mirrorPrice() {
+      var src = mainPriceSource();
+      if (src && priceEl) priceEl.innerHTML = src.innerHTML;
+    }
+
+    function refresh() { mirrorPrice(); updateVariantBits(); }
+
+    document.addEventListener('change', function (e) {
+      if (e.target && e.target.closest && e.target.closest('.product .variants') && mainScope(e.target)) refresh();
+    });
+    var priceSrc = mainPriceSource();
+    if (priceSrc && window.MutationObserver) {
+      new MutationObserver(mirrorPrice).observe(priceSrc, { childList: true, subtree: true, characterData: true });
+    }
+
+    // --- Add to Cart -> trigger the main form ---
+    if (btn) btn.addEventListener('click', function () {
+      var mainAdd = mainAddButton();
+      if (mainAdd) mainAdd.click();
+    });
+
+    // --- Show after the main Add-to-Cart scrolls out of view,
+    //     but hide again once the footer is reached (don't cover it). ---
+    var pastAnchor = false, footerVisible = false;
+    function syncVisible() {
+      var show = pastAnchor && !footerVisible;
+      bar.classList.toggle('is-visible', show);
+      bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+    }
+
+    var anchor = document.querySelector('.product .product-atc-form');
+    anchor = (anchor && mainScope(anchor)) ? anchor : mainAddButton();
+    var footer = document.querySelector('footer.footer') || document.querySelector('.footer');
+
+    if (anchor && window.IntersectionObserver) {
+      new IntersectionObserver(function (entries) {
+        var e = entries[0];
+        pastAnchor = !e.isIntersecting && e.boundingClientRect.top < 0;
+        syncVisible();
+      }, { threshold: 0 }).observe(anchor);
+
+      if (footer) {
+        new IntersectionObserver(function (entries) {
+          footerVisible = entries[0].isIntersecting;
+          syncVisible();
+        }, { threshold: 0 }).observe(footer);
+      }
+    } else {
+      window.addEventListener('scroll', function () {
+        pastAnchor = window.pageYOffset > 700;
+        footerVisible = footer ? (footer.getBoundingClientRect().top < window.innerHeight) : false;
+        syncVisible();
+      }, { passive: true });
+    }
+
+    refresh();
+    window.setTimeout(refresh, 600);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Cooling Vest Sticky ATC",
+  "class": "cooling-vest-sticky-atc-section",
+  "templates": ["product"],
+  "settings": [
+    { "type": "color", "id": "bg_color", "label": "Bar Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "Title Color", "default": "#01132F" },
+    { "type": "color", "id": "price_color", "label": "Price Color", "default": "#1C80FE" },
+    { "type": "color", "id": "btn_color", "label": "Button Color", "default": "#1C80FE" },
+    { "type": "color", "id": "btn_color_hover", "label": "Button Hover", "default": "#1568D6" },
+    { "type": "text", "id": "btn_label", "label": "Button Label", "default": "Add to Cart" },
+    { "type": "text", "id": "custom_title", "label": "Custom Title (optional)", "info": "Defaults to the product title" }
+  ]
+}
+{% endschema %}

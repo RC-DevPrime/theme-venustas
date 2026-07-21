@@ -1,0 +1,217 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+  #shopify-section-{{ section.id }} .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .container {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  #shopify-section-{{ section.id }} .for-her-why {
+    padding: 80px 0;
+  }
+  #shopify-section-{{ section.id }} .for-her-why__heading {
+    font-size: clamp(24px, 2.8vw, 42px);
+    font-weight: 700;
+    color: {{ section.settings.accent_color }};
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  #shopify-section-{{ section.id }} .for-her-why__swiper {
+    overflow: hidden;
+  }
+  #shopify-section-{{ section.id }} .for-her-why__slide {
+    height: auto;
+  }
+  #shopify-section-{{ section.id }} .for-her-why__card {
+    text-align: center;
+    padding: 36px 24px;
+    background: {{ section.settings.card_bg }};
+    border-radius: 16px;
+    height: 100%;
+    transition: transform 0.3s ease;
+  }
+  #shopify-section-{{ section.id }} .for-her-why__card:hover {
+    transform: translateY(-4px);
+  }
+  #shopify-section-{{ section.id }} .for-her-why__icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    object-fit: contain;
+    display: block;
+  }
+  #shopify-section-{{ section.id }} .for-her-why__icon-placeholder {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    background: #E85D26;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #shopify-section-{{ section.id }} .for-her-why__card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: {{ section.settings.accent_color }};
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  #shopify-section-{{ section.id }} .for-her-why__card-desc {
+    font-size: 13px;
+    color: #777;
+    line-height: 1.7;
+  }
+  #shopify-section-{{ section.id }} .for-her-why__pagination {
+    display: none;
+    text-align: center;
+    margin-top: 28px;
+  }
+  #shopify-section-{{ section.id }} .for-her-why__pagination .swiper-pagination-bullet {
+    width: 9px;
+    height: 9px;
+    background: #d9b8ac;
+    opacity: 1;
+    margin: 0 5px;
+  }
+  #shopify-section-{{ section.id }} .for-her-why__pagination .swiper-pagination-bullet-active {
+    background: {{ section.settings.accent_color }};
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .for-her-why {
+      padding: 50px 0;
+    }
+    #shopify-section-{{ section.id }} .for-her-why__heading {
+      margin-bottom: 36px;
+    }
+    #shopify-section-{{ section.id }} .for-her-why__pagination {
+      display: block;
+    }
+  }
+{% endstyle %}
+
+<div class="for-her-why">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <h2 class="for-her-why__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="for-her-why__swiper swiper" id="for-her-why-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide for-her-why__slide" {{ block.shopify_attributes }}>
+            <div class="for-her-why__card">
+              {% if block.settings.icon != blank %}
+                <img class="for-her-why__icon" src="{{ block.settings.icon | img_url: 'master' }}" alt="{{ block.settings.title }}">
+              {% else %}
+                <div class="for-her-why__icon-placeholder">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
+                </div>
+              {% endif %}
+              {% if block.settings.title != blank %}
+                <h4 class="for-her-why__card-title">{{ block.settings.title }}</h4>
+              {% endif %}
+              {% if block.settings.description != blank %}
+                <p class="for-her-why__card-desc">{{ block.settings.description }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="for-her-why__pagination" id="for-her-why-pag-{{ section.id }}"></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('#for-her-why-{{ section.id }}', {
+      slidesPerView: 1.15,
+      spaceBetween: 16,
+      pagination: {
+        el: '#for-her-why-pag-{{ section.id }}',
+        clickable: true,
+      },
+      breakpoints: {
+        481: { slidesPerView: 2.2, spaceBetween: 16 },
+        769: { slidesPerView: 4, spaceBetween: 24, allowTouchMove: false }
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "For Her - Why Heated",
+  "class": "for-her-why-heated-section",
+  "templates": ["page"],
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF5EE"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card Background",
+      "default": "#FFDCD4"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Heading & Card Titles)",
+      "default": "#B93205"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Does She Need Heated Apparel?"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Temperature Regulation"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "For Her - Why Heated",
+    "blocks": [
+      { "type": "benefit" },
+      { "type": "benefit" },
+      { "type": "benefit" },
+      { "type": "benefit" }
+    ]
+  }]
+}
+{% endschema %}

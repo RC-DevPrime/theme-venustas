@@ -1,0 +1,123 @@
+{% style %}
+    .ambassador-profile-faqs-section{
+
+    }
+    .ambassador-profile-faqs-section .accordion-item{
+        border:none;
+        background: #F9F6EF !important;
+        border-radius: 18px !important;
+        margin-bottom:20px;
+        
+    }
+    .ambassador-profile-faqs-section .accordion-item:last-child{
+        margin-bottom:0;
+    }
+    .ambassador-profile-faqs-section .accordion-item .accordion-button{
+        padding: 1.5rem 2rem;
+    }
+    .ambassador-profile-faqs-section .accordion-item  .accordion-body{
+        padding: 1.5rem 2rem;
+        padding-top:0;
+    }
+
+    
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .ambassador-profile-faqs-section .accordion-item{
+            border-radius:8px !important;
+        }
+        .ambassador-profile-faqs-section .accordion-item .accordion-button{
+            padding: 0.8rem 1.2rem;
+        }
+        .ambassador-profile-faqs-section .accordion-item  .accordion-body{
+            padding: 0.8rem 1.2rem;
+            padding-top:0;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content">
+    <div class="content-container">
+        <div class="pp-bold title-sm f-black text-center pb-lg-5 pb-md-5 pb-sm-4">
+            <span class="title-sm d-lg-block d-md-block d-sm-none">
+                {{ section.settings.heading }}
+            </span>
+            <span class="title d-lg-none d-md-none d-sm-block">
+                {{ section.settings.heading }}
+            </span>
+        </div>
+    </div>
+    <div class="col-lg-10 col-md-10 col-sm-12 mx-auto">
+        <div class="accordion" id="faqAccordion">
+            {% for block in section.blocks %}
+                {% assign index = forloop.index %}
+                <div class="accordion-item ">
+                <h2 class="accordion-header" id="heading-{{ section.id }}-{{ index }}">
+                    <button 
+                    class="accordion-button {% unless forloop.first %}collapsed{% endunless %} pp-bold body-lg l-h-normal" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#collapse-{{ section.id }}-{{ index }}" 
+                    aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" 
+                    aria-controls="collapse-{{ section.id }}-{{ index }}">
+                    {{ block.settings.heading }}
+                    </button>
+                </h2>
+                <div 
+                    id="collapse-{{ section.id }}-{{ index }}" 
+                    class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" 
+                    aria-labelledby="heading-{{ section.id }}-{{ index }}" 
+                    data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                    {{ block.settings.body }}
+                    </div>
+                </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% schema %}
+    {
+        "class": "ambassador-profile-faqs-section",
+        "name": "Ambassador Profile FAQS",
+        "templates": ["page","article"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Here’s something you may find helpful!"
+            },
+        ],
+        "blocks": [
+            {
+                "type": "FAQ",
+                "name": "FAQ",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "body",
+                        "label": "Body"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Ambassador Profile FAQS"
+        }]
+    }
+  {% endschema %} 

@@ -1,0 +1,195 @@
+{% style %}
+    .product-expand-image-section{
+        background: #1C1C1C;
+    }
+    .product-expand-image-section .expand-image-item{
+        flex-grow: 1;
+        position:relative;
+        height:750px;
+        transition: all 250ms ease-in-out;
+    }
+    .product-expand-image-section .expand-image-item .bg-image{
+        position:absolute;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .product-expand-image-section .expand-image-item.active{
+        flex-grow: 2.4;
+    }
+    .product-expand-image-section .expand-image-item .content-container .block-description {
+        opacity: 0;
+        transform: translateX(-10%) translateY(20%);
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.2s ease 0.2s, transform 0.2s ease 0.3s;
+        position:absolute;
+    }
+
+    .product-expand-image-section .expand-image-item.active .content-container .block-description {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+        visibility: visible;
+        pointer-events: auto;
+        position:unset;
+    }
+
+    .product-expand-image-section .expand-image-item.active .btn-toggle{
+        opacity:0;
+        visibility:hidden;
+    }
+
+    .product-expand-image-section .expand-image-item .btn-toggle{
+        position:absolute;
+        top:1rem;
+        right:1.5rem;
+        cursor:pointer;
+    }
+    .product-expand-image-section .expand-image-item .btn-toggle img{
+        width:60px;
+        height:fit-content;
+        object-fit:contain;
+    }
+
+    .product-expand-image-section .content-container{
+        position:absolute;
+        bottom:2rem;
+        left:1.5rem;
+        z-index: 1;
+        max-width: calc(100% - 3rem);
+        padding: 1rem 1.25rem;
+        border-radius: 0.75rem;
+        background: transparent;
+        transition: background 0.2s ease;
+    }
+    .product-expand-image-section .expand-image-item.active .content-container{
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .product-expand-image-section .expand-image-item{
+            height:150px;
+        }
+        .product-expand-image-section .expand-image-item.active{
+            height:300px;
+        }
+        .product-expand-image-section .content-container{
+            bottom:0;
+            left:0;
+            padding:20px 20px 15px;
+            max-width: 100%;
+        }
+        .product-expand-image-section .content-container .block-heading{
+            padding-right:40px;
+        }
+        .product-expand-image-section .expand-image-item .btn-toggle{
+            top:unset;
+            bottom:20px;
+            right:20px;
+            width:30px;
+            height:30px;
+            background-image:url(https://cdn.shopify.com/s/files/1/0457/1099/9709/files/icon-plus.png?v=1763705919);
+            background-repeat:no-repeat;
+            background-size:20px;
+            background-position:center center;
+        }
+        .product-expand-image-section .expand-image-item .btn-toggle img{
+            display:none;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}> 
+
+    <div class="d-flex flex-lg-row flex-md-row flex-sm-column">
+        {% for block in section.blocks %}
+            <div class="expand-image-item {% if forloop.index == 1 %}active{% endif %}">
+                <img src="{{ block.settings.image | img_url: 'master' }}" width="100%" height="100%" class="bg-image">
+                <div class="content-container">
+                    <h3 class="block-heading pp-bold f-white {% if forloop.index == 1 %}title-xs{% else %}pretitle{% endif %} pb-lg-3 pb-md-3 pb-sm-2">
+                        {{ block.settings.heading }}
+                    </h3>
+                    <div class="block-description pp-regular f-white-gray body-lg">
+                        {{ block.settings.description }}
+                    </div>
+                </div>
+                <div class="btn-toggle">
+                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/14_3_2x_1f14ac8d-efc3-41ce-922c-1f5d24ce6105.png?v=1760965771" >
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% schema %}
+{
+    "class": "product-expand-image-section",
+    "name": "Expand Image",
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled_section_child_scroll",
+            "label": "Enabled Section Child Scroll"
+        },
+        {
+            "type": "text",
+            "id": "section_scroll_nav",
+            "label": "Section Scroll Nav",
+            "info": "Need to Enabled first Section Scroll"
+        },
+        {
+            "type": "text",
+            "id": "nav_title",
+            "label": "Navigation Title"
+        },
+    ],
+    "max_blocks": 3,
+    "blocks": [
+        {
+            "type": "content",
+            "name": "Content",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description"
+                }
+            ]   
+        }
+    ],
+    "presets": [
+        {
+            "name": "Expand Image"
+        }
+    ]
+}
+{% endschema %}

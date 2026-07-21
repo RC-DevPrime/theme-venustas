@@ -1,0 +1,433 @@
+{%- comment -%}
+  Product Cooling — "COOLING WITHOUT THE BULK"
+  Two comparison cards side by side (orange "Typical Fan-Only Vest" vs blue
+  "Venustas Dual-Cooling Vest") with an optional VS badge over the gap, followed
+  by a white bar of benefit items (icon + title + description). On mobile the
+  cards swipe left/right (VS hidden) and the benefits go 1-up.
+  Cooling-vest only (no preset) so it can't be added to other pages.
+{%- endcomment -%}
+
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    --vb-orange: {{ section.settings.orange_color }};
+    --vb-blue: {{ section.settings.blue_color }};
+    --vb-heading: {{ section.settings.heading_color }};
+  }
+  #shopify-section-{{ section.id }} .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  #shopify-section-{{ section.id }} .vb { padding: 20px 0 64px; }
+  #shopify-section-{{ section.id }} .vb__heading {
+    font-size: clamp(24px, 3vw, 40px);
+    font-weight: 800;
+    color: var(--vb-heading);
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1.15;
+    margin: 0 0 {% if section.settings.subheading == blank %}40px{% else %}10px{% endif %};
+  }
+  #shopify-section-{{ section.id }} .vb__heading-accent { color: var(--vb-blue); }
+  #shopify-section-{{ section.id }} .vb__subheading {
+    text-align: center;
+    color: #5a6470;
+    font-size: clamp(14px, 1.4vw, 17px);
+    max-width: 760px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+
+  /* ---- Comparison cards (Swiper: 2-up desktop, 1-up swipe on mobile) ---- */
+  #shopify-section-{{ section.id }} .vb__cards { position: relative; }
+  #shopify-section-{{ section.id }} .vb__swiper { overflow: hidden; }
+  #shopify-section-{{ section.id }} .vb__card {
+    height: auto;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(1,19,47,0.06);
+    display: flex;
+    flex-direction: column;
+  }
+  /* Soft top-tint → white gradient on the card body (behind the model PNG) */
+  {%- assign orange_tint = section.settings.orange_color | color_modify: 'alpha', 0.16 -%}
+  {%- assign blue_tint = section.settings.blue_color | color_modify: 'alpha', 0.16 -%}
+  #shopify-section-{{ section.id }} .vb__card--left .vb__card-body {
+    background: linear-gradient(180deg, {% if orange_tint != blank %}{{ orange_tint }}{% else %}rgba(245,134,52,0.16){% endif %} 0%, #ffffff 62%);
+  }
+  #shopify-section-{{ section.id }} .vb__card--right .vb__card-body {
+    background: linear-gradient(180deg, {% if blue_tint != blank %}{{ blue_tint }}{% else %}rgba(28,128,254,0.16){% endif %} 0%, #ffffff 62%);
+  }
+  
+  /* MODIFIED: Added flexbox and min-height to force equal header heights */
+  #shopify-section-{{ section.id }} .vb__card-head {
+    text-align: center;
+    color: #fff;
+    font-size: clamp(15px, 1.7vw, 20px);
+    font-weight: 800;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px; 
+  }
+  
+  #shopify-section-{{ section.id }} .vb__card--left  .vb__card-head { background: linear-gradient(90deg, {{ section.settings.orange_color }} 0%, #FFA766 100%); }
+  #shopify-section-{{ section.id }} .vb__card--right .vb__card-head { background: linear-gradient(90deg, {{ section.settings.blue_color }} 0%, #5BD3F0 100%); }
+  #shopify-section-{{ section.id }} .vb__card-body {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 24px;
+    flex: 1 1 auto;
+    /* Compact fixed height so the card volume matches the Versus module */
+    min-height: {{ section.settings.card_body_height }}px;
+  }
+  /* Text on the OUTER side, model on the INNER side (toward the VS badge):
+     left card = copy | media ; right card = media | copy */
+  #shopify-section-{{ section.id }} .vb__card--left .vb__card-body { flex-direction: row-reverse; }
+  #shopify-section-{{ section.id }} .vb__card--right .vb__card-body { flex-direction: row; }
+  #shopify-section-{{ section.id }} .vb__card-media {
+    flex: 0 0 52%;
+    align-self: stretch;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  /* Model PNG scales to fill the card height (not just the column width),
+     shown in full (contain) and standing on the card bottom. */
+  #shopify-section-{{ section.id }} .vb__card-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: {{ section.settings.card_body_height }}px;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+  #shopify-section-{{ section.id }} .vb__card-media svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+  }
+  #shopify-section-{{ section.id }} .vb__card-media .vb__placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    max-height: {{ section.settings.card_body_height | minus: 8 }}px;
+    border: 1.5px dashed rgba(1,19,47,0.18);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: #9aa7b4; font-size: 13px;
+  }
+  #shopify-section-{{ section.id }} .vb__card-copy { flex: 1 1 auto; }
+  #shopify-section-{{ section.id }} .vb__card--right .vb__card-copy { text-align: right; }
+  #shopify-section-{{ section.id }} .vb__card-title {
+    font-size: clamp(20px, 2.4vw, 30px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 12px;
+  }
+  #shopify-section-{{ section.id }} .vb__card--left  .vb__card-title { color: var(--vb-orange); }
+  #shopify-section-{{ section.id }} .vb__card--right .vb__card-title { color: var(--vb-heading); }
+  #shopify-section-{{ section.id }} .vb__card--right .vb__card-title .vb__accent { color: var(--vb-blue); }
+  #shopify-section-{{ section.id }} .vb__card-text {
+    font-size: 14px;
+    color: #5a6470;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* VS badge over the gap (desktop) — matches the Versus section badge */
+  #shopify-section-{{ section.id }} .vb__badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, {{ section.settings.cyan_color }} 0%, {{ section.settings.blue_color }} 100%);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 30px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 22px rgba(28,128,254,0.32);
+  }
+
+  /* Swipe pagination — mobile only */
+  #shopify-section-{{ section.id }} .vb__pagination {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+  }
+  #shopify-section-{{ section.id }} .vb__pagination .swiper-pagination-bullet {
+    width: 9px; height: 9px; background: #c2cdd8; opacity: 1; margin: 0 5px;
+  }
+  #shopify-section-{{ section.id }} .vb__pagination .swiper-pagination-bullet-active {
+    background: {{ section.settings.blue_color }};
+  }
+
+  /* ---- Benefits bar ---- */
+  #shopify-section-{{ section.id }} .vb__benefits {
+    margin-top: 24px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(1,19,47,0.06);
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size }}, 1fr);
+    gap: 12px;
+    padding: 22px 28px;
+  }
+  #shopify-section-{{ section.id }} .vb__benefit {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 6px 10px;
+  }
+  #shopify-section-{{ section.id }} .vb__benefit + .vb__benefit {
+    border-left: 1px solid #eef1f5;
+  }
+  /* Icon: raw artwork, no ring / no background (art already includes its circle) */
+  #shopify-section-{{ section.id }} .vb__benefit-icon {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #shopify-section-{{ section.id }} .vb__benefit-icon img,
+  #shopify-section-{{ section.id }} .vb__benefit-icon svg {
+    width: 100%; height: 100%; object-fit: contain;
+  }
+  #shopify-section-{{ section.id }} .vb__benefit-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--vb-heading);
+    margin: 0 0 3px;
+    line-height: 1.2;
+  }
+  #shopify-section-{{ section.id }} .vb__benefit-desc {
+    font-size: 13px;
+    color: #6a7682;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .container { padding-left: 20px; padding-right: 20px; }
+    #shopify-section-{{ section.id }} .vb { padding: 12px 0 44px; }
+    #shopify-section-{{ section.id }} .vb__badge { display: none; }
+    #shopify-section-{{ section.id }} .vb__pagination { display: block; }
+    
+    /* MODIFIED: Match header height tweak for mobile screens */
+    #shopify-section-{{ section.id }} .vb__card-head {
+      min-height: 72px;
+      padding: 12px 16px;
+    }
+    
+    /* Mobile: layout changed to image on top, text on bottom */
+    #shopify-section-{{ section.id }} .vb__card--left .vb__card-body,
+    #shopify-section-{{ section.id }} .vb__card--right .vb__card-body { 
+      flex-direction: column;
+      min-height: 0; 
+      padding: 20px 20px 32px;
+    }
+    #shopify-section-{{ section.id }} .vb__card-media {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+    #shopify-section-{{ section.id }} .vb__card-copy,
+    #shopify-section-{{ section.id }} .vb__card--right .vb__card-copy { 
+      text-align: center;
+    }
+    #shopify-section-{{ section.id }} .vb__card-media img,
+    #shopify-section-{{ section.id }} .vb__card-media svg { 
+      max-height: 240px;
+    }
+    
+    #shopify-section-{{ section.id }} .vb__benefits {
+      grid-template-columns: 1fr;
+      gap: 6px;
+      padding: 16px 18px;
+    }
+    #shopify-section-{{ section.id }} .vb__benefit + .vb__benefit { border-left: 0; border-top: 1px solid #eef1f5; }
+  }
+{% endstyle %}
+
+<div class="vb">
+  <div class="container">
+    {% if section.settings.heading != blank or section.settings.heading_accent != blank or section.settings.heading_tail != blank %}
+      <h2 class="vb__heading">
+        {{ section.settings.heading }}
+        {% if section.settings.heading_accent != blank %}<span class="vb__heading-accent">{{ section.settings.heading_accent }}</span>{% endif %}
+        {{ section.settings.heading_tail }}
+      </h2>
+    {% endif %}
+    {% if section.settings.subheading != blank %}
+      <p class="vb__subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+
+    <div class="vb__cards">
+      <div class="vb__swiper swiper" id="vb-swiper-{{ section.id }}">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide vb__card vb__card--left">
+            <div class="vb__card-head">{{ section.settings.left_header }}</div>
+            <div class="vb__card-body">
+              <div class="vb__card-media">
+                {% if section.settings.left_image != blank %}
+                  <img src="{{ section.settings.left_image | image_url: width: 600 }}" alt="{{ section.settings.left_header | escape }}" loading="lazy">
+                {% else %}
+                  <div class="vb__placeholder">Left image</div>
+                {% endif %}
+              </div>
+              <div class="vb__card-copy">
+                {% if section.settings.left_title != blank %}<p class="vb__card-title">{{ section.settings.left_title }}</p>{% endif %}
+                {% if section.settings.left_text != blank %}<p class="vb__card-text">{{ section.settings.left_text }}</p>{% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide vb__card vb__card--right">
+            <div class="vb__card-head">{{ section.settings.right_header }}</div>
+            <div class="vb__card-body">
+              <div class="vb__card-media">
+                {% if section.settings.right_image != blank %}
+                  <img src="{{ section.settings.right_image | image_url: width: 600 }}" alt="{{ section.settings.right_header | escape }}" loading="lazy">
+                {% else %}
+                  <div class="vb__placeholder">Right image</div>
+                {% endif %}
+              </div>
+              <div class="vb__card-copy">
+                {% if section.settings.right_title != blank or section.settings.right_title_accent != blank %}
+                  <p class="vb__card-title">{{ section.settings.right_title }}{% if section.settings.right_title_accent != blank %} <span class="vb__accent">{{ section.settings.right_title_accent }}</span>{% endif %}</p>
+                {% endif %}
+                {% if section.settings.right_text != blank %}<p class="vb__card-text">{{ section.settings.right_text }}</p>{% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% if section.settings.show_vs %}<div class="vb__badge">VS</div>{% endif %}
+    </div>
+
+    <div class="vb__pagination" id="vb-pag-{{ section.id }}"></div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="vb__benefits">
+        {% for block in section.blocks %}
+          <div class="vb__benefit" {{ block.shopify_attributes }}>
+            <span class="vb__benefit-icon">
+              {% if block.settings.icon != blank %}
+                <img src="{{ block.settings.icon | image_url: width: 80 }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+              {% else %}
+                {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </span>
+            <div class="vb__benefit-text">
+              {% if block.settings.title != blank %}<p class="vb__benefit-title">{{ block.settings.title }}</p>{% endif %}
+              {% if block.settings.description != blank %}<p class="vb__benefit-desc">{{ block.settings.description }}</p>{% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  (function () {
+    var SECTION_ID = '{{ section.id }}';
+    var instance = null;
+
+    function initVbSwiper() {
+      var el = document.getElementById('vb-swiper-' + SECTION_ID);
+      if (!el || typeof Swiper === 'undefined') return;
+      // Tear down any previous instance so re-init (e.g. theme editor reload) is clean
+      if (instance) { try { instance.destroy(true, true); } catch (e) {} instance = null; }
+      instance = new Swiper('#vb-swiper-' + SECTION_ID, {
+        slidesPerView: 1.08,
+        spaceBetween: 14,
+        pagination: { el: '#vb-pag-' + SECTION_ID, clickable: true },
+        breakpoints: {
+          769: { slidesPerView: 2, spaceBetween: 12, allowTouchMove: false }
+        }
+      });
+    }
+
+    // Swiper bundle is loaded with `defer`, so it may not be ready at parse time.
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initVbSwiper);
+    } else {
+      initVbSwiper();
+    }
+    // Fallback in case the deferred Swiper script finishes after the above ran.
+    window.addEventListener('load', initVbSwiper);
+
+    // Theme editor: re-init when this section is reloaded (fixes cards collapsing after a setting change)
+    document.addEventListener('shopify:section:load', function (evt) {
+      if (evt.detail && evt.detail.sectionId === SECTION_ID) initVbSwiper();
+    });
+    document.addEventListener('shopify:section:unload', function (evt) {
+      if (evt.detail && evt.detail.sectionId === SECTION_ID && instance) {
+        try { instance.destroy(true, true); } catch (e) {}
+        instance = null;
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Cooling Without Bulk",
+  "class": "product-cooling-vs-bulk-section",
+  "templates": ["product"],
+  "max_blocks": 4,
+  "settings": [
+    { "type": "checkbox", "id": "enabled_section_child_scroll", "label": "Enable scroll nav anchor", "default": false },
+    { "type": "text", "id": "section_scroll_nav", "label": "Scroll Nav Group" },
+    { "type": "text", "id": "nav_title", "label": "Nav Title" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#DCE9F6" },
+    { "type": "color", "id": "heading_color", "label": "Heading / Text Color", "default": "#01132F" },
+    { "type": "color", "id": "orange_color", "label": "Orange Accent (fan-only)", "default": "#F58634" },
+    { "type": "color", "id": "blue_color", "label": "Blue Accent (Venustas / gradient end)", "default": "#1C80FE" },
+    { "type": "color", "id": "cyan_color", "label": "Cyan Accent (VS badge gradient start)", "default": "#5BD3F0" },
+    { "type": "text", "id": "heading", "label": "Heading (dark part 1)", "default": "COOLING" },
+    { "type": "text", "id": "heading_accent", "label": "Heading (accent part)", "default": "WITHOUT" },
+    { "type": "text", "id": "heading_tail", "label": "Heading (dark part 2)", "default": "THE BULK" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Stay cooler without the oversized, ballooned-out feel of traditional fan vests." },
+    { "type": "checkbox", "id": "show_vs", "label": "Show VS badge (desktop)", "default": true },
+    { "type": "range", "id": "card_body_height", "label": "Card body height", "info": "Controls how tall the two cards are. Lower = more compact (closer to the Versus module).", "min": 200, "max": 420, "step": 10, "unit": "px", "default": 260 },
+    { "type": "header", "content": "Left Card — Typical Fan-Only Vest" },
+    { "type": "text", "id": "left_header", "label": "Header label", "default": "TYPICAL FAN-ONLY VEST" },
+    { "type": "text", "id": "left_title", "label": "Title", "default": "Bulky, Ballooned Fit" },
+    { "type": "textarea", "id": "left_text", "label": "Text", "default": "Fans push air into the vest, creating a puffed-out feel." },
+    { "type": "image_picker", "id": "left_image", "label": "Image" },
+    { "type": "header", "content": "Right Card — Venustas Dual-Cooling Vest" },
+    { "type": "text", "id": "right_header", "label": "Header label", "default": "VENUSTAS DUAL-COOLING VEST" },
+    { "type": "text", "id": "right_title", "label": "Title (dark part)", "default": "Cooling That" },
+    { "type": "text", "id": "right_title_accent", "label": "Title (accent part)", "default": "Stays Close" },
+    { "type": "textarea", "id": "right_text", "label": "Text", "default": "Ice-water circulation cools against your back, without the ballooned-out feel." },
+    { "type": "image_picker", "id": "right_image", "label": "Image" }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Benefit" },
+        { "type": "textarea", "id": "description", "label": "Description" }
+      ]
+    }
+  ]
+}
+{% endschema %}

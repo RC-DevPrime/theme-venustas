@@ -1,0 +1,456 @@
+{% style %}
+    .campaign-sale-steps-section{
+        background-color:#000;
+    }
+    .campaign-sale-steps-section .section-heading{
+    }
+    .campaign-sale-steps-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+
+    .campaign-sale-steps-section .form-exclusive-discount-container{
+        background: #262626;
+        border-radius:16px;
+        padding:40px;
+    }
+    .campaign-sale-steps-section .sale-product-item .product-featured-image{
+        height:350px;
+        width:100%;
+        background-color:#FFF;
+        border-radius: 16px 16px 16px 16px;
+        overflow:hidden;
+    }
+    .campaign-sale-steps-section .sale-product-item .product-details .product-description{
+        overflow-wrap: break-word;
+    }
+    .campaign-sale-steps-section .sale-product-item .product-featured-image img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+    }
+    .campaign-sale-steps-section .sale-product-slider .float-nav button{
+        --btn-pos:0;
+        height:40px;
+        width:40px;
+        background: #414141;
+    }
+    .campaign-sale-steps-section .sale-product-slider .float-nav button:hover{
+        background: #B93205;
+    }
+    .campaign-sale-steps-section .sale-product-slider .float-nav button:hover i{
+        color:#FFF;
+    }
+    .campaign-sale-steps-section .sale-product-slider .float-nav button i{
+        font-size:16px;
+    }
+
+    .campaign-sale-steps-section .sale-and-form-container .row{
+        --bs-gutter-x: 80px;
+    }
+    .campaign-sale-steps-section  .form-heading{
+        display:flex;
+        gap:10px;
+        align-items:center;
+        justify-content:center;
+    }
+    .campaign-sale-steps-section  .form-heading .heading-element-image{
+        height:20px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    .steps-container{
+        display:flex;
+        align-items: center;
+    }
+    .steps-container .arrow{
+        height:60px;
+        width:60px;
+    }
+    .steps-container .arrow img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+        position: relative;
+        top: 20%;
+    }
+    .steps-item{
+        flex:1;
+        position:relative;
+    }
+    .steps-content{
+        background: #222222;
+        border-radius: 20px 20px 20px 20px;
+        border: 1px solid #FFFFFF;
+        padding:20px 30px;
+        position:relative;
+        z-index:1;
+        margin-top: 10%;
+        display: flex;
+        align-items: center;
+        gap: 25px;
+    }
+    .steps-content img{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    .steps-item .step-count{
+        color: transparent; /* Makes the text fill transparent */
+        -webkit-text-stroke: 1px #909090 ; /* Sets stroke width and color */
+        position:absolute;
+        top:0;
+        left:0;
+        display:flex;
+    }
+    .campaign-sale-steps-section .sale-product-slider-container .swiper-pagination span{
+        width: 12px;
+        height: 12px;
+        background: #818181;
+        opacity: 1;
+    }
+    .campaign-sale-steps-section .sale-product-slider-container .swiper-pagination{
+        position: relative;
+        margin-top: 30px;
+    }
+    .campaign-sale-steps-section .sale-product-slider-container  .swiper-pagination span.swiper-pagination-bullet-active{
+        background: #B93205;
+    }
+    
+    .campaign-sale-steps-section .section-heading{
+        margin-left:-30px;
+    }
+    .campaign-sale-steps-section .section-heading {
+        position:relative;
+    }
+    .campaign-sale-steps-section .section-heading:before{
+        content:"";
+        display:inline-block;
+        height:35px;
+        width:35px;
+        top:5px;
+        position:relative;
+        background-image:url({{ section.settings.heading_element_image | img_url: 'master' }});
+        background-size:contain;
+        background-repeat:no-repeat;
+    }
+    .campaign-sale-steps-section .klaviyo-form form{
+        padding:0px;
+        font-family: 'Montserrat' !important;
+    }
+    .campaign-sale-steps-section .klaviyo-form form input{
+        font-size:16px !important;
+        border-radius: 8px 8px 8px 8px !important;
+        background: #3C3C3C !important;
+        border: 1px solid #565656 !important;
+        font-family: 'Montserrat' !important;
+        color:#FFF !important;
+    }
+    .campaign-sale-steps-section .klaviyo-form form label{
+        color:#FFF !important;
+        font-family: 'Montserrat' !important;
+        font-size: 16px !important;
+        font-weight: 500 !important;
+    }
+    .campaign-sale-steps-section .klaviyo-form form button{
+        padding:0px 35px !important;
+        background: #B93205 !important;
+        border-radius: 10px 10px 10px 10px !important;
+        font-family: 'Montserrat' !important;
+        line-height:normal !important;
+        font-size: 18px !important;
+        height: 44px !important;
+        transition: all .5s ease !important;
+    }
+    .campaign-sale-steps-section .klaviyo-form form button:hover{
+        background: #161616 !important;
+    }
+
+    .campaign-sale-steps-section .sale-product-item .price-add-batc{
+        padding-top:20px;
+        display:flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .campaign-sale-steps-section .section-heading{
+            margin-left:-25px;
+        }
+        .campaign-sale-steps-section .section-heading:before{
+            height:30px;
+            width:30px;
+        }
+        .steps-container {
+            flex-direction: column;
+        }
+        .campaign-sale-steps-section .form-exclusive-discount-container{
+            padding:30px 15px;
+        }
+        .campaign-sale-steps-section .sale-product-item .product-featured-image{
+            height: 200px;
+        }
+        .campaign-sale-steps-section .sale-product-slider-container{
+            padding-bottom:30px;
+        }
+        .campaign-sale-steps-section .sale-product-slider-container .swiper-pagination span{
+            width: 10px;
+            height: 10px;
+            background: #818181;
+            opacity: 1;
+        }
+        .steps-content{
+            border-radius:10px;
+            padding:30px 20px;
+        }
+        .steps-container .arrow{
+            height:45px;
+            width:45px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+{% endstyle %}
+<div class="container section-content 
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}> 
+    <div class="pb-lg-5 pb-md-5 pb-sm-4">
+        <h2 class="pp-semibold f-white title-sm text-center">
+            {{ section.settings.heading }}
+        </h2>
+    </div>
+
+    <div class="steps-container pb-lg-5 pb-md-5 pb-sm-4">
+        {% for block in section.blocks %}
+            <div class="steps-item">
+                <div class="step-count">
+                    <span class="pp-bold title-md">STEP {{ forloop.index }}</span>
+                </div>
+                <div class="steps-content">
+                    <img src="{{ block.settings.icon | img_url: 'master' }}">
+                    <div class="block-heading pp-regular body-lg f-white">
+                        {{ block.settings.heading }}
+                    </div>
+                </div>
+            </div>
+
+            {% unless forloop.last %}
+                <div class="arrow">
+                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/22_2x_ff33050d-75bd-4950-8433-d95c99c94757.png?v=1761107332" class="d-lg-block d-md-block d-sm-none">
+                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/40982_2x_cc364b50-0eb1-43b6-b33b-67db268aceaa.png?v=1761128342" class="d-lg-none d-md-none d-sm-block">
+                </div>
+            {% endunless %}
+        {% endfor %}
+
+    </div>
+
+    <div class="sale-and-form-container pt-lg-4 pt-md-4 pt-sm-3">
+        <div class="row">
+            <div class="col-lg-7 col-md-7 col-sm-12">
+                <div class="position-relative">
+                    <div class="sale-product-slider-container col-lg-11 col-md-11 col-sm-12 mx-auto px-lg-3 px-md-3 px-sm-2">
+                        <div class="sale-product-slider overflow-hidden">
+                            <div class="swiper-wrapper">
+                                {% for product in section.settings.product_list %}
+                                    <div class="swiper-slide">
+                                        <div class="sale-product-item">
+                                            <div class="product-featured-image">
+                                                <img src="{{ product.featured_image | img_url: 'master' }}" width="100%" height="100%"> 
+                                            </div>
+                                            <div class="product-details">
+                                                <h4 class="product-title pp-semibold  f-white pb-lg-3 pb-md-3 pb-sm-2 pt-lg-3 pt-md-3 pt-sm-2">
+                                                    <span class="body-xl d-lg-block d-md-block d-sm-none">
+                                                        {{ product.title }}
+                                                    </span>
+                                                    <span class="body-lg d-lg-none d-md-none d-sm-block l-h-normal">
+                                                        {{ product.title }}
+                                                    </span>
+                                                </h4>
+                                                <div class="product-description pp-regular body f-white-gray">
+                                                    {{ product.description | strip_html | truncate: 100, '...' }}
+                                                </div>
+                                                <div class="price-add-batc">                
+                                                    <div class="price-container">
+                                                        <div class="text-sale-price f-white d-flex">
+                                                            <div class="pp-bold body-lg d-lg-block d-md-block d-sm-none">
+                                                                {{ product.selected_or_first_available_variant.price | money }}
+                                                            </div>
+                                                            <div class="pp-bold body-sm d-lg-none d-md-none d-sm-block">
+                                                                {{ product.selected_or_first_available_variant.price | money }}
+                                                            </div>
+                                                        </div>
+                                                        {% if product.selected_or_first_available_variant.price != product.selected_or_first_available_variant.compare_at_price %}
+                                                            <div class="text-compare-price f-compare-price d-flex">
+                                                                <div class="pp-regular body d-lg-block d-md-block d-sm-none">
+                                                                    {{ product.selected_or_first_available_variant.compare_at_price | money }}
+                                                                </div>
+                                                                <div class="pp-regular body-xs d-lg-none d-md-none d-sm-block">
+                                                                    {{ product.selected_or_first_available_variant.compare_at_price | money }}
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="atc-container">
+                                                        {% if product.has_only_default_variant %}
+                                                            {% assign product_form_id = 'product-form-' | append: product.id %}
+                                                            {% form 'product', product, id: product_form_id, class: 'atc-form form', novalidate: 'novalidate', data-type: 'add-to-cart-form', action: 'javascript:void(0)' %}
+                                                                <input type="hidden" name="id" class="product-main-id" value="{{ product.selected_or_first_available_variant.id }}">
+                                                                <div class="form-btn">
+                                                                    <button type='submit' name="add" class="btn-atc btn-hover btn-main {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}">
+                                                                        {% if product.selected_or_first_available_variant.available != false %}
+                                                                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc" alt="cart-icon">
+                                                                        {% endif %}
+                                                                        <div class="position-relative">
+                                                                            <span class="body pp-semibold f-white">
+                                                                                {% if product.selected_or_first_available_variant.available == false %}Sold Out{% else %}Add{% endif %}
+                                                                            </span>
+                                                                            <div class="atc-overlay">
+                                                                                <div class="atc-spinner"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </button>
+                                                                </div>
+                                                            {% endform %}
+                                                        {% else %}
+                                                            <div class="form-btn popup-atc">
+                                                                <button type='submit' name="add" class="btn-atc btn-hover btn-main" data-popup-handle="{{ product.handle }}">
+                                                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc" alt="cart-icon">
+                                                                    <div class="position-relative">
+                                                                        <span class="body pp-semibold f-white">
+                                                                            Add
+                                                                        </span>
+                                                                        <div class="atc-overlay">
+                                                                            <div class="atc-spinner"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </button>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="float-nav d-lg-block d-md-block d-sm-none">
+                                <button type="button" class="owl-prev" disabled>
+                                    <i class="fa-solid fa-chevron-left f-main"></i>
+                                </button>
+                                <button type="button" class="owl-next" disabled>
+                                    <i class="fa-solid fa-chevron-right f-main"></i>
+                                </button>
+                            </div>
+                            <div class="swiper-pagination d-lg-none d-lg-none d-sm-block"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12">
+                <div class="form-exclusive-discount-container">
+                        
+                        <div class="pb-lg-5 pb-md-5 pb-sm-4">
+                            <h2 class="section-heading pp-semibold pretitle f-white text-center">
+                                {{ section.settings.form_heading }}
+                            </h2>
+                        </div>
+                        <div class="klaviyo-form-TYWPNH klaviyo-form"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "campaign-sale-steps-section overflow-hidden",
+        "name": "Campaign Sale Steps",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enabled_section_child_scroll",
+                "label": "Enabled Section Child Scroll"
+            },
+            {
+                "type": "text",
+                "id": "section_scroll_nav",
+                "label": "Section Scroll Nav",
+                "info": "Need to Enabled first Section Scroll"
+            },
+            {
+                "type": "text",
+                "id": "nav_title",
+                "label": "Navigation Title"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Upgrade To A New Battery "
+            },
+            {
+                "type": "product_list",
+                "id": "product_list",
+                "label": "Product List"
+            },
+            {
+                "type": "header",
+                "content": "Form Section"
+            },
+            {
+                "type": "image_picker",
+                "id": "heading_element_image",
+                "label": "Heading - Element Image"
+            },
+            {
+                "type": "text",
+                "id": "form_heading",
+                "label": "Heading",
+                "default": "Submit for Exclusive Discount"
+            }
+        ],
+        "max_blocks": 3,
+
+        "blocks": [
+            {
+                "type": "step",
+                "name": "Step",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "icon",
+                        "label": "Icon"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Campaign Sale Steps"
+        }]
+    }
+  {% endschema %} 

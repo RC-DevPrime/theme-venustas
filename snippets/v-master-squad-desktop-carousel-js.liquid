@@ -1,0 +1,174 @@
+{%- comment -%}
+  Desktop squad pager (6 cards per page). Requires data-v-squad-desktop-carousel on wrapper.
+{%- endcomment -%}
+<script>
+  (function () {
+    var MQ = '(min-width: 992px)';
+    var sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot) return;
+
+    sectionRoot.querySelectorAll('[data-v-squad-desktop-carousel]').forEach(function (carousel) {
+      var pages = carousel.querySelectorAll('[data-v-squad-page]');
+      if (pages.length < 2) return;
+
+      var prevBtn = carousel.querySelector('[data-v-squad-prev]');
+      var nextBtn = carousel.querySelector('[data-v-squad-next]');
+      var dotsContainer = carousel.querySelector('[data-v-squad-dots]');
+      var viewport = carousel.querySelector('[data-v-squad-viewport]');
+      var dotClass = carousel.getAttribute('data-dot-class') || 'v-master-carousel__dot';
+      var activeIndex = 0;
+      var dragStartX = 0;
+      var dragDeltaX = 0;
+      var isDragging = false;
+      var didDrag = false;
+      var dragThreshold = 48;
+      var wheelLocked = false;
+
+      function isInteractiveTarget(el) {
+        return el && el.closest && el.closest('.v-master-squad__card-link, button, a, input, textarea, select, label');
+      }
+
+      function isDesktop() {
+        return window.matchMedia(MQ).matches;
+      }
+
+      function showPage(i) {
+        activeIndex = i;
+        pages.forEach(function (page, idx) {
+          if (isDesktop()) {
+            page.hidden = idx !== i;
+          } else {
+            page.removeAttribute('hidden');
+          }
+        });
+        if (dotsContainer) {
+          dotsContainer.querySelectorAll('button').forEach(function (dot, idx) {
+            dot.classList.toggle('is-active', idx === i);
+            dot.setAttribute('aria-current', idx === i ? 'true' : 'false');
+          });
+        }
+        if (prevBtn) prevBtn.disabled = i <= 0;
+        if (nextBtn) nextBtn.disabled = i >= pages.length - 1;
+      }
+
+      function buildDots() {
+        if (!dotsContainer) return;
+        dotsContainer.innerHTML = '';
+        pages.forEach(function (_, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = dotClass + (i === 0 ? ' is-active' : '');
+          btn.setAttribute('aria-label', 'Page ' + (i + 1));
+          btn.setAttribute('aria-current', i === 0 ? 'true' : 'false');
+          btn.addEventListener('click', function () {
+            showPage(i);
+          });
+          dotsContainer.appendChild(btn);
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function () {
+          if (activeIndex > 0) showPage(activeIndex - 1);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          if (activeIndex < pages.length - 1) showPage(activeIndex + 1);
+        });
+      }
+
+      function goNext() {
+        if (activeIndex < pages.length - 1) showPage(activeIndex + 1);
+      }
+
+      function goPrev() {
+        if (activeIndex > 0) showPage(activeIndex - 1);
+      }
+
+      function endDrag(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        if (viewport) viewport.classList.remove('is-dragging');
+        try {
+          if (viewport && e.pointerId != null) viewport.releasePointerCapture(e.pointerId);
+        } catch (err) {
+          /* ignore */
+        }
+
+        if (!isDesktop()) return;
+
+        if (dragDeltaX <= -dragThreshold) {
+          didDrag = true;
+          goNext();
+        } else if (dragDeltaX >= dragThreshold) {
+          didDrag = true;
+          goPrev();
+        }
+        dragDeltaX = 0;
+      }
+
+      if (viewport) {
+        viewport.addEventListener('pointerdown', function (e) {
+          if (!isDesktop() || e.button !== 0) return;
+          if (isInteractiveTarget(e.target)) return;
+          isDragging = true;
+          didDrag = false;
+          dragStartX = e.clientX;
+          dragDeltaX = 0;
+          viewport.classList.add('is-dragging');
+          viewport.setPointerCapture(e.pointerId);
+        });
+
+        viewport.addEventListener('pointermove', function (e) {
+          if (!isDragging) return;
+          dragDeltaX = e.clientX - dragStartX;
+        });
+
+        viewport.addEventListener('pointerup', endDrag);
+        viewport.addEventListener('pointercancel', endDrag);
+
+        viewport.addEventListener(
+          'click',
+          function (e) {
+            if (!didDrag) return;
+            e.preventDefault();
+            e.stopPropagation();
+            didDrag = false;
+          },
+          true
+        );
+
+        viewport.addEventListener(
+          'wheel',
+          function (e) {
+            if (!isDesktop() || wheelLocked) return;
+            var dx = e.deltaX;
+            if (Math.abs(dx) < Math.abs(e.deltaY)) return;
+            if (Math.abs(dx) < 12) return;
+            e.preventDefault();
+            wheelLocked = true;
+            if (dx > 0) goNext();
+            else goPrev();
+            window.setTimeout(function () {
+              wheelLocked = false;
+            }, 450);
+          },
+          { passive: false }
+        );
+      }
+
+      function onResize() {
+        isDragging = false;
+        didDrag = false;
+        if (viewport) viewport.classList.remove('is-dragging');
+        showPage(activeIndex);
+      }
+
+      buildDots();
+      showPage(0);
+      window.addEventListener('resize', onResize);
+    });
+  })();
+</script>

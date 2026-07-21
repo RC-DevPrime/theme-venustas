@@ -1,0 +1,246 @@
+{% style %}
+    .reward-heatwave-points-section .points-table .list-row{
+        --bs-gutter-x: 30px;
+        --bs-gutter-y: 15px;
+    }
+    .reward-heatwave-points-section .points-detail{
+        background: #F9F6EF;
+        border-radius:8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding:25px 0px 25px 20px;
+        background-size: contain;
+        background-position: right;
+        background-repeat: no-repeat;
+    }
+    .reward-heatwave-points-section .points-detail .image-container img{
+        object-fit:contain;
+    }
+
+
+    .reward-heatwave-points-section .heatwave-points-rules-modal .popup-content{
+        border-radius:16px;
+    }
+    .reward-heatwave-points-section .heatwave-points-rules-modal .popup-header{
+        padding-left:30px;
+        padding-right:30px;
+    }
+    .reward-heatwave-points-section .heatwave-points-rules-modal .popup-close img{
+        width:18px;
+        height:18px;
+    }
+    .reward-heatwave-points-section .heatwave-points-rules-modal .popup-container{
+        padding:0px 30px 50px;
+    }
+    .reward-heatwave-points-section .heatwave-points-rules-modal .popup-content{
+        max-width:800px;
+        width: calc(100% - 40px);
+    }
+
+    .reward-heatwave-points-section .heatwave-points-rules-modal .popup-content .popup-container ol,
+    .reward-heatwave-points-section .heatwave-points-rules-modal .popup-content .popup-container ul{
+        padding-left:25px;
+    }
+    .reward-heatwave-points-section .heatwave-points-rules-modal .popup-content .popup-container ol li,
+    .reward-heatwave-points-section .heatwave-points-rules-modal .popup-content .popup-container ul li{
+        margin-bottom:10px;
+    }
+    .reward-heatwave-points-section .heatwave-points-rules-modal .popup-content .popup-container ol li:last-child,
+    .reward-heatwave-points-section .heatwave-points-rules-modal .popup-content .popup-container ul li:last-child{
+        margin-bottom:0;
+    }
+    .reward-heatwave-points-section .btn-hover.btn-main{
+        display:block;
+        width:fit-content;    
+    }
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .reward-heatwave-points-section .points-detail{
+            padding: 20px 0px 20px 15px;
+        }
+        .reward-heatwave-points-section .heatwave-points-rules-modal .popup-container{
+            padding:0px 20px 40px;
+        }
+        .reward-heatwave-points-section .heatwave-points-rules-modal .popup-header{
+            padding-left:20px;
+            padding-right:20px;
+        }
+        .reward-heatwave-points-section .heatwave-points-rules-modal .popup-content{
+            border-radius:8px;
+        }
+        .reward-heatwave-points-section .heatwave-points-rules-modal .popup-content .popup-container ol,
+        .reward-heatwave-points-section .heatwave-points-rules-modal .popup-content .popup-container ul{
+            padding-left:15px;
+        }
+        .reward-heatwave-points-section .btn-hover.btn-main{
+            margin-top: 3px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}  
+<div class="container section-content">
+    <div class="row main-row align-items-center">
+        <div class="col-lg-5 col-md-5 col-sm-12">
+            <div class="content-container col-lg-10 col-md-10 col-sm-12 mb-lg-0 mb-md-0 mb-sm-4">
+                <h2 class="pp-bold title-sm text-lg-start text-md-start text-sm-center pb-lg-4 pb-md-4 pb-sm-3 col-lg-10 col-md-10 col-sm-12" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="100" data-aos-duration="500">
+                    {{ section.settings.heading }}
+                </h2>
+                <p class="pp-regular body-lg text-lg-start text-md-start text-sm-center f-gray pb-lg-4 pb-md-4 pb-sm-3" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="150" data-aos-duration="500">
+                    {{ section.settings.description }}
+                </p>
+                <div class="d-flex align-items-center justify-content-lg-start justify-content-md-start justify-content-sm-center w-100" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="200" data-aos-duration="500">
+                    <div class="section-btn-rules btn-hover btn-main py-2 px-lg-5 px-md-5 px-sm-4">
+                        <span class="pp-regular body d-lg-block d-md-block d-sm-none">
+                            {{ section.settings.btn_label }}
+                        </span>
+                        <span class="pp-regular body-lg d-lg-none d-md-none d-sm-block">
+                            {{ section.settings.btn_label }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-12">
+            <div class="points-table">
+                <div class="row list-row">
+                    {% for block in section.blocks %}
+                        <div class="col-lg-6 col-md-6 col-sm-12" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="{{ forloop.index }}00" data-aos-duration="500">
+                            <div class="points-detail" style="background-image:url({{ block.settings.icon | img_url: '800x800' }});">
+                                <div class="content-container">
+                                    <div class="heading-content pb-2">
+                                        <h4 class="pp-semibold title-xs f-main">
+                                            {{ block.settings.amount }}
+                                        </h4>
+                                        <h5 class="pp-semibold pretitle-lg f-main">
+                                            {{ block.settings.heading }}
+                                        </h5>
+                                    </div>
+                                    <p class="pp-regular body-lg f-main pb-lg-2 pb-md-2 pb-sm-2">
+                                        {{ block.settings.description }}
+                                    </p>
+                                    <a href="javascript:void(0)" class="icon-gift btn-hover btn-main py-lg-2 py-md-2 py-sm-2 px-3">
+                                        <span class="body f-white">{{ block.settings.btn_label }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="heatwave-points-rules-modal popup-modal">
+    <div class="popup-overlay">
+    </div>
+    <div class="popup-content"> 
+        <div class="popup-header">
+            <button class="popup-close" type="button">
+                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/close-btn-popup.png?v=1761207016">
+            </button>
+        </div>
+        
+        <div class="popup-container">
+            <h5 class="pp-bold pretitle f-black pb-2 text-center col-lg-12 col-md-12 col-sm-10 mx-auto">{{ section.settings.rules_heading }}</h5>
+            <div class="pp-regular body-lg f-gray pt-2 d-lg-block d-md-block d-sm-none">
+                {{ section.settings.rules_content  }}
+            </div>
+            <div class="pp-regular body f-gray pt-2 d-lg-none d-md-none d-sm-block">
+                {{ section.settings.rules_content  }}
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "reward-heatwave-points-section",
+        "name": "Reward Heatwave Points",
+        "limit": 1,
+        "templates": ["page"],
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Ways To Earn Heatwave Points"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>Every Action You Take Earns Rewards. We’ve Made It Simple And Exciting To Collect Points With Every Interaction—whether You’re Shopping, Sharing, Or Staying Engaged. Stack Up Your Points And Unlock Exclusive Rewards. Here’s How You Can Start Earning Today!</p>"
+
+            },
+            {
+                "type": "text",
+                "id": "rules_heading",
+                "label": "Rules - Heading",
+                "default": "Earn Heatwave Points Rules"
+            },
+            {
+                "type": "richtext",
+                "id": "rules_content",
+                "label": "Rules Content"
+            },
+            {
+                "type": "text",
+                "id": "btn_label",
+                "label": "Button Label",
+                "default": "Rules"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "point",
+                "name": "Point",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "icon",
+                        "label": "Icon"
+                    },
+                    {
+                        "type": "text",
+                        "id": "amount",
+                        "label": "Amount",
+                        "default": "50"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Heatwave Points"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "description",
+                        "label": "Description",
+                        "default": "<p>Follow Socials</p>"
+
+                    },
+                    {
+                        "type": "text",
+                        "id": "btn_label",
+                        "label": "Button Label",
+                        "default": "Follow Us on Socials"
+                    },
+                    {
+                        "type": "url",
+                        "id": "btn_link",
+                        "label": "Button Link"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Reward Heatwave Points"
+        }]
+    }
+  {% endschema %} 

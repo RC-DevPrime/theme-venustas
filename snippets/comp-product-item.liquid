@@ -1,0 +1,73 @@
+<div class="comp-product-item" data-product-id="{{ product.id }}">
+    <div class="product-image">
+        <img
+            src="{{ product.featured_image | img_url: '400x400' | image_url: 'format:auto' }}"
+            srcset="
+                {{ product.featured_image | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                {{ product.featured_image | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                {{ product.featured_image | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                {{ product.featured_image | img_url: '1600x1600' | image_url: 'format:auto' }} 1600w"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            width="100%"
+            height="100%"
+            alt="{{ product.title | escape }}"
+            loading="lazy"
+            decoding="async"
+        />
+
+    </div>
+
+    <div class="product-info">
+        <a href="{{ product.url }}" class="product-link pp-regular body f-black mb-lg-2 mb-md-2 mb-sm-1">
+            {{ product.title }}
+        </a>
+        <div class="price-container">
+            <div class="text-sale-price f-main d-flex">
+                <div class="price pp-bold body-lg d-lg-block d-md-block d-sm-none">
+                    {{ product.selected_or_first_available_variant.price | money }}
+                </div>
+                <div class="price pp-bold body-sm d-lg-none d-md-none d-sm-block">
+                    {{ product.selected_or_first_available_variant.price | money }}
+                </div>
+            </div>
+
+            {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+            <div class="text-compare-price f-compare-price d-flex">
+                <div class="compare pp-regular body d-lg-block d-md-block d-sm-none">
+                    {{ product.selected_or_first_available_variant.compare_at_price | money }}
+                </div>
+                <div class="compare pp-regular body-xs d-lg-none d-md-none d-sm-block">
+                    {{ product.selected_or_first_available_variant.compare_at_price | money }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="variant-selection-option-container">
+            {% if product.variants.size > 1 %}
+                <select class="variant-select pp-regular" aria-label="Select Size">
+                    {% for variant in product.variants %}
+                        <option value="{{ variant.id }}"
+                            data-price="{{ variant.price }}"
+                            data-compare="{{ variant.compare_at_price }}">
+                            {{ variant.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="product-button">
+        <input type="checkbox" class="additional_checkbox"
+               id="{{ product.selected_or_first_available_variant.id }}"
+               value="{{ product.selected_or_first_available_variant.id }}" />
+
+        <div class="button-atc">
+            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/add-atc.png?v=1764645868" class="icon-plus" width="20" height="20" alt="add-atc-icon">
+            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/check-circle.png?v=1764085341" class="icon-checked" width="20" height="20" alt="check-circle-icon" style="display:none">
+            <span class="btn-label pp-regular body l-h-normal">Add</span>
+        </div>
+    </div>
+</div>

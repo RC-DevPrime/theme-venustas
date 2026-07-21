@@ -1,0 +1,339 @@
+{% style %}
+    .reward-redeem-points-list-section{
+        background-image:url({{ section.settings.background_image | img_url: '1400x1400' }});
+        background-size:cover;
+        padding-top:18vh;
+    }
+    .reward-redeem-points-list-section .redeem-points-list-item{
+        background-color:#FFF;
+        border-radius:20px;
+        padding:30px 20px 45px; 
+    }
+    .reward-redeem-points-list-section .redeem-points-list-container .row{
+        --bs-gutter-x: 40px;
+        --bs-gutter-y: 25px;
+    }
+    .reward-redeem-points-list-section .redeem-points-list-item .top-container{
+        border-bottom: 1px solid #E3E3E3;
+        padding-bottom:25px;
+    }
+    .reward-redeem-points-list-section .redeem-points-list-item .icon-container{
+        width:90px;
+        height:90px;
+        border-radius:50px;
+        background: #FAFAFA;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+    .reward-redeem-points-list-section .redeem-points-list-item .icon-container img{
+        width:50px;
+        height:50px;
+        object-fit:contain;
+    }
+    .reward-redeem-points-list-section .redeem-points-list-item .reddem-info{
+        display:flex;
+        flex-direction:column;
+    }
+    .reward-redeem-points-list-section .redeem-points-list-item .list-of-rewards-container{
+    }
+    .reward-redeem-points-list-section .redeem-points-list-item .list-of-rewards-container .rewards-item{
+        display:flex;
+        gap:10px;
+        align-items:center;
+        padding:20px 0px;
+        border-bottom: 1px solid #E3E3E3;
+    }
+    .reward-redeem-points-list-section .redeem-points-list-item .list-of-rewards-container .rewards-item:last-child{
+        border-bottom:none;
+    }
+
+    .reward-redeem-points-list-section .redeem-points-list-item .list-of-rewards-container .rewards-item .reward-icon{
+        width:25px;
+        height:25px;
+    }
+    .reward-redeem-points-list-section .redeem-points-list-item .list-of-rewards-container .rewards-item .reward-icon img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+    }
+
+    .reward-redeem-points-list-section .pagination-navigations .float-nav{
+        position: unset;
+        transform: unset;
+        max-width: unset;
+    }
+    .reward-redeem-points-list-section .float-nav button{
+        background: #f0ebe0;
+        position: unset;
+        transform: unset;
+    }
+    .reward-redeem-points-list-section .float-nav button i{
+        color: #B93205;
+    }
+    .reward-redeem-points-list-section .float-nav button:hover {
+        background:#B93205;
+    }
+    .reward-redeem-points-list-section .float-nav button:hover i{
+        color:#FFF;
+    }
+    .reward-redeem-points-list-section .swiper-pagination{
+        background-color: unset;
+        padding: 15px 0.6rem;
+        border-radius: 50px;
+        display: flex;
+        margin: 0;
+        position: unset;
+        width: fit-content;
+    }
+    .reward-redeem-points-list-section .swiper-pagination .swiper-pagination-bullet{
+        background: #f0ebe0;
+        opacity: 1;
+        margin: 0px 4px;
+        width: 12px;
+        height: 6px;
+        border-radius: 4px;
+    }
+    .reward-redeem-points-list-section  .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active{
+        background: #B93205;
+        width: 55px;
+    }
+    .reward-redeem-points-list-section .redeem-points-list-slider .swiper-slide{
+        height:auto;
+    }
+    
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .reward-redeem-points-list-section{
+            background-image:url({{ section.settings.background_image_mobile | img_url: '1400x1400' }});
+            background-size:cover;
+            padding-top:10vh;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content">
+    <h2 class="pp-bold title-sm text-center pb-lg-5 pb-md-5 pb-sm-0">
+        {{ section.settings.heading }}
+    </h2>
+    <div class="redeem-points-list-container pt-lg-3 pt-md-3 pt-sm-0 d-lg-block d-md-block d-sm-none">
+        <div class="row">
+            {% for block in section.blocks %}
+                <div class="col-lg-4 col-md-4 col-sm-12" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="{{ forloop.index }}00" data-aos-duration="500">
+                    <div class="redeem-points-list-item h-100">
+                        <div class="top-container">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="icon-container">
+                                    <img src="{{ block.settings.icon | img_url: '800x800' }}" width="100%" height="100%">
+                                </div>
+                                <div class="reddem-info">
+                                    <h4 class="pp-bold pretitle f-black pb-2">
+                                        {{ block.settings.heading }}
+                                    </h4>
+                                    <p class="pp-regular bodylg f-main l-h-normal">
+                                        {{ block.settings.description }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-of-rewards-container">
+                            {% if block.settings.icon_list_1 != blank %}
+                                <div class="rewards-item">
+                                    <div class="reward-icon">
+                                        <img src="{{ block.settings.icon_list_1 | img_url: '300x300' }}" width="27px" height="27px">
+                                    </div>
+                                    <p class="pp-regular body-lg f-black ">
+                                        {{ block.settings.label_1 }}    
+                                    </p>
+                                </div>
+                            {% endif %}
+                            {% if block.settings.icon_list_2 != blank %}
+                                <div class="rewards-item">
+                                    <div class="reward-icon">
+                                        <img src="{{ block.settings.icon_list_2 | img_url: '300x300' }}" width="27px" height="27px">
+                                    </div>
+                                    <p class="pp-regular body-lg f-black ">
+                                        {{ block.settings.label_2 }}    
+                                    </p>
+                                </div>
+                            {% endif %}
+                            {% if block.settings.icon_list_3 != blank %}
+                                <div class="rewards-item">
+                                    <div class="reward-icon">
+                                        <img src="{{ block.settings.icon_list_3 | img_url: '300x300' }}" width="27px" height="27px">
+                                    </div>
+                                    <p class="pp-regular body-lg f-black ">
+                                        {{ block.settings.label_3 }}    
+                                    </p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+</div>
+<div class="redeem-points-list-slider d-lg-none d-md-none d-sm-block position-relative pb-5">
+    <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+            <div class="swiper-slide">
+                <div class="redeem-points-list-item h-100" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="{{ forloop.index }}00" data-aos-duration="500">
+                    <div class="top-container">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="icon-container">
+                                <img src="{{ block.settings.icon | img_url: '800x800' }}" width="100%" height="100%">
+                            </div>
+                            <div class="reddem-info">
+                                <h4 class="pp-bold pretitle f-black pb-2">
+                                    {{ block.settings.heading }}
+                                </h4>
+                                <p class="pp-regular bodylg f-main l-h-normal">
+                                    {{ block.settings.description }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-of-rewards-container">
+                        {% if block.settings.icon_list_1 != blank %}
+                            <div class="rewards-item">
+                                <div class="reward-icon">
+                                    <img src="{{ block.settings.icon_list_1 | img_url: '300x300' }}" width="27px" height="27px">
+                                </div>
+                                <p class="pp-regular body-lg f-black ">
+                                    {{ block.settings.label_1 }}    
+                                </p>
+                            </div>
+                        {% endif %}
+                        {% if block.settings.icon_list_2 != blank %}
+                            <div class="rewards-item">
+                                <div class="reward-icon">
+                                    <img src="{{ block.settings.icon_list_2 | img_url: '300x300' }}" width="27px" height="27px">
+                                </div>
+                                <p class="pp-regular body-lg f-black ">
+                                    {{ block.settings.label_2 }}    
+                                </p>
+                            </div>
+                        {% endif %}
+                        {% if block.settings.icon_list_3 != blank %}
+                            <div class="rewards-item">
+                                <div class="reward-icon">
+                                    <img src="{{ block.settings.icon_list_3 | img_url: '300x300' }}" width="27px" height="27px">
+                                </div>
+                                <p class="pp-regular body-lg f-black ">
+                                    {{ block.settings.label_3 }}    
+                                </p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="pagination-navigations mt-lg-5 mt-md-5 mt-sm-4 position-relative">
+        <div class="float-nav d-flex align-items-center justify-content-center gap-lg-4 gap-md-4 gap-sm-2">
+            <button type="button" class="owl-prev" disabled>
+                <i class="fa-solid fa-chevron-left f-white"></i>
+            </button>
+            <div class="swiper-pagination"></div>
+            <button type="button" class="owl-next" disabled>
+                <i class="fa-solid fa-chevron-right f-white"></i>
+            </button>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "reward-redeem-points-list-section overflow-hidden",
+        "name": "Reward Redeem Points List",
+        "limit": 1,
+        "templates": ["page"],
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "background_image",
+                "label": "Background Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image_mobile",
+                "label": "Background Image - Desktop"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Redeem points for rewards"
+            },
+        ],
+        "blocks": [
+            {
+                "type": "icon",
+                "name": "Icon",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "icon",
+                        "label": "Icon"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "description",
+                        "label": "Description"
+
+                    },
+                    {
+                        "type": "header",
+                        "content": "Icon List"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "icon_list_1",
+                        "label": "Icon - 1"
+                    },
+                    {
+                        "type": "text",
+                        "id": "label_1",
+                        "label": "Label - 1"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "icon_list_2",
+                        "label": "Icon - 2"
+                    },
+                    {
+                        "type": "text",
+                        "id": "label_2",
+                        "label": "Label - 2"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "icon_list_3",
+                        "label": "Icon - 3"
+                    },
+                    {
+                        "type": "text",
+                        "id": "label_3",
+                        "label": "Label - 3"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Reward Redeem Points List"
+        }]
+    }
+  {% endschema %} 

@@ -1,0 +1,26 @@
+{%- comment -%}
+  Single APPLY button — opens POWR popup (same as UGC/Talents).
+  Pass: section, use_hero_modals (optional, default false)
+{%- endcomment -%}
+{%- liquid
+  assign label = section.settings.hero_btn_apply_label | default: 'APPLY NOW'
+  assign use_hero = use_hero_modals | default: false
+  assign powr_popup = false
+
+  if use_hero
+    assign powr_popup = true
+  elsif section.settings.apply_use_powr_popup and section.settings.powr_form_id != blank
+    assign powr_popup = true
+  endif
+-%}
+{%- if label != blank -%}
+  {%- if powr_popup -%}
+    <button type="button" class="v-master__btn" data-v-talents-powr-open="apply">
+      {{ label }}
+    </button>
+  {%- else -%}
+    <a href="{{ section.settings.hero_btn_apply_link | default: '#' }}" class="v-master__btn">
+      {{ label }}
+    </a>
+  {%- endif -%}
+{%- endif -%}

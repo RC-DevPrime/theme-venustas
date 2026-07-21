@@ -1,0 +1,82 @@
+{% comment %}
+  Display-2 mobile submenu: same row layout as header.liquid mega-mobile.
+  Collection first 3, else manual product_list.
+{% endcomment %}
+{% liquid
+  assign use_collection = false
+  if collection != blank
+    assign _d2_first = collection.products | first
+    if _d2_first != blank
+      assign use_collection = true
+    endif
+  endif
+%}
+{% if use_collection %}
+  {% for product in collection.products limit: 3 %}
+    <a href="{{ product.url }}" class="menu-list-product-item">
+      <div class="row align-items-center">
+        <div class="col-4">
+          <div class="product-image-container">
+            <img src="{{ product.featured_image | img_url: 'master' }}" width="100%" height="100%" alt="{{ product.featured_image.alt | default: product.title | escape }}">
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="d-flex flex-column">
+            <h6 class="body-lg pp-semibold f-black">{{ product.title }}</h6>
+            {% if product.metafields.custom.short_description != blank %}
+              <p class="body-sm pp-regular f-gray mb-1">{{ product.metafields.custom.short_description }}</p>
+            {% endif %}
+            <div class="menu-price d-flex align-items-center gap-1">
+              <span class="sale-price body-sm pp-medium">
+                {{ product.selected_or_first_available_variant.price | money }}
+              </span>
+              <span class="compare-price body-xs pp-regular t-d-strike f-gray">
+                {{ product.selected_or_first_available_variant.compare_at_price | money }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="badge-overlay">
+        {% if product.metafields.custom.header_tag != blank %}
+          {% assign tag_length = product.metafields.custom.header_tag | size %}
+          <span class="top-right custom-badge red pp-semibold {% if tag_length > 6 %} body-xs longer {% else %} body-sm {% endif %} f-white">{{ product.metafields.custom.header_tag }}</span>
+        {% endif %}
+      </div>
+    </a>
+  {% endfor %}
+{% else %}
+  {% for product in products_manual %}
+    <a href="{{ product.url }}" class="menu-list-product-item">
+      <div class="row align-items-center">
+        <div class="col-4">
+          <div class="product-image-container">
+            <img src="{{ product.featured_image | img_url: 'master' }}" width="100%" height="100%" alt="{{ product.featured_image.alt | default: product.title | escape }}">
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="d-flex flex-column">
+            <h6 class="body-lg pp-semibold f-black">{{ product.title }}</h6>
+            {% if product.metafields.custom.short_description != blank %}
+              <p class="body-sm pp-regular f-gray mb-1">{{ product.metafields.custom.short_description }}</p>
+            {% endif %}
+            <div class="menu-price d-flex align-items-center gap-1">
+              <span class="sale-price body-sm pp-medium">
+                {{ product.selected_or_first_available_variant.price | money }}
+              </span>
+              <span class="compare-price body-xs pp-regular t-d-strike f-gray">
+                {{ product.selected_or_first_available_variant.compare_at_price | money }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="badge-overlay">
+        {% if product.metafields.custom.header_tag != blank %}
+          {% assign tag_length = product.metafields.custom.header_tag | size %}
+          <span class="top-right custom-badge red pp-semibold {% if tag_length > 6 %} body-xs longer {% else %} body-sm {% endif %} f-white">{{ product.metafields.custom.header_tag }}</span>
+        {% endif %}
+      </div>
+    </a>
+  {% endfor %}
+{% endif %}

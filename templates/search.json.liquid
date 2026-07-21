@@ -1,0 +1,38 @@
+{% layout none %}
+{% paginate search.results by 50 %}
+{
+  "products": [
+    {% for item in search.results %}
+      {% if item.object_type == 'product' %}
+        {
+          "title": {{ item.title | json }},
+          "url": {{ item.url | json }},
+          "price": {{ item.price | json }},
+          "created_at": {{ item.published_at | date: "%Y-%m-%d" | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endif %}
+    {% endfor %}
+  ],
+  "pages": [
+    {% for item in search.results %}
+      {% if item.object_type == 'page' %}
+        {
+          "title": {{ item.title | json }},
+          "url": {{ item.url | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endif %}
+    {% endfor %}
+  ],
+  "articles": [
+    {% for item in search.results %}
+      {% if item.object_type == 'article' %}
+        {
+          "title": {{ item.title | json }},
+          "url": {{ item.url | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endif %}
+    {% endfor %}
+  ],
+  "next_page": {% if paginate.next %}{{ paginate.next.url | json }}{% else %}null{% endif %}
+}
+{% endpaginate %}

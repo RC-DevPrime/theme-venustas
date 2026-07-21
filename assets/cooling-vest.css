@@ -1,0 +1,312 @@
+/* ============================================================
+   Cooling Vest 专属样式
+   仅由 section "cooling-vest-styles" 在 product.cooling-vest 模板加载，
+   其它产品页不会加载此文件，故对其它产品零影响。
+   想改颜色，优先改下面这组变量即可。
+   ============================================================ */
+
+:root {
+  --cv-primary: #1C80FE;   /* 主色（蓝） */
+  --cv-accent:  #48DBFD;   /* 强调青 */
+  --cv-dark:    #01132F;   /* 深藏蓝（文字） */
+  --cv-primary-dark: #1568D6; /* 主色 hover 深一档 */
+
+  /* 加购按钮颜色（默认用主色蓝；想用别的直接改这两行） */
+  --cv-atc-bg: #1C80FE;
+  --cv-atc-bg-hover: #1568D6;
+
+  /* Sale 标签颜色 */
+  --cv-sale-bg: #1C80FE;
+  --cv-sale-text: #FFFFFF;
+}
+
+/* ----------------------------------------------------------
+   1) 图片上的 Sale 标签（"25% OFF"）
+   本产品图是信息图（自带文字），角标无论放哪都会挡字，故隐藏。
+   折扣已在价格区体现（划线原价 + "Save $X"）。
+   想恢复角标：把 display:none 删掉，改回 top/left 定位即可。
+   ---------------------------------------------------------- */
+.product .product-media .main-media .badge.sale-badge {
+  display: none !important;
+}
+
+/* "Save $50.00" 省钱标 */
+.product__price-savings {
+  color: var(--cv-primary) !important;
+  background: rgba(28, 128, 254, 0.10) !important;
+}
+
+/* ----------------------------------------------------------
+   2) 标题上方的标签（"NEW | Dual-Cooling"）颜色
+   主题默认用橙色渐变文字（-webkit-text-fill-color:transparent + 渐变背景），
+   普通 color 改不动，必须把渐变填充也覆盖成主色蓝。
+   ---------------------------------------------------------- */
+.product .custom-label,
+.product-details .custom-label,
+.product-details .custom-label span {
+  background: none !important;
+  -webkit-text-fill-color: var(--cv-primary) !important;
+  color: var(--cv-primary) !important;
+}
+
+/* ----------------------------------------------------------
+   3) 价格颜色
+   现价用主色蓝，划线原价用灰
+   ---------------------------------------------------------- */
+.product-price .price .price-regular,
+.product-price .price .price-item--regular,
+.product-price .price-item--sale {
+  color: var(--cv-primary) !important;
+}
+.product-price .product-compare-price {
+  color: #9aa3ab !important;   /* 划线原价：中性灰 */
+}
+
+/* ----------------------------------------------------------
+   4) 加购按钮颜色（买点区主按钮 + 吸顶导航按钮）
+   ---------------------------------------------------------- */
+.product-atc-form .btn-atc,
+.btn-atc.productAtc,
+.btn-atc.btn-main {
+  background: var(--cv-atc-bg) !important;
+  border-color: var(--cv-atc-bg) !important;
+  color: #fff !important;
+}
+.product-atc-form .btn-atc:hover,
+.btn-atc.productAtc:hover,
+.btn-atc.btn-main:hover {
+  background: var(--cv-atc-bg-hover) !important;
+  border-color: var(--cv-atc-bg-hover) !important;
+}
+
+/* 吸顶导航里的 "Add To Cart" 按钮（product-nav） */
+.product-nav .btn-atc,
+.product-nav .btn-main,
+.product-nav button[name="add"] {
+  background: var(--cv-atc-bg) !important;
+  border-color: var(--cv-atc-bg) !important;
+  color: #fff !important;
+}
+
+/* 会员折扣条（左侧 "5" 数字块 + 外层橙条）也跟着冷色，可按需删除整段 */
+.discount-banner {
+  background: var(--cv-primary) !important;
+}
+.discount-banner-content .discount-percentage {
+  background: var(--cv-primary-dark) !important;
+}
+
+/* ----------------------------------------------------------
+   5) "Choose Your Option" 变体选择器 → 长方形卡片 + 选中主色 + 角标
+   （这段原本在共享文件 product-variant.liquid 里，现已全部挪到这里，
+    共享文件已还原为原样。）
+   注意：Most Recommended 角标显示在该选项的【第一个值】上，
+        所以请把 "Cooling Vest Kit" 设为第一个变体值。
+   ---------------------------------------------------------- */
+.product .variants .variant.variant-choose-your-option {
+  margin-top: 6px;
+}
+.product .variants .variant.variant-choose-your-option .variants-selector.default {
+  overflow: visible;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  border: 1.5px solid #d8dde0;
+  border-radius: 10px;
+  padding: 16px 18px;
+  min-width: 170px;
+  max-width: 240px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cv-dark);
+  background: #fff;
+  margin: 14px 12px 0 0 !important;
+  vertical-align: top;
+}
+/* 卡内描述文字（CSS 注入；每个选项按 data-id 末尾序号匹配）
+   -0 = 第一个变体值(Kit)，-1 = 第二个(Vest Only)。改这里的 content 即可改文案。 */
+.product .variants .variant.variant-choose-your-option .variants-selector.default::after {
+  display: block;
+  margin-top: 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #6a7278;
+  white-space: normal;
+  text-align: left;
+}
+.product .variants .variant.variant-choose-your-option .variants-selector.default[data-id$="-0"]::after {
+  content: "Battery Included and Ships Separately";
+}
+.product .variants .variant.variant-choose-your-option .variants-selector.default[data-id$="-1"]::after {
+  content: "Battery Not Included · Any USB-A Bank Works";
+}
+/* 选中状态：只把边框变蓝（白底、深字），不填充整块 */
+.product .variants .variant.variant-choose-your-option .variants-selector.default.selected {
+  border-color: var(--cv-primary);
+  border-width: 2px;
+  background: #fff;
+  color: var(--cv-dark);
+}
+.product .variants .variant.variant-choose-your-option .variants-selector.default.disabled {
+  color: #9aa0a4 !important;
+  opacity: .7;
+  border-style: dashed;
+}
+/* Most Recommended 角标 — CSS 注入到第一个值（data-id 以 -0 结尾 = Kit）
+   注意：不再给 Kit 固定蓝边，蓝边只跟随 .selected；未选中即为灰边。 */
+.product .variants .variant.variant-choose-your-option .variants-selector.default[data-id$="-0"]::before {
+  content: "Most Recommended";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cv-primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  line-height: 1.2;
+  z-index: 2;
+}
+
+/* ----------------------------------------------------------
+   6) 详情页统一对齐：让产品区 + 导航 + 所有详情模块共用一个
+      居中最大宽度（比默认窄一点 = 左右边距更大），左右边缘对齐。
+      仅本页生效（cooling-vest.css 走 template.suffix 网关加载）。
+   ---------------------------------------------------------- */
+@media (min-width: 992px) {
+  .product .container.section-content,
+  .product-cooling-hero-section .container,
+  .product-cooling-vs-bulk-section .container,
+  .product-versus-section .container,
+  .product-cooling-modes-section .container,
+  .product-feature-tiles-section .container,
+  .product-kit-options-section .container,
+  .product-spec-table-section .container,
+  .product-care-cards-section .container,
+  .product-how-it-works-section .container,
+  .cooling-vest-nav-section .cvnav__list,
+  .product-in-the-field-section .itf__swiper {
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    width: 100% !important;
+  }
+  /* 导航在桌面端不再用 max-content 居中，改为左对齐到容器左边 */
+  .cooling-vest-nav-section .cvnav__list {
+    justify-content: flex-start;
+  }
+}
+
+/* ----------------------------------------------------------
+   7) 主图完整显示（不裁切）
+   主题默认把主图塞进固定高度容器(--slider-H)并 overflow:hidden，
+   高的信息图会被切掉。本页放开高度，按列宽完整显示整张图。
+   仅本页生效。
+   ---------------------------------------------------------- */
+.product .product-media .main-slider {
+  height: auto !important;
+  overflow: visible !important;
+}
+.product .product-media .main-slider .swiper-slide {
+  height: auto !important;
+}
+.product .product-media .main-slider .swiper-slide img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  margin: 0 !important;
+}
+
+/* ----------------------------------------------------------
+   8) FAQ 模块（共享 section product-faqs-section，仅本页改样式）
+   浅蓝整条背景 + 白色圆角手风琴卡片 + 蓝色折叠箭头。
+   ---------------------------------------------------------- */
+.product-faqs-section {
+  background: #EDF2F9 !important;
+  padding: 56px 0 !important;
+}
+.product-faqs-section .faqs-inner-section {
+  background: transparent !important;
+  padding: 0 !important;
+}
+.product-faqs-section .accordion-item {
+  background: #fff !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  margin-bottom: 14px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(11,30,60,0.05);
+}
+.product-faqs-section .accordion-button,
+.product-faqs-section .accordion-button:not(.collapsed) {
+  background: #fff !important;
+  color: var(--cv-dark) !important;
+  box-shadow: none !important;
+  padding: 18px 22px !important;
+  border-radius: 12px !important;
+}
+/* 折叠箭头改成主色蓝（覆盖 Bootstrap 默认的深色 chevron） */
+.product-faqs-section .accordion-button::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%231C80FE' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='4 6 8 10 12 6'/%3E%3C/svg%3E") !important;
+  background-size: 1.1rem !important;
+}
+.product-faqs-section .accordion-body {
+  padding: 0 22px 18px !important;
+  color: #5a6470;
+}
+
+/* ----------------------------------------------------------
+   9) Care 模块卡片强制纯白
+   ---------------------------------------------------------- */
+.product-care-cards-section .cc__card {
+  background: #ffffff !important;
+}
+
+/* ----------------------------------------------------------
+   10) 手机端：两个 Option 卡片并排一行（不再上下堆叠，省高度）
+   ---------------------------------------------------------- */
+@media (max-width: 768px) {
+  .product .variants .variant.variant-choose-your-option {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 10px;
+  }
+  /* 标题(legend)单独占一行 */
+  .product .variants .variant.variant-choose-your-option > legend {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+  /* 两张卡各占一半，等高 */
+  .product .variants .variant.variant-choose-your-option .variants-selector.default {
+    flex: 1 1 0;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 16px 0 0 !important;
+    padding: 14px 12px;
+  }
+  /* 隐藏的 radio 占位不参与排版 */
+  .product .variants .variant.variant-choose-your-option .variants-option {
+    flex: 0 0 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  /* 窄卡里角标缩小一点，避免超出 */
+  .product .variants .variant.variant-choose-your-option .variants-selector.default[data-id$="-0"]::before {
+    font-size: 9px;
+    padding: 3px 8px;
+  }
+}

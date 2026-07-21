@@ -1,0 +1,922 @@
+{% style %}
+    .product-hotspot-section{
+        background-color: #1C1C1C;
+        background-image:url({{ section.settings.background_image | img_url: 'master' }});
+        background-size:cover;
+    }
+    .product-hotspot-section .hotspot-element{
+        height:fit-content;
+        width: fit-content;
+        margin: auto;
+        position:relative;
+        z-index:1;
+    }
+    .product-hotspot-section .hotspot-element img{
+        width:100%;
+        height:600px;
+        object-fit:contain;
+    }
+    .product-hotspot-section .hotspot-element .inner-container{
+        position:relative;
+    }
+    .product-hotspot-section .hotspot-element .spot{
+        position: absolute;
+        background: #FFF;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        overflow: visible;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor:pointer;
+        z-index: 7;
+    }
+    .product-hotspot-section .hotspot-element .spot.is-active{
+        z-index: 10;
+    }
+    .product-hotspot-section .hotspot-element .spot::after{
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: transparent;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    .product-hotspot-section .hotspot-element .spot:before{
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border: 4px solid #FFF;
+        border-radius: 50%;
+        opacity: .5;
+        animation: pulse-wave 1.5s infinite;
+        z-index: 1;
+    }
+    @keyframes pulse-wave {
+        0% {
+            transform: scale(1);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(1.8);
+            opacity: 0.5;
+        }
+    }
+    .product-hotspot-section .bottom-content-container{
+        position:relative;
+        top:-50px;
+        width:100%;
+        opacity:0;
+        transform: translateY(50%);
+        transition: opacity 0.4s ease 0.4s, transform 0.7s ease 0.4s;
+    }
+    .product-hotspot-section.animate .bottom-content-container{
+        opacity:1;
+        transform: translateY(0);
+    }
+    .product-hotspot-section .bottom-content-container.show{
+        opacity:1;
+        transform: translateY(0);
+    }
+    
+    .product-hotspot-section .hotspot-video-image-slider,
+    .product-hotspot-section .hotspot-content-slider{
+        height:300px;
+        overflow:hidden;
+    }
+    .product-hotspot-section .hotspot-video-image-slider video,
+    .product-hotspot-section .hotspot-video-image-slider img{
+        height:100%;
+        width:100%;
+        object-fit:contain;
+    }
+    .product-hotspot-section .sub-pagination{
+        background: #262626;
+        border-radius:2px;
+        padding:5px 1.5rem;
+        width:fit-content;
+        color:#FFF;
+    }
+    .product-hotspot-section .content-item-hotspot{
+        position: absolute;
+        width: 320px;
+        max-width: calc(100vw - 32px);
+        background: #111;
+        border: 1px solid rgba(255,255,255,.14);
+        border-radius: 14px;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        box-shadow: 0 18px 40px rgba(0,0,0,.32);
+        z-index: 8;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    .product-hotspot-section .content-item-hotspot.is-open{
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+    .product-hotspot-section .content-item-hotspot.popup-bottom::before,
+    .product-hotspot-section .content-item-hotspot.popup-top::before,
+    .product-hotspot-section .content-item-hotspot.popup-left::before,
+    .product-hotspot-section .content-item-hotspot.popup-right::before{
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background: #111;
+        z-index: 1;
+    }
+    .product-hotspot-section .content-item-hotspot.popup-bottom::before{
+        top: -8px;
+        left: 50%;
+        border-top: 1px solid rgba(255,255,255,.14);
+        border-left: 1px solid rgba(255,255,255,.14);
+        transform: translateX(-50%) rotate(45deg);
+    }
+    .product-hotspot-section .content-item-hotspot.popup-top::before{
+        bottom: -8px;
+        left: 50%;
+        border-right: 1px solid rgba(255,255,255,.14);
+        border-bottom: 1px solid rgba(255,255,255,.14);
+        transform: translateX(-50%) rotate(45deg);
+    }
+    .product-hotspot-section .content-item-hotspot.popup-left::before{
+        right: -8px;
+        top: 50%;
+        border-top: 1px solid rgba(255,255,255,.14);
+        border-right: 1px solid rgba(255,255,255,.14);
+        transform: translateY(-50%) rotate(45deg);
+    }
+    .product-hotspot-section .content-item-hotspot.popup-right::before{
+        left: -8px;
+        top: 50%;
+        border-left: 1px solid rgba(255,255,255,.14);
+        border-bottom: 1px solid rgba(255,255,255,.14);
+        transform: translateY(-50%) rotate(45deg);
+    }
+    .product-hotspot-section .content-item-hotspot .hotspot-media{
+        width: 100%;
+        height: 220px;
+        background: #000;
+        position: relative;
+        z-index: 2;
+    }
+    .product-hotspot-section .content-item-hotspot .hotspot-media img,
+    .product-hotspot-section .content-item-hotspot .hotspot-media video{
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+    }
+    .product-hotspot-section .content-item-hotspot .hotspot-copy{
+        padding: 18px 18px 20px;
+        background: #111;
+        position: relative;
+        z-index: 2;
+    }
+    .product-hotspot-section .content-item-hotspot .hotspot-copy .block-heading{
+        margin-bottom: 10px;
+    }
+    .product-hotspot-section .hotspot-popup-close{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 32px;
+        height: 32px;
+        border: 0;
+        border-radius: 50%;
+        background: rgba(17,17,17,.78);
+        color: #FFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0;
+        z-index: 3;
+    }
+    .product-hotspot-section .hotspot-popup-templates{
+        display:none !important;
+    }
+    .product-hotspot-section.popup-mode .bottom-content-container{
+        display:none;
+    }
+    @media only screen and (min-width: 992px) {
+        .product-hotspot-section .hotspot-element .spot{
+            width: 20px;
+            height: 20px;
+            margin-left: 0;
+            margin-top: 0;
+        }
+        .product-hotspot-section .hotspot-element .spot::after{
+            width: 50px;
+            height: 50px;
+            inset: 50% auto auto 50%;
+            transform: translate(-50%, -50%);
+        }
+        .product-hotspot-section .hotspot-element .spot::before{
+            width: 18px;
+            height: 18px;
+            inset: 50% auto auto 50%;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes pulse-wave {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.8);
+                opacity: 0.5;
+            }
+        }
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 991px) {
+        .product-hotspot-section .hotspot-element .inner-container,
+        .product-hotspot-section .hotspot-element img{
+            height:400px;
+        }
+        .product-hotspot-section{
+            height:fit-content;
+            max-height:fit-content;
+        }
+        .product-hotspot-section .bottom-content-container{
+            position:unset;
+            opacity: 1;
+            transform: unset;
+        }
+        .product-hotspot-section .hotspot-video-image-slider, .product-hotspot-section .hotspot-content-slider{
+            height:250px;
+        }
+        .product-hotspot-section .hotspot-element{
+            margin:0;
+        }
+        .product-hotspot-section .hotspot-content-slider{
+            touch-action:unset;
+        }
+        .product-hotspot-section .content-item-hotspot{
+            width: min(320px, calc(100vw - 32px));
+            max-width: calc(100vw - 32px);
+        }
+        .product-hotspot-section .content-item-hotspot .hotspot-media{
+            height: min(42vw, 210px);
+        }
+        .product-hotspot-section .content-item-hotspot .hotspot-copy{
+            padding: 12px 12px 14px;
+        }
+        .product-hotspot-section .content-item-hotspot .hotspot-copy .block-heading{
+            margin-bottom: 8px;
+            font-size: 20px;
+            line-height: 1.2;
+        }
+        .product-hotspot-section .content-item-hotspot .hotspot-copy .block-description{
+            font-size: 14px;
+            line-height: 1.45;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content h-100 {% if section.settings.switch_to %}popup-mode{% endif %}
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}>
+    
+    <div class="position-relative h-100">
+        <div class="section-heading pp-bold title-sm f-white l-h-normal pb-lg-4 pb-md-4 pb-sm-3">
+            {{ section.settings.heading }}
+        </div>
+        <div class="hotspot-element">
+            <div class="inner-container">
+                <img
+                    src="{{ section.settings.element | img_url: '400x400' | image_url: 'format:auto' }}"
+                    srcset="
+                        {{ section.settings.element | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                        {{ section.settings.element | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                        {{ section.settings.element | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                        {{ section.settings.element | img_url: '1600x1600' | image_url: 'format:auto' }} 1600w"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    width="100%"
+                    height="100%"
+                    alt="{{ section.settings.element.alt | escape }}"
+                    loading="lazy"
+                    decoding="async"
+                />
+
+                {% for block in section.blocks %}
+                    <span {{ block.shopify_attributes }} class="spot" data-i="{{ forloop.index }}" data-hotspot-index="{{ forloop.index0 }}" style="left: {{ block.settings.x_position }}%; top: {{ block.settings.y_position }}%">
+                    </span>
+                {% endfor %}
+            </div>
+            {% if section.settings.switch_to %}
+                <div class="hotspot-popup-templates">
+                    {% for block in section.blocks %}
+                        <div class="hotspot-popup-template" data-hotspot-template-index="{{ forloop.index0 }}">
+                            <div class="hotspot-media">
+                                {% if block.settings.video_or_image == 'video' %}
+                                    {% if block.settings.video != blank %}
+                                        {% assign popup_poster_1600 = block.settings.video.preview_image | image_url: width: 1600 %}
+                                        {% assign popup_poster_800 = block.settings.video.preview_image | image_url: width: 800 %}
+                                        {% assign popup_poster_400 = block.settings.video.preview_image | image_url: width: 400 %}
+                                        {% assign popup_alt_text = block.settings.video.alt | default: block.settings.video.title %}
+                                        {% assign popup_mp4_source = block.settings.video.sources | where: 'format', 'mp4' | last %}
+                                        <video
+                                            playsinline
+                                            loop
+                                            muted
+                                            preload="metadata"
+                                            poster="{{ popup_poster_1600 }}"
+                                            data-popup-video
+                                        >
+                                            {% if popup_mp4_source %}
+                                                <source src="{{ popup_mp4_source.url | prepend: 'https:' }}" type="video/mp4">
+                                            {% endif %}
+                                            <img
+                                                src="{{ popup_poster_800 }}"
+                                                srcset="
+                                                    {{ popup_poster_400 }} 400w,
+                                                    {{ popup_poster_800 }} 800w,
+                                                    {{ popup_poster_1600 }} 1600w
+                                                "
+                                                sizes="100vw"
+                                                alt="{{ popup_alt_text }}"
+                                                loading="lazy"
+                                                decoding="async"
+                                            >
+                                        </video>
+                                    {% else %}
+                                        <span class="h-100 w-100 d-block" style="font-size:0;">1</span>
+                                    {% endif %}
+                                {% else %}
+                                    {% if block.settings.image != blank %}
+                                        <img
+                                            src="{{ block.settings.image | img_url: '400x400' | image_url: 'format:auto' }}"
+                                            srcset="
+                                                {{ block.settings.image | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                                                {{ block.settings.image | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                                                {{ block.settings.image | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                                                {{ block.settings.image | img_url: '1400x1400' | image_url: 'format:auto' }} 1400w"
+                                            sizes="(max-width: 768px) 100vw, 320px"
+                                            width="100%"
+                                            height="100%"
+                                            alt="{{ block.settings.image.alt | escape }}"
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
+                                    {% else %}
+                                        <span class="h-100 w-100 d-block" style="font-size:0;">1</span>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="hotspot-copy">
+                                <div class="block-heading f-white pp-bold pretitle">
+                                    {{ block.settings.heading }}
+                                </div>
+                                <div class="block-description f-white-gray pp-regular body l-h-normal">
+                                    {{ block.settings.description }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="content-item-hotspot hotspot-active-popup"></div>
+            {% endif %}
+        </div>
+        {% if section.settings.switch_to == false %}
+        <div class="bottom-content-container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="hotspot-content-slider">
+                        <div class="swiper-wrapper">
+                            {% for block in section.blocks %}
+                                <div class="swiper-slide">
+                                    <div class="d-flex flex-column gap-2 justify-content-center h-100">
+                                        <div class="sub-pagination f-white pp-regular">
+                                            {{ forloop.index }}/{{ section.blocks.size }}
+                                        </div>
+                                        <div class="block-heading f-white pp-bold pretitle-lg">
+                                            {{ block.settings.heading }}
+                                        </div>
+                                        <div class="block-description f-white-gray pp-regular body-lg l-h-normal">
+                                            {{ block.settings.description }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="hotspot-video-image-slider">
+                        <div class="swiper-wrapper">
+                            {% for block in section.blocks %}
+                                <div class="swiper-slide">
+
+                                    {% if block.settings.video_or_image == 'video' %} 
+                                        {% if block.settings.video != blank %}
+                                            {% assign poster_1600 = block.settings.video.preview_image | image_url: width: 1600 %}
+                                            {% assign poster_800  = block.settings.video.preview_image | image_url: width: 800 %}
+                                            {% assign poster_400  = block.settings.video.preview_image | image_url: width: 400 %}
+                                            {% assign alt_text = block.settings.video.alt | default: block.settings.video.title %}
+                                            {% assign mp4_source = block.settings.video.sources | where: 'format', 'mp4' | last %}
+
+                                            <video
+                                                playsinline
+                                                autoplay="false"
+                                                loop
+                                                muted
+                                                preload="metadata"
+                                                poster="{{ poster_1600 }}"
+                                                data-handle="{{ block.settings.video.id }}"
+                                                style="width: 100%; height: 100%; object-fit: cover;"
+                                                >
+                                                {% if mp4_source %}
+                                                    <source src="{{ mp4_source.url | prepend: 'https:' }}" type="video/mp4">
+                                                {% endif %}
+
+                                                <img
+                                                    src="{{ poster_800 }}"
+                                                    srcset="
+                                                    {{ poster_400 }} 400w,
+                                                    {{ poster_800 }} 800w,
+                                                    {{ poster_1600 }} 1600w
+                                                    "
+                                                    sizes="100vw"
+                                                    alt="{{ alt_text }}"
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                >
+                                            </video>
+                                        {% else %}
+                                            <span class="h-100 w-100 d-block" style="font-size:0;">
+                                                1
+                                            </span>
+                                        {% endif %}
+                                    {% else %}
+                                        
+                                        {% if block.settings.image != blank %}
+                                            <img
+                                                src="{{ block.settings.image | img_url: '400x400' | image_url: 'format:auto' }}"
+                                                srcset="
+                                                    {{ block.settings.image | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                                                    {{ block.settings.image | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                                                    {{ block.settings.image | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                                                    {{ block.settings.image | img_url: '1400x1400' | image_url: 'format:auto' }} 1400w"
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                                width="100%"
+                                                height="100%"
+                                                alt="{{ block.settings.image.alt | escape }}"
+                                                loading="lazy"
+                                                decoding="async"
+                                            />
+
+                                        {% else %}
+                                            <span class="h-100 w-100 d-block" style="font-size:0;">
+                                                1
+                                            </span>
+                                        {% endif %}
+                                    {% endif %}
+
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% if section.settings.switch_to %}
+<script>
+    (function () {
+        var sectionRoot = document.currentScript.previousElementSibling;
+        if (!sectionRoot || !sectionRoot.classList.contains('container')) return;
+
+        var hotspotSection = sectionRoot.closest('.product-hotspot-section');
+        if (!hotspotSection) return;
+
+        var hotspotElement = hotspotSection.querySelector('.hotspot-element');
+        var boundsContainer = hotspotSection.querySelector('.hotspot-element .inner-container');
+        var activePopup = hotspotSection.querySelector('.hotspot-active-popup');
+        var spots = hotspotSection.querySelectorAll('.spot');
+        var triggerMode = '{{ section.settings.popup_trigger | default: "click" }}';
+        var mobileQuery = window.matchMedia('(max-width: 991px)');
+        var pinnedSpot = null;
+
+        if (!hotspotElement || !boundsContainer || !activePopup || !spots.length) return;
+
+        function isMobileView() {
+            return mobileQuery.matches;
+        }
+
+        function resetPopup() {
+            if (activePopup.parentElement !== hotspotElement) {
+                hotspotElement.appendChild(activePopup);
+            }
+            activePopup.classList.remove('is-open', 'popup-top', 'popup-bottom', 'popup-left', 'popup-right');
+            activePopup.style.left = '';
+            activePopup.style.top = '';
+            activePopup.style.bottom = '';
+            activePopup.style.right = '';
+            activePopup.style.transform = '';
+            activePopup.style.width = '';
+            activePopup.style.maxWidth = '';
+            activePopup.innerHTML = '';
+            spots.forEach(function (spot) {
+                spot.classList.remove('is-active');
+            });
+            pinnedSpot = null;
+        }
+
+        function pauseVideos(scope) {
+            if (!scope) return;
+            scope.querySelectorAll('video').forEach(function (video) {
+                video.pause();
+                video.currentTime = 0;
+            });
+        }
+
+        function playVideos(scope) {
+            if (!scope) return;
+            scope.querySelectorAll('video').forEach(function (video) {
+                video.muted = true;
+                video.play().catch(function () {});
+            });
+        }
+
+        function setActivePopupContent(spot) {
+            var popupIndex = spot.getAttribute('data-hotspot-index');
+            var popupTemplate = hotspotSection.querySelector('.hotspot-popup-template[data-hotspot-template-index="' + popupIndex + '"]');
+            if (!popupTemplate) return null;
+            activePopup.innerHTML = popupTemplate.innerHTML;
+            if (!activePopup.querySelector('.hotspot-popup-close')) {
+                activePopup.insertAdjacentHTML('beforeend', '<button type="button" class="hotspot-popup-close" aria-label="Close popup">&times;</button>');
+            }
+            return activePopup;
+        }
+
+        function positionPopup(spot) {
+            var popupCard = setActivePopupContent(spot);
+            if (!popupCard) return;
+
+            popupCard.classList.remove('popup-top', 'popup-bottom', 'popup-left', 'popup-right');
+            popupCard.style.left = '';
+            popupCard.style.top = '';
+            popupCard.style.bottom = '';
+            popupCard.style.right = '';
+            popupCard.style.transform = '';
+            popupCard.classList.add('is-open');
+
+            var spotRect = spot.getBoundingClientRect();
+            var containerRect = boundsContainer.getBoundingClientRect();
+            var gap = 18;
+
+            if (isMobileView()) {
+                if (popupCard.parentElement !== spot) {
+                    spot.appendChild(popupCard);
+                }
+
+                var mobileWidth = Math.min(320, Math.max(220, hotspotSection.getBoundingClientRect().width - 32));
+                popupCard.style.width = mobileWidth + 'px';
+                popupCard.style.maxWidth = mobileWidth + 'px';
+                popupCard.style.right = 'auto';
+                popupCard.style.bottom = 'auto';
+                popupCard.style.transform = 'none';
+
+                var popupHeightMobile = popupCard.offsetHeight;
+                var spotOffsetLeft = spotRect.left - containerRect.left;
+                var spotCenterY = (spotRect.top - containerRect.top) + (spotRect.height / 2);
+                var placeBelow = spotCenterY < (containerRect.height / 2);
+                var targetLeft = -(mobileWidth / 2) + (spotRect.width / 2);
+                var minLeft = 12 - spotOffsetLeft;
+                var maxLeft = containerRect.width - spotOffsetLeft - mobileWidth - 12;
+                var clampedLeft = Math.min(Math.max(targetLeft, minLeft), maxLeft);
+
+                popupCard.classList.add(placeBelow ? 'popup-bottom' : 'popup-top');
+                popupCard.style.left = clampedLeft + 'px';
+                popupCard.style.top = placeBelow ? (spotRect.height + gap) + 'px' : -(popupHeightMobile + gap) + 'px';
+                return;
+            }
+
+            if (popupCard.parentElement !== hotspotElement) {
+                hotspotElement.appendChild(popupCard);
+            }
+
+            var popupRect = popupCard.getBoundingClientRect();
+            var spotCenterX = (spotRect.left - containerRect.left) + (spotRect.width / 2);
+            var spotCenterY = (spotRect.top - containerRect.top) + (spotRect.height / 2);
+            var spaceTop = spotRect.top - containerRect.top;
+            var spaceBottom = containerRect.bottom - spotRect.bottom;
+            var spaceLeft = spotRect.left - containerRect.left;
+            var spaceRight = containerRect.right - spotRect.right;
+            var fitsBottom = spaceBottom >= (popupRect.height + gap);
+            var fitsTop = spaceTop >= (popupRect.height + gap);
+            var fitsRight = spaceRight >= (popupRect.width + gap);
+            var fitsLeft = spaceLeft >= (popupRect.width + gap);
+            var direction = 'popup-bottom';
+
+            if (fitsBottom) {
+                direction = 'popup-bottom';
+            } else if (fitsTop) {
+                direction = 'popup-top';
+            } else if (fitsRight) {
+                direction = 'popup-right';
+            } else if (fitsLeft) {
+                direction = 'popup-left';
+            } else {
+                var spaces = [
+                    { name: 'popup-bottom', value: spaceBottom - popupRect.height },
+                    { name: 'popup-top', value: spaceTop - popupRect.height },
+                    { name: 'popup-right', value: spaceRight - popupRect.width },
+                    { name: 'popup-left', value: spaceLeft - popupRect.width }
+                ];
+                spaces.sort(function (a, b) {
+                    return b.value - a.value;
+                });
+                direction = spaces[0].name;
+            }
+
+            var targetLeftDesktop = 0;
+            var targetTopDesktop = 0;
+
+            if (direction === 'popup-bottom') {
+                targetLeftDesktop = spotCenterX - (popupRect.width / 2);
+                targetTopDesktop = (spotRect.bottom - containerRect.top) + gap;
+            } else if (direction === 'popup-top') {
+                targetLeftDesktop = spotCenterX - (popupRect.width / 2);
+                targetTopDesktop = (spotRect.top - containerRect.top) - popupRect.height - gap;
+            } else if (direction === 'popup-right') {
+                targetLeftDesktop = (spotRect.right - containerRect.left) + gap;
+                targetTopDesktop = spotCenterY - (popupRect.height / 2);
+            } else {
+                targetLeftDesktop = (spotRect.left - containerRect.left) - popupRect.width - gap;
+                targetTopDesktop = spotCenterY - (popupRect.height / 2);
+            }
+
+            var clampedLeftDesktop = Math.min(
+                Math.max(targetLeftDesktop, 12),
+                Math.max(12, containerRect.width - popupRect.width - 12)
+            );
+            var clampedTopDesktop = Math.min(
+                Math.max(targetTopDesktop, 12),
+                Math.max(12, containerRect.height - popupRect.height - 12)
+            );
+
+            popupCard.classList.add(direction);
+            popupCard.style.left = clampedLeftDesktop + 'px';
+            popupCard.style.top = clampedTopDesktop + 'px';
+        }
+
+        function openPopup(spot) {
+            pauseVideos(hotspotSection);
+            spots.forEach(function (item) {
+                if (item !== spot) item.classList.remove('is-active');
+            });
+            positionPopup(spot);
+            spot.classList.add('is-active');
+            playVideos(activePopup);
+        }
+
+        spots.forEach(function (spot) {
+            spot.addEventListener('mouseenter', function () {
+                if (isMobileView()) return;
+                if (triggerMode !== 'hover') return;
+                openPopup(spot);
+            });
+
+            spot.addEventListener('mouseleave', function () {
+                if (isMobileView()) return;
+                if (triggerMode !== 'hover') return;
+                if (pinnedSpot === spot) return;
+                pauseVideos(activePopup);
+                resetPopup();
+            });
+
+            spot.addEventListener('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (spot.classList.contains('is-active')) {
+                    resetPopup();
+                    return;
+                }
+
+                openPopup(spot);
+
+                if (!isMobileView() && triggerMode === 'click') {
+                    pinnedSpot = spot;
+                }
+            });
+        });
+
+        hotspotSection.addEventListener('mouseleave', function () {
+            if (isMobileView()) return;
+            if (triggerMode !== 'hover') return;
+            if (pinnedSpot) return;
+            pauseVideos(activePopup);
+            resetPopup();
+        });
+
+        document.addEventListener('click', function (event) {
+            if (event.target.closest('.spot') || event.target.closest('.hotspot-active-popup')) {
+                return;
+            }
+
+            if (isMobileView()) {
+                pauseVideos(activePopup);
+                resetPopup();
+                return;
+            }
+
+            pauseVideos(activePopup);
+            resetPopup();
+        });
+
+        activePopup.addEventListener('click', function (event) {
+            var closeButton = event.target.closest('.hotspot-popup-close');
+            if (!closeButton) return;
+            event.preventDefault();
+            event.stopPropagation();
+            pauseVideos(activePopup);
+            resetPopup();
+        });
+
+        if (mobileQuery.addEventListener) {
+            mobileQuery.addEventListener('change', function () {
+                pauseVideos(activePopup);
+                resetPopup();
+            });
+        } else if (mobileQuery.addListener) {
+            mobileQuery.addListener(function () {
+                pauseVideos(activePopup);
+                resetPopup();
+            });
+        }
+
+        window.addEventListener('resize', function () {
+            var activeSpot = hotspotSection.querySelector('.spot.is-active');
+            if (activeSpot) {
+                positionPopup(activeSpot);
+            }
+        });
+    })();
+</script>
+{% endif %}
+{% schema %}
+{
+    "class": "product-hotspot-section section-animation",
+    "name": "Hotspot Section",
+    "limit": 1,
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled_section_child_scroll",
+            "label": "Enabled Section Child Scroll"
+        },
+        {
+            "type": "text",
+            "id": "section_scroll_nav",
+            "label": "Section Scroll Nav",
+            "info": "Need to Enabled first Section Scroll"
+        },
+        {
+            "type": "text",
+            "id": "nav_title",
+            "label": "Navigation Title"
+        },
+        {
+            "type": "image_picker",
+            "id": "background_image",
+            "label": "Background Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "element",
+            "label": "Element"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Stay Warm, Stay Stylish"
+        },
+        {
+            "type": "checkbox",
+            "id": "switch_to",
+            "label": "Enable Popup Content",
+            "info": "Enabled: hides the slider and uses popup content on desktop and mobile. Disabled: hides the popup and shows the slider.",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "popup_trigger",
+            "label": "Popup Trigger",
+            "options": [
+                {
+                    "value": "click",
+                    "label": "Click"
+                },
+                {
+                    "value": "hover",
+                    "label": "Hover"
+                }
+            ],
+            "default": "click",
+            "info": "Desktop popup trigger. Mobile popup still opens on tap."
+        }
+    ],
+    "blocks": [
+        {
+            "type": "hotspot_video",
+            "name": "Hotspot",
+            "settings": [
+                {
+                    "type": "range",
+                    "id": "x_position",
+                    "label": "X Position",
+                    "min": 1,
+                    "max": 100,
+                    "default": 1,
+                    "step": 1
+                },
+                {
+                    "type": "range",
+                    "id": "y_position",
+                    "label": "Y Position",
+                    "min": 1,
+                    "max": 100,
+                    "default": 1,
+                    "step": 1
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "select",
+                    "id": "video_or_image",
+                    "label": "Select Video or Image",
+                    "options": [
+                        {
+                            "label": "Video",
+                            "value": "video"
+                        },
+                        {
+                            "label": "Image",
+                            "value": "image"
+                        }
+                    ],
+                    "default": "video"
+                },  
+                {
+                    "type": "video",
+                    "id": "video",
+                    "label": "Video"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Hotspot Section"
+        }
+    ]
+}
+{% endschema %}

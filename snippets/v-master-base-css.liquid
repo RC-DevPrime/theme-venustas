@@ -1,0 +1,83 @@
+{%- comment -%}
+  Shared base styles for V+ Master sections.
+  Usage: {% render 'v-master-base-css', section: section %}
+{%- endcomment -%}
+{%- liquid
+  assign brand = section.settings.brand_color | default: '#B93205'
+  assign brown = section.settings.text_brown_color | default: brand
+  assign cream = section.settings.cream_color | default: '#F9F5F0'
+-%}
+<style>
+  #shopify-section-{{ section.id }} {
+    --v-brand: {{ brand }};
+    --v-brown: {{ brown }};
+    --v-cream: {{ cream }};
+    --v-radius: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master {
+    color: #333;
+    font-family: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .v-master img:not(.v-master-hero__bg-img):not(.v-master-hero__v-plus):not(.v-master-featured__crown):not(.v-master-featured__role-icon):not(.v-master-featured__flag):not(.v-master-featured__photo-img):not(.v-master-squad__photo):not(.v-master-squad__flag):not(.v-master-social__icon):not(.v-master-benefits__icon) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .v-master__heading {
+    color: var(--v-brand);
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .v-master__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 36px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.25s ease, background 0.25s ease;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    background: var(--v-brand);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-master__btn:hover {
+    opacity: 0.9;
+  }
+
+  #shopify-section-{{ section.id }} .v-master__powr-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .v-master__powr-link:hover {
+    opacity: 0.85;
+  }
+
+  #shopify-section-{{ section.id }} .v-master__rounded {
+    border-radius: var(--v-radius);
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .v-master__rounded img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

@@ -1,0 +1,320 @@
+{% style %}
+    .text-image-animation-section{
+        height:100vh;
+    }
+    .text-image-animation-section .inner-section{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        height:100%;
+    }
+    .text-image-animation-section .text-heading{
+        font-size:100px;
+    }
+    .text-image-animation-section .text-description{
+        width: 400px;
+        position: absolute;
+        transform: translateX(120%);
+    }
+    .text-image-animation-section .image-container-animation{
+        position:relative;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        transition: all 0.3s ease 1s;
+        overflow:hidden;
+        height:0px;
+        width:100%;
+    }
+    .text-image-animation-section.animate .image-container-animation{
+        height:400px;
+    }
+    .text-image-animation-section .image-container-animation .image-container img{
+        height:400px;
+        width:fit-content;
+        object-fit:contain;
+        transition: all 0.3s ease;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .text-image-animation-section.animate .image-container-animation{
+            margin:10px 0px;
+        }
+        .text-image-animation-section .text-description{
+            transform: none;
+            right:0;
+            font-size:12px;
+            width:170px;
+            background:#FFF;
+            padding:5px;
+            border-radius:5px;
+        }
+        .text-image-animation-section .image-container{
+            width: 280px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position:relative;
+            left:-20px;
+            border-radius:8px;
+            overflow:hidden;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+
+    }
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+        .text-image-animation-section .text-heading{
+            font-size:24px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:150px;
+        }
+        .text-image-animation-section{
+            height:45vh;
+        }
+    }
+    @media only screen and (min-width: 375px) {
+        .text-image-animation-section .text-heading{
+            font-size:24px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:150px;
+        }
+        .text-image-animation-section{
+            height:45vh;
+        }
+    }
+    @media only screen and (min-width: 390px) {
+        .text-image-animation-section .text-heading{
+            font-size:24px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:150px;
+        }
+        .text-image-animation-section{
+            height:45vh;
+        }
+    }
+    @media only screen and (min-width: 414px) {
+        .text-image-animation-section .text-heading{
+            font-size:26px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:150px;
+        }
+        .text-image-animation-section{
+            height:45vh;
+        }
+    }
+    @media only screen and (min-width: 428px) {
+        .text-image-animation-section .text-heading{
+            font-size:26px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:150px;
+        }
+        .text-image-animation-section{
+            height:45vh;
+        }
+    }
+    @media only screen and (min-width: 480px) {
+        .text-image-animation-section .text-heading{
+            font-size:26px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:150px;
+        }
+        .text-image-animation-section{
+            height:45vh;
+        }
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+        .text-image-animation-section .text-heading{
+            font-size:60px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:250px;
+        }
+        .text-image-animation-section{
+            height:100vh;
+        }
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+        .text-image-animation-section .text-heading{
+            font-size:70px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:330px;
+        }
+        .text-image-animation-section{
+            height:100vh;
+        }
+    }
+    @media only screen and (min-width: 1366px) {
+        .text-image-animation-section .text-heading{
+            font-size:70px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:330px;
+        }
+        .text-image-animation-section{
+            height:100vh;
+        }
+    }
+    @media only screen and (min-width: 1440px) {
+        .text-image-animation-section .text-heading{
+            font-size:80px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:330px;
+        }
+        .text-image-animation-section{
+            height:100vh;
+        }
+    }
+    @media only screen and (min-width: 1536px) {
+        .text-image-animation-section .text-heading{
+            font-size:80px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:350px;
+        }
+        .text-image-animation-section{
+            height:100vh;
+        }
+    }
+    @media only screen and (min-width: 1600px) {
+        .text-image-animation-section .text-heading{
+            font-size:90px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:350px;
+        }
+        .text-image-animation-section{
+            height:100vh;
+        }
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .text-image-animation-section .text-heading{
+            font-size:100px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:400px;
+        }
+        .text-image-animation-section{
+            height:100vh;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .text-image-animation-section .text-heading{
+            font-size:100px;
+        }
+        .text-image-animation-section.animate .image-container-animation,
+        .text-image-animation-section .image-container-animation .image-container img{
+            height:400px;
+        }
+        .text-image-animation-section{
+            height:100vh;
+        }
+    }
+
+{% endstyle %}
+<div class="container section-content h-100">
+    <div class="inner-section">
+        <div class="text-heading pp-bold f-main">
+            {{ section.settings.heading_1 }}
+        </div>
+        <div class="image-container-animation">
+            <div class="image-container">
+                
+                {{ section.settings.image
+                    | image_url: width: 1600
+                    | image_tag:
+                    widths: '360,540,720,900,1080,1440,1600',
+                    sizes: '(min-width: 990px) 50vw, 100vw',
+                    loading: 'lazy',
+                    decoding: 'async',
+                    alt: section.settings.image.alt | escape
+                }}
+
+            </div>
+            <div class="text-description body-lg pp-regular f-black">
+                {{ section.settings.description }}
+            </div>
+        </div>
+        <div class="text-heading pp-bold f-main">
+            {{ section.settings.heading_2 }}
+        </div>
+    </div>
+</div>
+{% schema %}
+{
+    "class": "text-image-animation-section section-animation",
+    "name": "Text + Image Animation",
+    "limit": 1,
+    "templates": ["index"],
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading_1",
+            "label": "Heading - 1",
+            "default": "Venustas Making"
+        },
+        {
+            "type": "text",
+            "id": "heading_2",
+            "label": "Heading - 2",
+            "default": "Warmth Within Easy Reach"
+        },
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        },
+        {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description",
+            "default": "Let's explore the new sensory revolution brought by Venustas"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Text + Image Animation"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,226 @@
+{% style %}
+  #shopify-section-{{ section.id }} {
+    position: relative;
+    overflow: hidden;
+  }
+  #shopify-section-{{ section.id }} .for-her-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    {% if section.settings.bg_image != blank %}
+      aspect-ratio: {{ section.settings.bg_image.aspect_ratio }};
+    {% else %}
+      min-height: 600px;
+      background-color: {{ section.settings.fallback_bg }};
+    {% endif %}
+    {% if section.settings.max_height > 0 %}
+      max-height: {{ section.settings.max_height }}px;
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .for-her-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  #shopify-section-{{ section.id }} .for-her-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,{{ section.settings.overlay_opacity | times: 0.4 | divided_by: 100.0 }}) 0%, rgba(0,0,0,{{ section.settings.overlay_opacity | divided_by: 100.0 }}) 100%);
+  }
+  #shopify-section-{{ section.id }} .for-her-hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 80px 20px;
+  }
+  #shopify-section-{{ section.id }} .for-her-hero__subtitle {
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+  #shopify-section-{{ section.id }} .for-her-hero__title {
+    color: #fff;
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  #shopify-section-{{ section.id }} .for-her-hero__desc {
+    color: rgba(255,255,255,0.9);
+    font-size: clamp(14px, 1.4vw, 18px);
+    max-width: 560px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  #shopify-section-{{ section.id }} .for-her-hero__btn {
+    display: inline-block;
+    background: #E85D26;
+    color: #fff;
+    padding: 14px 40px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+  #shopify-section-{{ section.id }} .for-her-hero__btn:hover {
+    background: #c94d1e;
+    color: #fff;
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .for-her-hero {
+      {% if section.settings.bg_image_mobile != blank %}
+        aspect-ratio: {{ section.settings.bg_image_mobile.aspect_ratio }};
+      {% elsif section.settings.bg_image != blank %}
+        aspect-ratio: {{ section.settings.bg_image.aspect_ratio }};
+      {% else %}
+        min-height: 420px;
+      {% endif %}
+      max-height: none;
+    }
+    #shopify-section-{{ section.id }} .for-her-hero__bg--desktop {
+      display: none;
+    }
+    #shopify-section-{{ section.id }} .for-her-hero__bg--mobile {
+      display: block;
+    }
+  }
+  @media (min-width: 769px) {
+    #shopify-section-{{ section.id }} .for-her-hero__bg--mobile {
+      display: none;
+    }
+    #shopify-section-{{ section.id }} .for-her-hero__bg--desktop {
+      display: block;
+    }
+  }
+{% endstyle %}
+
+<div class="for-her-hero">
+  {% if section.settings.bg_image != blank %}
+    <img
+      class="for-her-hero__bg for-her-hero__bg--desktop"
+      src="{{ section.settings.bg_image | img_url: 'master' }}"
+      alt="{{ section.settings.title }}"
+      width="100%"
+      height="100%"
+    >
+  {% endif %}
+  {% if section.settings.bg_image_mobile != blank %}
+    <img
+      class="for-her-hero__bg for-her-hero__bg--mobile"
+      src="{{ section.settings.bg_image_mobile | img_url: 'master' }}"
+      alt="{{ section.settings.title }}"
+      width="100%"
+      height="100%"
+    >
+  {% elsif section.settings.bg_image != blank %}
+    <img
+      class="for-her-hero__bg for-her-hero__bg--mobile"
+      src="{{ section.settings.bg_image | img_url: 'master' }}"
+      alt="{{ section.settings.title }}"
+      width="100%"
+      height="100%"
+    >
+  {% endif %}
+  {% if section.settings.bg_image != blank and section.settings.overlay_opacity > 0 %}
+    <div class="for-her-hero__overlay"></div>
+  {% endif %}
+  <div class="for-her-hero__content">
+    {% if section.settings.subtitle != blank %}
+      <p class="for-her-hero__subtitle">{{ section.settings.subtitle }}</p>
+    {% endif %}
+    {% if section.settings.title != blank %}
+      <h1 class="for-her-hero__title">{{ section.settings.title }}</h1>
+    {% endif %}
+    {% if section.settings.description != blank %}
+      <p class="for-her-hero__desc">{{ section.settings.description }}</p>
+    {% endif %}
+    {% if section.settings.btn_label != blank and section.settings.btn_link != blank %}
+      <a href="{{ section.settings.btn_link }}" class="for-her-hero__btn">{{ section.settings.btn_label }}</a>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "For Her - Hero Banner",
+  "class": "for-her-hero-banner-section",
+  "templates": ["page"],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image (Desktop)",
+      "info": "The banner keeps this image's exact proportions on all screens (no cropping)."
+    },
+    {
+      "type": "range",
+      "id": "max_height",
+      "label": "Max Height (Desktop)",
+      "min": 0,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "default": 0,
+      "info": "0 = no limit (show full image). Set a value only if you want to cap height on very wide screens (will crop top/bottom)."
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Darkness (%)",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 35,
+      "info": "Set to 0 for no dark overlay"
+    },
+    {
+      "type": "color",
+      "id": "fallback_bg",
+      "label": "Fallback Background (no image)",
+      "default": "#3a3a3a"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image (Mobile)"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Every Woman Deserves Better"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Built for Her, Built for Heroes"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [{ "name": "For Her - Hero Banner" }]
+}
+{% endschema %}

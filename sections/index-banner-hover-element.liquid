@@ -1,0 +1,294 @@
+{% style %}
+    .banner-hover-section{
+        height:100vh;
+        position:relative;
+        overflow:hidden;
+    }
+    .banner-hover-section .bg-container{
+        width:100%;
+        height:100%;
+    }
+    .banner-hover-section .bg-container img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+    /* overlay container */
+    .banner-hover-section .element-container{
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        right: 0;
+    }
+
+    .banner-hover-section .img-element,
+    .banner-hover-section .text-heading{
+        will-change: transform;
+        transform: translate3d(0,0,0);
+    }
+
+    .banner-hover-section .img-element{
+        width:100%;
+        height:85vh;
+        object-fit:contain;
+    }
+
+    .banner-hover-section .element-text-container{
+        position:absolute;
+        inset:0;
+        margin:auto;
+        height:fit-content;
+        pointer-events:none;
+    }
+    .banner-hover-section .element-text-container .text-heading{
+        font-size:150px;
+    }
+
+    .banner-hover-section.is-leaving .img-element,
+    .banner-hover-section.is-leaving .text-heading{
+        transition: transform 250ms ease;
+    }
+
+  /* FOR MOBILE PHONE */
+  @media only screen and (max-width: 768px) {
+    .banner-hover-section{
+        height:50vh;
+    }
+    .banner-hover-section .img-element {
+        height: 45vh;
+        margin-left: 17%;
+    }
+    .banner-hover-section .element-text-container{
+        margin:0;
+        padding-left:20px;
+    }
+    .banner-hover-section .element-text-container .text-heading{
+        text-align:left !important;
+    }
+    .banner-hover-section .element-container{
+        height:100%;
+    }
+    .banner-hover-section .element-container .position-relative{    
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+    }
+  }
+
+  /* ipad Air */
+  @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+      
+  }
+
+  /* MOBILES ----------------------------------------------------------------------------------- */
+  @media only screen and (min-width: 0px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:50px;
+    }
+  }
+  @media only screen and (min-width: 375px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:50px;
+    }
+  }
+  @media only screen and (min-width: 390px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:50px;
+    }
+  }
+  @media only screen and (min-width: 414px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:50px;
+    }
+  }
+  @media only screen and (min-width: 428px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:50px;
+    }
+  }
+  @media only screen and (min-width: 480px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:50px;
+    }
+  }
+
+  /* TABLETS ----------------------------------------------------------------------------------- */
+
+  @media only screen and (min-width: 768px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:50px;
+    }
+  }
+
+
+  /* LAPTOPS --------------------------------------------------------------------------------- */
+
+  @media only screen and (min-width: 1280px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:110px;
+    }
+  }
+  @media only screen and (min-width: 1366px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:110px;
+    }
+  }
+  @media only screen and (min-width: 1440px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:120px;
+    }
+  }
+  @media only screen and (min-width: 1536px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:130px;
+    }
+  }
+  @media only screen and (min-width: 1600px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:130px;
+    }
+  }
+
+  /* COMPUTERS --------------------------------------------------------------------------------- */
+  @media only screen and (min-width: 1920px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:150px;
+    }
+  }
+  @media only screen and (min-width: 2560px) {
+    .banner-hover-section .element-text-container .text-heading{
+      font-size:150px;
+    }
+  }
+{% endstyle %}
+
+<div class="banner-hover-section">
+  <div class="bg-container">
+    {{ section.settings.background
+      | image_url: width: 1600
+      | image_tag:
+        widths: '360,540,720,900,1080,1440,1600',
+        sizes: '(min-width: 990px) 50vw, 100vw',
+        loading: 'lazy',
+        decoding: 'async',
+        class: 'bg-image',
+        alt: section.settings.background.alt | escape
+    }}
+  </div>
+
+  <div class="element-container">
+    <div class="position-relative">
+      <div class="element-text-container">
+        <div class="text-heading pp-bold f-white text-center">
+          {{ section.settings.heading }}
+        </div>
+      </div>
+
+      {{ section.settings.element
+        | image_url: width: 1600
+        | image_tag:
+          widths: '360,540,720,900,1080,1440,1600',
+          sizes: '(min-width: 990px) 50vw, 100vw',
+          loading: 'lazy',
+          decoding: 'async',
+          class: 'img-element',
+          alt: section.settings.element.alt | escape
+      }}
+    </div>
+  </div>
+</div>
+
+{% javascript %}
+(() => {
+  const sections = document.querySelectorAll('.banner-hover-section');
+  if (!sections.length) return;
+
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+
+  sections.forEach((section) => {
+    const imgEl = section.querySelector('.img-element');
+    const textEl = section.querySelector('.text-heading');
+    if (!imgEl && !textEl) return;
+
+    let rafId = null;
+    let lastEvent = null;
+
+    function applyParallax(e) {
+      const rect = section.getBoundingClientRect();
+
+      const x = e.clientX - (rect.left + rect.width / 2);
+      const y = e.clientY - (rect.top + rect.height / 2);
+
+      const maxMove = 18;
+
+      const nx = x / (rect.width / 2);
+      const ny = y / (rect.height / 2);
+
+      const cx = clamp(nx, -1, 1);
+      const cy = clamp(ny, -1, 1);
+
+      const moveX = cx * maxMove;
+      const moveY = cy * maxMove;
+
+      if (imgEl) imgEl.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+      if (textEl) textEl.style.transform = `translate3d(${moveX * 0.8}px, ${moveY * 0.8}px, 0)`;
+    }
+
+    section.addEventListener('mousemove', (e) => {
+      lastEvent = e;
+      section.classList.remove('is-leaving');
+
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        applyParallax(lastEvent);
+        rafId = null;
+      });
+    });
+
+    section.addEventListener('mouseleave', () => {
+      section.classList.add('is-leaving');
+
+      if (imgEl) imgEl.style.transform = 'translate3d(0,0,0)';
+      if (textEl) textEl.style.transform = 'translate3d(0,0,0)';
+
+      // remove easing class after reset
+      window.setTimeout(() => section.classList.remove('is-leaving'), 300);
+    });
+  });
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+    "class": "banner-hover-section",
+    "name": "Banner Hover Element",
+    "limit": 1,
+    "templates": ["index"],
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Trustworthy Choice"
+        },
+        {
+            "type": "image_picker",
+            "id": "background",
+            "label": "Background"
+        },
+        {
+            "type": "image_picker",
+            "id": "element",
+            "label": "Element"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Banner Hover Element"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,26 @@
+/* Mobile carousel arrows (Who / Steps / Values). Vars + classes on [data-sd-carousel] root. */
+@media (max-width: 749px) {
+  [data-sd-carousel][data-mobile-arrows="false"] [class*="__arrow"] {
+    display: none !important;
+  }
+
+  [data-sd-carousel] [class*="__arrow--prev"] {
+    left: var(--sd-car-arrow-h-inset, 10px);
+  }
+
+  [data-sd-carousel] [class*="__arrow--next"] {
+    right: var(--sd-car-arrow-h-inset, 10px);
+  }
+
+  [data-sd-carousel].sd-car-arrow-pos-top [class*="__arrow"] {
+    top: var(--sd-car-arrow-v-inset, 16px);
+    bottom: auto;
+    transform: none;
+  }
+
+  [data-sd-carousel].sd-car-arrow-pos-bottom [class*="__arrow"] {
+    top: auto;
+    bottom: var(--sd-car-arrow-v-inset, 16px);
+    transform: none;
+  }
+}

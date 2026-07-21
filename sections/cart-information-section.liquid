@@ -1,0 +1,413 @@
+{% style %}
+    .cart-information-section{  
+
+    }
+    .cart-information-section .info-box-item{
+        background: #F9F9F9;
+        border-radius: 16px 16px 16px 16px;
+        padding:25px 40px;
+    }
+    .cart-information-section .info-box-item .info-icon{
+        width:44px;
+        height:44px;
+    }
+    .cart-information-section .info-box-item .link-item-list-container{
+        display:inline-block;
+    }
+    .cart-information-section .info-box-item .link-item-list-container .link-item,
+    .cart-information-section .link-item{
+        display:inline-block;
+        padding:10px 30px;
+        border-radius: 8px 8px 8px 8px;
+        border: 1px solid #B93205;
+        margin-bottom:15px;
+        margin-right:25px;
+        transition: all .5s ease;
+        span{
+            
+                    white-space: nowrap;
+        }
+    } 
+    .cart-information-section .link-item:hover{
+        background: #B93205;
+    }
+    .cart-information-section .link-item:hover span{
+        color: #fff !important;
+    }
+    .cart-information-section .link-item:hover svg path{
+        fill:#FFF !important;
+    }
+    .cart-information-section .info-box-item .link-item-list-container .link-item  svg{
+        width:20px;
+        height:20px;
+    }
+    .cart-information-section .btn-learn-more{
+        width:fit-content;
+        border-radius: 4px 4px 4px 4px;
+    }
+    .cart-information-section .popup-modal .popup-content{
+        transform:unset;
+        max-width:800px;
+    }
+    .cart-information-section .popup-modal .popup-content ul,
+    .cart-information-section .popup-modal .popup-content ol{
+        padding-left:20px;
+        margin-bottom:1rem;
+    }
+    .cart-information-section .popup-modal .popup-content ul li,
+    .cart-information-section .popup-modal .popup-content ol li {
+        margin-bottom:0.6rem;
+        font-size:16px;
+    }
+    .cart-information-section .popup-modal .popup-close{
+        background:unset;
+    }
+    .cart-information-section .popup-modal .popup-close img{
+        width:25px;
+        height:25px;
+        object-fit:contain;
+    }
+    .cart-information-section .popup-modal .popup-container{
+        padding-top:0px;
+        padding-left:60px;
+        padding-right:60px;
+        padding-bottom:30px;
+    }
+        
+    .cart-information-section .popup-modal .popup-content h1
+    .cart-information-section .popup-modal .popup-content h2,
+    .cart-information-section .popup-modal .popup-content h3{
+        font-weight: 700 !important;
+        font-size:28px;
+        margin-bottom:1rem;
+    }
+    .cart-information-section .popup-modal .popup-content h4{
+        font-weight: 700 !important;
+        font-size:20px;
+        margin-bottom:1rem;
+    }
+    
+    .cart-information-section .popup-modal .popup-content a{
+        font-size:16px;
+        color: #B93205;
+    }
+
+    
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .cart-information-section .popup-modal .popup-container{
+            padding-top:0px;
+            padding-left:20px;
+            padding-right:20px;
+            padding-bottom:30px;
+        }
+        
+        .cart-information-section .popup-modal .popup-content h1
+        .cart-information-section .popup-modal .popup-content h2,
+        .cart-information-section .popup-modal .popup-content h3{
+            font-size:18px;
+        }
+        .cart-information-section .popup-modal .popup-content h4{
+            font-size:16px;
+        }
+    
+        .cart-information-section .popup-modal .popup-content a,
+        .cart-information-section .popup-modal .popup-content ul li,
+        .cart-information-section .popup-modal .popup-content ol li,
+        .cart-information-section .popup-modal .popup-content p{
+            font-size:14px;
+        }
+
+        .cart-information-section .popup-modal .popup-close{
+            background: #d7d7d752;
+            width:25px;
+            height:25px;
+            border-radius:50px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .cart-information-section .popup-modal .popup-close img{
+            width:15px;
+            height:15px;
+        }
+
+        .cart-information-section .info-box-item{
+            padding: 20px;
+        }
+        .cart-information-section .link-item{
+            margin-right:15px;
+            margin-bottom:10px;
+            padding:10px 15px;
+        }
+        .cart-information-section .accordion-cart-info .accordion-item{
+            background-color: #F9F9F9 !important;
+            border-radius:12px !important;
+            padding:15px;
+            border:none;
+            margin-bottom:10px;
+        }
+        .cart-information-section .accordion-header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:10px;
+            padding:12px 0px;
+        }
+        .cart-information-section .accordion-header img{
+            height:30px;
+            width:30px;
+        }
+        .cart-information-section .accordion-header .accordion-arrow .accordion-icon{
+            width:18px;
+            height:18px;
+            object-fit:contain;
+        }
+        .cart-information-section .accordion-cart-info .accordion-body{
+            padding:0px !important;
+            display:none;
+            border-top: 1px solid #E9E9E9;
+            padding-top: 15px !important;
+        }
+        .cart-information-section .popup-modal .popup-content{
+            width: calc(100% - 40px);
+        }
+        .cart-information-section .popup-modal .popup-header{
+            padding-bottom:0px;
+        }
+
+    }
+
+    /* ipad Air */
+    @media only screen 
+        and (min-device-width : 768px) 
+        and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+{% if cart.item_count > 0 %}
+<div class="container section-content">
+    <div class="d-lg-block d-md-block d-sm-none">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <div class="info-box-item d-flex flex-column gap-lg-4 gap-md-4 gap-sm-3 h-100">
+                    <div class="d-flex flex-lg-column flex-md-column flex-sm-row gap-lg-3 gap-md-3 gap-sm-2 align-items-lg-start align-items-md-start align-items-sm-center">
+                        <img src="{{ section.settings.icon_1 | img_url: 'master' }}" width="100%" height="100%" alt="{{ section.settings.icon_1 }}" class="info-icon"> 
+                        <h3 class="pp-bold pretitle-xl f-black">
+                            {{ section.settings.heading }}
+                        </h3>
+                    </div>
+                    <div class="pp-regular body-lg f-gray">
+                        {{ section.settings.description }}
+                    </div>
+                    <div class="link-item-list-container">
+                        {% for block in section.blocks %}
+                            <a class="link-item" href="{{ block.settings.link }}"> 
+                                <div class="d-flex align-items-center gap-lg-3 gap-md-3 gap-sm-2">
+                                    <span class="pp-regular body-lg f-main">
+                                        {{ block.settings.heading }}
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28.179" height="10.878" viewBox="0 0 28.179 10.878">
+                                        <path d="m157.89 30.698 4.487-4.489a.96.96 0 0 0 0-1.347l-4.487-4.488a.953.953 0 0 0-1.348 1.348l3.814 3.813-3.814 3.814a.96.96 0 0 0 0 1.347.9.9 0 0 0 .674.28.94.94 0 0 0 .674-.278m10.896 0 4.487-4.489a.96.96 0 0 0 0-1.347l-4.487-4.488a.953.953 0 0 0-1.348 1.348l3.814 3.813-3.814 3.814a.96.96 0 0 0 0 1.347.9.9 0 0 0 .674.28.94.94 0 0 0 .674-.278m10.896 0 4.487-4.489a.96.96 0 0 0 0-1.347l-4.487-4.488a.953.953 0 0 0-1.348 1.348l3.814 3.813-3.814 3.814a.96.96 0 0 0 0 1.347.9.9 0 0 0 .674.28.94.94 0 0 0 .674-.278" transform="translate(-156.266 -20.098)" style="fill:#B93205;isolation:isolate"/>
+                                    </svg>
+                                </div>
+                                </a>
+                        {% endfor %}
+                    </div>
+                    <div class="pp-regular body-lg f-gray">
+                        {{ section.settings.description_2 }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="info-box-item d-flex flex-column gap-lg-4 gap-md-4 gap-sm-3 justify-content-center h-100">
+                    <img src="{{ section.settings.icon_2 | img_url: 'master' }}" width="100%" height="100%" alt="{{ section.settings.icon_2 }}" class="info-icon"> 
+                    <h3 class="pp-bold pretitle-xl f-black">
+                        {{ section.settings.heading_2 }}
+                    </h3>
+                    <div class="pp-regular body-lg f-gray">
+                        {{ section.settings.description_3 }}
+                    </div>
+                    <div class="btn-hover btn-main btn-learn-more py-lg-2 py-md-2 py-sm-1">
+                        <span class="body l-h-normal f-white">
+                            Learn More
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-lg-none d-md-none d-sm-block">
+        <div class="accordion-cart-info">
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="d-flex flex-lg-column flex-md-column flex-sm-row gap-lg-3 gap-md-3 gap-sm-2 align-items-start">
+                        <img src="{{ section.settings.icon_1 | img_url: 'master' }}" width="100%" height="100%" alt="{{ section.settings.icon_1 }}" class="info-icon"> 
+                        <h3 class="pp-bold pretitle f-black">
+                            {{ section.settings.heading }}
+                        </h3>
+                    </div>
+                    <div class="accordion-arrow">
+                        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/accordion-arrow-up.png?v=1764576271" width="20px" height="20px" class="accordion-icon">
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="pp-regular body f-gray mb-3">
+                        {{ section.settings.description }}
+                    </div>
+                    <div class="link-item-list-container mb-2">
+                        {% for block in section.blocks %}
+                            <a class="link-item" href="{{ block.settings.link }}"> 
+                                <div class="d-flex align-items-center gap-lg-3 gap-md-3 gap-sm-2">
+                                    <span class="pp-regular body f-main">
+                                        {{ block.settings.heading }}
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28.179" height="10.878" viewBox="0 0 28.179 10.878">
+                                        <path d="m157.89 30.698 4.487-4.489a.96.96 0 0 0 0-1.347l-4.487-4.488a.953.953 0 0 0-1.348 1.348l3.814 3.813-3.814 3.814a.96.96 0 0 0 0 1.347.9.9 0 0 0 .674.28.94.94 0 0 0 .674-.278m10.896 0 4.487-4.489a.96.96 0 0 0 0-1.347l-4.487-4.488a.953.953 0 0 0-1.348 1.348l3.814 3.813-3.814 3.814a.96.96 0 0 0 0 1.347.9.9 0 0 0 .674.28.94.94 0 0 0 .674-.278m10.896 0 4.487-4.489a.96.96 0 0 0 0-1.347l-4.487-4.488a.953.953 0 0 0-1.348 1.348l3.814 3.813-3.814 3.814a.96.96 0 0 0 0 1.347.9.9 0 0 0 .674.28.94.94 0 0 0 .674-.278" transform="translate(-156.266 -20.098)" style="fill:#B93205;isolation:isolate"/>
+                                    </svg>
+                                </div>
+                                </a>
+                        {% endfor %}
+                    </div>
+                    <div class="pp-regular body f-gray">
+                        {{ section.settings.description_2 }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="d-flex flex-lg-column flex-md-column flex-sm-row gap-lg-3 gap-md-3 gap-sm-2 align-items-start">
+                        <img src="{{ section.settings.icon_2 | img_url: 'master' }}" width="100%" height="100%" alt="{{ section.settings.icon_2 }}" class="info-icon"> 
+                        <h3 class="pp-bold pretitle f-black">
+                            {{ section.settings.heading_2 }}
+                        </h3>
+                    </div>
+                    <div class="accordion-arrow">
+                        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/accordion-arrow-up.png?v=1764576271" width="20px" height="20px" class="accordion-icon">
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="pp-regular body f-gray mb-4">
+                        {{ section.settings.description_3 }}
+                    </div>
+                    <div class="btn-hover btn-main btn-learn-more py-lg-2 py-md-2 py-sm-2 px-4">
+                        <span class="body l-h-normal f-white">
+                            Learn More
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <div class="cart-popup-information-section popup-modal">
+        <div class="popup-overlay">
+        </div>
+        <div class="popup-content"> 
+            <div class="popup-header">
+                <button class="popup-close" type="button">
+                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/close-btn-popup.png?v=1761207016">
+                </button>
+            </div>
+            
+            <div class="popup-container">
+                <h2 class="pp-bold pretitle-xl f-main mb-3 text-center d-lg-block d-md-block d-sm-none">
+                    Return And Exchange
+                </h2>
+                <h2 class="pp-bold pretitle f-main mb-3 text-center d-lg-none d-md-none d-sm-block">
+                    Return And Exchange
+                </h2>
+                {{ section.settings.popup-content }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% schema %}
+{
+    "class": "cart-information-section",
+    "name": "Information Section",
+    "limit": 1,
+    "templates": ["cart"],
+    "settings": [
+        {
+            "type": "header",
+            "content": "Column - 1"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Need Help?"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description"
+        },
+        {
+            "type": "richtext",
+            "id": "description_2",
+            "label": "Description - 2"
+        },
+        {
+            "type": "image_picker",
+            "id": "icon_1",
+            "label": "Icon - 1"
+        },
+        {
+            "type": "header",
+            "content": "Column - 1"
+        },
+        {
+            "type": "text",
+            "id": "heading_2",
+            "label": "Heading - 2",
+            "default": "Return And Exchange  Policy"
+        },
+        {
+            "type": "richtext",
+            "id": "description_3",
+            "label": "Description",
+        },
+        {
+            "type": "image_picker",
+            "id": "icon_2",
+            "label": "Icon - 2"
+        },
+        {
+            "type": "richtext",
+            "id": "popup-content",
+            "label": "Popup Content"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "link",
+            "name": "Link",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Information Section"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,957 @@
+<section id="venustas-core-tech-{{ section.id }}" class="venustas-core-tech">
+  <div class="venustas-core-tech__media">
+    {% if section.settings.background_image != blank %}
+      <img
+        class="venustas-core-tech__bg-image"
+        src="{{ section.settings.background_image | image_url: width: 2200 }}"
+        srcset="
+          {{ section.settings.background_image | image_url: width: 900 }} 900w,
+          {{ section.settings.background_image | image_url: width: 1400 }} 1400w,
+          {{ section.settings.background_image | image_url: width: 2200 }} 2200w
+        "
+        sizes="100vw"
+        alt="{{ section.settings.background_image.alt | default: section.settings.heading | escape }}"
+        loading="lazy"
+      >
+    {% else %}
+      <div class="venustas-core-tech__bg-placeholder">Add background image</div>
+    {% endif %}
+
+    <div class="venustas-core-tech__overlay"></div>
+
+    <div class="venustas-core-tech__content">
+      {% if section.settings.heading != blank %}
+        <h2 class="venustas-core-tech__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <div class="venustas-core-tech__description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="venustas-core-tech__bar{% if section.settings.enable_fixed_nav %} is-fixed-enabled{% endif %}">
+    <div class="venustas-core-tech__bar-inner">
+      {% for block in section.blocks %}
+        {% assign target_id = block.settings.target_id | strip %}
+        <button
+          type="button"
+          class="venustas-core-tech__item"
+          {% if target_id != blank %}data-target="{{ target_id | escape }}"{% endif %}
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.icon != blank %}
+            <img
+              class="venustas-core-tech__item-icon"
+              src="{{ block.settings.icon | image_url: width: 64 }}"
+              alt="{{ block.settings.label | escape }}"
+              loading="lazy"
+            >
+          {% endif %}
+          <span class="venustas-core-tech__item-label">{{ block.settings.label }}</span>
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  nav.header.header-hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-100%);
+    transition: transform .2s ease, opacity .2s ease;
+  }
+
+  #venustas-core-tech-{{ section.id }} {
+    --inner-width: {{ section.settings.content_width_percent | default: 85 }}%;
+    --content-pad-x: {{ section.settings.content_horizontal_padding | default: 20 }}px;
+    --mobile-content-h-pad: {{ section.settings.mobile_content_horizontal_padding | default: 0 }}px;
+    --mobile-bar-h-pad: {{ section.settings.mobile_bar_horizontal_padding | default: 0 }}px;
+    --section-height: {{ section.settings.section_height }}px;
+    --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --overlay-color: {{ section.settings.overlay_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    --desc-color: {{ section.settings.description_color }};
+    --heading-size: {{ section.settings.heading_size }}px;
+    --desc-size: {{ section.settings.description_size }}px;
+    --bar-bg: {{ section.settings.bar_bg_color }};
+    --bar-opacity: {{ section.settings.bar_bg_opacity | divided_by: 100.0 }};
+    --bar-text: {{ section.settings.bar_text_color }};
+    --bar-text-hover: {{ section.settings.bar_text_hover_color }};
+    --bar-text-active: {{ section.settings.bar_text_active_color }};
+    --nav-top-offset: {{ section.settings.nav_top_offset }}px;
+    --bar-padding-y: {{ section.settings.bar_padding_y }}px;
+    --bar-icon-size: {{ section.settings.bar_icon_size }}px;
+    --bar-label-size: {{ section.settings.bar_label_size }}px;
+    --bar-item-gap: {{ section.settings.bar_item_gap }}px;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__media {
+    position: relative;
+    min-height: var(--section-height);
+    overflow: hidden;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bg-image,
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bg-placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bg-image {
+    object-fit: cover;
+    display: block;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bg-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background: #404040;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--overlay-color);
+    opacity: var(--overlay-opacity);
+  }
+
+  /* Hero + bar inner: same width model as Tech Heatwave / PowerCore (no theme page-width) */
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__content {
+    position: relative;
+    z-index: 1;
+    width: var(--inner-width);
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: var(--section-height);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px var(--content-pad-x);
+    box-sizing: border-box;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__heading {
+    margin: 0 0 14px;
+    color: var(--heading-color);
+    font-size: var(--heading-size);
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__description {
+    max-width: 800px;
+    margin: 0;
+    color: var(--desc-color);
+    font-size: var(--desc-size);
+    line-height: 1.6;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__keyword {
+    color: var(--highlight-color, #ff4b15);
+    font-weight: 600;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bar {
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    color: var(--bar-text);
+    overflow: hidden;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bar.is-fixed-enabled.is-sticky-active {
+    position: fixed;
+    top: var(--nav-top-offset);
+    left: 0;
+    width: 100%;
+    z-index: 60;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bar-placeholder {
+    display: none;
+    width: 100%;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bar-placeholder.is-visible {
+    display: block;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    {% if section.settings.background_image != blank %}
+      background-image: url('{{ section.settings.background_image | image_url: width: 2200 }}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    {% else %}
+      background: #1a1a1a;
+    {% endif %}
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--bar-bg);
+    opacity: var(--bar-opacity);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Sticky state uses a solid background for stronger contrast */
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bar.is-sticky-active::after {
+    display: none;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bar.is-sticky-active::before {
+    opacity: 1;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__bar-inner {
+    position: relative;
+    z-index: 2;
+    width: var(--inner-width);
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--bar-item-gap);
+    padding: var(--bar-padding-y) var(--content-pad-x);
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 28px;
+    text-align: center;
+    white-space: nowrap;
+    border: 0;
+    background: transparent;
+    color: var(--bar-text);
+    cursor: pointer;
+    padding: 0;
+    opacity: 0.9;
+    transition: opacity 0.2s ease, color 0.2s ease;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__item:hover {
+    color: var(--bar-text-hover);
+    opacity: 1;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__item.is-active {
+    color: var(--bar-text-active);
+    opacity: 1;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__item-icon {
+    width: var(--bar-icon-size);
+    height: var(--bar-icon-size);
+    object-fit: contain;
+  }
+
+  #venustas-core-tech-{{ section.id }} .venustas-core-tech__item-label {
+    font-size: var(--bar-label-size);
+    line-height: 1.3;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  }
+
+  @media (max-width: 989px) {
+    #venustas-core-tech-{{ section.id }} .venustas-core-tech__content {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    #venustas-core-tech-{{ section.id }} .venustas-core-tech__bar-inner {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 10px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  @media (max-width: 749px) {
+    #venustas-core-tech-{{ section.id }} {
+      --section-height: {{ section.settings.mobile_section_height }}px;
+      --heading-size: {{ section.settings.mobile_heading_size }}px;
+      --desc-size: {{ section.settings.mobile_description_size }}px;
+      --bar-icon-size: {{ section.settings.mobile_bar_icon_size }}px;
+      --bar-label-size: {{ section.settings.mobile_bar_label_size }}px;
+    }
+
+    #venustas-core-tech-{{ section.id }} .venustas-core-tech__content {
+      padding: 24px var(--mobile-content-h-pad) 18px;
+    }
+
+    #venustas-core-tech-{{ section.id }} .venustas-core-tech__bar-inner {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-left: var(--mobile-bar-h-pad);
+      padding-right: var(--mobile-bar-h-pad);
+    }
+
+    #venustas-core-tech-{{ section.id }} .venustas-core-tech__bar-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    #venustas-core-tech-{{ section.id }} .venustas-core-tech__item {
+      flex: 0 0 auto;
+      justify-content: center;
+      min-height: 24px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var section = document.getElementById('venustas-core-tech-{{ section.id }}');
+    if (!section) return;
+    var bar = section.querySelector('.venustas-core-tech__bar');
+    var topOffset = {{ section.settings.nav_top_offset }};
+    var fixedEnabled = {{ section.settings.enable_fixed_nav | json }};
+
+    var description = section.querySelector('.venustas-core-tech__description');
+    if (description) {
+      var keywordsRaw = {{ section.settings.highlight_keywords | json }};
+      var highlightColor = {{ section.settings.highlight_color | json }};
+      keywordsRaw = (keywordsRaw || '').trim();
+      highlightColor = (highlightColor || '').trim();
+      if (keywordsRaw) {
+        var separators = keywordsRaw.indexOf('\n') !== -1 ? /\r?\n/ : /[,，;；]/;
+        var keywords = keywordsRaw
+          .split(separators)
+          .map(function (item) { return item.trim(); })
+          .filter(function (item) { return item.length > 0; });
+
+        if (keywords.length) {
+          if (highlightColor) {
+            description.style.setProperty('--highlight-color', highlightColor);
+          }
+
+          function escapeRegExp(str) {
+            return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          }
+
+          var keywordPattern = keywords
+            .sort(function (a, b) { return b.length - a.length; })
+            .map(escapeRegExp)
+            .join('|');
+
+          if (keywordPattern) {
+            var regex = new RegExp('(' + keywordPattern + ')', 'gi');
+
+            function walk(node) {
+              if (node.nodeType === Node.TEXT_NODE) {
+                regex.lastIndex = 0;
+                if (!node.nodeValue || !regex.test(node.nodeValue)) return;
+                regex.lastIndex = 0;
+
+                var fragment = document.createDocumentFragment();
+                var text = node.nodeValue;
+                var lastIndex = 0;
+                var match;
+
+                while ((match = regex.exec(text)) !== null) {
+                  if (match.index > lastIndex) {
+                    fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+                  }
+                  var mark = document.createElement('span');
+                  mark.className = 'venustas-core-tech__keyword';
+                  mark.textContent = match[0];
+                  fragment.appendChild(mark);
+                  lastIndex = match.index + match[0].length;
+                }
+
+                if (lastIndex < text.length) {
+                  fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+                }
+
+                node.parentNode.replaceChild(fragment, node);
+                return;
+              }
+
+              if (node.nodeType !== Node.ELEMENT_NODE) return;
+              if (node.classList && node.classList.contains('venustas-core-tech__keyword')) return;
+
+              var children = Array.prototype.slice.call(node.childNodes);
+              children.forEach(walk);
+            }
+
+            walk(description);
+          }
+        }
+      }
+    }
+
+    var navItems = section.querySelectorAll('.venustas-core-tech__item');
+    var navItemsWithTarget = section.querySelectorAll('.venustas-core-tech__item[data-target]');
+
+    function normalizeTarget(value) {
+      if (!value) return '';
+      var target = value.trim();
+      if (!target) return '';
+      return target.charAt(0) === '#' ? target : '#' + target;
+    }
+
+    function getScrollOffset() {
+      var base = topOffset;
+      if (fixedEnabled && bar) {
+        base += bar.offsetHeight;
+      }
+      return base + 8;
+    }
+
+    var barPlaceholder = null;
+    var stickyStart = 0;
+    var stickyEnd = Number.POSITIVE_INFINITY;
+    var pageHeader = document.querySelector('nav.header');
+    var itemTargetPairs = [];
+
+    function buildPlaceholder() {
+      if (!bar) return;
+      if (!barPlaceholder) {
+        barPlaceholder = document.createElement('div');
+        barPlaceholder.className = 'venustas-core-tech__bar-placeholder';
+        bar.insertAdjacentElement('afterend', barPlaceholder);
+      }
+      barPlaceholder.style.height = bar.offsetHeight + 'px';
+    }
+
+    function getEffectiveTopOffset() {
+      return topOffset || 0;
+    }
+
+    function computeStickyStart() {
+      if (!bar) return;
+      var anchorTop = bar.getBoundingClientRect().top + window.pageYOffset;
+      stickyStart = Math.max(0, anchorTop - getEffectiveTopOffset());
+    }
+
+    function computeStickyEnd() {
+      if (!itemTargetPairs.length) {
+        stickyEnd = Number.POSITIVE_INFINITY;
+        return;
+      }
+
+      var pageY = window.pageYOffset;
+      var maxBottom = 0;
+
+      for (var i = 0; i < itemTargetPairs.length; i += 1) {
+        var targetBottom = itemTargetPairs[i].targetEl.getBoundingClientRect().bottom + pageY;
+        if (targetBottom > maxBottom) {
+          maxBottom = targetBottom;
+        }
+      }
+
+      stickyEnd = maxBottom > 0 ? maxBottom : Number.POSITIVE_INFINITY;
+    }
+
+    function syncStickyState() {
+      if (!fixedEnabled || !bar) return;
+      if (!barPlaceholder) buildPlaceholder();
+      if (!barPlaceholder) return;
+
+      var offset = getEffectiveTopOffset();
+      var reachedStart = window.pageYOffset >= stickyStart;
+      var withinEnd = !isFinite(stickyEnd) || (window.pageYOffset + offset + bar.offsetHeight) <= (stickyEnd - 1);
+      var shouldStick = reachedStart && withinEnd;
+      bar.classList.toggle('is-sticky-active', shouldStick);
+      barPlaceholder.classList.toggle('is-visible', shouldStick);
+      if (shouldStick) {
+        bar.style.top = offset + 'px';
+        if (pageHeader) {
+          pageHeader.classList.add('header-hide');
+        }
+      } else {
+        bar.style.top = '';
+        if (pageHeader) {
+          pageHeader.classList.remove('header-hide');
+        }
+      }
+    }
+
+    function setActiveItem(activeItem) {
+      navItems.forEach(function (btn) { btn.classList.remove('is-active'); });
+      if (activeItem) {
+        activeItem.classList.add('is-active');
+        centerActiveItemInMobile(activeItem);
+      }
+    }
+
+    function centerActiveItemInMobile(activeItem) {
+      if (!activeItem || !bar) return;
+      var barInner = bar.querySelector('.venustas-core-tech__bar-inner');
+      if (!barInner) return;
+
+      var isHorizontalScroll = barInner.scrollWidth > barInner.clientWidth + 2;
+      if (!isHorizontalScroll) return;
+
+      var itemCenter = activeItem.offsetLeft + (activeItem.offsetWidth / 2);
+      var nextScrollLeft = itemCenter - (barInner.clientWidth / 2);
+      var maxScrollLeft = barInner.scrollWidth - barInner.clientWidth;
+      var clamped = Math.max(0, Math.min(nextScrollLeft, maxScrollLeft));
+
+      barInner.scrollTo({ left: clamped, behavior: 'smooth' });
+    }
+
+    itemTargetPairs = [];
+    navItemsWithTarget.forEach(function (item) {
+      var targetSelector = normalizeTarget(item.getAttribute('data-target'));
+      if (!targetSelector) return;
+      var targetEl = document.querySelector(targetSelector);
+      if (!targetEl) return;
+      itemTargetPairs.push({ item: item, targetEl: targetEl });
+    });
+
+    if (itemTargetPairs.length) {
+      setActiveItem(itemTargetPairs[0].item);
+    }
+
+    navItemsWithTarget.forEach(function (item) {
+      item.addEventListener('click', function () {
+        var targetSelector = normalizeTarget(item.getAttribute('data-target'));
+        if (!targetSelector) return;
+        var targetEl = document.querySelector(targetSelector);
+        if (!targetEl) return;
+
+        var targetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - getScrollOffset();
+        window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+        setActiveItem(item);
+      });
+    });
+
+    function updateActiveByScroll() {
+      if (!itemTargetPairs.length) return;
+
+      var checkLine = window.pageYOffset + getScrollOffset() + 20;
+      var activePair = itemTargetPairs[0];
+
+      for (var i = 0; i < itemTargetPairs.length; i += 1) {
+        var pairTop = itemTargetPairs[i].targetEl.getBoundingClientRect().top + window.pageYOffset;
+        if (pairTop <= checkLine) {
+          activePair = itemTargetPairs[i];
+        } else {
+          break;
+        }
+      }
+
+      setActiveItem(activePair.item);
+    }
+
+    function refreshStickyMetrics() {
+      if (!fixedEnabled || !bar) return;
+      bar.classList.remove('is-sticky-active');
+      if (barPlaceholder) {
+        barPlaceholder.classList.remove('is-visible');
+      }
+      buildPlaceholder();
+      computeStickyStart();
+      computeStickyEnd();
+      syncStickyState();
+    }
+
+    if ('IntersectionObserver' in window && itemTargetPairs.length) {
+      var observer = new IntersectionObserver(function () {
+        updateActiveByScroll();
+      }, {
+        root: null,
+        rootMargin: '-' + getScrollOffset() + 'px 0px -55% 0px',
+        threshold: [0, 0.1, 0.3, 0.6, 1]
+      });
+
+      itemTargetPairs.forEach(function (pair) {
+        observer.observe(pair.targetEl);
+      });
+    }
+
+    window.addEventListener('scroll', function () {
+      syncStickyState();
+      updateActiveByScroll();
+    }, { passive: true });
+    window.addEventListener('resize', function () {
+      refreshStickyMetrics();
+      updateActiveByScroll();
+    });
+    window.addEventListener('load', refreshStickyMetrics);
+    window.addEventListener('beforeunload', function () {
+      if (pageHeader) {
+        pageHeader.classList.remove('header-hide');
+      }
+    });
+
+    if (fixedEnabled && bar) {
+      refreshStickyMetrics();
+    }
+
+    updateActiveByScroll();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Venustas Core Tech",
+  "tag": "section",
+  "class": "venustas-core-tech-section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Four Core Technologies"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Driven by innovation and protected by four proprietary technologies, our apparel delivers intelligent heat, extended endurance, and uncompromising reliability.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "highlight_keywords",
+      "label": "Highlight words or phrases",
+      "info": "Use one phrase per line (recommended, supports commas in phrases). If there is only one line, comma/semicolon separated values are also supported.",
+      "default": "GrapheneX™,\nHeatwave™, PowerCore™, and SilverShield™"
+    },
+    {
+      "type": "color",
+      "id": "highlight_color",
+      "label": "Highlight keyword color",
+      "default": "#ff4b15"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "Desktop section height",
+      "min": 280,
+      "max": 760,
+      "step": 20,
+      "default": 520,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_height",
+      "label": "Mobile section height",
+      "min": 220,
+      "max": 640,
+      "step": 20,
+      "default": 420,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 18,
+      "max": 72,
+      "step": 2,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Desktop description size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "label": "Mobile description size",
+      "min": 11,
+      "max": 22,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 35,
+      "unit": "%"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ff4b15"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Layout width"
+    },
+    {
+      "type": "range",
+      "id": "content_width_percent",
+      "label": "Content width",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "default": 85,
+      "unit": "%",
+      "info": "Hero and bottom nav row share this width. Matches Tech Heatwave / PowerCore (e.g. 85%). Max width 1600px."
+    },
+    {
+      "type": "range",
+      "id": "content_horizontal_padding",
+      "label": "Hero horizontal padding",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 20,
+      "unit": "px",
+      "info": "Left/right padding inside the hero text block on screens ≥990px. Reset to 0 from 989px down (width % provides inset)."
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_horizontal_padding",
+      "label": "Mobile hero horizontal padding",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 0,
+      "unit": "px",
+      "info": "Screens ≤749px. Use 0 to align with other tech sections."
+    },
+    {
+      "type": "range",
+      "id": "mobile_bar_horizontal_padding",
+      "label": "Mobile nav bar horizontal padding",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 0,
+      "unit": "px",
+      "info": "Inset for the horizontally scrolling tech tabs at ≤749px. Increase if thumbs need more edge clearance."
+    },
+    {
+      "type": "color",
+      "id": "bar_bg_color",
+      "label": "Bottom bar background",
+      "default": "#8f2f17"
+    },
+    {
+      "type": "range",
+      "id": "bar_bg_opacity",
+      "label": "Bottom bar background opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "color",
+      "id": "bar_text_color",
+      "label": "Bottom bar text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "bar_text_hover_color",
+      "label": "Bottom bar hover text color",
+      "default": "#ffd7c3"
+    },
+    {
+      "type": "color",
+      "id": "bar_text_active_color",
+      "label": "Bottom bar active text color",
+      "default": "#ff4b15"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_fixed_nav",
+      "label": "Fix nav to top on scroll",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "nav_top_offset",
+      "label": "Fixed nav top offset",
+      "min": 0,
+      "max": 140,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "bar_padding_y",
+      "label": "Bottom bar vertical padding",
+      "min": 6,
+      "max": 30,
+      "step": 2,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "bar_item_gap",
+      "label": "Desktop item gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "bar_icon_size",
+      "label": "Desktop icon size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "bar_label_size",
+      "label": "Desktop label size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_bar_icon_size",
+      "label": "Mobile icon size",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_bar_label_size",
+      "label": "Mobile label size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tech_item",
+      "name": "Technology item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Technology"
+        },
+        {
+          "type": "text",
+          "id": "target_id",
+          "label": "Target section ID",
+          "info": "ID of the target section to scroll to. Example: heatwave-section or #heatwave-section"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Venustas Core Tech",
+      "blocks": [
+        {
+          "type": "tech_item",
+          "settings": {
+            "label": "Heatwave™"
+          }
+        },
+        {
+          "type": "tech_item",
+          "settings": {
+            "label": "PowerCore™"
+          }
+        },
+        {
+          "type": "tech_item",
+          "settings": {
+            "label": "GrapheneX™"
+          }
+        },
+        {
+          "type": "tech_item",
+          "settings": {
+            "label": "SilverShield™"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

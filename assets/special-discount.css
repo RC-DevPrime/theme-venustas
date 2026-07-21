@@ -1,0 +1,62 @@
+/* Shared: Special Discount — horizontal padding only; band width is set per section (#id) */
+.sd-sp *,
+.sd-sp *::before,
+.sd-sp *::after {
+  box-sizing: border-box;
+}
+
+/* Fill the Shopify section row so inner % width is relative to the page, not a narrow theme wrapper */
+section.sd-sp {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  box-sizing: border-box;
+}
+
+.sd-sp-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--sd-pad-x, 20px);
+  padding-right: var(--sd-pad-x, 20px);
+}
+
+.sd-sp-section-heading {
+  margin: 0 0 1.25rem;
+  width: 100%;
+  text-align: center;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--sd-accent, #b93205);
+}
+
+.sd-sp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2.25rem;
+  border-radius: 6px;
+  background: var(--sd-accent, #b93205);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.sd-sp-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+/* ≤989px: use mobile inset so content does not touch screen edges (editor + tablet) */
+@media (max-width: 989px) {
+  .sd-sp-container {
+    padding-left: var(--sd-pad-x-mobile, 16px);
+    padding-right: var(--sd-pad-x-mobile, 16px);
+  }
+}

@@ -1,0 +1,62 @@
+{% layout none %}
+{% paginate collection.products by 250 %}
+{
+  "handle": {{ collection.handle | json }},
+  "title": {{ collection.title | json }},
+  "current_page": {{ paginate.current_page | json }},
+  "total_pages": {{ paginate.pages | json }},
+  "has_next_page": {% if paginate.current_page < paginate.pages %}true{% else %}false{% endif %},
+  "next_url": {% if paginate.next %}{{ paginate.next.url | json }}{% else %}null{% endif %},
+  "products": [
+    {% for product in collection.products %}
+    {
+      "handle": {{ product.handle | json }},
+      "title": {{ product.title | json }},
+      "product_type": {{ product.type | json }},
+      "tags": {{ product.tags | json }},
+      "metafields": {
+        {% assign quiz_metafield_lines = settings.quiz_matching_metafields | newline_to_br | split: '<br />' %}
+        {% for metafield_line in quiz_metafield_lines %}
+          {% assign metafield_key = metafield_line | strip %}
+          {% if metafield_key != blank %}
+            {% if metafield_key contains '.' %}
+              {% assign metafield_parts = metafield_key | split: '.' %}
+              {% assign metafield_namespace = metafield_parts[0] | strip %}
+              {% assign metafield_name = metafield_parts[1] | strip %}
+            {% else %}
+              {% assign metafield_namespace = 'custom' %}
+              {% assign metafield_name = metafield_key %}
+              {% assign metafield_key = 'custom.' | append: metafield_key %}
+            {% endif %}
+            {% assign metafield_object = product.metafields[metafield_namespace][metafield_name] %}
+            "{{ metafield_key }}":
+            {% if metafield_object == blank %}
+              []
+            {% elsif metafield_object.type contains 'list.' %}
+              {{ metafield_object.value | json }}
+            {% else %}
+              [{{ metafield_object.value | json }}]
+            {% endif %}
+            {% assign remaining_metafield_lines = quiz_metafield_lines | slice: forloop.index, quiz_metafield_lines.size %}
+            {% assign has_remaining_nonblank = false %}
+            {% for remaining_line in remaining_metafield_lines %}
+              {% assign remaining_key = remaining_line | strip %}
+              {% if remaining_key != blank %}
+                {% assign has_remaining_nonblank = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {% if has_remaining_nonblank %},{% endif %}
+          {% endif %}
+        {% endfor %}
+      },
+      "collections": [
+        {% for product_collection in product.collections %}
+          {{ product_collection.handle | json }}{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+{% endpaginate %}

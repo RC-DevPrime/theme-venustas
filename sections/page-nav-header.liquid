@@ -1,0 +1,141 @@
+<style>
+  
+  nav.header.header-hide{
+    display:none;
+  }
+  #shopify-section-{{ section.id }}{
+  }
+  .page-header-nav-section .main-nav-header-section{
+    background: {{ section.settings.background_color }};
+  }
+  .page-header-nav-section .product-header-sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 4;
+}
+  .main-container-holder .product-header-sticky{
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 4;
+  }
+  .page-header-nav-section::-webkit-scrollbar {
+      display:none;
+  }
+
+  .page-header-nav-section .nav-item{
+    border-bottom:3px solid {{ section.settings.background_color }};
+    line-height:normal;
+    cursor:pointer;
+  }
+  .page-header-nav-section .nav-item.active{
+    border-color: {{ section.settings.underline_color }};
+    color:{{ section.settings.underline_color }} !important;
+  }
+  /* FOR MOBILE PHONE */
+  @media only screen and (max-width: 768px) {
+    .page-header-nav-section .main-container-holder{
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .page-header-nav-section .page-width{
+      width:fit-content;
+    }
+    .page-header-nav-section .nav-item{
+        white-space: nowrap;
+        margin: 0px 15px !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .page-header-nav-section .nav-item:first-child{
+        margin-left:0px !important;
+    }
+    
+  }
+  
+  /* ipad Air */
+  @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    .page-header-nav-section .main-container-holder{
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .page-header-nav-section .page-width{
+      width:fit-content;
+    }
+    .page-header-nav-section .nav-item{
+        white-space: nowrap;
+        margin: 0px 15px !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+  }
+
+</style>
+<div class="main-nav-header-section">
+  <div class="container">
+    <div class="main-container-holder d-flex align-items-center justify-content-lg-center justify-content-md-center justify-content-sm-start">
+      {% for block in section.blocks %}
+        <span class="nav-item mx-4 py-3 pp-medium body-lg {% if forloop.index == 1 %}active{% endif %}"
+          data-scroll="{{ block.settings.nav_title | handleize }}"
+          style="color: {{ section.settings.heading_color }};"
+          >
+          {{ block.settings.nav_title }}
+        </span>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% schema %}
+    {
+        "class": "page-header-nav-section",
+        "name": "Navigation Header",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading"
+            },
+            {
+                "type": "color",
+                "id": "background_color",
+                "label": "Background Color",
+                "default": "#FCFFF8"
+            },
+            {
+                "type": "color",
+                "id": "heading_color",
+                "label": "Heading Color",
+                "default": "#000000"
+            },
+            {
+                "type": "color",
+                "id": "underline_color",
+                "label": "Underline Color",
+                "default": "#FF4438"
+            }
+        ],
+        "blocks": [
+            {
+              "type": "Navigation",
+              "name":"Navigation",
+              "settings": [
+                  {
+                    "type": "text",
+                    "id": "nav_title",
+                    "label": "Nav Title"
+                  }
+              ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Navigation Header"
+        }]
+    }
+  {% endschema %} 

@@ -1,0 +1,175 @@
+<div {{ block.shopify_attributes }} class="spot"
+    
+     data-hotspot-key="{{ block.id }}"
+     data-i="{{ forloop.index }}" style="left: {{ block.settings.x_position }}%; top: {{ block.settings.y_position }}%">
+    
+    <div class="hotspot-product-content {% if block.settings.content_position == 'right' %}right{% else %}left{% endif %}">
+        <div class="product-image">
+            
+            {% assign p = block.settings.product %}
+
+            {% if p != blank and p.featured_image != blank %}
+            {% assign img = p.featured_image %}
+
+            {{ img
+                | image_url: width: 1400
+                | image_tag:
+                widths: '360,540,720,900,1080,1440',
+                sizes: '(min-width: 990px) 50vw, 100vw',
+                loading: 'lazy',
+                decoding: 'async',
+                class: 'product-featured-image',
+                alt: img.alt | default: p.title | escape
+            }}
+            {% endif %}
+
+        </div>
+        <div class="product-content">
+            <div class="product-title pp-regular body-sm f-black excerpt-2 l-h-normal">
+                {{ block.settings.product.title }}
+            </div>
+            <a href="{{ block.settings.product.url }}" class="pp-regular body-xs f-main">
+                Shop Now
+            </a>
+        </div>
+    </div>
+</div>
+<div class="product-hotspot-item-container" 
+    
+    data-hotspot-key="{{ block.id }}"
+    data-i="{{ forloop.index }}" style="display:none;">
+    <div class="product-image" >
+
+        {% assign active_variant = block.settings.product.selected_or_first_available_variant %}
+
+        {%- comment -%} Determine color option index {%- endcomment -%}
+        {% assign color_option_index = 0 %}
+        {% for option in block.settings.product.options_with_values %}
+            {% assign opt_name = option.name | downcase %}
+            {% if opt_name == 'color' or opt_name == 'colour' %}
+            {% assign color_option_index = forloop.index %}
+            {% endif %}
+        {% endfor %}
+
+        {%- comment -%} Render variant images {%- endcomment -%}
+        {% if color_option_index > 0 %}
+            {% assign optionKey = 'option' | append: color_option_index %}
+            {% assign color_option_array_index = color_option_index | minus: 1 %}
+            {% assign color_option_obj = block.settings.product.options_with_values[color_option_array_index] %}
+
+            {% for color_value in color_option_obj.values %}
+            {% assign matching_variants = block.settings.product.variants | where: optionKey, color_value %}
+            {% for v in matching_variants %}
+                {% if v.image != blank %}
+                {% assign img_small = v.image | img_url: '400x533' | image_url: 'format:auto' %}
+                {% assign img_large = v.image | img_url: '800x1066' | image_url: 'format:auto' %}
+                <img
+                    class="{% if v.id == active_variant.id %}active{% endif %}"
+                    data-variant="{{ v.id }}"
+                    src="{{ img_small }}"
+                    srcset="{{ img_small }} 400w, {{ img_large }} 800w"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    alt="{{ block.settings.product.title | escape }} - {{ color_value | escape }}"
+                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                    decoding="async"
+                >
+                {% endif %}
+            {% endfor %}
+            {% endfor %}
+        {% else %}
+            {% if block.settings.product.featured_image != blank %}
+            {% assign img_small = block.settings.product.featured_image | img_url: '400x533' | image_url: 'format:auto' %}
+            {% assign img_large = block.settings.product.featured_image | img_url: '800x1066' | image_url: 'format:auto' %}
+            <img
+                class="active"
+                src="{{ img_small }}"
+                srcset="{{ img_small }} 400w, {{ img_large }} 800w"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                alt="{{ block.settings.product.title | escape }}"
+                loading="eager"
+                decoding="async"
+            >
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="product-info">
+        <div class="product-title pp-bold pretitle f-black py-2">
+            {{ block.settings.product.title }}
+        </div>
+        {% assign index = 0 %}
+        {% assign option_index = 0 %}
+        {% assign color_option_size = 0 %}
+
+        {% for option in block.settings.product.options_with_values %}
+            {% assign index = option_index | plus: 1 %}
+            {% assign _option = option.name | downcase %}
+            {% if _option == 'color' %}
+                {% assign color_option_size = option.values.size %}
+                {% assign option_index = index %}
+            {% endif %}
+        {% endfor %}
+
+        {% if option_index > 0 %}
+            <div class="block-variant-options pb-2">
+                {% render 'product-variant-colors', product: block.settings.product %}
+            </div>
+        {% endif %}
+
+        <a href="{{ block.settings.product.url }}" class="btn-explore-more">
+            Explore More
+        </a>
+    </div>
+</div>
+{% schema %}
+{
+    "class": "product-hotspot-item",
+    "name": "Product Hotspot Item",
+    "settings": [
+        {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+        },
+        {
+            "type": "range",
+            "id": "x_position",
+            "label": "X Position",
+            "min": 1,
+            "max": 100,
+            "default": 1,
+            "step": 1
+        },
+        {
+            "type": "range",
+            "id": "y_position",
+            "label": "Y Position",
+            "min": 1,
+            "max": 100,
+            "default": 1,
+            "step": 1
+        },
+        {
+            "type": "select",
+            "id": "content_position",
+            "label": "Content Position",
+            "options": [
+                {
+                    "label": "Left",
+                    "value": "left"
+                },
+                {
+                    "label": "Right",
+                    "value": "right"
+                }
+            ],
+            "default":"right"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product Hotspot Item"
+        }
+    ]
+
+}
+{% endschema %}

@@ -1,0 +1,366 @@
+{% style %}
+    .campaign-tab-product-list-section{
+        background-color:#000;
+    }
+    .campaign-tab-product-list-section .section-heading{
+    }
+    .campaign-tab-product-list-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    .campaign-tab-product-list-section .tab-list-container{
+        display:flex;
+        gap:1.2rem;
+    }
+    .campaign-tab-product-list-section .tab-list-container span{
+        flex:1;
+        background: #353231;
+        border-radius: 16px 16px 16px 16px;
+        height:55px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        transition: all 0.3s ease;
+        cursor:pointer;
+    }
+    .campaign-tab-product-list-section .tab-list-container span:hover,
+    
+    .campaign-tab-product-list-section .tab-list-container span.active{
+        background: #B93205;
+    }
+    .campaign-tab-product-list-section .tab-content-item{
+        display:none;
+    }
+    .campaign-tab-product-list-section .tab-content-item.open{
+        display:block;
+    }
+    .campaign-tab-product-list-section .tab-content-list-container{
+        margin-top:30px;
+    }
+    .campaign-tab-product-list-section .tab-content-list-container .tab-product-item{
+        background: #FFFFFF;
+        border-radius: 16px;
+        padding:20px 30px;
+        display:flex;
+        flex-direction:column;
+    }
+    
+    .campaign-tab-product-list-section .tab-content-list-container .tab-product-item .product-image{
+        height:250px;
+        aspect-ratio: 10 / 13;
+    }
+    .campaign-tab-product-list-section .tab-content-list-container .tab-product-item .product-image img{
+        width: 100%;
+        height: 100%;
+        object-fit:contain;
+    }
+    .campaign-tab-product-list-section .tab-content-list-container .row{
+        --bs-gutter-x: 15px;
+        --bs-gutter-y: 25px;;
+    }
+
+    .campaign-tab-product-list-section .tab-content-list-container .btn-load-more{
+        background: #B93205;
+        padding:10px 30px;
+        border-radius:10px;
+    }
+
+    .campaign-tab-product-list-section .tab-content-list-container .price-container{
+        display:flex;
+        gap:8px;
+        align-items:center;
+    }
+
+    
+    .campaign-tab-product-list-section .buy-now-and-add{
+        display:flex;
+        height:45px;
+    }
+    .campaign-tab-product-list-section .buy-now-and-add .btn-buy-now{
+        background: #B93205;
+        border-radius: 16px 0px 0px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .campaign-tab-product-list-section .buy-now-and-add .btn-add{
+        background: #B93205;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap:10px;
+        width:100%;
+        transition: all .5s ease;
+    }
+    .campaign-tab-product-list-section .buy-now-and-add .btn-add:hover{
+        background:#161616;
+    }
+    .campaign-tab-product-list-section .buy-now-and-add .btn-add button{
+        background:unset !important;
+        border:unset !important;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    .campaign-tab-product-list-section .buy-now-and-add .btn-add img{
+        width:23px;
+        object-fit:contain;
+    }
+    .campaign-tab-product-list-section .learn-more-button{
+        height:45px;
+        border: 1px solid #B93205;
+        border-radius: 16px 16px 16px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap:10px;
+    }
+    .campaign-tab-product-list-section .learn-more-button:hover{
+        background-color:#B93205;
+    }
+    .campaign-tab-product-list-section .learn-more-button:hover span{
+        color:#FFF;
+    }
+    .campaign-tab-product-list-section .product-details{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex:1;
+    }
+
+
+    .campaign-tab-product-list-section .section-heading{
+        margin-left:-30px;
+    }
+    .campaign-tab-product-list-section .section-heading {
+        position:relative;
+    }
+    .campaign-tab-product-list-section .section-heading:before{
+        content:"";
+        display:inline-block;
+        height:35px;
+        width:35px;
+        top:5px;
+        position:relative;
+        background-image:url({{ section.settings.heading_element | img_url: 'master' }});
+        background-size:contain;
+        background-repeat:no-repeat;
+    }
+    .campaign-tab-product-list-section .float-nav button{
+        background: #F1EADD;
+        opacity: 1 !important;
+    }
+    .campaign-tab-product-list-section .float-nav button i{
+        color:#B93205 !important;
+    }
+    .campaign-tab-product-list-section .float-nav button:hover{
+        background: #B93205;
+    }
+    .campaign-tab-product-list-section .float-nav button:hover i {
+        color:#FFF !important;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+            
+        .campaign-tab-product-list-section .section-heading{
+            margin-left:-25px;
+        }
+        .campaign-tab-product-list-section .section-heading:before{
+            height:30px;
+            width:30px;
+        }
+        .campaign-tab-product-list-section .tab-content-list-container .tab-product-item{
+            padding:0px 10px 15px;
+            border-radius:8px;
+        }
+        .campaign-tab-product-list-section .buy-now-and-add .btn-add img{
+            width:14px;
+            object-fit:contain;
+        }
+        .campaign-tab-product-list-section .learn-more-button{
+            height:30px;
+            border-radius:6px;
+        }
+        .campaign-tab-product-list-section .learn-more-button span{
+            font-size:10px;
+        }
+        .campaign-tab-product-list-section .buy-now-and-add{
+            height:30px;
+        }
+        
+        .campaign-tab-product-list-section .buy-now-and-add .btn-buy-now{
+        }
+        .campaign-tab-product-list-section .buy-now-and-add .btn-buy-now span,
+        .campaign-tab-product-list-section .buy-now-and-add .btn-add span{
+            font-size:10px;
+        }
+        .campaign-tab-product-list-section .buy-now-and-add .btn-add{
+            gap:6px;
+            border-radius:6px;
+        }
+        .campaign-tab-product-list-section .tab-content-list-container .row{
+            --bs-gutter-x: 10px;
+            --bs-gutter-y: 20px;
+        }
+        .campaign-tab-product-list-section .tab-list-container{
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: none;
+            gap:8px;
+        }
+        .campaign-tab-product-list-section .tab-list-container span{
+            flex: 0 0 auto;
+            white-space: nowrap;
+            min-width: 150px;
+            height: 38px;
+            border-radius: 8px 8px 8px 8px;
+            padding: 5px 20px;
+        }
+        .campaign-tab-product-list-section .tab-content-list-container .tab-product-item .product-image {
+            height: auto !important;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content position-relative 
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}> 
+
+    <div class="pb-lg-5 pb-md-5 pb-sm-4">
+        <h2 class="section-heading pp-semibold f-white title-sm text-center">
+            {{ section.settings.heading }}
+        </h2>
+    </div>
+    <div class="tab-list-container col-lg-10 col-md-11 col-sm-12 mx-auto">
+        {% for block in section.blocks %}
+            <span class="pp-semibold f-white body-xl {% if forloop.index == 1 %}active{% endif %}" tab-id="{{ block.settings.tab | handleize }}">
+                {{ block.settings.tab }}
+            </span>
+        {% endfor %}
+    </div>
+    <div class="tab-content-list-container">
+        {% for block in section.blocks %}
+            <div class="tab-content-item {% if forloop.index == 1 %}open{% endif %}" tab-id="{{ block.settings.tab | handleize }}">
+                <div class="desktop-content d-lg-block d-md-block d-sm-none">
+                    <div class="row">
+
+                        {% for product in block.settings.product_list %}
+                            {% render 'tab-product-item', product: product %}
+                        {% endfor %}
+
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center mt-lg-5 mt-md-5 mt-sm-3">
+                        <div class="btn-load-more">
+                            <span class="pp-regular body-lg f-white">Load More</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-content d-lg-none d-md-none d-sm-block">
+
+                    <div class="tab-mobile-swiper overflow-hidden">
+                        <div class="swiper-wrapper">
+
+                            {% for product in block.settings.product_list %}
+                                <div class="swiper-slide">
+                                    {% render 'tab-product-item', product: product %}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+                        <div class="float-nav">
+                            <button type="button" class="owl-prev">
+                                <i class="fa-solid fa-chevron-left f-white"></i>
+                            </button>
+                            <button type="button" class="owl-next">
+                                <i class="fa-solid fa-chevron-right f-white"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% schema %}
+    {
+        "class": "campaign-tab-product-list-section",
+        "name": "Campaign Tab Product List",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enabled_section_child_scroll",
+                "label": "Enabled Section Child Scroll"
+            },
+            {
+                "type": "text",
+                "id": "section_scroll_nav",
+                "label": "Section Scroll Nav",
+                "info": "Need to Enabled first Section Scroll"
+            },
+            {
+                "type": "text",
+                "id": "nav_title",
+                "label": "Navigation Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "heading_element",
+                "label": "Heading Element"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Add-Ons & Accessories"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "tab",
+                "name": "Tab",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "tab",
+                        "label": "Tab"
+                    },
+                    {
+                        "type": "product_list",
+                        "id": "product_list",
+                        "label": "Product List"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Campaign Tab Product List"
+        }]
+    }
+  {% endschema %} 

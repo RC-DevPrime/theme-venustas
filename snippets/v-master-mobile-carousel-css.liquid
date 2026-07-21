@@ -1,0 +1,28 @@
+{%- comment -%}
+  Shared mobile carousel dots (use with v-talents-carousel-js).
+  Usage: {% render 'v-master-mobile-carousel-css', section: section %}
+{%- endcomment -%}
+<style>
+  #shopify-section-{{ section.id }} .v-master-carousel__dots {
+    display: none;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-carousel__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: #d4ccc4;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .v-master-carousel__dot.is-active {
+    background: var(--v-brand);
+    transform: scale(1.15);
+  }
+</style>

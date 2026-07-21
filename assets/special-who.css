@@ -1,0 +1,281 @@
+/* SD — Who we offer (scoped by .sd-special-who + CSS variables from section inline style) */
+.sd-special-who {
+  background: var(--who-bg, #fff);
+  padding: var(--who-pt, 56px) 0 var(--who-pb, 56px);
+}
+
+.sd-special-who > .sd-sp-container {
+  width: var(--who-band, 85%);
+  max-width: min(1600px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sd-special-who .sd-special-who__heading {
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  margin-bottom: var(--who-head-mb, 32px);
+  text-align: center;
+}
+
+.sd-special-who .sd-special-who__slider {
+  width: 100%;
+}
+
+.sd-special-who .sd-special-who__stage {
+  position: relative;
+  width: 100%;
+}
+
+.sd-special-who .sd-special-who__viewport {
+  width: 100%;
+}
+
+.sd-special-who .sd-special-who__dots {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 0;
+}
+
+.sd-special-who .sd-special-who__dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.sd-special-who .sd-special-who__dot--active {
+  background: var(--sd-accent, #b93205);
+  transform: scale(1.35);
+}
+
+.sd-special-who .sd-special-who__arrow {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #f1eadd;
+  color: #b93205;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+}
+
+.sd-special-who .sd-special-who__arrow svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.sd-special-who .sd-special-who__arrow:hover:not(:disabled) {
+  background: var(--sd-accent, #b93205);
+  color: #fff;
+}
+
+.sd-special-who .sd-special-who__arrow:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.sd-special-who .sd-special-who__arrow--prev {
+  left: var(--sd-car-arrow-h-inset, 10px);
+}
+
+.sd-special-who .sd-special-who__arrow--next {
+  right: var(--sd-car-arrow-h-inset, 10px);
+}
+
+.sd-special-who .sd-special-who__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--who-card-gap, 20px);
+}
+
+.sd-special-who .sd-special-who__card-link {
+  display: block;
+  border-radius: var(--who-card-radius, 14px);
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.sd-special-who .sd-special-who__card-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.sd-special-who .sd-special-who__card-link--nohref {
+  cursor: default;
+}
+
+.sd-special-who .sd-special-who__card-link--nohref:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.sd-special-who .sd-special-who__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--who-aspect-w, 4) / var(--who-aspect-h, 5);
+}
+
+.sd-special-who .sd-special-who__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sd-special-who .sd-special-who__placeholder {
+  width: 100%;
+  height: 100%;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 14px;
+}
+
+.sd-special-who .sd-special-who__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.75) 100%);
+  pointer-events: none;
+}
+
+.sd-special-who .sd-special-who__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px 16px 22px;
+  text-align: center;
+  z-index: 1;
+}
+
+.sd-special-who .sd-special-who__card-title {
+  margin: 0 0 6px;
+  font-size: var(--who-title, 22px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.sd-special-who .sd-special-who__card-sub {
+  margin: 0;
+  font-size: var(--who-sub, 15px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.35;
+}
+
+.sd-special-who .sd-special-who__actions {
+  margin-top: var(--who-btn-mt, 36px);
+  text-align: center;
+}
+
+.sd-special-who-section a.sd-sp-btn.sd-special-who__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2.25rem;
+  min-height: 48px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none !important;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 2px solid var(--sd-accent, #b93205) !important;
+  background-color: var(--sd-accent, #b93205) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: opacity 0.2s ease, filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sd-special-who-section a.sd-sp-btn.sd-special-who__btn:hover {
+  opacity: 1;
+  color: #fff !important;
+  background-color: var(--sd-accent, #b93205) !important;
+  border-color: var(--sd-accent, #b93205) !important;
+  text-decoration: none !important;
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+  /* Same interaction language as .sd-special-who__card-link:hover (lift + shadow) */
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18), 0 4px 14px rgba(185, 50, 5, 0.35) !important;
+}
+
+.sd-special-who-section a.sd-sp-btn.sd-special-who__btn:active {
+  transform: translateY(0);
+  filter: brightness(0.98);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+}
+
+.sd-special-who-section a.sd-sp-btn.sd-special-who__btn:focus-visible {
+  outline: 2px solid var(--sd-accent, #b93205) !important;
+  outline-offset: 3px;
+}
+
+@media (max-width: 1100px) {
+  .sd-special-who .sd-special-who__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 749px) {
+  .sd-special-who {
+    padding: var(--who-pt-m, 36px) 0 var(--who-pb-m, 36px);
+  }
+
+  .sd-special-who .sd-special-who__viewport {
+    overflow: hidden;
+  }
+
+  .sd-special-who .sd-special-who__slider--multi .sd-special-who__dots {
+    display: flex;
+  }
+
+  .sd-special-who .sd-special-who__grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: var(--who-m-card-gap, 16px);
+    transition: transform 0.4s ease;
+    will-change: transform;
+  }
+
+  .sd-special-who .sd-special-who__card {
+    flex: 0 0 100%;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .sd-special-who .sd-special-who__card-title {
+    font-size: var(--who-m-title, 20px);
+  }
+
+  .sd-special-who .sd-special-who__card-sub {
+    font-size: var(--who-m-sub, 14px);
+  }
+}

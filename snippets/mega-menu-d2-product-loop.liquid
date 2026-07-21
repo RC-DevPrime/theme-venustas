@@ -1,0 +1,28 @@
+{% comment %}
+  Display-2 mega menu: products for one tab.
+  If `collection` is set and has products, shows first 3 from collection.
+  Otherwise uses `products_manual` (section product_list).
+  wrap_in_col: true = desktop grid (.col-4); false = stacked (e.g. accordion).
+{% endcomment %}
+{% liquid
+  assign use_collection = false
+  if collection != blank
+    assign _d2_first = collection.products | first
+    if _d2_first != blank
+      assign use_collection = true
+    endif
+  endif
+%}
+{% if use_collection %}
+  {% for product in collection.products limit: 4 %}
+    {% if wrap_in_col %}<div class="col-3">{% endif %}
+    {% render 'product-item-mega-menu-display-2', product: product, sale_badge_type: sale_badge_type, badge_detail: badge_detail %}
+    {% if wrap_in_col %}</div>{% endif %}
+  {% endfor %}
+{% else %}
+  {% for product in products_manual %}
+    {% if wrap_in_col %}<div class="col-3">{% endif %}
+    {% render 'product-item-mega-menu-display-2', product: product, sale_badge_type: sale_badge_type, badge_detail: badge_detail %}
+    {% if wrap_in_col %}</div>{% endif %}
+  {% endfor %}
+{% endif %}

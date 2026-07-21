@@ -1,0 +1,657 @@
+{% style %}
+    .product-video-scroll-section{
+        background-color:#000;
+    }
+    .product-video-scroll-section .desktop-content{
+        height:250vh;
+    }
+    .product-video-scroll-section .sticky-inner{
+        position: sticky;
+        top: 40px;
+        height: calc(100vh - 40px);
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow:hidden;
+    }
+
+    .product-video-scroll-section .text-container{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .product-video-scroll-section .video-container{
+        flex: 1;
+        width: 70%;
+        max-width: none;
+        padding-left: 0;
+        padding-right: 0;
+        opacity: 0;
+        transform: translateY(35%);
+        transition: all 0.3s ease;
+        position:relative;
+    }
+    .product-video-scroll-section .video-container.animate-1{
+        width:70%;
+        transform: translateY(10%);
+    }
+    .product-video-scroll-section .video-container.animate-2{
+        width:90%;
+        transform: translateY(10%);
+    }
+    .product-video-scroll-section .video-container.animate-3{
+        width:100%;
+        transform: translateY(0);
+    }
+
+    .product-video-scroll-section .video-container .inner-content-video{
+        position:absolute;
+        top:0;
+        left:0;
+        height:100%;
+        width:100%;
+        opacity:0;
+        transition: all 0.3s ease;
+        transform:translateY(10%);
+    }
+
+    /* supports either <a> or <button> if needed */
+    .product-video-scroll-section .video-container .inner-content-video a,
+    .product-video-scroll-section .video-container .inner-content-video button{
+        display:flex;
+        align-items:center;
+        gap:8px;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .product-video-scroll-section .video-container .inner-content-video svg{
+        width:24px;
+        height:fit-content;
+    }
+    .product-video-scroll-section .video-container.animate-4 .inner-content-video{
+        transform:translateY(0);
+        opacity:1;
+    }
+
+    /* 10% */
+    .product-video-scroll-section .text-container.text-1{
+        display: block;
+        top: 50%;
+        opacity: 1;
+    }
+
+    /* 15% */
+    .product-video-scroll-section .text-container.text-2{
+        display: block;
+        top: 30%;
+        opacity: 1;
+    }
+
+    /* 20% */
+    .product-video-scroll-section .text-container.text-3{
+        display: block;
+        top: 20%;
+        opacity: 1;
+    }
+
+    /* 25% */
+    .product-video-scroll-section .text-container.text-4{
+        display: block;
+        top: 0%;
+        opacity: 0;
+    }
+
+    .product-video-scroll-section .text-heading.heading-1{
+        color:#424242 ;
+    }
+    .product-video-scroll-section .text-heading.heading-2{
+        color:#B93205 ;
+    }
+
+    .product-video-scroll-section .video-container .video-inner{
+        overflow:hidden;
+        border-radius:10px;
+        display:flex;
+    }
+    .product-video-scroll-section .video-container.animate-2 .video-inner{
+        border-radius:0;
+    }
+
+    .product-video-scroll-section .video-container video{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+    .product-video-scroll-section .mobile-video-container{
+        display:flex;
+        position:relative;
+        overflow:hidden;
+        border-radius:8px;
+    }
+
+    .product-video-scroll-section .mobile-video-container:before{
+        content:"";
+        display:block;
+        position:absolute;
+        top:0;
+        left:0;
+        height:100%;
+        width:100%;
+        background: #0000003b;
+    }
+    .product-video-scroll-section .mobile-video-container video{
+        height:100%;
+        width:100%;
+    }
+    .product-video-scroll-section .mobile-video-container .content-text{
+        position:absolute;
+        bottom:10px;
+        left:10px;
+        width:50%;
+        z-index:1;
+    }
+
+    .product-video-scroll-section .mobile-video-container .content-text a,
+    .product-video-scroll-section .mobile-video-container .content-text button{
+        display:flex;
+        align-items:center;
+        gap:6px;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .product-video-scroll-section .mobile-video-container .content-text a svg,
+    .product-video-scroll-section .mobile-video-container .content-text button svg{
+        width: 20px;
+        height:fit-content;
+    }
+
+    /* ---------------------------
+        FILM MODAL (FULL PLAYBACK)
+    ---------------------------- */
+    .film-modal{
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: none;
+    }
+    .film-modal.is-open{
+        display: block;
+    }
+    .film-modal__backdrop{
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,.75);
+    }
+    .film-modal__panel{
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        overflow: hidden;
+        background: #000;
+        box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+    .film-modal__close{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 2;
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        border: 0;
+        cursor: pointer;
+        background: rgba(255,255,255,.12);
+        color: #fff;
+        font-size: 18px;
+        line-height: 1;
+    }
+    .film-modal__ratio{
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%; /* 16:9 */
+    }
+    .film-modal__player{
+        position: absolute;
+        inset: 0;
+    }
+    .film-modal__player video{
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+    .film-modal-lock{
+        overflow: hidden !important;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+    
+        .film-modal__panel{
+            height: 100%;
+            display: flex;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            margin: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000000c7;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+        }
+        .product-video-scroll-section{
+            background: #1C1C1C;
+        }
+        .product-video-scroll-section .text-heading.heading-1{
+            color:#B93205 ;
+        }
+        .product-video-scroll-section .text-heading.heading-2{
+            color:#424242 ;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen
+    and (min-device-width : 768px)
+    and (max-device-width : 1024px){
+    }
+{% endstyle %}
+
+{%- assign v = section.settings.video -%}
+{%- assign poster_url = '' -%}
+{%- assign film_mp4 = nil -%}
+
+{%- if v != blank -%}
+  {%- assign poster_img = v.preview_image -%}
+  {%- if poster_img != blank -%}
+    {%- assign poster_url = poster_img | image_url: width: 1600 -%}
+  {%- endif -%}
+  {%- assign film_mp4 = v.sources | where: 'mime_type', 'video/mp4' | first -%}
+{%- endif -%}
+
+<div class="desktop-content d-lg-block d-md-block d-sm-none">
+  <div class="sticky-inner">
+    <div class="text-container">
+      <div class="text-heading heading-1 pp-bold text-center title-lg">
+        {{ section.settings.heading }}
+      </div>
+      <div class="text-heading heading-2 pp-bold text-center title-xxl">
+        {{ section.settings.heading_1 }}
+      </div>
+    </div>
+
+    <div class="video-container">
+      <div class="video-inner">
+        {% if v != blank %}
+          <video
+            class="hero-video"
+            playsinline
+            muted
+            loop
+            preload="none"
+            {% if poster_url != blank %}poster="{{ poster_url }}"{% endif %}
+            data-autoplay="true"
+          >
+            {% if film_mp4 %}
+              <source src="{{ film_mp4.url }}" type="{{ film_mp4.mime_type }}">
+            {% else %}
+              {%- for s in v.sources -%}
+                <source src="{{ s.url }}" type="{{ s.mime_type }}">
+              {%- endfor -%}
+            {% endif %}
+          </video>
+        {% endif %}
+      </div>
+
+      <div class="inner-content-video">
+        <div class="container section-content h-100">
+          <div class="h-100 col-lg-4 col-md-4 col-sm-12 d-flex flex-column justify-content-end pb-lg-5 pb-md-5 pb-sm-3">
+            <div class="text-description pp-bold title-lg f-white ">
+              {{ section.settings.description }}
+            </div>
+
+            <div class="d-flex align-items-center">
+              {% if film_mp4 %}
+                <button
+                  type="button"
+                  class="pp-regular body f-white text-underline js-open-film-modal"
+                  data-full-mp4="{{ film_mp4.url }}"
+                  aria-haspopup="dialog"
+                  aria-controls="filmModal-{{ section.id }}"
+                >
+                  WATCH THE FILM
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30.748" height="30.748" viewBox="0 0 30.748 30.748">
+                    <g opacity="0.8">
+                      <path fill="none" d="M0,0H30.748V30.748H0Z"/>
+                      <path fill="#fff" d="M14.812,27.623A12.812,12.812,0,1,1,27.623,14.812,12.811,12.811,0,0,1,14.812,27.623Zm-1.765-17.4a.512.512,0,0,0-.8.425v8.335a.512.512,0,0,0,.8.425L19.3,15.238a.512.512,0,0,0,0-.853l-6.252-4.166Z" transform="translate(0.562 0.562)"/>
+                    </g>
+                  </svg>
+                </button>
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="mobile-content d-lg-none d-md-none d-sm-block">
+  <div class="container section-content">
+    <div class="text-heading heading-1 pp-bold text-center pretitle-lg" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="100" data-aos-duration="500">
+      {{ section.settings.heading }}
+    </div>
+    <div class="text-heading heading-2 pp-bold text-center title-md mb-3" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="150" data-aos-duration="500">
+      {{ section.settings.heading_1 }}
+    </div>
+
+    <div class="mobile-video-container" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="200" data-aos-duration="500">
+      {% if v != blank %}
+        <video
+          class="hero-video"
+          playsinline
+          muted
+          loop
+          preload="none"
+          {% if poster_url != blank %}poster="{{ poster_url }}"{% endif %}
+          autoplay
+        >
+          {% if film_mp4 %}
+            <source src="{{ film_mp4.url }}" type="{{ film_mp4.mime_type }}">
+          {% else %}
+            {%- for s in v.sources -%}
+              <source src="{{ s.url }}" type="{{ s.mime_type }}">
+            {%- endfor -%}
+          {% endif %}
+        </video>
+      {% endif %}
+
+      <div class="content-text">
+        <div class="text-description pp-bold body-xl f-white l-h-normal" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="300" data-aos-duration="500">
+          {{ section.settings.description }}
+        </div>
+
+        <div class="d-flex align-items-center" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="350" data-aos-duration="500">
+          {% if film_mp4 %}
+            <button
+              type="button"
+              class="pp-regular body-sm f-white text-underline js-open-film-modal"
+              data-full-mp4="{{ film_mp4.url }}"
+              aria-haspopup="dialog"
+              aria-controls="filmModal-{{ section.id }}"
+            >
+              WATCH THE FILM
+              <svg xmlns="http://www.w3.org/2000/svg" width="30.748" height="30.748" viewBox="0 0 30.748 30.748">
+                <g opacity="0.8">
+                  <path fill="none" d="M0,0H30.748V30.748H0Z"/>
+                  <path fill="#fff" d="M14.812,27.623A12.812,12.812,0,1,1,27.623,14.812,12.811,12.811,0,0,1,14.812,27.623Zm-1.765-17.4a.512.512,0,0,0-.8.425v8.335a.512.512,0,0,0,.8.425L19.3,15.238a.512.512,0,0,0,0-.853l-6.252-4.166Z" transform="translate(0.562 0.562)"/>
+                </g>
+              </svg>
+            </button>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- comment -%} Modal markup (one per section) {%- endcomment -%}
+<div
+  id="filmModal-{{ section.id }}"
+  class="film-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  tabindex="-1"
+>
+  <div class="film-modal__backdrop js-close-film-modal" aria-hidden="true"></div>
+
+  <div class="film-modal__panel" role="document">
+    <button type="button" class="film-modal__close js-close-film-modal" aria-label="Close video">✕</button>
+
+    <div class="film-modal__ratio">
+      <div class="film-modal__player js-film-player"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  function clamp(n, min, max) { return Math.min(max, Math.max(min, n)); }
+
+  function initScrollAnim() {
+    var section = document.querySelector('.product-video-scroll-section .desktop-content');
+    if (!section) return;
+
+    var text = section.querySelector('.text-container');
+    var videoContainer = section.querySelector('.video-container');
+    if (!text || !videoContainer) return;
+
+    var vid = videoContainer.querySelector('video');
+
+    var ticking = false;
+    var wasVisible = false;
+
+    function getProgress() {
+      var rect = section.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var total = rect.height - vh;
+      if (total <= 0) return rect.top <= 0 ? 1 : 0;
+      return clamp((-rect.top) / total, 0, 1);
+    }
+
+    function setExclusiveClass(el, list, active) {
+      for (var i = 0; i < list.length; i++) {
+        el.classList.toggle(list[i], list[i] === active);
+      }
+    }
+
+    function safePlay(videoEl) {
+      if (!videoEl) return;
+      videoEl.muted = true;
+      videoEl.playsInline = true;
+
+      var p = videoEl.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function () {});
+      }
+    }
+
+    function update() {
+      ticking = false;
+      var p = getProgress();
+
+      // TEXT: 4 states
+      var textState = '';
+      if (p >= 0.50) textState = 'text-4';
+      else if (p >= 0.40) textState = 'text-3';
+      else if (p >= 0.30) textState = 'text-2';
+      else if (p >= 0.10) textState = 'text-1';
+      else textState = '';
+
+      setExclusiveClass(text, ['text-1','text-2','text-3','text-4'], textState);
+
+      // VIDEO: fade in 0.40 -> 0.50
+      var vOpacity = 0;
+      if (p <= 0.40) vOpacity = 0;
+      else if (p >= 0.50) vOpacity = 1;
+      else vOpacity = (p - 0.40) / (0.50 - 0.40);
+
+      vOpacity = clamp(vOpacity, 0, 1);
+      videoContainer.style.opacity = String(vOpacity);
+
+      // PLAY/PAUSE based on visibility
+      var isVisible = vOpacity > 0.01;
+
+      if (isVisible && !wasVisible) safePlay(vid);
+
+      if (!isVisible && wasVisible) {
+        if (vid) {
+          vid.pause();
+          // vid.currentTime = 0; // uncomment to restart next time
+        }
+      }
+
+      wasVisible = isVisible;
+
+      // VIDEO: animate classes
+      videoContainer.classList.toggle('animate-1', p >= 0.50);
+      videoContainer.classList.toggle('animate-2', p >= 0.60);
+      videoContainer.classList.toggle('animate-3', p >= 0.65);
+      videoContainer.classList.toggle('animate-4', p >= 0.80);
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  }
+
+  function initFilmModal() {
+    function lockScroll(lock) {
+      document.documentElement.classList.toggle('film-modal-lock', !!lock);
+      document.body.classList.toggle('film-modal-lock', !!lock);
+    }
+
+    function openModal(modal, mp4Url, openerBtn) {
+      var player = modal.querySelector('.js-film-player');
+      if (!player) return;
+
+      player.innerHTML = '';
+
+      var v = document.createElement('video');
+      v.setAttribute('controls', 'controls');
+      v.setAttribute('playsinline', 'playsinline');
+      v.setAttribute('preload', 'metadata');
+      v.autoplay = true;
+      v.src = mp4Url;
+
+      // In modal, usually you want sound:
+      // do NOT set v.muted
+      player.appendChild(v);
+
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      modal._opener = openerBtn || null;
+
+      lockScroll(true);
+      modal.focus();
+    }
+
+    function closeModal(modal) {
+      if (!modal) return;
+
+      var player = modal.querySelector('.js-film-player');
+      if (player) player.innerHTML = '';
+
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+
+      lockScroll(false);
+
+      if (modal._opener && typeof modal._opener.focus === 'function') {
+        modal._opener.focus();
+      }
+      modal._opener = null;
+    }
+
+    document.addEventListener('click', function (e) {
+      var openBtn = e.target.closest('.js-open-film-modal');
+      if (openBtn) {
+        var mp4Url = openBtn.getAttribute('data-full-mp4') || '';
+        if (!mp4Url) return;
+
+        var modalId = openBtn.getAttribute('aria-controls');
+        var modal = modalId ? document.getElementById(modalId) : null;
+        if (!modal) return;
+
+        openModal(modal, mp4Url, openBtn);
+        return;
+      }
+
+      var closeBtn = e.target.closest('.js-close-film-modal');
+      if (closeBtn) closeModal(closeBtn.closest('.film-modal'));
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      var modal = document.querySelector('.film-modal.is-open');
+      if (modal) closeModal(modal);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initScrollAnim();
+    initFilmModal();
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "class": "product-video-scroll-section section-animation",
+  "name": "Video Scroll",
+  "limit": 1,
+  "templates": ["product"],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Advanced Carbon Fiber Heating"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading",
+      "default": "Elements"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Excellent Heating Performance"
+    },
+    {
+      "type": "url",
+      "id": "link_btn",
+      "label": "Link Button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Scroll"
+    }
+  ]
+}
+{% endschema %}

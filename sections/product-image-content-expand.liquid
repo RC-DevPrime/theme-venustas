@@ -1,0 +1,258 @@
+{% style %}
+    .image-content-expand-section{
+        background-color: #1C1C1C;
+    }
+    .image-content-expand-section button{
+        border-radius:4px;
+    }
+    .image-content-expand-section button svg{
+        position:relative;
+        z-index:2;
+    }
+
+    .image-content-expand-section .images-tab-section{
+        background: #262626;
+        border-radius: 8px 8px 8px 8px;
+        padding:35px 40px;
+        opacity: 0;
+        transform: translateY(30%);
+        transition: opacity 0.3s ease, transform 0.4s ease 0.2s, height 0.3s ease;
+    }
+    .image-content-expand-section .images-tab-section.open{
+        padding:0;
+        height:0;
+        overflow:hidden;
+    }
+    .image-content-expand-section .images-tab-section.animate{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .image-content-expand-section .images-tab-section .row{
+        --bs-gutter-x: 1rem;
+        --bs-gutter-y: 1rem;
+    }
+    .image-content-expand-section .images-tab-section .image-container{
+        border-radius:4px;
+        overflow:hidden;
+        width:100%;
+        height:100%;
+    }
+    .image-content-expand-section .images-tab-section .image-container img{
+        height:100%;
+        width:100%;
+        object-fit:cover;
+    }
+    .image-content-expand-section .h-avaiable{
+        height: -webkit-fill-available;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .image-content-expand-section .images-tab-section{
+            padding: 10px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content 
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <h2 class="pp-bold title-sm f-white pb-lg-3 pb-md-3 pb-sm-2 text-center d-lg-none d-md-none d-sm-block pb-3">
+                {{ section.settings.heading }}
+            </h2>
+            <div class="image-container">
+                <img
+                    src="{{ section.settings.image | img_url: '400x400' | image_url: 'format:auto' }}"
+                    srcset="
+                        {{ section.settings.image | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                        {{ section.settings.image | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                        {{ section.settings.image | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                        {{ section.settings.image | img_url: '1400x1400' | image_url: 'format:auto' }} 1400w"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    width="100%"
+                    height="100%"
+                    alt="{{ section.settings.image.alt | escape }}"
+                    loading="lazy"
+                    decoding="async"
+                />
+
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="content-container col-lg-11 col-md-11 col-sm-12 ms-auto d-flex flex-column gap-2 h-100 justify-content-center align-items-lg-start align-items-md-start align-items-sm-center">
+                <h2 class="pp-bold title-sm f-white pb-lg-3 pb-md-3 pb-sm-2 d-lg-block d-md-block d-sm-none">
+                    {{ section.settings.heading }}
+                </h2>
+                <div class="pp-regular body-lg f-white-gray text-lg-start text-md-start text-sm-center pt-lg-0 pt-md-0 pt-sm-4">
+                    {{ section.settings.description }}
+                </div>
+                <button class="explore-btn btn-hover btn-main d-flex gap-2 align-items-center justify-content-center mt-lg-0 mt-md-0 mt-sm-2">
+                    <span class="pp-medium body-lg f-white">
+                        Explore
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" class="circle-icon-plus">
+                        <path fill="#FFFFFF" class="a" d="M9 17.999a9 9 0 1 1 6.362-2.635A8.94 8.94 0 0 1 9 17.999M9 1.29a7.712 7.712 0 1 0 5.456 2.259A7.67 7.67 0 0 0 9 1.29"/>
+                        <path fill="#FFFFFF" class="a" d="M13.33 8.375H9.619V4.633a.619.619 0 1 0-1.237 0v3.742H4.671a.624.624 0 0 0 0 1.248h3.711v3.742a.619.619 0 1 0 1.237 0V9.623h3.711a.624.624 0 0 0 0-1.247Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="images-tab-section open section-animation mt-lg-5 mt-md-5 mt-sm-4 ">
+        {% assign images = section.blocks | map: 'settings' %}
+        {% assign total_images = images.size %}
+
+        <div class="row">
+            {% if total_images > 0 %}
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="image-container">
+                    <img
+                        src="{{ images[0].image | img_url: '400x400' | image_url: 'format:auto' }}"
+                        srcset="
+                            {{ images[0].image | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                            {{ images[0].image | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                            {{ images[0].image | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                            {{ images[0].image | img_url: '1400x1400' | image_url: 'format:auto' }} 1400w"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        width="100%"
+                        height="100%"
+                        alt="{{ images[0].image.alt | escape }}"
+                        loading="lazy"
+                        decoding="async"
+                    />
+
+                </div>
+            </div>
+            {% endif %}
+
+            {% if total_images > 1 %}
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="row h-avaiable">
+                    {% assign index = 0 %}
+                    {% for image in images offset:1 %}
+                        {% assign index = index | plus: 1 %}
+
+                        {% comment %}
+                        Check if last image AND if index is odd
+                        (index is 1-based since we manually incremented it)
+                        {% endcomment %}
+                        {% assign is_last = forloop.last %}
+                        {% assign is_odd = index | modulo: 2 %}
+
+                        <div class="{% if is_last and is_odd == 1 %}col-12{% else %}col-6{% endif %}">
+                        <div class="image-container">
+                            <img
+                                src="{{ image.image | img_url: '400x400' | image_url: 'format:auto' }}"
+                                srcset="
+                                    {{ image.image | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                                    {{ image.image | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                                    {{ image.image | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                                    {{ image.image | img_url: '1400x1400' | image_url: 'format:auto' }} 1400w"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                width="100%"
+                                height="100%"
+                                alt="{{ image.image.alt | escape }}"
+                                loading="lazy"
+                                decoding="async"
+                            />
+
+                        </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+</div>
+{% schema %}
+{
+    "class": "image-content-expand-section",
+    "name": "Image Content Expand",
+    "limit": 1,
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled_section_child_scroll",
+            "label": "Enabled Section Child Scroll"
+        },
+        {
+            "type": "text",
+            "id": "section_scroll_nav",
+            "label": "Section Scroll Nav",
+            "info": "Need to Enabled first Section Scroll"
+        },
+        {
+            "type": "text",
+            "id": "nav_title",
+            "label": "Navigation Title"
+        },
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Multiple Pockets, Organize Freely"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>VENUSTAS knows you need convenience. That’s why we designed multiple pockets—perfect spots for your phone, keys, wallet, and all the little things.</p>"
+        },
+        {
+            "type": "text",
+            "id": "btn_label",
+            "label": "Button Label",
+            "default": "Explore"
+        }
+    ],
+    "max_blocks": 5,
+    "blocks": [
+        {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Image Content Expand"
+        }
+    ]
+}
+{% endschema %}

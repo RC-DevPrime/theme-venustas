@@ -1,0 +1,123 @@
+<div class="col-6">
+    <div class="column-product-item">
+        <div class="featured-image">
+            <img src="{{ block.settings.featured_image | img_url: 'master' }}" width="100%" height="100%">
+        </div>
+        <div class="product-details">
+            <div class="top-content">
+                <div class="d-flex align-items-center justify-content-between">
+                    <p tabindex="0" 
+                        class="prorw_preview_badge_setup d-block pb-1 pe-4" 
+                        id="prorw_preview_badge_id_{{ block.settings.product.id }}" 
+                        data-block.settings.product-id="{{ block.settings.product.id }}" 
+                        data-average-ratings="{% if block.settings.product.metafields.proviews.averageRatings != blank %}{{ block.settings.product.metafields.proviews.averageRatings}}{% else %}0{% endif %}" 
+                        data-count="{% if block.settings.product.metafields.proviews.totalReviewCount != blank %}{{ block.settings.product.metafields.proviews.totalReviewCount}}{% else %}0{% endif %}"> 
+                    </p> 
+
+                    <div class="wishlist-button">
+                        <!-- Swym Wishlist Plus EPI Button with default first variant -->
+                        <button aria-label="Add to Wishlist" data-with-epi="true" class="swym-button swym-add-to-wishlist-view-product product_{{product.id}}" data-swaction="addToWishlist" data-product-id="{{product.id | json}}" data-variant-id="{{product.variants[0].id}}" data-product-url="{{ shop.url }}{{ product.url }}">
+                        </button>
+                        <!-- Swym Wishlist Plus EPI Button-->
+                        {% comment %} <svg class="icon-outline" xmlns="http://www.w3.org/2000/svg" width="35.999" height="31.29" viewBox="0 0 35.999 31.29">
+                            <path d="m34.632 15.965 1.676-1.682a9.374 9.374 0 0 1 13.538 0 9.987 9.987 0 0 1 0 13.839l-13.538 13.84a2.31 2.31 0 0 1-3.354 0L19.418 28.121a9.985 9.985 0 0 1 0-13.839 9.37 9.37 0 0 1 13.536 0l1.677 1.682Zm13.537 10.472a7.51 7.51 0 0 0 0-10.351 6.93 6.93 0 0 0-10.063 0l-2.639 2.529a1.153 1.153 0 0 1-1.674 0l-2.515-2.65a6.93 6.93 0 0 0-10.065 0 7.52 7.52 0 0 0 0 10.351l13.419 13.961z" transform="translate(-16.632 -11.393)" />
+                        </svg>
+                        <svg class="icon-filled" xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32">
+                            <path 
+                                d="M18.001 31.29c-.6 0-1.2-.23-1.66-.69L2.92 17.03a9.99 9.99 0 0 1 0-13.84 9.38 9.38 0 0 1 13.54 0l1.54 1.54 1.54-1.54a9.38 9.38 0 0 1 13.54 0 9.99 9.99 0 0 1 0 13.84L19.66 30.6c-.46.46-1.06.69-1.66.69Z"
+                                fill="currentColor"
+                            />
+                        </svg> {% endcomment %}
+
+                    </div>
+                </div>
+                <div class="custom-label pb-1">
+                    <span class="pp-semibold body-xl d-lg-block d-md-block d-sm-none pe-4">
+                        INSTANT HEAT | INFINITE
+                    </span>
+                    <span class="pp-semibold body-xs d-lg-none d-md-none d-sm-block pe-4">
+                        INSTANT HEAT | INFINITE
+                    </span>
+                </div>
+                <a href="{{ block.settings.product.url }}" class="product-title d-block title-xs f-black pp-semibold pb-2 d-lg-block d-md-block d-sm-none">
+                    {{ block.settings.product.title }}
+                </a>
+                <a href="{{ block.settings.product.url }}" class="product-title d-block body f-black pp-semibold pb-2 d-lg-none d-md-none d-sm-block">
+                    {{ block.settings.product.title }}
+                </a>
+            </div>
+            <div class="bottom-content">
+                <div class="price-container pb-2 d-lg-flex d-md-flex align-items-center gap-2 d-sm-none">
+                    <div class="text-sale-price pp-semibold pretitle-xl f-main d-flex">
+                        {{ block.settings.product.selected_or_first_available_variant.price | money }}
+                    </div>
+                    {% if block.settings.product.selected_or_first_available_variant.price != block.settings.product.selected_or_first_available_variant.compare_at_price %}
+                        <div class="text-compare-price pp-regular pretitle-lg f-compare-price d-flex">
+                            {{ block.settings.product.selected_or_first_available_variant.compare_at_price | money }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="price-container pb-2 d-lg-none d-md-none d-sm-block">
+                    <div class="text-sale-price pp-bold body-sm f-main d-flex">
+                        {{ block.settings.product.selected_or_first_available_variant.price | money }}
+                    </div>
+                    {% if block.settings.product.selected_or_first_available_variant.price != block.settings.product.selected_or_first_available_variant.compare_at_price %}
+                        <div class="text-compare-price pp-regular body-xs f-compare-price d-flex">
+                            {{ block.settings.product.selected_or_first_available_variant.compare_at_price | money }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="shop-pay-container pb-2">
+                    <p class="pp-regular f-gray body-xl d-lg-block d-md-block d-sm-none">Pay in 4 interest-free installments of $30.00 with 
+                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/45661_2x_7a6071bd-7096-4132-b066-66e804ca4273.png?v=1761060214" class="shop-pay-icon"></p>
+                    <p class="pp-regular f-gray body-sm d-lg-none d-md-none d-sm-block">Pay in 4 interest-free installments of $30.00 with 
+                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/45661_2x_7a6071bd-7096-4132-b066-66e804ca4273.png?v=1761060214" class="shop-pay-icon"></p>
+                </div>
+                <div class="d-flex flex-lg-row flex-md-row flex-sm-column gap-lg-2 gap-md-2 gap-sm-1 mt-lg-3 mt-md-3 mt-sm-2">
+                    <div class="buy-now-and-add col-lg-6 col-md-6 col-sm-12">
+
+                        {% if block.settings.product.has_only_default_variant %}
+                            
+                            {% assign product_form_id = 'product-form-' | append: block.settings.product.id %}
+                            {% form 'product', product, id: product_form_id, class: 'atc-form form btn-add col-4', novalidate: 'novalidate', data-type: 'add-to-cart-form', action: 'javascript:void(0)' %}
+                                <input type="hidden" name="id" class="product-main-id" value="{{ block.settings.product.selected_or_first_available_variant.id }}">
+                                <div class="form-btn">
+                                    <button type='submit' name="add" class="btn-atc position-relative">
+                                            
+                                            {% if block.settings.product.selected_or_first_available_variant.available != false %}
+                                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc" alt="cart-icon">
+                                            {% endif %}
+                                            <span class="pp-semibold f-white body-xl">
+                                                {% if block.settings.product.selected_or_first_available_variant.available == false %}Sold Out{% else %}Add To Cart{% endif %}
+                                            </span>
+                                            <div class="atc-overlay">
+                                                <div class="atc-spinner"></div>
+                                            </div>
+                                    </button>
+                                </div>
+                            {% endform %}
+                        {% else %}
+                            <div class="form-btn popup-atc btn-add">
+                                <button type='submit' name="add" class="btn-atc btn-hover btn-main " data-popup-handle="{{ block.settings.product.handle }}">
+                                        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc">
+                                        <span class="pp-semibold f-white body-xl">
+                                            Add To Cart
+                                        </span>
+                                        <div class="atc-overlay">
+                                            <div class="atc-spinner"></div>
+                                        </div>
+                                </button>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <a href="{{ block.settings.product.url }}" class="learn-more-button col-lg-6 col-md-6 col-sm-12">
+                        <span class="pp-semibold f-main body-xl">Learn More</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

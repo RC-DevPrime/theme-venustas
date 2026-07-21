@@ -1,0 +1,175 @@
+{% style %}
+    .campaign-benefits-section{
+        background-color:#000;
+    }
+    .campaign-benefits-section .section-heading{
+    }
+    .campaign-benefits-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+
+    .campaign-benefits-section .benefits-list-container .benefit-item{
+        position:relative;
+        border-radius: 8px 8px 8px 8px;
+        border: 1px solid #FFEBD8;
+        padding: 30px 20px;
+    }
+    .campaign-benefits-section .benefits-list-container .benefit-item .overlay{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background: linear-gradient(0deg, rgb(255 235 216 / 38%) 0%, rgb(255 235 216) 100%);
+        filter: blur(2px);
+        opacity: 0.2;
+    }
+    .campaign-benefits-section .benefits-list-container .content-container{
+        position:relative;
+        z-index:1;
+    }
+    .campaign-benefits-section .benefits-list-container .icon-container{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    .campaign-benefits-section .benefits-list-container .icon-container img{
+        width:15%;
+        height:15%;
+        object-fit:contain;
+    }
+    .campaign-benefits-section .section-heading{
+        margin-left:-30px;
+    }
+    .campaign-benefits-section .section-heading{
+        position:relative;
+    }
+    .campaign-benefits-section .section-heading:before{
+        content:"";
+        display:inline-block;
+        height:35px;
+        width:35px;
+        top:5px;
+        position:relative;
+        background-image:url({{ section.settings.heading_element | img_url: 'master' }});
+        background-size:contain;
+        background-repeat:no-repeat;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+            
+        .campaign-benefits-section .section-heading{
+            margin-left:-25px;
+        }
+        .campaign-benefits-section .section-heading:before{
+            height:30px;
+            width:30px;
+        }
+        .campaign-benefits-section .benefits-list-container .row{
+            --bs-gutter-x: 10px;
+            --bs-gutter-y: 15px;
+        }
+        .campaign-benefits-section .benefits-list-container .icon-container img{
+            width:30px;
+            height:30px;
+        }
+        .campaign-benefits-section .benefits-list-container .benefit-item{
+            padding:20px 15px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+    
+{% endstyle %}
+<div class="container section-content">
+    <div class="pb-lg-5 pb-md-5 pb-sm-4">
+        <h2 class="section-heading pp-semibold f-white title-sm text-center">
+            {{ section.settings.heading }}
+        </h2>
+    </div>
+    <div class="benefits-list-container ">
+        <div class="row">
+            {% for block in section.blocks %}
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <div class="benefit-item h-100">
+                        <div class="overlay"></div>
+                        <div class="content-container h-100">
+                            <div class="icon-container">
+                                <img src="{{ block.settings.icon | img_url: 'master' }}" width="100%" height="100%">
+                            </div>
+                            <h4 class="pp-bold body-xl text-center f-white pt-2 d-lg-block d-md-block d-sm-none">
+                                {{ block.settings.heading }}
+                            </h4>
+                            <h4 class="pp-bold body-lg text-center f-white pt-2 d-lg-none d-md-none d-sm-block">
+                                {{ block.settings.heading }}
+                            </h4>
+                            <div class="pp-regular body-lg f-white-gray text-center d-lg-block d-md-block d-sm-none">
+                                {{ block.settings.description }}
+                            </div>
+                            <div class="pp-regular body-sm f-white-gray text-center d-lg-none d-md-none d-sm-block">
+                                {{ block.settings.description }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        </div>
+    </div>
+    
+</div>
+{% schema %}
+    {
+        "class": "campaign-benefits-section",
+        "name": "Campaign Benefits",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "heading_element",
+                "label": "Heading Element"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Benefit Protection"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "benefit",
+                "name": "Benefit",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "icon",
+                        "label": "Icon"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading"
+                    },
+                    {
+                        "type": "textarea",
+                        "id": "description",
+                        "label": "Description"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Campaign Benefits"
+        }]
+    }
+  {% endschema %} 

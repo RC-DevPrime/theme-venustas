@@ -1,0 +1,804 @@
+<button class="back-to-top">
+</button>
+<footer class="footer">
+    <div class="container section-content pb-0">
+        <div class="row newsletter-container">
+            <div class="col-lg-6 col-md-6 col-sm-12 border-right-divider pb-lg-0 pb-md-0 pb-sm-4">
+                <div class="pretitle-lg pp-semibold mb-3 f-white mx-auto pt-lg-0 pt-md-0 pt-sm-0">
+                {{ section.settings.newsletter_heading }}
+                </div>
+                <div class="body pp-light f-white mb-4 mx-auto">
+                {{ section.settings.newsletter_description }}
+                </div>
+                <div class="col-lg-9 col-md-10 col-12 newsletter">
+                    {% form 'customer', id: "footer-newsletter", class: 'mb-3' %}
+                            <div class="form-wrapper">
+                                <input class="pp-light body" type="email" name="contact[email]" autocomplete="off" placeholder="Enter Your Email Here" required>
+                                <button type="submit">
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/arrow-left.png?v=1758129586" class="newsletter-icon" alt="newsletter-icon">
+                                </button>
+                            </div>
+                            <div class="validation-input mt-lg-3 mt-md-3 mt-sm-3">
+                            <label for="validation-checkbox" class="validation-checkbox">
+                                <div class="pp-light a-f-gray label body-sm">
+                                I consent to the 
+                                    <a href="/pages/terms-of-service" class="a-f-gray pp-light body-sm text-underline">Terms of Use</a> And <a href="/pages/after-sales-policy?tab=privacy-policy" class="a-f-gray pp-light body-sm text-underline">Privacy Policy</a>
+                                </div>
+                                <input type="checkbox" id="validation-checkbox" name="validation" value="I consent to the Terms of Use and Privacy Policy" required="">
+                                <span class="checkmark"></span>
+                            </label>
+                            </div>
+                            {% if form.posted_successfully? %}
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                // Scroll to form
+                                const form = document.querySelector('#footer-newsletter');
+                                if (form) {
+                                    form.scrollIntoView({ behavior: 'instant' });
+                                }
+
+                                // Hide form UI
+                                $('#footer-newsletter .form-wrapper').hide();
+                                $('#footer-newsletter .validation-input').hide();
+
+                                // 🔥 Remove ?customer_posted=true#footer-newsletter from URL
+                                if (window.history.replaceState) {
+                                    const cleanUrl = window.location.origin + window.location.pathname;
+                                    window.history.replaceState({}, document.title, cleanUrl);
+                                }
+                                });
+                            </script>
+
+                            <p class="nl-status">
+                                <span class="pp-bold f-main">Thanks for signing up!</span>
+                                Please check your inbox to confirm your subscription
+                            </p>
+
+                            {% elsif form.errors %}
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        let form = document.querySelector("#footer-newsletter");
+                                        if (form) {
+                                            form.scrollIntoView({ behavior: "instant" });
+                                        }
+                                    });
+                                </script>
+                                <p class="nl-status">
+                                    There's a problem submitting your request. Try again.
+                                </p>
+                            {% else %}
+                                <p class="nl-status hidden">
+                                    This email was already subscribed to our newsletter.
+                                </p>
+                            {% endif %}
+                            
+                    {% endform %}
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-11 col-md-11 col-sm-12 mx-auto px-lg-3 px-md-2 px-sm-0">
+                    <div class="pretitle-lg pp-semibold mb-3 f-white mx-auto">
+                    {{ section.settings.social_heading }}
+                    </div>
+                    <div class="body pp-light f-white mb-4 mx-auto">
+                    {{ section.settings.social_description }}
+                    </div>
+                    <div class="socials justify-content-lg-start justify-content-md-start justify-content-sm-start">
+                        {% if settings.facebook %}
+                        <a href="{{ settings.facebook }}" target="_blank">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/Facebook_-_Negative_2x_c92b6a5c-4f34-4f7a-986a-a723b29f613c.png?v=1758128736"> 
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/Facebook_-_Negative.png?v=1766481786" class="negative-icon"> 
+                        </a>
+                        {% endif %}
+                        {% if settings.instagram %}
+                        <a href="{{ settings.instagram }}" target="_blank">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/Instagram_-_Negative_2x_2.png?v=1758128737">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/Instagram_-_Negative_c36da969-732d-40f0-85be-45440667309f.png?v=1766481787" class="negative-icon"> 
+                        </a>
+                        {% endif %}
+                        {% if settings.youtube %}
+                        <a href="{{ settings.youtube }}" target="_blank">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/YouTube_-_Negative_2x_6cf491ef-009b-426a-adf2-19c700e11042.png?v=1758128737">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/YouTube_-_Negative.png?v=1766481787" class="negative-icon"> 
+                        </a>
+                        {% endif %}
+                        {% if settings.tiktok %}
+                        <a href="{{ settings.tiktok }}" target="_blank">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/TikTok_-_Negative_2x_f870daf3-55c7-47eb-9461-22e65dbae4df.png?v=1758128736">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/TikTok_-_Negative.png?v=1766481787" class="negative-icon"> 
+                        </a>
+                        {% endif %}
+                        {% if settings.pinterest %}
+                        <a href="{{ settings.pinterest }}" target="_blank">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/App-Pinterest-icon_2x_f90b50af-aa5f-41df-8550-c557e30d9548.png?v=1758128737">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/78204.png?v=1766481787" class="negative-icon"> 
+                        </a>
+                    
+                        {% endif %}
+                        {% if settings.twitter %}
+                        <a href="{{ settings.twitter }}" target="_blank">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77639_2x_6cc5faa5-5fb6-4dc3-b000-a3478334a2af.png?v=1758128736">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77639.png?v=1766481787" class="negative-icon"> 
+                        </a>
+                        {% endif %}
+                        {% if settings.linkedIn %}
+                        <a href="{{ settings.linkedIn }}" target="_blank">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0474/8365/0202/files/5_808050e5-0a55-4c91-a9e8-6be3578a5bf7.png?v=1752816371">
+                            <img alt="social-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77639.png?v=1766481787" class="negative-icon"> 
+                        </a>
+                    
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container section-content">
+        <div class="divider d-lg-block d-md-block d-sm-none"></div>
+        <div class="row mb-lg-5 mb-md-3 mb-sm-3 pt-lg-4 pt-md-4 pt-sm-0 d-lg-flex d-md-none d-sm-none">
+            <div class="col-9 ">
+                <div class="row h-100">
+                    <div class="items col">
+                        <div class="body-lg pp-bold f-white mb-4">
+                            {{ section.settings.menu_1_title }}
+                        </div>
+                        <div class="footer-nav">
+                            {% for link in section.settings.menu_1.links %}
+                                <a href="{{ link.url }}" class="a-f-gray">
+                                    {{ link.title }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="items col">
+                        <div class="body-lg pp-bold f-white mb-4">
+                            {{ section.settings.menu_2_title }}
+                        </div>
+                        <div class="footer-nav">
+                            {% for link in section.settings.menu_2.links %}
+                                <a href="{{ link.url }}" class="a-f-gray">
+                                    {{ link.title }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="items col">
+                        <div class="body-lg pp-bold f-white mb-4">
+                            {{ section.settings.menu_3_title }}
+                        </div>
+                        <div class="footer-nav">
+                            {% for link in section.settings.menu_3.links %}
+                                <a href="{{ link.url }}" class="a-f-gray">
+                                    {{ link.title }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="items col">
+                        <div class="body-lg pp-bold f-white mb-4">
+                            {{ section.settings.menu_4_title }}
+                        </div>
+                        <div class="footer-nav">
+                            {% for link in section.settings.menu_4.links %}
+                                <a href="{{ link.url }}" class="a-f-gray">
+                                    {{ link.title }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 text-lg-start text-md-center text-sm-center">
+                <img src="{{ section.settings.logo | img_url: 'master' }}" class="logo mb-lg-4 mb-md-3 mb-sm-3 d-lg-block d-md-block d-sm-none" alt="website-logo">
+                <div class="footer-list d-lg-block d-md-block d-sm-none">
+                    <div class="icon-list d-flex flex-column gap-4">
+                        <div class="icon-item">
+                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77641_2x_3cea5bfd-6c46-4fd9-8f8b-96604a1540d5.png?v=1758128737" width="30px" height="30px" class="icon-logo" alt="footer-icon-logo">
+                            <div class="footer-content">
+                                <div class="heading-content f-white pp-semibold body-lg">
+                                    {{ section.settings.footer_heading_1 }}
+                                </div>
+                                <div class="description-content a-f-gray pp-regular body">
+                                    {{ section.settings.footer_description_1 }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="icon-item">
+                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/49696_2x_ff7eadb8-cb19-4002-9062-c7e79003bc3c.png?v=1758128737" width="30px" height="30px" class="icon-logo" alt="footer-icon-logo">
+                            <div class="footer-content">
+                                <div class="heading-content f-white pp-semibold body-lg">
+                                    {% comment %} <img src="{{ section.settings.footer_icon_logo_1 | img_url: 'master' }}" class="logo mb-lg-4 mb-md-3 mb-sm-3"> {% endcomment %}
+                                    {{ section.settings.footer_heading_2 }}
+                                </div>
+                                <div class="description-content a-f-gray pp-regular body">
+                                    {{ section.settings.footer_description_2 }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+
+      
+        <div class="row">
+            <div class="col-lg-4 col-md-12 col-sm-12">
+              
+            </div>
+            <div class="divider d-lg-none d-md-block d-sm-block"></div>
+          <!-- DESKTOP -->
+            <div class="col-8 d-lg-none d-md-none d-sm-none">
+                <div class="row">
+                    <div class="items">
+                        <div class="footer-nav">
+                            {% for link in section.settings.menu_1.links %}
+                                <a href="{{ link.url }}">
+                                    {{ link.title }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <div class="footer-nav">
+                            {% for link in section.settings.menu_2.links %}
+                                <a href="{{ link.url }}">
+                                    {{ link.title }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <div class="footer-nav">
+                            {% for link in section.settings.menu_3.links %}
+                                <a href="{{ link.url }}">
+                                    {{ link.title }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <div class="footer-nav">
+                            {% for link in section.settings.menu_4.links %}
+                                <a href="{{ link.url }}">
+                                    {{ link.title }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 d-lg-none d-md-block d-sm-block">
+                <div class="accordion" id="faq-footer">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="footerHeading-1">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#footerCollapse-1" aria-expanded="false" aria-controls="footerCollapse-1">
+                                <span>
+                                    {{ section.settings.menu_1_title }}
+                                </span>
+                            </button>
+                        </h2>
+                        <div id="footerCollapse-1" class="accordion-collapse collapse" aria-labelledby="footerHeading-1">
+                            <div class="accordion-body">
+                                <div class="footer-nav">
+                                    {% for link in section.settings.menu_1.links %}
+                                        <a href="{{ link.url }}">
+                                            {{ link.title }}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="footerHeading-2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#footerCollapse-2" aria-expanded="false" aria-controls="footerCollapse-2">
+                                <span>
+                                    {{ section.settings.menu_2_title }}
+                                </span>
+                            </button>
+                        </h2>
+                        <div id="footerCollapse-2" class="accordion-collapse collapse" aria-labelledby="footerHeading-2">
+                            <div class="accordion-body">
+                                <div class="footer-nav">
+                                    {% for link in section.settings.menu_2.links %}
+                                        <a href="{{ link.url }}">
+                                            {{ link.title }}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="footerHeading-3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#footerCollapse-3" aria-expanded="false" aria-controls="footerCollapse-3">
+                                <span>
+                                    {{ section.settings.menu_3_title }}
+                                </span>
+                            </button>
+                        </h2>
+                        <div id="footerCollapse-3" class="accordion-collapse collapse" aria-labelledby="footerHeading-3">
+                            <div class="accordion-body">
+                                <div class="footer-nav">
+                                    {% for link in section.settings.menu_3.links %}
+                                        <a href="{{ link.url }}">
+                                            {{ link.title }}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="footerHeading-4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#footerCollapse-4" aria-expanded="false" aria-controls="footerCollapse-4">
+                                <span>
+                                    {{ section.settings.menu_4_title }}
+                                </span>
+                            </button>
+                        </h2>
+                        <div id="footerCollapse-4" class="accordion-collapse collapse" aria-labelledby="footerHeading-4">
+                            <div class="accordion-body">
+                                <div class="footer-nav">
+                                    {% for link in section.settings.menu_4.links %}
+                                        <a href="{{ link.url }}">
+                                            {{ link.title }}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-list d-lg-none d-md-none d-sm-block pt-3 pb-5">
+                        <div class="icon-list d-flex flex-column gap-4">
+                            <div class="icon-item">
+                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77641_2x_3cea5bfd-6c46-4fd9-8f8b-96604a1540d5.png?v=1758128737" width="30px" height="30px" class="icon-logo" alt="footer-icon-logo">
+                                <div class="footer-content">
+                                    <div class="heading-content f-white pp-semibold body-lg">
+                                        {{ section.settings.footer_heading_1 }}
+                                    </div>
+                                    <div class="description-content a-f-gray pp-regular body">
+                                        {{ section.settings.footer_description_1 }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="icon-item">
+                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/49696_2x_ff7eadb8-cb19-4002-9062-c7e79003bc3c.png?v=1758128737" width="30px" height="30px" class="icon-logo" alt="footer-icon-logo">
+                                <div class="footer-content">
+                                    <div class="heading-content f-white pp-semibold body-lg">
+                                        {% comment %} <img src="{{ section.settings.footer_icon_logo_1 | img_url: 'master' }}" class="logo mb-lg-4 mb-md-3 mb-sm-3"> {% endcomment %}
+                                        {{ section.settings.footer_heading_2 }}
+                                    </div>
+                                    <div class="description-content a-f-gray pp-regular body">
+                                        {{ section.settings.footer_description_2 }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% comment %} <div class="col-12 d-lg-none d-md-block d-sm-block">
+                <div class="divider mt-md-0 mt-sm-0"></div>
+            </div>
+            <div class="col-12">
+                <div class="d-flex flex-lg-row flex-md-column-reverse flex-sm-column-reverse justify-content-between align-items-lg-center align-items-md-center align-items-start gap-3">
+                  <div class="footer-support footer-nav flex-row flex-md-wrap flex-sm-wrap justify-content-md-center justify-content-sm-start">
+                      {% for link in section.settings.support_links.links %}
+                          <a href="{{ link.url }}" class="body">
+                              {{ link.title }}
+                          </a>
+                      {% endfor %}
+                      
+                    
+                      <p class="copyright body mt-regular f-gray text-lg-start text-md-start text-sm-start">
+                          {{ section.settings.copyright }}
+                      </p>
+                  </div>
+                </div>
+            </div> {% endcomment %}
+        </div>
+        <div class="divider d-lg-block d-md-block d-sm-none"></div>
+        <div class="row align-items-center justify-content-lg-between justify-content-md-between justify-content-lg-center justify-content-md-center justify-content-sm-start gap-lg-0 gap-md-0 gap-sm-0 flex-lg-row flex-md-row flex-sm-column-reverse">
+
+            
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="divider d-lg-none d-md-none d-sm-block"></div>
+                <div class="d-flex align-items-center justify-content-start gap-5">
+                    <div class="language-selector-container d-lg-block d-md-block d-sm-none">
+                        <div class="language-item">
+                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/47418_2x_79fee34e-897e-40a2-ae59-9fbf71aa792f.png?v=1758130779"  alt="flag-icon">
+                            <span class="pp-regular body f-white">
+                                US
+                            </span>
+                        </div>
+                    </div>
+                    <div class="copywrite-status body f-gray">
+                        © {{ 'now' | date: '%Y' }} {{ shop.name }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12">
+            {%- comment -%}
+            Fix: "ARIA IDs are unique"
+            Keep everything, only make aria-labelledby + title id unique per render.
+            {%- endcomment -%}
+
+            {%- assign aria_prefix = section.id | default: 'global' | append: '-' | append: template.name | append: '-' | append: request.page_type -%}
+
+            <ul class="list list-payment" role="list">
+            <li class="list-payment__item visa">
+                <svg class="icon icon--full-color" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24" aria-labelledby="{{ aria_prefix }}-pi-visa">
+                <title id="{{ aria_prefix }}-pi-visa">Visa</title>
+                <path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                <path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
+                <path d="M28.3 10.1H28c-.4 1-.7 1.5-1 3h1.9c-.3-1.5-.3-2.2-.6-3zm2.9 5.9h-1.7c-.1 0-.1 0-.2-.1l-.2-.9-.1-.2h-2.4c-.1 0-.2 0-.2.2l-.3.9c0 .1-.1.1-.1.1h-2.1l.2-.5L27 8.7c0-.5.3-.7.8-.7h1.5c.1 0 .2 0 .2.2l1.4 6.5c.1.4.2.7.2 1.1.1.1.1.1.1.2zm-13.4-.3l.4-1.8c.1 0 .2.1.2.1.7.3 1.4.5 2.1.4.2 0 .5-.1.7-.2.5-.2.5-.7.1-1.1-.2-.2-.5-.3-.8-.5-.4-.2-.8-.4-1.1-.7-1.2-1-.8-2.4-.1-3.1.6-.4.9-.8 1.7-.8 1.2 0 2.5 0 3.1.2h.1c-.1.6-.2 1.1-.4 1.7-.5-.2-1-.4-1.5-.4-.3 0-.6 0-.9.1-.2 0-.3.1-.4.2-.2.2-.2.5 0 .7l.5.4c.4.2.8.4 1.1.6.5.3 1 .8 1.1 1.4.2.9-.1 1.7-.9 2.3-.5.4-.7.6-1.4.6-1.4 0-2.5.1-3.4-.2-.1.2-.1.2-.2.1zm-3.5.3c.1-.7.1-.7.2-1 .5-2.2 1-4.5 1.4-6.7.1-.2.1-.3.3-.3H18c-.2 1.2-.4 2.1-.7 3.2-.3 1.5-.6 3-1 4.5 0 .2-.1.2-.3.2M5 8.2c0-.1.2-.2.3-.2h3.4c.5 0 .9.3 1 .8l.9 4.4c0 .1 0 .1.1.2 0-.1.1-.1.1-.1l2.1-5.1c-.1-.1 0-.2.1-.2h2.1c0 .1 0 .1-.1.2l-3.1 7.3c-.1.2-.1.3-.2.4-.1.1-.3 0-.5 0H9.7c-.1 0-.2 0-.2-.2L7.9 9.5c-.2-.2-.5-.5-.9-.6-.6-.3-1.7-.5-1.9-.5L5 8.2z" fill="#142688"></path>
+                </svg>
+            </li>
+
+            <li class="list-payment__item master">
+                <svg class="icon icon--full-color" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24" aria-labelledby="{{ aria_prefix }}-pi-master">
+                <title id="{{ aria_prefix }}-pi-master">Mastercard</title>
+                <path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                <path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
+                <circle fill="#EB001B" cx="15" cy="12" r="7"></circle>
+                <circle fill="#F79E1B" cx="23" cy="12" r="7"></circle>
+                <path fill="#FF5F00" d="M22 12c0-2.4-1.2-4.5-3-5.7-1.8 1.3-3 3.4-3 5.7s1.2 4.5 3 5.7c1.8-1.2 3-3.3 3-5.7z"></path>
+                </svg>
+            </li>
+
+            <li class="list-payment__item maestro">
+                <svg class="icon icon--full-color" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" width="38" height="24" role="img" aria-labelledby="{{ aria_prefix }}-pi-maestro">
+                <title id="{{ aria_prefix }}-pi-maestro">Maestro</title>
+                <path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                <path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
+                <circle fill="#EB001B" cx="15" cy="12" r="7"></circle>
+                <circle fill="#00A2E5" cx="23" cy="12" r="7"></circle>
+                <path fill="#7375CF" d="M22 12c0-2.4-1.2-4.5-3-5.7-1.8 1.3-3 3.4-3 5.7s1.2 4.5 3 5.7c1.8-1.2 3-3.3 3-5.7z"></path>
+                </svg>
+            </li>
+
+            <li class="list-payment__item american_express">
+                <svg class="icon icon--full-color" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="{{ aria_prefix }}-pi-american_express" viewBox="0 0 38 24" width="38" height="24">
+                <title id="{{ aria_prefix }}-pi-american_express">American Express</title>
+                <path fill="#000" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3Z" opacity=".07"></path>
+                <path fill="#006FCF" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32Z"></path>
+                <path fill="#FFF" d="M22.012 19.936v-8.421L37 11.528v2.326l-1.732 1.852L37 17.573v2.375h-2.766l-1.47-1.622-1.46 1.628-9.292-.02Z"></path>
+                <path fill="#006FCF" d="M23.013 19.012v-6.57h5.572v1.513h-3.768v1.028h3.678v1.488h-3.678v1.01h3.768v1.531h-5.572Z"></path>
+                <path fill="#006FCF" d="m28.557 19.012 3.083-3.289-3.083-3.282h2.386l1.884 2.083 1.89-2.082H37v.051l-3.017 3.23L37 18.92v.093h-2.307l-1.917-2.103-1.898 2.104h-2.321Z"></path>
+                <path fill="#FFF" d="M22.71 4.04h3.614l1.269 2.881V4.04h4.46l.77 2.159.771-2.159H37v8.421H19l3.71-8.421Z"></path>
+                <path fill="#006FCF" d="m23.395 4.955-2.916 6.566h2l.55-1.315h2.98l.55 1.315h2.05l-2.904-6.566h-2.31Zm.25 3.777.875-2.09.873 2.09h-1.748Z"></path>
+                <path fill="#006FCF" d="M28.581 11.52V4.953l2.811.01L32.84 9l1.456-4.046H37v6.565l-1.74.016v-4.51l-1.644 4.494h-1.59L30.35 7.01v4.51h-1.768Z"></path>
+                </svg>
+            </li>
+
+            <li class="list-payment__item diners_club">
+                <svg class="icon icon--full-color" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24" aria-labelledby="{{ aria_prefix }}-pi-diners_club">
+                <title id="{{ aria_prefix }}-pi-diners_club">Diners Club</title>
+                <path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                <path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
+                <path d="M12 12v3.7c0 .3-.2.3-.5.2-1.9-.8-3-3.3-2.3-5.4.4-1.1 1.2-2 2.3-2.4.4-.2.5-.1.5.2V12zm2 0V8.3c0-.3 0-.3.3-.2 2.1.8 3.2 3.3 2.4 5.4-.4 1.1-1.2 2-2.3 2.4-.4.2-.4.1-.4-.2V12zm7.2-7H13c3.8 0 6.8 3.1 6.8 7s-3 7-6.8 7h8.2c3.8 0 6.8-3.1 6.8-7s-3-7-6.8-7z" fill="#3086C8"></path>
+                </svg>
+            </li>
+
+            <li class="list-payment__item discover">
+                <svg class="icon icon--full-color" viewBox="0 0 38 24" width="38" height="24" role="img" aria-labelledby="{{ aria_prefix }}-pi-discover" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <title id="{{ aria_prefix }}-pi-discover">Discover</title>
+                <path fill="#000" opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                <path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32z" fill="#fff"></path>
+                <path d="M3.57 7.16H2v5.5h1.57c.83 0 1.43-.2 1.96-.63.63-.52 1-1.3 1-2.11-.01-1.63-1.22-2.76-2.96-2.76zm1.26 4.14c-.34.3-.77.44-1.47.44h-.29V8.1h.29c.69 0 1.11.12 1.47.44.37.33.59.84.59 1.37 0 .53-.22 1.06-.59 1.39zm2.19-4.14h1.07v5.5H7.02v-5.5zm3.69 2.11c-.64-.24-.83-.4-.83-.69 0-.35.34-.61.8-.61.32 0 .59.13.86.45l.56-.73c-.46-.4-1.01-.61-1.62-.61-.97 0-1.72.68-1.72 1.58 0 .76.35 1.15 1.35 1.51.42.15.63.25.74.31.21.14.32.34.32.57 0 .45-.35.78-.83.78-.51 0-.92-.26-1.17-.73l-.69.67c.49.73 1.09 1.05 1.9 1.05 1.11 0 1.9-.74 1.9-1.81.02-.89-.35-1.29-1.57-1.74zm1.92.65c0 1.62 1.27 2.87 2.9 2.87.46 0 .86-.09 1.34-.32v-1.26c-.43.43-.81.6-1.29.6-1.08 0-1.85-.78-1.85-1.9 0-1.06.79-1.89 1.8-1.89.51 0 .9.18 1.34.62V7.38c-.47-.24-.86-.34-1.32-.34-1.61 0-2.92 1.28-2.92 2.88zm12.76.94l-1.47-3.7h-1.17l2.33 5.64h.58l2.37-5.64h-1.16l-1.48 3.7zm3.13 1.8h3.04v-.93h-1.97v-1.48h1.9v-.93h-1.9V8.1h1.97v-.94h-3.04v5.5zm7.29-3.87c0-1.03-.71-1.62-1.95-1.62h-1.59v5.5h1.07v-2.21h.14l1.48 2.21h1.32l-1.73-2.32c.81-.17 1.26-.72 1.26-1.56zm-2.16.91h-.31V8.03h.33c.67 0 1.03.28 1.03.82 0 .55-.36.85-1.05.85z" fill="#231F20"></path>
+                <path d="M20.16 12.86a2.931 2.931 0 100-5.862 2.931 2.931 0 000 5.862z" fill="url(#pi-paint0_linear)"></path>
+                <path opacity=".65" d="M20.16 12.86a2.931 2.931 0 100-5.862 2.931 2.931 0 000 5.862z" fill="url(#pi-paint1_linear)"></path>
+                <path d="M36.57 7.506c0-.1-.07-.15-.18-.15h-.16v.48h.12v-.19l.14.19h.14l-.16-.2c.06-.01.1-.06.1-.13zm-.2.07h-.02v-.13h.02c.06 0 .09.02.09.06 0 .05-.03.07-.09.07z" fill="#231F20"></path>
+                <path d="M36.41 7.176c-.23 0-.42.19-.42.42 0 .23.19.42.42.42.23 0 .42-.19.42-.42 0-.23-.19-.42-.42-.42zm0 .77c-.18 0-.34-.15-.34-.35 0-.19.15-.35.34-.35.18 0 .33.16.33.35 0 .19-.15.35-.33.35z" fill="#231F20"></path>
+                <path d="M37 12.984S27.09 19.873 8.976 23h26.023a2 2 0 002-1.984l.024-3.02L37 12.985z" fill="#F48120"></path>
+                <defs>
+                    <linearGradient id="pi-paint0_linear" x1="21.657" y1="12.275" x2="19.632" y2="9.104" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#F89F20"></stop>
+                    <stop offset=".25" stop-color="#F79A20"></stop>
+                    <stop offset=".533" stop-color="#F68D20"></stop>
+                    <stop offset=".62" stop-color="#F58720"></stop>
+                    <stop offset=".723" stop-color="#F48120"></stop>
+                    <stop offset="1" stop-color="#F37521"></stop>
+                    </linearGradient>
+                    <linearGradient id="pi-paint1_linear" x1="21.338" y1="12.232" x2="18.378" y2="6.446" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#F58720"></stop>
+                    <stop offset=".359" stop-color="#E16F27"></stop>
+                    <stop offset=".703" stop-color="#D4602C"></stop>
+                    <stop offset=".982" stop-color="#D05B2E"></stop>
+                    </linearGradient>
+                </defs>
+                </svg>
+            </li>
+
+            <li class="list-payment__item paypal">
+                <svg class="icon icon--full-color" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" width="38" height="24" role="img" aria-labelledby="{{ aria_prefix }}-pi-paypal">
+                <title id="{{ aria_prefix }}-pi-paypal">PayPal</title>
+                <path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                <path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
+                <path fill="#003087" d="M23.9 8.3c.2-1 0-1.7-.6-2.3-.6-.7-1.7-1-3.1-1h-4.1c-.3 0-.5.2-.6.5L14 15.6c0 .2.1.4.3.4H17l.4-3.4 1.8-2.2 4.7-2.1z"></path>
+                <path fill="#3086C8" d="M23.9 8.3l-.2.2c-.5 2.8-2.2 3.8-4.6 3.8H18c-.3 0-.5.2-.6.5l-.6 3.9-.2 1c0 .2.1.4.3.4H19c.3 0 .5-.2.5-.4v-.1l.4-2.4v-.1c0-.2.3-.4.5-.4h.3c2.1 0 3.7-.8 4.1-3.2.2-1 .1-1.8-.4-2.4-.1-.5-.3-.7-.5-.8z"></path>
+                <path fill="#012169" d="M23.3 8.1c-.1-.1-.2-.1-.3-.1-.1 0-.2 0-.3-.1-.3-.1-.7-.1-1.1-.1h-3c-.1 0-.2 0-.2.1-.2.1-.3.2-.3.4l-.7 4.4v.1c0-.3.3-.5.6-.5h1.3c2.5 0 4.1-1 4.6-3.8v-.2c-.1-.1-.3-.2-.5-.2h-.1z"></path>
+                </svg>
+            </li>
+
+            <li class="list-payment__item jcb">
+                <svg class="icon icon--full-color" width="38" height="24" role="img" aria-labelledby="{{ aria_prefix }}-pi-jcb" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg">
+                <title id="{{ aria_prefix }}-pi-jcb">JCB</title>
+                <g fill="none" fill-rule="evenodd">
+                    <g fill-rule="nonzero">
+                    <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000" opacity=".07"></path>
+                    <path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32" fill="#FFF"></path>
+                    </g>
+                    <path d="M11.5 5H15v11.5a2.5 2.5 0 0 1-2.5 2.5H9V7.5A2.5 2.5 0 0 1 11.5 5z" fill="#006EBC"></path>
+                    <path d="M18.5 5H22v11.5a2.5 2.5 0 0 1-2.5 2.5H16V7.5A2.5 2.5 0 0 1 18.5 5z" fill="#F00036"></path>
+                    <path d="M25.5 5H29v11.5a2.5 2.5 0 0 1-2.5 2.5H23V7.5A2.5 2.5 0 0 1 25.5 5z" fill="#2AB419"></path>
+                    <path d="M10.755 14.5c-1.06 0-2.122-.304-2.656-.987l.78-.676c.068 1.133 3.545 1.24 3.545-.19V9.5h1.802v3.147c0 .728-.574 1.322-1.573 1.632-.466.144-1.365.221-1.898.221zm8.116 0c-.674 0-1.388-.107-1.965-.366-.948-.425-1.312-1.206-1.3-2.199.012-1.014.436-1.782 1.468-2.165 1.319-.49 3.343-.261 3.926.27v.972c-.572-.521-1.958-.898-2.919-.46-.494.226-.737.917-.744 1.448-.006.56.245 1.252.744 1.497.953.467 2.39.04 2.919-.441v1.01c-.358.255-1.253.434-2.129.434zm8.679-2.587c.37-.235.582-.567.582-1.005 0-.438-.116-.687-.348-.939-.206-.207-.58-.469-1.238-.469H23v5h3.546c.696 0 1.097-.23 1.315-.415.283-.25.426-.53.426-.96 0-.431-.155-.908-.737-1.212zm-1.906-.281h-1.428v-1.444h1.495c.956 0 .944 1.444-.067 1.444zm.288 2.157h-1.716v-1.513h1.716c.986 0 1.083 1.513 0 1.513z" fill="#FFF" fill-rule="nonzero"></path>
+                </g>
+                </svg>
+            </li>
+
+            <li class="list-payment__item afterpay">
+                <svg class="icon icon--full-color" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 38 24" width="38" height="24" aria-labelledby="{{ aria_prefix }}-pi-afterpay">
+                <title id="{{ aria_prefix }}-pi-afterpay">Afterpay</title>
+                <path fill="#b2fce4" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
+                <path d="m27.4 6.8-2.7-1.6-2.7-1.6c-1.8-1-4.1.3-4.1 2.4v.4c0 .2.1.4.3.5l1.3.7c.4.2.8-.1.8-.5v-.8c0-.4.4-.7.8-.5l2.5 1.4 2.4 1.5c.4.2.4.7 0 .9l-2.5 1.4-2.5 1.6c-.4.2-.8-.1-.8-.5v-.4c0-2.1-2.3-3.4-4.1-2.4l-2.7 1.6-2.7 1.6c-1.8 1-1.8 3.7 0 4.7l2.7 1.6 2.7 1.6c1.8 1 4.1-.3 4.1-2.4v-.4c0-.2-.1-.4-.3-.5l-1.3-.7c-.4-.2-.8.1-.8.5v.8c0 .4-.4.7-.8.5l-2.5-1.4-2.5-1.5c-.4-.2-.4-.7 0-.9l2.5-1.4 2.5-1.4c.4-.2.8.1.8.5v.4c0 2.1 2.3 3.4 4.1 2.4l2.7-1.6 2.7-1.6c1.9-1.2 1.9-3.8.1-4.9z"></path>
+                </svg>
+            </li>
+
+            <li class="list-payment__item google_pay">
+                <svg class="icon icon--full-color" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 38 24" width="38" height="24" aria-labelledby="{{ aria_prefix }}-pi-google_pay">
+                <title id="{{ aria_prefix }}-pi-google_pay">Google Pay</title>
+                <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000" opacity=".07"></path>
+                <path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32" fill="#FFF"></path>
+                <path d="M18.093 11.976v3.2h-1.018v-7.9h2.691a2.447 2.447 0 0 1 1.747.692 2.28 2.28 0 0 1 .11 3.224l-.11.116c-.47.447-1.098.69-1.747.674l-1.673-.006zm0-3.732v2.788h1.698c.377.012.741-.135 1.005-.404a1.391 1.391 0 0 0-1.005-2.354l-1.698-.03zm6.484 1.348c.65-.03 1.286.188 1.778.613.445.43.682 1.03.65 1.649v3.334h-.969v-.766h-.049a1.93 1.93 0 0 1-1.673.931 2.17 2.17 0 0 1-1.496-.533 1.667 1.667 0 0 1-.613-1.324 1.606 1.606 0 0 1 .613-1.336 2.746 2.746 0 0 1 1.698-.515c.517-.02 1.03.093 1.49.331v-.208a1.134 1.134 0 0 0-.417-.901 1.416 1.416 0 0 0-.98-.368 a1.545 1.545 0 0 0-1.319.717l-.895-.564a2.488 2.488 0 0 1 2.182-1.06zM23.29 13.52a.79.79 0 0 0 .337.662c.223.176.5.269.785.263.429-.001.84-.17 1.146-.472.305-.286.478-.685.478-1.103a2.047 2.047 0 0 0-1.324-.374 1.716 1.716 0 0 0-1.03.294.883.883 0 0 0-.392.73zm9.286-3.75l-3.39 7.79h-1.048l1.281-2.728-2.224-5.062h1.103l1.612 3.885 1.569-3.885h1.097z" fill="#5F6368"></path>
+                <path d="M13.986 11.284c0-.308-.024-.616-.073-.92h-4.29v1.747h2.451a2.096 2.096 0 0 1-.9 1.373v1.134h1.464a4.433 4.433 0 0 0 1.348-3.334z" fill="#4285F4"></path>
+                <path d="M9.629 15.721a4.352 4.352 0 0 0 3.01-1.097l-1.466-1.14a2.752 2.752 0 0 1-4.094-1.44H5.577v1.17a4.53 4.53 0 0 0 4.052 2.507z" fill="#34A853"></path>
+                <path d="M7.079 12.05a2.709 2.709 0 0 1 0-1.735v-1.17H5.577a4.505 4.505 0 0 0 0 4.075l1.502-1.17z" fill="#FBBC04"></path>
+                <path d="M9.629 8.44a2.452 2.452 0 0 1 1.74.68l1.3-1.293a4.37 4.37 0 0 0-3.065-1.183 4.53 4.53 0 0 0-4.027 2.5l1.502 1.171a2.715 2.715 0 0 1 2.55-1.875z" fill="#EA4335"></path>
+                </svg>
+            </li>
+
+            <li class="list-payment__item klarna">
+                <svg class="icon icon--full-color" xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24" viewBox="0 0 38 24" aria-labelledby="{{ aria_prefix }}-pi-klarna" fill="none">
+                <title id="{{ aria_prefix }}-pi-klarna">Klarna</title>
+                <rect width="38" height="24" rx="2" fill="#FFA8CD"></rect>
+                <rect x=".5" y=".5" width="37" height="23" rx="1.5" stroke="#000" stroke-opacity=".07"></rect>
+                <path d="M30.62 14.755c-.662 0-1.179-.554-1.179-1.226 0-.673.517-1.226 1.18-1.226.663 0 1.18.553 1.18 1.226 0 .672-.517 1.226-1.18 1.226zm-.33 1.295c.565 0 1.286-.217 1.686-1.068l.04.02c-.176.465-.176.742-.176.81v.11h1.423v-4.786H31.84v.109c0 .069 0 .346.175.81l-.039.02c-.4-.85-1.121-1.068-1.687-1.068-1.355 0-2.31 1.088-2.31 2.522 0 1.433.955 2.521 2.31 2.521zm-4.788-5.043c-.643 0-1.15.228-1.56 1.068l-.039-.02c.175-.464.175-.741.175-.81v-.11h-1.423v4.787h1.462V13.4c0-.662.38-1.078.995-1.078.614 0 .917.356.917 1.068v2.532h1.462v-3.046c0-1.088-.838-1.869-1.989-1.869zm-4.963 1.068l-.039-.02c.176-.464.176-.741.176-.81v-.11h-1.424v4.787h1.463l.01-2.304c0-.673.35-1.078.926-1.078.156 0 .282.02.429.06v-1.464c-.644-.139-1.22.109-1.54.94zm-4.65 2.68c-.664 0-1.18-.554-1.18-1.226 0-.673.516-1.226 1.18-1.226.662 0 1.179.553 1.179 1.226 0 .672-.517 1.226-1.18 1.226zm-.332 1.295c.565 0 1.287-.217 1.687-1.068l.038.02c-.175.465-.175.742-.175.81v.11h1.424v-4.786h-1.424v.109c0 .069 0 .346.175.81l-.038.02c-.4-.85-1.122-1.068-1.687-1.068-1.356 0-2.311 1.088-2.311 2.522 0 1.433.955 2.521 2.31 2.521zm-4.349-.128h1.463V9h-1.463v6.922zM10.136 9H8.644c0 1.236-.751 2.343-1.892 3.134l-.448.317V9h-1.55v6.922h1.55V12.49l2.564 3.43h1.892L8.293 12.64c1.121-.82 1.852-2.096 1.843-3.639z" fill="#0B051D"></path>
+                </svg>
+            </li>
+
+            <li class="list-payment__item shopify_pay">
+                <svg class="icon icon--full-color" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 38 24" width="38" height="24" aria-labelledby="{{ aria_prefix }}-pi-shopify_pay">
+                <title id="{{ aria_prefix }}-pi-shopify_pay">Shop Pay</title>
+                <path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000"></path>
+                <path d="M35.889 0C37.05 0 38 .982 38 2.182v19.636c0 1.2-.95 2.182-2.111 2.182H2.11C.95 24 0 23.018 0 21.818V2.182C0 .982.95 0 2.111 0H35.89z" fill="#5A31F4"></path>
+                <path d="M9.35 11.368c-1.017-.223-1.47-.31-1.47-.705 0-.372.306-.558.92-.558.54 0 .934.238 1.225.704a.079.079 0 00.104.03l1.146-.584a.082.082 0 00.032-.114c-.475-.831-1.353-1.286-2.51-1.286-1.52 0-2.464.755-2.464 1.956 0 1.275 1.15 1.597 2.17 1.82 1.02.222 1.474.31 1.474.705 0 .396-.332.582-.993.582-.612 0-1.065-.282-1.34-.83a.08.08 0 00-.107-.035l-1.143.57a.083.083 0 00-.036.111c.454.92 1.384 1.437 2.627 1.437 1.583 0 2.539-.742 2.539-1.98s-1.155-1.598-2.173-1.82v-.003zM15.49 8.855c-.65 0-1.224.232-1.636.646a.04.04 0 01-.069-.03v-2.64a.08.08 0 00-.08-.081H12.27a.08.08 0 00-.08.082v8.194a.08.08 0 00.08.082h1.433a.08.08 0 00.081-.082v-3.594c0-.695.528-1.227 1.239-1.227.71 0 1.226.521 1.226 1.227v3.594a.08.08 0 00.081.082h1.433a.08.08 0 00.081-.082v-3.594c0-1.51-.981-2.577-2.355-2.577zM20.753 8.62c-.778 0-1.507.24-2.03.588a.082.082 0 00-.027.109l.632 1.088a.08.08 0 00.11.03 2.5 2.5 0 011.318-.366c1.25 0 2.17.891 2.17 2.068 0 1.003-.736 1.745-1.669 1.745-.76 0-1.288-.446-1.288-1.077 0-.361.152-.657.548-.866a.08.08 0 00.032-.113l-.596-1.018a.08.08 0 00-.098-.035c-.799.299-1.359 1.018-1.359 1.984 0 1.46 1.152 2.55 2.76 2.55 1.877 0 3.227-1.313 3.227-3.195 0-2.018-1.57-3.492-3.73-3.492zM28.675 8.843c-.724 0-1.373.27-1.845.746-.026.027-.069.007-.069-.029v-.572a.08.08 0 00-.08-.082h-1.397a.08.08 0 00-.08.082v8.182a.08.08 0 00.08.081h1.433a.08.08 0 00.081-.081v-2.683c0-.036.043-.054.069-.03a2.6 2.6 0 001.808.7c1.682 0 2.993-1.373 2.993-3.157s-1.313-3.157-2.993-3.157zm-.271 4.929c-.956 0-1.681-.768-1.681-1.783s.723-1.783 1.681-1.783c.958 0 1.68.755 1.68 1.783 0 1.027-.713 1.783-1.681 1.783h.001z" fill="#fff"></path>
+                </svg>
+            </li>
+            </ul>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="d-flex align-items-center justify-content-lg-end justify-content-md-end justify-content-sm-start gap-5">
+                    <a href="/a/sitemap" class="body pp-light a-f-gray">
+                        Sitemap
+                    </a>
+                    <a href="/pages/terms-of-service" class="body pp-light a-f-gray">
+                        Term Service
+                    </a>
+                </div>
+                <div class="divider d-lg-none d-md-none d-sm-block"></div>
+            </div>
+
+        </div>
+        <div class="divider d-lg-block d-md-block d-sm-none"></div>
+    </div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("#footer-newsletter");
+    if (!form) return;
+
+    const emailInput = form.querySelector('input[name="contact[email]"]');
+    const checkbox = form.querySelector('input[name="validation"]');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const status = form.querySelector(".nl-status");
+
+    if (!submitBtn || !status) return;
+
+    // Function to show message
+    const showStatus = (message) => {
+        status.textContent = message;
+        status.style.display = "block";       // show the element
+        status.classList.add("error");        // optional red styling
+        status.classList.remove("hidden");
+    };
+
+    // Function to hide message
+    const hideStatus = () => {
+        status.textContent = "";
+        status.style.display = "none";
+        status.classList.remove("error");
+        status.classList.add("hidden");
+    };
+
+    // Hide status when user types or checks box
+    emailInput.addEventListener("input", hideStatus);
+    checkbox.addEventListener("change", hideStatus);
+
+    submitBtn.addEventListener("click", function(e) {
+        hideStatus(); // reset previous message
+
+        // 1️⃣ Email validation
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(emailInput.value)) {
+            e.preventDefault();
+            showStatus("Please enter a valid email address.");
+            emailInput.focus();
+            return false;
+        }
+
+        // 2️⃣ Checkbox validation
+        if (!checkbox.checked) {
+            e.preventDefault();
+            showStatus("You must agree to the Terms of Use and Privacy Policy before subscribing.");
+            checkbox.focus();
+            return false;
+        }
+
+        // ✅ If both pass, form submits normally and hCaptcha triggers
+    });
+});
+</script>
+
+<style>
+.nl-status.error {
+    color: red !important;
+    font-weight: 500 !important;
+    font-size:16px !important;
+}
+</style>
+
+
+{% schema %}
+{
+    "name": "Footer",
+    "settings": [
+        {
+          "type": "header",
+          "content": "Newsletter"
+        },
+        {
+          "type": "text",
+          "id": "newsletter_heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "newsletter_description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "social_heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "social_description",
+          "label": "Description"
+        },
+        {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Logo"
+        },
+        {
+            "type": "header",
+            "content": "Footer List"
+        },
+        {
+            "type": "image_picker",
+            "id": "footer_icon_logo_1",
+            "label": "Icon Logo - 1"
+        },
+        {
+          "type": "text",
+          "id": "footer_heading_1",
+          "label": "Heading - 1"
+        },
+        {
+          "type": "richtext",
+          "id": "footer_description_1",
+          "label": "Description - 1"
+        },
+        {
+            "type": "image_picker",
+            "id": "footer_icon_logo_2",
+            "label": "Icon Logo - 2"
+        },
+        {
+          "type": "text",
+          "id": "footer_heading_2",
+          "label": "Heading - 2"
+        },
+        {
+          "type": "richtext",
+          "id": "footer_description_2",
+          "label": "Description - 2"
+        },
+        {
+            "type": "link_list",
+            "id": "menu_1",
+            "label": "1. Menu"
+        },
+        {
+            "type": "text",
+            "id": "menu_1_title",
+            "label": "1. Menu Title"
+        },
+        {
+            "type": "link_list",
+            "id": "menu_2",
+            "label": "2. Menu"
+        },
+        {
+            "type": "text",
+            "id": "menu_2_title",
+            "label": "2. Menu Title"
+        },
+        {
+            "type": "link_list",
+            "id": "menu_3",
+            "label": "3. Menu"
+        },
+        {
+            "type": "text",
+            "id": "menu_3_title",
+            "label": "3. Menu Title"
+        },
+        {
+            "type": "link_list",
+            "id": "menu_4",
+            "label": "4. Menu"
+        },
+        {
+            "type": "text",
+            "id": "menu_4_title",
+            "label": "4. Menu Title"
+        },
+        {
+            "type": "link_list",
+            "id": "support_links",
+            "label": "Support Links"
+        },
+        {
+            "type": "text",
+            "id": "copyright",
+            "label": "Copyright"
+        },
+        {
+            "type": "header",
+            "content": "Payment Methods Icons"
+        },
+        {
+            "type": "image_picker",
+            "id": "payment_method_icons",
+            "label": "Payment Methods Icons"
+        },
+        {
+            "type": "image_picker",
+            "id": "payment_method_icons_mobile",
+            "label": "Payment Methods Icons - Mobile"
+        }
+    ]
+}
+{% endschema %}

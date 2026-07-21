@@ -1,0 +1,74 @@
+<script>
+  (function () {
+    if (window.__vTalentsPowrModalInit) return;
+    window.__vTalentsPowrModalInit = true;
+
+    var openModal = null;
+
+    function closeModal() {
+      if (!openModal) return;
+      openModal.classList.remove('is-open');
+      document.body.classList.remove('no-scroll');
+      openModal = null;
+    }
+
+    function findModal(key) {
+      var modal = document.querySelector(
+        '.v-talents-powr-modal[data-v-talents-powr-modal="' + key + '"]'
+      );
+      if (!modal && key === 'rewards') {
+        modal = document.querySelector(
+          '.v-talents-powr-modal[data-v-talents-powr-modal="apply"]'
+        );
+      }
+      return modal;
+    }
+
+    function showModal(modal) {
+      if (!modal) return;
+      closeModal();
+      openModal = modal;
+      modal.classList.add('is-open');
+      document.body.classList.add('no-scroll');
+    }
+
+    function bindModals() {
+      document
+        .querySelectorAll('.v-talents-powr-modal[data-v-talents-powr-modal]:not([data-v-powr-modal-bound])')
+        .forEach(function (modal) {
+          modal.setAttribute('data-v-powr-modal-bound', '1');
+          modal.querySelectorAll('[data-v-talents-powr-close]').forEach(function (el) {
+            el.addEventListener('click', closeModal);
+          });
+        });
+    }
+
+    function bindOpenButtons() {
+      document.querySelectorAll('[data-v-talents-powr-open]:not([data-v-powr-bound])').forEach(function (btn) {
+        btn.setAttribute('data-v-powr-bound', '1');
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          var key = btn.getAttribute('data-v-talents-powr-open');
+          showModal(findModal(key));
+        });
+      });
+    }
+
+    function init() {
+      bindModals();
+      bindOpenButtons();
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && openModal) closeModal();
+    });
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    document.addEventListener('shopify:section:load', init);
+  })();
+</script>

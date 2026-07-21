@@ -1,0 +1,133 @@
+
+<div class="popup-overlay"></div>
+<div class="popup-content">
+    <div class="popup-header justify-content-between px-lg-4 px-md-4 px-sm-3 pb-2">
+        <h4 class="pp-bold pretitle f-black">
+            Edit Option
+        </h4>
+        <button class="popup-close" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24.771" height="24.771" viewBox="0 0 24.771 24.771">
+                <path d="M0 0h24.771v24.771H0Z" style="fill:transparent"/>
+                <path d="m171.66 158.039.057.052 7.013 7.014 6.755-6.755a1.032 1.032 0 0 1 1.512 1.4l-.052.057-6.756 6.754 6.756 6.755a1.032 1.032 0 0 1-1.4 1.513l-.057-.053-6.755-6.755-7.013 7.014a1.032 1.032 0 0 1-1.512-1.4l.052-.057 7.014-7.014-7.013-7.013a1.032 1.032 0 0 1 1.4-1.512Z" transform="translate(-165.843 -153.975)" style="fill:#111"/>
+            </svg>
+        </button>
+    </div>
+    <div class="popup-container px-lg-4 px-md-4 px-sm-0 pb-lg-4 pb-md-4 pb-sm-3 pt-lg-3 pt-md-3 pt-sm-2">
+        <div class="product-update-item col-lg-11 col-md-11 col-sm-12 mx-auto pb-lg-4 pb-md-4 pb-sm-3">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    {%- assign active_variant = selected_variant | default: product.variant | default: product.selected_or_first_available_variant -%}
+
+                    <div class="product-featured-image">
+                    {% if active_variant.featured_media %}
+                        <img
+                        src="{{ active_variant.featured_media | image_url: width: 800 }}"
+                        alt="{{ active_variant.featured_media.alt | escape }}"
+                        loading="lazy"
+                        >
+                    {% else %}
+                        <img
+                        src="{{ product.featured_image | image_url: width: 800 }}"
+                        alt="{{ product.title | escape }}"
+                        loading="lazy"
+                        >
+                    {% endif %}
+                    </div>
+
+
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                    <h3 class="pp-semibold body-xl f-black l-h-normal pb-1 col-lg-11 col-md-11 col-sm-12 mt-lg-0 mt-md-0 mt-sm-3">
+                        {{ product.title }}
+                    </h3>
+                    <div class="product-price pb-lg-3 pb-md-3 pb-sm-2">
+                        <span class="final">
+                            {{ product.final_line_price | money | prepend: curSym }}
+                        </span>
+                        
+                        {% assign final_compare = product.quantity | times: product.variant.compare_at_price  %}
+                        {% if final_compare > 0 %}
+                            <span class="original">
+                                {{ final_compare | money | prepend: curSym }}
+                            </span>
+
+                            {% assign totalLess = totalLess | plus: final_compare %}
+                        {% else %}
+                            {% assign totalLess = totalLess | plus: product.final_line_price %}
+                        {% endif %}
+                        
+                        {% assign discounted_price = product.total_discount %}
+
+                        {% assign totalSavings = 0 %}
+
+                        {% assign compare_price = product.variant.compare_at_price %}
+                        {% assign original_price = product.variant.price %}
+                        {% assign final_price = product.final_price %}
+                        {% assign quantity = product.quantity %}
+                        
+                        {% if compare_price > original_price %}
+                        {% assign price_saving = compare_price | minus: original_price %}
+                        {% else %}
+                        {% assign price_saving = 0 %}
+                        {% endif %}
+                    
+                        {% assign additional_discount = original_price | minus: final_price %}
+                    
+                        {% assign savings_per_item = price_saving | plus: additional_discount %}
+                        {% assign savings_total = savings_per_item | times: quantity %}
+                        {% assign totalSavings = totalSavings | plus: savings_total %}
+                        
+                        {% if totalSavings > 0 %}
+                            <span class="discounted">
+                            Save {{ totalSavings | money_without_trailing_zeros | prepend: curSym }}
+                            </span>
+                        {% endif %}
+
+                    </div>
+
+
+                    {% unless product.has_only_default_variant %}
+                        {% render 'edit-product-variant', product: product, selected_variant: active_variant %}
+                    {% endunless %}
+
+
+                    
+                    <div class="d-flex gap-lg-3 gap-md-3 gap-sm-2 mt-lg-3 mt-md-3 mt-sm-2">
+                        <div class="quantity-container flex-1">
+                            <label class="pp-semibold body-lg f-black mb-1">
+                                Quantity:
+                            </label>
+                            <quantity-input class="quantity">
+                                <button name="minus" type="button" class="popup-less-qty" style="margin-right: 5px;">-</button>
+                                <input class="qty quantity__input nav-quantity__input"
+                                    type="number"
+                                    name="quantity"
+                                    id="nav-Quantity-edit-{{ product.id }}"
+                                    min="1"
+                                    readonly
+                                    value="1"
+                                >
+                                <button name="plus" type="button" class="popup-add-qty" style="margin-left: 5px;">+</button>
+                            </quantity-input>
+
+                        </div>  
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="bottom-container pt-lg-3 pt-md-3 pt-sm-2">
+                <div class="btn-hover btn-main w-100 mt-lg-4 mt-md-4 mt-sm-3 text-center">
+                    <span class="pp-semibold body-lg f-white">
+                        Add To Cart                            
+                    </span>
+                    <div class="atc-overlay">
+                        <div class="atc-spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

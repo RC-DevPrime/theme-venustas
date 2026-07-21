@@ -1,0 +1,14 @@
+<script defer>
+function swymCallbackFn(swat) {
+    document.addEventListener("swym:collections-loaded", function() {
+        // Use this for initializing buttons on any selector
+        swat.initializeActionButtons("body"); 
+    });
+}
+
+if (!window.SwymCallbacks) {
+    window.SwymCallbacks = [];
+}
+
+window.SwymCallbacks.push(swymCallbackFn);
+</script>

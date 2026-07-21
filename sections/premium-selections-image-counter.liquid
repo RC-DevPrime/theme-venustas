@@ -1,0 +1,233 @@
+{% style %}
+    .premium-selections-image-counter-section{
+
+    }
+    .premium-selections-image-counter-section .featured-image-container{
+        height:700px;
+        width:100%;
+        border-radius:16px;
+        overflow:hidden;
+    }
+    .premium-selections-image-counter-section .featured-image-container img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+    
+    
+    .premium-selections-image-counter-section .counter-list-container .row{
+        --bs-gutter-x: 0;
+        --bs-gutter-y: 1.5rem;
+    }
+    .premium-selections-image-counter-section .counter-list-container .counter-item{
+        display:flex;
+        justify-content: center;
+        border-right: 1px solid #E8E8E8;
+    }
+    .premium-selections-image-counter-section .counter-list-container .col-4:last-child .counter-item{
+        border:none;
+    }
+    .premium-selections-image-counter-section .counter-number{
+        font-size:56px;
+        line-height:56px;
+    }
+    .premium-selections-image-counter-section .w-fit-content{
+        width:fit-content;
+    }
+
+    
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .premium-selections-image-counter-section .featured-image-container{
+            height: 200px;
+            border-radius:8px;
+        }
+        .premium-selections-image-counter-section .counter-list-container .col-4:nth-child(1) .counter-item{
+            justify-content: flex-start;
+        }
+        .premium-selections-image-counter-section .counter-list-container .col-4:nth-child(3) .counter-item{
+            justify-content: flex-end;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:42px;
+            line-height:42px;
+        }
+    }
+    @media only screen and (min-width: 375px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:42px;
+            line-height:42px;
+        }
+    }
+    @media only screen and (min-width: 390px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:42px;
+            line-height:42px;
+        }
+    }
+    @media only screen and (min-width: 414px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:42px;
+            line-height:42px;
+        }
+    }
+    @media only screen and (min-width: 428px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:42px;
+            line-height:42px;
+        }
+    }
+    @media only screen and (min-width: 480px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:42px;
+            line-height:42px;
+        }
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:45px;
+            line-height:45px;
+        }
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:48px;
+            line-height:48px;
+        }
+    }
+    @media only screen and (min-width: 1366px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:48px;
+            line-height:48px;
+        }
+    }
+    @media only screen and (min-width: 1440px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:48px;
+            line-height:48px;
+        }
+    }
+    @media only screen and (min-width: 1536px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:48px;
+            line-height:48px;
+        }
+    }
+    @media only screen and (min-width: 1600px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:50px;
+            line-height:50px;
+        }
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:56px;
+            line-height:56px;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .premium-selections-image-counter-section .counter-number{
+            font-size:56px;
+            line-height:56px;
+        }
+    }
+{% endstyle %}
+<div class="container section-content">
+    <div class="counter-list-container col-lg-10 col-md-10 col-sm-12 mx-auto mb-lg-5 mb-md-5 mb-sm-4 pb-2">
+        <div class="row">
+            {% for block in section.blocks %}
+                <div class="col-4" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="{{ forloop.index }}00" data-aos-duration="500">
+                    <div class="counter-item" >
+                        <div class="d-flex flex-column w-fit-content">
+                            <div class="d-flex align-items-center gap-1">
+                                <span class="counter-number odometer pp-bold f-main" data-count="{{ block.settings.counter }}">
+                                    0
+                                </span>
+                                <span class="pp-semibold pretitle-lg f-main mt-2">
+                                    {{ block.settings.unit }}
+                                </span>
+                            </div>
+                            <div class="counter-label"> 
+                                <p class="pp-semibold body-lg d-lg-block d-md-block d-sm-none">
+                                    {{ block.settings.label }}
+                                </p>
+                                <p class="pp-semibold body-xs d-lg-none d-md-none d-sm-block">
+                                    {{ block.settings.label }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="featured-image-container" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="100" data-aos-duration="500">
+        <img src="{{ section.settings.background_image | img_url: '1400x1400' }}" width="100%" height="100%">
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "premium-selections-image-counter-section",
+        "name": "Premium Image Counter",
+        "limit": 1,
+        "templates": ["page"],
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "background_image",
+                "label": "Background Image"
+            },
+        ],
+        "max_blocks": 3,
+        "blocks": [
+            {
+                "type": "counter",
+                "name": "Counter",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "counter",
+                        "label": "Counter",
+                        "default": "999"
+                    },
+                    {
+                        "type": "text",
+                        "id": "unit",
+                        "label": "Unit",
+                        "default": "+"
+                    },
+                    {
+                        "type": "text",
+                        "id": "label",
+                        "label": "Label",
+                        "default": "Label"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Premium Image Counter"
+        }]
+    }
+  {% endschema %} 

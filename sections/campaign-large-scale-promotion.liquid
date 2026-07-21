@@ -1,0 +1,370 @@
+{% style %}
+    .campaign-large-scale-promotion-section{
+        background-color:#000;
+    }
+    .campaign-large-scale-promotion-section .section-heading{
+    }
+    .campaign-large-scale-promotion-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+
+    .campaign-large-scale-promotion-section .gift-list-container .inner-section{
+        background: #F9F6EF;
+        border-radius: 10px 10px 10px 10px;
+        padding:20px 30px;
+    }
+    .campaign-large-scale-promotion-section .gift-list-container .gift-item .product-image{
+        height:150px;
+        width:100%;
+    }
+    .campaign-large-scale-promotion-section .gift-list-container .gift-item .product-image img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+    }
+    .campaign-large-scale-promotion-section .gift-list-container .gift-item .content-container{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+    }   
+    .campaign-large-scale-promotion-section .gift-list-container .gift-list-row{
+        --bs-gutter-x: 60px;
+    }
+    .campaign-large-scale-promotion-section .gift-list-container .item-row{
+        border-right: 1px solid #E6D6B2 ;
+    }
+    .campaign-large-scale-promotion-section .gift-list-container .item-row:last-child{
+        border-right:none;
+    }
+
+    .campaign-large-scale-promotion-section .large-scale-promotion-container .product-item{
+        background: #FFFFFF;
+        border-radius: 10px 10px 10px 10px;
+    }
+    .campaign-large-scale-promotion-section .large-scale-promotion-container .product-item .product-details{
+        padding: 0px 14px 14px 14px;
+    }
+    .campaign-large-scale-promotion-section .large-scale-promotion-container .product-item .wishlist-button{
+        right: 14px;
+    }
+    .campaign-large-scale-promotion-section .large-scale-promotion-container .swiper-slide{
+        height:auto;
+    }
+    .campaign-large-scale-promotion-section .sale-product-slider-container .swiper-pagination{
+        position: relative;
+        margin-top: 30px;
+    }
+    .campaign-large-scale-promotion-section .float-nav button{
+        background:#f1eadd;
+    }
+    .campaign-large-scale-promotion-section .float-nav button:hover{
+        background:#B93205;
+    }
+    .campaign-large-scale-promotion-section .float-nav button i{
+        color:#B93205 !important;
+    }
+    .campaign-large-scale-promotion-section .float-nav button:hover i{
+        color:#FFF !important;
+    }
+    .campaign-sale-steps-section .sale-product-slider-container .swiper-pagination span{
+        width: 10px;
+        height: 10px;
+        background: #818181;
+        opacity: 1;
+    }
+    .campaign-sale-steps-section .sale-product-slider-container .swiper-pagination span.swiper-pagination-bullet-active{
+        background: #B93205;
+    }
+    .campaign-large-scale-promotion-section .background-image-element{
+        max-width: 200px;
+        max-height: 200px;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        position: absolute;
+    }
+    .campaign-large-scale-promotion-section .background-image-element.element-1{
+        left:0;
+    }
+    .campaign-large-scale-promotion-section .background-image-element.element-2{
+        top:1%;
+        right:7%;
+    }
+
+    .campaign-large-scale-promotion-section .section-heading{
+        margin-left:-30px;
+    }
+    .campaign-large-scale-promotion-section .section-heading span{
+        position:relative;
+    }
+    .campaign-large-scale-promotion-section .section-heading:before{
+        content:"";
+        display:inline-block;
+        height:35px;
+        width:35px;
+        top:5px;
+        position:relative;
+        background-image:url({{ section.settings.heading_element | img_url: 'master' }});
+        background-size:contain;
+        background-repeat:no-repeat;
+    }
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .campaign-large-scale-promotion-section .gift-list-container .gift-item .product-image{
+            height:70px;
+            width:65px;
+            margin:auto;
+        }
+        .campaign-large-scale-promotion-section .section-heading{
+            margin-left:-20px;
+        }
+        .campaign-large-scale-promotion-section .section-heading:before{
+            height:30px;
+            width:30px;
+        }
+        .campaign-large-scale-promotion-section .background-image-element{
+            max-width: 70px;
+            max-height: 70px;
+        }
+        .campaign-large-scale-promotion-section .background-image-element.element-1{
+            max-width: 90px;
+            max-height: 90px;
+        }
+        .campaign-large-scale-promotion-section .background-image-element.element-2{
+            top:6%;
+            right:6%;
+        }
+        .campaign-large-scale-promotion-section .gift-list-container .gift-list-row{
+            --bs-gutter-y: 10px;
+            --bs-gutter-x: 0px;
+            padding:0px;
+        }
+        .campaign-large-scale-promotion-section .gift-list-container .inner-section{
+            background:unset;
+            padding:0px;
+        }
+        .campaign-large-scale-promotion-section .gift-list-container .inner-section .gift-item{
+            background: #F9F6EF;
+            border-radius: 6px 6px 6px 6px;
+            padding-top:15px;
+            padding-bottom:15px;
+        }
+        .campaign-large-scale-promotion-section .gift-list-container .item-row{
+            border:none;
+        }
+        .campaign-large-scale-promotion-section .gift-list-container .inner-section .gift-item{
+            --bs-gutter-x: 0px;
+        }
+        .campaign-large-scale-promotion-section .large-scale-promotion-container .product-item {
+            border-radius: 6px 6px 6px 6px;
+            padding: 0px 6px 6px 6px;
+        }
+        .campaign-large-scale-promotion-section .large-scale-promotion-container .product-item .product-details{
+            padding: 0px;
+        }
+        .campaign-large-scale-promotion-section .swiper-pagination{
+            position:unset;
+            margin-top:20px;
+        }
+        .campaign-large-scale-promotion-section .swiper-pagination .swiper-pagination-bullet{
+            background: #818181;
+            width:11px;
+            height:11px;
+            opacity:1;
+        }
+        .campaign-large-scale-promotion-section .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active{
+            background: #B93205;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="campaign-large-scale-promotion-section overflow-hidden position-relative
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}> 
+
+    <img src="{{ section.settings.background_image_element_1 | img_url: 'master' }}" class="background-image-element element-1">
+    <img src="{{ section.settings.background_image_element_2 | img_url: 'master' }}" class="background-image-element element-2">
+    <div class="section-content">
+        <div class="container px-lg-4 px-md-4 px-sm-0">
+            <div class="pb-lg-5 pb-md-5 pb-sm-4 px-lg-0 px-md-0 px-sm-2">
+                <h2 class="section-heading pp-semibold f-white title-sm text-center">
+                    {{ section.settings.heading }}
+                </h2>
+            </div>
+
+            <div class="gift-list-container col-lg-11 col-md-11 col-sm-12 mx-auto position-relative">
+                <div class="inner-section">
+                    <div class="row gift-list-row ">
+                        {% for block in section.blocks %}
+                            <div class="col-lg-4 col-md-4 col-sm-12 item-row">
+                                <div class="gift-item">
+                                    <div class="row d-lg-flex d-md-block d-sm-none">
+                                        <div class="col-4">
+                                            <div class="product-image">
+                                                <img src="{{ block.settings.icon | img_url: 'master' }}" width="100%" height="100%">
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="content-container">
+                                                <h4 class="pp-semibold body-xl f-black">{{ block.settings.heading }}</h4>
+                                                <div class="pp-regular body f-gray">
+                                                    {{ block.settings.description }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-lg-none d-md-none d-sm-flex">
+                                        <div class="col-4">
+                                            <div class="product-image">
+                                                <img src="{{ block.settings.icon | img_url: 'master' }}" width="100%" height="100%">
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="content-container">
+                                                <h4 class="pp-semibold body-xl f-black">{{ block.settings.heading }}</h4>
+                                                <div class="pp-regular body f-gray">
+                                                    {{ block.settings.description }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="large-scale-promotion-container position-relative pt-lg-5 pt-md-5 pt-sm-3">
+            <div class="container px-lg-5 px-md-5 px-sm-0">
+                <div class="large-scale-promotion-slider position-relative overflow-hidden">  
+                    <div class="swiper-wrapper">
+
+                        {% for product in section.settings.collection.products limit: section.settings.maximum_number_product_display %}
+                            <div class="swiper-slide">
+                                {% render 'product-item', product: product, sale_badge_type: section.settings.sale_badge_type, badge_detail: true, %}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="float-nav d-lg-block d-md-block d-sm-none">
+                <button type="button" class="owl-prev" disabled>
+                    <i class="fa-solid fa-chevron-left f-white"></i>
+                </button>
+                <button type="button" class="owl-next" disabled>
+                    <i class="fa-solid fa-chevron-right f-white"></i>
+                </button>
+            </div>
+            <div class="swiper-pagination d-lg-none d-lg-none d-sm-block"></div>
+        </div>
+
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Campaign Large Promo",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enabled_section_child_scroll",
+                "label": "Enabled Section Child Scroll"
+            },
+            {
+                "type": "text",
+                "id": "section_scroll_nav",
+                "label": "Section Scroll Nav",
+                "info": "Need to Enabled first Section Scroll"
+            },
+            {
+                "type": "text",
+                "id": "nav_title",
+                "label": "Navigation Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image_element_1",
+                "label": "Background Element - 1"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image_element_2",
+                "label": "Background Element - 2"
+            },
+            {
+                "type": "image_picker",
+                "id": "heading_element",
+                "label": "Heading Element"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Limited-Time Offer"
+            },
+            {
+                "type": "collection",
+                "id":"collection",
+                "label": "Collection List",
+            },
+            {
+                "type": "number",
+                "id": "maximum_number_product_display",
+                "label": "Maximum Number Product Display",
+                "default": 10
+            }
+        ],
+        "max_blocks": 3,
+        "blocks": [
+            {
+                "type": "gift",
+                "name": "Gift",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "icon",
+                        "label": "Icon"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading"
+                    },
+                    {
+                        "type": "textarea",
+                        "id": "description",
+                        "label": "Description"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Campaign Large Promo"
+        }]
+    }
+  {% endschema %} 

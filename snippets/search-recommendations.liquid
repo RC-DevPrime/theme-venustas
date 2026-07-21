@@ -1,0 +1,106 @@
+<div class="recommendations">
+    <div class="results">
+        <h3 class="body-lg pp-bold f-black predictive-title">
+            Trending Search Term
+        </h3>
+        <ul role="listbox" aria-labelledby="predictive-search-products">
+            {% for block in section.blocks %}
+                {% if block.type == 'Link' %}
+                    <li role="option">
+                        <a href="{{ block.settings.link }}">
+                            <span class="body pp-regular f-black">
+                                {{ block.settings.title }}
+                            </span>
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        {% assign product_count = 0 %}
+
+        {% for block in section.blocks %}
+            {% if block.type == 'Product' %}
+                {% assign product_count = product_count | plus: 1 %}
+            {% endif %}
+        {% endfor %}
+        {% if product_count > 1 %}
+        <h3 class="body-lg pp-bold f-black predictive-title pt-4">
+            Popular Products
+        </h3>
+        <div class="popuplar-product-list">
+            <div class="row">
+                {% for block in section.blocks %}
+                    {% if block.type == 'Product' %}
+                        <div class="col-4">
+                            <a href="{{ block.settings.product.url }}" class="popular-product-item">
+                                <div class="product-image">
+                                    <img src="{{ block.settings.product.featured_image | img_url: '500x500' }}" width="100%" height="100%">
+                                </div>
+                                <div class="product-info">
+                                    
+                                    {% assign product_tag_text = block.settings.product.metafields.custom.pre_search_product_tags.value | default: block.settings.product.metafields.custom.pre_search_product_tags %}
+                                    {% assign is_new_product = block.settings.product.metafields.custom.is_new_product.value %}
+
+                                    {% if is_new_product %}
+                                        <div class="custom-tag mb-1">
+                                            <span class="pp-bold body-xs f-main l-h-normal text-uppercase">New</span>
+                                        </div>
+                                    {% elsif product_tag_text != blank %}
+                                        <div class="custom-tag mb-1">
+                                            <span class="pp-bold body-xs f-main l-h-normal text-uppercase">{{ product_tag_text }}</span>
+                                        </div>
+                                    {% endif %}
+
+                                    <h5 class="pp-bold body truncate-2-text mb-1">
+                                        {% if block.settings.product.metafields.custom.pre_search_product_title != blank %}
+                                            {{ block.settings.product.metafields.custom.pre_search_product_title }}
+                                        {% else %}
+                                            {{ block.settings.product.title }}
+                                        {% endif %}
+                                    </h5>
+
+                                    <div class="price-container d-flex gap-1 align-items-center">
+                                        
+                                        {% assign display_price = block.settings.product.price_min %}
+                                        
+                                        <div class="text-sale-price f-main d-flex">
+                                            <div class="pp-bold body-lg d-lg-block d-md-block d-sm-none">
+                                                
+                                                {% if product.price_varies %}
+                                                    <span class="body">From </span> {{ display_price | money }}
+                                                {% else %}
+                                                    {{ block.settings.product.selected_or_first_available_variant.price | money }}
+                                                {% endif %}
+                                            </div>
+                                            <div class="pp-bold body-sm d-lg-none d-md-none d-sm-block">
+                                                
+                                                {% if product.price_varies %}
+                                                    <span class="body-xs">From </span> {{ display_price | money }}
+                                                {% else %}
+                                                    {{ block.settings.product.selected_or_first_available_variant.price | money }}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        {% if block.settings.product.selected_or_first_available_variant.price != block.settings.product.selected_or_first_available_variant.compare_at_price %}
+                                            <div class="text-compare-price f-compare-price d-flex">
+                                                <div class="pp-regular body-sm d-lg-block d-md-block d-sm-none">
+                                                    {{ block.settings.product.selected_or_first_available_variant.compare_at_price | money }}
+                                                </div>
+                                                <div class="pp-regular body-xs d-lg-none d-md-none d-sm-block">
+                                                    {{ block.settings.product.selected_or_first_available_variant.compare_at_price | money }}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>

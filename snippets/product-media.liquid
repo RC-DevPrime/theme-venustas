@@ -1,0 +1,733 @@
+
+<div class="product-media">
+    <div class="thumbnail d-lg-block d-md-none d-sm-none ">
+        <div class="swiper-container thumbnail-slider desktop slider-hidden swiper-vertical">
+
+            <div class="swiper-wrapper">
+                {% for media in product.media %}
+                    {% case media.media_type %}
+                    {% when 'image' %}
+                        <div class="swiper-slide" data-media-id="{{ media.id }}">
+                        <img
+                            src="{{ media | img_url: '400x400' | image_url: 'format:auto' }}"
+                            srcset="
+                            {{ media | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                            {{ media | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                            {{ media | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                            {{ media | img_url: '1400x1400' | image_url: 'format:auto' }} 1400w"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="{{ media.alt | escape }}"
+                            decoding="async"
+                            loading="lazy"
+                        >
+                        </div>
+                    {% endcase %}
+                {% endfor %}
+            </div>
+
+        </div>
+        <span class="thumbnail-next slider-next d-lg-block d-md-none d-sm-none">
+            <i class="fa-solid fa-chevron-down"></i>
+        </span>
+    </div>
+    <div class="main-media position-relative">
+        
+    <div class="main-product-tag-container">
+        {% if product.selected_or_first_available_variant.compare_at_price != product.selected_or_first_available_variant.price and product.selected_or_first_available_variant.compare_at_price > 0 %}
+            <span class="badge sale-badge" aria-hidden="true">
+
+                {% assign price_diff = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price %}
+                {% assign percent_off = price_diff | times: 100.0 | divided_by: product.selected_or_first_available_variant.compare_at_price | round %}
+
+                {% if percent_off < 0 %}
+                    {% assign percent_off = 0 %}
+                {% endif %}
+
+                {% if sale_badge_type == 'discount' %}
+                    <span class="body-sm pp-semibold">
+                        {% if badge_detail %}
+                            {% assign off_dollars = price_diff | times: 0.01 | round | ceil %}
+                            {% if off_dollars > 0 %}
+                                ${{ off_dollars }} OFF
+                            {% endif %}
+                        {% else %}
+                            {% assign max_compare = 0 %}
+                            {% for variant in product.variants %}
+                                {% if variant.compare_at_price > variant.price %}
+                                    {% assign saving = variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round %}
+                                    {% if saving > max_compare %}
+                                        {% assign max_compare = saving %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if max_compare > 0 %}
+                                {{ max_compare }}% OFF
+                            {% endif %}
+                        {% endif %}
+                    </span>
+
+                {% elsif sale_badge_type == 'text_discount' %}
+                    <span class="body-sm pp-semibold">
+                        {% if badge_detail %}
+                            {{ percent_off }}% OFF
+                        {% else %}
+                            {{ percent_off }}% OFF
+                        {% endif %}
+                    </span>
+
+                {% else %}
+                    <span class="body-sm pp-semibold">
+                        {% if badge_detail %}
+                            {% assign off_dollars = price_diff | times: 0.01 | round | ceil %}
+                            ${{ off_dollars }} OFF
+                        {% else %}
+                            {{ percent_off }}% OFF
+                        {% endif %}
+                    </span>
+                {% endif %}
+
+            </span>
+        {% endif %}
+        
+        {% if new_badge %}
+        <span class="badge new-badge" aria-hidden="true">
+            <span class="body pp-semibold">New</span>
+        </span>
+        {% endif %}
+    </div>
+
+        <div class="position-relative">
+            <div class="swiper-container main-slider slider-hidden">
+
+                <div class="swiper-wrapper">
+                    {% for media in product.media %}
+                        {% case media.media_type %}
+                        {% when 'image' %}
+                            <div class="swiper-slide" data-media-id="{{ media.id }}">
+                            
+                            {% if forloop.first and section.settings.media_icon %}
+                                <span class="media-icon">
+                                <img
+                                    src="{{ section.settings.media_icon | img_url: '200x200' | image_url: 'format:auto' }}"
+                                    srcset="
+                                    {{ section.settings.media_icon | img_url: '100x100' | image_url: 'format:auto' }} 100w,
+                                    {{ section.settings.media_icon | img_url: '200x200' | image_url: 'format:auto' }} 200w,
+                                    {{ section.settings.media_icon | img_url: '400x400' | image_url: 'format:auto' }} 400w"
+                                    sizes="50px"
+                                    alt="{{ section.settings.media_icon.alt | escape }}"
+                                    decoding="async"
+                                    loading="eager"
+                                    fetchpriority="high"
+                                >
+                                </span>
+                            {% endif %}
+
+                            <img
+                                class="product-media-zoom-trigger"
+                                src="{{ media | img_url: '400x400' | image_url: 'format:auto' }}"
+                                srcset="
+                                {{ media | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                                {{ media | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                                {{ media | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                                {{ media | img_url: '1400x1400' | image_url: 'format:auto' }} 1400w"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                alt="{{ media.alt | escape }}"
+                                data-zoom-src="{{ media | image_url: width: 2200 }}"
+                                decoding="async"
+                                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                                {% if forloop.first %}fetchpriority="high"{% endif %}
+                            >
+                            </div>
+                        {% endcase %}
+                    {% endfor %}
+                </div>
+
+            </div>
+            <button type="button" class="product-media-zoom-button body-sm pp-semibold" aria-label="View larger image">
+                Click to view larger image
+            </button>
+            <div class="float-nav d-lg-block d-md-block d-sm-block">
+                <button type="button" class="owl-prev slider-prev">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button type="button" class="owl-next slider-next">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+            {% comment %} {% assign videos = product.media | where: "media_type", "video" %}
+            {% if videos.size > 0 %} {% endcomment %}
+                {% assign has_video_media = false %}
+                {% for media in product.media %}
+                {% if media.media_type == 'video' or media.media_type == 'external_video' %}
+                    {% assign has_video_media = true %}
+                    {% break %}
+                {% endif %}
+                {% endfor %}
+
+                <div class="product-media-tab mt-3 d-lg-flex d-md-flex d-sm-none">
+                    <div class="media-tab-btn btn-image active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25.084" height="20.07" viewBox="0 0 25.084 20.07">
+                        <path d="M56.889 145.35v13.857c0 1.293.262 1.54 1.54 1.54h17.45c1.267 0 1.54-.235 1.54-1.54V145.35c0-1.262-.241-1.54-1.54-1.54h-17.45c-1.273 0-1.54.221-1.54 1.54M75 157.154H59.317c1.714-2.5 4.762-6.668 5.537-6.668.75 0 3.295 3.367 4.444 4.552 0 0 1.479-1.976 2.253-1.976.791 0 3.424 4.071 3.449 4.091Zm-4.609-8.725a1.893 1.893 0 1 1 1.893 1.893 1.893 1.893 0 0 1-1.893-1.893m-3.875-5.546-3-.569c-1-.189-1.391-.122-1.635.57h4.637Zm14.142 2.684-2.352-.446v14.105a2.5 2.5 0 0 1-.554 1.881 2.54 2.54 0 0 1-1.853.528h-1.413l3.015.569c1.245.235 1.557.055 1.8-1.226l2.585-13.614c.235-1.24.049-1.558-1.226-1.8Z" transform="translate(-56.889 -142.223)" />
+                        </svg>
+                        <span class="body-lg pp-semibold">
+                        Image
+                        </span>
+                    </div>
+
+                    {% if has_video_media %}
+                        <div class="media-tab-btn btn-video">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="21.11" height="20.193" viewBox="0 0 21.11 20.193">
+                            <path d="m30.557 46.338-3.121-3.671H23.9l3.121 3.671Zm9.178 0-3.121-3.671h-3.533l3.119 3.671Zm-4.589 0-3.121-3.671h-3.533l3.121 3.671Zm5.92-3.671h-3.4l3.121 3.671h1.652v-2.294a1.35 1.35 0 0 0-1.372-1.377Zm-18.219 0h-.137a1.35 1.35 0 0 0-1.377 1.377v2.295h4.635l-3.121-3.671Zm-1.514 18.816a1.35 1.35 0 0 0 1.377 1.377h18.357a1.35 1.35 0 0 0 1.377-1.377V47.256H21.333Zm7.343-10.1c0-.78.642-1.147 1.377-1.147a1.45 1.45 0 0 1 .734.184l5.232 3.029a1.3 1.3 0 0 1 0 2.295l-5.232 3.029a1.35 1.35 0 0 1-.734.184c-.734 0-1.377-.367-1.377-1.147Z" transform="translate(-21.333 -42.667)"/>
+                        </svg>
+                        <span class="body-lg pp-semibold">
+                            Video
+                        </span>
+                        </div>
+                    {% endif %}
+                </div>
+            {% comment %} {% endif %} {% endcomment %}
+        </div>
+        <div class="thumbnail d-lg-none d-md-block d-sm-block mt-lg-4 mt-md-4 mt-sm-3">
+            <div class="swiper-container thumbnail-slider slider-hidden mobile">
+                <div class="swiper-wrapper">
+                    {% for media in product.media %}
+                        {% case media.media_type %}
+                        {% when 'image' %}
+                            <div class="swiper-slide" data-media-id="{{ media.id }}">
+                            <img
+                                src="{{ media | img_url: '400x400' | image_url: 'format:auto' }}"
+                                srcset="
+                                {{ media | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                                {{ media | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                                {{ media | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                                {{ media | img_url: '1600x1600' | image_url: 'format:auto' }} 1600w"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                alt="{{ media.alt | escape }}"
+                                decoding="async"
+                                loading="lazy"
+                            >
+                            </div>
+                        {% endcase %}
+                    {% endfor %}
+                </div>
+
+            </div>
+            <span class="thumbnail-next slider-next d-lg-block d-md-none d-sm-none">
+                <i class="fa-solid fa-chevron-down"></i>
+            </span>
+        </div>
+
+        {% assign has_video_media = false %}
+        {% for media in product.media %}
+        {% if media.media_type == 'video' or media.media_type == 'external_video' %}
+            {% assign has_video_media = true %}
+            {% break %}
+        {% endif %}
+        {% endfor %}
+
+        <div class="product-media-tab my-3 d-lg-none d-md-none d-sm-flex">
+        <div class="media-tab-btn btn-image active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25.084" height="20.07" viewBox="0 0 25.084 20.07">
+            <path d="M56.889 145.35v13.857c0 1.293.262 1.54 1.54 1.54h17.45c1.267 0 1.54-.235 1.54-1.54V145.35c0-1.262-.241-1.54-1.54-1.54h-17.45c-1.273 0-1.54.221-1.54 1.54M75 157.154H59.317c1.714-2.5 4.762-6.668 5.537-6.668.75 0 3.295 3.367 4.444 4.552 0 0 1.479-1.976 2.253-1.976.791 0 3.424 4.071 3.449 4.091Zm-4.609-8.725a1.893 1.893 0 1 1 1.893 1.893 1.893 1.893 0 0 1-1.893-1.893m-3.875-5.546-3-.569c-1-.189-1.391-.122-1.635.57h4.637Zm14.142 2.684-2.352-.446v14.105a2.5 2.5 0 0 1-.554 1.881 2.54 2.54 0 0 1-1.853.528h-1.413l3.015.569c1.245.235 1.557.055 1.8-1.226l2.585-13.614c.235-1.24.049-1.558-1.226-1.8Z" transform="translate(-56.889 -142.223)" />
+            </svg>
+            <span class="body pp-semibold">
+            Image
+            </span>
+        </div>
+        
+        {% if has_video_media %}
+            <div class="media-tab-btn btn-video">
+            <svg xmlns="http://www.w3.org/2000/svg" width="21.11" height="20.193" viewBox="0 0 21.11 20.193">
+                <path d="m30.557 46.338-3.121-3.671H23.9l3.121 3.671Zm9.178 0-3.121-3.671h-3.533l3.119 3.671Zm-4.589 0-3.121-3.671h-3.533l3.121 3.671Zm5.92-3.671h-3.4l3.121 3.671h1.652v-2.294a1.35 1.35 0 0 0-1.372-1.377Zm-18.219 0h-.137a1.35 1.35 0 0 0-1.377 1.377v2.295h4.635l-3.121-3.671Zm-1.514 18.816a1.35 1.35 0 0 0 1.377 1.377h18.357a1.35 1.35 0 0 0 1.377-1.377V47.256H21.333Zm7.343-10.1c0-.78.642-1.147 1.377-1.147a1.45 1.45 0 0 1 .734.184l5.232 3.029a1.3 1.3 0 0 1 0 2.295l-5.232 3.029a1.35 1.35 0 0 1-.734.184c-.734 0-1.377-.367-1.377-1.147Z" transform="translate(-21.333 -42.667)"/>
+            </svg>
+            <span class="body pp-semibold">
+                Video
+            </span>
+            </div>
+        {% endif %}
+        </div>
+        {% comment %}         
+            <div class="specifications">
+                <div class="row">
+                    {% for block in section.blocks %}
+                        {% if block.type == 'specs' %}
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="spec">
+                                    <img src="{{ block.settings.icon | img_url: 'master' }}">
+                                    <div class="spec-details">
+                                        <h6 class="body mu-regular f-black mb-1">
+                                            {{ block.settings.title }}
+                                        </h6>
+                                        <p class="body-lg mu-bold f-black">
+                                            {{ block.settings.value }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div> 
+        {% endcomment %}
+    </div>
+
+    <div class="product-media-lightbox" aria-hidden="true">
+        <button type="button" class="product-media-lightbox-close" aria-label="Close larger image">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="product-media-lightbox-controls" aria-label="Image zoom controls">
+            <button type="button" class="product-media-lightbox-zoom-out" aria-label="Zoom out">
+                <i class="fa-solid fa-minus"></i>
+            </button>
+            <input
+                type="range"
+                class="product-media-lightbox-zoom-range"
+                min="0"
+                max="4"
+                step="1"
+                value="0"
+                aria-label="Zoom level"
+            >
+            <button type="button" class="product-media-lightbox-zoom-in" aria-label="Zoom in">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+        <div class="swiper product-media-lightbox-slider">
+            <div class="swiper-wrapper">
+                {% for media in product.media %}
+                    {% case media.media_type %}
+                    {% when 'image' %}
+                        <div class="swiper-slide" data-media-id="{{ media.id }}">
+                            <img
+                                class="product-media-lightbox-image"
+                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                                data-src="{{ media | img_url: '800x800' | image_url: 'format:auto' }}"
+                                data-srcset="
+                                {{ media | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                                {{ media | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                                {{ media | img_url: '1600x1600' | image_url: 'format:auto' }} 1600w,
+                                {{ media | image_url: width: 2200 }} 2200w"
+                                sizes="100vw"
+                                alt="{{ media.alt | escape }}"
+                                decoding="async"
+                                loading="lazy"
+                            >
+                        </div>
+                    {% endcase %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="float-nav product-media-lightbox-nav d-lg-block d-md-block d-sm-block">
+            <button type="button" class="owl-prev product-media-lightbox-prev" aria-label="Previous image">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button type="button" class="owl-next product-media-lightbox-next" aria-label="Next image">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var productMedia = document.querySelector('.product .product-media');
+        if (!productMedia || productMedia.dataset.zoomReady === 'true') return;
+
+        productMedia.dataset.zoomReady = 'true';
+
+        var lightbox = productMedia.querySelector('.product-media-lightbox');
+        var lightboxSliderEl = productMedia.querySelector('.product-media-lightbox-slider');
+        var closeLightboxButton = productMedia.querySelector('.product-media-lightbox-close');
+        var zoomInButton = productMedia.querySelector('.product-media-lightbox-zoom-in');
+        var zoomOutButton = productMedia.querySelector('.product-media-lightbox-zoom-out');
+        var zoomRangeInput = productMedia.querySelector('.product-media-lightbox-zoom-range');
+        var lightboxSlider = null;
+        var zoomLevels = [1, 1.5, 2, 2.5, 3];
+        var imageStates = new WeakMap();
+        var activeDrag = null;
+        var suppressImageClickUntil = 0;
+
+        if (!lightbox || !lightboxSliderEl) return;
+
+        function getImageState(image) {
+            if (!imageStates.has(image)) {
+                imageStates.set(image, {
+                    zoomLevelIndex: 0,
+                    translateX: 0,
+                    translateY: 0,
+                    isDragging: false
+                });
+            }
+
+            return imageStates.get(image);
+        }
+
+        function clamp(value, min, max) {
+            return Math.min(Math.max(value, min), max);
+        }
+
+        function clampImageTranslation(image, state) {
+            var scale = zoomLevels[state.zoomLevelIndex] || 1;
+            var maxTranslateX = Math.max(0, (image.clientWidth * scale - image.clientWidth) / 2);
+            var maxTranslateY = Math.max(0, (image.clientHeight * scale - image.clientHeight) / 2);
+
+            state.translateX = clamp(state.translateX, -maxTranslateX, maxTranslateX);
+            state.translateY = clamp(state.translateY, -maxTranslateY, maxTranslateY);
+        }
+
+        function getActiveLightboxImage() {
+            if (!lightboxSliderEl) return null;
+
+            var activeSlide = lightboxSliderEl.querySelector('.swiper-slide-active');
+            return activeSlide ? activeSlide.querySelector('.product-media-lightbox-image') : null;
+        }
+
+        function updateZoomControls() {
+            var activeImage = getActiveLightboxImage();
+            var state = activeImage ? getImageState(activeImage) : null;
+            var currentIndex = state ? state.zoomLevelIndex : 0;
+
+            if (zoomOutButton) {
+                zoomOutButton.disabled = currentIndex <= 0;
+            }
+
+            if (zoomInButton) {
+                zoomInButton.disabled = currentIndex >= zoomLevels.length - 1;
+            }
+
+            if (zoomRangeInput) {
+                zoomRangeInput.max = String(zoomLevels.length - 1);
+                zoomRangeInput.value = String(currentIndex);
+                zoomRangeInput.setAttribute('aria-valuemin', '0');
+                zoomRangeInput.setAttribute('aria-valuemax', String(zoomLevels.length - 1));
+                zoomRangeInput.setAttribute('aria-valuenow', String(currentIndex));
+                zoomRangeInput.setAttribute('aria-valuetext', zoomLevels[currentIndex] + 'x');
+            }
+        }
+
+        function setSliderZoomState(isZoomed) {
+            if (!lightboxSlider) return;
+
+            lightboxSlider.allowTouchMove = !isZoomed;
+            lightboxSlider.el.style.cursor = isZoomed ? 'default' : 'grab';
+        }
+
+        function applyImageTransform(image) {
+            if (!image) return;
+
+            var state = getImageState(image);
+            var scale = zoomLevels[state.zoomLevelIndex] || 1;
+
+            clampImageTranslation(image, state);
+
+            image.style.transform = 'translate3d(' + state.translateX + 'px, ' + state.translateY + 'px, 0) scale(' + scale + ')';
+            image.classList.toggle('is-zoomed', state.zoomLevelIndex > 0);
+            image.classList.toggle('is-draggable', state.zoomLevelIndex > 0);
+            image.classList.toggle('is-dragging', state.isDragging);
+
+            if (state.zoomLevelIndex === 0) {
+                state.isDragging = false;
+                image.classList.remove('is-dragging');
+            }
+
+            setSliderZoomState(state.zoomLevelIndex > 0);
+            updateZoomControls();
+        }
+
+        function resetLightboxZoom(target) {
+            var images = target ? [target] : lightboxSliderEl.querySelectorAll('.product-media-lightbox-image');
+
+            Array.prototype.forEach.call(images, function (image) {
+                if (!image) return;
+
+                var state = getImageState(image);
+                state.zoomLevelIndex = 0;
+                state.translateX = 0;
+                state.translateY = 0;
+                state.isDragging = false;
+                image.style.transformOrigin = 'center center';
+                applyImageTransform(image);
+            });
+
+            activeDrag = null;
+            updateZoomControls();
+        }
+
+        function setImageZoomLevel(image, nextIndex) {
+            if (!image) return;
+
+            var state = getImageState(image);
+            state.zoomLevelIndex = clamp(nextIndex, 0, zoomLevels.length - 1);
+
+            if (state.zoomLevelIndex === 0) {
+                state.translateX = 0;
+                state.translateY = 0;
+            }
+
+            applyImageTransform(image);
+        }
+
+        function zoomActiveLightboxImage(direction) {
+            var activeImage = getActiveLightboxImage();
+            if (!activeImage) return;
+
+            var state = getImageState(activeImage);
+            setImageZoomLevel(activeImage, state.zoomLevelIndex + direction);
+        }
+
+        function endImageDrag() {
+            if (!activeDrag || !activeDrag.image) return;
+
+            var image = activeDrag.image;
+            var state = getImageState(image);
+
+            state.isDragging = false;
+            image.classList.remove('is-dragging');
+
+            if (activeDrag.moved) {
+                suppressImageClickUntil = Date.now() + 250;
+            }
+
+            activeDrag = null;
+        }
+
+        function startImageDrag(image, event) {
+            var state = getImageState(image);
+
+            if (!image || state.zoomLevelIndex === 0) return;
+
+            activeDrag = {
+                image: image,
+                pointerId: event.pointerId,
+                startX: event.clientX,
+                startY: event.clientY,
+                startTranslateX: state.translateX,
+                startTranslateY: state.translateY,
+                moved: false
+            };
+
+            state.isDragging = true;
+            image.classList.add('is-dragging');
+
+            if (image.setPointerCapture) {
+                image.setPointerCapture(event.pointerId);
+            }
+        }
+
+        function moveImageDrag(event) {
+            if (!activeDrag || activeDrag.pointerId !== event.pointerId) return;
+
+            var image = activeDrag.image;
+            var state = getImageState(image);
+            var deltaX = event.clientX - activeDrag.startX;
+            var deltaY = event.clientY - activeDrag.startY;
+
+            if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
+                activeDrag.moved = true;
+            }
+
+            state.translateX = activeDrag.startTranslateX + deltaX;
+            state.translateY = activeDrag.startTranslateY + deltaY;
+            applyImageTransform(image);
+        }
+
+        function hydrateLightboxSlide(index) {
+            if (!lightboxSliderEl) return;
+
+            var slides = lightboxSliderEl.querySelectorAll('.swiper-slide');
+            var slide = slides[index];
+            if (!slide) return;
+
+            var image = slide.querySelector('.product-media-lightbox-image');
+            if (!image || image.dataset.loaded === 'true') return;
+
+            if (image.dataset.src) {
+                image.src = image.dataset.src;
+            }
+
+            if (image.dataset.srcset) {
+                image.srcset = image.dataset.srcset;
+            }
+
+            image.dataset.loaded = 'true';
+        }
+
+        function hydrateLightboxAround(index) {
+            hydrateLightboxSlide(index);
+            hydrateLightboxSlide(index - 1);
+            hydrateLightboxSlide(index + 1);
+        }
+
+        function getSlideIndexFromImage(img) {
+            if (!img) return 0;
+
+            var slide = img.closest('.swiper-slide');
+            if (!slide || !slide.parentElement) return 0;
+
+            return Array.prototype.indexOf.call(slide.parentElement.children, slide);
+        }
+
+        function initLightboxSlider() {
+            if (lightboxSlider || typeof Swiper === 'undefined') return;
+
+            lightboxSlider = new Swiper(lightboxSliderEl, {
+                direction: 'horizontal',
+                slidesPerView: 1,
+                spaceBetween: 0,
+                speed: 400,
+                grabCursor: true,
+                keyboard: {
+                    enabled: true
+                },
+                navigation: {
+                    nextEl: productMedia.querySelector('.product-media-lightbox-next'),
+                    prevEl: productMedia.querySelector('.product-media-lightbox-prev')
+                },
+                on: {
+                    init: function () {
+                        setSliderZoomState(false);
+                        hydrateLightboxAround(this.activeIndex || 0);
+                        updateZoomControls();
+                    },
+                    slideChange: function () {
+                        endImageDrag();
+                        resetLightboxZoom();
+                        hydrateLightboxAround(this.activeIndex);
+                    }
+                }
+            });
+        }
+
+        function getActiveImage() {
+            return productMedia.querySelector('.main-slider .swiper-slide-active .product-media-zoom-trigger')
+                || productMedia.querySelector('.main-slider .product-media-zoom-trigger');
+        }
+
+        function openLightbox(img, index) {
+            initLightboxSlider();
+            if (!lightboxSlider) return;
+
+            var targetIndex = typeof index === 'number' ? index : getSlideIndexFromImage(img);
+
+            hydrateLightboxAround(targetIndex);
+            lightboxSlider.update();
+            lightboxSlider.slideTo(targetIndex, 0);
+            resetLightboxZoom();
+            lightbox.classList.add('active');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('product-media-lightbox-open');
+        }
+
+        function closeLightbox() {
+            endImageDrag();
+            resetLightboxZoom();
+            lightbox.classList.remove('active');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('product-media-lightbox-open');
+        }
+
+        if (closeLightboxButton) {
+            ['click', 'pointerup', 'touchend'].forEach(function (eventName) {
+                closeLightboxButton.addEventListener(eventName, function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    closeLightbox();
+                });
+            });
+        }
+
+        productMedia.addEventListener('click', function (event) {
+            var trigger = event.target.closest('.product-media-zoom-trigger');
+            if (trigger && productMedia.contains(trigger)) {
+                openLightbox(trigger);
+                return;
+            }
+
+            if (event.target.closest('.product-media-zoom-button')) {
+                openLightbox(getActiveImage());
+                return;
+            }
+
+            if (event.target.closest('.product-media-lightbox-zoom-in')) {
+                zoomActiveLightboxImage(1);
+                return;
+            }
+
+            if (event.target.closest('.product-media-lightbox-zoom-out')) {
+                zoomActiveLightboxImage(-1);
+                return;
+            }
+
+            var lightboxImage = event.target.closest('.product-media-lightbox-image');
+            if (lightboxImage && lightbox.contains(lightboxImage)) {
+                if (Date.now() < suppressImageClickUntil) {
+                    return;
+                }
+
+                var imageState = getImageState(lightboxImage);
+                setImageZoomLevel(lightboxImage, imageState.zoomLevelIndex + 1);
+                return;
+            }
+
+            if (event.target === lightbox || event.target.closest('.product-media-lightbox-close')) {
+                closeLightbox();
+            }
+        });
+
+        if (zoomRangeInput) {
+            zoomRangeInput.addEventListener('input', function (event) {
+                var activeImage = getActiveLightboxImage();
+                if (!activeImage) return;
+
+                setImageZoomLevel(activeImage, parseInt(event.target.value, 10) || 0);
+            });
+        }
+
+        lightbox.addEventListener('pointerdown', function (event) {
+            if (event.target.closest('.product-media-lightbox-close')
+                || event.target.closest('.product-media-lightbox-controls button')
+                || event.target.closest('.product-media-lightbox-nav button')) {
+                return;
+            }
+
+            var lightboxImage = event.target.closest('.product-media-lightbox-image');
+
+            if (!lightboxImage || !lightbox.contains(lightboxImage)) return;
+
+            if (getImageState(lightboxImage).zoomLevelIndex === 0) return;
+
+            event.preventDefault();
+            startImageDrag(lightboxImage, event);
+        });
+
+        lightbox.addEventListener('pointermove', function (event) {
+            if (!activeDrag) return;
+
+            event.preventDefault();
+            moveImageDrag(event);
+        });
+
+        lightbox.addEventListener('pointerup', endImageDrag);
+        lightbox.addEventListener('pointercancel', endImageDrag);
+        lightbox.addEventListener('pointerleave', function (event) {
+            if (activeDrag && event.pointerType === 'mouse') {
+                endImageDrag();
+            }
+        });
+
+        window.addEventListener('resize', function () {
+            var activeImage = getActiveLightboxImage();
+            if (activeImage) {
+                applyImageTransform(activeImage);
+            }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    });
+</script>

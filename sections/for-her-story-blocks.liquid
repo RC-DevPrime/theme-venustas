@@ -1,0 +1,273 @@
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+  #shopify-section-{{ section.id }} .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .container {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  #shopify-section-{{ section.id }} .for-her-blocks {
+    padding: 60px 0;
+  }
+  #shopify-section-{{ section.id }} .for-her-block-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ section.settings.inner_gap }}px;
+    margin-bottom: {{ section.settings.block_gap }}px;
+  }
+  #shopify-section-{{ section.id }} .for-her-block-card:last-child {
+    margin-bottom: 0;
+  }
+  #shopify-section-{{ section.id }} .for-her-block__img {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ section.settings.corner_radius }}px;
+    {% if section.settings.size_mode == 'fixed' %}
+      height: {{ section.settings.row_height }}px;
+    {% else %}
+      aspect-ratio: 4 / 3;
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .for-her-block__img img,
+  #shopify-section-{{ section.id }} .for-her-block__img svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  #shopify-section-{{ section.id }} .for-her-block__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 48px;
+    overflow: hidden;
+    border-radius: {{ section.settings.corner_radius }}px;
+    {% if section.settings.size_mode == 'fixed' %}
+      height: {{ section.settings.row_height }}px;
+    {% else %}
+      aspect-ratio: 4 / 3;
+    {% endif %}
+  }
+  /* Reverse rows: put text in column 1, image in column 2 */
+  #shopify-section-{{ section.id }} .for-her-block-card--reverse .for-her-block__img {
+    order: 2;
+  }
+  #shopify-section-{{ section.id }} .for-her-block-card--reverse .for-her-block__text {
+    order: 1;
+  }
+  #shopify-section-{{ section.id }} .for-her-block__label {
+    color: {{ section.settings.accent_color }};
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  #shopify-section-{{ section.id }} .for-her-block__heading {
+    font-size: clamp(24px, 2.4vw, 36px);
+    font-weight: 700;
+    color: {{ section.settings.accent_color }};
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+  #shopify-section-{{ section.id }} .for-her-block__body {
+    color: #6b6b6b;
+    font-size: 14px;
+    line-height: 1.85;
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .for-her-blocks {
+      padding: 40px 0;
+    }
+    #shopify-section-{{ section.id }} .for-her-block-card,
+    #shopify-section-{{ section.id }} .for-her-block-card--reverse {
+      grid-template-columns: 1fr;
+    }
+    #shopify-section-{{ section.id }} .for-her-block-card--reverse .for-her-block__img {
+      order: 1;
+    }
+    #shopify-section-{{ section.id }} .for-her-block-card--reverse .for-her-block__text {
+      order: 2;
+    }
+    #shopify-section-{{ section.id }} .for-her-block__img {
+      height: auto;
+      aspect-ratio: 4 / 3;
+    }
+    #shopify-section-{{ section.id }} .for-her-block__text {
+      aspect-ratio: auto;
+      height: auto;
+      padding: 32px 24px;
+    }
+  }
+{% endstyle %}
+
+<div class="for-her-blocks">
+  <div class="container">
+    {% for block in section.blocks %}
+      {% assign is_reverse = false %}
+      {% if section.settings.alternate %}
+        {% assign modulo = forloop.index | modulo: 2 %}
+        {% if modulo == 0 %}{% assign is_reverse = true %}{% endif %}
+      {% endif %}
+      <div class="for-her-block-card {% if is_reverse %}for-her-block-card--reverse{% endif %}" {{ block.shopify_attributes }}>
+        <div class="for-her-block__img">
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.heading }}" width="100%" height="100%">
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+        {% assign panel_bg = block.settings.text_bg | default: section.settings.text_bg %}
+        <div class="for-her-block__text" style="background: {{ panel_bg }};">
+          {% if block.settings.label != blank %}
+            <p class="for-her-block__label">{{ block.settings.label }}</p>
+          {% endif %}
+          {% if block.settings.heading != blank %}
+            <h3 class="for-her-block__heading">{{ block.settings.heading }}</h3>
+          {% endif %}
+          {% if block.settings.body != blank %}
+            <div class="for-her-block__body">{{ block.settings.body }}</div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "For Her - Story Blocks",
+  "class": "for-her-story-blocks-section",
+  "templates": ["page"],
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_bg",
+      "label": "Default Text Panel Background",
+      "info": "Used when a block has no color set",
+      "default": "#F6EBE0"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Label & Heading)",
+      "default": "#B93205"
+    },
+    {
+      "type": "checkbox",
+      "id": "alternate",
+      "label": "Alternate image left/right",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "label": "Box Corner Radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "size_mode",
+      "label": "Box Sizing",
+      "options": [
+        { "value": "aspect", "label": "4:3 Ratio (one image fits PC & mobile)" },
+        { "value": "fixed", "label": "Fixed Height" }
+      ],
+      "default": "aspect"
+    },
+    {
+      "type": "range",
+      "id": "row_height",
+      "label": "Row Height (only when 'Fixed Height')",
+      "min": 280,
+      "max": 640,
+      "step": 10,
+      "unit": "px",
+      "default": 440
+    },
+    {
+      "type": "range",
+      "id": "block_gap",
+      "label": "Gap Between Blocks",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "inner_gap",
+      "label": "Gap Between Image & Text",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Story Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "color",
+          "id": "text_bg",
+          "label": "Text Panel Background",
+          "info": "Leave blank to use the section default",
+          "default": "#F6EBE0"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Born from Care"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Body Text"
+        }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "For Her - Story Blocks",
+    "blocks": [
+      { "type": "block" },
+      { "type": "block" },
+      { "type": "block" },
+      { "type": "block" }
+    ]
+  }]
+}
+{% endschema %}

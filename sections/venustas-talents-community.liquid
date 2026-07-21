@@ -1,0 +1,205 @@
+{% render 'v-talents-base-css', section: section %}
+{% render 'v-talents-layout-css', section: section %}
+
+<style>
+  #shopify-section-{{ section.id }} .v-talents-community__header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-community__title {
+    font-size: clamp(26px, 2.8vw, 40px);
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: var(--v-brand);
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-community__subtitle {
+    font-size: 15px;
+    color: #555;
+    margin: 0 0 20px;
+    line-height: 1.6;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-community__gallery {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-community__gallery::-webkit-scrollbar {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-community__gallery-item {
+    flex: 0 0 68%;
+    min-width: 0;
+    scroll-snap-align: start;
+    border-radius: var(--v-radius);
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-community__gallery-item a {
+    display: block;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-community__gallery-item img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-community__progress {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 20px;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-community__progress-seg {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    border: none;
+    padding: 0;
+    background: #e0e0e0;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-community__progress-seg.is-active {
+    background: #333;
+  }
+
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .v-talents-community__gallery {
+      overflow: visible;
+      scroll-snap-type: none;
+      gap: 2%;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-community__gallery-item {
+      flex: 1 1 0;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-community__progress {
+      display: none;
+    }
+  }
+</style>
+
+{%- assign gallery_blocks = section.blocks | where: 'type', 'gallery_image' -%}
+
+<div class="v-talents">
+  <div class="v-talents-master-container">
+    <div class="v-talents-community__header">
+      {%- if section.settings.community_heading != blank -%}
+        <h2 class="v-talents-community__title">{{ section.settings.community_heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.community_subtitle != blank -%}
+        <p class="v-talents-community__subtitle">{{ section.settings.community_subtitle | newline_to_br }}</p>
+      {%- endif -%}
+      {%- if section.settings.community_btn_label != blank -%}
+        <a href="{{ section.settings.community_btn_link | default: '#' }}" class="v-talents__btn v-talents__btn--solid">
+          {{ section.settings.community_btn_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if gallery_blocks.size > 0 -%}
+      <div
+        data-v-carousel
+        data-autoplay="false"
+        data-indicator="segments"
+        data-scroll-align="start"
+        data-dot-class="v-talents-community__progress-seg"
+      >
+        <div class="v-talents-community__gallery" data-v-carousel-track>
+        {%- for block in gallery_blocks -%}
+          {%- if block.settings.image != blank -%}
+            <div class="v-talents-community__gallery-item" data-v-carousel-slide {{ block.shopify_attributes }}>
+              {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{%- endif -%}
+              {{
+                block.settings.image
+                | image_url: width: 800
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '300,400,500,600,800',
+                  sizes: '(min-width: 768px) 22vw, 68vw',
+                  alt: block.settings.image.alt
+              }}
+              {%- if block.settings.link != blank -%}</a>{%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+        </div>
+
+        <div class="v-talents-community__progress" data-v-carousel-dots hidden></div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% render 'v-talents-carousel-js', section: section %}
+
+{% schema %}
+{
+  "name": "Talents Community",
+  "tag": "section",
+  "class": "venustas-talents-community-section",
+  "settings": [
+    { "type": "header", "content": "Layout" },
+    { "type": "color", "id": "brand_color", "label": "Brand color", "default": "#B93205" },
+    { "type": "range", "id": "container_width_desktop", "min": 70, "max": 100, "step": 5, "unit": "%", "label": "Desktop container width", "default": 90 },
+    { "type": "range", "id": "container_width_mobile", "min": 80, "max": 100, "step": 5, "unit": "%", "label": "Mobile container width", "default": 95 },
+    { "type": "range", "id": "padding_top_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding top", "default": 40 },
+    { "type": "range", "id": "padding_bottom_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding bottom", "default": 40 },
+    { "type": "range", "id": "padding_top_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding top", "default": 24 },
+    { "type": "range", "id": "padding_bottom_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding bottom", "default": 24 },
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "community_heading", "label": "Heading", "default": "Get Inspired by the Community!" },
+    {
+      "type": "textarea",
+      "id": "community_subtitle",
+      "label": "Subheading",
+      "default": "See how our Talents share their adventures and get inspired to create your own story.",
+      "info": "Press Enter in this field to start a new line on the page."
+    },
+    { "type": "text", "id": "community_btn_label", "label": "Button label", "default": "Go to Venustas Community" },
+    { "type": "url", "id": "community_btn_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "gallery_image",
+      "name": "Gallery image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "link", "label": "Image link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Talents Community",
+      "category": "Venustas Talents",
+      "blocks": [
+        { "type": "gallery_image" },
+        { "type": "gallery_image" },
+        { "type": "gallery_image" },
+        { "type": "gallery_image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

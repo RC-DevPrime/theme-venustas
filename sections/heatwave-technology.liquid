@@ -1,0 +1,708 @@
+{% comment %}
+  Section: Heatwave™ Technology
+  - Desktop: 4-column grid
+  - Mobile: Touch slider, arrows overlaid on image area at all times, auto-play 5s, dots below
+{% endcomment %}
+
+<section
+  class="hw-section"
+  id="hw-{{ section.id }}"
+  style="
+    background-color: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div
+    class="hw-wrap"
+    style="width: {{ section.settings.content_width }}%; max-width: 1600px; margin: 0 auto;"
+  >
+
+    <!-- Heading -->
+    <h2
+      class="hw-heading"
+      style="
+        color: {{ section.settings.heading_color }};
+        font-size: {{ section.settings.heading_size }}px;
+      "
+    >
+      {{ section.settings.section_title }}
+    </h2>
+
+    <!--
+      hw-slider-root: position:relative 容器
+      箭头绝对定位在这里，永远浮在图片区域上，不跟随 track 移动
+    -->
+    <div class="hw-slider-root" id="hw-slider-{{ section.id }}">
+
+      <!-- 左箭头：绝对定位在 slider-root 内，图片高度范围内垂直居中 -->
+      <button class="hw-arrow hw-arrow--prev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+
+      <!-- 右箭头 -->
+      <button class="hw-arrow hw-arrow--next" aria-label="Next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+
+      <!-- Track outer (clips overflow on mobile) -->
+      <div class="hw-track-outer">
+        <div class="hw-track">
+
+          {%- for i in (1..4) -%}
+            {%- liquid
+              assign img_key   = 'card' | append: i | append: '_image'
+              assign title_key = 'card' | append: i | append: '_title'
+              assign desc_key  = 'card' | append: i | append: '_desc'
+              assign img       = section.settings[img_key]
+              assign title     = section.settings[title_key]
+              assign desc      = section.settings[desc_key]
+            -%}
+            <div class="hw-card" data-index="{{ forloop.index0 }}">
+              <div
+                class="hw-card__img-wrap"
+                style="border-radius: {{ section.settings.img_radius }}px;"
+              >
+                {%- if img != blank -%}
+                  <img
+                    src="{{ img | img_url: 'master' }}"
+                    alt="{{ title | escape }}"
+                    loading="lazy"
+                    width="{{ img.width }}"
+                    height="{{ img.height }}"
+                  >
+                {%- else -%}
+                  <div class="hw-card__placeholder"></div>
+                {%- endif -%}
+              </div>
+              <div class="hw-card__body">
+                <h3
+                  class="hw-card__title"
+                  style="color: {{ section.settings.card_title_color }};"
+                >{{ title }}</h3>
+                <p
+                  class="hw-card__desc"
+                  style="color: {{ section.settings.card_desc_color }};"
+                >{{ desc }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
+
+        </div><!-- /.hw-track -->
+      </div><!-- /.hw-track-outer -->
+
+    </div><!-- /.hw-slider-root -->
+
+    <!-- Dots (mobile only) -->
+    <div class="hw-dots" id="hw-dots-{{ section.id }}">
+      {%- for i in (1..4) -%}
+        <span
+          class="hw-dot{% if forloop.first %} hw-dot--active{% endif %}"
+          data-index="{{ forloop.index0 }}"
+        ></span>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #hw-{{ section.id }} {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    --arrow-bg: {{ section.settings.arrow_bg_color }};
+    --arrow-color: {{ section.settings.arrow_color }};
+    --arrow-hover-bg: {{ section.settings.arrow_hover_bg_color }};
+    --arrow-hover-color: {{ section.settings.arrow_hover_color }};
+  }
+  #hw-{{ section.id }} *, #hw-{{ section.id }} *::before, #hw-{{ section.id }} *::after {
+    box-sizing: inherit;
+  }
+
+  #hw-{{ section.id }} .hw-heading {
+    text-align: center;
+    font-weight: 800;
+    margin: 0 0 40px;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+
+  /* ---- Shared card ---- */
+  #hw-{{ section.id }} .hw-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #hw-{{ section.id }} .hw-card__img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: #1a1f32;
+  }
+
+  #hw-{{ section.id }} .hw-card__img-wrap img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  #hw-{{ section.id }} .hw-card__placeholder {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1e2440 0%, #2a3060 100%);
+  }
+
+  #hw-{{ section.id }} .hw-card__body { padding: 0; }
+
+  #hw-{{ section.id }} .hw-card__title {
+    font-weight: 700;
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+
+  #hw-{{ section.id }} .hw-card__desc {
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  /* Arrows + dots hidden on desktop */
+  #hw-{{ section.id }} .hw-arrow,
+  #hw-{{ section.id }} .hw-dots {
+    display: none;
+  }
+
+  /* =============================================
+     Desktop (≥ 769px)
+  ============================================= */
+  @media (min-width: 769px) {
+    #hw-{{ section.id }} .hw-slider-root {
+      position: relative;
+    }
+    #hw-{{ section.id }} .hw-track-outer {
+      overflow: visible;
+    }
+    #hw-{{ section.id }} .hw-track {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: {{ section.settings.card_gap }}px;
+      transform: none !important;
+      transition: none !important;
+    }
+    #hw-{{ section.id }} .hw-card__title {
+      font-size: {{ section.settings.card_title_size }}px;
+    }
+    #hw-{{ section.id }} .hw-card__desc {
+      font-size: {{ section.settings.card_desc_size }}px;
+    }
+  }
+
+  /* =============================================
+     Mobile (≤ 768px)
+  ============================================= */
+  @media (max-width: 768px) {
+
+    #hw-{{ section.id }} .hw-heading {
+      font-size: {{ section.settings.heading_size_mobile }}px !important;
+      margin-bottom: 24px;
+    }
+
+    /* slider-root: relative，让箭头相对它定位 */
+    #hw-{{ section.id }} .hw-slider-root {
+      position: relative;
+    }
+
+    #hw-{{ section.id }} .hw-track-outer {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    #hw-{{ section.id }} .hw-track {
+      display: flex;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+
+    #hw-{{ section.id }} .hw-card {
+      flex: 0 0 100%;
+      width: 100%;
+    }
+
+    /*
+      箭头：absolute 定位在 slider-root 内
+      top/bottom 限定在图片高度范围（图片是3:4，通过 calc 估算），垂直居中
+      使用 top: calc(图片高度一半) 最简单做法：
+      图片占满宽度，aspect-ratio 3/4，所以图片高度 = 容器宽 * 4/3
+      用 CSS 变量动态计算：
+    */
+    #hw-{{ section.id }} .hw-arrow {
+      display: flex;
+      position: absolute;
+      /* top 由 JS 动态写入，精准对齐图片垂直中心 */
+      top: 0;
+      transform: translateY(0);
+      z-index: 20;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--arrow-bg);
+      color: var(--arrow-color);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      transition: background-color .25s ease, color .25s ease, transform .15s ease;
+    }
+
+    #hw-{{ section.id }} .hw-arrow:hover:not(:disabled) {
+      background: var(--arrow-hover-bg);
+      color: var(--arrow-hover-color);
+    }
+
+    #hw-{{ section.id }} .hw-arrow:active {
+      transform: scale(0.92);
+    }
+
+    #hw-{{ section.id }} .hw-arrow:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    #hw-{{ section.id }} .hw-arrow svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    #hw-{{ section.id }} .hw-arrow--prev { left: 8px; }
+    #hw-{{ section.id }} .hw-arrow--next { right: 8px; }
+
+    /* Dots */
+    #hw-{{ section.id }} .hw-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    #hw-{{ section.id }} .hw-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    #hw-{{ section.id }} .hw-dot--active {
+      background: #B93205;
+      transform: scale(1.35);
+    }
+
+    /* Mobile text */
+    #hw-{{ section.id }} .hw-card__title {
+      font-size: {{ section.settings.card_title_size_mobile }}px;
+    }
+    #hw-{{ section.id }} .hw-card__desc {
+      font-size: {{ section.settings.card_desc_size_mobile }}px;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  var SLIDER_ID = 'hw-slider-{{ section.id }}';
+  var DOTS_ID   = 'hw-dots-{{ section.id }}';
+  var INTERVAL  = 5000;
+  var TOTAL     = 4;
+
+  var sliderEl = document.getElementById(SLIDER_ID);
+  if (!sliderEl) return;
+
+  var track    = sliderEl.querySelector('.hw-track');
+  var outer    = sliderEl.querySelector('.hw-track-outer');
+  var btnPrev  = sliderEl.querySelector('.hw-arrow--prev');
+  var btnNext  = sliderEl.querySelector('.hw-arrow--next');
+  var dotsWrap = document.getElementById(DOTS_ID);
+  var dots     = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.hw-dot')) : [];
+
+  var current  = 0;
+  var timer    = null;
+  var isMobile = false;
+
+  function checkMobile() { isMobile = window.innerWidth <= 768; }
+
+  function goTo(idx) {
+    if (!isMobile) return;
+    current = (idx + TOTAL) % TOTAL;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function (d, i) {
+      d.classList.toggle('hw-dot--active', i === current);
+    });
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function startAuto() { stopAuto(); timer = setInterval(next, INTERVAL); }
+  function stopAuto()  { if (timer) { clearInterval(timer); timer = null; } }
+
+  if (btnNext) btnNext.addEventListener('click', function () { stopAuto(); next(); startAuto(); });
+  if (btnPrev) btnPrev.addEventListener('click', function () { stopAuto(); prev(); startAuto(); });
+
+  dots.forEach(function (d) {
+    d.addEventListener('click', function () {
+      stopAuto();
+      goTo(parseInt(d.getAttribute('data-index'), 10));
+      startAuto();
+    });
+  });
+
+  /* Touch swipe */
+  var touchStartX = 0;
+  var touchStartY = 0;
+  var dragging    = false;
+
+  outer.addEventListener('touchstart', function (e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    dragging = true;
+    stopAuto();
+  }, { passive: true });
+
+  outer.addEventListener('touchend', function (e) {
+    if (!dragging) return;
+    dragging = false;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    var dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+      dx < 0 ? next() : prev();
+    }
+    startAuto();
+  }, { passive: true });
+
+  /* Resize */
+  window.addEventListener('resize', function () {
+    checkMobile();
+    if (!isMobile) {
+      stopAuto();
+      track.style.transform = '';
+      if (btnPrev) { btnPrev.style.top = ''; btnPrev.style.transform = ''; }
+      if (btnNext) { btnNext.style.top = ''; btnNext.style.transform = ''; }
+    } else {
+      goTo(current);
+      startAuto();
+      positionArrows();
+    }
+  });
+
+  /* 动态计算箭头位置，精准对齐图片垂直中心 */
+  function positionArrows() {
+    if (!isMobile) return;
+    var imgWrap = sliderEl.querySelector('.hw-card__img-wrap');
+    if (!imgWrap || !btnPrev || !btnNext) return;
+    var imgHeight = imgWrap.offsetHeight;
+    var arrowHeight = btnPrev.offsetHeight;
+    var topVal = (imgHeight / 2) - (arrowHeight / 2);
+    btnPrev.style.top = topVal + 'px';
+    btnNext.style.top = topVal + 'px';
+    btnPrev.style.transform = 'none';
+    btnNext.style.transform = 'none';
+  }
+
+  /* Init */
+  checkMobile();
+  if (isMobile) { goTo(0); startAuto(); }
+
+  /* 首次定位（DOM渲染后） */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', positionArrows);
+  } else {
+    positionArrows();
+  }
+  /* 图片加载完成后再校准一次 */
+  window.addEventListener('load', positionArrows);
+  /* resize 时重新计算 */
+  window.addEventListener('resize', positionArrows);
+})();
+</script>
+
+
+{% schema %}
+{
+  "name": "Heatwave Technology",
+  "tag": "section",
+  "class": "section-heatwave-technology",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout & Spacing"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#0b0f1d"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content Width (%)",
+      "min": 60,
+      "max": 100,
+      "step": 1,
+      "default": 93
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap Between Cards — Desktop (px)",
+      "min": 8,
+      "max": 60,
+      "step": 2,
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "img_radius",
+      "label": "Image Border Radius (px)",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Section Heading"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Heading Text",
+      "default": "Why is our Heatwave™ Technology perfect?"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#f5720a"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading Font Size — Desktop (px)",
+      "min": 18,
+      "max": 56,
+      "step": 1,
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading Font Size — Mobile (px)",
+      "min": 18,
+      "max": 48,
+      "step": 1,
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Card Text Style"
+    },
+    {
+      "type": "header",
+      "content": "Arrow Button Style"
+    },
+    {
+      "type": "color",
+      "id": "arrow_bg_color",
+      "label": "Arrow background color",
+      "default": "#F1EADD"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow icon color",
+      "default": "#B93205"
+    },
+    {
+      "type": "color",
+      "id": "arrow_hover_bg_color",
+      "label": "Arrow hover background color",
+      "default": "#B93205"
+    },
+    {
+      "type": "color",
+      "id": "arrow_hover_color",
+      "label": "Arrow hover icon color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card Title Font Size — Desktop (px)",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "card_title_size_mobile",
+      "label": "Card Title Font Size — Mobile (px)",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "card_desc_color",
+      "label": "Card Description Color",
+      "default": "#9aa2bc"
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size",
+      "label": "Card Description Font Size — Desktop (px)",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size_mobile",
+      "label": "Card Description Font Size — Mobile (px)",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Card 1 — Carbon-Fiber Heating Module"
+    },
+    {
+      "type": "image_picker",
+      "id": "card1_image",
+      "label": "Card 1 Image"
+    },
+    {
+      "type": "text",
+      "id": "card1_title",
+      "label": "Card 1 Title",
+      "default": "Advanced Carbon-Fiber Heating Module"
+    },
+    {
+      "type": "textarea",
+      "id": "card1_desc",
+      "label": "Card 1 Description",
+      "default": "12,000 high-strength carbon fibers from the renowned Toray Group (Japan) ensure even, flexible, and long-lasting warmth."
+    },
+    {
+      "type": "header",
+      "content": "Card 2 — Smart Chip Control"
+    },
+    {
+      "type": "image_picker",
+      "id": "card2_image",
+      "label": "Card 2 Image"
+    },
+    {
+      "type": "text",
+      "id": "card2_title",
+      "label": "Card 2 Title",
+      "default": "Smart Chip Control"
+    },
+    {
+      "type": "textarea",
+      "id": "card2_desc",
+      "label": "Card 2 Description",
+      "default": "U.S.-homemade intelligent chips ensure rapid heat-up, stable temperature control, and optimized energy efficiency."
+    },
+    {
+      "type": "header",
+      "content": "Card 3 — NTC High-Temperature Protection"
+    },
+    {
+      "type": "image_picker",
+      "id": "card3_image",
+      "label": "Card 3 Image"
+    },
+    {
+      "type": "text",
+      "id": "card3_title",
+      "label": "Card 3 Title",
+      "default": "NTC High-Temperature Protection"
+    },
+    {
+      "type": "textarea",
+      "id": "card3_desc",
+      "label": "Card 3 Description",
+      "default": "Built-in NTC sensors prevent overheating, protecting both the garment and the wearer."
+    },
+    {
+      "type": "header",
+      "content": "Card 4 — Engineered for Extreme Durability"
+    },
+    {
+      "type": "image_picker",
+      "id": "card4_image",
+      "label": "Card 4 Image"
+    },
+    {
+      "type": "text",
+      "id": "card4_title",
+      "label": "Card 4 Title",
+      "default": "Engineered for Extreme Durability"
+    },
+    {
+      "type": "textarea",
+      "id": "card4_desc",
+      "label": "Card 4 Description",
+      "default": "Crafted from premium carbon fiber, the module endures 10,000+ bending cycles and up to 100 washes without heat degradation, ensuring long-term reliability."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heatwave Technology"
+    }
+  ]
+}
+{% endschema %}

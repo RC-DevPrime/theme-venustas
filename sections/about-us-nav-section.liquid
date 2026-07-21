@@ -1,0 +1,117 @@
+{% style %}
+    .about-us-nav-section{
+        position: fixed;
+        bottom: 6vh;
+        width: 100%;
+        z-index: 1;
+    }
+    .about-us-nav-section.footer-active {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(50px);
+        transition: all 0.3s ease;  
+    }
+
+    .about-us-nav-section .nav-list-container{
+        display:flex;
+        justify-content: center;
+    }
+    .about-us-nav-section .nav-list-container .nav-item{
+        padding: 10px 30px;
+        border-bottom: 1px solid #FFF;
+        cursor:pointer;
+    }
+    .about-us-nav-section .nav-list-container .nav-item.active{
+        border-color:#B93205 ;
+        border-width:2px;
+    }
+    .about-us-nav-section .nav-list-container .nav-item span{
+        transition: all 0.3s ease;
+    }
+    .about-us-nav-section .nav-list-container .nav-item.active span{
+        top:-10px;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .about-us-nav-section {
+            bottom: 30px;
+        }
+        
+        .about-us-nav-section .container{
+            padding:0px;
+        }
+        .about-us-nav-section .nav-list-container{
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: none;
+            justify-content: unset;
+            padding-top: 30px;
+        }
+        .about-us-nav-section .nav-list-container .nav-item{
+            flex: 0 0 auto;
+            white-space: nowrap;
+            padding:0px 15px 10px;
+        }
+        .about-us-nav-section .nav-list-container .nav-item:first-child{
+            margin-left:20px;
+        }
+        .about-us-nav-section .nav-list-container .nav-item:last-child{
+            margin-right:20px;
+        }
+        .about-us-nav-section .nav-list-container .nav-item{
+            padding: 0px 10px 5px;
+        }
+        .about-us-nav-section .nav-list-container .nav-item.active span{
+            top:-5px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container">
+    <div class="nav-list-container">
+        {% for block in section.blocks %}
+            <div class="nav-item" data-scroll="{{ block.settings.nav_title | handleize }}" >
+                <span class="pp-medium body-xl f-white position-relative d-lg-block d-md-block d-sm-none">
+                    {{ block.settings.nav_title }}
+                </span>
+                <span class="pp-medium body f-white position-relative d-lg-none d-md-none d-sm-block">
+                    {{ block.settings.nav_title }}
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% schema %}
+    {
+        "class": "about-us-nav-section",
+        "name": "About Us Navigation",
+        "templates": ["page"],
+        "limit": 1, 
+        "max_blocks": 7,
+        "blocks": [
+            {
+              "type": "Navigation",
+              "name":"Navigation",
+              "settings": [
+                  {
+                    "type": "text",
+                    "id": "nav_title",
+                    "label": "Nav Title"
+                  },
+              ]
+            }
+        ],
+        "presets" :[{
+            "name" : "About Us Navigation"
+        }]
+    }
+  {% endschema %} 

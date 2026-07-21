@@ -1,0 +1,697 @@
+{% style %}
+    .product-image-content-section{
+        background-color: #1C1C1C;
+    }
+    
+    .product-image-content-section .image-container {
+        height:550px;
+        position:relative;
+        border-radius:8px;
+    }
+    .product-image-content-section .image-container .background-image{
+        width:100%;
+        height:100%;
+        {% if section.settings.style_design == 'style_1' %}
+        object-fit:cover;
+        {% else %}
+        object-fit:contain;
+        {% endif %}
+    }
+
+
+    .product-image-content-section .icon-list-container .row{
+        --bs-gutter-x: 1rem;
+        --bs-gutter-y: 1rem;
+    }
+    .product-image-content-section .icon-list-item{
+        background: #202020;
+        border-radius: 4px 4px 4px 4px;
+        padding: 30px 20px;
+        height: 100%;
+    }
+    .product-image-content-section  .section-description ul{
+        padding:0px 25px;
+    }
+    .product-image-content-section  .section-description ul li{
+        margin-bottom:1rem;
+    }
+    .product-image-content-section  .section-description ul li::marker {
+        color: #B93205;
+    }
+
+    .product-image-content-section .icon-list-style-2{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+    }
+    .product-image-content-section .custom-heading{
+        font-size:100px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        margin: auto;
+        place-self: anchor-center;
+    }
+    .product-image-content-section .icon-list-item img{
+        margin-right:0;
+        height:50px;
+        width:fit-content;
+        object-fit:contain;
+        margin-bottom:10px;
+    }
+    .product-image-content-section .icon-list-style-2-container{
+        height:100%;
+    }
+    .product-image-content-section .icon-list-style-2-container .icon-list-item{
+        background-color: #ffffff0f;
+        backdrop-filter: blur(15px);
+        padding:2rem 2.5rem;
+        min-height: 190px;
+        height:fit-content;
+        transition: all 0.3s ease;
+    }
+    .product-image-content-section .icon-list-style-2-container .icon-list-item:hover{
+        transform: rotateZ(8deg) translateY(-10%) translateX(10%);
+    }
+    .product-image-content-section .icon-list-style-2-container .icon-list-item .icon-heading{
+        overflow-wrap: anywhere;
+    }
+    .product-image-content-section .section-description ul li{
+        transition: all 0.3s ease;
+    }
+    .product-image-content-section .section-description ul li:hover{
+        color:#FFF !important;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .product-image-content-section .icon-list-item img{
+            height: 28px;
+            width: 28px;
+        }
+        .product-image-content-section .icon-list-container .row{
+            --bs-gutter-x: 10px;
+            --bs-gutter-y: 1rem;
+        }
+        .product-image-content-section .icon-list-item{
+            padding:20px;
+        }
+        .range-container{
+            margin-top: 30px;
+        }
+        
+        .product-image-content-section .icon-list-style-2-container .row{
+            --bs-gutter-x: 150px;
+        }
+        .product-image-content-section .icon-list-style-2-container .icon-list-item{
+            padding:1rem 0.5rem;
+            height: fit-content;
+            min-height: fit-content;
+        }
+        .product-image-content-section .custom-heading{
+            font-size:50px;
+        }
+        .product-image-content-section .icon-list-item .block-heading{
+            overflow-wrap: anywhere;
+        }
+        {% if section.settings.style_design == 'style_2' %}
+            #shopify-section-{{ section.id }} .main-content-row{
+                --bs-gutter-y: 40px;
+            }
+            #shopify-section-{{ section.id }} .image-container{
+                height:300px !important;
+            }
+        {% endif %}
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+        .product-image-content-section .image-container{
+            height:250px;
+        }
+    }
+    @media only screen and (min-width: 375px) {
+        .product-image-content-section .image-container{
+            height:250px;
+        }
+    }
+    @media only screen and (min-width: 390px) {
+        .product-image-content-section .image-container{
+            height:250px;
+        }
+    }
+    @media only screen and (min-width: 414px) {
+        .product-image-content-section .image-container{
+            height:250px;
+        }
+    }
+    @media only screen and (min-width: 428px) {
+        .product-image-content-section .image-container{
+            height:260px;
+        }
+    }
+    @media only screen and (min-width: 480px) {
+        .product-image-content-section .image-container{
+            height:260px;
+        }
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+        .product-image-content-section .image-container{
+            height:380px;
+        }
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+        .product-image-content-section .image-container{
+            height:400px;
+        }
+    }
+    @media only screen and (min-width: 1366px) {
+        .product-image-content-section .image-container{
+            height:420px;
+        }
+    }
+    @media only screen and (min-width: 1440px) {
+        .product-image-content-section .image-container{
+            height:450px;
+        }
+    }
+    @media only screen and (min-width: 1536px) {
+        .product-image-content-section .image-container{
+            height:480px;
+        }
+    }
+    @media only screen and (min-width: 1600px) {
+        .product-image-content-section .image-container{
+            height:500px;
+        }
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .product-image-content-section .image-container{
+            height:550px;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .product-image-content-section .image-container{
+            height:550px;
+        }
+    }
+{% endstyle %}
+<div class="container section-content {% if section.settings.style_design == 'style_2' %} overflow-hidden {% endif %}
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}>
+
+    <div class="row align-items-center main-content-row">
+        {% if section.settings.style_design == 'style_1' %}
+        <div class="col-12 d-lg-none d-md-none d-sm-block">
+            <div class="content-container pb-4">
+                <div class="section-heading pp-bold title-sm f-white text-center l-h-normal pb-lg-4 pb-md-4 pb-sm-3 d-lg-none d-md-none d-sm-block">
+                    {{ section.settings.heading }}
+                </div>
+                <div class="section-description pp-regular body f-white-gray text-center  l-h-normal pb-lg-4 pb-md-4 pb-sm-3 d-lg-none d-md-none d-sm-block">
+                    {{ section.settings.description }}
+                </div>
+                {% if section.settings.link_label != blank %}
+                    <a href="{{ section.settings.link_url }}" class="a-white-f-main text-underline pp-regular body text-center d-lg-none d-md-none d-sm-block">{{ section.settings.link_label }}</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            
+            {% if section.settings.style_design == 'style_2' %}
+             <div class="section-heading pp-bold title-sm f-white text-center l-h-normal pb-5 d-lg-none d-md-none d-sm-block">
+                {{ section.settings.heading }}
+            </div> 
+            {% endif %}
+            <div class="image-container {% if section.settings.style_design == 'style_1' %}overflow-hidden{% endif %}">
+                
+                <img
+                    src="{{ section.settings.background_image | img_url: '400x400' | image_url: 'format:auto' }}"
+                    srcset="
+                        {{ section.settings.background_image | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                        {{ section.settings.background_image | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                        {{ section.settings.background_image | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w,
+                        {{ section.settings.background_image | img_url: '1400x1400' | image_url: 'format:auto' }} 1400w"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    width="100%"
+                    height="100%"
+                    class="background-image"
+                    alt="{{ section.settings.background_image.alt | escape }}"
+                    loading="lazy"
+                    decoding="async"
+                />
+
+                
+                {% if section.settings.style_design == 'style_2' %}
+                    <div class="icon-list-style-2">
+                        <div class="pp-bold custom-heading f-white">
+                            {{ section.settings.counter_number }}
+                        </div>
+                        <div class="icon-list-style-2-container">
+                            <div class="row justify-content-between h-50">
+                                    {% if section.settings.heading_1 != blank %}
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <div class="icon-list-item d-flex flex-column align-items-center justify-content-center gap-lg-2 gap-md-2 gap-sm-0">
+                                            <img
+                                                src="{{ section.settings.icon_1 | img_url: '100x100' | image_url: 'format:auto' }}"
+                                                srcset="
+                                                    {{ section.settings.icon_1 | img_url: '50x50' | image_url: 'format:auto' }} 50w,
+                                                    {{ section.settings.icon_1 | img_url: '100x100' | image_url: 'format:auto' }} 100w,
+                                                    {{ section.settings.icon_1 | img_url: '200x200' | image_url: 'format:auto' }} 200w"
+                                                sizes="50px"
+                                                width="100%"
+                                                height="100%"
+                                                alt="{{ section.settings.icon_1.alt | escape }}"
+                                                loading="lazy"
+                                                decoding="async"
+                                            />
+
+                                            <div class="block-heading pp-regular f-white text-center">
+                                                <span class="body d-lg-block d-md-block d-sm-none">
+                                                    {{ section.settings.heading_1 }}
+                                                </span>
+                                                <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                                    {{ section.settings.heading_1 }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if section.settings.heading_2 != blank %}
+                                    <div class="col-lg-4 col-md-4 col-sm-6 mt-lg-5 mt-md-4 mt-sm-0">
+                                        <div class="icon-list-item d-flex flex-column align-items-center justify-content-center gap-lg-2 gap-md-2 gap-sm-0">
+                                            <img
+                                                src="{{ section.settings.icon_2 | img_url: '100x100' | image_url: 'format:auto' }}"
+                                                srcset="
+                                                    {{ section.settings.icon_2 | img_url: '50x50' | image_url: 'format:auto' }} 50w,
+                                                    {{ section.settings.icon_2 | img_url: '100x100' | image_url: 'format:auto' }} 100w,
+                                                    {{ section.settings.icon_2 | img_url: '200x200' | image_url: 'format:auto' }} 200w"
+                                                sizes="50px"
+                                                width="100%"
+                                                height="100%"
+                                                alt="{{ section.settings.icon_2.alt | escape }}"
+                                                loading="lazy"
+                                                decoding="async"
+                                            />
+
+                                            <div class="block-heading pp-regular f-white text-center">
+                                                <span class="body d-lg-block d-md-block d-sm-none">
+                                                    {{ section.settings.heading_2 }}
+                                                </span>
+                                                <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                                    {{ section.settings.heading_2 }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                            </div>
+                            <div class="row justify-content-between h-50 align-items-center">
+                                    {% if section.settings.heading_3 != blank %}
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <div class="icon-list-item d-flex flex-column align-items-center justify-content-center gap-lg-2 gap-md-2 gap-sm-0">
+                                            <img
+                                                src="{{ section.settings.icon_3 | img_url: '100x100' | image_url: 'format:auto' }}"
+                                                srcset="
+                                                    {{ section.settings.icon_3 | img_url: '50x50' | image_url: 'format:auto' }} 50w,
+                                                    {{ section.settings.icon_3 | img_url: '100x100' | image_url: 'format:auto' }} 100w,
+                                                    {{ section.settings.icon_3 | img_url: '200x200' | image_url: 'format:auto' }} 200w"
+                                                sizes="50px"
+                                                width="100%"
+                                                height="100%"
+                                                alt="{{ section.settings.icon_3.alt | escape }}"
+                                                loading="lazy"
+                                                decoding="async"
+                                            />
+
+                                            <div class="block-heading pp-regular f-white text-center">
+                                                <span class="body d-lg-block d-md-block d-sm-none">
+                                                    {{ section.settings.heading_3 }}
+                                                </span>
+                                                <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                                    {{ section.settings.heading_3 }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if section.settings.heading_4 != blank %}
+                                    <div class="col-lg-4 col-md-4 col-sm-6 mt-lg-5 mt-md-4 mt-sm-0 me-lg-5 me-md-4 me-sm-0">
+                                        <div class="icon-list-item d-flex flex-column align-items-center justify-content-center gap-lg-2 gap-md-2 gap-sm-0">
+                                            <img
+                                                src="{{ section.settings.icon_4 | img_url: '100x100' | image_url: 'format:auto' }}"
+                                                srcset="
+                                                    {{ section.settings.icon_4 | img_url: '50x50' | image_url: 'format:auto' }} 50w,
+                                                    {{ section.settings.icon_4 | img_url: '100x100' | image_url: 'format:auto' }} 100w,
+                                                    {{ section.settings.icon_4 | img_url: '200x200' | image_url: 'format:auto' }} 200w"
+                                                sizes="50px"
+                                                width="100%"
+                                                height="100%"
+                                                alt="{{ section.settings.icon_4.alt | escape }}"
+                                                loading="lazy"
+                                                decoding="async"
+                                            />
+
+                                            <div class="block-heading pp-regular f-white text-center">
+                                                <span class="body d-lg-block d-md-block d-sm-none">
+                                                    {{ section.settings.heading_4 }}
+                                                </span>
+                                                <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                                    {{ section.settings.heading_4 }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="col-lg-11 col-md-11 col-sm-12 mx-auto h-100">
+                <div class="content-container">
+                    <div class="section-heading pp-bold title-sm f-white l-h-normal pb-lg-4 pb-md-4 pb-sm-3 text-lg-start text-md-start d-lg-block d-md-block d-sm-none text-sm-center">
+                            {{ section.settings.heading }}
+                    </div>
+                    <div class="section-description pp-regular f-white-gray l-h-normal pb-lg-4 pb-md-4 pb-sm-3 {% if section.settings.style_design == 'style_1' %}d-lg-block d-md-block d-sm-none{% endif %}">
+                        <div class="body-lg d-lg-block d-md-block d-sm-none">
+                            {{ section.settings.description }}
+                        </div>
+                        <div class="body d-lg-none d-md-none d-sm-block">
+                            {{ section.settings.description }}
+                        </div>
+                    </div>
+                    {% if section.settings.link_label != blank %}
+                        <a href="{{ section.settings.link_url }}" class="a-white-f-main text-underline pp-regular body-lg {% if section.settings.style_design == 'style_1' %}d-lg-block d-md-block d-sm-none{% endif %}">{{ section.settings.link_label }}</a>
+                    {% endif %}
+                    
+                    {% if section.settings.style_design == 'style_1' %}
+                        <div class="icon-list-container mt-lg-4 mt-md-4 mt-sm-3">
+                            {%- assign count = 0 -%}
+                            {%- if section.settings.heading_1 != blank -%}{% assign count = count | plus: 1 %}{%- endif -%}
+                            {%- if section.settings.heading_2 != blank -%}{% assign count = count | plus: 1 %}{%- endif -%}
+                            {%- if section.settings.heading_3 != blank -%}{% assign count = count | plus: 1 %}{%- endif -%}
+                            {%- if section.settings.heading_4 != blank -%}{% assign count = count | plus: 1 %}{%- endif -%}
+
+                            {%- if count == 4 -%}
+                            {%- assign col_class = 'col-3' -%}
+                            {%- else -%}
+                            {%- assign col_class = 'col-4' -%}
+                            {%- endif -%}
+
+                            <div class="row g-3 justify-content-center text-center">
+                            {% if section.settings.heading_1 != blank %}
+                                <div class="{{ col_class }}">
+                                <div class="icon-list-item d-flex flex-column align-items-center justify-content-center gap-lg-2 gap-md-2 gap-sm-0">
+                                    
+                                    <img
+                                        src="{{ section.settings.icon_1 | img_url: '100x100' | image_url: 'format:auto' }}"
+                                        srcset="
+                                            {{ section.settings.icon_1 | img_url: '50x50' | image_url: 'format:auto' }} 50w,
+                                            {{ section.settings.icon_1 | img_url: '100x100' | image_url: 'format:auto' }} 100w,
+                                            {{ section.settings.icon_1 | img_url: '200x200' | image_url: 'format:auto' }} 200w"
+                                        sizes="50px"
+                                        width="100%"
+                                        height="100%"
+                                        alt="{{ section.settings.icon_1.alt | escape }}"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                    <div class="pp-regular f-white text-center">
+                                        <span class="body d-lg-block d-md-block d-sm-none">
+                                            {{ section.settings.heading_1 }}
+                                        </span>
+                                        <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                            {{ section.settings.heading_1 }}
+                                        </span>
+                                    </div>
+                                </div>
+                                </div>
+                            {% endif %}
+
+                            {% if section.settings.heading_2 != blank %}
+                                <div class="{{ col_class }}">
+                                <div class="icon-list-item d-flex flex-column align-items-center justify-content-center gap-lg-2 gap-md-2 gap-sm-0">
+                                    
+                                    <img
+                                        src="{{ section.settings.icon_2 | img_url: '100x100' | image_url: 'format:auto' }}"
+                                        srcset="
+                                            {{ section.settings.icon_2 | img_url: '50x50' | image_url: 'format:auto' }} 50w,
+                                            {{ section.settings.icon_2 | img_url: '100x100' | image_url: 'format:auto' }} 100w,
+                                            {{ section.settings.icon_2 | img_url: '200x200' | image_url: 'format:auto' }} 200w"
+                                        sizes="50px"
+                                        width="100%"
+                                        height="100%"
+                                        alt="{{ section.settings.icon_2.alt | escape }}"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                    <div class="pp-regular f-white text-center">
+                                        <span class="body d-lg-block d-md-block d-sm-none">
+                                            {{ section.settings.heading_2 }}
+                                        </span>
+                                        <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                            {{ section.settings.heading_2 }}
+                                        </span>
+                                    </div>
+                                </div>
+                                </div>
+                            {% endif %}
+
+                            {% if section.settings.heading_3 != blank %}
+                                <div class="{{ col_class }}">
+                                <div class="icon-list-item d-flex flex-column align-items-center justify-content-center gap-lg-2 gap-md-2 gap-sm-0">
+                                    
+                                    <img
+                                        src="{{ section.settings.icon_3 | img_url: '100x100' | image_url: 'format:auto' }}"
+                                        srcset="
+                                            {{ section.settings.icon_3 | img_url: '50x50' | image_url: 'format:auto' }} 50w,
+                                            {{ section.settings.icon_3 | img_url: '100x100' | image_url: 'format:auto' }} 100w,
+                                            {{ section.settings.icon_3 | img_url: '200x200' | image_url: 'format:auto' }} 200w"
+                                        sizes="50px"
+                                        width="100%"
+                                        height="100%"
+                                        alt="{{ section.settings.icon_3.alt | escape }}"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                    <div class="pp-regular f-white text-center">
+                                        <span class="body d-lg-block d-md-block d-sm-none">
+                                            {{ section.settings.heading_3 }}
+                                        </span>
+                                        <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                            {{ section.settings.heading_3 }}
+                                        </span>
+                                    </div>
+                                </div>
+                                </div>
+                            {% endif %}
+
+                            {% if section.settings.heading_4 != blank %}
+                                <div class="{{ col_class }}">
+                                <div class="icon-list-item d-flex flex-column align-items-center justify-content-center gap-lg-2 gap-md-2 gap-sm-0">
+                                    
+                                    <img
+                                        src="{{ section.settings.icon_4 | img_url: '100x100' | image_url: 'format:auto' }}"
+                                        srcset="
+                                            {{ section.settings.icon_4 | img_url: '50x50' | image_url: 'format:auto' }} 50w,
+                                            {{ section.settings.icon_4 | img_url: '100x100' | image_url: 'format:auto' }} 100w,
+                                            {{ section.settings.icon_4 | img_url: '200x200' | image_url: 'format:auto' }} 200w"
+                                        sizes="50px"
+                                        width="100%"
+                                        height="100%"
+                                        alt="{{ section.settings.icon_4.alt | escape }}"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                    <div class="pp-regular f-white text-center">
+                                        <span class="body d-lg-block d-md-block d-sm-none">
+                                            {{ section.settings.heading_4 }}
+                                        </span>
+                                        <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                            {{ section.settings.heading_4 }}
+                                        </span>
+                                    </div>
+                                </div>
+                                </div>
+                            {% endif %}
+                            </div>
+
+                        </div>
+                    {% endif %}     
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+{
+    "class": "product-image-content-section",
+    "name": "Image Content",
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled_section_child_scroll",
+            "label": "Enabled Section Child Scroll"
+        },
+        {
+            "type": "text",
+            "id": "section_scroll_nav",
+            "label": "Section Scroll Nav",
+            "info": "Need to Enabled first Section Scroll"
+        },
+        {
+            "type": "text",
+            "id": "nav_title",
+            "label": "Navigation Title"
+        },
+        {
+            "type": "image_picker",
+            "id": "background_image",
+            "label": "Background Image"
+        },
+        {
+            "type": "text",
+            "id": "counter_number",
+            "label": "Counter Number",
+            "info": "This counter number is only available in Style - 2"
+        },
+        {
+            "type": "select",
+            "id": "style_design",
+            "label": "Style Design",
+            "options": [
+                {
+                    "label": "Style - 1",
+                    "value": "style_1"
+                },
+                {
+                    "label": "Style - 2",
+                    "value": "style_2"
+                }
+            ],
+            "default": "style_1"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Venustas-Warm™ Heating Technology"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>Advanced carbon fiber heating elements quickly warm up with the included 5K battery.</p>"
+        },
+        {
+            "type": "text",
+            "id": "link_label",
+            "label": "Link Label",
+            "default": "Chip Technology Details and Technical Information"
+        },
+        {
+            "type": "url",
+            "id": "link_url",
+            "label": "Link Url"
+        },
+        {
+            "type": "header",
+            "content": "Column - 1"
+        },
+        {
+            "type": "image_picker",
+            "id": "icon_1",
+            "label": "Icon"
+        },
+        {
+            "type": "text",
+            "id": "heading_1",
+            "label": "Heading"
+        },
+        {
+            "type": "header",
+            "content": "Column - 2"
+        },
+        {
+            "type": "image_picker",
+            "id": "icon_2",
+            "label": "Icon"
+        },
+        {
+            "type": "text",
+            "id": "heading_2",
+            "label": "Heading"
+        },
+        {
+            "type": "header",
+            "content": "Column - 3"
+        },
+        {
+            "type": "image_picker",
+            "id": "icon_3",
+            "label": "Icon"
+        },
+        {
+            "type": "text",
+            "id": "heading_3",
+            "label": "Heading"
+        },
+        {
+            "type": "header",
+            "content": "Column - 4"
+        },
+        {
+            "type": "image_picker",
+            "id": "icon_4",
+            "label": "Icon"
+        },
+        {
+            "type": "text",
+            "id": "heading_4",
+            "label": "Heading"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Image Content"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,221 @@
+{%- comment -%}
+  Cooling Vest — sticky anchor nav
+  Horizontally scrollable, click to smooth-scroll to a section, active item is
+  highlighted on scroll (scroll-spy). Each block targets a section by its id key
+  (the key used in the template JSON, e.g. "versus" -> #shopify-section-versus).
+  Cooling-vest only (no preset) so it can't be added to other pages.
+{%- endcomment -%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .cvnav {
+    background: {{ section.settings.bg_color }};
+  }
+  #shopify-section-{{ section.id }} .cvnav.is-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  }
+  #shopify-section-{{ section.id }} .cvnav__spacer { height: 0; }
+  #shopify-section-{{ section.id }} .cvnav__scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  #shopify-section-{{ section.id }} .cvnav__scroll::-webkit-scrollbar { display: none; }
+  #shopify-section-{{ section.id }} .cvnav__list {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    width: max-content;
+    margin: 0 auto;
+    padding: 16px 40px;
+  }
+  #shopify-section-{{ section.id }} .cvnav__item {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    background: none;
+    border: 0;
+    padding: 4px 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    color: {{ section.settings.text_color }};
+    opacity: .75;
+    position: relative;
+    transition: opacity .2s ease, color .2s ease;
+  }
+  #shopify-section-{{ section.id }} .cvnav__item:hover { opacity: 1; }
+  #shopify-section-{{ section.id }} .cvnav__item.active {
+    color: {{ section.settings.active_color }};
+    opacity: 1;
+  }
+  #shopify-section-{{ section.id }} .cvnav__item.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+    height: 2px;
+    background: {{ section.settings.active_color }};
+    border-radius: 2px;
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .cvnav__list {
+      gap: 22px;
+      padding: 12px 20px;
+      margin: 0;
+    }
+    #shopify-section-{{ section.id }} .cvnav__item { font-size: 14px; }
+  }
+{% endstyle %}
+
+<div class="cvnav" id="cvnav-bar-{{ section.id }}">
+  <div class="cvnav__scroll" id="cvnav-scroll-{{ section.id }}">
+    <div class="cvnav__list">
+      {% for block in section.blocks %}
+        <button type="button"
+                class="cvnav__item{% if forloop.first %} active{% endif %}"
+                data-target="{{ block.settings.target | strip }}"
+                {{ block.shopify_attributes }}>
+          {{ block.settings.label }}
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="cvnav__spacer" id="cvnav-spacer-{{ section.id }}"></div>
+
+<script>
+  (function () {
+    var root = document.getElementById('shopify-section-{{ section.id }}');
+    if (!root) return;
+    var bar = document.getElementById('cvnav-bar-{{ section.id }}');
+    var spacer = document.getElementById('cvnav-spacer-{{ section.id }}');
+    var items = Array.prototype.slice.call(root.querySelectorAll('.cvnav__item'));
+    var scroller = document.getElementById('cvnav-scroll-{{ section.id }}');
+    if (!bar || !items.length) return;
+
+    function navHeight() { return bar.offsetHeight || 0; }
+
+    // Measure any sticky/fixed site header currently pinned at the top of the
+    // viewport, so we can pin this nav right below it (not behind it).
+    function headerOffset() {
+      var sels = ['.header-wrapper', '.header-wrapper-mobile', '.header', 'header',
+                  '.shopify-section-header', '.product-header-sticky', '.page-header-nav-section'];
+      var bottom = 0;
+      for (var s = 0; s < sels.length; s++) {
+        var els = document.querySelectorAll(sels[s]);
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          if (el === bar || bar.contains(el) || el.contains(bar)) continue;
+          var st = window.getComputedStyle(el);
+          if (st.position === 'fixed' || st.position === 'sticky') {
+            var r = el.getBoundingClientRect();
+            if (r.height > 0 && r.top <= 1 && r.bottom > bottom) bottom = r.bottom;
+          }
+        }
+      }
+      return bottom;
+    }
+    function offset() { return headerOffset() + navHeight() + 8; }
+
+    function targetEl(item) {
+      var key = item.getAttribute('data-target');
+      if (!key) return null;
+      // JSON-template sections render as id="shopify-section-template--<num>__<key>",
+      // so match by the "__<key>" suffix (also handles a bare id or a custom id).
+      return document.getElementById('shopify-section-' + key)
+          || document.querySelector('[id^="shopify-section-"][id$="__' + key + '"]')
+          || document.getElementById(key);
+    }
+
+    // Click -> smooth scroll with sticky-nav offset
+    items.forEach(function (item) {
+      item.addEventListener('click', function () {
+        var el = targetEl(item);
+        if (!el) return;
+        var top = el.getBoundingClientRect().top + window.pageYOffset - offset();
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      });
+    });
+
+    function centerItem(item) {
+      if (!scroller) return;
+      var iLeft = item.offsetLeft, iW = item.offsetWidth, sW = scroller.clientWidth;
+      scroller.scrollTo({ left: iLeft - (sW / 2) + (iW / 2), behavior: 'smooth' });
+    }
+
+    // Pin to top via fixed-toggle (works even if an ancestor clips overflow).
+    // Trigger off the section wrapper's own position so image-load shifts are handled.
+    function applyFixed() {
+      var ho = headerOffset();
+      var top = root.getBoundingClientRect().top;
+      if (top <= ho) {
+        if (!bar.classList.contains('is-fixed')) {
+          spacer.style.height = bar.offsetHeight + 'px';
+          bar.classList.add('is-fixed');
+        }
+        bar.style.top = ho + 'px';   // sit just below the sticky site header
+      } else if (bar.classList.contains('is-fixed')) {
+        bar.classList.remove('is-fixed');
+        bar.style.top = '';
+        spacer.style.height = '0px';
+      }
+    }
+
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        applyFixed();
+        var line = offset() + 4;
+        var current = items[0], bestTop = -Infinity;
+        items.forEach(function (item) {
+          var el = targetEl(item);
+          if (!el) return;
+          var top = el.getBoundingClientRect().top;
+          if (top - line <= 0 && top > bestTop) { bestTop = top; current = item; }
+        });
+        if (current && !current.classList.contains('active')) {
+          items.forEach(function (i) { i.classList.remove('active'); });
+          current.classList.add('active');
+          centerItem(current);
+        }
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Cooling Vest Nav",
+  "class": "cooling-vest-nav-section",
+  "templates": ["product"],
+  "max_blocks": 20,
+  "settings": [
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#01132F" },
+    { "type": "color", "id": "text_color", "label": "Item Color", "default": "#5BD3F0" },
+    { "type": "color", "id": "active_color", "label": "Active Item Color", "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Nav Item",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Section" },
+        { "type": "text", "id": "target", "label": "Target section id", "info": "The section's id key in this template (e.g. versus, spec_table). Scrolls to #shopify-section-<id>." }
+      ]
+    }
+  ]
+}
+{% endschema %}

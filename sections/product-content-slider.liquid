@@ -1,0 +1,360 @@
+{% style %}
+    .content-slider-section{
+        background-color: #1C1C1C;
+        overflow:hidden;
+    }
+    .content-slider{
+        opacity:0;
+    }
+    .content-slider.swiper-initialized{
+        opacity:1;
+    }
+    .content-video-image-slider{
+        height:550px;
+        overflow:hidden;
+    }
+    .content-slider-section .video-image-item{
+        position:relative;
+        overflow:hidden;
+        border-radius:4px;
+        height:100%;
+    }
+    .video-image-item img{
+        height:auto;
+    }
+    .content-slider-section video{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .content-slider-section .swiper-pagination{
+        display: flex;
+        flex-direction: column;
+        top: 0;
+        bottom: unset;
+        left: 0;
+        right: unset;
+    }
+    .content-slider-section .swiper-pagination span{
+        position:relative;
+        top:unset;
+        bottom:unset;
+        left:unset;
+        right:unset;
+        background:unset;
+        font-family: 'Montserrat';
+        font-size:40px;
+        color:#FFF;
+        width:fit-content;
+        height:fit-content;
+        font-weight:600;
+        line-height:52px;
+        border-radius:0px;
+        padding-left: 20px;
+        background: unset !important;
+    }
+    .content-slider-section .swiper-pagination span:before{
+        content: "";
+        display: block;
+        background: #FFF;
+        height: 100%;
+        width: 4px;
+        position: absolute;
+        left: 0;
+    }
+    .content-slider-section .swiper-pagination span:first-child:before{
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .content-slider-section .swiper-pagination span:last-child:before{
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .content-slider-section .swiper-pagination span.swiper-pagination-bullet-active:before{
+        background: #B93205;
+    }
+    .content-slider-section .swiper-pagination span.swiper-pagination-bullet.swiper-pagination-bullet-active{
+        color:#B93205;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .content-slider-section .swiper-pagination span{
+            font-size:24px;
+            padding: 0 1rem;
+            line-height:normal;
+            margin: 0 !important;
+            color: #464646;
+            padding-bottom:8px;
+        }
+        .content-slider-section .swiper-pagination span:first-child{
+            padding-left:0;
+        }
+        .content-slider-section .swiper-pagination span:last-child{
+            padding-right:0;
+        }
+        .content-slider-section .swiper-pagination{
+            flex-direction:row;
+            justify-content: center;
+        }
+        .content-slider-section .swiper-pagination span:before{
+            left:0;
+            bottom:0;
+            width:100%;
+            height:3px;
+            background:#464646;
+        }
+        .content-slider-section .swiper-pagination span.swiper-pagination-bullet-active:before{
+            background: #B93205;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content 
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+    data-desktop-slider-autoplay="{{ section.settings.enable_desktop_slider_autoplay }}"
+    data-mobile-slider-autoplay="{{ section.settings.enable_mobile_slider_autoplay }}"
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}>
+
+    <div class="row d-lg-flex d-md-flex d-sm-none">
+        <div class="col-lg-6 col-md-6 col-sm-12 position-relative">
+            <div class="swiper-pagination">
+
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-12 mx-auto h-100 d-flex flex-column justify-content-center">
+                <div class="content-slider">
+                    <div class="swiper-wrapper">
+                        {% for block in section.blocks %}
+                            <div class="swiper-slide">
+                                <div class="content-details">
+                                    <div class="pp-bold pretitle-xl f-white text-lg-start text-md-start text-sm-center">
+                                        {{ block.settings.heading }}
+                                    </div>
+                                    <div class="pp-regular body-xl f-white-gray text-lg-start text-md-start text-sm-center">
+                                        {{ block.settings.description }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="content-video-image-slider ">
+                <div class="swiper-wrapper">
+                    {% for block in section.blocks %}
+                        <div class="swiper-slide">
+                            <div class="video-image-item">
+                                {% if block.settings.video_or_image == 'video' %}   
+                                    {% assign large_poster = block.settings.video.preview_image | image_url: width: 2000 %}
+                                    {% assign small_poster = block.settings.video.preview_image | image_url: width: 800 %}
+                                    {% assign alt_text = block.settings.video.alt | default: block.settings.video.title %}
+
+                                    {% assign mp4_source = block.settings.video.sources | where: "format", "mp4" | last %}
+
+                                    <video 
+                                        playsinline 
+                                        autoplay 
+                                        loop 
+                                        muted 
+                                        poster="{{ large_poster }}" 
+                                        preload="metadata"
+                                        data-handle="{{ block.settings.video.id }}">
+                                        {% if mp4_source %}
+                                        <source src="{{ mp4_source.url | prepend: 'https:' }}" type="video/mp4">
+                                        {% endif %}
+                                        <img src="{{ small_poster }}" alt="{{ alt_text }}" width="800" height="{{ 800 | times: large_poster | split: 'x' | last }}" loading="lazy" style="object-fit: cover; width: 100%; height: auto;">
+                                    </video>
+
+                                {% else %}
+                                    <img
+                                        src="{{ block.settings.image | img_url: '800x800' | image_url: 'format:auto' }}"
+                                        srcset="
+                                            {{ block.settings.image | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                                            {{ block.settings.image | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                                            {{ block.settings.image | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w"
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                        width="100%"
+                                        height="100%"
+                                        alt="{{ block.settings.image.alt | default: block.settings.title | default: 'Product image' | escape }}"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+
+                                {% endif %}
+                                    
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>  
+            </div>
+        </div>
+
+    </div>
+    <div class="mobile-content-slider-container d-lg-none d-md-none d-sm-block position-relative">
+        <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+                <div class="swiper-slide"> 
+                    <div class="content-details pb-4">
+                        <div class="pp-bold title-sm f-white text-lg-start text-md-start text-sm-center pb-2">
+                            {{ block.settings.heading }}
+                        </div>
+                        <div class="pp-regular body f-white-gray text-lg-start text-md-start text-sm-center">
+                            {{ block.settings.description }}
+                        </div>
+                    </div>
+                    <div class="video-image-item">
+                        {% if block.settings.video_or_image == 'video' %}   
+                            {% assign large_poster = block.settings.video.preview_image | image_url: width: 2000 %}
+                            {% assign small_poster = block.settings.video.preview_image | image_url: width: 800 %}
+                            {% assign alt_text = block.settings.video.alt | default: block.settings.video.title %}
+
+                            {% assign mp4_source = block.settings.video.sources | where: "format", "mp4" | first %}
+
+                            <video
+                                playsinline
+                                webkit-playsinline
+                                autoplay
+                                muted
+                                loop
+                                preload="auto"
+                                poster="{{ large_poster }}"
+                                data-handle="{{ block.settings.video.id }}"
+                                style="width: 100%; height: auto;"
+                            >
+                                {% if mp4_source %}
+                                    <source src="{{ mp4_source.url }}" type="video/mp4">
+                                {% endif %}
+                            </video>
+                        {% else %}
+                            <img
+                                src="{{ block.settings.image | img_url: '800x800' | image_url: 'format:auto' }}"
+                                srcset="
+                                    {{ block.settings.image | img_url: '400x400' | image_url: 'format:auto' }} 400w,
+                                    {{ block.settings.image | img_url: '800x800' | image_url: 'format:auto' }} 800w,
+                                    {{ block.settings.image | img_url: '1200x1200' | image_url: 'format:auto' }} 1200w"
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                width="100%"
+                                height="100%"
+                                alt="{{ block.settings.image.alt | default: block.settings.title | default: 'Product image' | escape }}"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        {% endif %}
+                            
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination">
+
+        </div>
+    </div>
+
+</div>
+{% schema %}
+{
+    "class": "content-slider-section",
+    "name": "Content Slider",
+    "limit": 1,
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled_section_child_scroll",
+            "label": "Enabled Section Child Scroll"
+        },
+        {
+            "type": "text",
+            "id": "section_scroll_nav",
+            "label": "Section Scroll Nav",
+            "info": "Need to Enabled first Section Scroll"
+        },
+        {
+            "type": "text",
+            "id": "nav_title",
+            "label": "Navigation Title"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_desktop_slider_autoplay",
+            "label": "Enable Desktop Slider Autoplay",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_mobile_slider_autoplay",
+            "label": "Enable Mobile Slider Autoplay",
+            "default": false
+        },
+    ],
+    "max_blocks": 3,
+    "blocks": [
+        {
+            "type": "video",
+            "name": "Content",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "select",
+                    "id": "video_or_image",
+                    "label": "Select Video or Image",
+                    "options": [
+                        {
+                            "label": "Video",
+                            "value": "video"
+                        },
+                        {
+                            "label": "Image",
+                            "value": "image"
+                        }
+                    ],
+                    "default": "video"
+                },  
+                {
+                    "type": "video",
+                    "id": "video",
+                    "label": "Video"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Content Slider"
+        }
+    ]
+}
+{% endschema %}

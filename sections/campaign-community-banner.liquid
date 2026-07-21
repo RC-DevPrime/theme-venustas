@@ -1,0 +1,161 @@
+{% style %}
+    .campaign-community-banner-section{
+        background-color:#000;
+    }
+
+    .campaign-community-banner-section .row{
+        --bs-gutter-x:100px;
+    }
+    .campaign-community-banner-section .element-image{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    .campaign-community-banner-section .image-container{
+        height:100%;
+        width:100%;
+        border-radius: 24px 24px 24px 24px;
+        overflow:hidden;
+    }
+    .campaign-community-banner-section .image-container img{
+        height:100%;
+        width:100%;
+        object-fit:cover;
+    }
+    .campaign-community-banner-section .section-heading:before{
+        content:"";
+        display:block;
+        height:40px;
+        width:40px;
+        position:relative;
+        background-image:url({{ section.settings.element_image | img_url: 'master' }});
+        background-size:contain;
+        background-repeat:no-repeat;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .campaign-community-banner-section .section-element .element-image{
+            height:18px;
+            position:absolute;
+        }
+        .campaign-community-banner-section .section-heading:before{
+            content:"";
+            height:25px;
+            width:25px;
+            position:absolute;
+            margin-top: 5px;
+            transform: translateX(-5px);
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="container section-content 
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}> 
+    <div class="row align-items-center">
+        <div class="col-lg-7 col-md-7 col-sm-12">
+                <h2 class="section-heading pp-semibold text-center f-white title-sm pb-4 d-md-none d-sm-block col-10 mx-auto postion-relative">
+                    {{ section.settings.heading }}
+                </h2>
+
+            <div class="image-container">
+                <img src="{{ section.settings.image | img_url: 'master' }}" width="100%" height="100%" class="featured-image">
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-12">
+            <h2 class="section-heading pp-semibold f-white title-sm pb-3 d-lg-block d-md-block d-sm-none">
+                {{ section.settings.heading }}
+            </h2>
+            <div class="section-description pp-regular body-lg f-white-gray pb-lg-3 pb-md-3 pb-sm-4 text-lg-left text-md-left text-sm-center pt-lg-0 pt-md-0 pt-sm-4">
+                {{ section.settings.description }}
+            </div>
+            <div class="d-flex justify-content-lg-start justify-content-md-start justify-content-sm-center">
+                <a href="{{ section.settings.btn_link }}" class="btn-hover btn-main py-2">
+                    <span class="f-white pp-regular body-lg">
+                        {{ section.settings.btn_label }}
+                    </span>
+                </a>
+            </div>
+
+        </div>
+    </div>  
+</div>
+{% schema %}
+    {
+        "class": "campaign-community-banner-section overflow-hidden",
+        "name": "Campaign Community Banner",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enabled_section_child_scroll",
+                "label": "Enabled Section Child Scroll"
+            },
+            {
+                "type": "text",
+                "id": "section_scroll_nav",
+                "label": "Section Scroll Nav",
+                "info": "Need to Enabled first Section Scroll"
+            },
+            {
+                "type": "text",
+                "id": "nav_title",
+                "label": "Navigation Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "element_image",
+                "label": "Element Image"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Experience ultimate warmth and save big!"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>Choose any two premium heated vests from our Men’s and Women’s collections and enjoy 120 off. Limited to one day only！</p>"
+            },
+            {
+                "type": "text",
+                "id": "btn_label",
+                "label": "Button Label",
+                "default": "Buy Now"
+            },
+            {
+                "type": "url",
+                "id": "btn_link",
+                "label": "Button Link"
+            }
+        ],
+        "presets" :[{
+            "name" : "Campaign Community Banner"
+        }]
+    }
+  {% endschema %} 

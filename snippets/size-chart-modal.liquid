@@ -1,0 +1,166 @@
+
+
+{%- if matched_size_chart != blank -%}
+  
+  <div class='size-chart-button' style='display:none;'>
+    <img src='https://cdn.shopify.com/s/files/1/0457/1099/9709/files/size-chart-icon.png?v=1765009516' alt='size-chart-icon'>
+    <span class='pp-regular italic body-sm f-gray'>Size Guide</span>
+  </div>
+<div class="size-chart-modal popup-modal">
+  <div class="popup-overlay"></div>
+
+  <div class="popup-content">
+    <div class="popup-header">
+      <button class="popup-close" type="button">
+        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/add_2x_1.png?v=1765010574" alt="close">
+      </button>
+    </div>
+
+    <div class="popup-container">
+      <h3 class="pp-bold pretitle-lg f-black text-center pb-4 d-lg-block d-md-block d-sm-none">Size Guide</h3>
+      <h3 class="pp-bold body-lg f-black text-center pb-3 d-lg-none d-md-none d-sm-block">Size Guide</h3>
+
+      <div class="size-chart-tab-list">
+        <div class="tab-item active" tab-data="size-guide">
+          <p class="pp-semibold body-lg text-center d-lg-block d-md-block d-sm-none">Size Guide</p>
+          <p class="pp-semibold body text-center d-lg-none d-md-none d-sm-block">Size Guide</p>
+        </div>
+        <div class="tab-item" tab-data="measuring-instruction">
+          <p class="pp-semibold body-lg text-center d-lg-block d-md-none d-sm-none">Measuring Instructions</p>
+          <p class="pp-semibold body text-center d-lg-none d-md-none d-sm-block">Measuring Instructions</p>
+        </div>
+      </div>
+
+      <div class="size-chart-tab-content" tab-data="size-guide">
+        <div class="d-flex justify-content-between pt-3 pb-lg-4 pb-md-4 pb-sm-3 gap-3 align-items-start">
+          <div class="product-title pp-bold f-black">
+            <span class="body-xl d-lg-block d-md-block d-sm-none">
+              {{ product.title }}
+            </span>
+            <span class="body d-lg-none d-md-none d-sm-block">
+              {{ product.title }}
+            </span>
+          </div>
+
+<div class="toggle-size-chart {{ matched_size_chart.default_unit.value | downcase }}"
+     data-unit="{% if matched_size_chart.default_unit.value == 'IN' %}in{% else %}cm{% endif %}">
+            {% if matched_size_chart.default_unit.value == 'CM' %}
+              <span class="unit-label pp-regular body f-black left active">CM</span>
+              <span class="toggle-box"></span>
+              <span class="unit-label pp-regular body f-black right">IN</span>
+            {% else %}
+              <span class="unit-label pp-regular body f-black left active">IN</span>
+              <span class="toggle-box"></span>
+              <span class="unit-label pp-regular body f-black right ">CM</span>
+            {% endif %}
+          </div>
+        </div>
+
+        {%- if matched_size_chart.chart_table_1.value != blank -%}
+          {{ matched_size_chart.chart_table_1.value }}
+        {%- endif -%}
+
+        {%- if matched_size_chart.description != blank -%}
+          <div class="size-chart-description">
+            <div class="pp-semibold body d-lg-block d-md-block d-sm-none">
+              {{ matched_size_chart.description | metafield_tag }}
+            </div>
+            <div class="pp-semibold body-sm d-lg-none d-md-none d-sm-block">
+              {{ matched_size_chart.description | metafield_tag }}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+    <div class="size-chart-tab-content" tab-data="measuring-instruction" style="display:none;">
+      {%- if matched_size_chart.section_1_heading.value != blank
+        or matched_size_chart.section_1_image_1.value != blank
+        or matched_size_chart.section_1_image_2.value != blank
+      -%}
+        {%- assign section_1_image_count = 0 -%}
+        {%- if matched_size_chart.section_1_image_1.value != blank -%}
+          {%- assign section_1_image_count = section_1_image_count | plus: 1 -%}
+        {%- endif -%}
+        {%- if matched_size_chart.section_1_image_2.value != blank -%}
+          {%- assign section_1_image_count = section_1_image_count | plus: 1 -%}
+        {%- endif -%}
+
+        <div class="row-image-item mb-lg-4 mb-md-4 mb-sm-3 mt-3">
+          {%- if matched_size_chart.section_1_heading.value != blank -%}
+            <div class="product-title pp-bold body-xl f-black pb-3 text-center">
+              {{ matched_size_chart.section_1_heading.value }}
+            </div>
+          {%- endif -%}
+
+          <div class="row {% if section_1_image_count == 1 %}justify-content-center{% endif %}">
+            {%- if matched_size_chart.section_1_image_1.value != blank -%}
+              <div class="{% if section_1_image_count == 1 %}col-lg-6 col-md-8 col-sm-12{% else %}col-lg-6 col-md-6 col-sm-12{% endif %}">
+                {{
+                  matched_size_chart.section_1_image_1.value
+                  | image_url: width: 1200
+                  | image_tag: class: 'size-chart-image', alt: matched_size_chart.section_1_heading.value
+                }}
+              </div>
+            {%- endif -%}
+
+            {%- if matched_size_chart.section_1_image_2.value != blank -%}
+              <div class="{% if section_1_image_count == 1 %}col-lg-6 col-md-8 col-sm-12{% else %}col-lg-6 col-md-6 col-sm-12{% endif %}">
+                {{
+                  matched_size_chart.section_1_image_2.value
+                  | image_url: width: 1200
+                  | image_tag: class: 'size-chart-image', alt: matched_size_chart.section_1_heading.value
+                }}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if matched_size_chart.section_2_heading.value != blank
+        or matched_size_chart.section_2_image_1.value != blank
+        or matched_size_chart.section_2_image_2.value != blank
+      -%}
+        {%- assign section_2_image_count = 0 -%}
+        {%- if matched_size_chart.section_2_image_1.value != blank -%}
+          {%- assign section_2_image_count = section_2_image_count | plus: 1 -%}
+        {%- endif -%}
+        {%- if matched_size_chart.section_2_image_2.value != blank -%}
+          {%- assign section_2_image_count = section_2_image_count | plus: 1 -%}
+        {%- endif -%}
+
+        <div class="row-image-item">
+          {%- if matched_size_chart.section_2_heading.value != blank -%}
+            <div class="product-title pp-bold body-xl f-black pb-3 text-center">
+              {{ matched_size_chart.section_2_heading.value }}
+            </div>
+          {%- endif -%}
+
+          <div class="row {% if section_2_image_count == 1 %}justify-content-center{% endif %}">
+            {%- if matched_size_chart.section_2_image_1.value != blank -%}
+              <div class="{% if section_2_image_count == 1 %}col-lg-6 col-md-8 col-sm-12{% else %}col-lg-6 col-md-6 col-sm-12{% endif %}">
+                {{
+                  matched_size_chart.section_2_image_1.value
+                  | image_url: width: 1200
+                  | image_tag: class: 'size-chart-image', alt: matched_size_chart.section_2_heading.value
+                }}
+              </div>
+            {%- endif -%}
+
+            {%- if matched_size_chart.section_2_image_2.value != blank -%}
+              <div class="{% if section_2_image_count == 1 %}col-lg-6 col-md-8 col-sm-12{% else %}col-lg-6 col-md-6 col-sm-12{% endif %}">
+                {{
+                  matched_size_chart.section_2_image_2.value
+                  | image_url: width: 1200
+                  | image_tag: class: 'size-chart-image', alt: matched_size_chart.section_2_heading.value
+                }}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+    </div>
+  </div>
+</div>
+{%- endif -%}
+

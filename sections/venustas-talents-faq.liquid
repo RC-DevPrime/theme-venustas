@@ -1,0 +1,151 @@
+{%- liquid
+  assign faq_bg = section.settings.faq_bg_color | default: '#5B1C07'
+  assign faq_overlay = section.settings.faq_bg_overlay | divided_by: 100.0
+  if section.settings.faq_bg_image != blank
+    assign faq_bg_url = section.settings.faq_bg_image | image_url: width: 2400
+  endif
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} .v-talents-faq {
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    padding: {{ section.settings.padding_top_mobile }}px 6% {{ section.settings.padding_bottom_mobile }}px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    {%- if faq_bg_url == blank -%}
+    background: {{ faq_bg }};
+    {%- endif -%}
+  }
+
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .v-talents-faq {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-faq__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: url('{{ faq_bg_url }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-faq__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: {{ faq_bg }};
+    opacity: {{ faq_overlay }};
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-faq__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-faq__title {
+    font-size: clamp(24px, 2.5vw, 36px);
+    font-weight: 700;
+    margin: 0 0 16px;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-faq__body {
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0 0 20px;
+    opacity: 0.95;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-faq__body p {
+    margin: 0 0 0.75em;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-faq__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-faq__contact {
+    font-size: 15px;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-faq__contact a {
+    color: #fff;
+    text-decoration: underline;
+  }
+</style>
+
+<div class="v-talents-faq">
+  {%- if faq_bg_url != blank -%}
+    <div class="v-talents-faq__bg" aria-hidden="true"></div>
+    <div class="v-talents-faq__overlay" aria-hidden="true"></div>
+  {%- endif -%}
+  <div class="v-talents-faq__inner">
+    {%- if section.settings.faq_heading != blank -%}
+      <h2 class="v-talents-faq__title">{{ section.settings.faq_heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.faq_body != blank -%}
+      <div class="v-talents-faq__body">{{ section.settings.faq_body }}</div>
+    {%- endif -%}
+    {%- if section.settings.faq_contact_prefix != blank or section.settings.faq_email != blank -%}
+      <p class="v-talents-faq__contact">
+        {{ section.settings.faq_contact_prefix }}
+        {%- if section.settings.faq_email != blank -%}
+          <a href="mailto:{{ section.settings.faq_email }}">{{ section.settings.faq_email }}</a>
+        {%- endif -%}
+      </p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Talents — FAQ Banner",
+  "tag": "section",
+  "class": "venustas-talents-faq-section",
+  "settings": [
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "padding_top_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding top", "default": 56 },
+    { "type": "range", "id": "padding_bottom_desktop", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Desktop padding bottom", "default": 56 },
+    { "type": "range", "id": "padding_top_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding top", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Mobile padding bottom", "default": 40 },
+    { "type": "header", "content": "Background" },
+    { "type": "image_picker", "id": "faq_bg_image", "label": "Background image" },
+    {
+      "type": "color",
+      "id": "faq_bg_color",
+      "label": "Overlay color",
+      "default": "#5B1C07",
+      "info": "Tint over the image so white text stays readable. Use transparent for no tint."
+    },
+    {
+      "type": "range",
+      "id": "faq_bg_overlay",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay strength",
+      "default": 40,
+      "info": "0% shows the image clearly; higher values darken the image."
+    },
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "faq_heading", "label": "Heading", "default": "How Do We Select Talent Stars?" },
+    { "type": "richtext", "id": "faq_body", "label": "Body", "default": "<p>We review applications based on content quality, audience engagement, and alignment with Venustas brand values.</p>" },
+    { "type": "text", "id": "faq_contact_prefix", "label": "Contact text prefix", "default": "Any questions? Contact us at:" },
+    { "type": "text", "id": "faq_email", "label": "Contact email", "default": "media@venustas.com" }
+  ],
+  "presets": [{ "name": "Talents — FAQ Banner", "category": "Venustas Talents" }]
+}
+{% endschema %}

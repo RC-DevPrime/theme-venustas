@@ -1,0 +1,275 @@
+{% style %}
+    .ambassador-top-list-section{
+        background-color:#F9F6EF;
+    }
+    .ambassador-top-list-section .section-heading{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+    }
+    .ambassador-top-list-section .heading-element{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    .ambassador-top-list-section .ambassador-item .ambassador-profile-image{
+        border-radius:50%;
+        width:100%;
+        height:100%;
+        overflow:hidden;
+        aspect-ratio: 1;
+        position:relative;
+        display:block;
+    }
+    .ambassador-top-list-section .ambassador-item .ambassador-profile-image img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        opacity:0;
+    }
+    .ambassador-top-list-section .ambassador-item .ambassador-profile-image .img-path{
+        opacity:1;
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        transition: all 0.3s ease;
+    }
+    .ambassador-top-list-section .ambassador-item .ambassador-profile-image:hover .img-path{
+        scale:1.1;
+    }
+    .ambassador-top-list-section .top-list-container .row{
+        --bs-gutter-x: 50px;
+    }
+    .ambassador-top-list-section .ambassador-flag{
+        height:25px;
+        width:fit-content;
+        object-fit:contain;
+        margin-left:5px;
+        margin-top:-5px;
+    }
+    .ambassador-top-list-section .ambassador-role{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:5px;
+        margin-top:10px;
+    }
+    .ambassador-top-list-section .ambassador-role img{
+        height:12px;
+        width:fit-content;
+        object-fit:contain;
+    }
+    .top-list-slider-container .ambassador-item{
+        display:flex;
+        flex-direction:column;
+        align-items: center;
+    }
+    .ambassador-top-list-section .swiper-slide-next .ambassador-item,
+    .ambassador-top-list-section .swiper-slide-prev .ambassador-item {
+        scale:0.8;
+        transition: all 0.3s ease;
+    }
+
+    .ambassador-top-list-section .float-nav,
+    .ambassador-top-list-section .float-nav button{
+        position:unset;
+        transform:unset;
+    }
+    .ambassador-top-list-section .swiper-pagination{
+        width:fit-content;
+        margin:0;
+    }
+    .ambassador-top-list-section .swiper-pagination .swiper-pagination-bullet{
+        height:4px;
+        width:8px;
+        border-radius:4px;
+    }
+    .ambassador-top-list-section .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active{
+        width:30px;
+        background: #B93205;
+    }
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+    }
+    @media only screen and (min-width: 375px) {
+    }
+    @media only screen and (min-width: 390px) {
+    }
+    @media only screen and (min-width: 414px) {
+    }
+    @media only screen and (min-width: 428px) {
+    }
+    @media only screen and (min-width: 480px) {
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+    }
+    @media only screen and (min-width: 1366px) {
+    }
+    @media only screen and (min-width: 1440px) {
+    }
+    @media only screen and (min-width: 1536px) {
+    }
+    @media only screen and (min-width: 1600px) {
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+    }
+    @media only screen and (min-width: 2560px) {
+    }
+{% endstyle %}
+<div class="container section-content">
+    <div class="section-heading pb-lg-5 pb-md-5 pb-sm-4" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="100" data-aos-duration="500">
+        <h2 class="pp-bold f-black title-sm text-center">
+            {{ section.settings.heading }}
+        </h2>
+    </div>
+    <div class="top-list-container d-lg-block d-md-block d-sm-none">
+        <div class="row">
+            {% for block in section.blocks %}
+                <div class="col-lg-3 col-md-3 col-sm-12" data-aos="fade-up" data-aos-once="true" data-aos-easing="ease" data-aos-delay="{{ forloop.index }}00" data-aos-duration="500">
+                    <div class="ambassador-item">
+                        <a href="{{ block.settings.article.url }}"  class="ambassador-profile-image">
+                            <img src="{{ block.settings.image | img_url: 'master' }}" width="100%" height="100%">
+                            <img src="{{ block.settings.image | img_url: 'master' }}" width="100%" height="100%" class="img-path">
+                        </a>
+                        <div class="ambassador-details pt-lg-4 pt-md-4 pt-sm-3">
+                            <a href="{{ block.settings.article.url }}" class="pp-bold f-black body-xl text-center d-block">
+                                {{ block.settings.heading }} 
+                                {% if block.settings.country == 'canada' %}
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/49761_2x_ba914575-079c-460d-8308-28a53f3deef5.png?v=1761159296" class="ambassador-flag">
+                                {% else %}
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/49762_2x_a60b72fc-fc13-4e8c-b8b7-faa708368a7a.png?v=1761159296" class="ambassador-flag">
+                                {% endif %}
+                            </a>
+                            <div class="ambassador-role">
+                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77186_2x_8b3f771d-4d29-41d6-8dfc-94aaa85fcd2a.png?v=1761193162">
+                                <p class="pp-regular body">{{ block.settings.role }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="top-list-slider-container d-lg-none d-md-none d-sm-block">
+        <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+                <div class="swiper-slide">
+
+                    <div class="ambassador-item">
+                        <a href="{{ block.settings.article.url }}" class="ambassador-profile-image d-block">
+                            <img src="{{ block.settings.image | img_url: 'master' }}" width="100%" height="100%">
+                            <img src="{{ block.settings.image | img_url: 'master' }}" width="100%" height="100%" class="img-path">
+                        </a>
+                        <div class="ambassador-details pt-lg-4 pt-md-4 pt-sm-3">
+                            <a href="{{ block.settings.article.url }}"  class="pp-bold f-black body text-center d-block">
+                                {{ block.settings.heading }} 
+                                {% if block.settings.country == 'canada' %}
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/49761_2x_ba914575-079c-460d-8308-28a53f3deef5.png?v=1761159296" class="ambassador-flag">
+                                {% else %}
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/49762_2x_a60b72fc-fc13-4e8c-b8b7-faa708368a7a.png?v=1761159296" class="ambassador-flag">
+                                {% endif %}
+                            </a>
+                            <div class="ambassador-role">
+                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/77186_2x_8b3f771d-4d29-41d6-8dfc-94aaa85fcd2a.png?v=1761193162">
+                                <p class="pp-regular body">{{ block.settings.role }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+        <div class="float-nav d-lg-none d-md-none d-sm-flex align-items-center justify-content-center gap-3">
+            <button type="button" class="owl-prev" disabled>
+                <i class="fa-solid fa-chevron-left f-main"></i>
+            </button>
+            <div class="swiper-pagination d-flex"></div>
+            <button type="button" class="owl-next" disabled>
+                <i class="fa-solid fa-chevron-right f-main"></i>
+            </button>
+        </div>
+    </div>
+
+
+</div>
+{% schema %}
+    {
+        "class": "ambassador-top-list-section overflow-hidden",
+        "name": "Ambassador Top List",
+        "templates": ["page"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Top Ambassadors"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "ambassador",
+                "name": "Ambassador",
+                "settings": [
+                    {
+                        "type": "select",
+                        "id": "country",
+                        "label": "Country",
+                        "options": [
+                            {
+                                "label": "Canada",
+                                "value": "canada"
+                            },
+                            {
+                                "label": "United States",
+                                "value": "united-states"
+                            }
+                        ],
+                        "default": "canada"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading"
+                    },
+                    {
+                        "type": "text",
+                        "id": "role",
+                        "label": "role",
+                    },
+                    {
+                        "type": "article",
+                        "id": "article",
+                        "label": "Article Link"
+                    }
+                ]
+            }
+        ],
+        "presets" :[{
+            "name" : "Ambassador Top List"
+        }]
+    }
+  {% endschema %} 

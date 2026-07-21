@@ -1,0 +1,678 @@
+{% style %}
+    .product-specification-section .specification-inner-section{
+        background-color:#F9F9F9;
+        border-radius:46px;
+    }
+    .product-specification-section .specification-icon-list {
+        border-bottom:1px solid #DADADA;
+    }
+    .product-specification-section .specification-icon-list .specification-icon-item{
+        display:flex;
+        gap:30px;
+        align-items:center;
+        justify-content:center;
+    }
+    .product-specification-section .specification-icon-list .row .col-4:first-child .specification-icon-item{
+        justify-content:flex-start;
+    }
+    .product-specification-section .specification-icon-list .row .col-4:last-child .specification-icon-item{
+        justify-content:flex-end;
+    }
+    .product-specification-section .specification-icon{
+        height:40px;
+        width:fit-content;
+        object-fit:contain;
+    }
+
+    .product-specification-section .specification-metaobjects-list {
+        display:flex;
+        flex-direction:column;
+        gap:40px;
+    }
+    .product-specification-section .specification-metaobjects-list .specification-item{
+        background: #F0F0F0;
+        border-radius: 8px 8px 8px 8px;
+        padding:40px 0px;
+    }
+
+    .product-specification-section .specification-icon-inner-section,
+    .product-specification-section .specification-item-inner-section{
+        padding-left:80px;
+        padding-right:80px;
+    }
+
+    .product-specification-section .specification-data{
+        display:flex;
+        flex-direction:column;
+        gap:50px;
+    }
+    .product-specification-section .specification-data .specification-data-item{
+        padding-bottom:50px;
+        border-bottom:1px solid #B5B5B5;
+    }
+    .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+        --bs-gutter-x: 10rem;
+        --bs-gutter-y: 1rem;
+    }
+    .product-specification-section .specification-data .specification-data-item:last-child{
+        border-bottom:none;
+        padding-bottom:15px;
+    }
+
+    .product-specification-section .load-full-specs{
+        cursor:pointer;
+        width:fit-content;
+        margin:auto;
+    }
+    .product-specification-section .load-full-specs:hover{
+        color: #B93205;
+    }
+
+    
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .product-specification-section .specification-inner-section{
+            border-radius:26px;
+        }
+        .product-specification-section .specification-icon{
+            width:30px;
+            height:30px;
+        }
+        .product-specification-section .specification-icon-inner-section .row{
+            --bs-gutter-y: 1rem;
+        }
+        .product-specification-section .specification-metaobjects-list .specification-item{
+            padding:20px 0px;
+        }
+        .product-specification-section .specification-metaobjects-list{
+            gap:20px;
+        }
+        .product-specification-section .load-full-specs{
+            background: #B93205;
+            border-radius: 8px 8px 8px 8px;
+            padding:10px 20px;
+            color:#FFF !important;
+        }
+        .product-specification-section .specification-data .specification-data-item{
+            padding-bottom:1rem;
+        }
+        .product-specification-section .specification-data{
+            gap:16px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+        .product-specification-section .specification-item-inner-section{
+            padding-left:15px;
+            padding-right:15px;
+        }
+        .product-specification-section .specification-icon-inner-section{
+            padding-left:0;
+            padding-right:0;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 1rem;
+        }
+    }
+    @media only screen and (min-width: 375px) {
+        .product-specification-section .specification-item-inner-section{
+            padding-left:15px;
+            padding-right:15px;
+        }
+        .product-specification-section .specification-icon-inner-section{
+            padding-left:0;
+            padding-right:0;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 1rem;
+        }
+    }
+    @media only screen and (min-width: 390px) {
+        .product-specification-section .specification-item-inner-section{
+            padding-left:15px;
+            padding-right:15px;
+        }
+        .product-specification-section .specification-icon-inner-section{
+            padding-left:0;
+            padding-right:0;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 1rem;
+        }
+    }
+    @media only screen and (min-width: 414px) {
+        .product-specification-section .specification-item-inner-section{
+            padding-left:15px;
+            padding-right:15px;
+        }
+        .product-specification-section .specification-icon-inner-section{
+            padding-left:0;
+            padding-right:0;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 1rem;
+        }
+    }
+    @media only screen and (min-width: 428px) {
+        .product-specification-section .specification-item-inner-section{
+            padding-left:15px;
+            padding-right:15px;
+        }
+        .product-specification-section .specification-icon-inner-section{
+            padding-left:0;
+            padding-right:0;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 1rem;
+        }
+    }
+    @media only screen and (min-width: 480px) {
+        .product-specification-section .specification-item-inner-section{
+            padding-left:15px;
+            padding-right:15px;
+        }
+        .product-specification-section .specification-icon-inner-section{
+            padding-left:0;
+            padding-right:0;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 1rem;
+        }
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+        .product-specification-section .specification-icon-inner-section,
+        .product-specification-section .specification-item-inner-section{
+            padding-left:25px;
+            padding-right:25px;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 2.5rem;
+        }
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+        .product-specification-section .specification-icon-inner-section,
+        .product-specification-section .specification-item-inner-section{
+            padding-left:30px;
+            padding-right:30px;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 4rem;
+        }
+    }
+    @media only screen and (min-width: 1366px) {
+        .product-specification-section .specification-icon-inner-section,
+        .product-specification-section .specification-item-inner-section{
+            padding-left:45px;
+            padding-right:45px;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 5rem;
+        }
+    }
+    @media only screen and (min-width: 1440px) {
+        .product-specification-section .specification-icon-inner-section,
+        .product-specification-section .specification-item-inner-section{
+            padding-left:50px;
+            padding-right:50px;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 6rem;
+        }
+    }
+    @media only screen and (min-width: 1536px) {
+        .product-specification-section .specification-icon-inner-section,
+        .product-specification-section .specification-item-inner-section{
+            padding-left:60px;
+            padding-right:60px;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 7rem;
+        }
+    }
+    @media only screen and (min-width: 1600px) {
+        .product-specification-section .specification-icon-inner-section,
+        .product-specification-section .specification-item-inner-section{
+            padding-left:70px;
+            padding-right:70px;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 8rem;
+        }
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .product-specification-section .specification-icon-inner-section,
+        .product-specification-section .specification-item-inner-section{
+            padding-left:80px;
+            padding-right:80px;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 10rem;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .product-specification-section .specification-icon-inner-section,
+        .product-specification-section .specification-item-inner-section{
+            padding-left:80px;
+            padding-right:80px;
+        }
+        .product-specification-section .specification-data .specification-data-item .specification-data-item-inner{
+            --bs-gutter-x: 10rem;
+        }
+    }
+
+{% endstyle %}
+<div class="container section-content  
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}>
+
+    <div class="specification-inner-section section-content">
+        <h2 class="pp-bold title-sm text-center pb-lg-5 pb-md-5 pb-sm-4">
+            {{ section.settings.heading }}
+        </h2>
+
+        <div class="specification-icon-list">
+            <div class="specification-icon-inner-section mx-auto pb-lg-5 pb-md-5 pb-sm-4">
+                <div class="row pb-lg-3 pb-md-3 pb-sm-2">
+                    {% for block in section.blocks %}
+                        <div class="col-lg-4 col-md-4 col-sm-6"> 
+                            <div class="specification-icon-item gap-lg-4 gap-md-4 gap-sm-3">
+                                <img
+                                    src="{{ block.settings.icon | img_url: '100x100' | image_url: 'format:auto' }}"
+                                    srcset="
+                                        {{ block.settings.icon | img_url: '50x50' | image_url: 'format:auto' }} 50w,
+                                        {{ block.settings.icon | img_url: '100x100' | image_url: 'format:auto' }} 100w,
+                                        {{ block.settings.icon | img_url: '200x200' | image_url: 'format:auto' }} 200w"
+                                    sizes="50px"
+                                    width="100%"
+                                    height="100%"
+                                    class="specification-icon"
+                                    alt="{{ block.settings.icon.alt | escape }}"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+
+                                <div class="pp-regular body l-h-normal">
+                                    <span class="body d-lg-block d-md-block d-sm-none">
+                                        {{ block.settings.heading | newline_to_br }}
+                                    </span>
+                                    <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                        {{ block.settings.heading | newline_to_br }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="specification-metaobjects-list pt-lg-5 pt-md-5 pt-sm-4">
+            
+        {% assign technical_specifications = metaobjects.technical_specification.values %}
+        {% paginate technical_specifications by 250 %}
+        {% for entries in technical_specifications %}
+            {% assign match_found = false %}
+            {% assign count_item = 0 %}
+            {% assign entry_product_ids = entries.product.value | map: 'id' %}
+
+            {% if entry_product_ids contains product.id %}
+                {% assign match_found = true %}
+            {% endif %}
+
+            {% if match_found %}
+                
+                {% unless entries.heating_element_title.value == blank %}
+                    {% assign count_item = count_item | plus: 1 %}
+                    <div class="specification-item">
+                        <div class="specification-item-inner-section">
+                            <div class="specification-heading pp-bold text-center pb-lg-5 pb-md-5 pb-sm-4">
+                                <span class="pretitle d-lg-block d-md-block d-sm-none">
+                                    Heating Element
+                                </span>
+                                <span class="body-lg d-lg-none d-md-none d-sm-block">
+                                    Heating Element
+                                </span>
+                            </div>
+                            <div class="specification-data">
+                            
+                            {% assign titles = entries.heating_element_title.value | newline_to_br | split: '<br />' %}
+                            {% assign values = entries.heating_element_value.value | newline_to_br | split: '<br />' %}
+
+                            {% for title in titles %}
+                                {% assign value = values[forloop.index0] %}
+                                {% assign item_modulo = forloop.index0 | modulo: 2 %}
+                                
+                                {% if item_modulo == 0 %}
+                                <div class="specification-data-item">
+                                <div class="row specification-data-item-inner">
+                                {% endif %}
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="item-data">
+                                        <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-sm-6">
+                                            <div class="pp-semibold body-lg">
+                                                <span class="body-lg d-lg-block d-md-block d-sm-none">
+                                                    {{ title }}
+                                                </span>
+                                                <span class="body-sm d-lg-none d-md-none d-sm-block pp-bold">
+                                                {{ title }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-6">
+                                            <div class="pp-regular body l-h-normal">
+                                                <span class="body d-lg-block d-md-block d-sm-none">
+                                                    {{ value }}
+                                                </span>
+                                                <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                                    {{ value }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                {% if item_modulo == 1 or forloop.last %}
+                                </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+
+        </div>
+                        </div>
+                    </div>
+                {% endunless %}
+
+                {% unless entries.battery_information_title.value == blank %}
+                    {% assign count_item = count_item | plus: 1 %}
+                    <div class="specification-item">
+                        <div class="specification-item-inner-section">
+                            <div class="specification-heading pp-bold pretitle text-center pb-lg-5 pb-md-5 pb-sm-4">
+                                <span class="pretitle d-lg-block d-md-block d-sm-none">
+                                    Battery Information
+                                </span>
+                                <span class="body-lg d-lg-none d-md-none d-sm-block">
+                                    Battery Information
+                                </span>
+                            </div>
+                            <div class="specification-data">
+                            
+                            {% assign titles = entries.battery_information_title.value | newline_to_br | split: '<br />' %}
+                            {% assign values = entries.battery_information_value.value | newline_to_br | split: '<br />' %}
+
+                            {% for title in titles %}
+                                {% assign value = values[forloop.index0] %}
+                                {% assign item_modulo = forloop.index0 | modulo: 2 %}
+                                
+                                {% if item_modulo == 0 %}
+                                <div class="specification-data-item">
+                                <div class="row specification-data-item-inner">
+                                {% endif %}
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="item-data">
+                                        <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-sm-6">
+                                            <div class="pp-semibold body-lg">
+                                                <span class="body-lg d-lg-block d-md-block d-sm-none">
+                                                    {{ title }}
+                                                </span>
+                                                <span class="body-sm d-lg-none d-md-none d-sm-block pp-bold">
+                                                {{ title }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-6">
+                                            <div class="pp-regular body l-h-normal">
+                                                <span class="body d-lg-block d-md-block d-sm-none">
+                                                    {{ value }}
+                                                </span>
+                                                <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                                    {{ value }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                {% if item_modulo == 1 or forloop.last %}
+                                </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                {% endunless %}
+
+                {% unless entries.apparel_title.value == blank %}
+                    {% assign count_item = count_item | plus: 1 %}
+                    <div class="specification-item ">
+                        <div class="specification-item-inner-section">
+                            <div class="specification-heading pp-bold pretitle text-center pb-lg-5 pb-md-5 pb-sm-4">
+                                <span class="pretitle d-lg-block d-md-block d-sm-none">
+                                    Apparel
+                                </span>
+                                <span class="body-lg d-lg-none d-md-none d-sm-block">
+                                    Apparel
+                                </span>
+                            </div>
+                            <div class="specification-data">
+                            
+                            {% assign titles = entries.apparel_title.value | newline_to_br | split: '<br />' %}
+                            {% assign values = entries.apparel_value.value | newline_to_br | split: '<br />' %}
+
+                            {% for title in titles %}
+                                {% assign value = values[forloop.index0] %}
+                                {% assign item_modulo = forloop.index0 | modulo: 2 %}
+                                
+                                {% if item_modulo == 0 %}
+                                <div class="specification-data-item">
+                                <div class="row specification-data-item-inner">
+                                {% endif %}
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="item-data">
+                                        <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-sm-6">
+                                            <div class="pp-semibold body-lg">
+                                                <span class="body-lg d-lg-block d-md-block d-sm-none">
+                                                    {{ title }}
+                                                </span>
+                                                <span class="body-sm d-lg-none d-md-none d-sm-block pp-bold">
+                                                {{ title }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-6">
+                                            <div class="pp-regular body l-h-normal">
+                                                <span class="body d-lg-block d-md-block d-sm-none">
+                                                    {{ value }}
+                                                </span>
+                                                <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                                    {{ value }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                {% if item_modulo == 1 or forloop.last %}
+                                </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                {% endunless %}
+
+                {% unless entries.general_title.value == blank %}
+                    {% assign count_item = count_item | plus: 1 %}
+                    <div class="specification-item">
+                        <div class="specification-item-inner-section">
+                            <div class="specification-heading pp-bold pretitle text-center pb-lg-5 pb-md-5 pb-sm-4">
+                                <span class="pretitle d-lg-block d-md-block d-sm-none">
+                                    General
+                                </span>
+                                <span class="body-lg d-lg-none d-md-none d-sm-block">
+                                    General
+                                </span>
+                            </div>
+                            <div class="specification-data">
+                            
+                            {% assign titles = entries.general_title.value | newline_to_br | split: '<br />' %}
+                            {% assign values = entries.general_value.value | newline_to_br | split: '<br />' %}
+
+                            {% for title in titles %}
+                                {% assign value = values[forloop.index0] %}
+                                {% assign item_modulo = forloop.index0 | modulo: 2 %}
+                                
+                                {% if item_modulo == 0 %}
+                                <div class="specification-data-item">
+                                <div class="row specification-data-item-inner">
+                                {% endif %}
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="item-data">
+                                        <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-sm-6">
+                                            <div class="pp-semibold body-lg">
+                                                <span class="body-lg d-lg-block d-md-block d-sm-none">
+                                                    {{ title }}
+                                                </span>
+                                                <span class="body-sm d-lg-none d-md-none d-sm-block pp-bold">
+                                                {{ title }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-6">
+                                            <div class="pp-regular body l-h-normal">
+                                                <span class="body d-lg-block d-md-block d-sm-none">
+                                                    {{ value }}
+                                                </span>
+                                                <span class="body-sm d-lg-none d-md-none d-sm-block">
+                                                    {{ value }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                {% if item_modulo == 1 or forloop.last %}
+                                </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                {% endunless %}
+                
+                {% if count_item > 1 %}
+                    <div class="text-center">
+                        <p class="load-full-specs pp-regular text-underline">Load Full Specs ></p>
+                    </div>
+                {% endif %}
+
+            {% endif %}
+
+        {% endfor %}
+        {% endpaginate %}
+
+
+
+        </div>
+        
+    </div>
+</div>
+{% schema %}
+{
+    "class": "product-specification-section",
+    "name": "Specification",
+    "limit": 1,
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled_section_child_scroll",
+            "label": "Enabled Section Child Scroll"
+        },
+        {
+            "type": "text",
+            "id": "section_scroll_nav",
+            "label": "Section Scroll Nav",
+            "info": "Need to Enabled first Section Scroll"
+        },
+        {
+            "type": "text",
+            "id": "nav_title",
+            "label": "Navigation Title"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Specifications"
+        } 
+    ],
+    "blocks": [
+        {
+            "type": "icon",
+            "name": "Icon",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "icon",
+                    "label": "Icon"
+                },
+                {
+                    "type": "textarea",
+                    "id": "heading",
+                    "label": "Heading"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Specification"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,412 @@
+{%- comment -%}
+  Product Comparison
+  - Each column = a Product (picker). Image / title / color swatches / price /
+    Quick Add are pulled automatically by reusing the theme's product-item card,
+    so switching a swatch switches the image and Quick Add opens the same popup
+    as product cards elsewhere.
+  - Attribute rows: set a label at section level (Row 1..8). For each row you can
+    EITHER point to a product metafield ("namespace.key") to auto-fill every
+    column, OR leave it blank and type a value per product (Value 1..8).
+  - Tick "Highlight this column" on the current product to feature it.
+{%- endcomment -%}
+
+{%- assign col_count = section.blocks.size -%}
+
+{%- comment -%} Last non-blank row, so the featured column can round its bottom corner {%- endcomment -%}
+{%- assign last_row = 0 -%}
+{%- for i in (1..8) -%}
+  {%- assign label_key = 'row_' | append: i | append: '_label' -%}
+  {%- if section.settings[label_key] != blank -%}{%- assign last_row = i -%}{%- endif -%}
+{%- endfor -%}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    --cp-accent: {{ section.settings.accent_color }};
+    --cp-hl-bg: {{ section.settings.highlight_bg }};
+    --cp-hl-border: {{ section.settings.highlight_border }};
+  }
+  #shopify-section-{{ section.id }} .cp {
+    padding: 70px 0;
+  }
+  #shopify-section-{{ section.id }} .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  #shopify-section-{{ section.id }} .cp__heading {
+    font-size: clamp(22px, 2.4vw, 32px);
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    text-transform: {{ section.settings.heading_transform }};
+  }
+  #shopify-section-{{ section.id }} .cp__heading-bar {
+    width: 60px;
+    height: 4px;
+    background: var(--cp-accent);
+    border-radius: 4px;
+    margin-bottom: 36px;
+  }
+  /* Horizontal scroll wrapper for mobile */
+  #shopify-section-{{ section.id }} .cp__scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+  }
+  #shopify-section-{{ section.id }} .cp__grid {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.8fr) repeat({{ col_count }}, minmax(230px, 1fr));
+    column-gap: 14px;
+    row-gap: 0;
+    align-items: stretch;
+  }
+
+  /* ---- Header (product card) cell ---- */
+  #shopify-section-{{ section.id }} .cp__head {
+    padding: 22px 16px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Keep the left attribute-label column fixed while scrolling products horizontally */
+  #shopify-section-{{ section.id }} .cp__empty,
+  #shopify-section-{{ section.id }} .cp__rowlabel {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    background: {{ section.settings.bg_color }};
+  }
+  #shopify-section-{{ section.id }} .cp__rowlabel {
+    padding-left: 0;
+    padding-right: 14px;
+    box-shadow: 6px 0 8px -6px rgba(0,0,0,0.10);
+  }
+  /* Trim the reused product-item card to a clean comparison header */
+  #shopify-section-{{ section.id }} .cp__head .product-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  #shopify-section-{{ section.id }} .cp__head .product-image {
+    height: auto !important;
+    aspect-ratio: 3 / 4;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: #f3f3f3;
+  }
+  #shopify-section-{{ section.id }} .cp__head .product-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
+  #shopify-section-{{ section.id }} .cp__head .product-image img.active {
+    opacity: 1;
+  }
+  #shopify-section-{{ section.id }} .cp__head .product-image .hover-image { display: none; }
+  /* Hide clutter we don't want in the comparison header */
+  #shopify-section-{{ section.id }} .cp__head .wishlist-button,
+  #shopify-section-{{ section.id }} .cp__head .custom-label,
+  #shopify-section-{{ section.id }} .cp__head .badge,
+  #shopify-section-{{ section.id }} .cp__head [data-oke-star-rating],
+  #shopify-section-{{ section.id }} .cp__head .okendo-reviews-product-rating-summary { display: none !important; }
+  #shopify-section-{{ section.id }} .cp__head .product-title { text-align: center; }
+  /* Show all color swatches inline + centered (no overlay dropdown over the first row) */
+  #shopify-section-{{ section.id }} .cp__head .top,
+  #shopify-section-{{ section.id }} .cp__head .product-details,
+  #shopify-section-{{ section.id }} .cp__head .block-variant-options {
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #shopify-section-{{ section.id }} .cp__head .variant-option-block {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px;
+    width: 100% !important;
+  }
+  #shopify-section-{{ section.id }} .cp__head .variant-colors {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #shopify-section-{{ section.id }} .cp__head .view-all-options-btn { display: none !important; }
+  #shopify-section-{{ section.id }} .cp__head .variant-colors-dropdown {
+    position: static !important;
+    left: auto !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border: 0 !important;
+  }
+  #shopify-section-{{ section.id }} .cp__head .footer-details {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  #shopify-section-{{ section.id }} .cp__head .price-container { text-align: center; }
+
+  /* ---- Attribute rows ---- */
+  #shopify-section-{{ section.id }} .cp__rowlabel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 18px 6px 18px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a4a4a;
+    border-bottom: 1px dashed #e2e2e2;
+  }
+  #shopify-section-{{ section.id }} .cp__rowlabel small {
+    font-size: 11px;
+    font-weight: 500;
+    color: #9a9a9a;
+  }
+  #shopify-section-{{ section.id }} .cp__cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 18px 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1a1a1a;
+    border-bottom: 1px dashed #e2e2e2;
+    white-space: pre-line;
+  }
+
+  /* ---- Featured column ---- */
+  #shopify-section-{{ section.id }} .cp__head.is-featured,
+  #shopify-section-{{ section.id }} .cp__cell.is-featured {
+    background: var(--cp-hl-bg);
+    border-left: 1px solid var(--cp-hl-border);
+    border-right: 1px solid var(--cp-hl-border);
+  }
+  #shopify-section-{{ section.id }} .cp__head.is-featured {
+    border-top: 1px solid var(--cp-hl-border);
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+  }
+  #shopify-section-{{ section.id }} .cp__cell.is-featured.is-last {
+    border-bottom: 1px solid var(--cp-hl-border);
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+  }
+  #shopify-section-{{ section.id }} .cp__cell.is-featured {
+    color: var(--cp-accent);
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .cp {
+      padding: 44px 0;
+    }
+    #shopify-section-{{ section.id }} .container {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    #shopify-section-{{ section.id }} .cp__grid {
+      grid-template-columns: minmax(104px, 0.7fr) repeat({{ col_count }}, minmax(180px, 1fr));
+      column-gap: 10px;
+    }
+  }
+{% endstyle %}
+
+<div class="cp">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <h2 class="cp__heading">{{ section.settings.heading }}</h2>
+      <div class="cp__heading-bar"></div>
+    {% endif %}
+
+    <div class="cp__scroll">
+      <div class="cp__grid">
+
+        {%- comment -%} Header row: empty corner + product cards {%- endcomment -%}
+        <div class="cp__head cp__empty"></div>
+        {% for block in section.blocks %}
+          {% assign product = block.settings.product %}
+          <div class="cp__head {% if block.settings.highlight %}is-featured{% endif %}" {{ block.shopify_attributes }}>
+            {% if product != blank %}
+              {% render 'product-item', product: product %}
+            {% else %}
+              <div class="product-image" style="aspect-ratio:1/1;background:#f3f3f3;border-radius:10px;">
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        {%- comment -%} Attribute rows {%- endcomment -%}
+        {% for i in (1..8) %}
+          {% assign label_key = 'row_' | append: i | append: '_label' %}
+          {% assign sub_key   = 'row_' | append: i | append: '_sub' %}
+          {% assign mf_key    = 'row_' | append: i | append: '_metafield' %}
+          {% assign label = section.settings[label_key] %}
+          {% if label != blank %}
+            <div class="cp__rowlabel">
+              {{ label }}
+              {% if section.settings[sub_key] != blank %}<small>{{ section.settings[sub_key] }}</small>{% endif %}
+            </div>
+            {% for block in section.blocks %}
+              {% assign product = block.settings.product %}
+              {% assign val_key = 'value_' | append: i %}
+              {% assign cell_value = block.settings[val_key] %}
+              {%- comment -%} Auto-fill from a product metafield when "namespace.key" is set {%- endcomment -%}
+              {% assign mf_path = section.settings[mf_key] %}
+              {% if mf_path != blank and product != blank %}
+                {% assign mf_parts = mf_path | strip | split: '.' %}
+                {% if mf_parts.size == 2 %}
+                  {% assign mf_ns = mf_parts[0] %}
+                  {% assign mf_field = mf_parts[1] %}
+                  {% assign mf_obj = product.metafields[mf_ns][mf_field] %}
+                  {% if mf_obj != blank and mf_obj != empty %}
+                    {% assign cell_value = mf_obj %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+              <div class="cp__cell {% if block.settings.highlight %}is-featured{% endif %}{% if i == last_row %} is-last{% endif %}">{{ cell_value }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Comparison",
+  "class": "product-comparison-section",
+  "templates": ["product"],
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (theme)",
+      "default": "#B93205"
+    },
+    {
+      "type": "color",
+      "id": "highlight_bg",
+      "label": "Featured Column Background",
+      "default": "#FFF6F0"
+    },
+    {
+      "type": "color",
+      "id": "highlight_border",
+      "label": "Featured Column Border",
+      "default": "#F3D8CB"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Compare Products"
+    },
+    {
+      "type": "select",
+      "id": "heading_transform",
+      "label": "Heading Case",
+      "options": [
+        { "value": "none", "label": "As typed" },
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "header",
+      "content": "Attribute Rows",
+      "info": "Set a label to show a row. Optionally enter a product metafield as namespace.key to auto-fill every column (e.g. specs.weight). If left blank, the per-product Value below is used. Blank labels are hidden."
+    },
+    { "type": "text", "id": "row_1_label", "label": "Row 1 Label", "default": "Weight" },
+    { "type": "text", "id": "row_1_sub", "label": "Row 1 Sub-note", "default": "(Size L)" },
+    { "type": "text", "id": "row_1_metafield", "label": "Row 1 Metafield (namespace.key)" },
+    { "type": "text", "id": "row_2_label", "label": "Row 2 Label", "default": "Fit" },
+    { "type": "text", "id": "row_2_sub", "label": "Row 2 Sub-note" },
+    { "type": "text", "id": "row_2_metafield", "label": "Row 2 Metafield (namespace.key)" },
+    { "type": "text", "id": "row_3_label", "label": "Row 3 Label", "default": "Insulation" },
+    { "type": "text", "id": "row_3_sub", "label": "Row 3 Sub-note" },
+    { "type": "text", "id": "row_3_metafield", "label": "Row 3 Metafield (namespace.key)" },
+    { "type": "text", "id": "row_4_label", "label": "Row 4 Label", "default": "Heating Zones" },
+    { "type": "text", "id": "row_4_sub", "label": "Row 4 Sub-note" },
+    { "type": "text", "id": "row_4_metafield", "label": "Row 4 Metafield (namespace.key)" },
+    { "type": "text", "id": "row_5_label", "label": "Row 5 Label", "default": "Pockets" },
+    { "type": "text", "id": "row_5_sub", "label": "Row 5 Sub-note" },
+    { "type": "text", "id": "row_5_metafield", "label": "Row 5 Metafield (namespace.key)" },
+    { "type": "text", "id": "row_6_label", "label": "Row 6 Label", "default": "Water Resistant" },
+    { "type": "text", "id": "row_6_sub", "label": "Row 6 Sub-note" },
+    { "type": "text", "id": "row_6_metafield", "label": "Row 6 Metafield (namespace.key)" },
+    { "type": "text", "id": "row_7_label", "label": "Row 7 Label" },
+    { "type": "text", "id": "row_7_sub", "label": "Row 7 Sub-note" },
+    { "type": "text", "id": "row_7_metafield", "label": "Row 7 Metafield (namespace.key)" },
+    { "type": "text", "id": "row_8_label", "label": "Row 8 Label" },
+    { "type": "text", "id": "row_8_sub", "label": "Row 8 Sub-note" },
+    { "type": "text", "id": "row_8_metafield", "label": "Row 8 Metafield (namespace.key)" }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product Column",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product",
+          "info": "Image, title, color swatches, price and Quick Add are pulled from this product automatically."
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "Highlight this column (current product)",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Row Values",
+          "info": "Used only for rows WITHOUT a metafield. Each value lines up with the matching Attribute Row above. Use line breaks for multi-line values."
+        },
+        { "type": "textarea", "id": "value_1", "label": "Value 1 (Row 1)" },
+        { "type": "textarea", "id": "value_2", "label": "Value 2 (Row 2)" },
+        { "type": "textarea", "id": "value_3", "label": "Value 3 (Row 3)" },
+        { "type": "textarea", "id": "value_4", "label": "Value 4 (Row 4)" },
+        { "type": "textarea", "id": "value_5", "label": "Value 5 (Row 5)" },
+        { "type": "textarea", "id": "value_6", "label": "Value 6 (Row 6)" },
+        { "type": "textarea", "id": "value_7", "label": "Value 7 (Row 7)" },
+        { "type": "textarea", "id": "value_8", "label": "Value 8 (Row 8)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Comparison",
+      "blocks": [
+        { "type": "product", "settings": { "highlight": true } },
+        { "type": "product" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}

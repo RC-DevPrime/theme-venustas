@@ -1,0 +1,2416 @@
+{% style %}
+    #ProductQuizSection {
+    }
+    .quiz-picks{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        width:100%;
+        
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    .quiz-picks:active {
+        cursor: grabbing;
+    }
+    .quiz-pick{
+        background: #eee;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        flex-wrap: wrap;
+        height: 60px;
+        width: 160px;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        padding: 0 1rem;
+        flex: 0 0 auto;
+        white-space: nowrap;
+        
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    .quiz-pick:before{
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #ffffff38;
+        z-index: 1;
+    }
+    .quiz-pick img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        position:absolute;
+        top:0;
+        left:0;
+    }
+    .quiz-pick span{
+        color:#FFF;
+        text-align:left;
+        font-size:16px;
+        font-weight:600;
+        position:relative;
+    }
+
+    .quiz-question {
+        display: none;
+        opacity: 0;
+        transition: .3s;
+        margin-top:50px;
+    }
+    .quiz-question.active {
+        display: block;
+        opacity: 1;
+    }
+    .quiz-question .row{
+        --bs-gutter-x: 1.5rem;
+        --bs-gutter-y: 2rem;
+    }
+    .top-quiz-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 30px;
+        display: grid;
+        grid-template-columns: 93% 6%;
+    }
+    .quiz-testing-tools{
+        display:flex;
+        justify-content:flex-end;
+        margin-bottom:24px;
+    }
+    .quiz-targets-trigger{
+        border:1px solid #B93205;
+        background:#fff7f3;
+        color:#B93205;
+        border-radius:999px;
+        padding:10px 18px;
+        transition:all .2s ease;
+    }
+    .quiz-targets-trigger:hover{
+        background:#B93205;
+        color:#fff;
+    }
+    .quiz-answer {
+        border: 1px solid #ccc;
+        border-radius: 16px;
+        padding: 10px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        height:260px;
+        position:relative;
+        overflow:hidden;
+        opacity:0;
+    }
+    .quiz-answer .circle{
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        bottom: 0.8rem;
+        right: 1rem;
+        background: #FFF;
+        border:none;
+        opacity: 0.8;
+        border-radius: 50%;
+    }
+    .quiz-answer.selected .circle{
+        background: #B93205;
+        border: 1px solid #B93205;
+        opacity: 1;
+        background-image: url(https://cdn.shopify.com/s/files/1/0457/1099/9709/files/check-circle.png?v=1764085341);
+        background-size: 50%;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+    .quiz-answer.selected {
+        background: #f4f4f4;
+    }
+
+    .quiz-answer .answer-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+        position:absolute;
+        top:0;
+        left:0;
+        transition: all 0.3s ease;
+    }
+    .quiz-answer:hover .answer-img{
+        scale:1.1;
+    }
+
+    .quiz-nav {
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .btn-quiz-back { 
+        background: #ddd; 
+        padding: 8px 18px; 
+        border-radius: 8px; 
+        border:none;
+        display:flex;
+        align-items:center;
+        gap:10px;
+        transition: all 0.2s ease;
+    }
+    .btn-quiz-next { 
+        background: #B93205;
+        color: #fff; 
+        padding: 8px 1.5rem; 
+        border-radius: 8px;
+        border:none;
+        display:flex;
+        align-items:center;
+        gap:10px;
+        transition: all 0.2s ease;
+    }
+    .btn-quiz-next:hover,
+    .btn-quiz-back:hover{
+        background: #161616;
+    }
+    .btn-quiz-next svg,
+    .btn-quiz-back svg{
+        width:18px;
+        height:18px;
+    }
+
+    .quiz-result { display: none; margin-top: 30px; }
+    .quiz-product-list {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+    .quiz-product-card img {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .quiz-subscribe {
+        display: none;
+    }
+
+    #quizSubscribeForm .container-form{
+        display:flex;
+        align-items:center;
+        gap:10px;
+    }
+    #quizSubscribeForm input{
+        flex:1;
+        background: #F0F0F0;
+        border-radius:8px;
+        padding:1rem 1rem;
+        border:none;
+    }
+    #quizSubscribeForm button{
+        background: #B93205;
+        border-radius: 8px;
+        border: none;
+        height: 100%;
+        width: fit-content;
+        padding: 1rem 2rem;
+        font-weight:600;
+        font-size:18px;
+        color:#FFF;
+    }
+
+    .btn-reset{
+        display:flex;
+        align-items:center;
+        gap:6px;
+        cursor:pointer;
+    }
+    .btn-reset svg{
+        margin-top:-3px;
+    }
+    #quizProducts.row{
+        --bs-gutter-x: 16px;
+        --bs-gutter-y: 2rem;
+    }
+    .heading-pick{
+        width: fit-content;
+        white-space: nowrap;
+    }
+
+    .answer-list-container{
+        display:inline-block;
+    }
+    .answer-list-container .answer-item{
+        display:inline-block;
+        border-radius: 6px;
+        border: 1px solid #B93205;
+        padding:5px 16px;
+        margin-right:12px;
+        margin-bottom:6px;
+    }
+    .answer-list-container .answer-item p{
+        color:#B93205;
+    }
+    .quiz-recommendation-section{
+        padding-top:40px;
+    }
+    .quiz-product-wrapper{
+        height:100%;
+    }
+    .quiz-recommendation-slider .float-nav button{
+        background:#f1eadd;
+    }
+    .quiz-recommendation-slider .float-nav button i{
+        color:#B93205;
+    }
+    .quiz-targets-modal{
+        position:fixed;
+        inset:0;
+        background:rgba(22,22,22,.55);
+        display:none;
+        align-items:center;
+        justify-content:center;
+        padding:24px;
+        z-index:99;
+    }
+    .quiz-targets-modal.open{
+        display:flex;
+    }
+    .quiz-targets-dialog{
+        width:min(1100px, 100%);
+        max-height:min(85vh, 900px);
+        background:#fff;
+        border-radius:24px;
+        overflow:hidden;
+        box-shadow:0 20px 60px rgba(0,0,0,.18);
+        display:flex;
+        flex-direction:column;
+    }
+    .quiz-targets-header{
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:16px;
+        padding:24px 24px 18px;
+        border-bottom:1px solid #eee;
+    }
+    .quiz-targets-close{
+        border:none;
+        background:#f4f4f4;
+        width:42px;
+        height:42px;
+        border-radius:50%;
+        color:#4f4f4f;
+        flex:0 0 auto;
+    }
+    .quiz-targets-close:hover{
+        background:#161616;
+        color:#fff;
+    }
+    .quiz-targets-body{
+        overflow:auto;
+        padding:20px 24px 24px;
+    }
+    .quiz-targets-search{
+        margin-bottom:16px;
+    }
+    .quiz-targets-search input{
+        width:100%;
+        border:1px solid #e2ddd6;
+        border-radius:12px;
+        padding:14px 16px;
+        background:#fff;
+        color:#161616;
+    }
+    .quiz-targets-search input::placeholder{
+        color:#8b8b8b;
+    }
+    .quiz-targets-export{
+        display:grid;
+        gap:10px;
+        margin-bottom:16px;
+    }
+    .quiz-targets-export-header{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+        flex-wrap:wrap;
+    }
+    .quiz-targets-copy{
+        border:1px solid #B93205;
+        background:#fff;
+        color:#B93205;
+        border-radius:999px;
+        padding:8px 14px;
+    }
+    .quiz-targets-copy:hover{
+        background:#B93205;
+        color:#fff;
+    }
+    .quiz-targets-export textarea{
+        width:100%;
+        min-height:180px;
+        border:1px solid #e2ddd6;
+        border-radius:12px;
+        padding:14px 16px;
+        background:#fff;
+        color:#161616;
+        resize:vertical;
+    }
+    .quiz-targets-list{
+        display:grid;
+        gap:16px;
+    }
+    .quiz-targets-section{
+        border:1px solid #ece4d8;
+        border-radius:18px;
+        background:#fcfaf7;
+        overflow:hidden;
+    }
+    .quiz-targets-section[open]{
+        background:#fcfaf7;
+    }
+    .quiz-targets-summary{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:16px;
+        padding:18px 20px;
+        cursor:pointer;
+        list-style:none;
+    }
+    .quiz-targets-summary::-webkit-details-marker{
+        display:none;
+    }
+    .quiz-targets-summary:after{
+        content:'+';
+        font-size:24px;
+        line-height:1;
+        color:#B93205;
+        flex:0 0 auto;
+    }
+    .quiz-targets-section[open] .quiz-targets-summary:after{
+        content:'-';
+    }
+    .quiz-targets-section-body{
+        padding:0 20px 20px;
+        display:grid;
+        gap:16px;
+    }
+    .quiz-target-card{
+        border:1px solid #ece4d8;
+        border-radius:18px;
+        padding:20px;
+        background:#fff;
+    }
+    .quiz-target-card-header{
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:12px;
+        margin-bottom:14px;
+    }
+    .quiz-target-handle{
+        color:#8b8b8b;
+    }
+    .quiz-target-groups{
+        display:grid;
+        gap:14px;
+    }
+    .quiz-target-group{
+        display:grid;
+        gap:8px;
+    }
+    .quiz-target-pills{
+        display:flex;
+        flex-wrap:wrap;
+        gap:8px;
+    }
+    .quiz-target-pill{
+        display:inline-flex;
+        align-items:center;
+        border-radius:999px;
+        padding:6px 12px;
+        background:#fff;
+        border:1px solid #eadfce;
+        color:#4f4f4f;
+    }
+    .quiz-target-empty{
+        color:#8b8b8b;
+        font-style:italic;
+    }
+    .quiz-recommendation-slider .float-nav button:hover{
+        background:#B93205;
+    }
+    .quiz-recommendation-slider .float-nav button:hover i{
+        color:#FFF;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .quiz-recommendation-section{
+            padding-top:30px;
+        }
+        .quiz-question{
+            margin-top:0px;
+        }
+        .quiz-question .row {
+            --bs-gutter-x: 12px;
+            --bs-gutter-y: 1rem;
+        }
+        .quiz-answer{
+            margin-bottom:8px;
+            border-radius:8px;
+        }
+        .quiz-answer .circle{
+            width: 20px;
+            height: 20px;
+            bottom: 10px;
+            right: 10px;
+        }
+        .quiz-question .row p {
+            font-size:14px;
+        }
+        .top-quiz-header{
+            display:flex;
+            flex-direction:column;
+        }
+        .quiz-pick{
+            width:100px;
+            height:40px;
+            border-radius:4px;
+            padding: 0px 10px;
+        }
+        .quiz-pick span{
+            font-size:14px;
+        }
+        .btn-quiz-next svg, .btn-quiz-back svg{
+            width:15px;
+            height:15px;
+        }
+        .btn-quiz-next,
+        .btn-quiz-back{
+            padding:8px 1rem;
+            gap:6px;
+        }
+        .btn-quiz-next span,
+        .btn-quiz-back span{
+            font-size:14px;
+        }
+        .btn-reset svg{
+            width:18px;
+            height:18px;
+        }
+        .heading-pick{
+            font-size:14px;
+        }
+        #quizSubscribeForm{
+            gap:6px;
+        }
+        #quizSubscribeForm button{
+            font-size:12px;
+            padding:0.7rem;
+            border-radius:6px;
+        }
+        #quizSubscribeForm input{
+            font-size:14px;
+            padding:0.7rem;
+            border-radius:6px;
+        }
+        .quiz-result{
+            margin-top:0;
+        }
+        .answer-list-container .answer-item{
+            padding:4px 12px;
+            margin-right:8px;
+            margin-bottom:6px;
+        }
+        .quiz-testing-tools{
+            justify-content:flex-start;
+            margin-bottom:18px;
+        }
+        .quiz-targets-modal{
+            padding:12px;
+        }
+        .quiz-targets-header,
+        .quiz-targets-body{
+            padding-left:16px;
+            padding-right:16px;
+        }
+        .quiz-targets-summary,
+        .quiz-targets-section-body{
+            padding-left:16px;
+            padding-right:16px;
+        }
+        .quiz-target-card{
+            padding:16px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+        .quiz-answer{
+            height:140px;
+        }
+    }
+    @media only screen and (min-width: 375px) {
+        .quiz-answer{
+            height:140px;
+        }
+    }
+    @media only screen and (min-width: 390px) {
+        .quiz-answer{
+            height:140px;
+        }
+    }
+    @media only screen and (min-width: 414px) {
+        .quiz-answer{
+            height:140px;
+        }
+    }
+    @media only screen and (min-width: 428px) {
+        .quiz-answer{
+            height:150px;
+        }
+    }
+    @media only screen and (min-width: 480px) {
+        .quiz-answer{
+            height:150px;
+        }
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+        .quiz-answer{
+            height:200px;
+        }
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+        .quiz-answer{
+            height:240px;
+        }
+    }
+    @media only screen and (min-width: 1366px) {
+        .quiz-answer{
+            height:240px;
+        }
+    }
+    @media only screen and (min-width: 1440px) {
+        .quiz-answer{
+            height:240px;
+        }
+    }
+    @media only screen and (min-width: 1536px) {
+        .quiz-answer{
+            height:240px;
+        }
+    }
+    @media only screen and (min-width: 1600px) {
+        .quiz-answer{
+            height:250px;
+        }
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .quiz-answer{
+            height:260px;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .quiz-answer{
+            height:260px;
+        }
+    }
+
+    #ProductQuizSection .quiz_validation_checkbox_label{
+        display: flex;
+        gap: 6px;
+        flex-direction: row-reverse;
+        align-items: flex-start;
+        justify-content: flex-end;
+    }
+    #ProductQuizSection #quiz_validation_input{
+        display:none;
+    }
+    #ProductQuizSection .checkmark{
+        position: relative;
+        display: block;
+        top: 2px;
+        left: 0;
+        width: 18px;
+        height: 18px;
+        background-color: transparent;
+        border: 1px solid #66666640;
+        border-radius: 50px;
+        flex: initial;
+        margin-top:2px;
+    }
+    #ProductQuizSection .checkmark:after{
+        content: "";
+        position: absolute;
+        display: none;
+        left: 5px;
+        top: 2px;
+        width: 5px;
+        height: 9px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    #ProductQuizSection #quiz_validation_input:checked~.checkmark{
+        background: #B93205;
+    }
+    #ProductQuizSection #quiz_validation_input:checked~.checkmark:after{
+        display: block;
+    }
+
+    .quiz-answer-animate {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: quizFadeUp 0.4s ease-out forwards;
+    }
+
+    @keyframes quizFadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    #quizSkip.is-loading {
+        opacity: 0.8;
+        pointer-events: none;
+    }
+
+    #quizSkip .quiz-btn-loader {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255,255,255,0.35);
+        border-top-color: #fff;
+        border-radius: 50%;
+        display: inline-block;
+        animation: quizSpin 0.7s linear infinite;
+        margin-left: 8px;
+        vertical-align: middle;
+    }
+
+    @keyframes quizSpin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+{% endstyle %}
+<div class="container section-content" id="ProductQuizSection">
+
+  <div class="top-quiz-header">
+    <div class="d-flex flex-lg-row flex-md-row flex-sm-column align-items-lg-center align-items-md-center align-items-sm-start gap-lg-3 gap-md-3 gap-sm-2 flex-1 w-100">
+        <div class="d-flex align-items-center justify-content-between w-100 flex-1">
+            
+            <p class="heading-pick pp-regular body-lg">Your Picks:</p>
+            <div class="btn-reset d-lg-none d-md-none d-sm-block" id="mobilequizReset">
+                <span class="pp-regular body f-gray">Restart</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24.146" height="24.146" viewBox="0 0 24.146 24.146">
+                    <g fill="#b7b7b7">
+                        <path d="M21.551 13.414a9.47 9.47 0 0 0-1.6-5.272.755.755 0 0 0-1.258.835 7.971 7.971 0 1 1-6.62-3.541 9.2 9.2 0 0 1 2.686.392.759.759 0 0 0 .443-1.451 10.9 10.9 0 0 0-3.129-.463 9.487 9.487 0 1 0 9.477 9.5Z"/>
+                        <path d="M16.721 5.925a.753.753 0 0 0 .081-1.066l-2.908-3.34a.75.75 0 0 0-1.066-.071.76.76 0 0 0-.07 1.066l2.908 3.33a.75.75 0 0 0 1.056.08Z"/>
+                        <path d="m13.28 8.441 3.4-2.485a.756.756 0 0 0-.894-1.217l-3.391 2.475a.754.754 0 0 0-.161 1.056.71.71 0 0 0 .6.312.8.8 0 0 0 .446-.141"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <div class="quiz-picks" id="quizPicks"></div>
+    </div>
+
+    <div class="btn-reset d-lg-flex d-md-flex d-sm-none" id="quizReset">
+        <span class="pp-regular body f-gray">Restart</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24.146" height="24.146" viewBox="0 0 24.146 24.146">
+            <g fill="#b7b7b7">
+                <path d="M21.551 13.414a9.47 9.47 0 0 0-1.6-5.272.755.755 0 0 0-1.258.835 7.971 7.971 0 1 1-6.62-3.541 9.2 9.2 0 0 1 2.686.392.759.759 0 0 0 .443-1.451 10.9 10.9 0 0 0-3.129-.463 9.487 9.487 0 1 0 9.477 9.5Z"/>
+                <path d="M16.721 5.925a.753.753 0 0 0 .081-1.066l-2.908-3.34a.75.75 0 0 0-1.066-.071.76.76 0 0 0-.07 1.066l2.908 3.33a.75.75 0 0 0 1.056.08Z"/>
+                <path d="m13.28 8.441 3.4-2.485a.756.756 0 0 0-.894-1.217l-3.391 2.475a.754.754 0 0 0-.161 1.056.71.71 0 0 0 .6.312.8.8 0 0 0 .446-.141"/>
+            </g>
+        </svg>
+    </div>
+  </div>
+
+  {% if section.settings.enable_testing_mode %}
+    <div class="quiz-testing-tools">
+      <button type="button" class="quiz-targets-trigger pp-semibold body" id="quizTargetsTrigger">Show Targets Product List</button>
+    </div>
+  {% endif %}
+
+  <div id="quizQuestionsContainer"></div>
+
+  {% if section.settings.enable_testing_mode %}
+    <div class="quiz-targets-modal" id="quizTargetsModal" aria-hidden="true">
+      <div class="quiz-targets-dialog">
+        <div class="quiz-targets-header">
+          <div>
+            <h3 class="pp-bold title-sm f-black pb-lg-1 pb-md-1 pb-sm-1">Targets Product List</h3>
+            <p class="pp-regular body f-gray">Review each product's tags and the metafields included in Quiz Matching Metafields.</p>
+          </div>
+          <button type="button" class="quiz-targets-close" id="quizTargetsClose" aria-label="Close targets product list">×</button>
+        </div>
+        <div class="quiz-targets-body">
+          <div class="quiz-targets-search">
+            <input type="search" id="quizTargetsSearch" class="pp-regular body" placeholder="Search by product title, handle, tags, or metafields">
+          </div>
+          <div class="quiz-targets-export">
+            <div class="quiz-targets-export-header">
+              <p class="pp-semibold body f-black">Copy-Friendly Debug Export</p>
+              <button type="button" class="quiz-targets-copy pp-semibold body" id="quizTargetsCopy">Copy Debug Data</button>
+            </div>
+            <textarea id="quizTargetsExport" class="pp-regular body" readonly placeholder="Debug export will appear here."></textarea>
+          </div>
+          <div id="quizTargetsList" class="quiz-targets-list"></div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="pt-lg-5 pt-md-5 pt-sm-3" id="quizSubscribe" style="display:none;">
+    <div class="col-lg-6 col-md-7 col-sm-12 mx-auto pb-lg-5 pb-md-5 pb-sm-4">
+        <div class="col-10 mx-auto">
+            <h2 class="pp-bold title-sm text-center f-black pb-lg-3 pb-md-3 pb-sm-2">
+                Almost there!
+            </h2>
+            <p class="pp-regular f-gray text-center body-lg pb-lg-4 pb-md-4 pb-sm-3">
+                Subscribe now to unlock exclusive offers and special updates.
+            </p>
+        </div>
+
+        {% form 'customer', id: 'quizSubscribeForm' %}
+            <div class="container-form">
+                <input type="email"
+                    name="contact[email]"
+                    id="quizEmail"
+                    placeholder="Enter your email to get exclusive offers"
+                    required />
+
+                <button type="button" id="quizSubmitNow">Submit Now</button>
+            </div>
+
+            <label for="quiz_validation_input" class="quiz_validation_checkbox_label pt-lg-3 pt-md-3 pt-sm-2">
+                <div class="pp-light f-black label body flex-1">
+                    <span class="body d-lg-block d-md-block d-sm-none">
+                        By entering your email, you agree to receive marketing emails, offers, and updates.
+                        You can unsubscribe anytime.
+                    </span>
+                    <span class="body-sm d-lg-none d-md-none d-sm-block">
+                        By entering your email, you agree to receive marketing emails, offers, and updates.
+                        You can unsubscribe anytime.
+                    </span>
+                </div>
+
+                <input type="checkbox"
+                    id="quiz_validation_input"
+                    name="consent"
+                    value="accepted"
+                    required />
+
+                <span class="checkmark"></span>
+            </label>
+            <div id="quizMessage"></div>
+        {% endform %}
+    </div>
+
+    <div class="quiz-nav">
+        <button class="btn-quiz-back quiz-back" id="quizBackSubscribe">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19.295" height="16.353" viewBox="0 0 19.295 16.353">
+                <g stroke="#4f4f4f">
+                    <path fill="none" stroke-linecap="round" stroke-width="2" d="M2.218 8.076h15.976" transform="translate(.1 .1)"/>
+                    <path d="M8.511 16.153a.7.7 0 0 1-.486-.194l-7.8-7.368a.706.706 0 0 1 0-1.026l7.8-7.371a.707.707 0 1 1 .969 1.029L1.737 8.076l7.259 6.855a.71.71 0 0 1 .03 1 .7.7 0 0 1-.515.222Z" fill="#4f4f4f" stroke-width=".2" transform="translate(.1 .1)"/>
+                </g>
+            </svg>
+            <span class="pp-regular body f-gray">Back</span>
+        </button>
+        <button class="btn-quiz-next" type="button" id="quizSkip">Skip, See My Results</button>
+    </div>
+  </div>
+
+  <div class="quiz-nav" id="quizMainNav" style="display:none;">
+    <button class="btn-quiz-back quiz-back" id="quizBackQuestion">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19.295" height="16.353" viewBox="0 0 19.295 16.353">
+            <g stroke="#4f4f4f">
+                <path fill="none" stroke-linecap="round" stroke-width="2" d="M2.218 8.076h15.976" transform="translate(.1 .1)"/>
+                <path d="M8.511 16.153a.7.7 0 0 1-.486-.194l-7.8-7.368a.706.706 0 0 1 0-1.026l7.8-7.371a.707.707 0 1 1 .969 1.029L1.737 8.076l7.259 6.855a.71.71 0 0 1 .03 1 .7.7 0 0 1-.515.222Z" fill="#4f4f4f" stroke-width=".2" transform="translate(.1 .1)"/>
+            </g>
+        </svg>
+        <span class="pp-regular body f-gray">Back</span>
+    </button>
+    <button class="btn-quiz-next quiz-next">
+        <span class="pp-regular body f-white">Next</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="19.295" height="16.353" viewBox="0 0 19.295 16.353">
+            <g stroke="#fff">
+                <path fill="none" stroke-linecap="round" stroke-width="2" d="M1749.476 1705.477H1733.5" transform="translate(-1732.5 -1697.301)"/>
+                <path d="M1743.183 1713.553a.7.7 0 0 0 .486-.194l7.8-7.368a.706.706 0 0 0 0-1.026l-7.8-7.371a.707.707 0 1 0-.969 1.029l7.257 6.853-7.259 6.855a.71.71 0 0 0-.03 1 .7.7 0 0 0 .515.222Z" fill="#fff" stroke-width=".2" transform="translate(-1732.5 -1697.301)"/>
+            </g>
+        </svg>
+    </button>
+  </div>
+
+  <div class="quiz-result" id="quizResult" style="display:none;">
+    <h2 id="quizResultTitle" class="pp-bold title-sm f-black text-start pb-lg-2 pb-md-2 pb-sm-2"></h2>
+    <div id="answerList" class="answer-list-container pb-lg-4 pb-md-4 pb-sm-3"></div>
+    <div id="quizProducts" class="row"></div>
+
+    <div id="quiz-recommendation-section" class="quiz-recommendation-section">
+        <div class="pp-bold text-center pb-lg-4 pb-md-4 pb-sm-3">
+            <span class="title-sm d-lg-block d-md-block d-sm-none">
+                You May Also Like
+            </span>
+            <span class="title d-lg-none d-md-none d-sm-block">
+                You May Also Like
+            </span>
+        </div>
+        <div class="quiz-recommendation-slider overflow-lg-hidden overflow-md-hidden overflow-sm-unset">
+            <div class="swiper-wrapper">
+                {% for product in section.settings.product_recommendation_list_1.products limit: section.settings.number_product %}
+                    <div class="swiper-slide">
+                        {% render 'product-item', product: product, sale_badge_type: section.settings.sale_badge_type, badge_detail: true %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="float-nav d-lg-block d-md-block d-sm-block">
+                <button type="button" class="owl-prev">
+                    <i class="fa-solid fa-chevron-left f-white"></i>
+                </button>
+                <button type="button" class="owl-next">
+                    <i class="fa-solid fa-chevron-right f-white"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    {% paginate collections.all.products by 250 %}
+
+    <script id="quizProductIndex" type="application/json">
+    [
+        {% for product in collections.all.products %}
+        {
+            "handle": {{ product.handle | json }},
+            "title": {{ product.title | json }},
+            "product_type": {{ product.type | json }},
+            "tags": {{ product.tags | json }},
+            "metafields": {
+                {% assign quiz_metafield_lines = settings.quiz_matching_metafields | newline_to_br | split: '<br />' %}
+                {% assign metafield_count = 0 %}
+                {% for metafield_line in quiz_metafield_lines %}
+                    {% assign metafield_key = metafield_line | strip %}
+                    {% if metafield_key != blank %}
+                        {% assign metafield_count = metafield_count | plus: 1 %}
+                        {% if metafield_key contains '.' %}
+                            {% assign metafield_parts = metafield_key | split: '.' %}
+                            {% assign metafield_namespace = metafield_parts[0] | strip %}
+                            {% assign metafield_name = metafield_parts[1] | strip %}
+                        {% else %}
+                            {% assign metafield_namespace = 'custom' %}
+                            {% assign metafield_name = metafield_key %}
+                            {% assign metafield_key = 'custom.' | append: metafield_key %}
+                        {% endif %}
+                        {% assign metafield_name_last_char = metafield_name | slice: -1, 1 %}
+                        {% if metafield_name_last_char == 's' %}
+                            {% assign alternate_metafield_name = metafield_name | remove_last: 's' %}
+                        {% else %}
+                            {% assign alternate_metafield_name = metafield_name | append: 's' %}
+                        {% endif %}
+                        {% assign metafield_object = blank %}
+                        {% assign use_native_product_type = false %}
+                        {% if metafield_namespace == 'custom' and metafield_name == 'product_type' or metafield_namespace == 'custom' and metafield_name == 'type' %}
+                            {% assign use_native_product_type = true %}
+                        {% else %}
+                            {% assign metafield_object = product.metafields[metafield_namespace][metafield_name] %}
+                            {% if metafield_object == blank and alternate_metafield_name != metafield_name %}
+                                {% assign metafield_object = product.metafields[metafield_namespace][alternate_metafield_name] %}
+                            {% endif %}
+                        {% endif %}
+                        "{{ metafield_key }}":
+                        {% if use_native_product_type %}
+                            [{{ product.type | json }}]
+                        {% elsif metafield_object == blank %}
+                            []
+                        {% elsif metafield_object.type contains 'list.' %}
+                            {{ metafield_object.value | json }}
+                        {% else %}
+                            [{{ metafield_object.value | json }}]
+                        {% endif %}
+                        {% unless forloop.last %}
+                            {% assign remaining_metafield_lines = quiz_metafield_lines | slice: forloop.index, quiz_metafield_lines.size %}
+                            {% assign has_remaining_nonblank = false %}
+                            {% for remaining_line in remaining_metafield_lines %}
+                                {% assign remaining_key = remaining_line | strip %}
+                                {% if remaining_key != blank %}
+                                    {% assign has_remaining_nonblank = true %}
+                                    {% break %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if has_remaining_nonblank %},{% endif %}
+                        {% endunless %}
+                    {% endif %}
+                {% endfor %}
+            },
+            "collections": [
+                {% for collection in product.collections %}
+                    {{ collection.handle | json }}{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+            ]
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+    ]
+    </script>
+
+    <script id="quizTargetsProductIndex" type="application/json">
+    [
+        {% for product in section.settings.target_product_list %}
+        {
+            "handle": {{ product.handle | json }},
+            "title": {{ product.title | json }},
+            "product_type": {{ product.type | json }},
+            "tags": {{ product.tags | json }},
+            "metafields": {
+                {% assign quiz_metafield_lines = settings.quiz_matching_metafields | newline_to_br | split: '<br />' %}
+                {% assign metafield_count = 0 %}
+                {% for metafield_line in quiz_metafield_lines %}
+                    {% assign metafield_key = metafield_line | strip %}
+                    {% if metafield_key != blank %}
+                        {% assign metafield_count = metafield_count | plus: 1 %}
+                        {% if metafield_key contains '.' %}
+                            {% assign metafield_parts = metafield_key | split: '.' %}
+                            {% assign metafield_namespace = metafield_parts[0] | strip %}
+                            {% assign metafield_name = metafield_parts[1] | strip %}
+                        {% else %}
+                            {% assign metafield_namespace = 'custom' %}
+                            {% assign metafield_name = metafield_key %}
+                            {% assign metafield_key = 'custom.' | append: metafield_key %}
+                        {% endif %}
+                        {% assign metafield_name_last_char = metafield_name | slice: -1, 1 %}
+                        {% if metafield_name_last_char == 's' %}
+                            {% assign alternate_metafield_name = metafield_name | remove_last: 's' %}
+                        {% else %}
+                            {% assign alternate_metafield_name = metafield_name | append: 's' %}
+                        {% endif %}
+                        {% assign metafield_object = blank %}
+                        {% assign use_native_product_type = false %}
+                        {% if metafield_namespace == 'custom' and metafield_name == 'product_type' or metafield_namespace == 'custom' and metafield_name == 'type' %}
+                            {% assign use_native_product_type = true %}
+                        {% else %}
+                            {% assign metafield_object = product.metafields[metafield_namespace][metafield_name] %}
+                            {% if metafield_object == blank and alternate_metafield_name != metafield_name %}
+                                {% assign metafield_object = product.metafields[metafield_namespace][alternate_metafield_name] %}
+                            {% endif %}
+                        {% endif %}
+                        "{{ metafield_key }}":
+                        {% if use_native_product_type %}
+                            [{{ product.type | json }}]
+                        {% elsif metafield_object == blank %}
+                            []
+                        {% elsif metafield_object.type contains 'list.' %}
+                            {{ metafield_object.value | json }}
+                        {% else %}
+                            [{{ metafield_object.value | json }}]
+                        {% endif %}
+                        {% unless forloop.last %}
+                            {% assign remaining_metafield_lines = quiz_metafield_lines | slice: forloop.index, quiz_metafield_lines.size %}
+                            {% assign has_remaining_nonblank = false %}
+                            {% for remaining_line in remaining_metafield_lines %}
+                                {% assign remaining_key = remaining_line | strip %}
+                                {% if remaining_key != blank %}
+                                    {% assign has_remaining_nonblank = true %}
+                                    {% break %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if has_remaining_nonblank %},{% endif %}
+                        {% endunless %}
+                    {% endif %}
+                {% endfor %}
+            },
+            "collections": [
+                {% for collection in product.collections %}
+                    {{ collection.handle | json }}{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+            ]
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+    ]
+    </script>
+
+    <script id="quizCollectionProductIndex" type="application/json">
+    [
+        {% if section.settings.target_collection != blank %}
+            {% for product in section.settings.target_collection.products %}
+            {
+                "handle": {{ product.handle | json }},
+                "title": {{ product.title | json }},
+                "product_type": {{ product.type | json }},
+                "tags": {{ product.tags | json }},
+                "metafields": {
+                    {% assign quiz_metafield_lines = settings.quiz_matching_metafields | newline_to_br | split: '<br />' %}
+                    {% assign metafield_count = 0 %}
+                    {% for metafield_line in quiz_metafield_lines %}
+                        {% assign metafield_key = metafield_line | strip %}
+                        {% if metafield_key != blank %}
+                            {% assign metafield_count = metafield_count | plus: 1 %}
+                            {% if metafield_key contains '.' %}
+                                {% assign metafield_parts = metafield_key | split: '.' %}
+                                {% assign metafield_namespace = metafield_parts[0] | strip %}
+                                {% assign metafield_name = metafield_parts[1] | strip %}
+                            {% else %}
+                                {% assign metafield_namespace = 'custom' %}
+                                {% assign metafield_name = metafield_key %}
+                                {% assign metafield_key = 'custom.' | append: metafield_key %}
+                            {% endif %}
+                            {% assign metafield_name_last_char = metafield_name | slice: -1, 1 %}
+                            {% if metafield_name_last_char == 's' %}
+                                {% assign alternate_metafield_name = metafield_name | remove_last: 's' %}
+                            {% else %}
+                                {% assign alternate_metafield_name = metafield_name | append: 's' %}
+                            {% endif %}
+                            {% assign metafield_object = blank %}
+                            {% assign use_native_product_type = false %}
+                            {% if metafield_namespace == 'custom' and metafield_name == 'product_type' or metafield_namespace == 'custom' and metafield_name == 'type' %}
+                                {% assign use_native_product_type = true %}
+                            {% else %}
+                                {% assign metafield_object = product.metafields[metafield_namespace][metafield_name] %}
+                                {% if metafield_object == blank and alternate_metafield_name != metafield_name %}
+                                    {% assign metafield_object = product.metafields[metafield_namespace][alternate_metafield_name] %}
+                                {% endif %}
+                            {% endif %}
+                            "{{ metafield_key }}":
+                            {% if use_native_product_type %}
+                                [{{ product.type | json }}]
+                            {% elsif metafield_object == blank %}
+                                []
+                            {% elsif metafield_object.type contains 'list.' %}
+                                {{ metafield_object.value | json }}
+                            {% else %}
+                                [{{ metafield_object.value | json }}]
+                            {% endif %}
+                            {% unless forloop.last %}
+                                {% assign remaining_metafield_lines = quiz_metafield_lines | slice: forloop.index, quiz_metafield_lines.size %}
+                                {% assign has_remaining_nonblank = false %}
+                                {% for remaining_line in remaining_metafield_lines %}
+                                    {% assign remaining_key = remaining_line | strip %}
+                                    {% if remaining_key != blank %}
+                                        {% assign has_remaining_nonblank = true %}
+                                        {% break %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if has_remaining_nonblank %},{% endif %}
+                            {% endunless %}
+                        {% endif %}
+                    {% endfor %}
+                },
+                "collections": [
+                    {% for collection in product.collections %}
+                        {{ collection.handle | json }}{% unless forloop.last %},{% endunless %}
+                    {% endfor %}
+                ]
+            }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+        {% endif %}
+    ]
+    </script>
+
+    <script id="quizTargetCollectionMeta" type="application/json">
+    {
+        "handle": {% if section.settings.target_collection != blank %}{{ section.settings.target_collection.handle | json }}{% else %}null{% endif %},
+        "title": {% if section.settings.target_collection != blank %}{{ section.settings.target_collection.title | json }}{% else %}null{% endif %},
+        "products_count": {% if section.settings.target_collection != blank %}{{ section.settings.target_collection.products_count | json }}{% else %}0{% endif %}
+    }
+    </script>
+
+    {% for product in collections.all.products %}
+        <template id="quiz-card-{{ product.handle }}">
+            {% render 'product-item', product: product %}
+        </template>
+    {% endfor %}
+
+    {% endpaginate %}
+  </div>
+</div>
+
+<script id="quizDATA" type="application/json">
+[
+    {% for q in section.settings.quiz_questions %}
+    {
+        "question_text": {{ q.question_text | json }},
+        "answers": {{ q.answers.value | json }},
+        "answer_images": {{ q.answer_images.value | json }},
+        "next_question_for_answers": {{ q.next_question_for_answers.value | json }},
+        "multi_choice": {{ q.multi_choice.value }},
+        "product_match_answers": {{ q.product_match_answers.value | json }},
+        "product_match_products": [
+            {% for handle in q.product_match_products.value %}
+                {% assign product = all_products[handle] %}
+                {
+                    "handle": {{ handle.handle | json }},
+                    "title": {{ handle.title | json }},
+                    "image": {{ handle.featured_image | img_url: '600x600' | json }}
+                }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+        ],
+        "auto_tag_match": {{ q.auto_tag_match.value }},
+        "collection_filter": {% if q.collection_filter.value != blank %}{{ q.collection_filter.value.handle | json }}{% elsif q.collection_filter != blank and q.collection_filter.handle %}{{ q.collection_filter.handle | json }}{% else %}null{% endif %}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+]
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const quizData = JSON.parse(document.getElementById('quizDATA').textContent);
+    const quizProductIndex = JSON.parse(document.getElementById('quizProductIndex').textContent);
+    const quizTargetsProductIndex = JSON.parse(document.getElementById('quizTargetsProductIndex').textContent);
+    const quizCollectionProductIndex = JSON.parse(document.getElementById('quizCollectionProductIndex').textContent);
+    const quizTargetCollectionMeta = JSON.parse(document.getElementById('quizTargetCollectionMeta').textContent);
+    const configuredMetafields = `{{ settings.quiz_matching_metafields | default: '' }}`
+        .split(/\r?\n/)
+        .map(value => value.trim())
+        .filter(Boolean)
+        .map(value => value.includes('.') ? value.toLowerCase() : `custom.${value.toLowerCase()}`);
+
+    window.quizData = quizData;
+    window.quizProductIndex = quizProductIndex;
+    window.quizTargetsProductIndex = quizTargetsProductIndex;
+    window.quizCollectionProductIndex = quizCollectionProductIndex;
+    window.quizTargetCollectionMeta = quizTargetCollectionMeta;
+
+    const container = document.getElementById('quizQuestionsContainer');
+    const picksBar = document.getElementById('quizPicks');
+    const quizPicks = document.querySelector('.quiz-picks');
+    const quizTargetsTrigger = document.getElementById('quizTargetsTrigger');
+    const quizTargetsModal = document.getElementById('quizTargetsModal');
+    const quizTargetsClose = document.getElementById('quizTargetsClose');
+    const quizTargetsSearch = document.getElementById('quizTargetsSearch');
+    const quizTargetsCopy = document.getElementById('quizTargetsCopy');
+    const quizTargetsExport = document.getElementById('quizTargetsExport');
+    const quizTargetsList = document.getElementById('quizTargetsList');
+
+    let answers = {};
+    let history = [];
+    let currentQuestion = 0;
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let isDragging = false;
+    let allProductsState = Array.isArray(quizProductIndex) ? quizProductIndex.slice() : [];
+    let allProductsLoaded = false;
+    let allProductsLoadingPromise = null;
+    const collectionProductsCache = new Map();
+    const collectionProductsLoadingPromises = new Map();
+    let collectionProductsState = Array.isArray(quizCollectionProductIndex) ? quizCollectionProductIndex.slice() : [];
+
+    if (quizTargetCollectionMeta.handle) {
+        collectionProductsCache.set(quizTargetCollectionMeta.handle, collectionProductsState.slice());
+    }
+
+    function normalizeValue(value) {
+        return String(value || '').trim().toLowerCase();
+    }
+
+    function slugifyValue(value) {
+        return normalizeValue(value)
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    function resolveCollectionHandle(filter) {
+        if (!filter) return '';
+
+        if (typeof filter === 'string') return filter;
+
+        if (typeof filter === 'object') {
+            if (filter.handle) return filter.handle;
+            if (filter.value && filter.value.handle) return filter.value.handle;
+        }
+
+        return '';
+    }
+
+    function getComparableValues(value) {
+        const normalized = normalizeValue(value);
+        const slug = slugifyValue(value);
+        const values = new Set([normalized, slug]);
+
+        [normalized, slug].forEach(item => {
+            if (!item) return;
+
+            if (item.endsWith('s') && item.length > 1) {
+                values.add(item.slice(0, -1));
+            } else {
+                values.add(item + 's');
+            }
+        });
+
+        return Array.from(values).filter(Boolean);
+    }
+
+    function valuesMatch(left, right) {
+        const leftValue = normalizeValue(left);
+        const rightValue = normalizeValue(right);
+
+        if (!leftValue || !rightValue) return false;
+
+        return leftValue === rightValue;
+    }
+
+    function productMatchesAnswerTag(product, answer) {
+        const searchableValues = []
+            .concat(product.tags || []);
+
+        return searchableValues.some(value => valuesMatch(value, answer));
+    }
+
+    function productMatchesAnswerType(product, answer) {
+        return valuesMatch(product.product_type, answer);
+    }
+
+    function normalizeMetafieldValues(value) {
+        if (Array.isArray(value)) {
+            return value.flatMap(item => normalizeMetafieldValues(item));
+        }
+
+        if (value == null || value === '') return [];
+
+        if (typeof value === 'object') {
+            if (Array.isArray(value.value)) {
+                return normalizeMetafieldValues(value.value);
+            }
+
+            if (typeof value.value === 'string' || typeof value.value === 'number') {
+                return [String(value.value)];
+            }
+
+            return Object.values(value).flatMap(item => normalizeMetafieldValues(item));
+        }
+
+        return [String(value)];
+    }
+
+    function escapeHtml(value) {
+        return String(value == null ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function getDisplayMetafieldLabel(metafieldKey) {
+        return metafieldKey.replace(/^custom\./, '');
+    }
+
+    function normalizeFetchedCollectionProduct(product) {
+        const normalizedTags = Array.isArray(product.tags)
+            ? product.tags
+            : String(product.tags || '')
+                .split(',')
+                .map(tag => tag.trim())
+                .filter(Boolean);
+
+        return {
+            handle: product.handle || '',
+            title: product.title || '',
+            product_type: product.product_type || '',
+            tags: normalizedTags,
+            metafields: product.metafields || {},
+            collections: Array.isArray(product.collections) ? product.collections : (quizTargetCollectionMeta.handle ? [quizTargetCollectionMeta.handle] : [])
+        };
+    }
+
+    function mergeCollectionProducts(handle, products) {
+        const mergedMap = new Map();
+
+        products.forEach(product => {
+            if (!product || !product.handle) return;
+            mergedMap.set(product.handle, Object.assign({}, product));
+        });
+
+        const existingProducts = collectionProductsCache.get(handle) || [];
+
+        existingProducts.forEach(product => {
+            if (!product || !product.handle) return;
+
+            const existing = mergedMap.get(product.handle) || {};
+            mergedMap.set(product.handle, Object.assign({}, existing, product, {
+                tags: (product.tags && product.tags.length) ? product.tags : (existing.tags || []),
+                metafields: (product.metafields && Object.keys(product.metafields).length) ? product.metafields : (existing.metafields || {}),
+                collections: (product.collections && product.collections.length) ? product.collections : (existing.collections || [])
+            }));
+        });
+
+        const mergedProducts = Array.from(mergedMap.values());
+        collectionProductsCache.set(handle, mergedProducts);
+
+        if (quizTargetCollectionMeta.handle === handle) {
+            collectionProductsState = mergedProducts.slice();
+        }
+    }
+
+    async function ensureAllProductsLoaded() {
+        if (allProductsLoaded) return allProductsState;
+        if (allProductsLoadingPromise) return allProductsLoadingPromise;
+
+        allProductsLoadingPromise = (async () => {
+            const fetchedProducts = [];
+            let nextUrl = '/collections/all?view=quiz-targets-json';
+
+            while (nextUrl) {
+                const response = await fetch(nextUrl);
+                if (!response.ok) {
+                    throw new Error(`Failed to load all products from ${nextUrl}`);
+                }
+
+                const payload = await response.json();
+                const batch = Array.isArray(payload.products) ? payload.products : [];
+
+                fetchedProducts.push(...batch.map(normalizeFetchedCollectionProduct));
+                nextUrl = payload.next_url || null;
+            }
+
+            const mergedMap = new Map();
+
+            allProductsState.forEach(product => {
+                if (!product || !product.handle) return;
+                mergedMap.set(product.handle, Object.assign({}, product));
+            });
+
+            fetchedProducts.forEach(product => {
+                if (!product || !product.handle) return;
+
+                const existing = mergedMap.get(product.handle) || {};
+                mergedMap.set(product.handle, Object.assign({}, existing, product, {
+                    tags: (product.tags && product.tags.length) ? product.tags : (existing.tags || []),
+                    metafields: (product.metafields && Object.keys(product.metafields).length) ? product.metafields : (existing.metafields || {}),
+                    collections: (product.collections && product.collections.length) ? product.collections : (existing.collections || [])
+                }));
+            });
+
+            allProductsState = Array.from(mergedMap.values());
+            allProductsLoaded = true;
+            return allProductsState;
+        })();
+
+        try {
+            return await allProductsLoadingPromise;
+        } finally {
+            allProductsLoadingPromise = null;
+        }
+    }
+
+    function getProductsForCollectionHandle(handle) {
+        if (!handle) return allProductsState.length ? allProductsState : quizProductIndex;
+        const sourceProducts = allProductsState.length ? allProductsState : quizProductIndex;
+        return sourceProducts.filter(product => (product.collections || []).includes(handle));
+    }
+
+    async function ensureCollectionProductsLoaded(handle) {
+        if (!handle) return [];
+        if (collectionProductsLoadingPromises.has(handle)) {
+            return collectionProductsLoadingPromises.get(handle);
+        }
+
+        const cachedProducts = collectionProductsCache.get(handle);
+        const targetCount = handle === quizTargetCollectionMeta.handle
+            ? Number(quizTargetCollectionMeta.products_count || 0)
+            : 0;
+
+        if (cachedProducts && cachedProducts.length && (!targetCount || cachedProducts.length >= targetCount)) {
+            return cachedProducts;
+        }
+
+        const loadingPromise = (async () => {
+            const fetchedProducts = [];
+            let page = 1;
+            let hasMore = true;
+
+            while (hasMore) {
+                const response = await fetch(`/collections/${handle}/products.json?limit=250&page=${page}`);
+                if (!response.ok) {
+                    throw new Error(`Failed to load collection "${handle}" products.json page ${page}`);
+                }
+
+                const payload = await response.json();
+                const batch = Array.isArray(payload.products) ? payload.products : [];
+
+                fetchedProducts.push(...batch.map(product => {
+                    const normalizedProduct = normalizeFetchedCollectionProduct(product);
+                    normalizedProduct.collections = [handle];
+                    return normalizedProduct;
+                }));
+
+                hasMore = batch.length === 250;
+                page += 1;
+            }
+
+            try {
+                let nextUrl = `/collections/${handle}?view=quiz-targets-json`;
+
+                while (nextUrl) {
+                    const response = await fetch(nextUrl);
+                    if (!response.ok) break;
+
+                    const payload = await response.json();
+                    const batch = Array.isArray(payload.products) ? payload.products : [];
+
+                    fetchedProducts.push(...batch.map(normalizeFetchedCollectionProduct));
+                    nextUrl = payload.next_url || null;
+                }
+            } catch (error) {
+                console.warn(`Quiz targets metafield enrichment failed for collection "${handle}"`, error);
+            }
+
+            mergeCollectionProducts(handle, fetchedProducts);
+            return collectionProductsCache.get(handle) || [];
+        })();
+
+        try {
+            collectionProductsLoadingPromises.set(handle, loadingPromise);
+            return await loadingPromise;
+        } finally {
+            collectionProductsLoadingPromises.delete(handle);
+        }
+    }
+
+    function renderTargetValuePills(values) {
+        if (!values.length) {
+            return '<p class="quiz-target-empty pp-regular body">No values found</p>';
+        }
+
+        return `
+            <div class="quiz-target-pills">
+                ${values.map(value => `<span class="quiz-target-pill pp-regular body">${escapeHtml(value)}</span>`).join('')}
+            </div>
+        `;
+    }
+
+    function getProductSearchText(product) {
+        const metafieldValues = configuredMetafields.flatMap(metafieldKey => {
+            return normalizeMetafieldValues(product.metafields ? product.metafields[metafieldKey] : []);
+        });
+
+        return [
+            product.title || '',
+            product.handle || '',
+            product.product_type || '',
+            ...(product.tags || []),
+            ...metafieldValues
+        ]
+            .map(value => String(value || '').toLowerCase())
+            .join(' ');
+    }
+
+    function filterProducts(products, query) {
+        const normalizedQuery = String(query || '').trim().toLowerCase();
+        if (!normalizedQuery) return products;
+
+        return products.filter(product => getProductSearchText(product).includes(normalizedQuery));
+    }
+
+    function renderProductCards(products, emptyMessage) {
+        if (!products.length) {
+            return `<p class="quiz-target-empty pp-regular body">${escapeHtml(emptyMessage || 'No products found.')}</p>`;
+        }
+
+        return products.map(product => {
+            const tagValues = (product.tags || []).map(value => String(value)).filter(Boolean);
+            const metafieldGroups = configuredMetafields.map(metafieldKey => {
+                const values = normalizeMetafieldValues(product.metafields ? product.metafields[metafieldKey] : [])
+                    .map(value => String(value))
+                    .filter(Boolean);
+
+                return `
+                    <div class="quiz-target-group">
+                        <p class="pp-semibold body f-black">${escapeHtml(getDisplayMetafieldLabel(metafieldKey))}</p>
+                        ${renderTargetValuePills(values)}
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <div class="quiz-target-card">
+                    <div class="quiz-target-card-header">
+                        <div>
+                            <h4 class="pp-bold body-xl f-black">${escapeHtml(product.title || product.handle || 'Untitled product')}</h4>
+                            <p class="quiz-target-handle pp-regular body">${escapeHtml(product.handle || '')}</p>
+                        </div>
+                    </div>
+                    <div class="quiz-target-groups">
+                        <div class="quiz-target-group">
+                            <p class="pp-semibold body f-black">Tags</p>
+                            ${renderTargetValuePills(tagValues)}
+                        </div>
+                        ${metafieldGroups}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function buildProductDebugText(sectionLabel, products) {
+        const lines = [`[${sectionLabel}] count=${products.length}`];
+
+        products.forEach(product => {
+            lines.push(`handle: ${product.handle || ''}`);
+            lines.push(`title: ${product.title || ''}`);
+            lines.push(`product_type: ${product.product_type || ''}`);
+            lines.push(`tags: ${(product.tags || []).join(' | ') || 'none'}`);
+
+            configuredMetafields.forEach(metafieldKey => {
+                const values = normalizeMetafieldValues(product.metafields ? product.metafields[metafieldKey] : [])
+                    .map(value => String(value))
+                    .filter(Boolean);
+                lines.push(`${metafieldKey}: ${values.join(' | ') || 'No values found'}`);
+            });
+
+            lines.push('');
+        });
+
+        return lines.join('\n');
+    }
+
+    function updateTargetsExport(targetProducts, collectionProducts) {
+        if (!quizTargetsExport) return;
+
+        const exportChunks = [
+            `search_query: ${quizTargetsSearch ? (quizTargetsSearch.value || '') : ''}`,
+            buildProductDebugText('Target Products', targetProducts),
+            buildProductDebugText('Collection Products', collectionProducts)
+        ];
+
+        quizTargetsExport.value = exportChunks.join('\n\n');
+    }
+
+    function buildTargetsProductList() {
+        if (!quizTargetsList) return;
+
+        const searchQuery = quizTargetsSearch ? quizTargetsSearch.value : '';
+        const targetProducts = quizTargetsProductIndex.length ? quizTargetsProductIndex : quizProductIndex;
+        const collectionProducts = quizTargetCollectionMeta.handle
+            ? getProductsForCollectionHandle(quizTargetCollectionMeta.handle)
+            : [];
+        const filteredTargetProducts = filterProducts(targetProducts, searchQuery);
+        const filteredCollectionProducts = filterProducts(collectionProducts, searchQuery);
+
+        updateTargetsExport(filteredTargetProducts, filteredCollectionProducts);
+
+        quizTargetsList.innerHTML = `
+            <details class="quiz-targets-section" open>
+                <summary class="quiz-targets-summary">
+                    <div>
+                        <p class="pp-bold body-xl f-black">Target Products</p>
+                        <p class="pp-regular body f-gray">Products selected in the section Target Product List setting.</p>
+                    </div>
+                </summary>
+                <div class="quiz-targets-section-body">
+                    ${renderProductCards(filteredTargetProducts, 'No matching products found in Target Products.')}
+                </div>
+            </details>
+            <details class="quiz-targets-section">
+                <summary class="quiz-targets-summary">
+                    <div>
+                        <p class="pp-bold body-xl f-black">Collection Products</p>
+                        <p class="pp-regular body f-gray">All products from the selected Target Collection setting.</p>
+                    </div>
+                </summary>
+                <div class="quiz-targets-section-body">
+                    ${renderProductCards(filteredCollectionProducts, 'No matching products found in Collection Products.')}
+                </div>
+            </details>
+        `;
+    }
+
+    async function openTargetsModal() {
+        if (!quizTargetsModal) return;
+        if (quizTargetsSearch) {
+            quizTargetsSearch.value = '';
+        }
+        buildTargetsProductList();
+        quizTargetsModal.classList.add('open');
+        quizTargetsModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (quizTargetsSearch) {
+            quizTargetsSearch.focus();
+        }
+
+        try {
+            await ensureAllProductsLoaded();
+            buildTargetsProductList();
+        } catch (error) {
+            console.error('Failed to load full all-products index for quiz targets popup:', error);
+        }
+    }
+
+    function closeTargetsModal() {
+        if (!quizTargetsModal) return;
+        quizTargetsModal.classList.remove('open');
+        quizTargetsModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    function productMatchesAnswerMetafields(product, answer) {
+        if (!configuredMetafields.length || !product.metafields) return false;
+
+        return configuredMetafields.some(metafieldKey => {
+            const rawValue = product.metafields[metafieldKey];
+            const metafieldValues = normalizeMetafieldValues(rawValue);
+
+            return metafieldValues.some(value => valuesMatch(value, answer));
+        });
+    }
+
+    function productMatchesAnswer(product, answer) {
+        return productMatchesAnswerTag(product, answer)
+            || productMatchesAnswerType(product, answer)
+            || productMatchesAnswerMetafields(product, answer);
+    }
+
+    function buildQuizHTML() {
+        container.innerHTML = '';
+
+        quizData.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'quiz-question';
+            questionDiv.dataset.qid = index;
+            questionDiv.dataset.multi = q.multi_choice ? 'true' : 'false';
+
+            const helperText = q.multi_choice
+                ? 'Pick as many as you want'
+                : 'Please choose one';
+
+            questionDiv.innerHTML = `
+                <h3 class="pp-bold title-sm f-black text-center pb-lg-3 pb-md-3 pb-sm-2">${q.question_text}</h3>
+                <p class="pp-regular body-lg f-gray text-center">${helperText}</p>
+                <div class="row mt-3"></div>
+            `;
+
+            const row = questionDiv.querySelector('.row');
+
+            q.answers.forEach((ans, i) => {
+                const img = q.answer_images[i] || '';
+                const col = document.createElement('div');
+                col.className = 'col-lg-3 col-md-3 col-sm-6';
+
+                col.innerHTML = `
+                    <div class="quiz-answer"
+                        data-qid="${index}"
+                        data-answer="${ans}"
+                        data-index="${i}"
+                        data-multi="${q.multi_choice ? 'true' : 'false'}">
+                        ${img ? `<img class="answer-img" src="${img}">` : ''}
+                        <div class="circle"></div>
+                    </div>
+                    <p class="pp-semibold body-xl text-center">${ans}</p>
+                `;
+
+                row.appendChild(col);
+            });
+
+            container.appendChild(questionDiv);
+        });
+    }
+
+    function restoreSelections(qid) {
+        document.querySelectorAll('.quiz-answer[data-qid="' + qid + '"]')
+            .forEach(btn => btn.classList.remove('selected'));
+
+        const selected = answers[qid] || [];
+
+        document.querySelectorAll('.quiz-answer[data-qid="' + qid + '"]')
+            .forEach(btn => {
+                if (selected.includes(btn.dataset.answer)) {
+                    btn.classList.add('selected');
+                }
+            });
+    }
+
+    function showQuestion(idx) {
+        document.getElementById('quizResult').style.display = 'none';
+        document.querySelectorAll('.quiz-question').forEach(q => q.classList.remove('active'));
+
+        const el = document.querySelector(`.quiz-question[data-qid="${idx}"]`);
+        if (!el) return;
+
+        el.classList.add('active');
+        container.style.display = 'block';
+        document.getElementById('quizMainNav').style.display = 'flex';
+        document.getElementById('quizSubscribe').style.display = 'none';
+
+        currentQuestion = idx;
+        restoreSelections(idx);
+
+        setTimeout(() => {
+            document.querySelectorAll(`.quiz-question[data-qid="${idx}"] .quiz-answer`).forEach((item, i) => {
+                item.classList.remove('quiz-answer-animate');
+                void item.offsetWidth;
+                setTimeout(() => {
+                    item.classList.add('quiz-answer-animate');
+                }, i * 70);
+            });
+        }, 10);
+    }
+
+    function bindAnswerEvents() {
+        document.querySelectorAll('.quiz-answer').forEach(btn => {
+            btn.addEventListener('click', e => {
+                if (isDragging) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    return false;
+                }
+
+                const qid = parseInt(btn.dataset.qid, 10);
+                const isMulti = btn.dataset.multi === 'true';
+
+                if (!answers[qid]) answers[qid] = [];
+
+                if (!isMulti) {
+                    answers[qid] = [];
+                    document.querySelectorAll(`.quiz-answer[data-qid="${qid}"]`)
+                        .forEach(a => a.classList.remove('selected'));
+                }
+
+                btn.classList.toggle('selected');
+
+                const value = btn.dataset.answer;
+
+                if (btn.classList.contains('selected')) {
+                    if (!answers[qid].includes(value)) answers[qid].push(value);
+                } else {
+                    answers[qid] = answers[qid].filter(v => v !== value);
+                }
+
+                updatePicks();
+            });
+        });
+    }
+
+    function jumpBackTo(qid) {
+        qid = parseInt(qid, 10);
+
+        Object.keys(answers).forEach(key => {
+            if (parseInt(key, 10) > qid) {
+                delete answers[key];
+            }
+        });
+
+        history = history.filter(h => h <= qid);
+
+        currentQuestion = qid;
+        showQuestion(qid);
+        updatePicks();
+    }
+
+    function updatePicks() {
+        picksBar.innerHTML = '';
+
+        Object.keys(answers).forEach(qid => {
+            const q = quizData[qid];
+
+            answers[qid].forEach(ans => {
+                const index = q.answers.indexOf(ans);
+                const img = q.answer_images[index];
+
+                const div = document.createElement('div');
+                div.className = 'quiz-pick';
+
+                div.innerHTML = `
+                    ${img ? `<img src="${img}" class="pick-img">` : ''}
+                    <span>${ans}</span>
+                `;
+
+                div.addEventListener('click', () => jumpBackTo(qid));
+                picksBar.appendChild(div);
+            });
+        });
+
+        renderAnswerList();
+    }
+
+    function renderAnswerList() {
+        const answerList = document.getElementById('answerList');
+        if (!answerList) return;
+
+        answerList.innerHTML = '';
+
+        Object.keys(answers).forEach(qid => {
+            (answers[qid] || []).forEach(ans => {
+                const div = document.createElement('div');
+                div.className = 'answer-item';
+                div.innerHTML = `<p class="pp-regular body">${ans}</p>`;
+                answerList.appendChild(div);
+            });
+        });
+    }
+
+    function showSubscribe() {
+        container.style.display = 'none';
+        document.getElementById('quizMainNav').style.display = 'none';
+        document.getElementById('quizSubscribe').style.display = 'block';
+    }
+
+    async function showResults() {
+        const out = document.getElementById('quizProducts');
+        const titleEl = document.getElementById('quizResultTitle');
+
+        out.innerHTML = '';
+        titleEl.textContent = '';
+        renderAnswerList();
+
+        let scores = {};
+        const quizMatchDebug = {};
+        const answeredQuestionIds = quizData
+            .map((_, index) => index)
+            .filter(index => (answers[index] || []).length > 0);
+
+        try {
+            await ensureAllProductsLoaded();
+        } catch (error) {
+            console.error('Failed to load full all-products index for quiz matching:', error);
+        }
+
+        function ensureScore(handle, productData = null) {
+            if (!handle) return null;
+
+            if (!scores[handle]) {
+                scores[handle] = {
+                    score: 0,
+                    matchedQuestions: new Set(),
+                    product: productData || { handle: handle }
+                };
+            } else if (productData && !scores[handle].product) {
+                scores[handle].product = productData;
+            } else if (productData) {
+                scores[handle].product = Object.assign({}, scores[handle].product, productData);
+            }
+
+            return scores[handle];
+        }
+
+        quizData.forEach((q, i) => {
+            const selected = answers[i] || [];
+            if (!selected.length) return;
+
+            (q.product_match_products || []).forEach((prod, x) => {
+                const handle = prod.handle;
+                if (!handle) return;
+
+                const entry = ensureScore(handle, prod);
+                if (!entry) return;
+
+                const rule = q.product_match_answers && q.product_match_answers[x]
+                    ? q.product_match_answers[x]
+                    : '';
+
+                const matchList = String(rule)
+                    .split(',')
+                    .map(v => normalizeValue(v))
+                    .filter(Boolean);
+
+                if (!matchList.length) return;
+
+                const matchedRules = matchList.filter(ruleValue => {
+                    return selected.some(answer => valuesMatch(ruleValue, answer));
+                });
+
+                const manualMatched = q.multi_choice
+                    ? matchedRules.length > 0
+                    : matchedRules.length === matchList.length;
+
+                if (!manualMatched) return;
+
+                entry.score += matchedRules.length;
+                entry.matchedQuestions.add(i);
+            });
+
+            if (q.auto_tag_match) {
+                const collectionHandle = resolveCollectionHandle(q.collection_filter);
+                const autoMatchProducts = collectionHandle
+                    ? getProductsForCollectionHandle(collectionHandle)
+                    : (allProductsState.length ? allProductsState : quizProductIndex);
+
+                autoMatchProducts.forEach(product => {
+                    if (!product.handle) return;
+
+                    if (!quizMatchDebug[product.handle]) {
+                        quizMatchDebug[product.handle] = [];
+                    }
+
+                    if (collectionHandle && !(product.collections || []).includes(collectionHandle)) {
+                        quizMatchDebug[product.handle].push({
+                            questionIndex: i,
+                            question: q.question_text,
+                            selectedAnswers: selected,
+                            type: 'collection-filter',
+                            matched: false,
+                            reason: `Product is not in collection "${collectionHandle}"`
+                        });
+                        return;
+                    }
+
+                    const matchedAnswers = selected.filter(answer => {
+                        return productMatchesAnswer(product, answer);
+                    });
+
+                    const autoMatched = q.multi_choice
+                        ? matchedAnswers.length > 0
+                        : matchedAnswers.length === selected.length;
+
+                    quizMatchDebug[product.handle].push({
+                        questionIndex: i,
+                        question: q.question_text,
+                        selectedAnswers: selected,
+                        type: 'auto-match',
+                        matchedAnswers: matchedAnswers,
+                        matched: autoMatched,
+                        matchMode: q.multi_choice ? 'OR within question' : 'AND within question',
+                        productTags: product.tags || [],
+                        productType: product.product_type || '',
+                        productMetafields: product.metafields || {}
+                    });
+
+                    if (matchedAnswers.length) {
+                        console.log('quiz:auto-match-tags', {
+                            questionIndex: i,
+                            question: q.question_text,
+                            productHandle: product.handle,
+                            productTitle: product.title || '',
+                            selectedAnswers: selected,
+                            matchedAnswers: matchedAnswers,
+                            productTags: product.tags || [],
+                            productType: product.product_type || '',
+                            productMetafields: product.metafields || {},
+                            collectionFilter: collectionHandle || null
+                        });
+                    }
+
+                    if (!autoMatched) return;
+
+                    const entry = ensureScore(product.handle, { handle: product.handle });
+                    if (!entry) return;
+
+                    entry.score += matchedAnswers.length;
+                    entry.matchedQuestions.add(i);
+                });
+            }
+        });
+
+        const sortedScores = Object.values(scores)
+            .filter(item => item.score > 0)
+            .sort((a, b) => {
+                if (b.matchedQuestions.size !== a.matchedQuestions.size) {
+                    return b.matchedQuestions.size - a.matchedQuestions.size;
+                }
+
+                return b.score - a.score;
+            });
+
+        const strictMatches = sortedScores.filter(item => {
+            return item.matchedQuestions.size === answeredQuestionIds.length;
+        });
+
+        if (!strictMatches.length) {
+            document.getElementById('quiz-recommendation-section').style.display = 'block';
+            titleEl.textContent = '0% Match: Oops! No Matches This Time';
+        } else {
+            document.getElementById('quiz-recommendation-section').style.display = 'none';
+            titleEl.textContent = '100% Match: This Is Your Perfect Fit!';
+
+            strictMatches.forEach(item => {
+                const handle = item.product.handle;
+
+                out.innerHTML += `
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="quiz-product-wrapper" data-handle="${handle}"></div>
+                    </div>
+                `;
+            });
+        }
+
+        document.getElementById('quizSubscribe').style.display = 'none';
+        document.getElementById('quizMainNav').style.display = 'none';
+        document.getElementById('quizQuestionsContainer').style.display = 'none';
+        document.getElementById('quizResult').style.display = 'block';
+
+        window.quizMatchDebug = quizMatchDebug;
+        window.strictMatches = strictMatches;
+        window.quizSelectedAnswers = answers;
+
+        console.log('quiz:user-answers', answers);
+
+        hydrateQuizProducts();
+    }
+
+    const nextButton = document.querySelector('.quiz-next');
+    if (nextButton) {
+        nextButton.addEventListener('click', () => {
+            const q = quizData[currentQuestion];
+            const selectedAnswers = answers[currentQuestion] || [];
+
+            if (!selectedAnswers.length) return;
+
+            const selectedIndexes = selectedAnswers
+                .map(answer => q.answers.indexOf(answer))
+                .filter(index => index > -1)
+                .sort((a, b) => a - b);
+
+            const nextTargets = selectedIndexes
+                .map(index => parseInt(q.next_question_for_answers[index], 10))
+                .filter(index => !isNaN(index) && quizData[index]);
+
+            const uniqueNextTargets = Array.from(new Set(nextTargets));
+
+            if (!uniqueNextTargets.length) {
+                showSubscribe();
+                return;
+            }
+
+            const nextQ = uniqueNextTargets[0];
+
+            if (isNaN(nextQ) || !quizData[nextQ]) {
+                showSubscribe();
+                return;
+            }
+
+            history.push(currentQuestion);
+            currentQuestion = nextQ;
+            showQuestion(currentQuestion);
+        });
+    }
+
+    const backQuestion = document.getElementById('quizBackQuestion');
+    const backSubscribe = document.getElementById('quizBackSubscribe');
+
+    if (backQuestion) {
+        backQuestion.addEventListener('click', () => {
+            if (!history.length) {
+                currentQuestion = 0;
+                showQuestion(0);
+                return;
+            }
+
+            currentQuestion = history.pop();
+            showQuestion(currentQuestion);
+        });
+    }
+
+    if (backSubscribe) {
+        backSubscribe.addEventListener('click', () => {
+            if (!history.length) {
+                currentQuestion = 0;
+                showQuestion(0);
+                return;
+            }
+
+            currentQuestion = history.pop();
+            showQuestion(currentQuestion);
+            document.getElementById('quizSubscribe').style.display = 'none';
+            document.getElementById('quizMainNav').style.display = 'flex';
+        });
+    }
+    const quizSkipBtn = document.getElementById('quizSkip');
+
+    function setQuizSkipLoading(isLoading) {
+        if (!quizSkipBtn) return;
+
+        if (isLoading) {
+            quizSkipBtn.classList.add('is-loading');
+            quizSkipBtn.disabled = true;
+            quizSkipBtn.innerHTML = 'Loading Results <span class="quiz-btn-loader"></span>';
+        } else {
+            quizSkipBtn.classList.remove('is-loading');
+            quizSkipBtn.disabled = false;
+            quizSkipBtn.innerHTML = 'Skip, See My Results';
+        }
+    }
+    
+    document.getElementById('quizSkip').addEventListener('click', async function() {
+        setQuizSkipLoading(true);
+
+        try {
+            await showResults();
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setQuizSkipLoading(false);
+        }
+    });
+
+    const submitBtn = document.getElementById('quizSubmitNow');
+
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function () {
+            const email = document.getElementById('quizEmail');
+            const consent = document.getElementById('quiz_validation_input');
+            const message = document.getElementById('quizMessage');
+
+            message.textContent = '';
+            message.style.color = '#cc0023';
+
+            const emailValue = email.value.trim();
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (!emailValue) {
+                message.textContent = 'Please enter your email.';
+                email.focus();
+                return;
+            }
+
+            if (!emailRegex.test(emailValue)) {
+                message.textContent = 'Please enter a valid email address.';
+                email.focus();
+                return;
+            }
+
+            if (!consent.checked) {
+                message.textContent = 'Please confirm you agree to receive marketing emails.';
+                consent.focus();
+                return;
+            }
+
+            submitBtn.disabled = true;
+
+            const formData = new URLSearchParams();
+            formData.append('form_type', 'customer');
+            formData.append('utf8', '✓');
+            formData.append('contact[email]', emailValue);
+            formData.append('tags', 'quiz-subscriber');
+
+            fetch('/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: formData.toString()
+            })
+            .then(() => {
+                message.style.color = 'green';
+                message.textContent = "Thank you! You're subscribed.";
+
+                setTimeout(() => {
+                    showResults();
+                }, 3000);
+            })
+            .catch(() => {
+                submitBtn.disabled = false;
+                message.style.color = '#cc0023';
+                message.textContent = 'Something went wrong. Please try again.';
+            });
+        });
+    }
+
+    function resetQuiz() {
+        answers = {};
+        history = [];
+        currentQuestion = 0;
+
+        picksBar.innerHTML = '';
+        renderAnswerList();
+
+        container.style.display = 'block';
+        document.getElementById('quizMainNav').style.display = 'flex';
+        document.getElementById('quizSubscribe').style.display = 'none';
+        document.getElementById('quizResult').style.display = 'none';
+        document.getElementById('quizQuestionsContainer').style.display = 'block';
+
+        document.querySelectorAll('.quiz-answer').forEach(a => a.classList.remove('selected'));
+
+        showQuestion(0);
+    }
+
+    function hydrateQuizProducts() {
+        document.querySelectorAll('.quiz-product-wrapper').forEach(wrapper => {
+            const handle = wrapper.dataset.handle;
+            const template = document.querySelector(`#quiz-card-${handle}`);
+
+            if (template) {
+                wrapper.innerHTML = template.innerHTML;
+            }
+        });
+    }
+
+    buildQuizHTML();
+    bindAnswerEvents();
+    showQuestion(0);
+
+    if (quizTargetsTrigger) {
+        quizTargetsTrigger.addEventListener('click', openTargetsModal);
+    }
+
+    if (quizTargetsClose) {
+        quizTargetsClose.addEventListener('click', closeTargetsModal);
+    }
+
+    if (quizTargetsModal) {
+        quizTargetsModal.addEventListener('click', event => {
+            if (event.target === quizTargetsModal) {
+                closeTargetsModal();
+            }
+        });
+    }
+
+    if (quizTargetsSearch) {
+        quizTargetsSearch.addEventListener('input', buildTargetsProductList);
+    }
+
+    if (quizTargetsCopy) {
+        quizTargetsCopy.addEventListener('click', async () => {
+            if (!quizTargetsExport) return;
+
+            try {
+                await navigator.clipboard.writeText(quizTargetsExport.value || '');
+                quizTargetsCopy.textContent = 'Copied';
+                setTimeout(() => {
+                    quizTargetsCopy.textContent = 'Copy Debug Data';
+                }, 1200);
+            } catch (error) {
+                console.error('Failed to copy quiz targets debug export:', error);
+                quizTargetsExport.focus();
+                quizTargetsExport.select();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && quizTargetsModal && quizTargetsModal.classList.contains('open')) {
+            closeTargetsModal();
+        }
+    });
+
+    document.getElementById('quizReset').addEventListener('click', resetQuiz);
+    document.getElementById('mobilequizReset').addEventListener('click', resetQuiz);
+
+    quizPicks.addEventListener('mousedown', e => {
+        isDown = true;
+        isDragging = false;
+        startX = e.pageX - quizPicks.offsetLeft;
+        scrollLeft = quizPicks.scrollLeft;
+    });
+
+    quizPicks.addEventListener('mouseleave', () => {
+        isDown = false;
+    });
+
+    quizPicks.addEventListener('mouseup', () => {
+        isDown = false;
+        setTimeout(() => {
+            isDragging = false;
+        }, 50);
+    });
+
+    quizPicks.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        e.preventDefault();
+        isDragging = true;
+        const x = e.pageX - quizPicks.offsetLeft;
+        const walk = (x - startX) * 1;
+        quizPicks.scrollLeft = scrollLeft - walk;
+    });
+
+    quizPicks.addEventListener('touchstart', e => {
+        isDown = true;
+        isDragging = false;
+        startX = e.touches[0].pageX - quizPicks.offsetLeft;
+        scrollLeft = quizPicks.scrollLeft;
+    });
+
+    quizPicks.addEventListener('touchend', () => {
+        isDown = false;
+    });
+
+    quizPicks.addEventListener('touchmove', e => {
+        if (!isDown) return;
+        isDragging = true;
+        const x = e.touches[0].pageX - quizPicks.offsetLeft;
+        const walk = (x - startX) * 1;
+        quizPicks.scrollLeft = scrollLeft - walk;
+    });
+
+    quizPicks.addEventListener('wheel', function (e) {
+        if (e.deltaY !== 0) {
+            e.preventDefault();
+            quizPicks.scrollLeft += e.deltaY;
+        }
+    }, { passive: false });
+});
+</script>
+
+  {% schema %}
+  {
+    "class": "product-quiz-section position-relative overflow-lg-unset overflow-md-unset overflow-sm-hidden",
+    "name": "Product Quiz",
+    "settings": [
+        {
+            "type": "metaobject_list",
+            "id": "quiz_questions",
+            "label": "Quiz Questions",
+            "metaobject_type": "product_quiz"
+        },
+        {
+            "type": "collection",
+            "id": "product_recommendation_list_1",
+            "label": "Product Recommendation List"
+        },
+        {
+            "type": "range",
+            "id": "number_product",
+            "label": "Number Of Products",
+            "min": 6,
+            "max": 30,
+            "step": 1,
+            "default": 8
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_testing_mode",
+            "label": "Enable Testing Mode",
+            "default": false,
+            "info": "Shows a Show Targets Product List button for reviewing product tags and quiz matching metafields."
+        },
+        {
+            "type": "product_list",
+            "id": "target_product_list",
+            "label": "Target Product List",
+            "info": "Products shown in the testing mode targets popup. If left empty, the popup uses the full indexed product list."
+        },
+        {
+            "type": "collection",
+            "id": "target_collection",
+            "label": "Target Collection",
+            "info": "Collection shown in the testing mode popup below the target product list."
+        }
+    ],
+    "presets": [{ "name": "Product Quiz" }]
+  }
+  {% endschema %}

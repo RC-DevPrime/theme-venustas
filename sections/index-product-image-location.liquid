@@ -1,0 +1,274 @@
+{% style %}
+    .product-image-location-section{
+        background: #F9F6EF;
+    }
+    .product-image-location-section .row{
+        --bs-gutter-x: 0;
+        --bs-gutter-y: 0;
+    }
+    .product-image-location-section .featured-image-slider{
+        height:100%;
+        position:relative;
+    }
+    .product-image-location-section .featured-image-slider img{
+        width:100%;
+        height:100%;
+        object-fit: cover;
+    }
+
+    .product-image-location-section .spot{
+        position: absolute;
+        background: #FFF;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        overflow: visible;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor:pointer;
+    }
+    .product-image-location-section .spot:before{
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border: 4px solid #FFF;
+        border-radius: 50%;
+        opacity: .5;
+        animation: pulse-wave 1.5s infinite;
+    }
+
+    .product-image-location-section .hotspot-product-content{
+        background: #F9F6EF;
+        padding: 6px;
+        border-radius: 6px;
+        opacity: 1;
+        transform: translateY(30px);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        max-width: 300px;
+        min-width: 200px;
+        width: 100%;
+        position: absolute;
+        
+        /* fade-up base state */
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity .45s ease, transform .45s ease;
+        will-change: opacity, transform;
+    }
+    .product-image-location-section .hotspot-product-content.is-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .product-image-location-section .hotspot-product-content.right{
+        left:45px;
+    }
+    .product-image-location-section .hotspot-product-content.left{
+        right:45px;
+    }
+    
+    .product-image-location-section .hotspot-product-content .product-featured-image{
+        height: 70px;
+        width: 50px;
+        position: unset;
+        opacity: 1;
+    }
+    .product-image-location-section .hotspot-product-content .product-featured-image img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+    }
+
+
+    .product-image-location-section .product-image {
+        position:relative;
+        border-radius:10px;
+        overflow:hidden;
+    }
+    .product-image-location-section .product-image img{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity:0;
+    }
+    .product-image-location-section .product-image img.active {
+        position: relative;
+        opacity: 1;
+    }
+    .product-image-location-section .product-image .hover-image {
+        opacity: 0;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        transition: opacity .5s ease, scale 0.6s ease 0.1s;
+    }
+    .product-image-location-section .swiper-pagination{
+        position:absolute;
+        bottom:20px;
+        margin-top:0;
+    }
+    .product-image-location-section .swiper-pagination span{
+        width:12px;
+        height:5px;
+        background:#ffffffa8;
+        opacity:1;
+        border-radius:6px;
+    }
+    .product-image-location-section .swiper-pagination span.swiper-pagination-bullet-active{
+        width:60px;
+        background:#FFF;
+    }
+    .product-image-location-section  .btn-explore-more{
+        display: block;
+        width: 100%;
+        padding: 15px;
+        border-radius: 8px 8px 8px 8px;
+        background: #B93205;
+        text-align: center;
+        color: #FFF;
+        margin-top: 15px;
+        transition: all 0.3s ease;
+    }
+    .product-image-location-section  .btn-explore-more:hover{
+        background: #000;
+    }
+    .product-image-location-section .float-nav{
+        max-width:700px;
+    }
+    .product-image-location-section .hotspot-product-content .product-content{
+        width: 100px;
+        display: flex;
+        flex-direction: column;
+    }
+    .product-image-location-section .float-nav button{
+        --btn-pos: 0;
+    }
+    .product-image-location-section .float-nav button i{
+        color: #B93205;
+    }
+    .product-image-location-section .float-nav button:hover i{
+        color:#FFF;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .product-image-location-section .float-nav{
+            top: 35%
+        }
+        .product-image-location-section .float-nav button {
+            --btn-pos: 30px;
+        }
+        .product-image-location-section .spot{
+            width: 15px;
+            height: 15px;
+        }
+        .product-image-location-section .spot:before{
+            width: 13px;
+            height: 13px;
+        }
+        
+        .product-image-location-section .hotspot-product-content.right{
+            left:20px;
+        }
+        .product-image-location-section .hotspot-product-content.left{
+            right:20px;
+        }
+        .product-image-location-section .hotspot-product-content{
+            max-width: 200px;
+            min-width: 150px;
+            padding:4px;
+            gap:0px;
+            justify-content: space-between;
+        }
+        .product-image-location-section .hotspot-product-content .product-title{
+            font-size:10px;
+        }
+        .product-image-location-section .hotspot-product-content a{
+            font-size:8px;
+        }
+        .product-image-location-section .hotspot-product-content .product-featured-image{
+            height: 40px;
+            width: 30px;
+            position: unset;
+            opacity: 1;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+    @keyframes pulse-wave {
+        0% {
+            transform: scale(1);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(1.8);
+            opacity: 0.5;
+        }
+    }
+{% endstyle %}
+<div class="row h-100">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="featured-image-slider overflow-hidden">
+            <div class="swiper-wrapper">
+                {%  content_for 'blocks' %}
+            </div>
+            <div class="swiper-pagination"> 
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center ">
+        <div class="col-lg-8 col-md-8 col-sm-12 mx-auto px-lg-5 px-md-4 px-sm-5 position-relative">
+            <div class="px-lg-5 px-md-4 px-sm-0 py-lg-5 py-md-4 py-sm-4">
+                <div class="product-list-slider-container ">
+                    <div class="swiper-wrapper">
+
+                    </div>
+                </div>
+                
+                <div class="float-nav d-lg-flex d-md-flex d-sm-flex justify-content-center">
+                    <button type="button" class="owl-prev" disabled>
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button type="button" class="owl-next" disabled>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+{
+    "class": "product-image-location-section overflow-hidden",
+    "name": "Product Image Location",
+    "limit": 1,
+    "templates": ["index","product"],
+    "blocks": [
+        {
+            "type": "featured-image-item"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product Image Location"
+        }
+    ]
+}
+{% endschema %}

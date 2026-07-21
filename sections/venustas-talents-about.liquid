@@ -1,0 +1,201 @@
+{% render 'v-talents-base-css', section: section %}
+{% render 'v-talents-layout-css', section: section %}
+
+<style>
+  #shopify-section-{{ section.id }} .v-talents-about__grid {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .v-talents-about__grid {
+      flex-direction: row;
+      align-items: center;
+      gap: 5%;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-about__text {
+      flex: 0 0 48%;
+    }
+
+    #shopify-section-{{ section.id }} .v-talents-about__image {
+      flex: 0 0 47%;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-about__label {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: var(--v-brand);
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-about__heading {
+    font-size: clamp(26px, 2.8vw, 40px);
+    font-weight: 700;
+    margin: 0 0 20px;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-about__body {
+    font-size: clamp(14px, 1.1vw, 16px);
+    line-height: 1.7;
+    color: #444;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-about__body p {
+    margin: 0 0 14px;
+  }
+
+  #shopify-section-{{ section.id }} .v-talents-about__body p:last-child {
+    margin-bottom: 0;
+  }
+</style>
+
+<div class="v-talents">
+  <div class="v-talents-master-container">
+    <div class="v-talents-about__grid">
+      <div class="v-talents-about__text">
+        {%- if section.settings.about_label != blank -%}
+          <p class="v-talents-about__label v-talents__brand">{{ section.settings.about_label }}</p>
+        {%- endif -%}
+        {%- if section.settings.about_heading != blank -%}
+          <h2 class="v-talents-about__heading">{{ section.settings.about_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.about_body != blank -%}
+          <div class="v-talents-about__body">{{ section.settings.about_body }}</div>
+        {%- endif -%}
+      </div>
+      <div class="v-talents-about__image">
+        {%- if section.settings.about_image != blank -%}
+          <div class="v-talents__rounded-img">
+            {{
+              section.settings.about_image
+              | image_url: width: 1200
+              | image_tag:
+                loading: 'lazy',
+                widths: '400,600,800,1000,1200',
+                sizes: '(min-width: 768px) 45vw, 95vw',
+                alt: section.settings.about_image.alt | default: section.settings.about_heading
+            }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Talents — About",
+  "tag": "section",
+  "class": "venustas-talents-about-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "color",
+      "id": "brand_color",
+      "label": "Brand color",
+      "default": "#B93205"
+    },
+    {
+      "type": "range",
+      "id": "container_width_desktop",
+      "min": 70,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Desktop container width",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "container_width_mobile",
+      "min": 80,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Mobile container width",
+      "default": 95
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop padding bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding top",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding bottom",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "about_label",
+      "label": "Label",
+      "default": "Venustas Talents Program"
+    },
+    {
+      "type": "text",
+      "id": "about_heading",
+      "label": "Heading",
+      "default": "About the Program"
+    },
+    {
+      "type": "richtext",
+      "id": "about_body",
+      "label": "Body",
+      "default": "<p>Join the Venustas Talents Program and turn your outdoor adventures into inspiring content.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "about_image",
+      "label": "Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Talents — About",
+      "category": "Venustas Talents"
+    }
+  ]
+}
+{% endschema %}

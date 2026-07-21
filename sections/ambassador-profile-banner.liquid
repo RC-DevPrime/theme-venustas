@@ -1,0 +1,51 @@
+{% style %}
+    .ambassador-profile-banner-section{
+        height:480px;
+    }
+    .ambassador-profile-banner-section img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .ambassador-profile-banner-section{
+            height:500px;
+        }
+    }
+
+    /* ipad Air */
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px){
+    }
+
+{% endstyle %}
+<div class="ambassador-profile-banner-section">
+    <img src="{{ section.settings.background_image | img_url: 'master' }}" width="100%" height="100%" class="bg-image d-lg-block d-md-block d-sm-none">
+    <img src="{{ section.settings.background_image_mobile | img_url: 'master' }}" width="100%" height="100%" class="bg-image d-lg-none d-md-none d-sm-block">
+</div>
+{% schema %}
+    {
+        "class": "ambassador-profile-banner-section",
+        "name": "Ambassador Profile Banner",
+        "templates": ["page","article"],
+        "limit": 1, 
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "background_image",
+                "label": "Background Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image_mobile",
+                "label": "Background Image - Mobile"
+            },
+        ],
+        "presets" :[{
+            "name" : "Ambassador Profile Banner"
+        }]
+    }
+  {% endschema %} 

@@ -1,0 +1,22 @@
+{%- comment -%}
+  Container width & padding for Venustas Talents sections.
+  Usage: {% render 'v-talents-layout-css', section: section %}
+{%- endcomment -%}
+<style>
+  #shopify-section-{{ section.id }} .v-talents-master-container {
+    margin: 0 auto;
+    width: {{ section.settings.container_width_mobile }}%;
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .v-talents-master-container {
+      width: {{ section.settings.container_width_desktop }}%;
+      max-width: 1440px;
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+</style>

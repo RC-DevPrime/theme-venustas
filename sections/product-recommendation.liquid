@@ -1,0 +1,230 @@
+{% style %}
+    
+    .product-recommendation-section {
+        position:relative;
+    }
+    .product-recommendation-section .float-nav button{
+        background: #F1EADD;
+    }
+    .product-recommendation-section .float-nav button:hover{
+        background: #B93205;
+    }
+    .product-recommendation-section .float-nav button:hover .fa-chevron-left:before,
+    .product-recommendation-section .float-nav button:hover .fa-chevron-right:before{
+        color: #FFF;
+    }
+    .product-recommendation-section .float-nav .fa-chevron-left:before,
+    .product-recommendation-section .float-nav .fa-chevron-right:before{
+        color: #B93205;
+    }
+    .product-recommendation-section .tab-product-list-slider .swiper-slide{
+        height:auto;
+    }
+    .product-recommendation-section .swiper-slide{
+        height:auto;
+    }
+    
+    /* FOR MOBILE PHONE */
+    @media only screen and (max-width: 768px) {
+        .product-recommendation-section .float-nav button{
+            --btn-pos:5px;
+        }
+        .product-recommendation-section .float-nav{
+            top:220px;
+        }
+    }
+    
+    /* MOBILES ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 0px) {
+    }
+    @media only screen and (min-width: 375px) {
+    }
+    @media only screen and (min-width: 390px) {
+    }
+    @media only screen and (min-width: 414px) {
+    }
+    @media only screen and (min-width: 428px) {
+    }
+    @media only screen and (min-width: 480px) {
+    }
+
+    /* TABLETS ----------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 768px) {
+    }
+
+
+    /* LAPTOPS --------------------------------------------------------------------------------- */
+
+    @media only screen and (min-width: 1280px) {
+    }
+    @media only screen and (min-width: 1366px) {
+    }
+    @media only screen and (min-width: 1440px) {
+    }
+    @media only screen and (min-width: 1536px) {
+    }
+    @media only screen and (min-width: 1600px) {
+    }
+
+    /* COMPUTERS --------------------------------------------------------------------------------- */
+    @media only screen and (min-width: 1920px) {
+        .product-recommendation-section .float-nav button{
+            --btn-pos: 50px;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .product-recommendation-section .float-nav button{
+            --btn-pos: 50px;
+        }
+    }
+{% endstyle %}
+<div class="container section-content 
+    {% if section.settings.nav_title != blank %} section-scroll
+    {% else %}
+      {% if section.settings.enabled_section_child_scroll %} section-scroll
+       {% endif -%}
+    {% endif %}" 
+
+    {% if section.settings.nav_title != blank %}
+        data-scroll="{{ section.settings.nav_title | handleize }}"
+    {% endif %} 
+    {% if section.settings.enabled_section_child_scroll %}
+        data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+    {% endif %}>
+
+    <div class="pp-bold text-center pb-lg-4 pb-md-4 pb-sm-3">
+        <span class="title-sm d-lg-block d-md-block d-sm-none">
+            {{ section.settings.heading }}
+        </span>
+        <span class="title d-lg-none d-md-none d-sm-block">
+            {{ section.settings.heading }}
+        </span>
+    </div>
+    <div class="product-recommendations" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=8&intent=related" >
+        {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+            <div class="recommendation-slider position-lg-relative position-md-relative position-sm-unset overflow-hidden">
+                <div class="swiper-wrapper">
+                    {% for product in recommendations.products %}
+                        <div class="swiper-slide">
+                            {% render 'product-item', product: product, sale_badge_type: section.settings.sale_badge_type, badge_detail: true, %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+                <div class="float-nav d-lg-block d-md-block d-sm-block">
+                    <button type="button" class="owl-prev" disabled>
+                        <i class="fa-solid fa-chevron-left f-white"></i>
+                    </button>
+                    <button type="button" class="owl-next" disabled>
+                        <i class="fa-solid fa-chevron-right f-white"></i>
+                    </button>
+                </div>
+        {%- endif -%}
+    </div>
+</div>
+{% javascript %}
+    const productRecommendationsSection = document.querySelector('.product-recommendations');
+    if (productRecommendationsSection) {
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url)
+        .then(response => response.text())
+        .then(text => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const recommendations = html.querySelector('.product-recommendations');
+
+        if (recommendations && recommendations.innerHTML.trim().length) {
+            productRecommendationsSection.innerHTML = recommendations.innerHTML;
+        }
+
+        // Initialize Swiper for recommendation slider
+        $('.product-recommendations .recommendation-slider').each(function () {
+            let $section = $(this);
+            let $sectionRecommendation = $('.product-recommendation-section');
+
+            new Swiper(this, {
+            slidesPerView: 4,
+            spaceBetween: 15,
+            allowTouchMove: true,
+            loop: true,
+            navigation: {
+                nextEl: $sectionRecommendation.find('.float-nav .owl-next')[0],
+                prevEl: $sectionRecommendation.find('.float-nav .owl-prev')[0],
+            },
+            breakpoints: {
+                1524: {
+                slidesPerView: 4,
+                },
+                1024: {
+                slidesPerView: 4,
+                },
+                768: {
+                slidesPerView: 2,
+                },
+                0: {
+                slidesPerView: 2,
+                },
+            },
+            });
+        });
+        })
+        .catch(e => {
+        console.error(e);
+        });
+    }
+
+{% endjavascript %}
+{% schema %}
+{
+    "class": "product-recommendation-section position-lg-unset position-md-unset position-sm-relative",
+    "name": "Recommendation",
+    "limit": 1,
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled_section_child_scroll",
+            "label": "Enabled Section Child Scroll"
+        },
+        {
+            "type": "text",
+            "id": "section_scroll_nav",
+            "label": "Section Scroll Nav",
+            "info": "Need to Enabled first Section Scroll"
+        },
+        {
+            "type": "text",
+            "id": "nav_title",
+            "label": "Navigation Title"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "You May Also Like"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+            "type": "range",
+            "id": "number_product",
+            "label": "Number Of Products",
+            "min": 6,
+            "max": 30,
+            "step": 1,
+            "default": 8
+        },
+    ],
+    "presets": [
+        { 
+            "name": "Recommendation"
+        }
+    ]
+}
+{% endschema %}
