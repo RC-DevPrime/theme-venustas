@@ -49,80 +49,55 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
     {% endif %}
 
     {% assign active_variant = product.selected_or_first_available_variant %}
+    {% assign active_image = active_variant.image | default: product.featured_image %}
+    {% assign first_color_variant = blank %}
 
-    {%- comment -%} Determine color option index {%- endcomment -%}
-    {% assign color_option_index = 0 %}
     {% for option in product.options_with_values %}
         {% assign opt_name = option.name | downcase %}
         {% if opt_name == 'color' or opt_name == 'colour' %}
-        {% assign color_option_index = forloop.index %}
+            {% assign color_option_index = forloop.index0 %}
+            {% assign color_option_name = option.name %}
         {% endif %}
     {% endfor %}
 
-    {%- comment -%} Render variant images {%- endcomment -%}
-    {% if color_option_index > 0 %}
-        {% assign optionKey = 'option' | append: color_option_index %}
-        {% assign color_option_array_index = color_option_index | minus: 1 %}
-        {% assign color_option_obj = product.options_with_values[color_option_array_index] %}
-        {% assign active_color_value = active_variant.options[color_option_array_index] %}
-
-        {% for color_value in color_option_obj.values %}
-        {% assign matching_variants = product.variants | where: optionKey, color_value %}
-        {% assign variant_with_image = blank %}
-        {% for v in matching_variants %}
-            {% if v.image != blank %}
-                {% assign variant_with_image = v %}
+    {% if color_option_name != blank %}
+        {% assign active_color_value = active_variant.options[color_option_index] %}
+        {% for variant in product.variants %}
+            {% if variant.options[color_option_index] == active_color_value and variant.image != blank %}
+                {% assign active_image = variant.image %}
                 {% break %}
             {% endif %}
         {% endfor %}
-        {% if variant_with_image != blank %}
-            {% assign img_small = variant_with_image.image | img_url: '400x533' | image_url: 'format:auto' %}
-            {% assign img_large = variant_with_image.image | img_url: '800x1066' | image_url: 'format:auto' %}
-            <img
-                class="{% if color_value == active_color_value %}active{% endif %}"
-                data-variant="{{ variant_with_image.id }}"
-                src="{{ img_small }}"
-                srcset="{{ img_small }} 400w, {{ img_large }} 800w"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                alt="{{ product.title | escape }} - {{ color_value | escape }}"
-                loading="lazy"
-                decoding="async"
-            >
-        {% endif %}
-        {% endfor %}
-    {% else %}
-        {% if product.featured_image != blank %}
-        {% assign img_small = product.featured_image | img_url: '400x533' | image_url: 'format:auto' %}
-        {% assign img_large = product.featured_image | img_url: '800x1066' | image_url: 'format:auto' %}
+    {% endif %}
+
+    {% if active_image != blank %}
+        {% assign img_small = active_image | image_url: width: 400, format: 'auto' %}
+        {% assign img_large = active_image | image_url: width: 800, format: 'auto' %}
         <img
-            class="active"
+            class="active product-main-image"
             src="{{ img_small }}"
             srcset="{{ img_small }} 400w, {{ img_large }} 800w"
             sizes="(max-width: 768px) 100vw, 50vw"
             alt="{{ product.title | escape }}"
             loading="lazy"
             decoding="async"
+            data-active-variant-id="{{ active_variant.id }}"
         >
-        {% endif %}
     {% endif %}
 
     {%- comment -%} Hover image {%- endcomment -%}
-    {% assign hover_img = product.metafields.custom.product_card_hover_image %}
-    {% if hover_img == blank and product.media.size > 1 %}
-        {% assign hover_img = product.media[1].image %}
-    {% endif %}
-
-    {% if hover_img != blank %}
-        {% assign img_small = hover_img | img_url: '300x400' | image_url: 'format:auto' %}
-        {% assign img_large = hover_img | img_url: '600x800' | image_url: 'format:auto' %}
+    {% assign hover_media = product.media[1] %}
+    {% if hover_media != blank %}
+        {% assign hover_img_small = hover_media | image_url: width: 300, format: 'auto' %}
+        {% assign hover_img_large = hover_media | image_url: width: 600, format: 'auto' %}
         <img
-        class="hover-image"
-        src="{{ img_small }}"
-        srcset="{{ img_small }} 300w, {{ img_large }} 600w"
-        sizes="(max-width: 768px) 100vw, 50vw"
-        alt="{{ product.title | escape }} hover"
-        loading="lazy"
-        decoding="async"
+            class="hover-image"
+            data-hover-src="{{ hover_img_small }}"
+            data-hover-srcset="{{ hover_img_small }} 300w, {{ hover_img_large }} 600w"
+            data-hover-alt="{{ product.title | escape }} hover"
+            alt=""
+            loading="lazy"
+            decoding="async"
         >
     {% endif %}
 
