@@ -102,11 +102,14 @@
 
         {% if count <= 5 %}
 
+          {% assign swatch_variant_image = v.image | default: product.featured_image %}
           <li
             data-color="{{ v.id }}"
             class="variant-color-item color-item-{{ v.id }} {% if v.id == active_variant_id %}active{% endif %} {% if forloop.first %}on{% endif %}"
             data-id="{{ v.id }}"
-            data-product-img="{% if v.image %}{{ v.image.src | image_url: width: 800 }}{% elsif product.featured_image %}{{ product.featured_image | image_url: width: 800 }}{% endif %}"
+            data-product-img="{% if swatch_variant_image != blank %}{{ swatch_variant_image | image_url: width: 800, format: 'auto' }}{% endif %}"
+            data-product-img-small="{% if swatch_variant_image != blank %}{{ swatch_variant_image | image_url: width: 400, format: 'auto' }}{% endif %}"
+            data-product-alt="{{ product.title | escape }} - {{ color_value | escape }}"
             title="{{ color_value }}"
           >
 
@@ -144,11 +147,14 @@
             <ul class="variant-colors variant-colors-dropdown" style="display:none;">
           {% endif %}
 
+          {% assign swatch_variant_image = v.image | default: product.featured_image %}
           <li
             data-color="{{ v.id }}"
             class="variant-color-item color-item-{{ v.id }} {% if v.id == active_variant_id %}active{% endif %}"
             data-id="{{ v.id }}"
-            data-product-img="{% if v.image %}{{ v.image.src | image_url: width: 800 }}{% elsif product.featured_image %}{{ product.featured_image | image_url: width: 800 }}{% endif %}"
+            data-product-img="{% if swatch_variant_image != blank %}{{ swatch_variant_image | image_url: width: 800, format: 'auto' }}{% endif %}"
+            data-product-img-small="{% if swatch_variant_image != blank %}{{ swatch_variant_image | image_url: width: 400, format: 'auto' }}{% endif %}"
+            data-product-alt="{{ product.title | escape }} - {{ color_value | escape }}"
             title="{{ color_value }}"
           >
 
