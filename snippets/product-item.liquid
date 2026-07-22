@@ -1,123 +1,284 @@
-{%- comment -%}
-  Replace the original "Render variant images" block with this block.
-  Only the product featured image is requested on initial render. Variant image URLs
-  are kept as JSON text and are applied to the same image after a swatch is clicked.
-{%- endcomment -%}
+{%- liquid
+assign current_variant = product.selected_or_first_available_variant
+ 
+assign new_badge_type = settings.new_badge_type | default: 'auto' 
 
-{% if product.featured_image != blank %}
-  {% assign card_img_small = product.featured_image | image_url: width: 400 %}
-  {% assign card_img_large = product.featured_image | image_url: width: 800 %}
-  <img
-    class="active js-product-card-image"
-    data-default-src="{{ card_img_small }}"
-    data-default-srcset="{{ card_img_small }} 400w, {{ card_img_large }} 800w"
-    src="{{ card_img_small }}"
-    srcset="{{ card_img_small }} 400w, {{ card_img_large }} 800w"
-    sizes="(max-width: 768px) 100vw, 50vw"
-    alt="{{ product.title | escape }}"
-    loading="lazy"
-    decoding="async"
-  >
-{% endif %}
 
-{% if color_option_index > 0 %}
-  {% assign option_key = 'option' | append: color_option_index %}
-  {% assign color_array_index = color_option_index | minus: 1 %}
-  {% assign color_option = product.options_with_values[color_array_index] %}
+  assign new_badge = false
+  assign new_badge_limit = 30
+  assign date_difference = 'now' | date: '%s' | minus: product.published_at | date: '%s' | divided_by: 86400
+  if date_difference <= new_badge_limit
+    assign new_badge = true
+  else
+    for tag in product.tags
+      assign tag_handle = tag | handle
+      if tag_handle == 'new'
+        assign new_badge = true
+      endif
+    endfor
+  endif
 
-  <script type="application/json" class="js-product-card-color-images">
-    {
-      {% assign has_color_image = false %}
-      {% for color_value in color_option.values %}
-        {% assign matching_variants = product.variants | where: option_key, color_value %}
-        {% assign image_variant = blank %}
-        {% for variant in matching_variants %}
-          {% if variant.image != blank %}
-            {% assign image_variant = variant %}
-            {% break %}
-          {% endif %}
-        {% endfor %}
+-%}
+<div class="product-item" data-product-id="{{ product.id }}">
 
-        {% if image_variant != blank %}
-          {% if has_color_image %},{% endif %}
-          {% assign color_img_small = image_variant.image | image_url: width: 400 %}
-          {% assign color_img_large = image_variant.image | image_url: width: 800 %}
-          {{ color_value | json }}: {
-            "variantId": {{ image_variant.id | json }},
-            "src": {{ color_img_small | json }},
-            "srcset": {{ color_img_small | append: ' 400w, ' | append: color_img_large | append: ' 800w' | json }},
-            "alt": {{ product.title | append: ' - ' | append: color_value | json }}
-          }
-          {% assign has_color_image = true %}
+    <div class="product-image mb-3" data-link="{{ product.url }}">
+
+    {%- comment -%} SALE BADGE {%- endcomment -%}
+    {% if current_variant.compare_at_price > current_variant.price and current_variant.compare_at_price > 0 %}
+        {% assign price_diff = current_variant.compare_at_price | minus: current_variant.price %}
+        {% assign percent_off = price_diff | times: 100.0 | divided_by: current_variant.compare_at_price | round %}
+        {% if percent_off < 0 %}{% assign percent_off = 0 %}{% endif %}
+
+        <span class="badge sale-badge" aria-hidden="true">
+        <span class="body-sm pp-semibold">
+            {% if sale_badge_type == 'discount' %}
+            {% assign off_dollars = price_diff | times: 0.01 | ceil %}
+            {% if off_dollars > 0 %}${{ off_dollars }} OFF{% endif %}
+            {% else %}
+            {{ percent_off }}% OFF
+            {% endif %}
+        </span>
+        </span>
+    {% endif %}
+
+    {%- comment -%} NEW BADGE {%- endcomment -%}
+    {% if new_badge %}
+        <span class="badge new-badge" aria-hidden="true">
+        <span class="body pp-semibold">New</span>
+        </span>
+    {% endif %}
+
+    {% assign active_variant = product.selected_or_first_available_variant %}
+
+    {%- comment -%} Determine color option index {%- endcomment -%}
+    {% assign color_option_index = 0 %}
+    {% for option in product.options_with_values %}
+        {% assign opt_name = option.name | downcase %}
+        {% if opt_name == 'color' or opt_name == 'colour' %}
+        {% assign color_option_index = forloop.index %}
         {% endif %}
-      {% endfor %}
-    }
-  </script>
-{% endif %}
+    {% endfor %}
 
-{%- comment -%}
-  Add data-color-value="{{ value | escape }}" to each clickable swatch in
-  snippets/product-variant-colors.liquid. Example:
+    {%- comment -%} Render variant images {%- endcomment -%}
+    {% if color_option_index > 0 %}
+        {% assign optionKey = 'option' | append: color_option_index %}
+        {% assign color_option_array_index = color_option_index | minus: 1 %}
+        {% assign color_option_obj = product.options_with_values[color_option_array_index] %}
+        {% assign active_color_value = active_variant.options[color_option_array_index] %}
 
-  <button type="button" class="color-swatch"
-    data-color-value="{{ value | escape }}">...</button>
+        {% for color_value in color_option_obj.values %}
+        {% assign matching_variants = product.variants | where: optionKey, color_value %}
+        {% assign variant_with_image = blank %}
+        {% for v in matching_variants %}
+            {% if v.image != blank %}
+                {% assign variant_with_image = v %}
+                {% break %}
+            {% endif %}
+        {% endfor %}
+        {% if variant_with_image != blank %}
+            {% assign img_small = variant_with_image.image | img_url: '400x533' | image_url: 'format:auto' %}
+            {% assign img_large = variant_with_image.image | img_url: '800x1066' | image_url: 'format:auto' %}
+            <img
+                class="{% if color_value == active_color_value %}active{% endif %}"
+                data-variant="{{ variant_with_image.id }}"
+                src="{{ img_small }}"
+                srcset="{{ img_small }} 400w, {{ img_large }} 800w"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                alt="{{ product.title | escape }} - {{ color_value | escape }}"
+                loading="lazy"
+                decoding="async"
+            >
+        {% endif %}
+        {% endfor %}
+    {% else %}
+        {% if product.featured_image != blank %}
+        {% assign img_small = product.featured_image | img_url: '400x533' | image_url: 'format:auto' %}
+        {% assign img_large = product.featured_image | img_url: '800x1066' | image_url: 'format:auto' %}
+        <img
+            class="active"
+            src="{{ img_small }}"
+            srcset="{{ img_small }} 400w, {{ img_large }} 800w"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            alt="{{ product.title | escape }}"
+            loading="lazy"
+            decoding="async"
+        >
+        {% endif %}
+    {% endif %}
 
-  If the snippet uses a radio input, its existing value="{{ value }}" is also
-  supported by this script.
+    {%- comment -%} Hover image {%- endcomment -%}
+    {% assign hover_img = product.metafields.custom.product_card_hover_image %}
+    {% if hover_img == blank and product.media.size > 1 %}
+        {% assign hover_img = product.media[1].image %}
+    {% endif %}
 
-  Include this script once, preferably in the theme JavaScript bundle or directly
-  before </body>. Event delegation also supports product cards loaded by AJAX.
-{%- endcomment -%}
-<script>
-  (() => {
-    if (window.productCardColorImageLazyLoadReady) return;
-    window.productCardColorImageLazyLoadReady = true;
+    {% if hover_img != blank %}
+        {% assign img_small = hover_img | img_url: '300x400' | image_url: 'format:auto' %}
+        {% assign img_large = hover_img | img_url: '600x800' | image_url: 'format:auto' %}
+        <img
+        class="hover-image"
+        src="{{ img_small }}"
+        srcset="{{ img_small }} 300w, {{ img_large }} 600w"
+        sizes="(max-width: 768px) 100vw, 50vw"
+        alt="{{ product.title | escape }} hover"
+        loading="lazy"
+        decoding="async"
+        >
+    {% endif %}
 
-    const swatchSelector = [
-      '.block-variant-options [data-color-value]',
-      '.block-variant-options input[type="radio"]',
-      '.block-variant-options select'
-    ].join(',');
+    </div>
 
-    function selectedColor(control) {
-      return control.dataset.colorValue || control.value || '';
-    }
+    <div class="product-details position-relative">
+        <div class="top">
+            {% assign index = 0 %}
+                    {% assign option_index = 0 %}
+                    {% assign color_option_size = 0 %}
 
-    function switchCardImage(control) {
-      const card = control.closest('.product-item');
-      if (!card) return;
+                    {% for option in product.options_with_values %}
+                        {% assign index = option_index | plus: 1 %}
+                        {% assign _option = option.name | downcase %}
+                        {% if _option == 'color' %}
+                            {% assign color_option_size = option.values.size %}
+                            {% assign option_index = index %}
+                        {% endif %}
+                    {% endfor %}
 
-      const image = card.querySelector('.js-product-card-image');
-      const dataNode = card.querySelector('.js-product-card-color-images');
-      if (!image || !dataNode) return;
+                    {% if option_index > 0 %}
+                        <div class="block-variant-options pb-2">
+                            {% render 'product-variant-colors', product: product %}
+                        </div>
+                    {% endif %}
+                        <div class="d-flex align-items-center justify-content-between ">
+                            {% comment %} {% if product.metafields.proviews.totalReviewCount != 0 %}
+                                <p tabindex="0" 
+                                    class="prorw_preview_badge_setup d-block pb-1" 
+                                    id="prorw_preview_badge_id_{{ product.id }}" 
+                                    data-product-id="{{ product.id }}" 
+                                    data-average-ratings="{% if product.metafields.proviews.averageRatings != blank %}{{ product.metafields.proviews.averageRatings}}{% else %}0{% endif %}" 
+                                    data-count="{% if product.metafields.proviews.totalReviewCount != blank %}{{ product.metafields.proviews.totalReviewCount}}{% else %}0{% endif %}"> 
+                                </p> 
+                            {% endif %} {% endcomment %}
+                            <div class="wishlist-button">
+                                <!-- Swym Wishlist Plus EPI Button with default first variant -->
+                                <button aria-label="Add to Wishlist" data-with-epi="true" class="swym-button swym-add-to-wishlist-view-product product_{{product.id}}" data-swaction="addToWishlist" data-product-id="{{product.id | json}}" data-variant-id="{{product.variants[0].id}}" data-product-url="{{ shop.url }}{{ product.url }}">
+                                </button>
 
-      let colorImages;
-      try {
-        colorImages = JSON.parse(dataNode.textContent);
-      } catch (error) {
-        return;
-      }
+                            </div>
+                        </div>
+                    {%- liquid
+                        assign product_label = product.metafields.custom.custom_tag.value
+                        if product_label == blank
+                            assign product_label = product.metafields.custom.custom_tag
+                        endif
+                        assign product_label = product_label | strip_html | strip
+                        if product_label == blank
+                            assign product_label = 'FASHION | CONVENIENT'
+                        endif
+                    -%}
+                    <div class="custom-label pb-1">
+                        <span class="pp-semibold body d-lg-block d-md-block d-sm-none">
+                            {{ product_label }}
+                        </span>
+                        <span class="pp-semibold body-xs d-lg-none d-md-none d-sm-block">
+                            <span class="truncate-1-text">{{ product_label }}</span>
+                        </span>
+                        <span class="in-cart-badge" style="display:none;"></span>
+                    </div>
+                    <a href="{{ product.url }}" class="product-title d-block pb-1">
+                        <div class="d-lg-block d-md-block d-sm-none body-lg pp-bold">
+                            <div class="truncate-2-text">
+                                {{ product.title }}
+                            </div>
+                        </div>
+                        <div class="d-lg-none d-md-none d-sm-block body-sm pp-semibold l-h-normal truncate-2-text">
+                            <div class="truncate-2-text">
+                                {{ product.title }}
+                            </div>
+                        </div>
+                    </a>
+            {% render 'okendo-reviews-product-rating-summary', product: product %}
+        </div>
+        <div class="bottom">
 
-      const imageData = colorImages[selectedColor(control)];
-      if (!imageData) return;
 
-      image.src = imageData.src;
-      image.srcset = imageData.srcset;
-      image.alt = imageData.alt;
-      image.dataset.variant = imageData.variantId;
-    }
+        <div class="footer-details">
+            <div class="price-container">
+                {% assign display_price = product.price_min %}
+                
+                <div class="text-sale-price f-main d-flex flex-lg-row flex-md-row flex-sm-column">
+                    <div class="pp-bold body-lg d-lg-block d-md-block d-sm-none">
+                        
+                        {% if product.price_varies %}
+                            <span class="body">From </span> {{ display_price | money }}
+                        {% else %}
+                            {{ product.selected_or_first_available_variant.price | money }}
+                        {% endif %}
+                    </div>
+                    {% if product.price_varies %}
+                        <span class="body-xs d-lg-none d-md-none d-sm-block f-black">From</span>
+                    {% endif %}
+                    <div class="pp-bold body-lg d-lg-none d-md-none d-sm-block l-h-normal">
+                        
+                        {% if product.price_varies %}
+                            {{ display_price | money }}
+                        {% else %}
+                            {{ product.selected_or_first_available_variant.price | money }}
+                        {% endif %}
+                    </div>
+                </div>
+                {% if product.selected_or_first_available_variant.price != product.selected_or_first_available_variant.compare_at_price %}
+                    <div class="text-compare-price f-compare-price d-flex">
+                        <div class="pp-regular body d-lg-block d-md-block d-sm-none">
+                            {{ product.selected_or_first_available_variant.compare_at_price | money }}
+                        </div>
+                        <div class="pp-regular body-xs d-lg-none d-md-none d-sm-block">
+                            {{ product.selected_or_first_available_variant.compare_at_price | money }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            
+                {% if product.has_only_default_variant %}
+                    {% assign product_form_id = 'product-form-' | append: product.id %}
+                    {% form 'product', product, id: product_form_id, class: 'atc-form form', novalidate: 'novalidate', data-type: 'add-to-cart-form', action: 'javascript:void(0)' %}
+                        <input type="hidden" name="id" class="product-main-id" value="{{ product.selected_or_first_available_variant.id }}">
+                        <div class="form-btn">
+                            <button type='submit' name="add" class="btn-atc btn-hover btn-main">
+                                {% if product.selected_or_first_available_variant.available != false %}
+                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc" alt="cart-icon">
+                                {% endif %}
+                                <div class="position-relative">
+                                    <span class="body pp-semibold f-white">
+                                        {% if product.selected_or_first_available_variant.available == false %}Sold Out{% else %}Add{% endif %}
+                                    </span>
+                                    <div class="atc-overlay">
+                                        <div class="atc-spinner"></div>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    {% endform %}
+                {% else %}
+                    <div class="form-btn popup-atc">
+                        <button type='submit' name="add" class="btn-atc btn-hover btn-main" data-popup-handle="{{ product.handle }}">
+                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc" alt="cart-icon">
+                            <div class="position-relative">
+                                <span class="body pp-semibold f-white d-lg-block d-md-block d-sm-none">
+                                    Add
+                                </span>
+                                <span class="body-sm pp-semibold f-white d-lg-none d-md-none d-sm-block">
+                                    Add
+                                </span>
+                                <div class="atc-overlay">
+                                    <div class="atc-spinner"></div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                {% endif %}
 
-    document.addEventListener('click', (event) => {
-      const control = event.target.closest(swatchSelector);
-      if (control && control.matches('[data-color-value]')) {
-        switchCardImage(control);
-      }
-    });
-
-    document.addEventListener('change', (event) => {
-      if (event.target.matches(swatchSelector)) {
-        switchCardImage(event.target);
-      }
-    });
-  })();
-</script>
+        </div>
+        </div>
+        
+    </div>
+</div>
