@@ -1,11 +1,8 @@
-{%- liquid
-  assign active_tab_index = request.params.tab_index | default: 1 | plus: 0
--%}
-<div class="section-content" data-section-id="{{ section.id }}" data-section-url="{{ request.path }}">
+<div class="section-content">
     <div class="container">
         <div class="tabs mb-lg-5 mb-md-5 mb-sm-3" id="tabs-container">
             {% for block in section.blocks %}
-                <input type="radio" name="tabs" id="tabs-{{ forloop.index }}" {% if forloop.index == active_tab_index %}checked{% endif %} data-tab-id="tabs-{{ forloop.index }}">
+                <input type="radio" name="tabs" id="tabs-{{ forloop.index }}" {% if forloop.index == 1 %}checked{% endif %} data-tab-id="tabs-{{ forloop.index }}">
                 <label for="tabs-{{ forloop.index }}" class="tab">
                     <span class="pp-semibold body-lg d-lg-block d-md-block d-sm-none">
                         {{ block.settings.tab_label }}
@@ -19,22 +16,18 @@
         </div>
     </div>
 
-    {% for tab_block in section.blocks %}
-    <div class="tab-container-item" data-tab-id="tabs-{{ forloop.index }}" {% if forloop.index != active_tab_index %} style="display:none" {% endif %}>
+    {% for product in section.blocks %}
+    <div class="tab-container-item" data-tab-id="tabs-{{ forloop.index }}" {% if forloop.index != 1 %} style="display:none" {% endif %} >
         <div class="container px-0">
-            {% if forloop.index == active_tab_index %}
-                <div class="tab-product-list-slider position-relative overflow-hidden">
-                    <div class="swiper-wrapper">
-                        {% for product in tab_block.settings.collection.products limit: section.settings.maximum_number_product_display %}
-                            <div class="swiper-slide">
-                                {% render 'product-item', product: product, sale_badge_type: section.settings.sale_badge_type, badge_detail: true, section: section %}
-                            </div>
-                        {% endfor %}
-                    </div>
+            <div class="tab-product-list-slider position-relative overflow-hidden">
+                <div class="swiper-wrapper">
+                    {% for product in product.settings.collection.products limit: section.settings.maximum_number_product_display %}
+                        <div class="swiper-slide">
+                            {% render 'product-item', product: product, sale_badge_type: section.settings.sale_badge_type, badge_detail: true, section: section %}
+                        </div>
+                    {% endfor %}
                 </div>
-            {% else %}
-                <div class="tab-product-list-placeholder" aria-hidden="true"></div>
-            {% endif %}
+            </div>
         </div>
         <div class="float-nav d-lg-block d-md-block d-sm-block">
             <button type="button" class="owl-prev" disabled>
@@ -49,7 +42,7 @@
 </div>
 {% style %}
     .tab-product-list-section{
-        opacity:1;
+        opacity:0;
     }
     .tab-product-list-section .tabs {
         display: flex;
@@ -116,9 +109,6 @@
     }
     .tab-product-list-section .tab-product-list-slider .swiper-slide{
         height:auto;
-    }
-    .tab-product-list-section .tab-product-list-placeholder{
-        min-height: 240px;
     }
 
     /* FOR MOBILE PHONE */
@@ -190,114 +180,57 @@
 {% endstyle %}
 
 {% javascript %}
-    const sectionRoot = document.querySelector('.tab-product-list-section');
-    if (!sectionRoot) return;
-
-    const tabsContainer = sectionRoot.querySelector('#tabs-container');
-    const tabs = tabsContainer ? tabsContainer.querySelectorAll('.tab') : [];
-    const radios = tabsContainer ? tabsContainer.querySelectorAll('input[type=radio]') : [];
-    const glider = tabsContainer ? tabsContainer.querySelector('.glider') : null;
-    const tabItems = sectionRoot.querySelectorAll('.tab-container-item');
-    const sectionUrl = sectionRoot.querySelector('.section-content')?.dataset.sectionUrl || window.location.pathname;
-    const loadedTabs = new Set(Array.from(tabItems).filter((item) => item.querySelector('.product-item')).map((item) => item.dataset.tabId));
+    const tabsContainer = document.getElementById('tabs-container');
+    const tabs = tabsContainer.querySelectorAll('.tab');
+    const radios = tabsContainer.querySelectorAll('input[type=radio]');
+    const glider = tabsContainer.querySelector('.glider');
+    const tabItems = document.querySelectorAll('.tab-container-item');
 
     function moveGlider() {
-        if (!tabsContainer || !glider || !radios.length) return;
-
-        const selectedIndex = Array.from(radios).findIndex((radio) => radio.checked);
+        const selectedIndex = Array.from(radios).findIndex(r => r.checked);
         const activeTab = tabs[selectedIndex];
-        if (!activeTab) return;
+        const width = activeTab.offsetWidth;
+        const x = activeTab.offsetLeft;
 
-        glider.style.setProperty('--glider-width', `${activeTab.offsetWidth}px`);
-        glider.style.setProperty('--glider-x', `${activeTab.offsetLeft}px`);
+        glider.style.setProperty('--glider-width', width + 'px');
+        glider.style.setProperty('--glider-x', x + 'px');
     }
 
-    function showTab(tabId) {
-        tabItems.forEach((item) => {
-            item.style.display = item.dataset.tabId === tabId ? 'block' : 'none';
-        });
-    }
-
-    function bindCardEvents(scope) {
-        scope.querySelectorAll('.product-item').forEach((card) => {
-            if (card.dataset.cardBound === 'true') return;
-            card.dataset.cardBound = 'true';
-
-            const mainImage = card.querySelector('.product-main-image');
-            const hoverImage = card.querySelector('.hover-image');
-
-            if (hoverImage && hoverImage.dataset.hoverSrc && !hoverImage.getAttribute('src')) {
-                const loadHoverImage = () => {
-                    hoverImage.src = hoverImage.dataset.hoverSrc;
-                    if (hoverImage.dataset.hoverSrcset) hoverImage.srcset = hoverImage.dataset.hoverSrcset;
-                    if (hoverImage.dataset.hoverAlt) hoverImage.alt = hoverImage.dataset.hoverAlt;
-                };
-
-                card.addEventListener('mouseenter', loadHoverImage, { once: true });
-                card.addEventListener('touchstart', loadHoverImage, { once: true, passive: true });
-            }
-
-            card.addEventListener('click', (event) => {
-                const swatch = event.target.closest('.variant-color-item');
-                if (!swatch || !mainImage || !card.contains(swatch)) return;
-
-                const small = swatch.dataset.productImgSmall;
-                const large = swatch.dataset.productImg;
-                const alt = swatch.dataset.productAlt || mainImage.alt;
-
-                if (small) mainImage.src = small;
-                if (small && large) mainImage.srcset = `${small} 400w, ${large} 800w`;
-                if (alt) mainImage.alt = alt;
-
-                card.querySelectorAll('.variant-color-item').forEach((item) => item.classList.remove('active'));
-                swatch.classList.add('active');
-            });
-        });
-    }
-
-    async function loadTabContent(tabId) {
-        if (loadedTabs.has(tabId)) return;
-
-        const targetItem = sectionRoot.querySelector(`.tab-container-item[data-tab-id="${tabId}"]`);
-        if (!targetItem) return;
-
-        const tabIndex = tabId.replace('tabs-', '');
-        targetItem.innerHTML = '<div class="tab-product-list-placeholder" aria-hidden="true"></div>';
-
-        const url = `${sectionUrl}?section_id={{ section.id }}&tab_index=${encodeURIComponent(tabIndex)}`;
-        const response = await fetch(url, { credentials: 'same-origin' });
-        if (!response.ok) return;
-
-        const html = await response.text();
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = html;
-
-        const incomingSection = wrapper.querySelector('.tab-product-list-section');
-        const incomingItem = incomingSection ? incomingSection.querySelector(`.tab-container-item[data-tab-id="${tabId}"]`) : null;
-        if (!incomingItem) return;
-
-        targetItem.innerHTML = incomingItem.innerHTML;
-        loadedTabs.add(tabId);
-        bindCardEvents(targetItem);
-
-        if (window.initSwiper) {
-            window.initSwiper(targetItem);
-        }
-    }
-
-    async function switchTabs() {
+    function switchTabs() {
         const selectedRadio = this;
         const tabId = selectedRadio.dataset.tabId;
 
-        showTab(tabId);
-        await loadTabContent(tabId);
+        // First hide all tabs completely
+        tabItems.forEach(item => {
+            item.style.display = "none";
+            item.style.opacity = 0;
+            item.style.transition = "none"; // reset to avoid unwanted animation
+        });
+
+        // Then show the selected tab and fade it in
+        const selectedItem = Array.from(tabItems).find(
+            item => item.dataset.tabId === tabId
+        );
+
+        if (selectedItem) {
+            selectedItem.style.display = "block";
+            selectedItem.style.transition = "opacity 0.3s ease 0.1s";
+            requestAnimationFrame(() => {
+                selectedItem.style.opacity = 1;
+            });
+        }
+
         moveGlider();
     }
 
     moveGlider();
-    bindCardEvents(sectionRoot);
 
-    radios.forEach((radio) => radio.addEventListener('change', switchTabs));
+
+    radios.forEach(radio => {
+        radio.addEventListener('change', switchTabs);
+    });
+
+    // Initialize on load
     window.addEventListener('load', moveGlider);
     window.addEventListener('resize', moveGlider);
 {% endjavascript %}
