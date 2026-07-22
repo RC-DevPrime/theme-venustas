@@ -59,51 +59,41 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
         {% endif %}
     {% endfor %}
 
-    {%- comment -%} Render variant images {%- endcomment -%}
-    {% if color_option_index > 0 %}
-        {% assign optionKey = 'option' | append: color_option_index %}
-        {% assign color_option_array_index = color_option_index | minus: 1 %}
-        {% assign color_option_obj = product.options_with_values[color_option_array_index] %}
-        {% assign active_color_value = active_variant.options[color_option_array_index] %}
+    {%- liquid
+        assign card_image = product.featured_image
+        assign card_image_variant = blank
+        if color_option_index > 0
+            assign optionKey = 'option' | append: color_option_index
+            assign color_option_array_index = color_option_index | minus: 1
+            assign color_option_obj = product.options_with_values[color_option_array_index]
+            assign first_color_value = color_option_obj.values | first
+            assign matching_variants = product.variants | where: optionKey, first_color_value
+            for v in matching_variants
+                if v.image != blank
+                    assign card_image = v.image
+                    assign card_image_variant = v
+                    break
+                endif
+            endfor
+        endif
+    -%}
 
-        {% for color_value in color_option_obj.values %}
-        {% assign matching_variants = product.variants | where: optionKey, color_value %}
-        {% assign variant_with_image = blank %}
-        {% for v in matching_variants %}
-            {% if v.image != blank %}
-                {% assign variant_with_image = v %}
-                {% break %}
-            {% endif %}
-        {% endfor %}
-        {% if variant_with_image != blank %}
-            {% assign img_small = variant_with_image.image | img_url: '400x533' | image_url: 'format:auto' %}
-            {% assign img_large = variant_with_image.image | img_url: '800x1066' | image_url: 'format:auto' %}
-            <img
-                class="{% if color_value == active_color_value %}active{% endif %}"
-                data-variant="{{ variant_with_image.id }}"
-                src="{{ img_small }}"
-                srcset="{{ img_small }} 400w, {{ img_large }} 800w"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                alt="{{ product.title | escape }} - {{ color_value | escape }}"
-                loading="lazy"
-                decoding="async"
-            >
-        {% endif %}
-        {% endfor %}
-    {% else %}
-        {% if product.featured_image != blank %}
-        {% assign img_small = product.featured_image | img_url: '400x533' | image_url: 'format:auto' %}
-        {% assign img_large = product.featured_image | img_url: '800x1066' | image_url: 'format:auto' %}
+    {% if card_image != blank %}
+        {% assign img_small = card_image | img_url: '400x533' | image_url: 'format:auto' %}
+        {% assign img_large = card_image | img_url: '800x1066' | image_url: 'format:auto' %}
         <img
-            class="active"
+            class="active product-card-main-image"
+            {% if card_image_variant != blank %}data-variant="{{ card_image_variant.id }}"{% endif %}
             src="{{ img_small }}"
             srcset="{{ img_small }} 400w, {{ img_large }} 800w"
             sizes="(max-width: 768px) 100vw, 50vw"
-            alt="{{ product.title | escape }}"
+            alt="{{ product.title | escape }}{% if first_color_value != blank %} - {{ first_color_value | escape }}{% endif %}"
             loading="lazy"
             decoding="async"
         >
-        {% endif %}
+        <script type="application/json" class="agent-product-card-debug">
+            {"sessionId":"d90a1c","runId":"initial","hypothesisId":"H1,H3,H4","location":"snippets/product-item.liquid:89","message":"Product card initial image rendered","data":{"productId":{{ product.id | json }},"colorOptionIndex":{{ color_option_index | json }},"firstColorValue":{{ first_color_value | json }},"cardImageVariantId":{% if card_image_variant != blank %}{{ card_image_variant.id | json }}{% else %}null{% endif %},"renderedVariantImageCount":1},"timestamp":0}
+        </script>
     {% endif %}
 
     {%- comment -%} Hover image {%- endcomment -%}
