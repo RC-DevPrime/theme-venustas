@@ -517,9 +517,21 @@ $('.back-to-top').click(function () {
 
 // PRODUCT ITEM CARD JS
 
+$(function () {
+    $('.product-item .agent-product-card-debug').each(function () {
+        try {
+            let payload = JSON.parse($(this).text());
+            payload.timestamp = Date.now();
+            fetch('http://127.0.0.1:7853/ingest/c127582c-15d6-417a-9adc-f44e76b94392',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d90a1c'},body:JSON.stringify(payload)}).catch(()=>{});
+        } catch (error) {}
+    });
+});
+
 $(document).on('click', '.product-item .variant-option-block .variant-colors li', function () {
 
     let $clicked = $(this);
+    if (!$clicked.hasClass('variant-color-item')) return;
+
     let $productItem = $clicked.closest('.product-item');
     let $variantBlock = $productItem.find('.variant-option-block');
 
@@ -528,13 +540,26 @@ $(document).on('click', '.product-item .variant-option-block .variant-colors li'
 
     let colorId = $clicked.data('color');
     let variantId = $clicked.data('id');
+    let productImg = $clicked.data('product-img');
+    let $mainImage = $productItem.find('.product-image .product-card-main-image').first();
 
     $productItem.find('.product-main-id').val(variantId);
     $productItem.find('.swym-button').attr('data-variant-id', variantId);
 
-    $productItem.find('.product-image img').each(function () {
-        $(this).toggleClass('active', $(this).data('variant') == colorId);
-    });
+    // #region agent log
+    fetch('http://127.0.0.1:7853/ingest/c127582c-15d6-417a-9adc-f44e76b94392',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d90a1c'},body:JSON.stringify({sessionId:'d90a1c',runId:'initial',hypothesisId:'H1,H2,H3',location:'assets/main.js:536',message:'Product card swatch clicked',data:{productId:$productItem.data('product-id'),colorId:colorId,variantId:variantId,productImg:productImg,mainImageCount:$mainImage.length,currentSrc:$mainImage.attr('src')},timestamp:Date.now()})}).catch(()=>{});
+    // #endregion
+
+    if (productImg && $mainImage.length) {
+        $mainImage.attr('src', productImg);
+        $mainImage.removeAttr('srcset');
+        $mainImage.attr('data-variant', colorId);
+        $mainImage.addClass('active');
+
+        // #region agent log
+        fetch('http://127.0.0.1:7853/ingest/c127582c-15d6-417a-9adc-f44e76b94392',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d90a1c'},body:JSON.stringify({sessionId:'d90a1c',runId:'initial',hypothesisId:'H2,H3',location:'assets/main.js:548',message:'Product card main image replaced from swatch',data:{productId:$productItem.data('product-id'),variantId:variantId,nextSrc:$mainImage.attr('src'),srcset:$mainImage.attr('srcset') || null},timestamp:Date.now()})}).catch(()=>{});
+        // #endregion
+    }
 
 });
 
