@@ -344,13 +344,6 @@
                                               <path d="M1 7H17M17 7L13 3.5M17 7L13 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
                                             </svg>
                                           </span>
-                                          {% comment %} {% if block.settings.link != blank %}
-                                              <a href="{{ block.settings.link }}" 
-                                                class="btn-announcement-link"
-                                                style="color:{{ section.settings.text_color }}; border-color:{{ section.settings.text_color }};">
-                                                  <div class="d-flex pp-regular body-xs">{{ block.settings.btn_label }}</div>
-                                              </a> 
-                                          {% endif %}{% endcomment %}
                                         </a>
                                   </div>
                                   {% assign announcement_bar_count = announcement_bar_count | plus: 1 %}
