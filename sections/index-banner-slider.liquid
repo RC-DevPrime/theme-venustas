@@ -402,12 +402,12 @@
 
   {% if section.blocks.size > 1 %}
     <div class="float-nav d-lg-block d-md-block d-sm-flex">
-        <button type="button" class="owl-prev d-sm-hidden" aria-label="Previous slide">
+        <button type="button" class="owl-prev" aria-label="Previous slide">
           <i class="fa-solid fa-chevron-left f-white" aria-hidden="true"></i>
         </button>
         <div class="owl-dots">
         </div>
-        <button type="button" class="owl-next d-sm-hidden" aria-label="Next slide">
+        <button type="button" class="owl-next" aria-label="Next slide">
           <i class="fa-solid fa-chevron-right f-white" aria-hidden="true"></i>
         </button>
     </div>
@@ -713,6 +713,7 @@
         }
         .banner-slider .float-nav .owl-dots button.swiper-pagination-bullet-active{
             width:35px;
+            background:#FFF;
         }
         .banner-slider .owl-dots .owl-dot span{
             display:none;
