@@ -3,8 +3,26 @@
         content-visibility:auto;
         contain-intrinsic-size: 1px 980px;
     }
+    .half-banner-slider-section .half-banner-container .float-nav{
+        width:auto;
+        position: absolute;
+        inset: 0 12px;
+        transform: none;
+        z-index: 3;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        pointer-events: none;
+    }
     .half-banner-slider-section .half-banner-container .float-nav button{
         background: #F1EADD;
+        pointer-events: auto;
+    }
+    .half-banner-slider-section .half-banner-container .float-nav .owl-prev{
+        left:12px;
+    }
+    .half-banner-slider-section .half-banner-container .float-nav .owl-next{
+        right:12px;
     }
     .half-banner-slider-section .half-banner-container .float-nav button:hover{
         background: #B93205;
@@ -62,6 +80,10 @@
             border-radius:8px;
             height: 100%;
             width:100%;
+        }
+        .half-banner-slider-section .half-banner-container .float-nav button{
+            width: 32px;
+            height: 32px;
         }
     }
 
@@ -195,15 +217,15 @@
                 </div>
                 
                 <div class="swiper-pagination"></div>
+                <div class="float-nav d-lg-block d-md-block d-sm-none">
+                <button type="button" class="owl-prev" disabled>
+                    <i class="fa-solid fa-chevron-left f-white"></i>
+                </button>
+                <button type="button" class="owl-next" disabled>
+                    <i class="fa-solid fa-chevron-right f-white"></i>
+                </button>
             </div>
-        </div>
-        <div class="float-nav d-lg-block d-md-block d-sm-none">
-            <button type="button" class="owl-prev" disabled>
-                <i class="fa-solid fa-chevron-left f-white"></i>
-            </button>
-            <button type="button" class="owl-next" disabled>
-                <i class="fa-solid fa-chevron-right f-white"></i>
-            </button>
+            </div>
         </div>
     </div>
 </div>

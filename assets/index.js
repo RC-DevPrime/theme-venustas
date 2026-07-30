@@ -1,13 +1,13 @@
 $(function () { // shorthand for $(document).ready
+    
+    // Fade in product list sections
+    document.querySelectorAll('.tab-product-list-section').forEach(function (section) {
+      section.style.transition = 'opacity 0.6s ease';
+      section.style.opacity = '1';
+    });
 
     // Autoplay hero videos only after page load (prevents LCP delay)
     window.addEventListener('load', function () {
-
-      // Fade in product list sections
-      document.querySelectorAll('.tab-product-list-section').forEach(function (section) {
-        section.style.transition = 'opacity 0.6s ease';
-        section.style.opacity = '1';
-      });
 
       // Handle hero videos inside banner slider
       document.querySelectorAll('.banner-slider video.hero-video[data-autoplay="true"]').forEach(function (video) {
@@ -281,15 +281,18 @@ $(function () { // shorthand for $(document).ready
   initSwiper($('.tab-product-list-section .tab-container-item'), {
     sliderSelector: '.tab-product-list-slider',
     navigation: true,
+    pagination: true,
     swiperOptions: {
       slidesPerView: 4,
+      slidesPerGroup: 4,
       spaceBetween: 15,
       loop: true,
+      loopAddBlankSlides: true,
       breakpoints: {
-        1524: { slidesPerView: 4 },
-        1024: { slidesPerView: 4 },
-        768: { slidesPerView: 2 },
-        0: { slidesPerView: 2 }
+        1524: { slidesPerView: 4, slidesPerGroup: 4 },
+        1024: { slidesPerView: 4, slidesPerGroup: 4 },
+        768: { slidesPerView: 2, slidesPerGroup: 2 },
+        0: { slidesPerView: 2, slidesPerGroup: 2 }
       }
     }
   });
@@ -454,6 +457,7 @@ function playActiveSlideVideo(swiper) {
     initSwiper($sections, {
       sliderSelector: '.instagram-gallery-slider',
       navigation: true,
+      pagination: true,
       swiperOptions: {
         slidesPerView: 4.4,
         spaceBetween: 12,

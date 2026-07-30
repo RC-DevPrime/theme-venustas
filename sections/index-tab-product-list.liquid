@@ -28,21 +28,22 @@
                     {% endfor %}
                 </div>
             </div>
-        </div>
-        <div class="float-nav d-lg-block d-md-block d-sm-block">
-            <button type="button" class="owl-prev" disabled>
-                <i class="fa-solid fa-chevron-left f-white"></i>
-            </button>
-            <button type="button" class="owl-next" disabled>
-                <i class="fa-solid fa-chevron-right f-white"></i>
-            </button>
+            <div class="primary-pagination swiper-pagination d-md-none"></div>
+            <div class="float-nav d-lg-block d-md-block d-sm-none">
+                <button type="button" class="owl-prev" disabled>
+                    <i class="fa-solid fa-chevron-left f-white"></i>
+                </button>
+                <button type="button" class="owl-next" disabled>
+                    <i class="fa-solid fa-chevron-right f-white"></i>
+                </button>
+            </div>
         </div>
     </div>
     {% endfor %}    
 </div>
 {% style %}
     .tab-product-list-section{
-        opacity:0;
+        /* opacity:0; */
     }
     .tab-product-list-section .tabs {
         display: flex;
@@ -50,7 +51,7 @@
         padding: 0px;
         border-radius: 10px;
         background-color: #FFF;
-        width: fit-content;
+        width:280px;
         margin: auto;
         border:1px solid #B93205;
         overflow:hidden;
@@ -72,6 +73,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        width:140px;
         height: 50px;
         padding: 0 25px;
         border-radius: 0;
@@ -93,6 +95,36 @@
         transform: translateX(var(--glider-x, 0px));
     }
 
+    .tab-product-list-section .tab-container-item {
+        position: relative;
+    }
+
+    .tab-product-list-section .tab-container-item > .container {
+        position: relative;
+    }
+
+    /*
+     * Use the product-list container as the horizontal positioning boundary,
+     * then compensate the global vertical centering against the image center.
+     */
+    .tab-product-list-section .tab-container-item > .container > .float-nav {
+        transform:
+            translate(-50%, -50%)
+            translateY(var(--product-image-nav-offset, 0px));
+    }
+
+    .tab-product-list-section .tab-container-item > .container > .float-nav .owl-prev {
+        left: 0;
+        right: auto;
+        transform: translate(-50%, -50%);
+    }
+
+    .tab-product-list-section .tab-container-item > .container > .float-nav .owl-next {
+        right: 0;
+        left: auto;
+        transform: translate(50%, -50%);
+    }
+
     .tab-product-list-section .float-nav button{
         background: #F1EADD;
     }
@@ -107,28 +139,39 @@
     .tab-product-list-section .float-nav .fa-chevron-right:before{
         color: #B93205;
     }
-    .tab-product-list-section .tab-product-list-slider .swiper-slide{
-        height:auto;
+      /* Prevent FOUC: match Swiper's final layout (width + spaceBetween) before JS initializes */
+    .tab-product-list-section .tab-product-list-slider .swiper-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
     }
+    .tab-product-list-section .tab-product-list-slider .swiper-slide {
+        height: auto;
+        flex-shrink: 0;
+        width: calc(25% - 11.25px); /* (100% - 3*15px) / 4 = 4 slides on desktop */
+        margin-right: 15px; /* matches spaceBetween: 15 */
+    }
+
+    @media only screen and (max-width: 1023px) {
+        .tab-product-list-section .tab-product-list-slider .swiper-slide {
+          width: calc(50% - 7.5px); /* (100% - 1*15px) / 2 = 2 slides on tablet/mobile */
+        }
+    }
+
 
     /* FOR MOBILE PHONE */
     @media only screen and (max-width: 768px) {
         .tab-product-list-section .tabs{
             border-radius:6px;
+            width:210px;
         }
         .tab-product-list-section .tab{
+            width:105px;
             height:35px;
             padding:0px 16px;
         }
         .tab-product-list-section .glider{
             height:35px;
             border-radius:6px;
-        }
-        .tab-product-list-section .float-nav button{
-            --btn-pos:5px;
-        }
-        .tab-product-list-section .float-nav{
-            top:220px;
         }
     }
 
@@ -167,16 +210,6 @@
     }
 
     /* COMPUTERS --------------------------------------------------------------------------------- */
-    @media only screen and (min-width: 1920px) {
-        .tab-product-list-section .float-nav button{
-            --btn-pos: 50px;
-        }
-    }
-    @media only screen and (min-width: 2560px) {
-        .tab-product-list-section .float-nav button{
-            --btn-pos: 50px;
-        }
-    }
 {% endstyle %}
 
 {% javascript %}
@@ -194,6 +227,31 @@
 
         glider.style.setProperty('--glider-width', width + 'px');
         glider.style.setProperty('--glider-x', x + 'px');
+    }
+
+    function updateArrowPosition(tabItem) {
+        if (!tabItem || getComputedStyle(tabItem).display === 'none') return;
+
+        const productImage = tabItem.querySelector('.product-image');
+        const floatNav = tabItem.querySelector('.float-nav');
+        const arrow = floatNav?.querySelector('.owl-prev, .owl-next');
+        if (!productImage || !floatNav || !arrow || getComputedStyle(arrow).display === 'none') return;
+
+        // Reset first so every recalculation is based on the global float-nav
+        // position rather than accumulating the previous correction.
+        floatNav.style.setProperty('--product-image-nav-offset', '0px');
+
+        const imageRect = productImage.getBoundingClientRect();
+        const arrowRect = arrow.getBoundingClientRect();
+        const imageCenter = imageRect.top + (imageRect.height / 2);
+        const arrowCenter = arrowRect.top + (arrowRect.height / 2);
+        const verticalOffset = imageCenter - arrowCenter;
+
+        floatNav.style.setProperty('--product-image-nav-offset', `${verticalOffset}px`);
+    }
+
+    function updateArrowPositions() {
+        tabItems.forEach(updateArrowPosition);
     }
 
     function switchTabs() {
@@ -216,6 +274,7 @@
             selectedItem.style.display = "block";
             selectedItem.style.transition = "opacity 0.3s ease 0.1s";
             requestAnimationFrame(() => {
+                updateArrowPosition(selectedItem);
                 selectedItem.style.opacity = 1;
             });
         }
@@ -224,6 +283,7 @@
     }
 
     moveGlider();
+    updateArrowPositions();
 
 
     radios.forEach(radio => {
@@ -231,8 +291,27 @@
     });
 
     // Initialize on load
-    window.addEventListener('load', moveGlider);
-    window.addEventListener('resize', moveGlider);
+    window.addEventListener('load', () => {
+        moveGlider();
+        updateArrowPositions();
+    });
+    window.addEventListener('resize', () => {
+        moveGlider();
+        updateArrowPositions();
+    });
+
+    if ('ResizeObserver' in window) {
+        const arrowPositionObserver = new ResizeObserver(entries => {
+            entries.forEach(entry => {
+                updateArrowPosition(entry.target.closest('.tab-container-item'));
+            });
+        });
+
+        tabItems.forEach(item => {
+            const productImage = item.querySelector('.product-image');
+            if (productImage) arrowPositionObserver.observe(productImage);
+        });
+    }
 {% endjavascript %}
 
 {% schema %}

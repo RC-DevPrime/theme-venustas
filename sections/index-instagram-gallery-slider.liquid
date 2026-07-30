@@ -46,16 +46,53 @@
         background-repeat:no-repeat;
         transition: all 0.3s ease;
     }
-    .instagram-gallery-slider-section .instagram-gallery-slider .float-nav button{
-        background: #F1EADD;
+    .instagram-gallery-slider-section .instagram-slider-controls{
+        display:grid;
+        grid-template-columns:auto auto auto;
+        align-items:center;
+        justify-content:center;
+        gap:12px;
+        margin-top:48px;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
     }
-    .instagram-gallery-slider-section .instagram-gallery-slider .float-nav button:hover{
+    .instagram-gallery-slider-section .instagram-slider-controls .swiper-pagination{
+        margin: 0;
+        grid-column:2;
+        grid-row:1;
+    }
+    .instagram-gallery-slider-section .instagram-slider-controls .float-nav{
+        position: static !important;
+        width: auto !important;
+        transform: none !important;
+        flex: 0 0 auto;
+    }
+    @media only screen and (min-width: 768px) {
+        .instagram-gallery-slider-section .instagram-slider-controls .float-nav{
+            display:contents !important;
+        }
+        .instagram-gallery-slider-section .instagram-slider-controls .owl-prev{
+            grid-column:1;
+            grid-row:1;
+        }
+        .instagram-gallery-slider-section .instagram-slider-controls .owl-next{
+            grid-column:3;
+            grid-row:1;
+        }
+    }
+    .instagram-gallery-slider-section .instagram-slider-controls .float-nav button{
+        transform:none;
+        background: #F1EADD;
+        position: static !important;
+    }
+    .instagram-gallery-slider-section .instagram-slider-controls .float-nav button:hover{
         background: #B93205;
     }
-    .instagram-gallery-slider-section .instagram-gallery-slider .float-nav button i{
+    .instagram-gallery-slider-section .instagram-slider-controls .float-nav button i{
         color: #B93205;
     }
-    .instagram-gallery-slider-section .instagram-gallery-slider .float-nav button:hover i{
+    .instagram-gallery-slider-section .instagram-slider-controls .float-nav button:hover i{
         color: #FFF;
     }
 
@@ -107,14 +144,16 @@
             {% endfor %}
         </div>
 
-        
-        <div class="float-nav d-lg-block d-md-block d-sm-block">
-            <button type="button" class="owl-prev" disabled>
-                <i class="fa-solid fa-chevron-left f-white"></i>
-            </button>
-            <button type="button" class="owl-next" disabled>
-                <i class="fa-solid fa-chevron-right f-white"></i>
-            </button>
+          <div class="instagram-slider-controls">
+            <div class="swiper-pagination primary-pagination"></div>
+            <div class="float-nav instagram-gallery-float-nav d-lg-block d-md-block d-sm-none">
+                <button type="button" class="owl-prev" disabled>
+                    <i class="fa-solid fa-chevron-left f-white"></i>
+                </button>
+                <button type="button" class="owl-next" disabled>
+                    <i class="fa-solid fa-chevron-right f-white"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>

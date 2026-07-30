@@ -86,7 +86,7 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                 sizes="(max-width: 768px) 100vw, 50vw"
                 alt="{{ product.title | escape }} - {{ color_value | escape }}"
                 loading="lazy"
-                decoding="async"
+                {% comment %} decoding="async" {% endcomment %}
             >
         {% endif %}
         {% endfor %}
@@ -101,7 +101,7 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
             sizes="(max-width: 768px) 100vw, 50vw"
             alt="{{ product.title | escape }}"
             loading="lazy"
-            decoding="async"
+            {% comment %} decoding="async" {% endcomment %}
         >
         {% endif %}
     {% endif %}
@@ -122,7 +122,7 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
         sizes="(max-width: 768px) 100vw, 50vw"
         alt="{{ product.title | escape }} hover"
         loading="lazy"
-        decoding="async"
+        {% comment %} decoding="async" {% endcomment %}
         >
     {% endif %}
 

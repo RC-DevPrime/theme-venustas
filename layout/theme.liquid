@@ -295,13 +295,43 @@
         })(window,document,'script','dataLayer','GTM-P6CFQL5');</script>
       <!-- End Google Tag Manager -->
 
-      <!-- Microsoft Clarity -->
-      <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "r4b4llvep5");
+     <!-- Microsoft Clarity: delayed until page load -->
+      <script>
+        (function (window, document, clarityName, tagName, projectId) {
+          /*
+          * 提前创建 Clarity 命令队列。
+          * 即使 Clarity 脚本尚未下载，clarity() 调用也不会报错。
+          */
+          window[clarityName] =
+            window[clarityName] ||
+            function () {
+              (window[clarityName].q = window[clarityName].q || []).push(arguments);
+            };
+
+          function loadClarity() {
+            /*
+            * 防止 Shopify Section 重载、应用代码或其他脚本重复加载 Clarity。
+            */
+            if (document.querySelector('script[data-clarity-loader]')) return;
+
+            var script = document.createElement(tagName);
+            script.async = true;
+            script.src = 'https://www.clarity.ms/tag/' + projectId;
+            script.setAttribute('data-clarity-loader', 'true');
+
+            document.head.appendChild(script);
+          }
+
+          /*
+          * 正常访问时，等页面的 load 事件触发后加载。
+          * 如果这段代码执行时页面已经完成加载，则立即安排加载。
+          */
+          if (document.readyState === 'complete') {
+            setTimeout(loadClarity, 0);
+          } else {
+            window.addEventListener('load', loadClarity, { once: true });
+          }
+        })(window, document, 'clarity', 'script', 'r4b4llvep5');
       </script>
       <!-- End Microsoft Clarity -->
       

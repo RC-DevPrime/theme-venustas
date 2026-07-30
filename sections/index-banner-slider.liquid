@@ -563,6 +563,20 @@
         top:50%;
         pointer-events: auto;
     }
+    @media (hover: hover) and (pointer: fine) {
+        #banner-slider-{{ section.id }} .float-nav > .owl-prev,
+        #banner-slider-{{ section.id }} .float-nav > .owl-next {
+            opacity: 0;
+            visibility: hidden;
+        }
+        #banner-slider-{{ section.id }}:hover .float-nav > .owl-prev,
+        #banner-slider-{{ section.id }}:hover .float-nav > .owl-next,
+        #banner-slider-{{ section.id }}:focus-within .float-nav > .owl-prev,
+        #banner-slider-{{ section.id }}:focus-within .float-nav > .owl-next {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
     .banner-slider .float-nav .owl-dots{
         position:absolute;
         top:unset;
@@ -817,6 +831,7 @@
         width:100%;
     }
     .banner-slider .float-nav button{
+        border:1px solid #dddddd;
         width: 40px;
         height: 40px;
         font-size:16px;

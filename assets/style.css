@@ -2493,7 +2493,26 @@ a.f-white:hover{
 .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active{
     background: #B93205;
 }
-
+.swiper-pagination.primary-pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    margin-top:48px;
+    position:static;
+}
+.swiper-pagination.primary-pagination .swiper-pagination-bullet{
+    width:10px;
+    height:10px;
+    margin:0 !important;
+    border-radius:999px;
+    background:#E8E2D7;
+    transition:all .25s ease;
+}
+.swiper-pagination.primary-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active{
+    width:24px;
+    background: #B93205;
+}
 
 .shop-pay-container{
     display:flex;
