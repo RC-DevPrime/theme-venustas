@@ -9,13 +9,129 @@
  */
 {
   "sections": {
-    "main_page_3cKYFc": {
-      "type": "main-page",
-      "name": "Main Page",
-      "settings": {}
+    "ambassador_profile_banner_NVDjwJ": {
+      "type": "ambassador-profile-banner",
+      "name": "Ambassador Profile Banner",
+      "settings": {
+        "background_image": "shopify://shop_images/12.png",
+        "background_image_mobile": "shopify://shop_images/13.png"
+      }
+    },
+    "ambassador_profile_information_display_Ljq6fE": {
+      "type": "ambassador-profile-information-display",
+      "blocks": {
+        "image_MbpxCz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9559.jpg"
+          }
+        },
+        "image_NN9pg6": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_8771.jpg"
+          }
+        },
+        "image_hKwdn9": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9120.jpg"
+          }
+        },
+        "image_W4NFrW": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_8664.jpg"
+          }
+        },
+        "image_m3Xg4p": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_0080.jpg"
+          }
+        },
+        "image_AghY4P": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9887.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "image_MbpxCz",
+        "image_NN9pg6",
+        "image_hKwdn9",
+        "image_W4NFrW",
+        "image_m3Xg4p",
+        "image_AghY4P"
+      ],
+      "name": "Ambassador Profile Info",
+      "settings": {
+        "heading": "Information display",
+        "profile_image": "shopify://shop_images/IMG_9700.jpg",
+        "ambassador_name": "Tabitha Joy",
+        "country": "us",
+        "role_icon": "shopify://shop_images/role-icon_dc79a06c-51b0-4693-854f-8b43e7e012d5.png",
+        "role_title": "Photographer",
+        "tags": "",
+        "description": "Tabitha is a professional photographer and family lifestyle content creator based in the Pacific Northwest. She shares the active outdoor lifestyle of her family, including her husband who works in construction and their two daughters who are passionate ballet dancers. Their family enjoys spending time outdoors, walking to school, exploring nature, and staying active despite the unpredictable cold and rainy weather."
+      }
+    },
+    "ambassador_profile_faqs_jHJDR8": {
+      "type": "ambassador-profile-faqs",
+      "blocks": {
+        "faq_hHCrhq": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "Q1：Your recent Venustas heated apparel.",
+            "body": "<p>The family currently uses Venustas heated jackets and vests in their daily routines, including school walks, outdoor activities, photography walks, errands, ballet warm-ups, and outdoor work. The products help each family member stay comfortable during cold weather.</p>"
+          }
+        },
+        "faq_4qgXVw": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "Q2: How does Venustas heated apparel change your lifestyle?",
+            "body": "<p>Venustas heated apparel allows the family to continue their active outdoor lifestyle without being limited by cold weather. Before using heated apparel, they relied on heavy and bulky layers that restricted movement and were difficult to manage throughout the day. Now, they can stay warm in the morning, adjust the heat as temperatures change, and enjoy outdoor activities more comfortably without carrying excessive layers.</p>"
+          }
+        },
+        "faq_V6DeFn": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "Q3: Which part most appealing to you about Venustas?",
+            "body": "<p>The most appealing part is the combination of warmth, comfort, and freedom of movement. Tabitha especially appreciates the instant, controllable warmth that helps her manage cold sensitivity while remaining comfortable and stylish. Her daughters love that the heated vests keep their core warm without restricting movement, making them ideal for ballet warm-ups and outdoor activities.</p>"
+          }
+        },
+        "faq_PK86tz": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "Q4: How do you feel about Venustas heated apparel?",
+            "body": "<p>The family has had an extremely positive experience with Venustas heated apparel. The products have become an important part of their everyday life by providing warmth, comfort, and peace of mind in cold conditions. From supporting outdoor work and photography to helping the children stay comfortable during school and dance activities, Venustas has genuinely changed how their family experiences winter.</p>"
+          }
+        },
+        "faq_makqzP": {
+          "type": "FAQ",
+          "settings": {
+            "heading": "Q5: The reason to be our V+ Master.",
+            "body": "<p>Venustas has become a meaningful part of their family’s daily routine, helping them stay active and enjoy the outdoors throughout the colder months. As a family that constantly faces changing weather conditions through work, school, photography, dance, and outdoor activities, they authentically use and appreciate the products. Their real-life experience represents how Venustas helps people continue doing what they love despite the cold.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_hHCrhq",
+        "faq_4qgXVw",
+        "faq_V6DeFn",
+        "faq_PK86tz",
+        "faq_makqzP"
+      ],
+      "name": "Ambassador Profile FAQS",
+      "settings": {
+        "heading": "Here’s something you may find helpful!"
+      }
     }
   },
   "order": [
-    "main_page_3cKYFc"
+    "ambassador_profile_banner_NVDjwJ",
+    "ambassador_profile_information_display_Ljq6fE",
+    "ambassador_profile_faqs_jHJDR8"
   ]
 }
