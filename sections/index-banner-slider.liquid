@@ -72,14 +72,22 @@
         {% if block.type == 'image' %}
           {% assign desktop_img = block.settings.background_desktop %}
           {% assign mobile_img  = block.settings.background_mobile %}
+          {% assign desktop_ratio = desktop_img.aspect_ratio | default: mobile_img.aspect_ratio | default: 1.777777 %}
+          {% assign mobile_ratio = mobile_img.aspect_ratio | default: desktop_img.aspect_ratio | default: 1.777777 %}
 
           <div class="swiper-slide item" {{ block.shopify_attributes }}>
-            <div class="item-wrapper no-image-overlay">
+            <div
+              class="item-wrapper no-image-overlay"
+              data-banner-media="image"
+              style="--banner-desktop-ratio: {{ desktop_ratio }}; --banner-mobile-ratio: {{ mobile_ratio }};"
+            >
               {% if desktop_img != blank or mobile_img != blank %}
                 <picture>
                   {% if mobile_img != blank %}
                     <source
                       media="(max-width: 991.98px)"
+                      width="{{ mobile_img.width }}"
+                      height="{{ mobile_img.height }}"
                       srcset="
                         {{ mobile_img | image_url: width: 480 }} 480w,
                         {{ mobile_img | image_url: width: 768 }} 768w,
@@ -89,6 +97,8 @@
                   {% if desktop_img != blank %}
                     <source
                       media="(min-width: 992px)"
+                      width="{{ desktop_img.width }}"
+                      height="{{ desktop_img.height }}"
                       srcset="
                         {{ desktop_img | image_url: width: 960 }} 960w,
                         {{ desktop_img | image_url: width: 1400 }} 1400w,
@@ -97,9 +107,9 @@
                   {% endif %}
                   <img
                     class="banner-bg"
-                    src="{% if mobile_img != blank %}{{ mobile_img | image_url: width: 900 }}{% else %}{{ desktop_img | image_url: width: 1600 }}{% endif %}"
-                    width="{% if mobile_img != blank %}{{ mobile_img.width }}{% else %}{{ desktop_img.width }}{% endif %}"
-                    height="{% if mobile_img != blank %}{{ mobile_img.height }}{% else %}{{ desktop_img.height }}{% endif %}"
+                    src="{% if desktop_img != blank %}{{ desktop_img | image_url: width: 1600 }}{% else %}{{ mobile_img | image_url: width: 900 }}{% endif %}"
+                    width="{% if desktop_img != blank %}{{ desktop_img.width }}{% else %}{{ mobile_img.width }}{% endif %}"
+                    height="{% if desktop_img != blank %}{{ desktop_img.height }}{% else %}{{ mobile_img.height }}{% endif %}"
                     alt="{{ mobile_img.alt | default: desktop_img.alt | default: block.settings.title | default: shop.name | escape }}"
                     loading="{% if is_first_slide %}eager{% else %}lazy{% endif %}"
                     fetchpriority="{% if is_first_slide %}high{% else %}auto{% endif %}"
@@ -195,10 +205,21 @@
         {% else %}
           {%- comment -%} VIDEO BLOCK {%- endcomment -%}
 
+          {% assign desktop_video = block.settings.background_desktop %}
+          {% assign mobile_video = block.settings.background_mobile %}
+          {% assign desktop_video_poster = desktop_video.preview_image %}
+          {% assign mobile_video_poster = mobile_video.preview_image %}
+          {% assign desktop_ratio = desktop_video_poster.aspect_ratio | default: mobile_video_poster.aspect_ratio | default: 1.777777 %}
+          {% assign mobile_ratio = mobile_video_poster.aspect_ratio | default: desktop_video_poster.aspect_ratio | default: 1.777777 %}
+
           <div class="swiper-slide item" {{ block.shopify_attributes }}>
             <!-- DESKTOP -->
-            <div class="item-wrapper has-video-overlay d-lg-block d-md-none d-sm-none">
-              {% assign v = block.settings.background_desktop %}
+            <div
+              class="item-wrapper has-video-overlay d-lg-block d-md-none d-sm-none"
+              data-banner-media="video"
+              style="--banner-desktop-ratio: {{ desktop_ratio }}; --banner-mobile-ratio: {{ mobile_ratio }};"
+            >
+              {% assign v = desktop_video %}
               {% if v != blank %}
                 {% assign poster_img = v.preview_image %}
                 {% assign poster_url = poster_img | image_url: width: 1600 %}
@@ -296,8 +317,12 @@
             </div>
 
             <!-- MOBILE -->
-            <div class="item-wrapper has-video-overlay d-lg-none d-md-block d-sm-block video--tag">
-            {% assign v = block.settings.background_mobile %}
+            <div
+              class="item-wrapper has-video-overlay d-lg-none d-md-block d-sm-block video--tag"
+              data-banner-media="video"
+              style="--banner-desktop-ratio: {{ desktop_ratio }}; --banner-mobile-ratio: {{ mobile_ratio }};"
+            >
+            {% assign v = mobile_video %}
             {% if v != blank %}
               {% assign poster_img = v.preview_image %}
               {% assign poster_url = poster_img | image_url: width: 900 %}
@@ -402,12 +427,12 @@
 
   {% if section.blocks.size > 1 %}
     <div class="float-nav d-lg-block d-md-block d-sm-flex">
-        <button type="button" class="owl-prev d-sm-hidden" aria-label="Previous slide">
+        <button type="button" class="owl-prev d-sm-none" aria-label="Previous slide">
           <i class="fa-solid fa-chevron-left f-white" aria-hidden="true"></i>
         </button>
         <div class="owl-dots">
         </div>
-        <button type="button" class="owl-next d-sm-hidden" aria-label="Next slide">
+        <button type="button" class="owl-next d-sm-none" aria-label="Next slide">
           <i class="fa-solid fa-chevron-right f-white" aria-hidden="true"></i>
         </button>
     </div>
@@ -415,32 +440,6 @@
 </section>
 {% if section.settings.enabled_transparent_header %}
 <style>
-
-    /* ✅ Keep banner layout stable even BEFORE Owl initializes */
-    .banner-slider {
-    background: #FFF;
-    min-height: 500px; /* fallback so the next module won't jump */
-    }
-
-    /* Owl's default CSS sets .owl-carousel { display:none } before init */
-    .banner-slider .owl-carousel {
-    display: block !important;
-    }
-
-    /* Show only the first slide until Owl adds .owl-loaded */
-    .banner-slider .owl-carousel:not(.owl-loaded) .item {
-    display: none;
-    }
-    .banner-slider .owl-carousel:not(.owl-loaded) .item:first-child {
-    display: block;
-    }
-
-    /* Make sure the first fallback slide still fills the banner */
-    .banner-slider .owl-carousel:not(.owl-loaded),
-    .banner-slider .owl-carousel:not(.owl-loaded) .item,
-    .banner-slider .owl-carousel:not(.owl-loaded) .item-wrapper {
-    height: 100%;
-    }
   .header{
       background:transparent;
       box-shadow: 0 3px 6px 1px #00000000;
@@ -697,7 +696,7 @@
     @media only screen and (max-width: 768px) {
         .banner-slider .float-nav{
             top: unset;
-            bottom: 1rem;
+            bottom:10px;
             left: 0;
             transform: unset;
             align-items: center;
@@ -961,7 +960,7 @@
   
 {% endstyle %}
 {%- comment -%}
-  Banner Slider (Owl Carousel) - Optimized for LCP / Speed Index
+  Banner Slider (Swiper) - Optimized for LCP / Speed Index
   Key changes:
   - Replaced CSS background images with real <img> so browser can prioritize LCP.
   - Avoided "master" image size; use image_url widths + srcset.
@@ -970,10 +969,29 @@
 {%- endcomment -%}
 
 <style>
+  /* Keep this section independent from legacy slider and app styles. */
+  #banner-slider-{{ section.id }},
+  #banner-slider-{{ section.id }} *{
+    box-sizing: border-box;
+  }
+  #banner-slider-{{ section.id }}{
+    isolation: isolate;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  #banner-slider-{{ section.id }} .banner-swiper,
+  #banner-slider-{{ section.id }} .swiper-wrapper,
+  #banner-slider-{{ section.id }} .swiper-slide{
+    width: 100%;
+    max-width: 100%;
+  }
   #banner-slider-{{ section.id }} .item-wrapper{
     position: relative;
     overflow: hidden;
-    /*min-height: 520px;  prevents layout jump; adjust to your design */
+    isolation: isolate;
+    width: 100%;
+    max-width: 100%;
   }
   #banner-slider-{{ section.id }} .banner-bg{
     position: absolute;
@@ -1011,29 +1029,47 @@
 <style>
   {% if section.settings.height_type == 'adapt_image_height' %}
     #banner-slider-{{ section.id }}{
-      height: fit-content;
-      min-height: 0;
+      height: auto !important;
+      min-height: 0 !important;
     }
 
     #banner-slider-{{ section.id }} .banner-swiper,
     #banner-slider-{{ section.id }} .swiper-slide,
-    #banner-slider-{{ section.id }} .item,
-    #banner-slider-{{ section.id }} .item-wrapper{
+    #banner-slider-{{ section.id }} .item{
       height: auto !important;
-      min-height: 0;
+      min-height: 0 !important;
     }
 
     #banner-slider-{{ section.id }} .swiper-wrapper{
       align-items: flex-start;
-      min-height: 0;
+      min-height: 0 !important;
+    }
+
+    /* The media ratio exclusively controls slide height. */
+    #banner-slider-{{ section.id }} .item-wrapper{
+      aspect-ratio: var(--banner-desktop-ratio, 1.777777);
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      contain: layout paint;
+    }
+
+    #banner-slider-{{ section.id }} .item-wrapper > picture{
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      line-height: 0;
     }
 
     #banner-slider-{{ section.id }} .banner-bg{
-      position: unset;
+      position: absolute;
+      inset: 0;
       display: block;
       width: 100%;
-      height: auto;
-      object-fit: contain;
+      height: 100%;
+      object-fit: cover;
       z-index: 0;
     }
 
@@ -1041,6 +1077,12 @@
     #banner-slider-{{ section.id }} .video-content-container{
       position: absolute;
       inset: 0;
+    }
+
+    @media screen and (max-width: 991.98px) {
+      #banner-slider-{{ section.id }} .item-wrapper{
+        aspect-ratio: var(--banner-mobile-ratio, var(--banner-desktop-ratio, 1.777777));
+      }
     }
   {% elsif section.settings.height_type == 'custom_banner_height' %}
 
