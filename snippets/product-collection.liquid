@@ -228,18 +228,16 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
             </div>
                 
             {% if product.has_only_default_variant %}
-                {% if product.selected_or_first_available_variant.available != false %}
+                {% if current_variant.available %}
                     {% assign product_form_id = 'product-form-' | append: product.id %}
                     {% form 'product', product, id: product_form_id, class: 'atc-form form', novalidate: 'novalidate', data-type: 'add-to-cart-form', action: 'javascript:void(0)' %}
-                        <input type="hidden" name="id" class="product-main-id" value="{{ product.selected_or_first_available_variant.id }}">
+                        <input type="hidden" name="id" class="product-main-id" value="{{ current_variant.id }}">
                         <div class="form-btn">
-                            <button type='submit' name="add" class="btn-atc btn-hover btn-main">
-                                {% if product.selected_or_first_available_variant.available != false %}
-                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc" alt="cart-icon">
-                                {% endif %}
+                            <button type="submit" name="add" class="btn-atc btn-hover btn-main">
+                                <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc" alt="cart-icon">
                                 <div class="position-relative">
                                     <span class="body pp-semibold f-white">
-                                        {% if product.selected_or_first_available_variant.available == false %}Sold Out{% else %}Add{% endif %}
+                                        Add
                                     </span>
                                     <div class="atc-overlay">
                                         <div class="atc-spinner"></div>
@@ -249,7 +247,12 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                         </div>
                     {% endform %}
                 {% else %}
-                    <button type='submit' name="add" class="btn-atc btn-hover btn-main">
+                    <button
+                        type="button"
+                        class="btn-atc btn-hover btn-main is-sold-out"
+                        disabled
+                        aria-disabled="true"
+                    >
                         <div class="position-relative">
                             <span class="body pp-semibold f-white">
                                 Sold Out

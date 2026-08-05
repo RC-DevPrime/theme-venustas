@@ -267,6 +267,7 @@
                         <div class="sale-product-slider overflow-hidden">
                             <div class="swiper-wrapper">
                                 {% for product in section.settings.product_list %}
+                                    {% assign current_variant = product.selected_or_first_available_variant %}
                                     <div class="swiper-slide">
                                         <div class="sale-product-item">
                                             <div class="product-featured-image">
@@ -309,15 +310,20 @@
                                                         {% if product.has_only_default_variant %}
                                                             {% assign product_form_id = 'product-form-' | append: product.id %}
                                                             {% form 'product', product, id: product_form_id, class: 'atc-form form', novalidate: 'novalidate', data-type: 'add-to-cart-form', action: 'javascript:void(0)' %}
-                                                                <input type="hidden" name="id" class="product-main-id" value="{{ product.selected_or_first_available_variant.id }}">
+                                                                <input type="hidden" name="id" class="product-main-id" value="{{ current_variant.id }}">
                                                                 <div class="form-btn">
-                                                                    <button type='submit' name="add" class="btn-atc btn-hover btn-main {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}">
-                                                                        {% if product.selected_or_first_available_variant.available != false %}
+                                                                    <button
+                                                                        type="submit"
+                                                                        name="add"
+                                                                        class="btn-atc btn-hover btn-main{% unless current_variant.available %} is-sold-out{% endunless %}"
+                                                                        {% unless current_variant.available %}disabled aria-disabled="true"{% endunless %}
+                                                                    >
+                                                                        {% if current_variant.available %}
                                                                             <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" class="icon-atc" alt="cart-icon">
                                                                         {% endif %}
                                                                         <div class="position-relative">
                                                                             <span class="body pp-semibold f-white">
-                                                                                {% if product.selected_or_first_available_variant.available == false %}Sold Out{% else %}Add{% endif %}
+                                                                                {% unless current_variant.available %}Sold Out{% else %}Add{% endunless %}
                                                                             </span>
                                                                             <div class="atc-overlay">
                                                                                 <div class="atc-spinner"></div>
@@ -453,4 +459,4 @@
             "name" : "Campaign Sale Steps"
         }]
     }
-  {% endschema %} 
+  {% endschema %}

@@ -330,6 +330,11 @@ a.f-white:hover{
 .btn-atc.disabled{
     background: #161616 !important;
 }
+.btn-atc.is-sold-out,
+.btn-atc.is-sold-out:hover{
+    background: #666666 !important;
+    cursor: not-allowed;
+}
 .btn-main {
     color: #fff;
     background: #B93205;
