@@ -427,12 +427,12 @@
 
   {% if section.blocks.size > 1 %}
     <div class="float-nav d-lg-block d-md-block d-sm-flex">
-        <button type="button" class="owl-prev d-sm-none" aria-label="Previous slide">
+        <button type="button" class="owl-prev" aria-label="Previous slide">
           <i class="fa-solid fa-chevron-left f-white" aria-hidden="true"></i>
         </button>
         <div class="owl-dots">
         </div>
-        <button type="button" class="owl-next d-sm-none" aria-label="Next slide">
+        <button type="button" class="owl-next" aria-label="Next slide">
           <i class="fa-solid fa-chevron-right f-white" aria-hidden="true"></i>
         </button>
     </div>
@@ -703,6 +703,9 @@
             justify-content: center;
             gap:12px;
             height: fit-content;
+        }
+        .banner-slider .float-nav .owl-prev, .banner-slider .float-nav .owl-next{
+          display: none !important;
         }
         .banner-slider .owl-dots,
         .banner-slider .float-nav button{
