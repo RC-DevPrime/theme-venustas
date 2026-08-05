@@ -3310,18 +3310,6 @@ if(enabled_option_indicator){
             if ($fieldset.data('vst-initialized')) return;
             $fieldset.data('vst-initialized', true);
 
-            // insert toggles if not present
-            if (!$fieldset.find('.variant-type-toggle').length) {
-            const toggleButtons = `
-                <div class="variant-type-toggle">
-                    <button type="button" class="variant-type-btn active" data-type="standard">Standard</button>
-                    <button type="button" class="variant-type-btn" data-type="tall">Tall</button>
-                </div>
-            `;
-            $fieldset.find('legend').after(toggleButtons);
-            }
-
-
             function getOptionPairs() {
             return $fieldset.find('.variants-selector, .nav-variants-selector').map(function() {
                 const $selector = $(this);
@@ -3338,9 +3326,37 @@ if(enabled_option_indicator){
             }).get();
             }
 
+            function isTallSize(text) {
+            return String(text || '').trim().toUpperCase().includes('LT');
+            }
+
+            const hasTallSizes = getOptionPairs().some(function(pair) {
+            return isTallSize(pair.text);
+            });
+
+            if (!hasTallSizes) {
+            $fieldset.find('.variant-type-toggle').remove();
+            getOptionPairs().forEach(function(pair) {
+                pair.selector.show();
+                pair.option.show();
+            });
+            return;
+            }
+
+            // insert toggles if not present
+            if (!$fieldset.find('.variant-type-toggle').length) {
+            const toggleButtons = `
+                <div class="variant-type-toggle">
+                    <button type="button" class="variant-type-btn active" data-type="standard">Standard</button>
+                    <button type="button" class="variant-type-btn" data-type="tall">Tall</button>
+                </div>
+            `;
+            $fieldset.find('legend').after(toggleButtons);
+            }
+
             function isSizeVisibleForType(text, type) {
-            if (type === 'tall') return tallSizes.includes(text);
-            return standardSizes.includes(text);
+            if (type === 'tall') return isTallSize(text);
+            return !isTallSize(text);
             }
 
             function showSizes(type) {
@@ -3422,7 +3438,7 @@ if(enabled_option_indicator){
 
             const selectedText = getSelectedSizeText();
             let selectedType = 'standard';
-            if (selectedText && tallSizes.includes(selectedText)) selectedType = 'tall';
+            if (selectedText && isTallSize(selectedText)) selectedType = 'tall';
 
             setCurrentType(selectedType);
             }
