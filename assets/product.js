@@ -177,21 +177,34 @@ $(document).ready(function() {
         accordions.forEach(accordion => {
             const heading = accordion.querySelector('.accrodion-heading');
             const content = accordion.querySelector('.accordion-content');
+            const icon = heading && heading.querySelector('i');
 
-            // Initially open
-            content.style.height = content.scrollHeight + 'px';
+            if (!heading || !content) return;
+
             content.style.overflow = 'hidden';
             content.style.transition = 'height 0.3s ease';
+            content.style.height = 'auto';
+            accordion.dataset.open = 'true';
 
             heading.addEventListener('click', () => {
-                if (content.style.height === '0px' || content.style.height === '0') {
-                    // Expand
+                const isOpen = accordion.dataset.open === 'true';
+
+                if (!isOpen) {
+                    accordion.dataset.open = 'true';
                     content.style.height = content.scrollHeight + 'px';
-                    heading.querySelector('i').classList.replace('fa-chevron-down', 'fa-chevron-up');
+                    content.addEventListener('transitionend', function setAutoHeight(event) {
+                        if (event.propertyName !== 'height') return;
+                        content.style.height = 'auto';
+                        content.removeEventListener('transitionend', setAutoHeight);
+                    });
+                    if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
                 } else {
-                    // Collapse
-                    content.style.height = '0';
-                    heading.querySelector('i').classList.replace('fa-chevron-up', 'fa-chevron-down');
+                    accordion.dataset.open = 'false';
+                    content.style.height = content.scrollHeight + 'px';
+                    requestAnimationFrame(() => {
+                        content.style.height = '0';
+                    });
+                    if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
                 }
             });
         });
