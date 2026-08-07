@@ -1,0 +1,149 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "tags_VbTTx6": {
+          "type": "tags",
+          "settings": {}
+        },
+        "title_kNgEjj": {
+          "type": "title",
+          "settings": {}
+        },
+        "okendo_star_rating_rNbVqw": {
+          "type": "shopify://apps/okendo/blocks/star-rating/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "price_efrDnx": {
+          "type": "price",
+          "settings": {}
+        },
+        "payment_installment_8PywPB": {
+          "type": "payment_installment",
+          "settings": {}
+        },
+        "discount_banner_ja6qra": {
+          "type": "discount_banner",
+          "settings": {
+            "discount_amount": "5",
+            "show_percent_off": false,
+            "description": "Join now for an extra 5% member discount!",
+            "description_2": "Become a member >",
+            "link": ""
+          }
+        },
+        "divider_FmYRAm": {
+          "type": "divider",
+          "settings": {}
+        },
+        "variant_option_Gm9UTe": {
+          "type": "variant_option",
+          "settings": {}
+        },
+        "hightlights_4aek9f": {
+          "type": "hightlights",
+          "settings": {
+            "heading": "HIGHLIGHTS",
+            "description": "<p>{{ product.metafields.c_f.highlights | metafield_tag }}</p>"
+          }
+        },
+        "divider_PUdp4i": {
+          "type": "divider",
+          "settings": {}
+        },
+        "availability_VXL6mU": {
+          "type": "availability",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
+        "support_product_RGhgRP": {
+          "type": "support_product",
+          "settings": {
+            "heading_1": "",
+            "heading_2": "",
+            "heading_3": "",
+            "heading_4": ""
+          }
+        },
+        "selleasy_lb_upsell_widget_cpal_dmDRQj": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-cpal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "tags_VbTTx6",
+        "title_kNgEjj",
+        "okendo_star_rating_rNbVqw",
+        "price_efrDnx",
+        "payment_installment_8PywPB",
+        "discount_banner_ja6qra",
+        "divider_FmYRAm",
+        "variant_option_Gm9UTe",
+        "hightlights_4aek9f",
+        "divider_PUdp4i",
+        "availability_VXL6mU",
+        "quantity_atc_nEzPi6",
+        "support_product_RGhgRP",
+        "selleasy_lb_upsell_widget_cpal_dmDRQj"
+      ],
+      "settings": {}
+    },
+    "product_review_section_VnyXRe": {
+      "type": "product-review-section",
+      "blocks": {
+        "okendo_reviews_widget_yKAV8J": {
+          "type": "shopify://apps/okendo/blocks/reviews-widget/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{product}}",
+            "widget_type": "combined_widget"
+          }
+        }
+      },
+      "block_order": [
+        "okendo_reviews_widget_yKAV8J"
+      ],
+      "name": "Review Section",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "",
+        "heading": "Reviews"
+      }
+    },
+    "product_featured_banner_mazp9M": {
+      "type": "product-featured-banner",
+      "name": "Featured Banner",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "",
+        "background_image": "shopify://shop_images/50850_2x_ee444194-7f34-4148-838c-a264624fb59e.png",
+        "background_image_mobile": "shopify://shop_images/50850_2x_1.png",
+        "sub_heading": "VENUSTAS",
+        "heading": "Driving technology with an inclination on adventure!",
+        "btn_label": "TECHNOLOGY",
+        "btn_url": "shopify://pages/technology"
+      }
+    }
+  },
+  "order": [
+    "main-product",
+    "product_review_section_VnyXRe",
+    "product_featured_banner_mazp9M"
+  ]
+}
