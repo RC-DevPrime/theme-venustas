@@ -177,21 +177,34 @@ $(document).ready(function() {
         accordions.forEach(accordion => {
             const heading = accordion.querySelector('.accrodion-heading');
             const content = accordion.querySelector('.accordion-content');
+            const icon = heading && heading.querySelector('i');
 
-            // Initially open
-            content.style.height = content.scrollHeight + 'px';
+            if (!heading || !content) return;
+
             content.style.overflow = 'hidden';
             content.style.transition = 'height 0.3s ease';
+            content.style.height = 'auto';
+            accordion.dataset.open = 'true';
 
             heading.addEventListener('click', () => {
-                if (content.style.height === '0px' || content.style.height === '0') {
-                    // Expand
+                const isOpen = accordion.dataset.open === 'true';
+
+                if (!isOpen) {
+                    accordion.dataset.open = 'true';
                     content.style.height = content.scrollHeight + 'px';
-                    heading.querySelector('i').classList.replace('fa-chevron-down', 'fa-chevron-up');
+                    content.addEventListener('transitionend', function setAutoHeight(event) {
+                        if (event.propertyName !== 'height') return;
+                        content.style.height = 'auto';
+                        content.removeEventListener('transitionend', setAutoHeight);
+                    });
+                    if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
                 } else {
-                    // Collapse
-                    content.style.height = '0';
-                    heading.querySelector('i').classList.replace('fa-chevron-up', 'fa-chevron-down');
+                    accordion.dataset.open = 'false';
+                    content.style.height = content.scrollHeight + 'px';
+                    requestAnimationFrame(() => {
+                        content.style.height = '0';
+                    });
+                    if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
                 }
             });
         });
@@ -3310,18 +3323,6 @@ if(enabled_option_indicator){
             if ($fieldset.data('vst-initialized')) return;
             $fieldset.data('vst-initialized', true);
 
-            // insert toggles if not present
-            if (!$fieldset.find('.variant-type-toggle').length) {
-            const toggleButtons = `
-                <div class="variant-type-toggle">
-                    <button type="button" class="variant-type-btn active" data-type="standard">Standard</button>
-                    <button type="button" class="variant-type-btn" data-type="tall">Tall</button>
-                </div>
-            `;
-            $fieldset.find('legend').after(toggleButtons);
-            }
-
-
             function getOptionPairs() {
             return $fieldset.find('.variants-selector, .nav-variants-selector').map(function() {
                 const $selector = $(this);
@@ -3338,9 +3339,37 @@ if(enabled_option_indicator){
             }).get();
             }
 
+            function isTallSize(text) {
+            return String(text || '').trim().toUpperCase().includes('LT');
+            }
+
+            const hasTallSizes = getOptionPairs().some(function(pair) {
+            return isTallSize(pair.text);
+            });
+
+            if (!hasTallSizes) {
+            $fieldset.find('.variant-type-toggle').remove();
+            getOptionPairs().forEach(function(pair) {
+                pair.selector.show();
+                pair.option.show();
+            });
+            return;
+            }
+
+            // insert toggles if not present
+            if (!$fieldset.find('.variant-type-toggle').length) {
+            const toggleButtons = `
+                <div class="variant-type-toggle">
+                    <button type="button" class="variant-type-btn active" data-type="standard">Standard</button>
+                    <button type="button" class="variant-type-btn" data-type="tall">Tall</button>
+                </div>
+            `;
+            $fieldset.find('legend').after(toggleButtons);
+            }
+
             function isSizeVisibleForType(text, type) {
-            if (type === 'tall') return tallSizes.includes(text);
-            return standardSizes.includes(text);
+            if (type === 'tall') return isTallSize(text);
+            return !isTallSize(text);
             }
 
             function showSizes(type) {
@@ -3422,7 +3451,7 @@ if(enabled_option_indicator){
 
             const selectedText = getSelectedSizeText();
             let selectedType = 'standard';
-            if (selectedText && tallSizes.includes(selectedText)) selectedType = 'tall';
+            if (selectedText && isTallSize(selectedText)) selectedType = 'tall';
 
             setCurrentType(selectedType);
             }

@@ -94,6 +94,10 @@ $(document).on('submit', '.atc-form', function (event) {
     event.preventDefault();
     let form = $(this);
 
+    if (form.closest('.collection-list').length) {
+        return;
+    }
+
     let formData = form.serialize();  // 🔥 NOW IT IS CLEAN
 
     form.find('.btn-atc span').css('visibility', 'hidden');
@@ -348,9 +352,16 @@ document.addEventListener('click', function (event) {
       ],
     }),
   })
-    .then((res) => res.json())
+    .then((res) => res.json().then((data) => {
+      if (!res.ok) {
+        throw data;
+      }
+
+      return data;
+    }))
     .then((data) => {
-      document.dispatchEvent(new CustomEvent('cart:updated', { detail: data }));
+      refreshCart();
+      refreshMainCart();
       document.dispatchEvent(new Event('cart:refresh'));
       button.textContent = 'Added';
       setTimeout(() => {
@@ -457,9 +468,9 @@ $(document).on('click', '.product-remove', function (event) {
         }
     })
     .done(function (cart) {
-        updateCartUI(cart); // your existing refresh logic
+        syncCartState();
         
-        refreshCart();
+        refreshCart({ syncState: false });
         refreshMainCart();
     })
     .fail(function (xhr) {
@@ -507,12 +518,34 @@ function updateMembershipPoints(cart) {
 // Cart UI & Quantity Handling
 // ===============================
 function updateCartUI(cart) {
+    if (!cart) return;
+
     $('.header .icon-cart .dot')
         .css('display', cart.item_count > 0 ? 'flex' : 'none')
         .text(cart.item_count);
 
     $('.cart-total-price .cart-total-less span, .total-price').text(formatMoney(cart.total_price));
     updateMembershipPoints(cart);
+}
+
+function fetchLatestCart() {
+    return $.ajax({
+        type: 'GET',
+        url: '/cart.js',
+        dataType: 'json',
+        cache: false
+    });
+}
+
+function syncCartState() {
+    return fetchLatestCart()
+        .done(function (cart) {
+            updateCartUI(cart);
+            document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
+        })
+        .fail(function (xhr) {
+            console.error('Failed to fetch latest cart state', xhr.responseText);
+        });
 }
 
 function syncQtyUI(key, qty) {
@@ -544,18 +577,16 @@ function updateQty(key, qty) {
             dataType: 'json',
             data: { updates: { [key]: qty } },
             success: function (cart) {
-                updateCartUI(cart);
-                document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
+                syncCartState();
                 
                 qtyTimerV2 = setTimeout(() => {
-                    refreshCart();
+                    refreshCart({ syncState: false });
                     refreshMainCart();
                 }, 300);
                 
             },
             error: function (xhr) {
                 console.error('Cart update error', xhr);
-                document.dispatchEvent(new CustomEvent('cart:updated'));
 
             }
             });
@@ -606,9 +637,13 @@ $(document).on('click', '#popup-cart .add_qty, .main-cart .add_qty', function ()
 // ===============================
 // Cart Refresh Functions
 // ===============================
-function refreshCart() {
+function refreshCart(options) {
+    const shouldSyncState = !options || options.syncState !== false;
     const $popup = $('#popup-cart');
     $popup.find('.el-overlay').show();
+    if (shouldSyncState) {
+        syncCartState();
+    }
 
     $.ajax({
         type: 'GET',
@@ -630,14 +665,6 @@ function refreshCart() {
             $popup.find('.discount-code-wrapper').html($popupSource.find('.discount-code-wrapper').html());
             $popup.find('.yml-container').html($popupSource.find('.yml-container').html());
             $popup.find('.empty-body').html($popupSource.find('.empty-body').html());
-
-            const $cartIconSource = $html.find('.nav-icon.icon-cart, .header .icon-cart').first();
-            if ($cartIconSource.length) {
-                const $cartIconTarget = $('.nav-icon.icon-cart, .header .icon-cart').first();
-                if ($cartIconTarget.length) {
-                    $cartIconTarget.html($cartIconSource.html());
-                }
-            }
 
             const hasProducts = $popup.find('.cart-body .product-cart').length > 0;
             const sections = '.cart-checkout, .cart-promotion, .cart-body, .yml-container, .cart-footer';

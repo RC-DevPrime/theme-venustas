@@ -831,9 +831,6 @@ $(function () {
   const BTN_SEL = '.form-btn.popup-atc .btn-atc';
   const HOST_ID = 'ajaxProductEditPopupHost';
 
-  const standardSizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL'];
-  const tallSizes = ['5XL', '6XL'];
-
   // -------------------------
   // Button loading UI (YOUR markup)
   // -------------------------
@@ -1040,6 +1037,11 @@ $(function () {
           error: function (jqXHR, textStatus) {
             const status = jqXHR && jqXHR.status ? ' (status ' + jqXHR.status + ')' : '';
             const reason = textStatus ? ' ' + textStatus : '';
+
+            if (jqXHR && jqXHR.status === 429) {
+              reject(new Error('Requests are too frequent. Please try again in a moment.'));
+              return;
+            }
 
             tryLoad(
               attemptIndex + 1,
@@ -1363,6 +1365,14 @@ $(function () {
     return idx >= 0 ? (idx + 1) : null;
   }
 
+  function getLineQuantity(cart, line) {
+    if (!cart || !Array.isArray(cart.items) || !line) return 0;
+
+    const item = cart.items[line - 1];
+    const quantity = item && parseInt(item.quantity, 10);
+    return Number.isFinite(quantity) ? quantity : 0;
+  }
+
   function triggerCartRefresh() {
     if (typeof refreshCart === 'function') refreshCart();
     if (typeof openCart === 'function') openCart();
@@ -1374,6 +1384,10 @@ $(function () {
 
     const $btn = $(this);
     const $popup = $btn.closest('.product-update.popup-modal');
+
+    if ($popup.closest('#popup-cart, .main-cart').length) {
+      return;
+    }
 
     refreshPopupVariantUI($popup);
 
@@ -1431,7 +1445,7 @@ $(function () {
 
         const existingLine = findLineByVariantId(cart, newVariantId);
         if (existingLine) {
-          return ajaxChangeCartLine(existingLine, qty);
+          return ajaxChangeCartLine(existingLine, getLineQuantity(cart, existingLine) + qty);
         }
 
         return ajaxAddToCart(newVariantId, qty);
@@ -1528,6 +1542,31 @@ $(function () {
         console.warn('Variant JSON parse error', e);
       }
       return null;
+    }
+
+    function getCartData() {
+      return $.ajax({
+        type: 'GET',
+        url: '/cart.js',
+        dataType: 'json',
+        cache: false
+      });
+    }
+
+    function findCartItemByKey(cart, key) {
+      if (!cart || !Array.isArray(cart.items) || !key) return null;
+      return cart.items.find(item => item && item.key === key) || null;
+    }
+
+    function getCartQuantityByVariant(cart, variantId, excludeKey) {
+      if (!cart || !Array.isArray(cart.items) || !variantId) return 0;
+
+      return cart.items.reduce(function (total, item) {
+        if (!item || item.key === excludeKey) return total;
+        if (String(item.id) !== String(variantId)) return total;
+
+        return total + (parseInt(item.quantity, 10) || 0);
+      }, 0);
     }
 
 
@@ -1644,6 +1683,21 @@ $(function () {
 
       $fieldset.data('vst-initialized', true);
 
+      function isTallSize(label) {
+        return String(label || '').trim().toUpperCase().includes('LT');
+      }
+
+      const hasTallSizes = $fieldset.find('.nav-variants-selector').toArray().some(function (selector) {
+        return isTallSize($(selector).data('option-value'));
+      });
+
+      if (!hasTallSizes) {
+        $fieldset.find('.variant-type-toggle').remove();
+        $fieldset.find('.nav-variants-selector').show().removeClass('hidden-type');
+        $fieldset.find('.nav-variants-option').show();
+        return;
+      }
+
       if (!$fieldset.find('.variant-type-toggle').length) {
         $fieldset.find('legend').after(`
           <div class="variant-type-toggle">
@@ -1655,24 +1709,39 @@ $(function () {
 
       const $buttons = $fieldset.find('.variant-type-btn');
 
+      function getSelectedSizeLabel() {
+        const $selected = $fieldset.find('.nav-variants-selector.selected').first();
+        if ($selected.length) {
+          return $selected.data('option-value');
+        }
+
+        const $checked = $fieldset.find('.nav-variant-radio:checked').first();
+        return $checked.length ? $checked.val() : '';
+      }
+
       function applyType(type) {
         $buttons.removeClass('active');
         $buttons.filter(`[data-type="${type}"]`).addClass('active');
         $item.attr('data-variant-type', type);
 
         const $selectors = $fieldset.find('.nav-variants-selector');
-        const $radios = $fieldset.find('.nav-variant-radio');
 
         $selectors.each(function () {
           const val = $(this).data('option-value');
           const label = String(val).trim();
+          const $option = $(this).next('.nav-variants-option');
 
           const show =
-            (type === 'standard' && standardSizes.includes(label)) ||
-            (type === 'tall' && tallSizes.includes(label));
+            (type === 'standard' && !isTallSize(label)) ||
+            (type === 'tall' && isTallSize(label));
 
-          if (show) $(this).show().removeClass('hidden-type');
-          else $(this).hide().addClass('hidden-type').removeClass('selected');
+          if (show) {
+            $(this).show().removeClass('hidden-type');
+            $option.show();
+          } else {
+            $(this).hide().addClass('hidden-type').removeClass('selected');
+            $option.hide();
+          }
         });
 
         const $popup = $item.closest('.product-update.popup-modal');
@@ -1684,7 +1753,7 @@ $(function () {
         applyType($(this).data('type'));
       });
 
-      applyType('standard'); // Always default
+      applyType(isTallSize(getSelectedSizeLabel()) ? 'tall' : 'standard');
     }
 
 
@@ -1887,45 +1956,42 @@ $(function () {
 
       $popup.addClass('is-loading');
 
-      $.ajax({
-        type: 'POST',
-        url: '/cart/update.js',
-        dataType: 'json',
-        data: {
-          updates: {
-            [lineKey]: 0
-          }
-        },
-        success() {
-          const ids = Object.keys(groups);
-          let idx = 0;
+      getCartData()
+        .done(function (cart) {
+          const originalItem = findCartItemByKey(cart, lineKey);
+          const originalVariantId = originalItem && originalItem.id;
+          const updates = {};
 
-          function addNext() {
-            if (idx >= ids.length) {
+          if (originalVariantId && Object.prototype.hasOwnProperty.call(groups, originalVariantId)) {
+            updates[lineKey] = groups[originalVariantId];
+            delete groups[originalVariantId];
+          } else {
+            updates[lineKey] = 0;
+          }
+
+          Object.keys(groups).forEach(function (variantId) {
+            updates[variantId] = getCartQuantityByVariant(cart, variantId, lineKey) + groups[variantId];
+          });
+
+          $.ajax({
+            type: 'POST',
+            url: '/cart/update.js',
+            dataType: 'json',
+            data: { updates: updates },
+            success() {
               $popup.removeClass('open is-loading');
               $('body').removeClass('no-scroll');
               if (window.refreshCart) refreshCart();
               if (window.refreshMainCart) refreshMainCart();
-              return;
+            },
+            error() {
+              $popup.removeClass('is-loading');
             }
-
-            const id = ids[idx++];
-            $.ajax({
-              type: 'POST',
-              url: '/cart/add.js',
-              data: { id, quantity: groups[id] },
-              dataType: 'json',
-              success: addNext,
-              error: addNext
-            });
-          }
-
-          addNext();
-        },
-        error() {
+          });
+        })
+        .fail(function () {
           $popup.removeClass('is-loading');
-        }
-      });
+        });
 
     });
 
