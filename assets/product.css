@@ -59,6 +59,9 @@
     background: #ffe4dc;
     color: #B93205;
 }
+.product .main-media:has(.bss-pl-frontend) .badge.new-badge{
+    display: none;
+}
 
 /* PRODUCT FORM -------------------------------------------------- */
 .product .divider{
@@ -182,6 +185,7 @@
     border: none;
     color: #B93205;
     --btn-pos: 10px;
+    top: calc(50% - 55px);
     transition: opacity 0.3s ease, transform 0.3s ease 0.1s;
 }
 .product .product-media .main-media .float-nav button:hover{
@@ -211,9 +215,9 @@
     visibility:visible;
 }
 .product .product-media .main-slider .swiper-slide img {
-    width: fit-content;
+    width: 100%;
     height: 100%;
-    object-fit: contain !important;
+    /* object-fit: contain !important; */
     display:block;
     margin:auto;
     object-position: top;
