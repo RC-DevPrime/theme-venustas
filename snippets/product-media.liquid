@@ -98,9 +98,11 @@
     </div>
 
         <div class="position-relative">
-            <div class="swiper-container main-slider slider-hidden">
+            <div class="swiper-container main-slider">
 
                 <div class="swiper-wrapper">
+                    {% assign product_images = product.media | where: 'media_type', 'image' %}
+                    {% assign first_product_image = product_images | first %}
                     {% for media in product.media %}
                         {% case media.media_type %}
                         {% when 'image' %}
@@ -118,7 +120,6 @@
                                     alt="{{ section.settings.media_icon.alt | escape }}"
                                     decoding="async"
                                     loading="eager"
-                                    fetchpriority="high"
                                 >
                                 </span>
                             {% endif %}
@@ -135,8 +136,8 @@
                                 alt="{{ media.alt | escape }}"
                                 data-zoom-src="{{ media | image_url: width: 2200 }}"
                                 decoding="async"
-                                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-                                {% if forloop.first %}fetchpriority="high"{% endif %}
+                                loading="{% if media.id == first_product_image.id %}eager{% else %}lazy{% endif %}"
+                                {% if media.id == first_product_image.id %}fetchpriority="high"{% endif %}
                             >
                             </div>
                         {% endcase %}

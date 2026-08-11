@@ -3,6 +3,16 @@
     pointer-events: none !important;
     transition: opacity .4s ease;
 }
+.product .product-media .main-slider .swiper-slide {
+    display: none;
+}
+.product .product-media .main-slider .swiper-slide:first-child {
+    display: block;
+}
+/* Swiper 初始化后（自带 .swiper-initialized 类）恢复全部 slide */
+.product .product-media .main-slider.swiper-initialized .swiper-slide {
+    display: block;
+}
 
 .slider-visible {
     opacity: 1;
