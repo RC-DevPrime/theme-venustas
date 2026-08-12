@@ -1,7 +1,7 @@
 
 <div class="product-media">
     <div class="thumbnail d-lg-block d-md-none d-sm-none ">
-        <div class="swiper-container thumbnail-slider desktop slider-hidden swiper-vertical">
+        <div class="swiper-container thumbnail-slider desktop swiper-vertical">
 
             <div class="swiper-wrapper">
                 {% for media in product.media %}
@@ -191,7 +191,7 @@
             {% comment %} {% endif %} {% endcomment %}
         </div>
         <div class="thumbnail d-lg-none d-md-block d-sm-block mt-lg-4 mt-md-4 mt-sm-3">
-            <div class="swiper-container thumbnail-slider slider-hidden mobile">
+            <div class="swiper-container thumbnail-slider mobile">
                 <div class="swiper-wrapper">
                     {% for media in product.media %}
                         {% case media.media_type %}
