@@ -1,0 +1,175 @@
+{% style %}
+  #shopify-section-{{ section.id }} .motorheating-preheat-perks {
+    width: 100%;
+    background: #191919;
+    border-top: 5px solid #B93205;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-preheat-perks__inner {
+    width: min(100% - 48px, 1200px);
+    min-height: 104px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    column-gap: 48px;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-preheat-perks__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-preheat-perks__icon {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+    color: #c23200;
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-preheat-perks__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-preheat-perks__content {
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-preheat-perks__heading {
+    margin: 0 0 5px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-preheat-perks__text {
+    margin: 0;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .motorheating-preheat-perks__inner {
+      width: 100%;
+      min-height: 164px;
+      padding: 0 24px;
+      box-sizing: border-box;
+      column-gap: 22px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-preheat-perks__item {
+      height: 100%;
+      flex-direction: column;
+      justify-content: center;
+      gap: 15px;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-preheat-perks__icon {
+      width: 28px;
+      height: 28px;
+      flex-basis: 28px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-preheat-perks__heading {
+      margin-bottom: 4px;
+      font-size: 15px;
+      line-height: 1.15;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-preheat-perks__text {
+      font-size: 12px;
+      line-height: 1.2;
+    }
+  }
+{% endstyle %}
+
+<section class="motorheating-preheat-perks">
+  <div class="motorheating-preheat-perks__inner">
+    {%- for block in section.blocks -%}
+      <div class="motorheating-preheat-perks__item" {{ block.shopify_attributes }}>
+        <div class="motorheating-preheat-perks__icon" aria-hidden="true">
+          {% comment %} Insert custom SVG icon code here. {% endcomment %}
+        </div>
+        <div class="motorheating-preheat-perks__content">
+          {%- if block.settings.heading != blank -%}
+            <h3 class="motorheating-preheat-perks__heading">{{ block.settings.heading }}</h3>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <p class="motorheating-preheat-perks__text">{{ block.settings.text }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Preheat Perks",
+  "tag": "section",
+  "class": "motorheating-preheat-perks-section",
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "perk",
+      "name": "Perk",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Early Access"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Be the first to shop"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Motorheating Preheat Perks",
+      "blocks": [
+        {
+          "type": "perk",
+          "settings": {
+            "heading": "Early Access",
+            "text": "Be the first to shop"
+          }
+        },
+        {
+          "type": "perk",
+          "settings": {
+            "heading": "Exclusive Launch Offer",
+            "text": "Special pricing for early riders"
+          }
+        },
+        {
+          "type": "perk",
+          "settings": {
+            "heading": "Launch Bonuses",
+            "text": "Limited-time rider perks"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
