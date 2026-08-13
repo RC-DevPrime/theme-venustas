@@ -17,6 +17,51 @@
         "description": "{{ collection.description }}"
       }
     },
+    "motorheating_challenge_8KpJJb": {
+      "type": "motorheating-challenge",
+      "blocks": {
+        "challenge_R7aPJT": {
+          "type": "challenge",
+          "settings": {
+            "heading": "Wind Chill",
+            "text": "High-speed wind steals body heat"
+          }
+        },
+        "challenge_L49KVH": {
+          "type": "challenge",
+          "settings": {
+            "heading": "Long Exposure",
+            "text": "Hours in the saddle lead to heat loss."
+          }
+        },
+        "challenge_Hkn6y4": {
+          "type": "challenge",
+          "settings": {
+            "heading": "Changing Weather",
+            "text": "Temperatures can drop fast and unexpectedly."
+          }
+        },
+        "challenge_TAjXV4": {
+          "type": "challenge",
+          "settings": {
+            "heading": "Cold Zones",
+            "text": "Some areas get cold faster than others."
+          }
+        }
+      },
+      "block_order": [
+        "challenge_R7aPJT",
+        "challenge_L49KVH",
+        "challenge_Hkn6y4",
+        "challenge_TAjXV4"
+      ],
+      "name": "Motorheating Challenge",
+      "settings": {
+        "eyebrow": "THE CHALLENGE",
+        "title": "COLD SHOULDN'T END THE RIDE",
+        "description": "<p>Motorcycle riding creates a unique cold-weather challenge that ordinary clothing can't solve.</p>"
+      }
+    },
     "motorheating_preheat_perks_mYtqkD": {
       "type": "motorheating-preheat-perks",
       "blocks": {
@@ -319,6 +364,7 @@
   },
   "order": [
     "collection-featured-banner",
+    "motorheating_challenge_8KpJJb",
     "motorheating_preheat_perks_mYtqkD",
     "collection-list",
     "main-collection",
