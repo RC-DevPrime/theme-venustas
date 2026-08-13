@@ -17,13 +17,38 @@
         "description": "{{ collection.description }}"
       }
     },
-    "motorcycle_heating_hero_JKGiRc": {
-      "type": "motorcycle-heating-hero",
-      "name": "Motorcycle Heating Hero",
-      "settings": {
-        "subtitle": "SOMETHING NEW IS COMING",
-        "description": "<p>A new heated riding system from Venustas. Engineered for modern riders who refuse to stop when temperatures drop.</p>"
-      }
+    "motorheating_preheat_perks_mYtqkD": {
+      "type": "motorheating-preheat-perks",
+      "blocks": {
+        "perk_VQXzrf": {
+          "type": "perk",
+          "settings": {
+            "heading": "Early Access",
+            "text": "Be the first to shop"
+          }
+        },
+        "perk_Hm9zGH": {
+          "type": "perk",
+          "settings": {
+            "heading": "Exclusive Launch Offer",
+            "text": "Special pricing for early riders"
+          }
+        },
+        "perk_gRUyeP": {
+          "type": "perk",
+          "settings": {
+            "heading": "Launch Bonuses",
+            "text": "Limited-time rider perks"
+          }
+        }
+      },
+      "block_order": [
+        "perk_VQXzrf",
+        "perk_Hm9zGH",
+        "perk_gRUyeP"
+      ],
+      "name": "Motorheating Preheat Perks",
+      "settings": {}
     },
     "collection-list": {
       "type": "collection-list",
@@ -294,7 +319,7 @@
   },
   "order": [
     "collection-featured-banner",
-    "motorcycle_heating_hero_JKGiRc",
+    "motorheating_preheat_perks_mYtqkD",
     "collection-list",
     "main-collection",
     "collection-list-v2",
