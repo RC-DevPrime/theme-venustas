@@ -1,0 +1,333 @@
+{% style %}
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1440 / 548;
+    min-height: 520px;
+    overflow: hidden;
+    background: #191919;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__bg--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__inner {
+    position: relative;
+    z-index: 1;
+    width: min(100% - 40px, 1200px);
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__eyebrow {
+    margin: 0 0 14px;
+    color: var(--color-brand);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__title {
+    margin: 0;
+    max-width: 500px;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__description {
+    margin: 36px 0 34px;
+    max-width: 600px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__cards {
+    display: grid;
+    grid-template-columns: repeat(4, 282px);
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__card {
+    width: 282px;
+    height: 220px;
+    padding: 21px 14px 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background: rgba(217, 217, 217, 0.08);
+    color: var(--color-brand);
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__icon {
+    width: 1em;
+    height: 1em;
+    margin: 0 0 18px 0;
+    color: inherit;
+    font-size: 48px;
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__card-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    height:40px;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-advantage__card-text {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.22;
+    letter-spacing: 0;
+  }
+
+  @media only screen and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .motorheating-rider-advantage {
+      aspect-ratio: 390 / 764;
+      max-height: 764px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-advantage__bg--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-advantage__bg--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-advantage__inner {
+      width: 100%;
+      padding: 54px 20px 20px;
+      box-sizing: border-box;
+      justify-content: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-advantage__eyebrow {
+      margin-bottom: 10px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-advantage__title {
+      max-width: 320px;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-advantage__description {
+      margin: 14px 0 64px;
+      max-width: 320px;
+      font-size: 16px;
+      line-height: 1.22;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-advantage__cards {
+      width: 100%;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-advantage__card {
+      width: auto;
+      min-height: 140px;
+      height: auto;
+      padding: 18px 8px 16px;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-advantage__icon {
+      margin:0 auto 16px;
+      font-size: 48px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-advantage__card-title {
+      margin-bottom: 8px;
+      font-size: 17px;
+      line-height: 1.12;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-advantage__card-text {
+      font-size: 12px;
+      line-height: 1.18;
+    }
+  }
+{% endstyle %}
+
+<section class="motorheating-rider-advantage">
+  {%- if section.settings.bg_desktop != blank -%}
+    {{
+      section.settings.bg_desktop
+      | image_url: width: 2880
+      | image_tag:
+        class: 'motorheating-rider-advantage__bg motorheating-rider-advantage__bg--desktop',
+        loading: 'lazy',
+        widths: '720,960,1200,1440,1800,2400,2880',
+        sizes: '100vw',
+        alt: section.settings.bg_desktop.alt | default: section.settings.title
+    }}
+  {%- endif -%}
+
+  {%- if section.settings.bg_mobile != blank -%}
+    {{
+      section.settings.bg_mobile
+      | image_url: width: 900
+      | image_tag:
+        class: 'motorheating-rider-advantage__bg motorheating-rider-advantage__bg--mobile',
+        loading: 'lazy',
+        widths: '390,600,780,900',
+        sizes: '100vw',
+        alt: section.settings.bg_mobile.alt | default: section.settings.title
+    }}
+  {%- elsif section.settings.bg_desktop != blank -%}
+    {{
+      section.settings.bg_desktop
+      | image_url: width: 900
+      | image_tag:
+        class: 'motorheating-rider-advantage__bg motorheating-rider-advantage__bg--mobile',
+        loading: 'lazy',
+        widths: '390,600,780,900',
+        sizes: '100vw',
+        alt: section.settings.bg_desktop.alt | default: section.settings.title
+    }}
+  {%- endif -%}
+
+  <div class="motorheating-rider-advantage__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="motorheating-rider-advantage__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.title != blank -%}
+      <h2 class="motorheating-rider-advantage__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.description != blank -%}
+      <div class="motorheating-rider-advantage__description">{{ section.settings.description }}</div>
+    {%- endif -%}
+
+    <div class="motorheating-rider-advantage__cards">
+      <div class="motorheating-rider-advantage__card">
+        <div class="motorheating-rider-advantage__icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.513 28.0001C11.513 30.1914 12.0542 32.2272 13.1365 34.1076C14.2192 35.9882 15.7018 37.4786 17.5845 38.5786C17.3865 38.1836 17.2395 37.7769 17.1435 37.3586C17.0478 36.9402 17 36.5207 17 36.1001C17 35.1744 17.1777 34.3026 17.533 33.4846C17.888 32.6666 18.3975 31.9256 19.0615 31.2616L24 26.4041L28.9575 31.2616C29.6218 31.9256 30.1283 32.6666 30.477 33.4846C30.8257 34.3026 31 35.1744 31 36.1001C31 36.5207 30.9522 36.9402 30.8565 37.3586C30.7605 37.7769 30.6135 38.1836 30.4155 38.5786C32.2982 37.4786 33.7808 35.9882 34.8635 34.1076C35.9458 32.2272 36.487 30.1914 36.487 28.0001C36.487 26.2701 36.1415 24.6049 35.4505 23.0046C34.7595 21.4042 33.7675 19.9574 32.4745 18.6641C31.7942 19.1334 31.0783 19.4922 30.327 19.7406C29.5757 19.9889 28.8167 20.1131 28.05 20.1131C25.9927 20.1131 24.2497 19.4262 22.821 18.0526C21.3923 16.6792 20.6242 14.9549 20.5165 12.8796V12.3926C19.1038 13.4796 17.839 14.6519 16.722 15.9096C15.6047 17.1672 14.6603 18.4672 13.889 19.8096C13.1177 21.1519 12.5288 22.5184 12.1225 23.9091C11.7162 25.2997 11.513 26.6634 11.513 28.0001ZM24 29.9231L20.8115 33.0616C20.3952 33.4779 20.0747 33.9442 19.85 34.4606C19.6253 34.9766 19.513 35.5231 19.513 36.1001C19.513 37.3154 19.9487 38.3504 20.82 39.2051C21.6913 40.0597 22.7513 40.4871 24 40.4871C25.2487 40.4871 26.3087 40.0597 27.18 39.2051C28.0513 38.3504 28.487 37.3154 28.487 36.1001C28.487 35.5034 28.3747 34.9497 28.15 34.4391C27.9253 33.9284 27.6048 33.4692 27.1885 33.0616L24 29.9231ZM23 7.78857V12.6001C23 14.0154 23.4878 15.2026 24.4635 16.1616C25.4392 17.1206 26.6347 17.6001 28.05 17.6001C28.6627 17.6001 29.2467 17.4847 29.802 17.2541C30.357 17.0234 30.8667 16.6836 31.331 16.2346L32.2115 15.3466C34.3192 16.6952 35.9775 18.4946 37.1865 20.7446C38.3955 22.9946 39 25.4131 39 28.0001C39 32.1847 37.5462 35.7309 34.6385 38.6386C31.7308 41.54627 43.0001 24 43.0001C19.8153 43.0001 16.2692 41.5462 13.3615 38.6386C10.4538 35.7309 9 32.1847 9 28.0001C9 24.1497 10.2535 20.4172 12.7605 16.8026C15.2672 13.1882 18.6803 10.1836 23 7.78857Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="motorheating-rider-advantage__card-title">Heated Apparel Expertise</h3>
+        <p class="motorheating-rider-advantage__card-text">Years of experience in heated technology, materials, and real-world performance.</p>
+      </div>
+
+      <div class="motorheating-rider-advantage__card">
+        <div class="motorheating-rider-advantage__icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.9255 37.5C5.87617 37.5 4.12617 36.7803 2.6755 35.341C1.22517 33.9017 0.5 32.1462 0.5 30.0745C0.5 28.0472 1.19667 26.3177 2.59 24.886C3.983 23.4543 5.69067 22.718 7.713 22.677H8.4435L5.6925 20.4485H0.5V18.3075H8.559L13.9615 21.5385L22.0565 18.5H29.6565L25.3565 13.013H20.7975V10.5H26.605L30.6155 15.6665L36.8155 12.977V17.3155H31.9125L36.669 23.4385C37.1963 23.1735 37.7437 22.979 38.311 22.855C38.878 22.7313 39.459 22.6695 40.054 22.6695C42.117 22.6695 43.8738 23.3912 45.3245 24.8345C46.7748 26.2782 47.5 28.0338 47.5 30.1015C47.5 32.1688 46.7748 33.9188 45.3245 35.3515C43.8738 36.7838 42.117 37.5 40.054 37.5C37.9957 37.5 36.2468 36.7803 34.8075 35.341C33.3685 33.9017 32.649 32.153 32.649 30.095C32.649 29.1283 32.8235 28.2087 33.1725 27.336C33.5215 26.4633 34.0298 25.6795 34.6975 24.9845L32.646 22.354L25.41 33.405H20.077L15.351 29.254V30.1385C15.334 32.1898 14.6072 33.9295 13.1705 35.3575C11.7338 36.7858 9.9855 37.5 7.9255 37.5ZM7.9255 34.987C9.30583 34.987 10.4698 34.5078 11.4175 33.5495C12.3648 32.5908 12.8385 31.4303 12.8385 30.068C12.8385 28.7057 12.3648 27.5473 11.4175 26.593C10.4698 25.6387 9.30583 25.1615 7.9255 25.1615C6.5675 25.1615 5.40917 25.6352 4.4505 26.5825C3.49217 27.5302 3.013 28.6942 3.013 30.0745C3.013 31.4548 3.49217 32.6187 4.4505 33.566C5.40917 34.5133 6.5675 34.987 7.9255 34.987ZM40.054 34.987C41.4257 34.987 42.5908 34.5133 43.5495 33.566C44.5078 32.6187 44.987 31.4617 44.987 30.095C44.987 28.7147 44.5078 27.5473 43.5495 26.593C42.5908 25.6387 41.4257 25.1615 40.054 25.1615C38.6873 25.1615 37.5302 25.6387 36.5825 26.593C35.6352 27.5473 35.1615 28.7147 35.1615 30.095C35.1615 31.4617 35.6352 32.6187 36.5825 33.566C37.5302 34.5133 38.6873 34.987 40.054 34.987ZM24.054 30.8925L30.536 21.013H22.5485L13.754 24.2845L20.9895 30.8925H24.054Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="motorheating-rider-advantage__card-title">Designed For Riding</h3>
+        <p class="motorheating-rider-advantage__card-text">Every detail engineered around the riding position, movement, and wind.</p>
+      </div>
+
+      <div class="motorheating-rider-advantage__card">
+        <div class="motorheating-rider-advantage__icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.955 38.6025H36.16C36.2883 38.6025 36.3942 38.5576 36.4775 38.468C36.5608 38.3783 36.6025 38.2693 36.6025 38.141V29.136L38.354 28.405C39.0137 28.177 39.5465 27.7441 39.9525 27.1065C40.3585 26.4688 40.5615 25.7653 40.5615 24.996C40.5615 24.2013 40.3578 23.4921 39.9505 22.8685C39.5435 22.2448 39.0113 21.807 38.354 21.555L36.6025 20.8345V11.7435C36.6025 11.6025 36.5608 11.4903 36.4775 11.407C36.3942 11.3236 36.2883 11.282 36.16 11.282H27.0105L26.678 9.14096C26.5253 8.19396 26.1098 7.39096 25.4315 6.73196C24.7532 6.07296 23.9598 5.74346 23.0515 5.74346C22.1008 5.74346 21.287 6.07296 20.61 6.73196C19.9333 7.39096 19.5185 8.19396 19.3655 9.14096L19.0205 11.282H9.9565C9.84117 11.282 9.74183 11.3236 9.6585 11.407C9.57517 11.4903 9.5335 11.6025 9.5335 11.7435V16.895C11.2455 17.453 12.657 18.4776 13.768 19.969C14.879 21.4603 15.4345 23.1391 15.4345 25.0055C15.4345 26.9008 14.8822 28.6021 13.7775 30.1095C12.6728 31.6168 11.2513 32.6008 9.513 33.0615V38.141C9.513 38.2693 9.55467 38.3783 9.638 38.468C9.72133 38.5576 9.827 38.6025 9.955 38.6025ZM10.2195 41.1155C9.34217 41.1155 8.58617 40.795 7.9515 40.154C7.31717 39.5133 7 38.7431 7 37.8435V31.1575C8.66333 31.0651 10.0662 30.439 11.2085 29.279C12.3508 28.1186 12.922 26.6911 12.922 24.9965C12.922 23.3765 12.3477 21.9698 11.199 20.7765C10.05 19.5828 8.65717 18.926 7.0205 18.806V12.0075C7.0205 11.0941 7.33 10.3261 7.949 9.70346C8.56767 9.08079 9.32917 8.76946 10.2335 8.76946H16.8835C17.0958 7.21046 17.7778 5.89762 18.9295 4.83096C20.0812 3.76429 21.4475 3.23096 23.0285 3.23096C24.5812 3.23096 25.9383 3.76429 27.1 4.83096C28.2613 5.89762 28.9583 7.21046 29.191 8.76946H35.896C36.7967 8.76946 37.5583 9.08079 38.181 9.70346C38.804 10.3261 39.1155 11.0941 39.1155 12.0075V19.1605C40.3138 19.6391 41.2732 20.3921 41.9935 21.4195C42.7142 22.4468 43.0745 23.639 43.0745 24.996C43.0745 26.3346 42.7142 27.5165 41.9935 28.5415C41.2732 29.5668 40.3138 30.326 39.1155 30.819V37.8435C39.1155 38.7431 38.804 39.5133 38.181 40.154C37.5583 40.795 36.7967 41.1155 35.896 41.1155H10.2195Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="motorheating-rider-advantage__card-title">Modular Flexibility</h3>
+        <p class="motorheating-rider-advantage__card-text">Start with what you need. Expand your system as your rides demand more.</p>
+      </div>
+
+      <div class="motorheating-rider-advantage__card">
+        <div class="motorheating-rider-advantage__icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 42.9614C19.6607 41.7817 16.0758 39.2129 13.2455 35.2549C10.4152 31.2969 9 26.8957 9 22.0514V10.6924L24 5.0769L39 10.6924V22.0514C39 26.8957 37.5848 31.2969 34.7545 35.2549C31.9242 39.2129 28.3393 41.7817 24 42.9614ZM24 40.3409C27.3737 39.2556 30.183 37.1972 32.428 34.1659C34.6733 31.1346 35.9862 27.7459 36.3665 23.9999H24V7.78191L11.513 12.4319V22.0514C11.513 22.4144 11.5185 22.7314 11.5295 23.0024C11.5405 23.2734 11.5752 23.6059 11.6335 23.9999H24V40.3409Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="motorheating-rider-advantage__card-title">Reliable And Safe</h3>
+        <p class="motorheating-rider-advantage__card-text">Premium components, rigorous testing, and built-in safety protection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Rider Advantage",
+  "tag": "section",
+  "class": "motorheating-rider-advantage-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_desktop",
+      "label": "Desktop background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_mobile",
+      "label": "Mobile background image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Main title",
+      "default": "OUR ADVANTAGE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Subtitle",
+      "default": "WHY VENUSTAS BUILT FOR MODERN RIDERS"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Venustas started with a simple mission: keep people warm. Today, we bring years of heated apparel expertise to motorcycle riders with gear engineered for the ride, not just the cold.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rider Advantage"
+    }
+  ]
+}
+{% endschema %}

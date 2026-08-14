@@ -1,0 +1,244 @@
+{% style %}
+  #shopify-section-{{ section.id }} .motorheating-rider-tested-cta {
+    width: 100%;
+    color: var(--venustas-black);
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__inner {
+    width: min(100% - 40px, 1200px);
+    margin: 0 auto;
+    padding: 59px 0 118px;
+    display: grid;
+    grid-template-columns: minmax(0, 330px) minmax(0, 785px);
+    align-items: center;
+    justify-content: space-between;
+    gap: 84px;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__content {
+    min-width: 0;
+    text-align:left;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__title {
+    margin: 0;
+    color: var(--venustas-black);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__title-accent {
+    color: var(--color-brand);
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__description {
+    margin: 32px 0 56px;
+    color: var(--venustas-black);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__button {
+    width: 250px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    background: var(--color-brand);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__media {
+    width: 100%;
+    max-width: 785px;
+    aspect-ratio: 785 / 500;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #ddd;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__image--mobile {
+    display: none;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .motorheating-rider-tested-cta{
+       background: #f0f0f0;
+    }
+    #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__inner {
+      width: 100%;
+      padding: 24px 20px 48px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: stretch;
+      gap: 32px;
+    }
+    #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__content{
+        text-align:center;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__title {
+      font-size: 24px;
+      line-height: 1.12;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__description {
+      margin: 16px 0 24px;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__button {
+      width: 100%;
+      max-width: 350px;
+      height: 48px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__media {
+      max-width: 785px;
+      margin: 0 auto;
+      aspect-ratio: 785 / 500;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__image--mobile {
+      display: block;
+    }
+  }
+  @media only screen and (max-width: 450px) {
+     #shopify-section-{{ section.id }} .motorheating-rider-tested-cta__content{
+        text-align:left;
+     }
+  }
+{% endstyle %}
+
+<section class="motorheating-rider-tested-cta">
+  <div class="motorheating-rider-tested-cta__inner">
+    <div class="motorheating-rider-tested-cta__content">
+      <h2 class="motorheating-rider-tested-cta__title">
+        Built by Venustas.<br>
+        <span class="motorheating-rider-tested-cta__title-accent">Tested by Riders.</span>
+      </h2>
+
+      {%- if section.settings.description != blank -%}
+        <div class="motorheating-rider-tested-cta__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_text != blank -%}
+        <a class="motorheating-rider-tested-cta__button" href="{{ section.settings.button_link | default: '#' }}">
+          {{ section.settings.button_text }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="motorheating-rider-tested-cta__media">
+      {%- if section.settings.image_desktop != blank -%}
+        {{
+          section.settings.image_desktop
+          | image_url: width: 1570
+          | image_tag:
+            class: 'motorheating-rider-tested-cta__image motorheating-rider-tested-cta__image--desktop',
+            loading: 'lazy',
+            widths: '393,785,1180,1570',
+            sizes: '(max-width: 767px) 0px, min(100vw - 455px, 785px)',
+            alt: section.settings.image_desktop.alt | default: 'Motorcycle rider'
+        }}
+      {%- endif -%}
+
+      {%- if section.settings.image_mobile != blank -%}
+        {{
+          section.settings.image_mobile
+          | image_url: width: 900
+          | image_tag:
+            class: 'motorheating-rider-tested-cta__image motorheating-rider-tested-cta__image--mobile',
+            loading: 'lazy',
+            widths: '350,500,700,900',
+            sizes: '(max-width: 767px) calc(100vw - 40px), 0px',
+            alt: section.settings.image_mobile.alt | default: 'Motorcycle rider'
+        }}
+      {%- elsif section.settings.image_desktop != blank -%}
+        {{
+          section.settings.image_desktop
+          | image_url: width: 900
+          | image_tag:
+            class: 'motorheating-rider-tested-cta__image motorheating-rider-tested-cta__image--mobile',
+            loading: 'lazy',
+            widths: '350,500,700,900',
+            sizes: '(max-width: 767px) calc(100vw - 40px), 0px',
+            alt: section.settings.image_desktop.alt | default: 'Motorcycle rider'
+        }}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Rider Tested CTA",
+  "tag": "section",
+  "class": "motorheating-rider-tested-cta-section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>We don't just make heated gear. We make it better for the way you ride.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Explore Heated Apparel"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rider Tested CTA"
+    }
+  ]
+}
+{% endschema %}

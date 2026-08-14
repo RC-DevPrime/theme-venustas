@@ -1,0 +1,503 @@
+{% style %}
+  #shopify-section-{{ section.id }} .motorheating-rider-approved {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    color: var(--venustas-black);
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__inner {
+    width: min(100% - 40px, 1200px);
+    margin: 0 auto;
+    padding: 118px 0 59px;
+    display: grid;
+    grid-template-columns: minmax(0, 806px) 310px;
+    align-items: center;
+    gap: 88px;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__gallery {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 193 / 500;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #ddd;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 16px 58px;
+    box-sizing: border-box;
+    color: #fff;
+    text-align: center;
+    background: {{ section.settings.overlay_color }};
+    opacity: 0;
+    transition: opacity 240ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__card:hover .motorheating-rider-approved__overlay,
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__card:focus-within .motorheating-rider-approved__overlay {
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__card-title {
+    margin: 0 0 8px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__card-subtitle {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__content {
+    width: 310px;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__heading {
+    margin: 0 0 64px;
+    color: #191919;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__stats {
+    display: grid;
+    gap: 36px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__stat-value {
+    display: block;
+    margin-bottom: 14px;
+    color: var(--color-brand);
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__stat-label {
+    display: block;
+    color: var(--venustas-black);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-rider-approved__mobile-copy {
+    display: none;
+  }
+
+  @media only screen and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .motorheating-rider-approved{
+      background:#f0f0f0;
+    }
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__content{
+      padding:0 20px;
+      width:100%;
+    }
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__inner {
+      width: 100%;
+      padding: 56px 0 24px;
+      text-align: center;
+      grid-template-columns:1fr;
+      gap:16px;
+    }
+   
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__heading {
+      max-width: 280px;
+      margin: 0 auto 40px;
+      font-size: 24px;
+      line-height: 1.12;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__stats {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__stat-value {
+      margin-bottom: 8px;
+      font-size: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__stat-label {
+      font-size: 12px;
+      line-height: 1.15;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__mobile-frame {
+      margin: 0 20px;
+      padding: 16px 10px 28px;
+      border-radius: 12px;
+      background: #fff;
+      overflow: hidden;
+      order:2;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__gallery {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      touch-action: pan-y pinch-zoom;
+      padding-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__gallery::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__card {
+      flex: 0 0 calc((100% - 8px) / 1.5);
+      aspect-ratio: 193 / 210;
+      border-radius: 6px;
+      scroll-snap-align: start;
+      transform: translate3d(0, 0, 0);
+      transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__card.is-dragging {
+      transition: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__image--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__overlay {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__mobile-copy {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__mobile-copy::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__mobile-copy-item {
+      flex: 0 0 calc((100% - 8px) / 1.5);
+      scroll-snap-align: start;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__mobile-title {
+      margin: 0 0 6px;
+      color: var(--venustas-black);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-rider-approved__mobile-subtitle {
+      margin: 0;
+      color: var(--venustas-black);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+  }
+{% endstyle %}
+
+<section class="motorheating-rider-approved">
+  <div class="motorheating-rider-approved__inner">
+    <div class="motorheating-rider-approved__mobile-frame">
+      <div class="motorheating-rider-approved__gallery" data-motorheating-rider-approved-gallery>
+        {%- for block in section.blocks -%}
+          <div class="motorheating-rider-approved__card" {{ block.shopify_attributes }}>
+            {%- if block.settings.image_desktop != blank -%}
+              {{
+                block.settings.image_desktop
+                | image_url: width: 600
+                | image_tag:
+                  class: 'motorheating-rider-approved__image motorheating-rider-approved__image--desktop',
+                  loading: 'lazy',
+                  widths: '193,386,600',
+                  sizes: '(max-width: 767px) 0px, 193px',
+                  alt: block.settings.image_desktop.alt | default: block.settings.title
+              }}
+            {%- endif -%}
+
+            {%- if block.settings.image_mobile != blank -%}
+              {{
+                block.settings.image_mobile
+                | image_url: width: 700
+                | image_tag:
+                  class: 'motorheating-rider-approved__image motorheating-rider-approved__image--mobile',
+                  loading: 'lazy',
+                  widths: '180,260,360,520,700',
+                  sizes: '(max-width: 767px) calc((100vw - 36px - 8px) / 1.5), 0px',
+                  alt: block.settings.image_mobile.alt | default: block.settings.title
+              }}
+            {%- elsif block.settings.image_desktop != blank -%}
+              {{
+                block.settings.image_desktop
+                | image_url: width: 700
+                | image_tag:
+                  class: 'motorheating-rider-approved__image motorheating-rider-approved__image--mobile',
+                  loading: 'lazy',
+                  widths: '180,260,360,520,700',
+                  sizes: '(max-width: 767px) calc((100vw - 36px - 8px) / 1.5), 0px',
+                  alt: block.settings.image_desktop.alt | default: block.settings.title
+              }}
+            {%- endif -%}
+
+            <div class="motorheating-rider-approved__overlay">
+              {%- if block.settings.title != blank -%}
+                <h3 class="motorheating-rider-approved__card-title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.subtitle != blank -%}
+                <p class="motorheating-rider-approved__card-subtitle">{{ block.settings.subtitle }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="motorheating-rider-approved__mobile-copy" data-motorheating-rider-approved-copy>
+        {%- for block in section.blocks -%}
+          <div class="motorheating-rider-approved__mobile-copy-item">
+            {%- if block.settings.title != blank -%}
+              <h3 class="motorheating-rider-approved__mobile-title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.subtitle != blank -%}
+              <p class="motorheating-rider-approved__mobile-subtitle">{{ block.settings.subtitle }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="motorheating-rider-approved__content">
+      {%- if section.settings.title != blank -%}
+        <h2 class="motorheating-rider-approved__heading">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      <ul class="motorheating-rider-approved__stats">
+        <li>
+          <span class="motorheating-rider-approved__stat-value">2M+</span>
+          <span class="motorheating-rider-approved__stat-label">Happy Customers</span>
+        </li>
+        <li>
+          <span class="motorheating-rider-approved__stat-value">8+</span>
+          <span class="motorheating-rider-approved__stat-label">Years Innovation</span>
+        </li>
+        <li>
+          <span class="motorheating-rider-approved__stat-value">30+</span>
+          <span class="motorheating-rider-approved__stat-label">Countries</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section || window.matchMedia('(min-width: 768px)').matches) return;
+
+    const gallery = section.querySelector('[data-motorheating-rider-approved-gallery]');
+    const copy = section.querySelector('[data-motorheating-rider-approved-copy]');
+    if (!gallery) return;
+
+    let startX = 0;
+    let startY = 0;
+    let active = false;
+    let horizontal = false;
+
+    const cards = () => Array.from(gallery.querySelectorAll('.motorheating-rider-approved__card'));
+
+    const resetCards = () => {
+      cards().forEach((card) => {
+        card.classList.remove('is-dragging');
+        card.style.transform = '';
+      });
+    };
+
+    gallery.addEventListener('scroll', () => {
+      if (copy) copy.scrollLeft = gallery.scrollLeft;
+    }, { passive: true });
+
+    gallery.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'mouse') return;
+      active = true;
+      horizontal = false;
+      startX = event.clientX;
+      startY = event.clientY;
+    }, { passive: true });
+
+    gallery.addEventListener('pointermove', (event) => {
+      if (!active) return;
+      const dx = event.clientX - startX;
+      const dy = event.clientY - startY;
+      if (!horizontal && Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      if (!horizontal && Math.abs(dy) > Math.abs(dx)) return;
+
+      horizontal = true;
+      const offset = Math.max(-18, Math.min(18, dx * 0.16));
+      cards().forEach((card) => {
+        card.classList.add('is-dragging');
+        card.style.transform = `translate3d(${offset}px, 0, 0)`;
+      });
+    }, { passive: true });
+
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach((eventName) => {
+      gallery.addEventListener(eventName, () => {
+        active = false;
+        horizontal = false;
+        resetCards();
+      }, { passive: true });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Rider Approved",
+  "tag": "section",
+  "class": "motorheating-rider-approved-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "TRUSTED HEAT. RIDER APPROVED."
+    },
+    {
+      "type": "color_background",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "linear-gradient(180deg, rgba(185, 50, 5, 0.42) 0%, rgba(96, 21, 0, 0.72) 100%)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "riding_scene",
+      "name": "Riding scene",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Desktop image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Main title",
+          "default": "COMMUTE"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Everyday warm rides."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rider Approved",
+      "blocks": [
+        {
+          "type": "riding_scene",
+          "settings": {
+            "title": "COMMUTE",
+            "subtitle": "Everyday warm rides."
+          }
+        },
+        {
+          "type": "riding_scene",
+          "settings": {
+            "title": "ADVENTURE",
+            "subtitle": "Long rides. Harsh conditions."
+          }
+        },
+        {
+          "type": "riding_scene",
+          "settings": {
+            "title": "TOURING",
+            "subtitle": "Comfort for the long road."
+          }
+        },
+        {
+          "type": "riding_scene",
+          "settings": {
+            "title": "PERFORMANCE",
+            "subtitle": "Built for focused riders."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

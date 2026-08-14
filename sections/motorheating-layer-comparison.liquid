@@ -1,0 +1,363 @@
+{% style %}
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison {
+    width: 100%;
+    background: var(--venustas-black);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__inner {
+    width: min(100% - 40px, 1200px);
+    margin: 0 auto;
+    padding: 48px 0 0;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__title {
+    margin: 0 0 22px;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__subtitle {
+    margin: 0 0 60px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__subtitle p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__visual {
+    display:flex;
+    gap:20px;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1200 / 482;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__image {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__panel {
+    z-index: 1;
+    width: 590px;
+    text-align: left;
+    padding-left:34px;
+    padding-top:38px;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__panel-title {
+    margin: 0 0 68px;
+    max-width: 320px;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__panel--right .motorheating-active-layer-comparison__panel-title {
+    margin-bottom: 64px;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__list {
+    display: grid;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #666;
+    font-size: 16px;
+    line-height: 1.15;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__panel--right .motorheating-active-layer-comparison__item {
+    color: var(--color-brand);
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__icon {
+    width: 1em;
+    height: 1em;
+    flex: 0 0 1em;
+    font-size: 32px;
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__item-text {
+    max-width: 175px;
+    padding-top: 2px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+  @media only screen and (max-width: 1200px) {
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__visual {
+        min-height:482px;
+    }
+  }
+
+  @media only screen and (max-width: 998px) {
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__inner {
+      width: 100%;
+      padding: 36px 20px 0;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__title {
+      margin-bottom: 22px;
+      font-size: 24px;
+      line-height: 1.05;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__subtitle {
+      margin-bottom: 54px;
+      font-size: 16px;
+      line-height: 1.3;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__visual {
+      display:block;
+      width: 100%;
+      height:884px;
+      margin: 0 auto;
+      padding-left:16px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__image--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__panel {
+      width: calc(100% - 32px);
+      padding:28px 0 0 0;
+    }
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__panel--left{
+      padding-bottom:76px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__panel-title {
+      margin-bottom: 44px;
+      max-width: 300px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__panel--right .motorheating-active-layer-comparison__panel-title {
+      margin-bottom: 28px;
+    }
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__item {
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__icon {
+      font-size: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__item-text {
+      max-width: 170px;
+      line-height: 1.15;
+    }
+  }
+{% endstyle %}
+
+<section class="motorheating-active-layer-comparison">
+  <div class="motorheating-active-layer-comparison__inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="motorheating-active-layer-comparison__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subtitle != blank -%}
+      <div class="motorheating-active-layer-comparison__subtitle">{{ section.settings.subtitle }}</div>
+    {%- endif -%}
+
+    <div class="motorheating-active-layer-comparison__visual">
+      {%- if section.settings.image_desktop != blank -%}
+        {{
+          section.settings.image_desktop
+          | image_url: width: 2400
+          | image_tag:
+            class: 'motorheating-active-layer-comparison__image motorheating-active-layer-comparison__image--desktop',
+            loading: 'lazy',
+            widths: '720,960,1200,1440,1800,2400',
+            sizes: '(max-width: 767px) 0px, min(100vw - 40px, 1200px)',
+            alt: section.settings.image_desktop.alt | default: section.settings.title
+        }}
+      {%- endif -%}
+
+      {%- if section.settings.image_mobile != blank -%}
+        {{
+          section.settings.image_mobile
+          | image_url: width: 900
+          | image_tag:
+            class: 'motorheating-active-layer-comparison__image motorheating-active-layer-comparison__image--mobile',
+            loading: 'lazy',
+            widths: '350,500,700,900',
+            sizes: '(max-width: 767px) min(100vw - 24px, 350px), 0px',
+            alt: section.settings.image_mobile.alt | default: section.settings.title
+        }}
+      {%- elsif section.settings.image_desktop != blank -%}
+        {{
+          section.settings.image_desktop
+          | image_url: width: 900
+          | image_tag:
+            class: 'motorheating-active-layer-comparison__image motorheating-active-layer-comparison__image--mobile',
+            loading: 'lazy',
+            widths: '350,500,700,900',
+            sizes: '(max-width: 767px) min(100vw - 24px, 350px), 0px',
+            alt: section.settings.image_desktop.alt | default: section.settings.title
+        }}
+      {%- endif -%}
+
+      <div class="motorheating-active-layer-comparison__panel motorheating-active-layer-comparison__panel--left">
+        <h3 class="motorheating-active-layer-comparison__panel-title">More Layers Aren't Always The Answer</h3>
+        <ul class="motorheating-active-layer-comparison__list">
+          <li class="motorheating-active-layer-comparison__item">
+            <span class="motorheating-active-layer-comparison__icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.3334 21.3334C21.3334 21.3334 19.3334 18.6667 16.0001 18.6667C12.6667 18.6667 10.6667 21.3334 10.6667 21.3334M12.0001 12H12.0134M20.0001 12H20.0134M29.3334 16C29.3334 23.3638 23.3639 29.3334 16.0001 29.3334C8.63628 29.3334 2.66675 23.3638 2.66675 16C2.66675 8.63622 8.63628 2.66669 16.0001 2.66669C23.3639 2.66669 29.3334 8.63622 29.3334 16Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="motorheating-active-layer-comparison__item-text">Bulky and restricted movement</span>
+          </li>
+          <li class="motorheating-active-layer-comparison__item">
+            <span class="motorheating-active-layer-comparison__icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.3334 21.3334C21.3334 21.3334 19.3334 18.6667 16.0001 18.6667C12.6667 18.6667 10.6667 21.3334 10.6667 21.3334M12.0001 12H12.0134M20.0001 12H20.0134M29.3334 16C29.3334 23.3638 23.3639 29.3334 16.0001 29.3334C8.63628 29.3334 2.66675 23.3638 2.66675 16C2.66675 8.63622 8.63628 2.66669 16.0001 2.66669C23.3639 2.66669 29.3334 8.63622 29.3334 16Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="motorheating-active-layer-comparison__item-text">Hard to fit under riding gear</span>
+          </li>
+          <li class="motorheating-active-layer-comparison__item">
+            <span class="motorheating-active-layer-comparison__icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.3334 21.3334C21.3334 21.3334 19.3334 18.6667 16.0001 18.6667C12.6667 18.6667 10.6667 21.3334 10.6667 21.3334M12.0001 12H12.0134M20.0001 12H20.0134M29.3334 16C29.3334 23.3638 23.3639 29.3334 16.0001 29.3334C8.63628 29.3334 2.66675 23.3638 2.66675 16C2.66675 8.63622 8.63628 2.66669 16.0001 2.66669C23.3639 2.66669 29.3334 8.63622 29.3334 16Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="motorheating-active-layer-comparison__item-text">Traps moisture and causes sweat</span>
+          </li>
+          <li class="motorheating-active-layer-comparison__item">
+            <span class="motorheating-active-layer-comparison__icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.3334 21.3334C21.3334 21.3334 19.3334 18.6667 16.0001 18.6667C12.6667 18.6667 10.6667 21.3334 10.6667 21.3334M12.0001 12H12.0134M20.0001 12H20.0134M29.3334 16C29.3334 23.3638 23.3639 29.3334 16.0001 29.3334C8.63628 29.3334 2.66675 23.3638 2.66675 16C2.66675 8.63622 8.63628 2.66669 16.0001 2.66669C23.3639 2.66669 29.3334 8.63622 29.3334 16Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="motorheating-active-layer-comparison__item-text">Uneven warmth and cold spots</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="motorheating-active-layer-comparison__panel motorheating-active-layer-comparison__panel--right">
+        <h3 class="motorheating-active-layer-comparison__panel-title">Active Heated Layers Change The Ride</h3>
+        <ul class="motorheating-active-layer-comparison__list">
+          <li class="motorheating-active-layer-comparison__item">
+            <span class="motorheating-active-layer-comparison__icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M29.3334 14.7734V16C29.3318 18.8753 28.4008 21.6729 26.6792 23.9758C24.9576 26.2787 22.5378 27.9633 19.7806 28.7786C17.0233 29.5938 14.0764 29.4959 11.3794 28.4995C8.68232 27.503 6.37962 25.6615 4.8147 23.2494C3.24977 20.8374 2.50647 17.9841 2.69565 15.1151C2.88483 12.2461 3.99636 9.51512 5.86445 7.32945C7.73255 5.14378 10.2571 3.62053 13.0617 2.98688C15.8662 2.35324 18.8004 2.64314 21.4268 3.81336M29.3334 5.33336L16.0001 18.68L12.0001 14.68" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="motorheating-active-layer-comparison__item-text">Targeted heat</span>
+          </li>
+          <li class="motorheating-active-layer-comparison__item">
+            <span class="motorheating-active-layer-comparison__icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M29.3334 14.7734V16C29.3318 18.8753 28.4008 21.6729 26.6792 23.9758C24.9576 26.2787 22.5378 27.9633 19.7806 28.7786C17.0233 29.5938 14.0764 29.4959 11.3794 28.4995C8.68232 27.503 6.37962 25.6615 4.8147 23.2494C3.24977 20.8374 2.50647 17.9841 2.69565 15.1151C2.88483 12.2461 3.99636 9.51512 5.86445 7.32945C7.73255 5.14378 10.2571 3.62053 13.0617 2.98688C15.8662 2.35324 18.8004 2.64314 21.4268 3.81336M29.3334 5.33336L16.0001 18.68L12.0001 14.68" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="motorheating-active-layer-comparison__item-text">Slim profile for outer layering</span>
+          </li>
+          <li class="motorheating-active-layer-comparison__item">
+            <span class="motorheating-active-layer-comparison__icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M29.3334 14.7734V16C29.3318 18.8753 28.4008 21.6729 26.6792 23.9758C24.9576 26.2787 22.5378 27.9633 19.7806 28.7786C17.0233 29.5938 14.0764 29.4959 11.3794 28.4995C8.68232 27.503 6.37962 25.6615 4.8147 23.2494C3.24977 20.8374 2.50647 17.9841 2.69565 15.1151C2.88483 12.2461 3.99636 9.51512 5.86445 7.32945C7.73255 5.14378 10.2571 3.62053 13.0617 2.98688C15.8662 2.35324 18.8004 2.64314 21.4268 3.81336M29.3334 5.33336L16.0001 18.68L12.0001 14.68" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="motorheating-active-layer-comparison__item-text">Designed for motorcycle riding</span>
+          </li>
+          <li class="motorheating-active-layer-comparison__item">
+            <span class="motorheating-active-layer-comparison__icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M29.3334 14.7734V16C29.3318 18.8753 28.4008 21.6729 26.6792 23.9758C24.9576 26.2787 22.5378 27.9633 19.7806 28.7786C17.0233 29.5938 14.0764 29.4959 11.3794 28.4995C8.68232 27.503 6.37962 25.6615 4.8147 23.2494C3.24977 20.8374 2.50647 17.9841 2.69565 15.1151C2.88483 12.2461 3.99636 9.51512 5.86445 7.32945C7.73255 5.14378 10.2571 3.62053 13.0617 2.98688C15.8662 2.35324 18.8004 2.64314 21.4268 3.81336M29.3334 5.33336L16.0001 18.68L12.0001 14.68" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="motorheating-active-layer-comparison__item-text">Heat where riders need it most</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Active Layer Comparison",
+  "tag": "section",
+  "class": "motorheating-layer-comparison-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "RETHINK COLD-WEATHER RIDING"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>Traditional layers keep you covered. Active heat keeps you moving.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop comparison image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile comparison image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Active Layer Comparison"
+    }
+  ]
+}
+{% endschema %}

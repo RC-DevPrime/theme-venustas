@@ -1,0 +1,244 @@
+{% style %}
+  #shopify-section-{{ section.id }} .motorcycle-heating-hero {
+    font-family: Montserrat;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1440 / 560;
+    min-height: 320px;
+    overflow: hidden;
+    background: #1d211f;
+  }
+
+  #shopify-section-{{ section.id }} .motorcycle-heating-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .motorcycle-heating-hero__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .motorcycle-heating-hero__placeholder {
+    position: absolute;
+    inset: 0;
+    background: #2f3733;
+  }
+
+  #shopify-section-{{ section.id }} .motorcycle-heating-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.22) 42%, rgba(0, 0, 0, 0.08) 100%);
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .motorcycle-heating-hero__inner {
+    position: relative;
+    z-index: 1;
+    width: min(100% - 40px, 1200px);
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .motorcycle-heating-hero__content {
+    width: min(100%, 720px);
+    color: #fff;
+    text-align: left;
+    padding-bottom:28px;
+  }
+
+  #shopify-section-{{ section.id }} .motorcycle-heating-hero__subtitle {
+    margin: 0 0 8px;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .motorcycle-heating-hero__title {
+    margin: 0 0 32px;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .motorcycle-heating-hero__title-accent {
+    color: var(--color-brand);
+  }
+
+  #shopify-section-{{ section.id }} .motorcycle-heating-hero__description {
+    width: min(100%, 545px);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: 0;
+    margin-bottom:55px;
+  }
+
+  #shopify-section-{{ section.id }} .motorcycle-heating-hero__description p {
+    margin: 0;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .motorcycle-heating-hero {
+      aspect-ratio: 390 / 488;
+      min-height: 488px;
+    }
+    #shopify-section-{{ section.id }} .motorcycle-heating-hero__inner{
+      align-items: flex-end;
+    }
+    #shopify-section-{{ section.id }} .motorcycle-heating-hero__description{
+      margin-bottom:32px;
+    }
+
+    #shopify-section-{{ section.id }} .motorcycle-heating-hero__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorcycle-heating-hero__image--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .motorcycle-heating-hero__overlay {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.34) 48%, rgba(0, 0, 0, 0.58) 100%);
+    }
+
+    #shopify-section-{{ section.id }} .motorcycle-heating-hero__inner {
+      width: 100%;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .motorcycle-heating-hero__content {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .motorcycle-heating-hero__subtitle {
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .motorcycle-heating-hero__title {
+      margin-bottom: 16px;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    #shopify-section-{{ section.id }} .motorcycle-heating-hero__description {
+      margin-bottom:32px;
+      width: 100%;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+  }
+{% endstyle %}
+
+<section class="motorcycle-heating-hero">
+  {%- if section.settings.banner_image_desktop != blank -%}
+    {{
+      section.settings.banner_image_desktop
+      | image_url: width: 2880
+      | image_tag:
+        class: 'motorcycle-heating-hero__image motorcycle-heating-hero__image--desktop',
+        loading: 'eager',
+        widths: '720,960,1200,1440,1800,2400,2880',
+        sizes: '100vw',
+        alt: section.settings.banner_image_desktop.alt | default: 'Motorcycle heating hero'
+    }}
+  {%- endif -%}
+
+  {%- if section.settings.banner_image_mobile != blank -%}
+    {{
+      section.settings.banner_image_mobile
+      | image_url: width: 900
+      | image_tag:
+        class: 'motorcycle-heating-hero__image motorcycle-heating-hero__image--mobile',
+        loading: 'eager',
+        widths: '390,600,780,900',
+        sizes: '100vw',
+        alt: section.settings.banner_image_mobile.alt | default: 'Motorcycle heating hero'
+    }}
+  {%- elsif section.settings.banner_image_desktop != blank -%}
+    {{
+      section.settings.banner_image_desktop
+      | image_url: width: 900
+      | image_tag:
+        class: 'motorcycle-heating-hero__image motorcycle-heating-hero__image--mobile',
+        loading: 'eager',
+        widths: '390,600,780,900',
+        sizes: '100vw',
+        alt: section.settings.banner_image_desktop.alt | default: 'Motorcycle heating hero'
+    }}
+  {%- else -%}
+    <div class="motorcycle-heating-hero__placeholder" aria-hidden="true"></div>
+  {%- endif -%}
+
+  <div class="motorcycle-heating-hero__overlay" aria-hidden="true"></div>
+
+  <div class="motorcycle-heating-hero__inner">
+    <div class="motorcycle-heating-hero__content">
+      {%- if section.settings.subtitle != blank -%}
+        <p class="motorcycle-heating-hero__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+      <h1 class="motorcycle-heating-hero__title">
+        RIDE BEYOND THE <span class="motorcycle-heating-hero__title-accent">COLD</span>
+      </h1>
+      {%- if section.settings.description != blank -%}
+        <div class="motorcycle-heating-hero__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+      <div class="klaviyo-form-UkBhX6"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Motorcycle Heating Hero",
+  "tag": "section",
+  "class": "motorcycle-heating-hero-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image_desktop",
+      "label": "Desktop banner image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image_mobile",
+      "label": "Mobile banner image"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "SOMETHING NEW IS COMING"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>A new heated riding system from Venustas. Engineered for modern riders who refuse to stop when temperatures drop.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Motorcycle Heating Hero"
+    }
+  ]
+}
+{% endschema %}

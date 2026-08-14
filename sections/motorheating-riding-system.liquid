@@ -1,0 +1,413 @@
+{% style %}
+  #shopify-section-{{ section.id }} .motorheating-riding-system {
+    width: 100%;
+    background: #fff;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__inner {
+    width: min(100% - 40px, 1200px);
+    margin: 0 auto;
+    padding: 114px 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__panel {
+    position:relative;
+    min-height: 580px;
+    padding: 46px 82px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background: var(--venustas-black);
+    display: grid;
+    grid-template-columns: minmax(0, 380px) 450px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 72px;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__content {
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__title,
+  #shopify-section-{{ section.id }} .motorheating-riding-system__accent {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__title {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__accent {
+    color: var(--color-brand);
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__description {
+    margin: 32px 0 150px;
+    max-width: 350px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__link {
+    position:absolute;
+    bottom:64px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-image-wrap {
+    width: 450px;
+    aspect-ratio: 450 / 580;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__mobile-gallery {
+    display: none;
+  }
+
+  @media only screen and (max-width: 1199px) {
+     #shopify-section-{{ section.id }} .motorheating-riding-system__panel{
+        grid-template-columns:minmax(0, 380px) 240px;
+     }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .motorheating-riding-system {
+      background: var(--venustas-black);
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__inner {
+      width: 100%;
+      padding: 30px 0 24px;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__panel {
+      min-height: 0;
+      padding: 0 20px;
+      display: block;
+      border-radius: 0;
+      background: var(--venustas-black);
+    }
+    #shopify-section-{{ section.id }} .motorheating-riding-system__content{
+      position:relative;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__title,
+    #shopify-section-{{ section.id }} .motorheating-riding-system__accent {
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__description {
+      margin: 12px 0 20px;
+      max-width: none;
+      font-size: 16px;
+      line-height: 1.22;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-image-wrap {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__mobile-gallery {
+      display: block;
+      margin: 0 0 18px;
+      padding: 16px 16px 56px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background: #242424;
+      overflow: hidden;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__mobile-track {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      touch-action: pan-y pinch-zoom;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__mobile-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__mobile-card {
+      flex: 0 0 calc((100% - 8px) / 1.5);
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      scroll-snap-align: start;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #000;
+      transform: translate3d(0, 0, 0);
+      transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__mobile-card.is-dragging {
+      transition: none;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__mobile-image {
+      width: 100%;
+      flex: 1 1 auto;
+      min-height: 0;
+      display: block;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__mobile-label {
+      margin: 0;
+      padding: 10px 8px 12px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .motorheating-riding-system__link {
+      bottom:20px;
+      font-size: 12px;
+      left:16px;
+    }
+  }
+{% endstyle %}
+
+<section class="motorheating-riding-system">
+  <div class="motorheating-riding-system__inner">
+    <div class="motorheating-riding-system__panel">
+      <div class="motorheating-riding-system__content">
+        {%- if section.settings.title != blank -%}
+          <h2 class="motorheating-riding-system__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.accent_title != blank -%}
+          <p class="motorheating-riding-system__accent">{{ section.settings.accent_title }}</p>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="motorheating-riding-system__description">{{ section.settings.description }}</div>
+        {%- endif -%}
+
+        <div class="motorheating-riding-system__mobile-gallery" data-motorheating-riding-system-gallery>
+          <div class="motorheating-riding-system__mobile-track">
+            {%- for index in (1..3) -%}
+              {%- assign image_key = 'mobile_image_' | append: index -%}
+              {%- assign title_key = 'mobile_title_' | append: index -%}
+              {%- assign image = section.settings[image_key] -%}
+              {%- assign title = section.settings[title_key] -%}
+              <div class="motorheating-riding-system__mobile-card">
+                {%- if image != blank -%}
+                  {{
+                    image
+                    | image_url: width: 700
+                    | image_tag:
+                      class: 'motorheating-riding-system__mobile-image',
+                      loading: 'lazy',
+                      widths: '180,260,360,520,700',
+                      sizes: '(max-width: 767px) calc((100vw - 60px - 8px) / 1.5), 0px',
+                      alt: image.alt | default: title
+                  }}
+                {%- endif -%}
+                {%- if title != blank -%}
+                  <p class="motorheating-riding-system__mobile-label">{{ title }}</p>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        {%- if section.settings.more_text != blank -%}
+          <a class="motorheating-riding-system__link" href="{{ section.settings.more_link | default: '#' }}">
+            {{ section.settings.more_text }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="motorheating-riding-system__desktop-image-wrap">
+        {%- if section.settings.desktop_image != blank -%}
+          {{
+            section.settings.desktop_image
+            | image_url: width: 900
+            | image_tag:
+              class: 'motorheating-riding-system__desktop-image',
+              loading: 'lazy',
+              widths: '450,675,900',
+              sizes: '(max-width: 767px) 0px, 450px',
+              alt: section.settings.desktop_image.alt | default: section.settings.accent_title
+          }}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section || window.matchMedia('(min-width: 768px)').matches) return;
+
+    const gallery = section.querySelector('[data-motorheating-riding-system-gallery]');
+    const track = gallery && gallery.querySelector('.motorheating-riding-system__mobile-track');
+    if (!track) return;
+
+    let startX = 0;
+    let startY = 0;
+    let active = false;
+    let horizontal = false;
+
+    const cards = () => Array.from(track.querySelectorAll('.motorheating-riding-system__mobile-card'));
+
+    const resetCards = () => {
+      cards().forEach((card) => {
+        card.classList.remove('is-dragging');
+        card.style.transform = '';
+      });
+    };
+
+    track.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'mouse') return;
+      active = true;
+      horizontal = false;
+      startX = event.clientX;
+      startY = event.clientY;
+    }, { passive: true });
+
+    track.addEventListener('pointermove', (event) => {
+      if (!active) return;
+      const dx = event.clientX - startX;
+      const dy = event.clientY - startY;
+      if (!horizontal && Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      if (!horizontal && Math.abs(dy) > Math.abs(dx)) return;
+
+      horizontal = true;
+      const offset = Math.max(-18, Math.min(18, dx * 0.16));
+      cards().forEach((card) => {
+        card.classList.add('is-dragging');
+        card.style.transform = `translate3d(${offset}px, 0, 0)`;
+      });
+    }, { passive: true });
+
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach((eventName) => {
+      track.addEventListener(eventName, () => {
+        active = false;
+        horizontal = false;
+        resetCards();
+      }, { passive: true });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Riding System",
+  "tag": "section",
+  "class": "motorheating-riding-system-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Introducing Venustas"
+    },
+    {
+      "type": "text",
+      "id": "accent_title",
+      "label": "Accent title",
+      "default": "Heated Riding System"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>A modular system that lets riders choose the warmth they need - from upper body comfort to full-body coverage. Start with what you need. Expand when your ride demands more.</p>"
+    },
+    {
+      "type": "text",
+      "id": "more_text",
+      "label": "More to come text",
+      "default": "More To Come..."
+    },
+    {
+      "type": "url",
+      "id": "more_link",
+      "label": "More to come link"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_1",
+      "label": "Mobile image 1"
+    },
+    {
+      "type": "text",
+      "id": "mobile_title_1",
+      "label": "Mobile image 1 title",
+      "default": "Heated Vest"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_2",
+      "label": "Mobile image 2"
+    },
+    {
+      "type": "text",
+      "id": "mobile_title_2",
+      "label": "Mobile image 2 title",
+      "default": "Heated Pants"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_3",
+      "label": "Mobile image 3"
+    },
+    {
+      "type": "text",
+      "id": "mobile_title_3",
+      "label": "Mobile image 3 title",
+      "default": "Heated Jacket"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Riding System"
+    }
+  ]
+}
+{% endschema %}
