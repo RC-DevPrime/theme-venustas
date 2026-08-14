@@ -26,6 +26,50 @@
         "subtitle": "<p>Traditional layers keep you covered. Active heat keeps you moving.</p>"
       }
     },
+    "motorheating_rider_approved_cUP7R8": {
+      "type": "motorheating-rider-approved",
+      "blocks": {
+        "riding_scene_7cJ8kV": {
+          "type": "riding_scene",
+          "settings": {
+            "title": "COMMUTE",
+            "subtitle": "Everyday warm rides."
+          }
+        },
+        "riding_scene_rfaejY": {
+          "type": "riding_scene",
+          "settings": {
+            "title": "ADVENTURE",
+            "subtitle": "Long rides. Harsh conditions."
+          }
+        },
+        "riding_scene_mBW4pT": {
+          "type": "riding_scene",
+          "settings": {
+            "title": "TOURING",
+            "subtitle": "Comfort for the long road."
+          }
+        },
+        "riding_scene_L6nz4Y": {
+          "type": "riding_scene",
+          "settings": {
+            "title": "PERFORMANCE",
+            "subtitle": "Built for focused riders."
+          }
+        }
+      },
+      "block_order": [
+        "riding_scene_7cJ8kV",
+        "riding_scene_rfaejY",
+        "riding_scene_mBW4pT",
+        "riding_scene_L6nz4Y"
+      ],
+      "name": "Rider Approved",
+      "settings": {
+        "title": "TRUSTED HEAT. RIDER APPROVED.",
+        "overlay_color": "linear-gradient(180deg, rgba(185, 50, 5, 0.42), rgba(96, 21, 0, 0.72) 100%)"
+      }
+    },
     "motorheating_riding_system_NCJqPT": {
       "type": "motorheating-riding-system",
       "name": "Riding System",
@@ -397,6 +441,7 @@
   "order": [
     "collection-featured-banner",
     "motorheating_layer_comparison_3WbPwD",
+    "motorheating_rider_approved_cUP7R8",
     "motorheating_riding_system_NCJqPT",
     "motorheating_rider_advantage_C7MYkq",
     "motorheating_challenge_8KpJJb",
