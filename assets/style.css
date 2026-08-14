@@ -2633,6 +2633,12 @@ a.f-white:hover{
 .main-collection .product-item .footer-details .price-container .text-sale-price{
     display:flex;
 }
+@media only screen and (max-width: 1279px) {
+    .footer .accordion-button:after {
+        background-image: url(https://cdn.shopify.com/s/files/1/0457/1099/9709/files/arrow-down.png?v=1763896421);
+    }
+}
+
 /* FOR MOBILE PHONE */
 @media only screen and (max-width: 768px) {
     .oke-sr-count, .oke-sr-rating, .oke-sr-stars{
