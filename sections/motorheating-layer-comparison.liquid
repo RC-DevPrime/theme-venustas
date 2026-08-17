@@ -46,12 +46,15 @@
   }
 
   #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__image {
+    position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     display: block;
     object-fit: cover;
     object-position: center center;
+    z-index: 0;
+    pointer-events: none;
   }
 
   #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__image--mobile {
@@ -59,6 +62,7 @@
   }
 
   #shopify-section-{{ section.id }} .motorheating-active-layer-comparison__panel {
+    position: relative;
     z-index: 1;
     width: 590px;
     text-align: left;

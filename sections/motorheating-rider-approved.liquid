@@ -277,7 +277,7 @@
                   class: 'motorheating-rider-approved__image motorheating-rider-approved__image--desktop',
                   loading: 'lazy',
                   widths: '193,386,600',
-                  sizes: '(max-width: 767px) 0px, 193px',
+                  sizes: '(max-width: 1199px) 0px, 193px',
                   alt: block.settings.image_desktop.alt | default: block.settings.title
               }}
             {%- endif -%}
@@ -285,23 +285,23 @@
             {%- if block.settings.image_mobile != blank -%}
               {{
                 block.settings.image_mobile
-                | image_url: width: 700
+                | image_url: width: 1000
                 | image_tag:
                   class: 'motorheating-rider-approved__image motorheating-rider-approved__image--mobile',
                   loading: 'lazy',
-                  widths: '180,260,360,520,700',
-                  sizes: '(max-width: 767px) calc((100vw - 36px - 8px) / 1.5), 0px',
+                  widths: '350,520,700,812,1000',
+                  sizes: '(max-width: 1199px) calc((100vw - 60px - 8px) / 1.5), 0px',
                   alt: block.settings.image_mobile.alt | default: block.settings.title
               }}
             {%- elsif block.settings.image_desktop != blank -%}
               {{
                 block.settings.image_desktop
-                | image_url: width: 700
+                | image_url: width: 1000
                 | image_tag:
                   class: 'motorheating-rider-approved__image motorheating-rider-approved__image--mobile',
                   loading: 'lazy',
-                  widths: '180,260,360,520,700',
-                  sizes: '(max-width: 767px) calc((100vw - 36px - 8px) / 1.5), 0px',
+                  widths: '350,520,700,812,1000',
+                  sizes: '(max-width: 1199px) calc((100vw - 60px - 8px) / 1.5), 0px',
                   alt: block.settings.image_desktop.alt | default: block.settings.title
               }}
             {%- endif -%}

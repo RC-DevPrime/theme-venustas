@@ -20,7 +20,7 @@
     border-radius: 4px;
     background: var(--venustas-black);
     display: grid;
-    grid-template-columns: minmax(0, 380px) 450px;
+    grid-template-columns: minmax(0, 380px) minmax(0, 560px);
     align-items: center;
     justify-content: space-between;
     gap: 72px;
@@ -73,17 +73,72 @@
     text-underline-offset: 2px;
   }
 
-  #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-image-wrap {
-    width: 450px;
-    aspect-ratio: 450 / 580;
+  #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-gallery {
+    position: relative;
+    width: min(100%, 560px);
+    height: 480px;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-card {
+    position: absolute;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #000;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-card--1 {
+    top: 54px;
+    left: 0;
+    width: 204px;
+    height: 322px;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-card--2 {
+    top: 0;
+    right: 18px;
+    width: 204px;
+    height: 306px;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-card--3 {
+    right: 0;
+    bottom: 0;
+    width: 360px;
+    height: 238px;
+    z-index: 2;
   }
 
   #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-image {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.68);
+    opacity: 0;
+    transition: opacity 220ms ease;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-card:hover .motorheating-riding-system__desktop-overlay,
+  #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-card:focus-within .motorheating-riding-system__desktop-overlay {
+    opacity: 1;
   }
 
   #shopify-section-{{ section.id }} .motorheating-riding-system__mobile-gallery {
@@ -92,7 +147,12 @@
 
   @media only screen and (max-width: 1199px) {
      #shopify-section-{{ section.id }} .motorheating-riding-system__panel{
-        grid-template-columns:minmax(0, 380px) 240px;
+        grid-template-columns:minmax(0, 360px) minmax(0, 500px);
+     }
+
+     #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-gallery {
+        transform: scale(0.88);
+        transform-origin: right center;
      }
   }
 
@@ -130,7 +190,7 @@
       line-height: 1.22;
     }
 
-    #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-image-wrap {
+    #shopify-section-{{ section.id }} .motorheating-riding-system__desktop-gallery {
       display: none;
     }
 
@@ -225,9 +285,15 @@
           <div class="motorheating-riding-system__mobile-track">
             {%- for index in (1..3) -%}
               {%- assign image_key = 'mobile_image_' | append: index -%}
-              {%- assign title_key = 'mobile_title_' | append: index -%}
               {%- assign image = section.settings[image_key] -%}
-              {%- assign title = section.settings[title_key] -%}
+              {%- case index -%}
+                {%- when 1 -%}
+                  {%- assign title = 'Heated Vest' -%}
+                {%- when 2 -%}
+                  {%- assign title = 'Heated Pants' -%}
+                {%- when 3 -%}
+                  {%- assign title = 'Heated Jacket' -%}
+              {%- endcase -%}
               <div class="motorheating-riding-system__mobile-card">
                 {%- if image != blank -%}
                   {{
@@ -256,19 +322,36 @@
         {%- endif -%}
       </div>
 
-      <div class="motorheating-riding-system__desktop-image-wrap">
-        {%- if section.settings.desktop_image != blank -%}
-          {{
-            section.settings.desktop_image
-            | image_url: width: 900
-            | image_tag:
-              class: 'motorheating-riding-system__desktop-image',
-              loading: 'lazy',
-              widths: '450,675,900',
-              sizes: '(max-width: 767px) 0px, 450px',
-              alt: section.settings.desktop_image.alt | default: section.settings.accent_title
-          }}
-        {%- endif -%}
+      <div class="motorheating-riding-system__desktop-gallery">
+        {%- for index in (1..3) -%}
+          {%- assign image_key = 'mobile_image_' | append: index -%}
+          {%- assign image = section.settings[image_key] -%}
+          {%- case index -%}
+            {%- when 1 -%}
+              {%- assign title = 'Heated Vest' -%}
+            {%- when 2 -%}
+              {%- assign title = 'Heated Pants' -%}
+            {%- when 3 -%}
+              {%- assign title = 'Heated Jacket' -%}
+          {%- endcase -%}
+          <div class="motorheating-riding-system__desktop-card motorheating-riding-system__desktop-card--{{ index }}">
+            {%- if image != blank -%}
+              {{
+                image
+                | image_url: width: 900
+                | image_tag:
+                  class: 'motorheating-riding-system__desktop-image',
+                  loading: 'lazy',
+                  widths: '204,360,540,720,900',
+                  sizes: '(max-width: 767px) 0px, 360px',
+                  alt: image.alt | default: title
+              }}
+            {%- endif -%}
+            {%- if title != blank -%}
+              <div class="motorheating-riding-system__desktop-overlay">{{ title }}</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
       </div>
     </div>
   </div>
@@ -367,41 +450,18 @@
     },
     {
       "type": "image_picker",
-      "id": "desktop_image",
-      "label": "Desktop image"
-    },
-    {
-      "type": "image_picker",
       "id": "mobile_image_1",
-      "label": "Mobile image 1"
-    },
-    {
-      "type": "text",
-      "id": "mobile_title_1",
-      "label": "Mobile image 1 title",
-      "default": "Heated Vest"
+      "label": "Image 1"
     },
     {
       "type": "image_picker",
       "id": "mobile_image_2",
-      "label": "Mobile image 2"
-    },
-    {
-      "type": "text",
-      "id": "mobile_title_2",
-      "label": "Mobile image 2 title",
-      "default": "Heated Pants"
+      "label": "Image 2"
     },
     {
       "type": "image_picker",
       "id": "mobile_image_3",
-      "label": "Mobile image 3"
-    },
-    {
-      "type": "text",
-      "id": "mobile_title_3",
-      "label": "Mobile image 3 title",
-      "default": "Heated Jacket"
+      "label": "Image 3"
     }
   ],
   "presets": [
