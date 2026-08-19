@@ -1,0 +1,343 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-riding-system-builder {
+    width: 100%;
+    overflow: hidden;
+    background: #f2f2f2;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__inner {
+    max-width: 1340px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 52px 20px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__track {
+    display: flex;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__slider {
+    flex: 1 1 auto;
+    display: flex;
+    gap: 18px;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__intro,
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__card {
+    height: 216px;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__intro {
+    flex: 0 0 253px;
+    display: flex;
+    align-items: center;
+    padding: 32px 34px;
+    box-sizing: border-box;
+    background: var(--color-brand);
+    color: #fff;
+    transition: flex-basis 420ms ease, padding 420ms ease, opacity 260ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__intro-text {
+    margin: 0;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__card {
+    position: relative;
+    flex: 0 0 253px;
+    background: #fff;
+    transition: flex-basis 420ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__image,
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__hover-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center center;
+    transition: opacity 220ms ease, height 220ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__hover-image,
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__caption {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__hover-image {
+    inset: 0;
+    height: calc(100% - 52px);
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__caption {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 52px;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--color-brand);
+    color: #fff;
+    text-align: center;
+    transition: opacity 220ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__caption-title {
+    margin: 0 0 4px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__caption-text {
+    margin: 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  @media only screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__track:has(.heating-riding-system-builder__card:hover) .heating-riding-system-builder__intro {
+      flex-basis: 0;
+      padding-left: 0;
+      padding-right: 0;
+      opacity: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__track:has(.heating-riding-system-builder__card:hover) .heating-riding-system-builder__card {
+      flex-basis: 185px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__track .heating-riding-system-builder__card:hover {
+      flex-basis: 560px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__card:hover .heating-riding-system-builder__image {
+      opacity: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__card:hover .heating-riding-system-builder__hover-image,
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__card:hover .heating-riding-system-builder__caption {
+      opacity: 1;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__inner {
+      width: 100%;
+      padding: 32px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__track {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__intro {
+      width: 100%;
+      height: auto;
+      min-height: 150px;
+      margin-bottom: 16px;
+      padding: 28px 24px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__intro-text {
+      font-size: 24px;
+      line-height: 1.18;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__slider {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__slider::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__card {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 420px;
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__image {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__hover-image {
+      position: static;
+      width: 100%;
+      height: calc(100% - 52px);
+      opacity: 1;
+      object-fit: contain;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__caption {
+      position: static;
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-riding-system-builder">
+  <div class="heating-riding-system-builder__inner">
+    <div class="heating-riding-system-builder__track">
+      <div class="heating-riding-system-builder__intro">
+        {%- if section.settings.intro_text != blank -%}
+          <h2 class="heating-riding-system-builder__intro-text">{{ section.settings.intro_text }}</h2>
+        {%- endif -%}
+      </div>
+
+      <div class="heating-riding-system-builder__slider">
+        {%- for block in section.blocks -%}
+          <div class="heating-riding-system-builder__card" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 700
+                | image_tag:
+                  class: 'heating-riding-system-builder__image',
+                  loading: 'lazy',
+                  widths: '253,380,506,700',
+                  sizes: '(max-width: 767px) 0px, 253px',
+                  alt: block.settings.image.alt | default: block.settings.hover_title
+              }}
+            {%- endif -%}
+
+            {%- if block.settings.hover_image != blank -%}
+              {{
+                block.settings.hover_image
+                | image_url: width: 1100
+                | image_tag:
+                  class: 'heating-riding-system-builder__hover-image',
+                  loading: 'lazy',
+                  widths: '253,420,560,840,1100',
+                  sizes: '(max-width: 767px) calc(100vw - 40px), 560px',
+                  alt: block.settings.hover_image.alt | default: block.settings.hover_title
+              }}
+            {%- endif -%}
+
+            <div class="heating-riding-system-builder__caption">
+              {%- if block.settings.hover_title != blank -%}
+                <h3 class="heating-riding-system-builder__caption-title">{{ block.settings.hover_title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.hover_text != blank -%}
+                <p class="heating-riding-system-builder__caption-text">{{ block.settings.hover_text }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating Riding System",
+  "tag": "section",
+  "class": "heating-riding-system-builder-section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "intro_text",
+      "label": "Intro text",
+      "default": "Venustas Riding System.\nOne System, Multiple Ways to Stay Warm."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "system_item",
+      "name": "System item",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "hover_image",
+          "label": "Hover image"
+        },
+        {
+          "type": "text",
+          "id": "hover_title",
+          "label": "Hover title",
+          "default": "Heated Vest"
+        },
+        {
+          "type": "text",
+          "id": "hover_text",
+          "label": "Hover text",
+          "default": "Built for everyday warmth."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Riding System",
+      "blocks": [
+        {
+          "type": "system_item",
+          "settings": {
+            "hover_title": "Heated Vest",
+            "hover_text": "Built for everyday warmth."
+          }
+        },
+        {
+          "type": "system_item",
+          "settings": {
+            "hover_title": "Heated Jacket Liner",
+            "hover_text": "Core warmth for your upper body."
+          }
+        },
+        {
+          "type": "system_item",
+          "settings": {
+            "hover_title": "Heated Pants Liner",
+            "hover_text": "Essential warmth for your lower body."
+          }
+        },
+        {
+          "type": "system_item",
+          "settings": {
+            "hover_title": "More To Come",
+            "hover_text": "Designed to expand with your needs."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
