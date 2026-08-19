@@ -14,7 +14,8 @@
     .product-battery-performance-section .battery-image .battery-image-element{
 
     }
-    .battery-performance-image-slider {
+    .product-battery-performance-section .battery-performance-image-slider [class*="bss-pl-frontend"]{
+        display:none !important;
     }
     
     .battery-performance-image-slider .battery-image{
@@ -381,7 +382,7 @@
         </div>
     </div>
     {% if section.settings.enabled_image_slider %}
-        {% if section.blocks.sizes != 1 %}
+        {% if section.blocks.size != 1 %}
         <div class="float-nav d-lg-block d-md-block d-sm-flex">
             <button type="button" class="owl-prev" aria-label="Previous slide">
                 <i class="fa-solid fa-chevron-left f-white"></i>
