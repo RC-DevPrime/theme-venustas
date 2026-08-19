@@ -15,14 +15,77 @@
       "name": "Main Page",
       "settings": {}
     },
+    "heating_hero_banner_bY3gPN": {
+      "type": "heating-hero-banner",
+      "name": "Heating Hero Banner",
+      "settings": {
+        "eyebrow": "Venustas Heated Riding System",
+        "title": "RIDE BEYOND THE COLD",
+        "description": "<p>Heated gear built for modern riders - from everyday commutes to long-distance adventures.</p>",
+        "primary_button_text": "Explore Heated Gear",
+        "primary_button_link": "",
+        "secondary_button_text": "Build Your Heated Setup",
+        "secondary_button_link": ""
+      }
+    },
     "motorheating_hero_banner_mCKyMH": {
       "type": "motorheating-hero-banner",
+      "disabled": true,
       "name": "Motorcycle Heating Hero",
       "settings": {
         "banner_image_desktop": "shopify://shop_images/heating-hero-banner-desktop.webp",
         "banner_image_mobile": "shopify://shop_images/heating-hero-banner.png",
         "subtitle": "SOMETHING NEW IS COMING",
         "description": "<p>A new heated riding system from Venustas. Engineered for modern riders who refuse to stop when temperatures drop.</p>"
+      }
+    },
+    "heating_riding_system_builder_hLxNL6": {
+      "type": "heating-riding-system-builder",
+      "blocks": {
+        "system_item_X7qnhq": {
+          "type": "system_item",
+          "settings": {
+            "image": "shopify://shop_images/KJ12-3.jpg",
+            "hover_image": "shopify://shop_images/KJ12-2KJ12-3.jpg",
+            "hover_title": "Heated Vest",
+            "hover_text": "Built for everyday warmth."
+          }
+        },
+        "system_item_d494Mt": {
+          "type": "system_item",
+          "settings": {
+            "image": "shopify://shop_images/KV10-5.jpg",
+            "hover_image": "shopify://shop_images/KV10-7.jpg",
+            "hover_title": "Heated Jacket Liner",
+            "hover_text": "Core warmth for your upper body."
+          }
+        },
+        "system_item_aH7ern": {
+          "type": "system_item",
+          "settings": {
+            "image": "shopify://shop_images/KV10-1.jpg",
+            "hover_image": "shopify://shop_images/KV10-2.jpg",
+            "hover_title": "Heated Pants Liner",
+            "hover_text": "Essential warmth for your lower body."
+          }
+        },
+        "system_item_hRrwjw": {
+          "type": "system_item",
+          "settings": {
+            "hover_title": "More To Come",
+            "hover_text": "Designed to expand with your needs."
+          }
+        }
+      },
+      "block_order": [
+        "system_item_X7qnhq",
+        "system_item_d494Mt",
+        "system_item_aH7ern",
+        "system_item_hRrwjw"
+      ],
+      "name": "Heating Riding System",
+      "settings": {
+        "intro_text": "Venustas Riding System.\nOne System, Multiple Ways to Stay Warm."
       }
     },
     "motorheating_preheat_perks_nF9PFE": {
@@ -216,7 +279,9 @@
   },
   "order": [
     "main_page_3cKYFc",
+    "heating_hero_banner_bY3gPN",
     "motorheating_hero_banner_mCKyMH",
+    "heating_riding_system_builder_hLxNL6",
     "motorheating_preheat_perks_nF9PFE",
     "motorheating_challenge_GrgkJg",
     "motorheating_layer_comparison_TGkmcn",
