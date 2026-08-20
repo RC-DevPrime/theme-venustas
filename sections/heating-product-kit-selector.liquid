@@ -1,0 +1,599 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} .heating-product-kit {
+    width: 100%;
+    overflow: hidden;
+    background: #f5f5f5;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__inner {
+    width: min(100% - 40px, 1340px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 52px 0 58px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__header {
+    max-width: 980px;
+    margin: 0 auto 62px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__heading {
+    margin: 0 0 24px;
+    color: #191919;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.16;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__subheading {
+    margin: 0;
+    color: #3a3a3a;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.45;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__subheading p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__desktop {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__card {
+    height: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__card-main {
+    padding: 32px 22px 26px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__card-title {
+    margin: 0 0 10px;
+    color: #191919;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__card-description {
+    min-height: 42px;
+    margin: 0 0 28px;
+    color: #191919;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.32;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__media {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__connect {
+    padding: 24px 22px 30px;
+    border-top: 1px solid #e8e8e8;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__connect-title {
+    margin: 0 0 22px;
+    color: var(--color-brand);
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option-label {
+    margin: 0 0 16px;
+    color: var(--color-brand);
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option-label--b {
+    margin-top: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option {
+    display: grid;
+    align-items: start;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--horizontal {
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--split {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__step--1 {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__arrow--b1 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__step--2 {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__arrow--b2 {
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__step--3 {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__arrow-svg--right {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--horizontal .heating-product-kit__arrow-svg--split {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__step {
+    min-width: 0;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__step-image {
+    width: 82px;
+    height: 78px;
+    display: block;
+    object-fit: contain;
+    margin: 0 auto 10px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__step-label {
+    margin: 0;
+    color: #575757;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__arrow {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-brand);
+    line-height: 0;
+    align-self: center;
+    margin-top: 30px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__arrow svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__mobile-pagination {
+    display: none;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-product-kit__inner {
+      width: 100%;
+      padding: 26px 20px 36px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__header {
+      margin-bottom: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__heading {
+      margin-bottom: 16px;
+      font-size: 24px;
+      line-height: 1.12;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__subheading {
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__mobile {
+      display: block;
+      overflow: hidden;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__mobile .swiper-slide {
+      height: auto;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__card-main {
+      padding: 28px 18px 22px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__card-title {
+      font-size: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__card-description {
+      min-height: 0;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__media {
+      height: 265px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__connect {
+      padding: 22px 18px 26px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__option--horizontal,
+    #shopify-section-{{ section.id }} .heating-product-kit__option--split {
+      grid-template-columns: 1fr auto 1fr;
+      grid-template-rows: auto;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__step--1,
+    #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__arrow--b1,
+    #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__step--2 {
+      grid-row: auto;
+      grid-column: auto;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__step-image {
+      width: 76px;
+      height: 70px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__mobile-pagination {
+      position: static;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__mobile-pagination .swiper-pagination-bullet {
+      width: 8px;
+      height: 8px;
+      margin: 0;
+      background: #d0d0d0;
+      opacity: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__mobile-pagination .swiper-pagination-bullet-active {
+      background: var(--color-brand);
+    }
+  }
+{% endstyle %}
+
+<section class="heating-product-kit" data-heating-product-kit>
+  <div class="heating-product-kit__inner">
+    <div class="heating-product-kit__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="heating-product-kit__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <h3 class="heating-product-kit__subheading">{{ section.settings.subheading }}</h3>
+      {%- endif -%}
+    </div>
+
+    <div class="heating-product-kit__desktop">
+      {%- for block in section.blocks -%}
+        {%- render 'heating-product-kit-card', block: block, mobile: false, include_attributes: true -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="heating-product-kit__mobile swiper" data-heating-product-kit-swiper>
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            {%- render 'heating-product-kit-card', block: block, mobile: true, include_attributes: false -%}
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="heating-product-kit__mobile-pagination swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+<script>
+  (() => {
+    const sectionId = 'shopify-section-{{ section.id }}';
+
+    const init = (attempt = 0) => {
+      const section = document.getElementById(sectionId);
+      if (!section || typeof window.Swiper === 'undefined') {
+        if (attempt < 20) {
+          window.setTimeout(() => init(attempt + 1), 100);
+        }
+        return;
+      }
+
+      const slider = section.querySelector('[data-heating-product-kit-swiper]');
+      if (!slider || slider.swiper) {
+        return;
+      }
+
+      new window.Swiper(slider, {
+        slidesPerView: 1,
+        spaceBetween: 18,
+        watchOverflow: true,
+        pagination: {
+          el: section.querySelector('.heating-product-kit__mobile-pagination'),
+          clickable: true
+        }
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    document.addEventListener('shopify:section:load', (event) => {
+      if (event.detail && event.detail.sectionId === '{{ section.id }}') {
+        init();
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Heating Product Kit",
+  "tag": "section",
+  "class": "heating-product-kit-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "One System. Multiple Ways To Ride Warmer."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Our modular system lets you build your ideal setup. Start simple or go full system - the choice is yours."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "kit_card",
+      "name": "Kit card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product title",
+          "default": "Vest Only"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Product short description",
+          "default": "Portable warmth on and off the bike"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product main image"
+        },
+        {
+          "type": "header",
+          "content": "Option A"
+        },
+        {
+          "type": "text",
+          "id": "option_a_title",
+          "label": "Option A title",
+          "default": "Option A"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_a_image_1",
+          "label": "Option A image 1"
+        },
+        {
+          "type": "text",
+          "id": "option_a_label_1",
+          "label": "Option A label 1",
+          "default": "7.5K Battery (Included)"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_a_image_2",
+          "label": "Option A image 2"
+        },
+        {
+          "type": "text",
+          "id": "option_a_label_2",
+          "label": "Option A label 2",
+          "default": "Heated Vest Power Connector"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_a_image_3",
+          "label": "Option A image 3"
+        },
+        {
+          "type": "text",
+          "id": "option_a_label_3",
+          "label": "Option A label 3"
+        },
+        {
+          "type": "header",
+          "content": "Option B"
+        },
+        {
+          "type": "text",
+          "id": "option_b_title",
+          "label": "Option B title",
+          "default": "Option B"
+        },
+        {
+          "type": "select",
+          "id": "option_b_layout",
+          "label": "Option B layout",
+          "default": "horizontal",
+          "options": [
+            {
+              "value": "horizontal",
+              "label": "Horizontal"
+            },
+            {
+              "value": "split",
+              "label": "Split"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "option_b_image_1",
+          "label": "Option B image 1"
+        },
+        {
+          "type": "text",
+          "id": "option_b_label_1",
+          "label": "Option B label 1",
+          "default": "Motorcycle 12V"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_b_image_2",
+          "label": "Option B image 2"
+        },
+        {
+          "type": "text",
+          "id": "option_b_label_2",
+          "label": "Option B label 2",
+          "default": "Y-Cable"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_b_image_3",
+          "label": "Option B image 3"
+        },
+        {
+          "type": "text",
+          "id": "option_b_label_3",
+          "label": "Option B label 3",
+          "default": "Heated Vest Power Connector"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Product Kit",
+      "blocks": [
+        {
+          "type": "kit_card",
+          "settings": {
+            "title": "Vest Only",
+            "description": "Portable warmth on and off the bike",
+            "option_a_label_1": "7.5K Battery (Included)",
+            "option_a_label_2": "Heated Vest Power Connector",
+            "option_b_label_1": "Motorcycle 12V",
+            "option_b_label_2": "Y-Cable",
+            "option_b_label_3": "Heated Vest Power Connector"
+          }
+        },
+        {
+          "type": "kit_card",
+          "settings": {
+            "title": "Jacket Only",
+            "description": "Upper body warmth",
+            "option_a_title": "",
+            "option_a_label_1": "Motorcycle 12V",
+            "option_a_label_2": "Y-Cable",
+            "option_a_label_3": "Heated Jacket Power Connector",
+            "option_b_title": ""
+          }
+        },
+        {
+          "type": "kit_card",
+          "settings": {
+            "title": "Pants Only",
+            "description": "Lower body warmth",
+            "option_a_title": "",
+            "option_a_label_1": "Motorcycle 12V",
+            "option_a_label_2": "Y-Cable",
+            "option_a_label_3": "Heated Pants Power Connector",
+            "option_b_title": ""
+          }
+        },
+        {
+          "type": "kit_card",
+          "settings": {
+            "title": "Jacket + Pants",
+            "description": "Full body warmth",
+            "option_a_title": "",
+            "option_a_label_1": "Motorcycle 12V",
+            "option_a_label_2": "Y-Cable",
+            "option_a_label_3": "Jacket",
+            "option_b_layout": "split",
+            "option_b_label_1": "Pants",
+            "option_b_label_2": "3-Way Cable",
+            "option_b_label_3": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
