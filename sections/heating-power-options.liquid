@@ -1,0 +1,837 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-power-options {
+    width: 100%;
+    overflow: hidden;
+    background: #f5f5f5;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__inner {
+    width: min(100% - 40px, 1340px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 48px 0 56px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__header {
+    max-width: 1000px;
+    margin: 0 auto 48px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__eyebrow {
+    margin: 0 0 14px;
+    color: var(--color-brand);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__heading {
+    margin: 0 0 24px;
+    color: #191919;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.16;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__description {
+    margin: 0;
+    color: #696969;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.45;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__layout {
+    display: flex;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__column {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__feature-card,
+  #shopify-section-{{ section.id }} .heating-power-options__product-card {
+    height: 100%;
+    padding: 32px;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__card-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__card-heading--product {
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__card-icon {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(185, 50, 5, 0.08);
+    color: var(--color-brand);
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__card-icon svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__card-title {
+    margin: 0;
+    color: #191919;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__card-kicker {
+    margin: 5px 0 0;
+    color: #191919;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__feature-media {
+    margin-bottom: 30px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #f0f0f0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__feature-image {
+    width: 100%;
+    aspect-ratio: 608 / 282;
+    display: block;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__feature-copy {
+    margin-bottom: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__feature-subtitle {
+    margin: 0 0 10px;
+    color: #191919;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__feature-description {
+    color: #191919;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__feature-description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    margin: 0 0 36px;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__tag-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #191919;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__tag-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--color-brand);
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__tag-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: end;
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__flow-item {
+    min-width: 0;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__flow-image {
+    width: 92px;
+    height: 78px;
+    display: block;
+    object-fit: contain;
+    margin: 0 auto 10px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__flow-label {
+    margin: 0;
+    color: #6b6b6b;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__flow-arrow {
+    color: var(--color-brand);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 72px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__scenes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #e4e4e4;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__scene-image {
+    width: 100%;
+    aspect-ratio: 184 / 118;
+    display: block;
+    object-fit: cover;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    background: #f0f0f0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__scene-title {
+    margin: 0 0 5px;
+    color: #191919;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__scene-text {
+    margin: 0;
+    color: #191919;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__product-panel {
+    padding: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__option-heading {
+    margin: 0 0 18px;
+    color: #191919;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__option-heading span {
+    color: var(--color-brand);
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__product-box {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 22px;
+    padding: 22px;
+    border: 1px solid #e4e4e4;
+    border-radius: 6px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__product-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__product-image {
+    width: 140px;
+    height: 170px;
+    display: block;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__product-line {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__product-title {
+    margin: 0 0 5px;
+    color: #191919;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__product-subtitle {
+    margin: 0;
+    color: #191919;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__product-price {
+    margin: 0;
+    color: var(--color-brand);
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__selling-list {
+    display: grid;
+    gap: 10px;
+    margin: 0 0 22px;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__selling-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #191919;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__selling-item span {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    color: var(--color-brand);
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__selling-item svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 42px;
+    padding: 12px 18px;
+    border-radius: 3px;
+    background: var(--color-brand);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__legal {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 24px 0 0;
+    color: #696969;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__legal span {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    color: #696969;
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__legal svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-power-options__inner {
+      width: 100%;
+      padding: 28px 20px 34px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__header {
+      margin-bottom: 22px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__eyebrow {
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__heading {
+      margin-bottom: 12px;
+      font-size: 24px;
+      line-height: 1.15;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__description {
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__layout {
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__feature-card,
+    #shopify-section-{{ section.id }} .heating-power-options__product-card {
+      padding: 16px;
+      border-radius: 6px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__card-heading {
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__card-icon {
+      width: 34px;
+      height: 34px;
+      flex-basis: 34px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__card-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__card-title {
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__feature-media {
+      margin-bottom: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__feature-image {
+      aspect-ratio: 320 / 172;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__tag-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__flow {
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__flow-image {
+      width: 72px;
+      height: 62px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__flow-arrow {
+      line-height: 56px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__scenes {
+      gap: 6px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__scene-image {
+      margin-bottom: 7px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__scene-title {
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__scene-text {
+      font-size: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__option-heading {
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__product-box {
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 12px;
+      padding: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__product-image {
+      width: 86px;
+      height: 112px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__product-title {
+      font-size: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__product-line {
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__selling-list {
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__cta {
+      min-height: 38px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__legal {
+      margin-top: 14px;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-power-options">
+  <div class="heating-power-options__inner">
+    <div class="heating-power-options__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="heating-power-options__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="heating-power-options__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p class="heating-power-options__description">{{ section.settings.description }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="heating-power-options__layout">
+      <div class="heating-power-options__column">
+        {%- render 'heating-power-feature-card', section_settings: section.settings -%}
+      </div>
+      <div class="heating-power-options__column">
+        {%- render 'heating-power-product-card', section_settings: section.settings -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating Power Options",
+  "tag": "section",
+  "class": "heating-power-options-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small title",
+      "default": "Powered Your Way"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "One Heated System. Two Ways To Stay Warm."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Choose the power source that fits your ride-continuous motorcycle power on the road, or portable Venustas battery power beyond the bike."
+    },
+    {
+      "type": "header",
+      "content": "Feature card"
+    },
+    {
+      "type": "text",
+      "id": "feature_title",
+      "label": "Feature title",
+      "default": "Motorcycle Powered"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_image",
+      "label": "Feature main image"
+    },
+    {
+      "type": "text",
+      "id": "feature_subtitle",
+      "label": "Feature subtitle",
+      "default": "Powered By Your Motorcycle's 12V System."
+    },
+    {
+      "type": "richtext",
+      "id": "feature_description",
+      "label": "Feature description",
+      "default": "<p>Connect your heated gear directly to your motorcycle for reliable, continuous power during long rides.</p>"
+    },
+    {
+      "type": "text",
+      "id": "tag_1",
+      "label": "Tag 1",
+      "default": "Long-distance touring"
+    },
+    {
+      "type": "text",
+      "id": "tag_2",
+      "label": "Tag 2",
+      "default": "Highway riding"
+    },
+    {
+      "type": "text",
+      "id": "tag_3",
+      "label": "Tag 3",
+      "default": "Extended cold-weather rides"
+    },
+    {
+      "type": "image_picker",
+      "id": "flow_image_1",
+      "label": "Flow image 1"
+    },
+    {
+      "type": "text",
+      "id": "flow_label_1",
+      "label": "Flow label 1",
+      "default": "Motorcycle 12V"
+    },
+    {
+      "type": "image_picker",
+      "id": "flow_image_2",
+      "label": "Flow image 2"
+    },
+    {
+      "type": "text",
+      "id": "flow_label_2",
+      "label": "Flow label 2",
+      "default": "12V Connection Cable"
+    },
+    {
+      "type": "image_picker",
+      "id": "flow_image_3",
+      "label": "Flow image 3"
+    },
+    {
+      "type": "text",
+      "id": "flow_label_3",
+      "label": "Flow label 3",
+      "default": "Heated Jacket/Pants"
+    },
+    {
+      "type": "header",
+      "content": "Product option card"
+    },
+    {
+      "type": "text",
+      "id": "product_card_title",
+      "label": "Product card title",
+      "default": "Battery Powered"
+    },
+    {
+      "type": "textarea",
+      "id": "product_card_description",
+      "label": "Product card description",
+      "default": "Portable warmth wherever your adventure takes you."
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_1",
+      "label": "Scene image 1"
+    },
+    {
+      "type": "text",
+      "id": "scene_title_1",
+      "label": "Scene title 1",
+      "default": "Garage"
+    },
+    {
+      "type": "textarea",
+      "id": "scene_text_1",
+      "label": "Scene text 1",
+      "default": "Stay warm while you work on your bike."
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_2",
+      "label": "Scene image 2"
+    },
+    {
+      "type": "text",
+      "id": "scene_title_2",
+      "label": "Scene title 2",
+      "default": "Outdoor"
+    },
+    {
+      "type": "textarea",
+      "id": "scene_text_2",
+      "label": "Scene text 2",
+      "default": "Perfect for camping, hiking, and more."
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_3",
+      "label": "Scene image 3"
+    },
+    {
+      "type": "text",
+      "id": "scene_title_3",
+      "label": "Scene title 3",
+      "default": "Everyday"
+    },
+    {
+      "type": "textarea",
+      "id": "scene_text_3",
+      "label": "Scene text 3",
+      "default": "Reliable warmth for daily life in the cold."
+    },
+    {
+      "type": "text",
+      "id": "option_heading",
+      "label": "Option heading",
+      "default": "Venustas"
+    },
+    {
+      "type": "text",
+      "id": "option_heading_accent",
+      "label": "Option heading accent",
+      "default": "Battery Options"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Product title",
+      "default": "10K Battery"
+    },
+    {
+      "type": "text",
+      "id": "product_subtitle",
+      "label": "Product subtitle",
+      "default": "Extended Runtime Power"
+    },
+    {
+      "type": "text",
+      "id": "product_price",
+      "label": "Product price",
+      "default": "$99.99"
+    },
+    {
+      "type": "text",
+      "id": "selling_point_1",
+      "label": "Selling point 1",
+      "default": "Short rides"
+    },
+    {
+      "type": "text",
+      "id": "selling_point_2",
+      "label": "Selling point 2",
+      "default": "Extended warmth"
+    },
+    {
+      "type": "text",
+      "id": "selling_point_3",
+      "label": "Selling point 3",
+      "default": "Maximum runtime"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Add 10K Battery"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "textarea",
+      "id": "legal_text",
+      "label": "Legal text",
+      "default": "Batteries sold separately. Compatible with Venustas heated apparel. WV12 and MV11 heated vests include battery power for portable warmth."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Power Options"
+    }
+  ]
+}
+{% endschema %}
