@@ -7,11 +7,39 @@
   }
 
   #shopify-section-{{ section.id }} .heating-riding-system-builder__inner {
-    max-width: 1340px;
+    width: min(100% - 40px, 1340px);
     margin-left: auto;
     margin-right: auto;
-    padding: 52px 20px;
+    padding: 52px 0;
     box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__header {
+    max-width: 860px;
+    margin: 0 auto 28px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__heading {
+    margin: 0 0 16px;
+    color: #191919;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__heading-accent {
+    color: var(--color-brand);
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__description {
+    margin: 0;
+    color: #191919;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: 0;
   }
 
   #shopify-section-{{ section.id }} .heating-riding-system-builder__track {
@@ -29,12 +57,13 @@
 
   #shopify-section-{{ section.id }} .heating-riding-system-builder__intro,
   #shopify-section-{{ section.id }} .heating-riding-system-builder__card {
-    height: 216px;
+    height: 316px;
     border-radius: 6px;
     overflow: hidden;
   }
 
   #shopify-section-{{ section.id }} .heating-riding-system-builder__intro {
+    position: relative;
     flex: 0 0 253px;
     display: flex;
     align-items: center;
@@ -45,6 +74,13 @@
     transition: flex-basis 420ms ease, padding 420ms ease, opacity 260ms ease;
   }
 
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__intro-hit {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 253px;
+    z-index: 2;
+  }
+
   #shopify-section-{{ section.id }} .heating-riding-system-builder__intro-text {
     margin: 0;
     color: #fff;
@@ -52,6 +88,7 @@
     font-weight: 400;
     line-height: 1.15;
     letter-spacing: 0;
+    white-space: pre-line;
   }
 
   #shopify-section-{{ section.id }} .heating-riding-system-builder__card {
@@ -102,7 +139,7 @@
   #shopify-section-{{ section.id }} .heating-riding-system-builder__caption-title {
     margin: 0 0 4px;
     color: #fff;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 1.1;
     letter-spacing: 0;
@@ -111,26 +148,80 @@
   #shopify-section-{{ section.id }} .heating-riding-system-builder__caption-text {
     margin: 0;
     color: #fff;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     line-height: 1.2;
     letter-spacing: 0;
   }
 
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__icons {
+    margin-top: 56px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.28);
+  }
+
+  #shopify-section-{{ section.id }} .heating-system-icons {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    padding: 28px 96px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-system-icons__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-system-icons__icon {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    color: var(--color-brand);
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-system-icons__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .heating-system-icons__title {
+    margin: 0 0 6px;
+    color: var(--color-brand);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-system-icons__text {
+    margin: 0;
+    color: #191919;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
   @media only screen and (min-width: 768px) {
-    #shopify-section-{{ section.id }} .heating-riding-system-builder__track:has(.heating-riding-system-builder__card:hover) .heating-riding-system-builder__intro {
-      flex-basis: 0;
-      padding-left: 0;
-      padding-right: 0;
-      opacity: 0;
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__track:has(.heating-riding-system-builder__intro-hit:hover) .heating-riding-system-builder__intro {
+      flex-basis: 506px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__track:has(.heating-riding-system-builder__intro-hit:hover) .heating-riding-system-builder__card {
+      flex-basis: 190px;
     }
 
     #shopify-section-{{ section.id }} .heating-riding-system-builder__track:has(.heating-riding-system-builder__card:hover) .heating-riding-system-builder__card {
-      flex-basis: 185px;
+      flex-basis: 154px;
     }
 
     #shopify-section-{{ section.id }} .heating-riding-system-builder__track .heating-riding-system-builder__card:hover {
-      flex-basis: 560px;
+      flex-basis: 506px;
     }
 
     #shopify-section-{{ section.id }} .heating-riding-system-builder__card:hover .heating-riding-system-builder__image {
@@ -149,6 +240,22 @@
       padding: 32px 20px;
     }
 
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__header {
+      max-width: none;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__heading {
+      font-size: 24px;
+      line-height: 1.15;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__description {
+      font-size: 16px;
+      line-height: 1.28;
+    }
+
     #shopify-section-{{ section.id }} .heating-riding-system-builder__track {
       display: block;
     }
@@ -164,6 +271,10 @@
     #shopify-section-{{ section.id }} .heating-riding-system-builder__intro-text {
       font-size: 24px;
       line-height: 1.18;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__intro-hit {
+      display: none;
     }
 
     #shopify-section-{{ section.id }} .heating-riding-system-builder__slider {
@@ -204,13 +315,38 @@
       opacity: 1;
       pointer-events: auto;
     }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__icons {
+      margin-top: 24px;
+      background: #fff;
+    }
+
+    #shopify-section-{{ section.id }} .heating-system-icons {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      padding: 18px 14px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-system-icons__item {
+      align-items: flex-start;
+    }
   }
 {% endstyle %}
 
 <section class="heating-riding-system-builder">
   <div class="heating-riding-system-builder__inner">
+    <div class="heating-riding-system-builder__header">
+      <h2 class="heating-riding-system-builder__heading">
+        Introducing <span class="heating-riding-system-builder__heading-accent">Venustas Heated Riding System</span>
+      </h2>
+      <p class="heating-riding-system-builder__description">
+        A modular system that lets riders choose the warmth they need - from upper body comfort to full-body coverage. Start with what you need. Expand when your ride demands more.
+      </p>
+    </div>
+
     <div class="heating-riding-system-builder__track">
       <div class="heating-riding-system-builder__intro">
+        <span class="heating-riding-system-builder__intro-hit" aria-hidden="true"></span>
         {%- if section.settings.intro_text != blank -%}
           <h2 class="heating-riding-system-builder__intro-text">{{ section.settings.intro_text }}</h2>
         {%- endif -%}
@@ -257,6 +393,17 @@
         {%- endfor -%}
       </div>
     </div>
+
+    <div class="heating-riding-system-builder__icons">
+      {%- render 'heating-system-icons',
+        title_1: section.settings.icon_title_1,
+        text_1: section.settings.icon_text_1,
+        title_2: section.settings.icon_title_2,
+        text_2: section.settings.icon_text_2,
+        title_3: section.settings.icon_title_3,
+        text_3: section.settings.icon_text_3
+      -%}
+    </div>
   </div>
 </section>
 
@@ -271,6 +418,42 @@
       "id": "intro_text",
       "label": "Intro text",
       "default": "Venustas Riding System.\nOne System, Multiple Ways to Stay Warm."
+    },
+    {
+      "type": "text",
+      "id": "icon_title_1",
+      "label": "Icon 1 title",
+      "default": "Modular"
+    },
+    {
+      "type": "text",
+      "id": "icon_text_1",
+      "label": "Icon 1 text",
+      "default": "Add what you need when you need it."
+    },
+    {
+      "type": "text",
+      "id": "icon_title_2",
+      "label": "Icon 2 title",
+      "default": "Compatible"
+    },
+    {
+      "type": "text",
+      "id": "icon_text_2",
+      "label": "Icon 2 text",
+      "default": "Works together seamlessly for total comfort."
+    },
+    {
+      "type": "text",
+      "id": "icon_title_3",
+      "label": "Icon 3 title",
+      "default": "Powered Warmth"
+    },
+    {
+      "type": "text",
+      "id": "icon_text_3",
+      "label": "Icon 3 text",
+      "default": "Active heat where riders need it most."
     }
   ],
   "blocks": [
