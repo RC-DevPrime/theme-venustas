@@ -1,3 +1,14 @@
+{%- liquid
+  assign option_a_count = 0
+  for index in (1..5)
+    assign image_key = 'option_a_image_' | append: index
+    assign label_key = 'option_a_label_' | append: index
+    if block.settings[image_key] != blank or block.settings[label_key] != blank
+      assign option_a_count = option_a_count | plus: 1
+    endif
+  endfor
+-%}
+
 <article class="heating-product-kit__card{% if mobile %} heating-product-kit__card--mobile{% endif %}"{% if include_attributes %} {{ block.shopify_attributes }}{% endif %}>
   <div class="heating-product-kit__card-main">
     {%- if block.settings.title != blank -%}
@@ -30,166 +41,106 @@
     {%- if block.settings.option_a_title != blank -%}
       <p class="heating-product-kit__option-label">{{ block.settings.option_a_title }}</p>
     {%- endif -%}
-    <div class="heating-product-kit__option heating-product-kit__option--horizontal">
-      {%- if block.settings.option_a_image_1 != blank or block.settings.option_a_label_1 != blank -%}
-        <div class="heating-product-kit__step">
-          {%- if block.settings.option_a_image_1 != blank -%}
-            {{
-              block.settings.option_a_image_1
-              | image_url: width: 180
-              | image_tag:
-                class: 'heating-product-kit__step-image',
-                loading: 'lazy',
-                widths: '80,120,180',
-                sizes: '(max-width: 767px) 76px, 82px',
-                alt: block.settings.option_a_image_1.alt | default: block.settings.option_a_label_1
-            }}
-          {%- endif -%}
-          {%- if block.settings.option_a_label_1 != blank -%}
-            <p class="heating-product-kit__step-label">{{ block.settings.option_a_label_1 }}</p>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
 
-      {%- if block.settings.option_a_image_1 != blank and block.settings.option_a_image_2 != blank -%}
-        <span class="heating-product-kit__arrow heating-product-kit__arrow--right" aria-hidden="true">
-          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 9H14M10.5 5.5L14 9L10.5 12.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      {%- endif -%}
+    <div class="heating-product-kit__option heating-product-kit__option--a heating-product-kit__option--count-{{ option_a_count }}">
+      {%- for index in (1..5) -%}
+        {%- liquid
+          assign image_key = 'option_a_image_' | append: index
+          assign label_key = 'option_a_label_' | append: index
+          assign image = block.settings[image_key]
+          assign label = block.settings[label_key]
+        -%}
+        {%- if image != blank or label != blank -%}
+          <div class="heating-product-kit__step heating-product-kit__step--{{ index }}">
+            {%- if image != blank -%}
+              {{
+                image
+                | image_url: width: 180
+                | image_tag:
+                  class: 'heating-product-kit__step-image',
+                  loading: 'lazy',
+                  widths: '80,120,180',
+                  sizes: '(max-width: 767px) 76px, 82px',
+                  alt: image.alt | default: label
+              }}
+            {%- endif -%}
+            {%- if label != blank -%}
+              <p class="heating-product-kit__step-label">{{ label }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
 
-      {%- if block.settings.option_a_image_2 != blank or block.settings.option_a_label_2 != blank -%}
-        <div class="heating-product-kit__step">
-          {%- if block.settings.option_a_image_2 != blank -%}
-            {{
-              block.settings.option_a_image_2
-              | image_url: width: 180
-              | image_tag:
-                class: 'heating-product-kit__step-image',
-                loading: 'lazy',
-                widths: '80,120,180',
-                sizes: '(max-width: 767px) 76px, 82px',
-                alt: block.settings.option_a_image_2.alt | default: block.settings.option_a_label_2
-            }}
+        {%- if index < 5 -%}
+          {%- assign next_index = index | plus: 1 -%}
+          {%- assign next_image_key = 'option_a_image_' | append: next_index -%}
+          {%- assign next_label_key = 'option_a_label_' | append: next_index -%}
+          {%- if image != blank or label != blank -%}
+            {%- if block.settings[next_image_key] != blank or block.settings[next_label_key] != blank -%}
+              <span class="heating-product-kit__arrow heating-product-kit__arrow--a heating-product-kit__arrow--a{{ index }}" aria-hidden="true">
+                <svg class="heating-product-kit__arrow-svg heating-product-kit__arrow-svg--right" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 9H14M10.5 5.5L14 9L10.5 12.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <svg class="heating-product-kit__arrow-svg heating-product-kit__arrow-svg--down" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 3V15M5.5 11.5L9 15L12.5 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <svg class="heating-product-kit__arrow-svg heating-product-kit__arrow-svg--left" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14 9H4M7.5 5.5L4 9L7.5 12.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            {%- endif -%}
           {%- endif -%}
-          {%- if block.settings.option_a_label_2 != blank -%}
-            <p class="heating-product-kit__step-label">{{ block.settings.option_a_label_2 }}</p>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
-
-      {%- if block.settings.option_a_image_2 != blank and block.settings.option_a_image_3 != blank -%}
-        <span class="heating-product-kit__arrow heating-product-kit__arrow--right" aria-hidden="true">
-          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 9H14M10.5 5.5L14 9L10.5 12.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      {%- endif -%}
-
-      {%- if block.settings.option_a_image_3 != blank or block.settings.option_a_label_3 != blank -%}
-        <div class="heating-product-kit__step">
-          {%- if block.settings.option_a_image_3 != blank -%}
-            {{
-              block.settings.option_a_image_3
-              | image_url: width: 180
-              | image_tag:
-                class: 'heating-product-kit__step-image',
-                loading: 'lazy',
-                widths: '80,120,180',
-                sizes: '(max-width: 767px) 76px, 82px',
-                alt: block.settings.option_a_image_3.alt | default: block.settings.option_a_label_3
-            }}
-          {%- endif -%}
-          {%- if block.settings.option_a_label_3 != blank -%}
-            <p class="heating-product-kit__step-label">{{ block.settings.option_a_label_3 }}</p>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
     </div>
 
-    {%- if block.settings.option_b_title != blank -%}
-      <p class="heating-product-kit__option-label heating-product-kit__option-label--b">{{ block.settings.option_b_title }}</p>
+    {%- if block.settings.show_option_b -%}
+      {%- if block.settings.option_b_title != blank -%}
+        <p class="heating-product-kit__option-label heating-product-kit__option-label--b">{{ block.settings.option_b_title }}</p>
+      {%- endif -%}
+      <div class="heating-product-kit__option heating-product-kit__option--b">
+        {%- for index in (1..3) -%}
+          {%- liquid
+            assign image_key = 'option_b_image_' | append: index
+            assign label_key = 'option_b_label_' | append: index
+            assign image = block.settings[image_key]
+            assign label = block.settings[label_key]
+          -%}
+          {%- if image != blank or label != blank -%}
+            <div class="heating-product-kit__step heating-product-kit__step--{{ index }}">
+              {%- if image != blank -%}
+                {{
+                  image
+                  | image_url: width: 180
+                  | image_tag:
+                    class: 'heating-product-kit__step-image',
+                    loading: 'lazy',
+                    widths: '80,120,180',
+                    sizes: '(max-width: 767px) 76px, 82px',
+                    alt: image.alt | default: label
+                }}
+              {%- endif -%}
+              {%- if label != blank -%}
+                <p class="heating-product-kit__step-label">{{ label }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {%- if index < 3 -%}
+            {%- assign next_index = index | plus: 1 -%}
+            {%- assign next_image_key = 'option_b_image_' | append: next_index -%}
+            {%- assign next_label_key = 'option_b_label_' | append: next_index -%}
+            {%- if image != blank or label != blank -%}
+              {%- if block.settings[next_image_key] != blank or block.settings[next_label_key] != blank -%}
+                <span class="heating-product-kit__arrow heating-product-kit__arrow--b" aria-hidden="true">
+                  <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 9H14M10.5 5.5L14 9L10.5 12.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
     {%- endif -%}
-    <div class="heating-product-kit__option heating-product-kit__option--{{ block.settings.option_b_layout }}">
-      {%- if block.settings.option_b_image_1 != blank or block.settings.option_b_label_1 != blank -%}
-        <div class="heating-product-kit__step heating-product-kit__step--1">
-          {%- if block.settings.option_b_image_1 != blank -%}
-            {{
-              block.settings.option_b_image_1
-              | image_url: width: 180
-              | image_tag:
-                class: 'heating-product-kit__step-image',
-                loading: 'lazy',
-                widths: '80,120,180',
-                sizes: '(max-width: 767px) 76px, 82px',
-                alt: block.settings.option_b_image_1.alt | default: block.settings.option_b_label_1
-            }}
-          {%- endif -%}
-          {%- if block.settings.option_b_label_1 != blank -%}
-            <p class="heating-product-kit__step-label">{{ block.settings.option_b_label_1 }}</p>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
-
-      {%- if block.settings.option_b_image_1 != blank and block.settings.option_b_image_2 != blank -%}
-        <span class="heating-product-kit__arrow heating-product-kit__arrow--right heating-product-kit__arrow--b1" aria-hidden="true">
-          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 9H14M10.5 5.5L14 9L10.5 12.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      {%- endif -%}
-
-      {%- if block.settings.option_b_image_2 != blank or block.settings.option_b_label_2 != blank -%}
-        <div class="heating-product-kit__step heating-product-kit__step--2">
-          {%- if block.settings.option_b_image_2 != blank -%}
-            {{
-              block.settings.option_b_image_2
-              | image_url: width: 180
-              | image_tag:
-                class: 'heating-product-kit__step-image',
-                loading: 'lazy',
-                widths: '80,120,180',
-                sizes: '(max-width: 767px) 76px, 82px',
-                alt: block.settings.option_b_image_2.alt | default: block.settings.option_b_label_2
-            }}
-          {%- endif -%}
-          {%- if block.settings.option_b_label_2 != blank -%}
-            <p class="heating-product-kit__step-label">{{ block.settings.option_b_label_2 }}</p>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
-
-      {%- if block.settings.option_b_image_2 != blank and block.settings.option_b_image_3 != blank -%}
-        <span class="heating-product-kit__arrow heating-product-kit__arrow--b2" aria-hidden="true">
-          <svg class="heating-product-kit__arrow-svg--right" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 9H14M10.5 5.5L14 9L10.5 12.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <svg class="heating-product-kit__arrow-svg--split" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 3V15M5.5 11.5L9 15L12.5 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      {%- endif -%}
-
-      {%- if block.settings.option_b_image_3 != blank or block.settings.option_b_label_3 != blank -%}
-        <div class="heating-product-kit__step heating-product-kit__step--3">
-          {%- if block.settings.option_b_image_3 != blank -%}
-            {{
-              block.settings.option_b_image_3
-              | image_url: width: 180
-              | image_tag:
-                class: 'heating-product-kit__step-image',
-                loading: 'lazy',
-                widths: '80,120,180',
-                sizes: '(max-width: 767px) 76px, 82px',
-                alt: block.settings.option_b_image_3.alt | default: block.settings.option_b_label_3
-            }}
-          {%- endif -%}
-          {%- if block.settings.option_b_label_3 != blank -%}
-            <p class="heating-product-kit__step-label">{{ block.settings.option_b_label_3 }}</p>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
-    </div>
   </div>
 </article>

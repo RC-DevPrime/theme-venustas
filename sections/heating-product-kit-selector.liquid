@@ -6,25 +6,25 @@
     overflow: hidden;
     background: #f5f5f5;
     font-family: 'Montserrat', sans-serif;
+    color: var(--venustas-black);
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__inner {
     width: min(100% - 40px, 1340px);
     margin-left: auto;
     margin-right: auto;
-    padding: 52px 0 58px;
+    padding: 56px 0 56px;
     box-sizing: border-box;
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__header {
     max-width: 980px;
-    margin: 0 auto 62px;
+    margin: 0 auto 64px;
     text-align: center;
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__heading {
     margin: 0 0 24px;
-    color: #191919;
     font-size: 28px;
     font-weight: 800;
     line-height: 1.16;
@@ -33,7 +33,6 @@
 
   #shopify-section-{{ section.id }} .heating-product-kit__subheading {
     margin: 0;
-    color: #3a3a3a;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.45;
@@ -63,14 +62,13 @@
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__card-main {
-    padding: 32px 22px 26px;
+    padding: 28px 16px 16px;
     text-align: center;
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__card-title {
-    margin: 0 0 10px;
-    color: #191919;
-    font-size: 24px;
+    margin: 0 0 6px;
+    font-size: 20px;
     font-weight: 800;
     line-height: 1.15;
     letter-spacing: 0;
@@ -79,7 +77,6 @@
   #shopify-section-{{ section.id }} .heating-product-kit__card-description {
     min-height: 42px;
     margin: 0 0 28px;
-    color: #191919;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.32;
@@ -88,7 +85,7 @@
 
   #shopify-section-{{ section.id }} .heating-product-kit__media {
     width: 100%;
-    height: 300px;
+    height: 292px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,7 +99,7 @@
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__connect {
-    padding: 24px 22px 30px;
+    padding: 20px;
     border-top: 1px solid #e8e8e8;
   }
 
@@ -134,47 +131,121 @@
     gap: 8px;
   }
 
-  #shopify-section-{{ section.id }} .heating-product-kit__option--horizontal {
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-2,
+  #shopify-section-{{ section.id }} .heating-product-kit__option--b {
     grid-template-columns: 1fr auto 1fr auto 1fr;
   }
 
-  #shopify-section-{{ section.id }} .heating-product-kit__option--split {
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-2 .heating-product-kit__step--1 {
+    grid-column: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-2 .heating-product-kit__arrow--a1 {
+    grid-column: 3;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-2 .heating-product-kit__step--2 {
+    grid-column: 5;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 {
     grid-template-columns: 1fr auto 1fr;
     grid-template-rows: auto auto auto;
   }
 
-  #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__step--1 {
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 .heating-product-kit__step--1 {
     grid-column: 1;
     grid-row: 1;
   }
 
-  #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__arrow--b1 {
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 .heating-product-kit__arrow--a1 {
     grid-column: 2;
     grid-row: 1;
   }
 
-  #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__step--2 {
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 .heating-product-kit__step--2 {
     grid-column: 3;
     grid-row: 1;
   }
 
-  #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__arrow--b2 {
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 .heating-product-kit__arrow--a2 {
     grid-column: 3;
     grid-row: 2;
     justify-self: center;
   }
 
-  #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__step--3 {
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 .heating-product-kit__step--3 {
+    grid-column: 3;
+    grid-row: 3;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 {
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    grid-template-rows: auto 28px auto;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__step--1 {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a1 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__step--2 {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a2 {
+    grid-column: 4;
+    grid-row: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__step--3 {
+    grid-column: 5;
+    grid-row: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a3 {
+    grid-column: 5;
+    grid-row: 2;
+    justify-self: center;
+    margin-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__step--4 {
     grid-column: 1;
     grid-row: 3;
   }
 
-  #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__arrow-svg--right {
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a4 {
+    grid-column: 3;
+    grid-row: 3;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__step--5 {
+    grid-column: 5;
+    grid-row: 3;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__arrow-svg--down,
+  #shopify-section-{{ section.id }} .heating-product-kit__arrow-svg--left {
     display: none;
   }
 
-  #shopify-section-{{ section.id }} .heating-product-kit__option--horizontal .heating-product-kit__arrow-svg--split {
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 .heating-product-kit__arrow--a2 .heating-product-kit__arrow-svg--right,
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a3 .heating-product-kit__arrow-svg--right,
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a4 .heating-product-kit__arrow-svg--right {
     display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 .heating-product-kit__arrow--a2 .heating-product-kit__arrow-svg--down,
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a3 .heating-product-kit__arrow-svg--down,
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a4 .heating-product-kit__arrow-svg--left {
+    display: block;
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__step {
@@ -208,6 +279,7 @@
     color: var(--color-brand);
     line-height: 0;
     align-self: center;
+    justify-self: center;
     margin-top: 30px;
   }
 
@@ -256,11 +328,11 @@
     }
 
     #shopify-section-{{ section.id }} .heating-product-kit__card-main {
-      padding: 28px 18px 22px;
+      padding: 20px;
     }
 
     #shopify-section-{{ section.id }} .heating-product-kit__card-title {
-      font-size: 20px;
+      font-size: 18px;
     }
 
     #shopify-section-{{ section.id }} .heating-product-kit__card-description {
@@ -275,19 +347,6 @@
 
     #shopify-section-{{ section.id }} .heating-product-kit__connect {
       padding: 22px 18px 26px;
-    }
-
-    #shopify-section-{{ section.id }} .heating-product-kit__option--horizontal,
-    #shopify-section-{{ section.id }} .heating-product-kit__option--split {
-      grid-template-columns: 1fr auto 1fr;
-      grid-template-rows: auto;
-    }
-
-    #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__step--1,
-    #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__arrow--b1,
-    #shopify-section-{{ section.id }} .heating-product-kit__option--split .heating-product-kit__step--2 {
-      grid-row: auto;
-      grid-column: auto;
     }
 
     #shopify-section-{{ section.id }} .heating-product-kit__step-image {
@@ -476,30 +535,40 @@
           "label": "Option A label 3"
         },
         {
+          "type": "image_picker",
+          "id": "option_a_image_4",
+          "label": "Option A image 4"
+        },
+        {
+          "type": "text",
+          "id": "option_a_label_4",
+          "label": "Option A label 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_a_image_5",
+          "label": "Option A image 5"
+        },
+        {
+          "type": "text",
+          "id": "option_a_label_5",
+          "label": "Option A label 5"
+        },
+        {
           "type": "header",
           "content": "Option B"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_option_b",
+          "label": "Show Option B",
+          "default": false
         },
         {
           "type": "text",
           "id": "option_b_title",
           "label": "Option B title",
           "default": "Option B"
-        },
-        {
-          "type": "select",
-          "id": "option_b_layout",
-          "label": "Option B layout",
-          "default": "horizontal",
-          "options": [
-            {
-              "value": "horizontal",
-              "label": "Horizontal"
-            },
-            {
-              "value": "split",
-              "label": "Split"
-            }
-          ]
         },
         {
           "type": "image_picker",
@@ -548,6 +617,7 @@
             "description": "Portable warmth on and off the bike",
             "option_a_label_1": "7.5K Battery (Included)",
             "option_a_label_2": "Heated Vest Power Connector",
+            "show_option_b": true,
             "option_b_label_1": "Motorcycle 12V",
             "option_b_label_2": "Y-Cable",
             "option_b_label_3": "Heated Vest Power Connector"
@@ -562,6 +632,7 @@
             "option_a_label_1": "Motorcycle 12V",
             "option_a_label_2": "Y-Cable",
             "option_a_label_3": "Heated Jacket Power Connector",
+            "show_option_b": false,
             "option_b_title": ""
           }
         },
@@ -574,6 +645,7 @@
             "option_a_label_1": "Motorcycle 12V",
             "option_a_label_2": "Y-Cable",
             "option_a_label_3": "Heated Pants Power Connector",
+            "show_option_b": false,
             "option_b_title": ""
           }
         },
@@ -586,10 +658,10 @@
             "option_a_label_1": "Motorcycle 12V",
             "option_a_label_2": "Y-Cable",
             "option_a_label_3": "Jacket",
-            "option_b_layout": "split",
-            "option_b_label_1": "Pants",
-            "option_b_label_2": "3-Way Cable",
-            "option_b_label_3": ""
+            "option_a_label_4": "Pants",
+            "option_a_label_5": "3-Way Cable",
+            "show_option_b": false,
+            "option_b_title": ""
           }
         }
       ]
