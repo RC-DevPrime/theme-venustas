@@ -1,0 +1,230 @@
+<div class="built-for-real-riding" style="background-color: {{ section.settings.section_background | default: '#1A1A1A' }};">
+  <div class="built-for-real-riding__container">
+    {# 标题区 #}
+    <div class="built-for-real-riding__header">
+      <h2 class="built-for-real-riding__title">{{ section.settings.title | default: 'BUILT FOR REAL RIDING' }}</h2>
+      <p class="built-for-real-riding__description">{{ section.settings.description | default: 'From city streets to mountain passes, our heated gear is tested by riders in real conditions—so you can ride longer, in more comfort.' }}</p>
+    </div>
+
+    {# 场景卡片列表 #}
+    <div class="built-for-real-riding__grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'scenario' %}
+          <div class="built-for-real-riding__card">
+            <div class="built-for-real-riding__icon-wrapper">
+              {% render 'icons', name: block.settings.icon, class: 'built-for-real-riding__icon' %}
+            </div>
+            <h3 class="built-for-real-riding__card-title">{{ block.settings.title }}</h3>
+            <p class="built-for-real-riding__card-text">{{ block.settings.text }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Heating Real Riding",
+  "tag": "section",
+  "class": "built-for-real-riding-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "BUILT FOR REAL RIDING"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "From city streets to mountain passes, our heated gear is tested by riders in real conditions—so you can ride longer, in more comfort."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "scenario",
+      "name": "Scenario",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "icon-mountain",
+          "options": [
+            { "value": "icon-warmth", "label": "Warmth" },
+            { "value": "icon-protection", "label": "Protection" },
+            { "value": "icon-comfort", "label": "Comfort" },
+            { "value": "icon-rider", "label": "Rider" },
+            { "value": "icon-thermometer", "label": "Thermometer" },
+            { "value": "icon-mobility", "label": "Mobility" },
+            { "value": "icon-duration", "label": "Duration" },
+            { "value": "icon-mountain", "label": "Mountain" },
+            { "value": "icon-highway", "label": "Highway" },
+            { "value": "icon-urban", "label": "Urban" },
+            { "value": "icon-weather", "label": "Weather" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Mountain Roads"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Cold wind. Steep climbs."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Real Riding",
+      "blocks": [
+        {
+          "type": "scenario",
+          "settings": {
+            "icon": "icon-mountain",
+            "title": "Mountain Roads",
+            "text": "Cold wind. Steep climbs."
+          }
+        },
+        {
+          "type": "scenario",
+          "settings": {
+            "icon": "icon-highway",
+            "title": "Highway Cruising",
+            "text": "Sustained speed. Constant wind."
+          }
+        },
+        {
+          "type": "scenario",
+          "settings": {
+            "icon": "icon-urban",
+            "title": "Urban Commuting",
+            "text": "Stop and go. All-day comfort."
+          }
+        },
+        {
+          "type": "scenario",
+          "settings": {
+            "icon": "icon-weather",
+            "title": "All Weather",
+            "text": "Rain, snow, or shine. Stay warm."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+.built-for-real-riding {
+  padding: 60px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.built-for-real-riding__container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.built-for-real-riding__header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.built-for-real-riding__title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #FFFFFF;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.built-for-real-riding__description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.built-for-real-riding__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.built-for-real-riding__card {
+  text-align: center;
+  padding: 24px 16px;
+  background: {{ section.settings.panel_background | default: '#161615' }};
+  border-radius: 8px;
+}
+
+.built-for-real-riding__icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: {{ section.settings.icon_bg | default: '#2A2A2A' }};
+}
+
+.built-for-real-riding__icon {
+  width: 32px;
+  height: 32px;
+  color: {{ section.settings.icon_color | default: '#B93205' }};
+}
+
+.built-for-real-riding__card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+
+.built-for-real-riding__card-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+  .built-for-real-riding {
+    padding: 40px 16px;
+  }
+
+  .built-for-real-riding__title {
+    font-size: 24px;
+  }
+
+  .built-for-real-riding__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .built-for-real-riding__grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+{% endstyle %}
