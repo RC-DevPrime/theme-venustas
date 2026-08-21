@@ -484,6 +484,52 @@
         "cta_link": "",
         "legal_text": "Batteries sold separately. Compatible with Venustas heated apparel. WV12 and MV11 heated vests include battery power for portable warmth."
       }
+    },
+    "heating_layer_stack_NPBeAL": {
+      "type": "heating-layer-stack",
+      "blocks": {
+        "layer_8xyGw3": {
+          "type": "layer",
+          "settings": {
+            "icon": "shopify://shop_images/KJ12-3.jpg",
+            "title": "Base Layer",
+            "subtitle": "Next to skin",
+            "description": "Moisture-wicking technical base layer keeps you dry and comfortable during active riding.",
+            "highlight": false
+          }
+        },
+        "layer_qUxDFh": {
+          "type": "layer",
+          "settings": {
+            "icon": "shopify://shop_images/KV10-6.jpg",
+            "title": "Venustas Heated Layer",
+            "subtitle": "Core warmth",
+            "description": "Built-in heating elements deliver targeted warmth where you need it most.",
+            "highlight": true
+          }
+        },
+        "layer_Ui79Na": {
+          "type": "layer",
+          "settings": {
+            "icon": "shopify://shop_images/KV10-4.jpg",
+            "title": "Protective Riding Gear",
+            "subtitle": "Outer protection",
+            "description": "Shields you from wind, rain, abrasion, and impact.",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "layer_8xyGw3",
+        "layer_qUxDFh",
+        "layer_Ui79Na"
+      ],
+      "name": "Heating Layer Stack",
+      "settings": {
+        "heading": "Designed To Layer Under Riding Gear",
+        "description": "<p>Our heated gear is designed as a mid layer - focused on delivering core warmth. Your outer gear is for protection. Together, they keep you warm, safe, and comfortable on every ride.</p>",
+        "feature_image": "shopify://shop_images/Season-Ready-Event-0818-0901-MB.jpg"
+      }
     }
   },
   "order": [
@@ -498,6 +544,7 @@
     "motorheating_rider_tested_cta_thjadT",
     "heating_ride_setup_cards_YbrJkQ",
     "heating_product_kit_selector_U7HLyy",
-    "heating_power_options_qhjKdL"
+    "heating_power_options_qhjKdL",
+    "heating_layer_stack_NPBeAL"
   ]
 }
