@@ -1,0 +1,567 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign feature_blocks = section.blocks | where: 'type', 'feature'
+  assign card_blocks = section.blocks | where: 'type', 'card'
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .heating-riding-position {
+    width: 100%;
+    overflow: hidden;
+    background-color: #0F1110;
+    {%- if section.settings.desktop_background != blank -%}
+      background-image: url({{ section.settings.desktop_background | image_url: width: 2000 }});
+    {%- endif -%}
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 120px 0 72px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position__header {
+    max-width: 900px;
+    margin-bottom: 52px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position__eyebrow {
+    margin: 0 0 8px;
+    color: var(--color-brand, #B93205);
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position__heading {
+    margin: 0 0 28px;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.12;
+    text-transform: uppercase;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position__description {
+    max-width: 1080px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.45;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position__features {
+    margin-bottom: 56px;
+    background: transparent;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position__features.heating-icon-benefits .heating-icon-benefits__inner {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position__features .heating-icon-benefits__panel {
+    backdrop-filter: blur(10px);
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position__cards {
+    overflow: visible;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position__cards .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position__cards .swiper-slide {
+    width: auto;
+    height: auto;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position-card {
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid #2A2A28;
+    border-radius: 8px;
+    background: #161615;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position-card__media {
+    padding: 20px 20px 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position-card__image,
+  #shopify-section-{{ section.id }} .heating-riding-position-card__placeholder {
+    width: 100%;
+    aspect-ratio: 394 / 226;
+    display: block;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #242424;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position-card__body {
+    padding: 22px 20px 24px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position-card__title {
+    margin: 0 0 12px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.16;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position-card__description {
+    margin: 0 0 24px;
+    min-height: 44px;
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.38;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position-card__list {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+    padding: 20px 0 0;
+    border-top: 1px solid #2A2A28;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position-card__item {
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr);
+    align-items: start;
+    gap: 10px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position-card__item-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--color-brand, #B93205);
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position-card__item-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .heating-riding-position__pagination {
+    display: none;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-riding-position {
+      {%- if section.settings.mobile_background != blank -%}
+        background-image: url({{ section.settings.mobile_background | image_url: width: 900 }});
+      {%- elsif section.settings.desktop_background != blank -%}
+        background-image: url({{ section.settings.desktop_background | image_url: width: 900 }});
+      {%- endif -%}
+      background-position: center top;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__inner {
+      width: 100%;
+      padding: 34px 20px 36px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__header {
+      margin-bottom: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__eyebrow {
+      margin-bottom: 5px;
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__heading {
+      max-width: 310px;
+      margin-bottom: 8px;
+      font-size: 20px;
+      line-height: 1.08;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__description {
+      max-width: 310px;
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__features {
+      margin-bottom: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__features .heating-icon-benefits__title,
+    #shopify-section-{{ section.id }} .heating-riding-position__features .heating-icon-benefits__text {
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__cards {
+      overflow: hidden;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__cards .swiper-wrapper {
+      display: flex;
+      gap: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__cards .swiper-slide {
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position-card__media {
+      padding: 14px 14px 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position-card__body {
+      padding: 18px 14px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position-card__title {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position-card__description {
+      min-height: 0;
+      margin-bottom: 16px;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position-card__list {
+      gap: 10px;
+      padding-top: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position-card__item {
+      font-size: 10px;
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position-card__item-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__pagination {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__pagination .swiper-pagination-bullet {
+      width: 6px;
+      height: 6px;
+      margin: 0 !important;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.24);
+      opacity: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-position__pagination .swiper-pagination-bullet-active {
+      background: var(--color-brand, #B93205);
+    }
+  }
+{% endstyle %}
+
+<section class="heating-riding-position">
+  <div class="heating-riding-position__inner">
+    <div class="heating-riding-position__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="heating-riding-position__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="heating-riding-position__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <p class="heating-riding-position__description">{{ section.settings.description }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if feature_blocks.size > 0 -%}
+      {%- render 'heating-icon-benefits',
+        section_id: section.id,
+        blocks: feature_blocks,
+        root_class: 'heating-riding-position__features',
+        section_background: 'transparent',
+        panel_background: 'rgba(22, 22, 21, 0.58)',
+        inner_padding: '0',
+        mobile_inner_padding: '0',
+        panel_padding: '24px 42px',
+        mobile_panel_padding: '16px',
+        panel_gap: '38px',
+        mobile_panel_gap: '16px'
+      -%}
+    {%- endif -%}
+
+    {%- if card_blocks.size > 0 -%}
+      <div class="heating-riding-position__cards swiper" id="heating-riding-position-cards-{{ section.id }}">
+        <div class="swiper-wrapper">
+          {%- for block in card_blocks -%}
+            <div class="swiper-slide">
+              {%- render 'heating-riding-position-card', block: block -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="heating-riding-position__pagination" id="heating-riding-position-pagination-{{ section.id }}"></div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+  (function() {
+    var sectionId = '{{ section.id }}';
+    var swiper = null;
+
+    function init() {
+      var slider = document.getElementById('heating-riding-position-cards-' + sectionId);
+      if (!slider || typeof Swiper === 'undefined') return;
+
+      if (window.matchMedia('(min-width: 768px)').matches) {
+        if (swiper) {
+          swiper.destroy(true, true);
+          swiper = null;
+        }
+        return;
+      }
+
+      if (swiper || slider.swiper) return;
+
+      swiper = new Swiper(slider, {
+        slidesPerView: 1,
+        spaceBetween: 16,
+        pagination: {
+          el: '#heating-riding-position-pagination-' + sectionId,
+          clickable: true
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+    window.addEventListener('load', init);
+    window.addEventListener('resize', init);
+    document.addEventListener('shopify:section:load', function(event) {
+      if (event.detail && event.detail.sectionId === sectionId) init();
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Heating Riding Position",
+  "tag": "section",
+  "class": "heating-riding-position-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_background",
+      "label": "Desktop background"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_background",
+      "label": "Mobile background"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "BUILT FOR THE RIDE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "DESIGNED AROUND THE RIDING POSITION"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Our heated gear is engineered specifically for how riders move and ride-so warmth stays in, and you stay focused."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Icon benefit",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "icon-rider",
+          "options": [
+            { "value": "icon-warmth", "label": "Warmth" },
+            { "value": "icon-protection", "label": "Protection" },
+            { "value": "icon-comfort", "label": "Comfort" },
+            { "value": "icon-rider", "label": "Rider" },
+            { "value": "icon-thermometer", "label": "Thermometer" },
+            { "value": "icon-mobility", "label": "Mobility" },
+            { "value": "icon-duration", "label": "Duration" },
+            { "value": "icon-mountain", "label": "Mountain" },
+            { "value": "icon-highway", "label": "Highway" },
+            { "value": "icon-urban", "label": "Urban" },
+            { "value": "icon-weather", "label": "Weather" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Rider-Focused"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Built for real riding conditions."
+        }
+      ]
+    },
+    {
+      "type": "card",
+      "name": "Feature card",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Wind Protection"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Engineered to block high-speed wind and lock in core warmth."
+        },
+        {
+          "type": "text",
+          "id": "bullet_1",
+          "label": "Bullet 1",
+          "default": "Wind-blocking soft shell exterior"
+        },
+        {
+          "type": "text",
+          "id": "bullet_2",
+          "label": "Bullet 2",
+          "default": "Heating zones protect core areas"
+        },
+        {
+          "type": "text",
+          "id": "bullet_3",
+          "label": "Bullet 3",
+          "default": "Keeps warmth in, wind out"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Riding Position",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "icon-rider",
+            "title": "Rider-Focused",
+            "text": "Built for real riding conditions."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "icon-warmth",
+            "title": "Stay Warm",
+            "text": "Targeted heating where you need it."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "icon-mobility",
+            "title": "Ride Freely",
+            "text": "Engineered for mobility and comfort."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "icon-duration",
+            "title": "Ride Longer",
+            "text": "Comfort that keeps you going."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Wind Protection",
+            "description": "Engineered to block high-speed wind and lock in core warmth.",
+            "bullet_1": "Wind-blocking soft shell exterior",
+            "bullet_2": "Heating zones protect core areas",
+            "bullet_3": "Keeps warmth in, wind out"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Mobility",
+            "description": "Designed to move with your body, not against it.",
+            "bullet_1": "Pre-curved sleeves for riding posture",
+            "bullet_2": "Flexible materials for full range of motion",
+            "bullet_3": "No bulk. No restriction."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Comfort",
+            "description": "Targeted warmth for the areas that feel cold in the riding position.",
+            "bullet_1": "Heating where riders lose warmth most",
+            "bullet_2": "Designed for seated comfort",
+            "bullet_3": "Warmth that lasts mile after mile"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

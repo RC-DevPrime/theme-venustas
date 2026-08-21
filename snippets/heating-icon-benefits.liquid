@@ -3,6 +3,13 @@
   assign benefits_blocks = blocks | default: section.blocks
   assign benefits_section_background = section_background | default: '#1A1A1A'
   assign benefits_panel_background = panel_background | default: '#161615'
+  assign benefits_root_class = root_class | default: ''
+  assign benefits_inner_padding = inner_padding | default: '56px 0 100px'
+  assign benefits_mobile_inner_padding = mobile_inner_padding | default: '0 20px 40px'
+  assign benefits_panel_padding = panel_padding | default: '34px 64px'
+  assign benefits_mobile_panel_padding = mobile_panel_padding | default: '16px'
+  assign benefits_panel_gap = panel_gap | default: '42px'
+  assign benefits_mobile_panel_gap = mobile_panel_gap | default: '16px'
 -%}
 
 {% style %}
@@ -13,16 +20,16 @@
   }
 
   #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__inner {
-    width: min(100% - 40px, 1340px);
+    width: 1340px;
     margin: 0 auto;
-    padding: 56px 0 100px;
+    padding: {{ benefits_inner_padding }};
   }
 
   #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__panel {
     display: grid;
     grid-template-columns: repeat({{ benefits_blocks.size | at_least: 1 }}, minmax(0, 1fr));
-    gap: 42px;
-    padding: 34px 64px;
+    gap: {{ benefits_panel_gap }};
+    padding: {{ benefits_panel_padding }};
     border: 1px solid #2A2A28;
     border-radius: 12px;
     background: {{ benefits_panel_background }};
@@ -82,15 +89,15 @@
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__inner {
       width: 100%;
-      padding: 0 20px 40px;
+      padding: {{ benefits_mobile_inner_padding }};
       box-sizing: border-box;
     }
 
     #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__panel {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 16px;
-      padding: 16px;
+      gap: {{ benefits_mobile_panel_gap }};
+      padding: {{ benefits_mobile_panel_padding }};
     }
 
     #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__item {
@@ -122,7 +129,7 @@
   }
 {% endstyle %}
 
-<section class="heating-icon-benefits">
+<section class="heating-icon-benefits {{ benefits_root_class }}">
   <div class="heating-icon-benefits__inner">
     <div class="heating-icon-benefits__panel">
       {%- for block in benefits_blocks -%}

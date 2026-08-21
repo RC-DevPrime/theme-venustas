@@ -8,19 +8,12 @@
     </div>
 
     {# 场景卡片列表 #}
-    <div class="built-for-real-riding__grid">
-      {% for block in section.blocks %}
-        {% if block.type == 'scenario' %}
-          <div class="built-for-real-riding__card">
-            <div class="built-for-real-riding__icon-wrapper">
-              {% render 'heating-icons', name: block.settings.icon, class: 'built-for-real-riding__icon' %}
-            </div>
-            <h3 class="built-for-real-riding__card-title">{{ block.settings.title }}</h3>
-            <p class="built-for-real-riding__card-text">{{ block.settings.text }}</p>
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
+      {%- render 'heating-icon-benefits',
+        section_id: section.id,
+        blocks: section.blocks,
+        section_background: section.settings.section_background,
+        panel_background: section.settings.panel_background
+      -%}
   </div>
 </div>
 </section>
@@ -35,6 +28,12 @@
       "id": "section_background",
       "label": "Section background",
       "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "panel_background",
+      "label": "Panel background",
+      "default": "#161615"
     },
     {
       "type": "text",
@@ -133,26 +132,20 @@
 
 {% style %}
 .built-for-real-riding {
-  padding: 60px 20px;
-  font-family: Arial, sans-serif;
+  padding: 96px 0;
 }
 
 .built-for-real-riding__container {
-  max-width: 1200px;
+  max-width: 1340px;
   margin: 0 auto;
 }
 
-.built-for-real-riding__header {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
 .built-for-real-riding__title {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   letter-spacing: 2px;
   color: #FFFFFF;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   text-transform: uppercase;
 }
 
@@ -160,72 +153,8 @@
   font-size: 16px;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.7);
-  max-width: 700px;
-  margin: 0 auto;
 }
 
-.built-for-real-riding__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
 
-.built-for-real-riding__card {
-  text-align: center;
-  padding: 24px 16px;
-  background: {{ section.settings.panel_background | default: '#161615' }};
-  border-radius: 8px;
-}
 
-.built-for-real-riding__icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 16px;
-  border-radius: 50%;
-  background: {{ section.settings.icon_bg | default: '#2A2A2A' }};
-}
-
-.built-for-real-riding__icon {
-  width: 32px;
-  height: 32px;
-  color: {{ section.settings.icon_color | default: '#B93205' }};
-}
-
-.built-for-real-riding__card-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #FFFFFF;
-  margin-bottom: 8px;
-}
-
-.built-for-real-riding__card-text {
-  font-size: 14px;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-@media (max-width: 768px) {
-  .built-for-real-riding {
-    padding: 40px 16px;
-  }
-
-  .built-for-real-riding__title {
-    font-size: 24px;
-  }
-
-  .built-for-real-riding__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .built-for-real-riding__grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-}
 {% endstyle %}

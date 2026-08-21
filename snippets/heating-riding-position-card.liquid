@@ -1,0 +1,50 @@
+{%- liquid
+  assign card_block = block
+-%}
+
+<article class="heating-riding-position-card" {{ card_block.shopify_attributes }}>
+  <div class="heating-riding-position-card__media">
+    {%- if card_block.settings.image != blank -%}
+      {{
+        card_block.settings.image
+        | image_url: width: 700
+        | image_tag:
+          widths: '320, 480, 640, 700',
+          sizes: '(max-width: 767px) calc(100vw - 40px), 31vw',
+          loading: 'lazy',
+          class: 'heating-riding-position-card__image',
+          alt: card_block.settings.title
+      }}
+    {%- else -%}
+      <div class="heating-riding-position-card__placeholder"></div>
+    {%- endif -%}
+  </div>
+
+  <div class="heating-riding-position-card__body">
+    {%- if card_block.settings.title != blank -%}
+      <h3 class="heating-riding-position-card__title">{{ card_block.settings.title }}</h3>
+    {%- endif -%}
+
+    {%- if card_block.settings.description != blank -%}
+      <p class="heating-riding-position-card__description">{{ card_block.settings.description }}</p>
+    {%- endif -%}
+
+    <ul class="heating-riding-position-card__list">
+      {%- for index in (1..3) -%}
+        {%- assign bullet_key = 'bullet_' | append: index -%}
+        {%- assign bullet_text = card_block.settings[bullet_key] -%}
+        {%- if bullet_text != blank -%}
+          <li class="heating-riding-position-card__item">
+            <span class="heating-riding-position-card__item-icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" focusable="false">
+                <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M5.4 8.1L7.1 9.8L10.7 6.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span>{{ bullet_text }}</span>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</article>
