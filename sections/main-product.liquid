@@ -695,10 +695,7 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
         {% endif %}
 
         {%- comment -%} Hover image {%- endcomment -%}
-        {% assign hover_img = product.metafields.custom.product_card_hover_image %}
-        {% if hover_img == blank and product.media.size > 1 %}
-            {% assign hover_img = product.media[1].image %}
-        {% endif %}
+        {% assign hover_img = product.media[1].image | default: product.media.first.image %}
 
         {% if hover_img != blank %}
             {% assign img_small = hover_img | img_url: '300x400' | image_url: 'format:auto' %}
