@@ -530,6 +530,45 @@
         "description": "<p>Our heated gear is designed as a mid layer - focused on delivering core warmth. Your outer gear is for protection. Together, they keep you warm, safe, and comfortable on every ride.</p>",
         "feature_image": "shopify://shop_images/Season-Ready-Event-0818-0901-MB.jpg"
       }
+    },
+    "heating_icon_benefits_eXBYGy": {
+      "type": "heating-icon-benefits",
+      "blocks": {
+        "benefit_TGkRey": {
+          "type": "benefit",
+          "settings": {
+            "icon": "icon-warmth",
+            "title": "Better Warmth",
+            "text": "Heat stays locked inside while external cold elements stay out, preserving your body heat for maximum efficiency."
+          }
+        },
+        "benefit_RFAAQG": {
+          "type": "benefit",
+          "settings": {
+            "icon": "icon-protection",
+            "title": "Better Protection",
+            "text": "Your thick armor shields you from severe road hazards, keeping your physical defense completely intact."
+          }
+        },
+        "benefit_T9bHFy": {
+          "type": "benefit",
+          "settings": {
+            "icon": "icon-comfort",
+            "title": "Better Comfort",
+            "text": "Optimal layering regulates temperature and prevents dangerous stiffness, reducing unneeded fabric bulk."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_TGkRey",
+        "benefit_RFAAQG",
+        "benefit_T9bHFy"
+      ],
+      "name": "Heating Icon Benefits",
+      "settings": {
+        "section_background": "#161615",
+        "panel_background": "#161615"
+      }
     }
   },
   "order": [
@@ -545,6 +584,7 @@
     "heating_ride_setup_cards_YbrJkQ",
     "heating_product_kit_selector_U7HLyy",
     "heating_power_options_qhjKdL",
-    "heating_layer_stack_NPBeAL"
+    "heating_layer_stack_NPBeAL",
+    "heating_icon_benefits_eXBYGy"
   ]
 }
