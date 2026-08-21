@@ -1,3 +1,4 @@
+<section class="heating-real-riding" heating-real-riding>
 <div class="built-for-real-riding" style="background-color: {{ section.settings.section_background | default: '#1A1A1A' }};">
   <div class="built-for-real-riding__container">
     {# 标题区 #}
@@ -12,7 +13,7 @@
         {% if block.type == 'scenario' %}
           <div class="built-for-real-riding__card">
             <div class="built-for-real-riding__icon-wrapper">
-              {% render 'icons', name: block.settings.icon, class: 'built-for-real-riding__icon' %}
+              {% render 'heating-icons', name: block.settings.icon, class: 'built-for-real-riding__icon' %}
             </div>
             <h3 class="built-for-real-riding__card-title">{{ block.settings.title }}</h3>
             <p class="built-for-real-riding__card-text">{{ block.settings.text }}</p>
@@ -22,7 +23,7 @@
     </div>
   </div>
 </div>
-
+</section>
 {% schema %}
 {
   "name": "Heating Real Riding",
