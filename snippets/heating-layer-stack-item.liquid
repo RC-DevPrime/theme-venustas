@@ -5,7 +5,7 @@
     {%- endif -%}
 
     {%- if block.settings.subtitle != blank -%}
-      <p class="heating-layer-stack__item-subtitle">"{{ block.settings.subtitle }}"</p>
+      <p class="heating-layer-stack__item-subtitle">{{ block.settings.subtitle }}</p>
     {%- endif -%}
 
     {%- if block.settings.description != blank -%}
@@ -22,7 +22,7 @@
           class: 'heating-layer-stack__item-image',
           loading: 'lazy',
           widths: '120,180,240,320,420',
-          sizes: '(max-width: 767px) 124px, 160px',
+          sizes: '(max-width: 767px) 118px, 160px',
           alt: block.settings.icon.alt | default: block.settings.title
       }}
     </div>

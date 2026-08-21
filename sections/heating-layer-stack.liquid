@@ -11,18 +11,18 @@
     width: min(100% - 40px, 1340px);
     margin-left: auto;
     margin-right: auto;
-    padding: 68px 0 76px;
+    padding: 80px 0 50px;
     box-sizing: border-box;
   }
 
   #shopify-section-{{ section.id }} .heating-layer-stack__header {
     max-width: 760px;
-    margin: 0 auto 92px;
+    margin: 0 auto 122px;
     text-align: center;
   }
 
   #shopify-section-{{ section.id }} .heating-layer-stack__heading {
-    margin: 0 0 18px;
+    margin: 0 0 16px;
     color: #fff;
     font-size: 28px;
     font-weight: 800;
@@ -45,35 +45,31 @@
 
   #shopify-section-{{ section.id }} .heating-layer-stack__body {
     display: grid;
-    grid-template-columns: minmax(0, 620px) minmax(0, 620px);
+    grid-template-columns: minmax(0, 620px) 636px;
     align-items: center;
-    gap: 60px;
+    gap: 64px;
   }
 
   #shopify-section-{{ section.id }} .heating-layer-stack__list {
     display: grid;
-    gap: 0;
+    row-gap: 32px;
   }
 
   #shopify-section-{{ section.id }} .heating-layer-stack__item {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 180px;
+    grid-template-columns: minmax(0, 1fr) 160px;
     align-items: center;
     gap: 32px;
-    min-height: 174px;
-    padding: 24px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  #shopify-section-{{ section.id }} .heating-layer-stack__item:first-child {
-    padding-top: 0;
+    min-height: 160px;
+    padding: 16px 0;
+    border-bottom: 1px solid #2A2A2A;
   }
 
   #shopify-section-{{ section.id }} .heating-layer-stack__item-title {
-    margin: 0 0 6px;
+    margin: 0 0 4px;
     color: #fff;
     font-size: 24px;
-    font-weight: 800;
+    font-weight: 500;
     line-height: 1.1;
     letter-spacing: 0;
   }
@@ -84,10 +80,10 @@
   }
 
   #shopify-section-{{ section.id }} .heating-layer-stack__item-subtitle {
-    margin: 0 0 10px;
+    margin: 0 0 6px;
     color: #fff;
     font-size: 16px;
-    font-weight: 800;
+    font-weight: 600;
     line-height: 1.2;
     letter-spacing: 0;
   }
@@ -103,8 +99,8 @@
   }
 
   #shopify-section-{{ section.id }} .heating-layer-stack__item-media {
-    width: 180px;
-    height: 136px;
+    width: 160px;
+    height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -114,7 +110,7 @@
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: contain;
+    object-fit: cover;
   }
 
   #shopify-section-{{ section.id }} .heating-layer-stack__feature {
@@ -122,22 +118,22 @@
   }
 
   #shopify-section-{{ section.id }} .heating-layer-stack__feature-image {
-    width: 100%;
-    aspect-ratio: 620 / 543;
+    width: 636px;
+    height: 640px;
     display: block;
-    border-radius: 12px;
+    border-radius: 24px;
     object-fit: cover;
   }
 
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .heating-layer-stack__inner {
       width: 100%;
-      padding: 34px 20px 14px;
+      padding: 40px 20px 24px;
     }
 
     #shopify-section-{{ section.id }} .heating-layer-stack__header {
       max-width: none;
-      margin-bottom: 36px;
+      margin-bottom: 24px;
     }
 
     #shopify-section-{{ section.id }} .heating-layer-stack__heading {
@@ -157,14 +153,15 @@
 
     #shopify-section-{{ section.id }} .heating-layer-stack__list {
       width: 100%;
+      row-gap: 0;
     }
 
     #shopify-section-{{ section.id }} .heating-layer-stack__item {
       width: 100%;
-      grid-template-columns: minmax(0, 1fr) 124px;
+      grid-template-columns: minmax(0, 1fr) 118px;
       gap: 18px;
-      min-height: 156px;
-      padding: 18px 0;
+      min-height: 118px;
+      padding: 16px 0;
     }
 
     #shopify-section-{{ section.id }} .heating-layer-stack__item-title {
@@ -183,8 +180,8 @@
     }
 
     #shopify-section-{{ section.id }} .heating-layer-stack__item-media {
-      width: 124px;
-      height: 124px;
+      width: 118px;
+      height: 118px;
     }
 
     #shopify-section-{{ section.id }} .heating-layer-stack__feature {
@@ -225,7 +222,7 @@
               class: 'heating-layer-stack__feature-image',
               loading: 'lazy',
               widths: '480,720,960,1200,1400',
-              sizes: '(max-width: 767px) 0px, min(50vw, 620px)',
+              sizes: '(max-width: 767px) 0px, 636px',
               alt: section.settings.feature_image.alt | default: section.settings.heading
           }}
         </div>
