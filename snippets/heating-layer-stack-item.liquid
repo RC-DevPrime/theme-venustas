@@ -1,0 +1,30 @@
+<article class="heating-layer-stack__item{% if highlight %} heating-layer-stack__item--highlight{% endif %}"{% if include_attributes %} {{ block.shopify_attributes }}{% endif %}>
+  <div class="heating-layer-stack__item-copy">
+    {%- if block.settings.title != blank -%}
+      <h3 class="heating-layer-stack__item-title">{{ block.settings.title }}</h3>
+    {%- endif -%}
+
+    {%- if block.settings.subtitle != blank -%}
+      <p class="heating-layer-stack__item-subtitle">"{{ block.settings.subtitle }}"</p>
+    {%- endif -%}
+
+    {%- if block.settings.description != blank -%}
+      <p class="heating-layer-stack__item-description">{{ block.settings.description }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- if block.settings.icon != blank -%}
+    <div class="heating-layer-stack__item-media">
+      {{
+        block.settings.icon
+        | image_url: width: 420
+        | image_tag:
+          class: 'heating-layer-stack__item-image',
+          loading: 'lazy',
+          widths: '120,180,240,320,420',
+          sizes: '(max-width: 767px) 124px, 160px',
+          alt: block.settings.icon.alt | default: block.settings.title
+      }}
+    </div>
+  {%- endif -%}
+</article>

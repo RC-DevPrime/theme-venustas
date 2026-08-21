@@ -99,12 +99,13 @@
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__connect {
+    position: relative;
     padding: 20px;
     border-top: 1px solid #e8e8e8;
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__connect-title {
-    margin: 0 0 22px;
+    margin: 0 0 46px;
     color: var(--color-brand);
     font-size: 16px;
     font-weight: 800;
@@ -113,7 +114,10 @@
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__option-label {
-    margin: 0 0 16px;
+    position: absolute;
+    top: 54px;
+    left: 20px;
+    margin: 0;
     color: var(--color-brand);
     font-size: 12px;
     font-weight: 800;
@@ -122,7 +126,8 @@
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__option-label--b {
-    margin-top: 28px;
+    position: static;
+    margin: 0 0 16px;
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__option {
@@ -172,6 +177,7 @@
     grid-column: 3;
     grid-row: 2;
     justify-self: center;
+    margin-top: 0;
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 .heating-product-kit__step--3 {
@@ -231,33 +237,16 @@
     grid-row: 3;
   }
 
-  #shopify-section-{{ section.id }} .heating-product-kit__arrow-svg--down,
-  #shopify-section-{{ section.id }} .heating-product-kit__arrow-svg--left {
-    display: none;
-  }
-
-  #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 .heating-product-kit__arrow--a2 .heating-product-kit__arrow-svg--right,
-  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a3 .heating-product-kit__arrow-svg--right,
-  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a4 .heating-product-kit__arrow-svg--right {
-    display: none;
-  }
-
-  #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 .heating-product-kit__arrow--a2 .heating-product-kit__arrow-svg--down,
-  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a3 .heating-product-kit__arrow-svg--down,
-  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a4 .heating-product-kit__arrow-svg--left {
-    display: block;
-  }
-
   #shopify-section-{{ section.id }} .heating-product-kit__step {
     min-width: 0;
     text-align: center;
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__step-image {
-    width: 82px;
-    height: 78px;
+    width: 72px;
+    height: 72px;
     display: block;
-    object-fit: contain;
+    object-fit: cover;
     margin: 0 auto 10px;
   }
 
@@ -278,14 +267,34 @@
     justify-content: center;
     color: var(--color-brand);
     line-height: 0;
-    align-self: center;
+    align-self: start;
     justify-self: center;
-    margin-top: 30px;
+    margin-top: 27px;
   }
 
   #shopify-section-{{ section.id }} .heating-product-kit__arrow svg {
     width: 100%;
     height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__arrow .heating-product-kit__arrow-svg {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__arrow--a .heating-product-kit__arrow-svg--right {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 .heating-product-kit__arrow--a2 .heating-product-kit__arrow-svg--right,
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a3 .heating-product-kit__arrow-svg--right,
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a4 .heating-product-kit__arrow-svg--right {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-3 .heating-product-kit__arrow--a2 .heating-product-kit__arrow-svg--down,
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a3 .heating-product-kit__arrow-svg--down,
+  #shopify-section-{{ section.id }} .heating-product-kit__option--count-5 .heating-product-kit__arrow--a4 .heating-product-kit__arrow-svg--left {
     display: block;
   }
 
@@ -346,12 +355,18 @@
     }
 
     #shopify-section-{{ section.id }} .heating-product-kit__connect {
+      position: relative;
       padding: 22px 18px 26px;
     }
 
     #shopify-section-{{ section.id }} .heating-product-kit__step-image {
-      width: 76px;
-      height: 70px;
+      width: 72px;
+      height: 72px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-product-kit__option-label {
+      top: 56px;
+      left: 18px;
     }
 
     #shopify-section-{{ section.id }} .heating-product-kit__mobile-pagination {
