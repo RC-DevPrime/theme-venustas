@@ -1,138 +1,9 @@
-{% style %}
-  #shopify-section-{{ section.id }} .heating-icon-benefits {
-    width: 100%;
-    background: {{ section.settings.section_background }};
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  #shopify-section-{{ section.id }} .heating-icon-benefits__inner {
-    width: min(100% - 40px, 1340px);
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  #shopify-section-{{ section.id }} .heating-icon-benefits__panel {
-    display: grid;
-    grid-template-columns: repeat({{ section.blocks.size | at_least: 1 }}, minmax(0, 1fr));
-    gap: 42px;
-    padding: 34px 64px;
-    border: 1px solid #2A2A28;
-    border-radius: 12px;
-    background: {{ section.settings.panel_background }};
-    box-sizing: border-box;
-  }
-
-  #shopify-section-{{ section.id }} .heating-icon-benefits__item {
-    display: grid;
-    grid-template-columns: 48px minmax(0, 1fr);
-    align-items: start;
-    gap: 18px;
-    min-width: 0;
-  }
-
-  #shopify-section-{{ section.id }} .heating-icon-benefits__icon {
-    width: 48px;
-    height: 48px;
-    color: var(--color-brand, #B93205);
-    line-height: 0;
-  }
-
-  #shopify-section-{{ section.id }} .heating-icon-benefits__icon .icon-bg-wrapper {
-    width: 48px;
-    height: 48px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(185, 50, 5, 0.14);
-    color: currentColor;
-  }
-
-  #shopify-section-{{ section.id }} .heating-icon-benefits__icon svg {
-    width: 24px;
-    height: 24px;
-    display: block;
-  }
-
-  #shopify-section-{{ section.id }} .heating-icon-benefits__title {
-    margin: 0 0 10px;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: 0;
-  }
-
-  #shopify-section-{{ section.id }} .heating-icon-benefits__text {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.76);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.25;
-    letter-spacing: 0;
-  }
-
-  @media only screen and (max-width: 767px) {
-    #shopify-section-{{ section.id }} .heating-icon-benefits__inner {
-      width: 100%;
-      padding: 0 20px;
-      box-sizing: border-box;
-    }
-
-    #shopify-section-{{ section.id }} .heating-icon-benefits__panel {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 28px;
-      padding: 34px 24px;
-    }
-
-    #shopify-section-{{ section.id }} .heating-icon-benefits__item {
-      grid-template-columns: 52px minmax(0, 1fr);
-      gap: 18px;
-    }
-
-    #shopify-section-{{ section.id }} .heating-icon-benefits__icon,
-    #shopify-section-{{ section.id }} .heating-icon-benefits__icon .icon-bg-wrapper {
-      width: 52px;
-      height: 52px;
-    }
-
-    #shopify-section-{{ section.id }} .heating-icon-benefits__title {
-      margin-bottom: 8px;
-      font-size: 22px;
-      line-height: 1.18;
-    }
-
-    #shopify-section-{{ section.id }} .heating-icon-benefits__text {
-      font-size: 22px;
-      line-height: 1.18;
-    }
-  }
-{% endstyle %}
-
-<section class="heating-icon-benefits">
-  <div class="heating-icon-benefits__inner">
-    <div class="heating-icon-benefits__panel">
-      {%- for block in section.blocks -%}
-        <article class="heating-icon-benefits__item" {{ block.shopify_attributes }}>
-          <div class="heating-icon-benefits__icon" aria-hidden="true">
-            {%- render 'heating-icons', name: block.settings.icon, has_bg: true -%}
-          </div>
-
-          <div class="heating-icon-benefits__copy">
-            {%- if block.settings.title != blank -%}
-              <h3 class="heating-icon-benefits__title">{{ block.settings.title }}</h3>
-            {%- endif -%}
-
-            {%- if block.settings.text != blank -%}
-              <p class="heating-icon-benefits__text">{{ block.settings.text }}</p>
-            {%- endif -%}
-          </div>
-        </article>
-      {%- endfor -%}
-    </div>
-  </div>
-</section>
+{%- render 'heating-icon-benefits',
+  section_id: section.id,
+  blocks: section.blocks,
+  section_background: section.settings.section_background,
+  panel_background: section.settings.panel_background
+-%}
 
 {% schema %}
 {
@@ -144,7 +15,7 @@
       "type": "color",
       "id": "section_background",
       "label": "Section background",
-      "default": "#161615"
+      "default": "#1A1A1A"
     },
     {
       "type": "color",
@@ -202,7 +73,7 @@
           "settings": {
             "icon": "icon-warmth",
             "title": "Better Warmth",
-            "text": "Heat stays locked inside while external cold elements stay out, preserving your body heat for maximum efficiency."
+            "text": "Heat stays in, cold stays out."
           }
         },
         {
@@ -210,7 +81,7 @@
           "settings": {
             "icon": "icon-protection",
             "title": "Better Protection",
-            "text": "Your thick armor shields you from severe road hazards, keeping your physical defense completely intact."
+            "text": "Outer layer shields you from impact and road hazards."
           }
         },
         {
@@ -218,7 +89,7 @@
           "settings": {
             "icon": "icon-comfort",
             "title": "Better Comfort",
-            "text": "Optimal layering regulates temperature and prevents dangerous stiffness, reducing unneeded fabric bulk."
+            "text": "Layering regulates temperature and reduces bulk."
           }
         }
       ]

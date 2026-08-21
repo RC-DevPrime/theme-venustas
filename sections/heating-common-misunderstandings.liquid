@@ -1,0 +1,321 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings {
+    width: 100%;
+    background: {{ section.settings.background_color }};
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 54px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__title {
+    margin: 0 0 56px;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__card {
+    overflow: hidden;
+    border: 1px solid #2A2A28;
+    border-radius: 12px;
+    background: #161615;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__row {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr);
+    align-items: center;
+    min-height: 104px;
+    padding: 16px 20px 16px 16px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__row + .heating-common-misunderstandings__row {
+    border-top: 1px solid #2A2A28;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__media {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__image {
+    width: 88px;
+    height: 88px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__image-placeholder {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: #242424;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__badge svg {
+    width: 10px;
+    height: 10px;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__badge--myth {
+    background: #D03A12;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__badge--fact {
+    background: #1BC98E;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__label {
+    display: block;
+    margin-bottom: 8px;
+    color: #D03A12;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__label--fact {
+    color: #1BC98E;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__text {
+    margin: 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.28;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__text--fact {
+    color: rgba(255, 255, 255, 0.78);
+    font-weight: 400;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-common-misunderstandings__inner {
+      width: 100%;
+      padding: 64px 20px 34px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-common-misunderstandings__title {
+      margin-bottom: 28px;
+      font-size: 24px;
+      text-align: left;
+    }
+
+    #shopify-section-{{ section.id }} .heating-common-misunderstandings__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-common-misunderstandings__row {
+      display: block;
+      min-height: 0;
+      padding: 24px 20px 26px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-common-misunderstandings__media {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-common-misunderstandings__label {
+      margin-bottom: 14px;
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-common-misunderstandings__text {
+      font-size: 16px;
+      line-height: 1.22;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-common-misunderstandings">
+  <div class="heating-common-misunderstandings__inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="heating-common-misunderstandings__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    <div class="heating-common-misunderstandings__grid">
+      {%- for block in section.blocks -%}
+        <article class="heating-common-misunderstandings__card" {{ block.shopify_attributes }}>
+          <div class="heating-common-misunderstandings__row">
+            <div class="heating-common-misunderstandings__media" aria-hidden="true">
+              {%- if section.settings.myth_image != blank -%}
+                {{
+                  section.settings.myth_image
+                  | image_url: width: 176
+                  | image_tag:
+                    widths: '88, 176',
+                    sizes: '88px',
+                    loading: 'lazy',
+                    class: 'heating-common-misunderstandings__image',
+                    alt: ''
+                }}
+              {%- else -%}
+                <div class="heating-common-misunderstandings__image-placeholder"></div>
+              {%- endif -%}
+              <span class="heating-common-misunderstandings__badge heating-common-misunderstandings__badge--myth">
+                <svg viewBox="0 0 10 10" aria-hidden="true" focusable="false">
+                  <path d="M2.2 2.2L7.8 7.8M7.8 2.2L2.2 7.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="heating-common-misunderstandings__copy">
+              <span class="heating-common-misunderstandings__label">Myth</span>
+              {%- if block.settings.myth_text != blank -%}
+                <p class="heating-common-misunderstandings__text">{{ block.settings.myth_text }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+
+          <div class="heating-common-misunderstandings__row">
+            <div class="heating-common-misunderstandings__media" aria-hidden="true">
+              {%- if section.settings.fact_image != blank -%}
+                {{
+                  section.settings.fact_image
+                  | image_url: width: 176
+                  | image_tag:
+                    widths: '88, 176',
+                    sizes: '88px',
+                    loading: 'lazy',
+                    class: 'heating-common-misunderstandings__image',
+                    alt: ''
+                }}
+              {%- else -%}
+                <div class="heating-common-misunderstandings__image-placeholder"></div>
+              {%- endif -%}
+              <span class="heating-common-misunderstandings__badge heating-common-misunderstandings__badge--fact">
+                <svg viewBox="0 0 10 10" aria-hidden="true" focusable="false">
+                  <path d="M2 5.2L4.2 7.3L8 2.7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="heating-common-misunderstandings__copy">
+              <span class="heating-common-misunderstandings__label heating-common-misunderstandings__label--fact">Fact</span>
+              {%- if block.settings.fact_text != blank -%}
+                <p class="heating-common-misunderstandings__text heating-common-misunderstandings__text--fact">{{ block.settings.fact_text }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating Misunderstandings",
+  "tag": "section",
+  "class": "heating-common-misunderstandings-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Common Misunderstandings"
+    },
+    {
+      "type": "image_picker",
+      "id": "myth_image",
+      "label": "Myth image"
+    },
+    {
+      "type": "image_picker",
+      "id": "fact_image",
+      "label": "Fact image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "misunderstanding",
+      "name": "Misunderstanding",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "myth_text",
+          "label": "Myth text",
+          "default": "\"Heated gear replaces my riding jacket.\""
+        },
+        {
+          "type": "textarea",
+          "id": "fact_text",
+          "label": "Fact text",
+          "default": "Venustas provides internal core warmth. Your jacket provides armor protection. You need both to ride safely."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Misunderstandings",
+      "blocks": [
+        {
+          "type": "misunderstanding",
+          "settings": {
+            "myth_text": "\"Heated gear replaces my riding jacket.\"",
+            "fact_text": "Venustas provides internal core warmth. Your jacket provides armor protection. You need both to ride safely."
+          }
+        },
+        {
+          "type": "misunderstanding",
+          "settings": {
+            "myth_text": "\"I can wear it over my jacket.\"",
+            "fact_text": "It's designed to be worn under your riding gear for maximum efficiency."
+          }
+        },
+        {
+          "type": "misunderstanding",
+          "settings": {
+            "myth_text": "\"It will feel too bulky under my gear.\"",
+            "fact_text": "Our heated layer is thin, flexible, and built to move with you."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
