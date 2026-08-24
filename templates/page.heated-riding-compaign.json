@@ -602,57 +602,8 @@
       ],
       "name": "Heating Misunderstandings",
       "settings": {
-        "background_color": "#1A1A1A",
+        "background_color": "#1a1a1a",
         "title": "Common Misunderstandings"
-      }
-    },
-    "heating_real_riding_Xz4WYj": {
-      "type": "heating-real-riding",
-      "blocks": {
-        "scenario_VDjFrR": {
-          "type": "scenario",
-          "settings": {
-            "icon": "icon-mountain",
-            "title": "Mountain Roads",
-            "text": "Cold wind. Steep climbs."
-          }
-        },
-        "scenario_jE3CKV": {
-          "type": "scenario",
-          "settings": {
-            "icon": "icon-highway",
-            "title": "Highway Cruising",
-            "text": "Sustained speed. Constant wind."
-          }
-        },
-        "scenario_QTnDVm": {
-          "type": "scenario",
-          "settings": {
-            "icon": "icon-urban",
-            "title": "Urban Commuting",
-            "text": "Stop and go. All-day comfort."
-          }
-        },
-        "scenario_bpN9yN": {
-          "type": "scenario",
-          "settings": {
-            "icon": "icon-weather",
-            "title": "All Weather",
-            "text": "Rain, snow, or shine. Stay warm."
-          }
-        }
-      },
-      "block_order": [
-        "scenario_VDjFrR",
-        "scenario_jE3CKV",
-        "scenario_QTnDVm",
-        "scenario_bpN9yN"
-      ],
-      "name": "Heating Real Riding",
-      "settings": {
-        "section_background": "#1A1A1A",
-        "title": "BUILT FOR REAL RIDING",
-        "description": "From city streets to mountain passes, our heated gear is tested by riders in real conditions—so you can ride longer, in more comfort."
       }
     },
     "heating_riding_position_mbMcgK": {
@@ -732,9 +683,61 @@
       ],
       "name": "Heating Riding Position",
       "settings": {
+        "desktop_background": "shopify://shop_images/heating-hero-banner-desktop.webp",
+        "mobile_background": "shopify://shop_images/heating-hero-banner.png",
         "eyebrow": "BUILT FOR THE RIDE",
         "heading": "DESIGNED AROUND THE RIDING POSITION",
         "description": "Our heated gear is engineered specifically for how riders move and ride-so warmth stays in, and you stay focused."
+      }
+    },
+    "heating_real_riding_Xz4WYj": {
+      "type": "heating-real-riding",
+      "blocks": {
+        "scenario_VDjFrR": {
+          "type": "scenario",
+          "settings": {
+            "icon": "icon-mountain",
+            "title": "Mountain Roads",
+            "text": "Cold wind. Steep climbs."
+          }
+        },
+        "scenario_jE3CKV": {
+          "type": "scenario",
+          "settings": {
+            "icon": "icon-highway",
+            "title": "Highway Cruising",
+            "text": "Sustained speed. Constant wind."
+          }
+        },
+        "scenario_QTnDVm": {
+          "type": "scenario",
+          "settings": {
+            "icon": "icon-urban",
+            "title": "Urban Commuting",
+            "text": "Stop and go. All-day comfort."
+          }
+        },
+        "scenario_bpN9yN": {
+          "type": "scenario",
+          "settings": {
+            "icon": "icon-weather",
+            "title": "All Weather",
+            "text": "Rain, snow, or shine. Stay warm."
+          }
+        }
+      },
+      "block_order": [
+        "scenario_VDjFrR",
+        "scenario_jE3CKV",
+        "scenario_QTnDVm",
+        "scenario_bpN9yN"
+      ],
+      "name": "Heating Real Riding",
+      "settings": {
+        "section_background": "#1a1a1a",
+        "panel_background": "#161615",
+        "title": "BUILT FOR REAL RIDING",
+        "description": "From city streets to mountain passes, our heated gear is tested by riders in real conditions—so you can ride longer, in more comfort."
       }
     }
   },
