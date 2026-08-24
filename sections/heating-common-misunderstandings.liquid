@@ -30,9 +30,9 @@
 
   #shopify-section-{{ section.id }} .heating-common-misunderstandings__card {
     overflow: hidden;
-    border: 1px solid #2A2A28;
+    border: 1px solid #2A2A2A;
     border-radius: 12px;
-    background: #161615;
+    background: #1A1A1A;
   }
 
   #shopify-section-{{ section.id }} .heating-common-misunderstandings__row {
@@ -40,12 +40,16 @@
     grid-template-columns: 88px minmax(0, 1fr);
     align-items: center;
     min-height: 104px;
-    padding: 16px 20px 16px 16px;
+    padding: 28px;
     box-sizing: border-box;
   }
 
   #shopify-section-{{ section.id }} .heating-common-misunderstandings__row + .heating-common-misunderstandings__row {
-    border-top: 1px solid #2A2A28;
+    border-top: 1px solid #2A2A2A;
+  }
+
+  #shopify-section-{{ section.id }} .heating-common-misunderstandings__copy {
+    margin-left: 16px;
   }
 
   #shopify-section-{{ section.id }} .heating-common-misunderstandings__media {
@@ -71,10 +75,10 @@
 
   #shopify-section-{{ section.id }} .heating-common-misunderstandings__badge {
     position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 18px;
-    height: 18px;
+    top: 0px;
+    right: 0px;
+    width: 28px;
+    height: 28px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -84,23 +88,23 @@
   }
 
   #shopify-section-{{ section.id }} .heating-common-misunderstandings__badge svg {
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     display: block;
   }
 
   #shopify-section-{{ section.id }} .heating-common-misunderstandings__badge--myth {
-    background: #D03A12;
+    background: var(--color-brand);
   }
 
   #shopify-section-{{ section.id }} .heating-common-misunderstandings__badge--fact {
-    background: #1BC98E;
+    background: #10B981;
   }
 
   #shopify-section-{{ section.id }} .heating-common-misunderstandings__label {
     display: block;
     margin-bottom: 8px;
-    color: #D03A12;
+    color: var(--color-brand);
     font-size: 12px;
     font-weight: 800;
     line-height: 1.1;
@@ -109,27 +113,27 @@
   }
 
   #shopify-section-{{ section.id }} .heating-common-misunderstandings__label--fact {
-    color: #1BC98E;
+    color: #10B981;
   }
 
   #shopify-section-{{ section.id }} .heating-common-misunderstandings__text {
     margin: 0;
     color: #fff;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     line-height: 1.28;
     letter-spacing: 0;
   }
 
   #shopify-section-{{ section.id }} .heating-common-misunderstandings__text--fact {
-    color: rgba(255, 255, 255, 0.78);
+    color: rgba(255, 255, 255);
     font-weight: 400;
   }
 
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .heating-common-misunderstandings__inner {
       width: 100%;
-      padding: 64px 20px 34px;
+      padding: 40px 20px;
     }
 
     #shopify-section-{{ section.id }} .heating-common-misunderstandings__title {
@@ -140,13 +144,16 @@
 
     #shopify-section-{{ section.id }} .heating-common-misunderstandings__grid {
       grid-template-columns: 1fr;
-      gap: 20px;
+      gap: 24px;
     }
 
     #shopify-section-{{ section.id }} .heating-common-misunderstandings__row {
       display: block;
       min-height: 0;
-      padding: 24px 20px 26px;
+      padding: 20px 12px;
+    }
+    #shopify-section-{{ section.id }} .heating-common-misunderstandings__copy {
+      margin-left: 0;
     }
 
     #shopify-section-{{ section.id }} .heating-common-misunderstandings__media {
@@ -154,8 +161,8 @@
     }
 
     #shopify-section-{{ section.id }} .heating-common-misunderstandings__label {
-      margin-bottom: 14px;
-      font-size: 12px;
+      margin-bottom: 12x;
+      font-size: 14px;
     }
 
     #shopify-section-{{ section.id }} .heating-common-misunderstandings__text {
@@ -221,9 +228,9 @@
                 <div class="heating-common-misunderstandings__image-placeholder"></div>
               {%- endif -%}
               <span class="heating-common-misunderstandings__badge heating-common-misunderstandings__badge--fact">
-                <svg viewBox="0 0 10 10" aria-hidden="true" focusable="false">
-                  <path d="M2 5.2L4.2 7.3L8 2.7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <svg viewBox="0 0 14 14" fill="none">
+                  <path d="M11.6664 3.5L5.25036 9.9162L2.33398 6.99975" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
               </span>
             </div>
             <div class="heating-common-misunderstandings__copy">
