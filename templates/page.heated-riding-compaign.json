@@ -742,6 +742,88 @@
         "title": "BUILT FOR REAL RIDING",
         "description": "From city streets to mountain passes, our heated gear is tested by riders in real conditions—so you can ride longer, in more comfort."
       }
+    },
+    "heating_faq_accordion_E8fzxp": {
+      "type": "heating-faq-accordion",
+      "blocks": {
+        "faq_cqgTJ7": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use the heated vest without my motorcycle?",
+            "answer": "Yes. MV11 and WV12 include battery power for portable warmth."
+          }
+        },
+        "faq_DQA6j6": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I connect the vest to my motorcycle?",
+            "answer": "Yes. The vest can also connect through a compatible Y-cable for motorcycle power."
+          }
+        },
+        "faq_eXELKj": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need to buy the complete heated system?",
+            "answer": "No. You can start with the heated gear you need most.\nThe Venustas Heated Riding System is modular. Start with a heated jacket for upper-body warmth, add heated pants for more coverage, and expand with additional accessories as your riding needs change."
+          }
+        },
+        "faq_DHecGn": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use the heated jacket or pants separately?",
+            "answer": "Yes. Each heated layer is designed to work independently.\nThe heated jacket and heated pants can each connect directly to your motorcycle's 12V power system using their dedicated connection cable."
+          }
+        }
+      },
+      "block_order": [
+        "faq_cqgTJ7",
+        "faq_DQA6j6",
+        "faq_eXELKj",
+        "faq_DHecGn"
+      ],
+      "name": "Heating FAQ Accordion",
+      "settings": {
+        "background_color": "#F5F5F5",
+        "text_color": "#1F1F1F",
+        "open_first_item": true
+      }
+    },
+    "heating_riding_cta_banner_wfTTTF": {
+      "type": "heating-riding-cta-banner",
+      "blocks": {
+        "button_BqeYnt": {
+          "type": "button",
+          "settings": {
+            "label": "Explore Heated Jacket",
+            "link": ""
+          }
+        },
+        "button_hnrcy9": {
+          "type": "button",
+          "settings": {
+            "label": "Explore Heated Pants",
+            "link": ""
+          }
+        },
+        "button_PTeH8e": {
+          "type": "button",
+          "settings": {
+            "label": "Shop Motorcycle Heated Gear",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "button_BqeYnt",
+        "button_hnrcy9",
+        "button_PTeH8e"
+      ],
+      "name": "Heating Riding CTA Banner",
+      "settings": {
+        "heading": "READY TO RIDE BEYOND THE COLD?",
+        "description": "Build your heated setup for colder rides.",
+        "note": "3-Year Warranty on Heating Elements | Free Shipping"
+      }
     }
   },
   "order": [
@@ -761,6 +843,8 @@
     "heating_icon_benefits_eXBYGy",
     "heating_common_misunderstandings_NTAkkJ",
     "heating_riding_position_mbMcgK",
-    "heating_real_riding_Xz4WYj"
+    "heating_real_riding_Xz4WYj",
+    "heating_faq_accordion_E8fzxp",
+    "heating_riding_cta_banner_wfTTTF"
   ]
 }
