@@ -1,16 +1,23 @@
 {% style %}
     .collection-vertical-slider-section{
         height:250vh;
+        --collection-sticky-top: 110px;
+        --collection-slider-media-height: clamp(320px, calc(100vh - 300px), 550px);
     }
     .sticky-section{
         position: sticky;
-        top: 0;
-        height: 90vh;
+        top: var(--collection-sticky-top);
+        height: calc(100vh - var(--collection-sticky-top));
         display: flex;
         align-items: center;
+        overflow: hidden;
+    }
+    .sticky-section .section-content{
+        max-height: 100%;
+        overflow: hidden;
     }
     .image-slider-container{
-        height:550px;
+        height: var(--collection-slider-media-height);
         position:relative;
     }
     .image-slider-container .image-item{
@@ -39,7 +46,7 @@
     }
 
     .content-swiper {
-    height: 550px;
+    height: var(--collection-slider-media-height);
     overflow: visible;
     }
 
