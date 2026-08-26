@@ -60,6 +60,69 @@
       "name": "Heating Perks",
       "settings": {}
     },
+    "heating_anchor_nav_kaezx9": {
+      "type": "heating-anchor-nav",
+      "blocks": {
+        "link_F9HDxD": {
+          "type": "link",
+          "settings": {
+            "label": "Why Heated Gear",
+            "target_id": "why-heated-gear"
+          }
+        },
+        "link_fFy6pB": {
+          "type": "link",
+          "settings": {
+            "label": "Venustas Riding System",
+            "target_id": "venustas-riding-system"
+          }
+        },
+        "link_eBYg3i": {
+          "type": "link",
+          "settings": {
+            "label": "Setup Options",
+            "target_id": "setup-options"
+          }
+        },
+        "link_VbP7JW": {
+          "type": "link",
+          "settings": {
+            "label": "How It Works",
+            "target_id": "how-it-works"
+          }
+        },
+        "link_dBLjRB": {
+          "type": "link",
+          "settings": {
+            "label": "Riding Guild",
+            "target_id": "riding-guild"
+          }
+        },
+        "link_LWn9GU": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "faq"
+          }
+        }
+      },
+      "block_order": [
+        "link_F9HDxD",
+        "link_fFy6pB",
+        "link_eBYg3i",
+        "link_VbP7JW",
+        "link_dBLjRB",
+        "link_LWn9GU"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#F5F5F5",
+        "nav_background": "#FFFFFF",
+        "text_color": "#1F1F1F",
+        "aria_label": "Page navigation",
+        "mobile_button_label": "Open page navigation"
+      }
+    },
     "motorheating_challenge_36jVr4": {
       "type": "motorheating-challenge",
       "blocks": {
@@ -835,6 +898,7 @@
     "main_page_3cKYFc",
     "heating_hero_banner_z7k8fK",
     "heating_perks_88fbBz",
+    "heating_anchor_nav_kaezx9",
     "motorheating_challenge_36jVr4",
     "motorheating_layer_comparison_BJpwg3",
     "heating_riding_system_builder_eTBCQL",
