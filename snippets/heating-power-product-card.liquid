@@ -1,4 +1,9 @@
 <article class="heating-power-options__product-card">
+  {%- assign has_runtime_tooltip = false -%}
+  {%- if section_settings.runtime_jacket_high != blank or section_settings.runtime_jacket_medium != blank or section_settings.runtime_jacket_low != blank or section_settings.runtime_pants_high != blank or section_settings.runtime_pants_medium != blank or section_settings.runtime_pants_low != blank -%}
+    {%- assign has_runtime_tooltip = true -%}
+  {%- endif -%}
+
   <div class="heating-power-options__card-heading heating-power-options__card-heading--product">
     <span class="heating-power-options__card-icon" aria-hidden="true">
       <svg viewBox="0 0 30 30" fill="none">
@@ -112,7 +117,7 @@
               {%- if section_settings.product_title != blank -%}
                 <h5 class="heating-power-options__product-title">
                   {{ section_settings.product_title }}
-                  {%- if section_settings.product_title_tooltip != blank -%}
+                  {%- if has_runtime_tooltip -%}
                     <span class="heating-power-options__tooltip">
                       <button class="heating-power-options__tooltip-trigger" type="button" aria-label="{{ section_settings.product_title | escape }} details">
                         <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
@@ -120,7 +125,20 @@
                         </svg>
                       </button>
                       <span class="heating-power-options__tooltip-panel" role="tooltip">
-                        {{ section_settings.product_title_tooltip | newline_to_br }}
+                        <span class="heating-power-options__runtime-table">
+                          <span class="heating-power-options__runtime-cell heating-power-options__runtime-cell--label">Type/Runtime</span>
+                          <span class="heating-power-options__runtime-cell heating-power-options__runtime-cell--head">High</span>
+                          <span class="heating-power-options__runtime-cell heating-power-options__runtime-cell--head">Medium</span>
+                          <span class="heating-power-options__runtime-cell heating-power-options__runtime-cell--head">Low</span>
+                          <span class="heating-power-options__runtime-cell heating-power-options__runtime-cell--label">For Heated Jacket Liner</span>
+                          <span class="heating-power-options__runtime-cell">{{ section_settings.runtime_jacket_high | default: '3h' }}</span>
+                          <span class="heating-power-options__runtime-cell">{{ section_settings.runtime_jacket_medium | default: '5h' }}</span>
+                          <span class="heating-power-options__runtime-cell">{{ section_settings.runtime_jacket_low | default: '8h' }}</span>
+                          <span class="heating-power-options__runtime-cell heating-power-options__runtime-cell--label">For Heated Pants Liner</span>
+                          <span class="heating-power-options__runtime-cell">{{ section_settings.runtime_pants_high | default: '2h' }}</span>
+                          <span class="heating-power-options__runtime-cell">{{ section_settings.runtime_pants_medium | default: '4h' }}</span>
+                          <span class="heating-power-options__runtime-cell">{{ section_settings.runtime_pants_low | default: '6h' }}</span>
+                        </span>
                       </span>
                     </span>
                   {%- endif -%}

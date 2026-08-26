@@ -270,11 +270,18 @@
     if (!root) return;
 
     var headerOffset = 110;
+    var desktopNavOffset = 64;
     var desktopLinks = Array.prototype.slice.call(root.querySelectorAll('.heating-anchor-nav__link'));
     var mobileRoot = root.querySelector('.heating-anchor-nav__mobile');
     var mobileLinks = Array.prototype.slice.call(root.querySelectorAll('.heating-anchor-nav__mobile-link'));
     var toggle = root.querySelector('.heating-anchor-nav__toggle');
     var links = desktopLinks.concat(mobileLinks);
+
+    function getScrollOffset() {
+      return window.matchMedia('(min-width: 768px)').matches
+        ? headerOffset + desktopNavOffset
+        : headerOffset;
+    }
 
     function setActive(targetId) {
       links.forEach(function(link) {
@@ -310,9 +317,10 @@
         if (!target) return;
 
         event.preventDefault();
-        target.style.scrollMarginTop = headerOffset + 'px';
+        var scrollOffset = getScrollOffset();
+        target.style.scrollMarginTop = scrollOffset + 'px';
 
-        var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - scrollOffset;
         window.scrollTo({ top: top, behavior: 'smooth' });
         setActive(targetId);
         closeMobilePanel();
@@ -324,6 +332,13 @@
         return document.getElementById(link.getAttribute('data-anchor-target'));
       })
       .filter(Boolean);
+
+    function syncTargetOffsets() {
+      var scrollOffset = getScrollOffset();
+      targets.forEach(function(target) {
+        target.style.scrollMarginTop = scrollOffset + 'px';
+      });
+    }
 
     if ('IntersectionObserver' in window && targets.length) {
       var observer = new IntersectionObserver(function(entries) {
@@ -340,11 +355,13 @@
         threshold: [0.12, 0.25, 0.5, 0.75]
       });
 
+      syncTargetOffsets();
       targets.forEach(function(target) {
-        target.style.scrollMarginTop = headerOffset + 'px';
         observer.observe(target);
       });
     }
+
+    window.addEventListener('resize', syncTargetOffsets);
 
     document.addEventListener('click', function(event) {
       if (!mobileRoot || !mobileRoot.classList.contains('is-open')) return;
