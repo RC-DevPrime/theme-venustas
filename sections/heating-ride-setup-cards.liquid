@@ -100,6 +100,10 @@
     transition: opacity 220ms ease;
   }
 
+  #shopify-section-{{ section.id }} .heating-ride-setup__image--mobile {
+    display: none;
+  }
+
   #shopify-section-{{ section.id }} .heating-ride-setup__image--secondary,
   #shopify-section-{{ section.id }} .heating-ride-setup__image--hover {
     position: absolute;
@@ -264,8 +268,18 @@
     }
 
     #shopify-section-{{ section.id }} .heating-ride-setup__media {
+      width: 100%;
+      max-width: 318px;
       height: 396px;
-      margin-bottom: 16px;
+      margin: 0 auto 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-ride-setup__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-ride-setup__image--mobile {
+      display: block;
     }
 
     #shopify-section-{{ section.id }} .heating-ride-setup__card--has-secondary .heating-ride-setup__media:hover .heating-ride-setup__image--main,
@@ -298,8 +312,17 @@
       {%- for block in section.blocks -%}
         {%- assign button_1_link = block.settings.button_1_link | default: '#' -%}
         {%- assign button_2_link = block.settings.button_2_link | default: '#' -%}
+        {%- liquid
+          assign mobile_main_image = block.settings.mobile_main_image | default: block.settings.main_image
+          assign mobile_secondary_image = block.settings.mobile_secondary_image | default: block.settings.secondary_image
+          assign mobile_hover_image = block.settings.mobile_hover_image | default: block.settings.hover_image
+          assign has_secondary_image = false
+          if block.settings.secondary_image != blank or block.settings.mobile_secondary_image != blank
+            assign has_secondary_image = true
+          endif
+        -%}
         <article
-          class="heating-ride-setup__card{% if block.settings.secondary_image != blank %} heating-ride-setup__card--has-secondary{% endif %}"
+          class="heating-ride-setup__card{% if has_secondary_image %} heating-ride-setup__card--has-secondary{% endif %}"
           {{ block.shopify_attributes }}
         >
           {%- if block.settings.title != blank -%}
@@ -316,11 +339,24 @@
                 block.settings.main_image
                 | image_url: width: 720
                 | image_tag:
-                  class: 'heating-ride-setup__image heating-ride-setup__image--main',
+                  class: 'heating-ride-setup__image heating-ride-setup__image--main heating-ride-setup__image--desktop',
                   loading: 'lazy',
                   widths: '240,320,420,560,720',
-                  sizes: '(max-width: 767px) calc(100vw - 80px), (max-width: 1339px) calc((100vw - 72px) / 2), 300px',
+                  sizes: '(max-width: 767px) 0px, (max-width: 1339px) calc((100vw - 72px) / 2), 300px',
                   alt: block.settings.main_image.alt | default: block.settings.title
+              }}
+            {%- endif -%}
+
+            {%- if mobile_main_image != blank -%}
+              {{
+                mobile_main_image
+                | image_url: width: 636
+                | image_tag:
+                  class: 'heating-ride-setup__image heating-ride-setup__image--main heating-ride-setup__image--mobile',
+                  loading: 'lazy',
+                  widths: '318,480,636',
+                  sizes: '(max-width: 767px) 318px, 0px',
+                  alt: mobile_main_image.alt | default: block.settings.title
               }}
             {%- endif -%}
 
@@ -329,11 +365,24 @@
                 block.settings.secondary_image
                 | image_url: width: 720
                 | image_tag:
-                  class: 'heating-ride-setup__image heating-ride-setup__image--secondary',
+                  class: 'heating-ride-setup__image heating-ride-setup__image--secondary heating-ride-setup__image--desktop',
                   loading: 'lazy',
                   widths: '240,320,420,560,720',
-                  sizes: '(max-width: 767px) calc(100vw - 80px), (max-width: 1339px) calc((100vw - 72px) / 2), 300px',
+                  sizes: '(max-width: 767px) 0px, (max-width: 1339px) calc((100vw - 72px) / 2), 300px',
                   alt: block.settings.secondary_image.alt | default: block.settings.title
+              }}
+            {%- endif -%}
+
+            {%- if mobile_secondary_image != blank -%}
+              {{
+                mobile_secondary_image
+                | image_url: width: 636
+                | image_tag:
+                  class: 'heating-ride-setup__image heating-ride-setup__image--secondary heating-ride-setup__image--mobile',
+                  loading: 'lazy',
+                  widths: '318,480,636',
+                  sizes: '(max-width: 767px) 318px, 0px',
+                  alt: mobile_secondary_image.alt | default: block.settings.title
               }}
             {%- endif -%}
 
@@ -342,11 +391,24 @@
                 block.settings.hover_image
                 | image_url: width: 720
                 | image_tag:
-                  class: 'heating-ride-setup__image heating-ride-setup__image--hover',
+                  class: 'heating-ride-setup__image heating-ride-setup__image--hover heating-ride-setup__image--desktop',
                   loading: 'lazy',
                   widths: '240,320,420,560,720',
                   sizes: '(max-width: 767px) 0px, (max-width: 1339px) calc((100vw - 72px) / 2), 300px',
                   alt: block.settings.hover_image.alt | default: block.settings.title
+              }}
+            {%- endif -%}
+
+            {%- if mobile_hover_image != blank -%}
+              {{
+                mobile_hover_image
+                | image_url: width: 636
+                | image_tag:
+                  class: 'heating-ride-setup__image heating-ride-setup__image--hover heating-ride-setup__image--mobile',
+                  loading: 'lazy',
+                  widths: '318,480,636',
+                  sizes: '(max-width: 767px) 318px, 0px',
+                  alt: mobile_hover_image.alt | default: block.settings.title
               }}
             {%- endif -%}
           </div>
@@ -441,17 +503,32 @@
         {
           "type": "image_picker",
           "id": "main_image",
-          "label": "Main image"
+          "label": "Desktop main image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_main_image",
+          "label": "Mobile main image"
         },
         {
           "type": "image_picker",
           "id": "secondary_image",
-          "label": "Second main image"
+          "label": "Desktop second main image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_secondary_image",
+          "label": "Mobile second main image"
         },
         {
           "type": "image_picker",
           "id": "hover_image",
-          "label": "Hover image"
+          "label": "Desktop hover image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_hover_image",
+          "label": "Mobile hover image"
         },
         {
           "type": "text",

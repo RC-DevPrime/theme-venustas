@@ -1,0 +1,455 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-anchor-nav {
+    position: relative;
+    width: 100%;
+    z-index: 20;
+    background: {{ section.settings.section_background }};
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .heating-anchor-nav__sticky-wrap {
+    position: sticky;
+    top: 110px;
+    z-index: 20;
+    width: 100%;
+    padding: 48px 20px 18px;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-anchor-nav__bar {
+    width: min(100%, 1110px);
+    margin: 0 auto;
+    border-radius: 999px;
+    background: {{ section.settings.nav_background }};
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.16);
+    pointer-events: auto;
+  }
+
+  #shopify-section-{{ section.id }} .heating-anchor-nav__list {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 96px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #shopify-section-{{ section.id }} .heating-anchor-nav__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-anchor-nav__link {
+    position: relative;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 58px;
+    padding: 0 28px;
+    color: {{ section.settings.text_color }};
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-anchor-nav__link::after {
+    content: '';
+    position: absolute;
+    left: 28px;
+    right: 28px;
+    bottom: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-brand, #B93205);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 180ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .heating-anchor-nav__link.is-active {
+    color: var(--color-brand, #B93205);
+  }
+
+  #shopify-section-{{ section.id }} .heating-anchor-nav__link.is-active::after {
+    transform: scaleX(1);
+  }
+
+  #shopify-section-{{ section.id }} .heating-anchor-nav__mobile {
+    display: none;
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    #shopify-section-{{ section.id }} .heating-anchor-nav__bar {
+      width: min(100%, 900px);
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__list {
+      padding: 0 36px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__link {
+      padding: 0 22px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__link::after {
+      left: 22px;
+      right: 22px;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-anchor-nav {
+      height: 0;
+      background: transparent;
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__sticky-wrap {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__toggle {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      z-index: 80;
+      width: 56px;
+      height: 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--color-brand, #B93205);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+      cursor: pointer;
+      transition: transform 180ms ease;
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__toggle svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile.is-open .heating-anchor-nav__toggle {
+      transform: rotate(180deg);
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__panel {
+      position: fixed;
+      left: 20px;
+      bottom: 88px;
+      z-index: 79;
+      width: min(calc(100vw - 40px), 360px);
+      overflow: hidden;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(0, 16px, 0);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile.is-open .heating-anchor-nav__panel {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate3d(0, 0, 0);
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile-list {
+      display: grid;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile-link {
+      display: block;
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      color: {{ section.settings.text_color }};
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.2;
+      text-decoration: none;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile-list li:last-child .heating-anchor-nav__mobile-link {
+      border-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile-link.is-active {
+      color: var(--color-brand, #B93205);
+      font-weight: 700;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-anchor-nav" data-heating-anchor-nav>
+  <div class="heating-anchor-nav__sticky-wrap">
+    <nav class="heating-anchor-nav__bar" aria-label="{{ section.settings.aria_label | escape }}">
+      <div class="heating-anchor-nav__list">
+        {%- for block in section.blocks -%}
+          {%- assign target_id = block.settings.target_id | strip | remove_first: '#' -%}
+          {%- if block.settings.label != blank and target_id != blank -%}
+            <a
+              class="heating-anchor-nav__link{% if forloop.first %} is-active{% endif %}"
+              href="#{{ target_id }}"
+              data-anchor-target="{{ target_id }}"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.label }}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </nav>
+  </div>
+
+  <div class="heating-anchor-nav__mobile">
+    <div class="heating-anchor-nav__panel" id="heating-anchor-nav-panel-{{ section.id }}">
+      <ul class="heating-anchor-nav__mobile-list">
+        {%- for block in section.blocks -%}
+          {%- assign target_id = block.settings.target_id | strip | remove_first: '#' -%}
+          {%- if block.settings.label != blank and target_id != blank -%}
+            <li>
+              <a
+                class="heating-anchor-nav__mobile-link{% if forloop.first %} is-active{% endif %}"
+                href="#{{ target_id }}"
+                data-anchor-target="{{ target_id }}"
+              >
+                {{ block.settings.label }}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <button
+      class="heating-anchor-nav__toggle"
+      type="button"
+      aria-label="{{ section.settings.mobile_button_label | escape }}"
+      aria-controls="heating-anchor-nav-panel-{{ section.id }}"
+      aria-expanded="false"
+    >
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var root = document.querySelector('#shopify-section-{{ section.id }} [data-heating-anchor-nav]');
+    if (!root) return;
+
+    var headerOffset = 110;
+    var desktopLinks = Array.prototype.slice.call(root.querySelectorAll('.heating-anchor-nav__link'));
+    var mobileRoot = root.querySelector('.heating-anchor-nav__mobile');
+    var mobileLinks = Array.prototype.slice.call(root.querySelectorAll('.heating-anchor-nav__mobile-link'));
+    var toggle = root.querySelector('.heating-anchor-nav__toggle');
+    var links = desktopLinks.concat(mobileLinks);
+
+    function setActive(targetId) {
+      links.forEach(function(link) {
+        link.classList.toggle('is-active', link.getAttribute('data-anchor-target') === targetId);
+      });
+
+      var activeDesktop = desktopLinks.find(function(link) {
+        return link.getAttribute('data-anchor-target') === targetId;
+      });
+
+      if (activeDesktop) {
+        activeDesktop.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+
+    function closeMobilePanel() {
+      if (!mobileRoot || !toggle) return;
+      mobileRoot.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    if (toggle && mobileRoot) {
+      toggle.addEventListener('click', function() {
+        var isOpen = mobileRoot.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    }
+
+    links.forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        var targetId = link.getAttribute('data-anchor-target');
+        var target = targetId ? document.getElementById(targetId) : null;
+        if (!target) return;
+
+        event.preventDefault();
+        target.style.scrollMarginTop = headerOffset + 'px';
+
+        var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        setActive(targetId);
+        closeMobilePanel();
+      });
+    });
+
+    var targets = links
+      .map(function(link) {
+        return document.getElementById(link.getAttribute('data-anchor-target'));
+      })
+      .filter(Boolean);
+
+    if ('IntersectionObserver' in window && targets.length) {
+      var observer = new IntersectionObserver(function(entries) {
+        var visible = entries
+          .filter(function(entry) { return entry.isIntersecting; })
+          .sort(function(a, b) { return b.intersectionRatio - a.intersectionRatio; })[0];
+
+        if (visible && visible.target && visible.target.id) {
+          setActive(visible.target.id);
+        }
+      }, {
+        root: null,
+        rootMargin: '-' + headerOffset + 'px 0px -55% 0px',
+        threshold: [0.12, 0.25, 0.5, 0.75]
+      });
+
+      targets.forEach(function(target) {
+        target.style.scrollMarginTop = headerOffset + 'px';
+        observer.observe(target);
+      });
+    }
+
+    document.addEventListener('click', function(event) {
+      if (!mobileRoot || !mobileRoot.classList.contains('is-open')) return;
+      if (root.contains(event.target)) return;
+      closeMobilePanel();
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Heating Anchor Nav",
+  "tag": "section",
+  "class": "heating-anchor-nav-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "nav_background",
+      "label": "Navigation background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1F1F1F"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Navigation aria label",
+      "default": "Page navigation"
+    },
+    {
+      "type": "text",
+      "id": "mobile_button_label",
+      "label": "Mobile button label",
+      "default": "Open page navigation"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Navigation item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Why Heated Gear"
+        },
+        {
+          "type": "text",
+          "id": "target_id",
+          "label": "Anchor target ID",
+          "info": "Enter the section ID without #, for example: why-heated-gear",
+          "default": "why-heated-gear"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Anchor Nav",
+      "blocks": [
+        {
+          "type": "link",
+          "settings": {
+            "label": "Why Heated Gear",
+            "target_id": "why-heated-gear"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "label": "Venustas Riding System",
+            "target_id": "venustas-riding-system"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "label": "Setup Options",
+            "target_id": "setup-options"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "label": "How It Works",
+            "target_id": "how-it-works"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "label": "Riding Guild",
+            "target_id": "riding-guild"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "faq"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
