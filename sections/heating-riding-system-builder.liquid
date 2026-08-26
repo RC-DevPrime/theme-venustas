@@ -55,6 +55,10 @@
     min-width: 0;
   }
 
+  #shopify-section-{{ section.id }} .heating-riding-system-builder__dots {
+    display: none;
+  }
+
   #shopify-section-{{ section.id }} .heating-riding-system-builder__intro,
   #shopify-section-{{ section.id }} .heating-riding-system-builder__card {
     height: 316px;
@@ -287,6 +291,30 @@
       display: none;
     }
 
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__dot {
+      width: 6px;
+      height: 6px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(31, 31, 31, 0.22);
+      cursor: pointer;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    #shopify-section-{{ section.id }} .heating-riding-system-builder__dot.is-active {
+      background: var(--color-brand);
+      transform: scale(1.08);
+    }
+
     #shopify-section-{{ section.id }} .heating-riding-system-builder__card {
       flex: 0 0 100%;
       width: 100%;
@@ -334,7 +362,7 @@
   }
 {% endstyle %}
 
-<section class="heating-riding-system-builder">
+<section class="heating-riding-system-builder" id="venustas-riding-system">
   <div class="heating-riding-system-builder__inner">
     <div class="heating-riding-system-builder__header">
       <h2 class="heating-riding-system-builder__heading">
@@ -393,6 +421,19 @@
           </div>
         {%- endfor -%}
       </div>
+
+      {%- if section.blocks.size > 1 -%}
+        <div class="heating-riding-system-builder__dots" aria-label="System item carousel pagination">
+          {%- for block in section.blocks -%}
+            <button
+              class="heating-riding-system-builder__dot{% if forloop.first %} is-active{% endif %}"
+              type="button"
+              aria-label="Go to slide {{ forloop.index }}"
+              data-heating-riding-system-dot="{{ forloop.index0 }}"
+            ></button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
     </div>
 
     <div class="heating-riding-system-builder__icons">
@@ -407,6 +448,67 @@
     </div>
   </div>
 </section>
+
+<script>
+  (function() {
+    var root = document.querySelector('#shopify-section-{{ section.id }} .heating-riding-system-builder');
+    if (!root) return;
+
+    var slider = root.querySelector('.heating-riding-system-builder__slider');
+    var cards = Array.prototype.slice.call(root.querySelectorAll('.heating-riding-system-builder__card'));
+    var dots = Array.prototype.slice.call(root.querySelectorAll('.heating-riding-system-builder__dot'));
+
+    if (!slider || cards.length < 2 || dots.length < 2) return;
+
+    var ticking = false;
+
+    function setActiveDot(index) {
+      dots.forEach(function(dot, dotIndex) {
+        dot.classList.toggle('is-active', dotIndex === index);
+      });
+    }
+
+    function getActiveIndex() {
+      var sliderLeft = slider.getBoundingClientRect().left;
+      var closestIndex = 0;
+      var closestDistance = Infinity;
+
+      cards.forEach(function(card, index) {
+        var distance = Math.abs(card.getBoundingClientRect().left - sliderLeft);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      return closestIndex;
+    }
+
+    slider.addEventListener('scroll', function() {
+      if (ticking) return;
+      ticking = true;
+
+      window.requestAnimationFrame(function() {
+        setActiveDot(getActiveIndex());
+        ticking = false;
+      });
+    }, { passive: true });
+
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        var index = Number(dot.getAttribute('data-heating-riding-system-dot'));
+        var target = cards[index];
+
+        if (!target) return;
+        slider.scrollTo({
+          left: target.offsetLeft - slider.offsetLeft,
+          behavior: 'smooth'
+        });
+        setActiveDot(index);
+      });
+    });
+  })();
+</script>
 
 {% schema %}
 {

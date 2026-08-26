@@ -105,7 +105,7 @@
   }
 {% endstyle %}
 
-<section class="heating-faq-accordion" data-heating-faq-accordion>
+<section class="heating-faq-accordion" data-heating-faq-accordion id="faq">
   <div class="heating-faq-accordion__inner">
     {%- for block in section.blocks -%}
       <details class="heating-faq-accordion__item" {% if forloop.first and section.settings.open_first_item %}open{% endif %} {{ block.shopify_attributes }}>
