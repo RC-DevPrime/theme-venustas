@@ -318,11 +318,85 @@
   }
 
   #shopify-section-{{ section.id }} .heating-power-options__product-title {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     margin: 0 0 4px;
     font-size: 18px;
     color:#111827;
     font-weight: 700;
     letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__tooltip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__tooltip-trigger {
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #515151;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__tooltip-trigger svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__tooltip-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    z-index: 5;
+    width: 320px;
+    max-width: calc(100vw - 40px);
+    padding: 12px 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+    color: #515151;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: 0;
+    text-align: left;
+    white-space: normal;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(-50%, 6px, 0);
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__tooltip-panel::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid #d9d9d9;
+    border-left: 1px solid #d9d9d9;
+    background: #fff;
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  #shopify-section-{{ section.id }} .heating-power-options__tooltip:hover .heating-power-options__tooltip-panel,
+  #shopify-section-{{ section.id }} .heating-power-options__tooltip:focus-within .heating-power-options__tooltip-panel {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
   }
 
   #shopify-section-{{ section.id }} .heating-power-options__product-subtitle {
@@ -552,7 +626,25 @@
     #shopify-section-{{ section.id }} .heating-power-options__product-title {
       font-size: 16px;
     }
-    #shopify-section-{{ section.id }} .heating-power-options__product-title 
+
+    #shopify-section-{{ section.id }} .heating-power-options__tooltip-panel {
+      left: auto;
+      right: 0;
+      width: 280px;
+      max-width: calc(100vw - 48px);
+      transform: translate3d(0, 6px, 0);
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__tooltip-panel::before {
+      left: auto;
+      right: 3px;
+      transform: rotate(45deg);
+    }
+
+    #shopify-section-{{ section.id }} .heating-power-options__tooltip:hover .heating-power-options__tooltip-panel,
+    #shopify-section-{{ section.id }} .heating-power-options__tooltip:focus-within .heating-power-options__tooltip-panel {
+      transform: translate3d(0, 0, 0);
+    }
 
     #shopify-section-{{ section.id }} .heating-power-options__product-info {
       height:140px;
@@ -789,6 +881,12 @@
       "id": "product_title",
       "label": "Product title",
       "default": "10K Battery"
+    },
+    {
+      "type": "textarea",
+      "id": "product_title_tooltip",
+      "label": "Product title tooltip",
+      "default": "Our battery can be charged with any charger with the included charging cable.\nThis allows you to use the same charger you already own for your other devices.\nA charger with a 15W (5V/3A) output is recommended for faster charging.\nChoose a charger from reputable brands with certifications like UL, CE, or FCC to ensure safety and performance."
     },
     {
       "type": "text",

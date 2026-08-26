@@ -110,7 +110,21 @@
           <div class="heating-power-options__product-line">
             <div>
               {%- if section_settings.product_title != blank -%}
-                <h5 class="heating-power-options__product-title">{{ section_settings.product_title }}</h5>
+                <h5 class="heating-power-options__product-title">
+                  {{ section_settings.product_title }}
+                  {%- if section_settings.product_title_tooltip != blank -%}
+                    <span class="heating-power-options__tooltip">
+                      <button class="heating-power-options__tooltip-trigger" type="button" aria-label="{{ section_settings.product_title | escape }} details">
+                        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                          <path d="M7.99967 5.33301V7.99967M7.99967 10.6663H8.00634M14.6663 7.99967C14.6663 11.6816 11.6816 14.6663 7.99967 14.6663C4.31778 14.6663 1.33301 11.6816 1.33301 7.99967C1.33301 4.31778 4.31778 1.33301 7.99967 1.33301C11.6816 1.33301 14.6663 4.31778 14.6663 7.99967Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </button>
+                      <span class="heating-power-options__tooltip-panel" role="tooltip">
+                        {{ section_settings.product_title_tooltip | newline_to_br }}
+                      </span>
+                    </span>
+                  {%- endif -%}
+                </h5>
               {%- endif -%}
               {%- if section_settings.product_subtitle != blank -%}
                 <p class="heating-power-options__product-subtitle">{{ section_settings.product_subtitle }}</p>
