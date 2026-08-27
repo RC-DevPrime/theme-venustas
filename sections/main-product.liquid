@@ -146,7 +146,7 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
 
                                 
                                     {%- liquid
-                                        assign promotion_mf = product.metafields.custom.promotion
+                                        assign promotion_mf = product.metafields.promo.cart_discount_text
                                     -%}
                                     {% if promotion_mf != blank %}
                                         <div class="promotion rte">

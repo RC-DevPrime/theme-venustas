@@ -518,8 +518,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const sectionTop = section.offsetTop;
     const sectionHeight = section.offsetHeight;
-    const scrollY = window.scrollY + window.innerHeight / 2;
-    const progress = (scrollY - sectionTop) / sectionHeight;
+    const scrollable = sectionHeight - window.innerHeight;
+    const progress = scrollable > 0 ? (window.scrollY - sectionTop) / scrollable : 0;
 
     const clamped = Math.max(0, Math.min(1, progress));
     const index = Math.min(Math.floor(clamped * totalSlides), totalSlides - 1);
@@ -603,21 +603,6 @@ if ($('.main-collection-page').length) {
             }
         }
     });
-}
-
-$(window).resize(function() {
-    var headerHeight = $('.shopify-section-group-header-group .header').outerHeight();
-    if ($('.collection-vertical-slider-section').length){
-        $('.collection-vertical-slider-section .sticky-section').css('top', headerHeight + 'px');
-
-    }
-});
-
-    
-var headerHeight = $('.shopify-section-group-header-group .header').outerHeight();
-if ($('.collection-vertical-slider-section').length){
-    $('.collection-vertical-slider-section .sticky-section').css('top', headerHeight + 'px');
-
 }
 
 if ($('.collection-list-section').length) {
