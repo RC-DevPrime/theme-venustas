@@ -160,15 +160,21 @@
   }
 
   #shopify-section-{{ section.id }} .heating-riding-position-card__item-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 24px;
     height: 24px;
     color: var(--color-brand, #B93205);
+    border: 1px solid #B93205;   
+    border-radius: 50%;  
+    flex-shrink: 0;           
   }
 
   #shopify-section-{{ section.id }} .heating-riding-position-card__item-icon svg {
-    width: 100%;
-    height: 100%;
-    display: block;
+    width: 1em; 
+    height: 1em;  
+    color: inherit;
   }
 
   #shopify-section-{{ section.id }} .heating-riding-position__pagination {
@@ -291,13 +297,18 @@
         mobile_panel_gap: '32px'
       -%}
     {%- endif -%}
+    {%- comment -%} 定义9个图标，按3个一组分成3个数组 {%- endcomment -%}
+    {%- assign icon_sequence = 'icon-windblock|icon-heating|icon-keeps-warm|icon-curved-sleeves|icon-flexible|icon-no-bulk|icon-heat-retention|icon-seated-comfort|icon-long-lasting' | split: '|' -%}
 
     {%- if card_blocks.size > 0 -%}
       <div class="heating-riding-position__cards swiper" id="heating-riding-position-cards-{{ section.id }}">
         <div class="swiper-wrapper">
+         
           {%- for block in card_blocks -%}
+            {%- assign start_index = forloop.index0 | times: 3 -%}
+            {%- assign icons = icon_sequence | slice: start_index, 3 -%}
             <div class="swiper-slide">
-              {%- render 'heating-riding-position-card', block: block -%}
+              {%- render 'heating-riding-position-card', block: block, icons: icons -%}
             </div>
           {%- endfor -%}
         </div>

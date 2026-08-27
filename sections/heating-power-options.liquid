@@ -360,7 +360,7 @@
     top: calc(100% + 8px);
     left: 50%;
     z-index: 5;
-    width: 488px;
+    width: 516px;
     max-width: calc(100vw - 40px);
     padding: 0;
     border: 1px solid #d9d9d9;
@@ -408,15 +408,14 @@
   }
 
   #shopify-section-{{ section.id }} .heating-power-options__runtime-cell {
-    min-height: 52px;
+    min-height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 14px;
+    padding: 12px;
     border-bottom: 1px solid #e5e7eb;
     box-sizing: border-box;
     color: #111827;
-    font-size: 22px;
     font-weight: 400;
     line-height: 1.15;
     text-align: center;
@@ -428,13 +427,13 @@
 
   #shopify-section-{{ section.id }} .heating-power-options__runtime-cell--label {
     justify-content: flex-start;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 600;
     text-align: left;
   }
 
   #shopify-section-{{ section.id }} .heating-power-options__runtime-cell--head {
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 500;
   }
 
@@ -667,44 +666,20 @@
     }
 
     #shopify-section-{{ section.id }} .heating-power-options__tooltip-panel {
-      left: 50%;
-      right: 0;
       width: 350px;
-      max-width: calc(100vw - 28px);
       transform: translate3d(-50%, 6px, 0);
-    }
-
-    #shopify-section-{{ section.id }} .heating-power-options__tooltip-panel::before {
-      left: 50%;
-      right: 3px;
-      transform: rotate(45deg);
     }
 
     #shopify-section-{{ section.id }} .heating-power-options__tooltip:hover .heating-power-options__tooltip-panel,
     #shopify-section-{{ section.id }} .heating-power-options__tooltip:focus-within .heating-power-options__tooltip-panel {
-      transform: translate3d(-70%, 0, 0);
+      transform: translate3d(-55%, 0, 0);
     }
 
     #shopify-section-{{ section.id }} .heating-power-options__runtime-table {
-      grid-template-columns: minmax(160px, 1fr) repeat(3, 72px);
+      grid-template-columns: minmax(132px, 1fr) repeat(3, 72px);
     }
-
-    #shopify-section-{{ section.id }} .heating-power-options__runtime-cell {
-      min-height: 66px;
-      padding: 10px 8px;
-      font-size: 22px;
-    }
-
     #shopify-section-{{ section.id }} .heating-power-options__runtime-cell--label {
-      justify-content: center;
-      font-size: 16px;
-      line-height: 1.15;
-      text-align: center;
-    }
-
-    #shopify-section-{{ section.id }} .heating-power-options__runtime-cell--head {
-      min-height: 52px;
-      font-size: 16px;
+      text-align:center;
     }
 
 
