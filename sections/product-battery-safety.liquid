@@ -11,16 +11,12 @@
 
   #shopify-section-{{ section.id }} .product-battery-safety__container {
     position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    align-items: center;
-    align-content: center;
-    gap: 32px;
-    row-gap: 58px;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
     width: min(100% - 40px, 1240px);
     max-width: 1240px;
-    margin: 0 auto;
+    margin: 160px auto;
     height: 445px;
     min-height: 445px;
     box-sizing: border-box;
@@ -48,7 +44,7 @@
   }
 
   #shopify-section-{{ section.id }} .product-battery-safety__safety-title {
-    margin: 0 0 18px;
+    margin: 0 0 32px;
     color: {{ section.settings.accent_color }};
     font-size: 24px;
     font-weight: 700;
@@ -59,8 +55,8 @@
   #shopify-section-{{ section.id }} .product-battery-safety__certificates {
     display: flex;
     align-items: center;
-    gap: 24px;
-    margin-bottom: 52px;
+    gap: 32px;
+    margin-bottom: 56px;
   }
 
   #shopify-section-{{ section.id }} .product-battery-safety__certificate {
@@ -126,23 +122,14 @@
     margin: 0;
   }
 
-  #shopify-section-{{ section.id }} .product-battery-safety__image-wrapper {
+  #shopify-section-{{ section.id }} .product-battery-safety__wrapper {
     position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    min-width: 0;
   }
 
   #shopify-section-{{ section.id }} .product-battery-safety__image {
-    display: block;
+    position:absolute;
+    top:0;
     width: 100%;
-    max-width: 650px;
-    max-height: 405px;
-    height: auto;
     object-fit: contain;
   }
 
@@ -178,19 +165,6 @@
     #shopify-section-{{ section.id }} .product-battery-safety__safety-title {
       margin: 0 0 12px;
       font-size: 18px;
-    }
-
-    #shopify-section-{{ section.id }} .product-battery-safety__image-wrapper {
-      order: 2;
-      width: 100%;
-      margin: 8px 0 22px;
-    }
-
-    #shopify-section-{{ section.id }} .product-battery-safety__image {
-      width: 100%;
-      max-width: 330px;
-      max-height: none;
-      margin: 0 auto;
     }
 
     #shopify-section-{{ section.id }} .product-battery-safety__image--desktop {
@@ -242,6 +216,46 @@
 {% endstyle %}
 
 <section class="product-battery-safety">
+  {% if section.settings.desktop_image != blank or section.settings.mobile_image != blank %}
+    <div class="product-battery-safety__wrapper">
+      {% if section.settings.desktop_image != blank %}
+        {{
+          section.settings.desktop_image
+          | image_url: width: 1200
+          | image_tag:
+            class: 'product-battery-safety__image product-battery-safety__image--desktop',
+            loading: 'lazy',
+            widths: '500, 700, 900, 1200',
+            sizes: '(min-width: 1240px) 650px, 52vw',
+            alt: section.settings.desktop_image.alt
+        }}
+      {% endif %}
+
+      {% if section.settings.mobile_image != blank %}
+        {{
+          section.settings.mobile_image
+          | image_url: width: 1000
+          | image_tag:
+            class: 'product-battery-safety__image product-battery-safety__image--mobile',
+            loading: 'lazy',
+            widths: '360, 540, 750, 1000',
+            sizes: 'calc(100vw - 40px)',
+            alt: section.settings.mobile_image.alt
+        }}
+      {% elsif section.settings.desktop_image != blank %}
+        {{
+          section.settings.desktop_image
+          | image_url: width: 1000
+          | image_tag:
+            class: 'product-battery-safety__image product-battery-safety__image--mobile',
+            loading: 'lazy',
+            widths: '360, 540, 750, 1000',
+            sizes: 'calc(100vw - 40px)',
+            alt: section.settings.desktop_image.alt
+        }}
+      {% endif %}
+    </div>
+  {% endif %}
   <div class="product-battery-safety__container">
     <div class="product-battery-safety__copy-top">
       {% if section.settings.title != blank %}
@@ -257,46 +271,7 @@
       {% endif %}
     </div>
 
-    {% if section.settings.desktop_image != blank or section.settings.mobile_image != blank %}
-      <div class="product-battery-safety__image-wrapper">
-        {% if section.settings.desktop_image != blank %}
-          {{
-            section.settings.desktop_image
-            | image_url: width: 1200
-            | image_tag:
-              class: 'product-battery-safety__image product-battery-safety__image--desktop',
-              loading: 'lazy',
-              widths: '500, 700, 900, 1200',
-              sizes: '(min-width: 1240px) 650px, 52vw',
-              alt: section.settings.desktop_image.alt
-          }}
-        {% endif %}
-
-        {% if section.settings.mobile_image != blank %}
-          {{
-            section.settings.mobile_image
-            | image_url: width: 1000
-            | image_tag:
-              class: 'product-battery-safety__image product-battery-safety__image--mobile',
-              loading: 'lazy',
-              widths: '360, 540, 750, 1000',
-              sizes: 'calc(100vw - 40px)',
-              alt: section.settings.mobile_image.alt
-          }}
-        {% elsif section.settings.desktop_image != blank %}
-          {{
-            section.settings.desktop_image
-            | image_url: width: 1000
-            | image_tag:
-              class: 'product-battery-safety__image product-battery-safety__image--mobile',
-              loading: 'lazy',
-              widths: '360, 540, 750, 1000',
-              sizes: 'calc(100vw - 40px)',
-              alt: section.settings.desktop_image.alt
-          }}
-        {% endif %}
-      </div>
-    {% endif %}
+    
 
     <div class="product-battery-safety__copy-bottom">
       {% if section.settings.safety_title != blank %}
