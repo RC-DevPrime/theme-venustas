@@ -1,0 +1,46 @@
+<article class="product-battery-specs__item" {{ block.shopify_attributes }}>
+  <div class="product-battery-specs__item-copy">
+    <div class="product-battery-specs__item-heading">
+      {%- if block.settings.value != blank -%}
+        <p class="product-battery-specs__value">{{ block.settings.value }}</p>
+      {%- endif -%}
+
+      {%- if block.settings.title != blank -%}
+        <h3 class="product-battery-specs__card-title">{{ block.settings.title }}</h3>
+      {%- endif -%}
+    </div>
+
+    {%- if block.settings.description != blank -%}
+      <p class="product-battery-specs__card-description">{{ block.settings.description }}</p>
+    {%- endif -%}
+  </div>
+
+  <span class="product-battery-specs__icon" aria-hidden="true">
+    {%- case block.settings.icon -%}
+      {%- when 'capacity' -%}
+        <svg viewBox="0 0 24 24" fill="none" focusable="false">
+          <path d="M7 10.5H13.5C14.3284 10.5 15 11.1716 15 12V12C15 12.8284 14.3284 13.5 13.5 13.5H7M18 10V14M5.5 8H15.5C16.6046 8 17.5 8.89543 17.5 10V14C17.5 15.1046 16.6046 16 15.5 16H5.5C4.39543 16 3.5 15.1046 3.5 14V10C3.5 8.89543 4.39543 8 5.5 8Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      {%- when 'feather' -%}
+        <svg viewBox="0 0 24 24" fill="none" focusable="false">
+          <path d="M5 19C7.5 19 12.5 17.5 16 14C19.5 10.5 19 5 19 5C19 5 13.5 4.5 10 8C6.5 11.5 5 16.5 5 19ZM5 19L12.5 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      {%- when 'bolt' -%}
+        <svg viewBox="0 0 24 24" fill="none" focusable="false">
+          <path d="M13 2L5 13H11L10 22L19 10H13L13 2Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      {%- when 'output' -%}
+        <svg viewBox="0 0 24 24" fill="none" focusable="false">
+          <path d="M7 15C7 12.2386 9.23858 10 12 10C14.7614 10 17 12.2386 17 15M12 15L14.5 12.5M4 15C4 10.5817 7.58172 7 12 7C16.4183 7 20 10.5817 20 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      {%- when 'shield' -%}
+        <svg viewBox="0 0 24 24" fill="none" focusable="false">
+          <path d="M12 21C8.5 19.8 6 16.5 6 12.8V6.5L12 4L18 6.5V12.8C18 16.5 15.5 19.8 12 21ZM10 12L11.5 13.5L14.5 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      {%- else -%}
+        <svg viewBox="0 0 24 24" fill="none" focusable="false">
+          <path d="M12 8V12L14.5 14.5M20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    {%- endcase -%}
+  </span>
+</article>

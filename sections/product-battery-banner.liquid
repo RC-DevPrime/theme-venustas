@@ -1,0 +1,179 @@
+{% style %}
+  #shopify-section-{{ section.id }} .product-battery-banner {
+    position: relative;
+    width: 100%;
+    max-height: 860px;
+    overflow: hidden;
+    background: #1a1a1a;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-banner__image {
+    width: 100%;
+    height: auto;
+    max-height: 860px;
+    display: block;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-banner__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-banner__content {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px 0;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-banner__heading {
+    margin: 0;
+    color: #fff;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-banner__heading-accent {
+    color: var(--color-brand, #B93205);
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-banner__description {
+    margin: 10px auto 0;
+    max-width: 620px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-banner__description p {
+    margin: 0;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-battery-banner {
+      min-height: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-banner__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-banner__image--mobile {
+      display: block;
+      min-height: 100%;
+      object-position: center center;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-banner__content {
+      justify-content: space-between;
+      padding: 32px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-banner__heading {
+      font-size: 32px;
+      line-height: 1.08;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-banner__description {
+      margin: 0 auto;
+      max-width: 330px;
+      font-size: 16px;
+      line-height: 1.28;
+      text-align: center;
+    }
+  }
+{% endstyle %}
+
+<section class="product-battery-banner">
+  {%- if section.settings.image_desktop != blank -%}
+    {{
+      section.settings.image_desktop
+      | image_url: width: 2880
+      | image_tag:
+        class: 'product-battery-banner__image product-battery-banner__image--desktop',
+        loading: 'lazy',
+        widths: '750,1000,1340,1600,2000,2400,2880',
+        sizes: '100vw',
+        alt: section.settings.image_desktop.alt | default: 'Power behind your warmth'
+    }}
+  {%- endif -%}
+
+  {%- if section.settings.image_mobile != blank -%}
+    {{
+      section.settings.image_mobile
+      | image_url: width: 900
+      | image_tag:
+        class: 'product-battery-banner__image product-battery-banner__image--mobile',
+        loading: 'lazy',
+        widths: '375,550,750,900',
+        sizes: '100vw',
+        alt: section.settings.image_mobile.alt | default: 'Power behind your warmth'
+    }}
+  {%- elsif section.settings.image_desktop != blank -%}
+    {{
+      section.settings.image_desktop
+      | image_url: width: 900
+      | image_tag:
+        class: 'product-battery-banner__image product-battery-banner__image--mobile',
+        loading: 'lazy',
+        widths: '375,550,750,900',
+        sizes: '100vw',
+        alt: section.settings.image_desktop.alt | default: 'Power behind your warmth'
+    }}
+  {%- endif -%}
+
+  <div class="product-battery-banner__content">
+    <h2 class="product-battery-banner__heading">
+      Power Behind <span class="product-battery-banner__heading-accent">Your Warmth</span>
+    </h2>
+
+    {%- if section.settings.description != blank -%}
+      <div class="product-battery-banner__description">
+        {{ section.settings.description }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Battery Banner",
+  "tag": "section",
+  "class": "product-battery-banner-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile background image"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Engineered exclusively for extreme warmth and comfort, delivering reliable power to keep your heated vest active whenever you need it.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Battery Banner"
+    }
+  ]
+}
+{% endschema %}

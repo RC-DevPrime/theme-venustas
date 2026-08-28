@@ -1,0 +1,264 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-compact-power-gallery {
+    width: 100%;
+    background: #fff;
+    color: var(--venustas-black, #1f1f1f);
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .heating-compact-power-gallery__inner {
+    width: min(100% - 40px, 1200px);
+    margin: 0 auto;
+    padding: 72px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-compact-power-gallery__header {
+    margin-bottom: 52px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-compact-power-gallery__heading {
+    margin: 0 0 8px;
+    color: var(--venustas-black, #1f1f1f);
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.16;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .heating-compact-power-gallery__heading-accent {
+    color: var(--color-brand, #B93205);
+  }
+
+  #shopify-section-{{ section.id }} .heating-compact-power-gallery__description {
+    margin: 0;
+    color: #515151;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-compact-power-gallery__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-compact-power-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 400px));
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-compact-power-gallery__item {
+    width: 400px;
+    max-width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .heating-compact-power-gallery__image {
+    width: 400px;
+    height: 580px;
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-compact-power-gallery__image--mobile {
+    display: none;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-compact-power-gallery__inner {
+      width: 100%;
+      padding: 40px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-compact-power-gallery__header {
+      margin-bottom: 22px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-compact-power-gallery__heading {
+      margin-bottom: 8px;
+      font-size: 24px;
+      line-height: 1.12;
+    }
+
+    #shopify-section-{{ section.id }} .heating-compact-power-gallery__description {
+      font-size: 16px;
+      line-height: 1.3;
+    }
+
+    #shopify-section-{{ section.id }} .heating-compact-power-gallery__grid {
+      grid-template-columns: repeat(3, 106px);
+      justify-content: center;
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-compact-power-gallery__item,
+    #shopify-section-{{ section.id }} .heating-compact-power-gallery__image {
+      width: 106px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-compact-power-gallery__image {
+      height: 158px;
+      border-radius: 4px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-compact-power-gallery__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-compact-power-gallery__image--mobile {
+      display: block;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-compact-power-gallery">
+  <div class="heating-compact-power-gallery__inner">
+    <div class="heating-compact-power-gallery__header">
+      <h2 class="heating-compact-power-gallery__heading">
+        {%- if section.settings.heading_before != blank -%}
+          {{ section.settings.heading_before }}
+        {%- endif -%}
+        {%- if section.settings.heading_accent != blank -%}
+          <span class="heating-compact-power-gallery__heading-accent">{{ section.settings.heading_accent }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading_after != blank -%}
+          {{ section.settings.heading_after }}
+        {%- endif -%}
+      </h2>
+
+      {%- if section.settings.description != blank -%}
+        <div class="heating-compact-power-gallery__description">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="heating-compact-power-gallery__grid">
+      {%- for block in section.blocks -%}
+        <div class="heating-compact-power-gallery__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.image_desktop != blank -%}
+            {{
+              block.settings.image_desktop
+              | image_url: width: 900
+              | image_tag:
+                class: 'heating-compact-power-gallery__image heating-compact-power-gallery__image--desktop',
+                loading: 'lazy',
+                widths: '300,400,600,800,900',
+                sizes: '(max-width: 767px) 0px, min((100vw - 40px) / 3, 400px)',
+                alt: block.settings.image_desktop.alt | default: block.settings.title
+            }}
+          {%- endif -%}
+
+          {%- if block.settings.image_mobile != blank -%}
+            {{
+              block.settings.image_mobile
+              | image_url: width: 320
+              | image_tag:
+                class: 'heating-compact-power-gallery__image heating-compact-power-gallery__image--mobile',
+                loading: 'lazy',
+                widths: '106,160,212,320',
+                sizes: '106px',
+                alt: block.settings.image_mobile.alt | default: block.settings.title
+            }}
+          {%- elsif block.settings.image_desktop != blank -%}
+            {{
+              block.settings.image_desktop
+              | image_url: width: 320
+              | image_tag:
+                class: 'heating-compact-power-gallery__image heating-compact-power-gallery__image--mobile',
+                loading: 'lazy',
+                widths: '106,160,212,320',
+                sizes: '106px',
+                alt: block.settings.image_desktop.alt | default: block.settings.title
+            }}
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating Compact Power",
+  "tag": "section",
+  "class": "heating-compact-power-gallery-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_before",
+      "label": "Heading before accent",
+      "default": "COMPACT POWER FOR"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Heading accent",
+      "default": "7.4V"
+    },
+    {
+      "type": "text",
+      "id": "heading_after",
+      "label": "Heading after accent",
+      "default": "HEATED APPAREL"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Lightweight, portable power designed for everyday wearability and convenience.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Desktop image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Compact power image"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Compact Power",
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
