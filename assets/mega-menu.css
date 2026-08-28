@@ -25,6 +25,33 @@
     bottom:0;
     transition: all 0.3s ease;
 }
+.header .mega-menu .mega-menu-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .header .mega-menu .mega-menu-link__badge--hot {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 3px 4px;
+    border-radius: var(--swym-p-border-radius-050, 2px);
+    background: linear-gradient(
+      93deg,
+      var(--color-orange-62, #ff7d3e) 0%,
+      var(--color-red-48, #db451c) 33%,
+      var(--color-red-53, #e1542c) 71%,
+      var(--color-orange-56, #ff8c20) 100%
+    );
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
 .header .mega-menu .menu-list-container .menu-list a:hover:before{
     width:100%;
 }
