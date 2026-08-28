@@ -1,7 +1,9 @@
+```liquid
 {% style %}
   #shopify-section-{{ section.id }} .product-battery-systems {
     width: 100%;
-    background: #10171F;
+    max-height: 800px;
+    background: #10171f;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
   }
@@ -16,17 +18,14 @@
 
   #shopify-section-{{ section.id }} .product-battery-systems__stage {
     position: relative;
-    min-height: 575px;
-    overflow: hidden;
-    background: #1a2532;
   }
 
   #shopify-section-{{ section.id }} .product-battery-systems__image {
     position: absolute;
     inset: 0;
+    display: block;
     width: 100%;
     height: 100%;
-    display: block;
     object-fit: cover;
     object-position: center center;
   }
@@ -39,97 +38,77 @@
     position: relative;
     z-index: 1;
     min-height: 575px;
-    padding: 46px 32px 50px;
     box-sizing: border-box;
   }
 
   #shopify-section-{{ section.id }} .product-battery-systems__heading {
-    margin: 0;
+    margin: 0 0 40px;
     color: #fff;
-    font-size: 20px;
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: 0;
+    font-size: 28px;
+    font-weight: 700;
     text-align: center;
     text-transform: uppercase;
   }
 
   #shopify-section-{{ section.id }} .product-battery-systems__heading-accent {
-    color: var(--color-brand, #B93205);
+    color: var(--color-brand, #b93205);
   }
 
   #shopify-section-{{ section.id }} .product-battery-systems__list {
     position: absolute;
     inset: 0;
     z-index: 2;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-template-rows: repeat(3, max-content);
+    grid-auto-flow: column;
+    align-content: center;
+    justify-content: space-between;
+    row-gap: 38px;
     margin: 0;
-    padding: 0;
+    padding: 0 28px;
     list-style: none;
     pointer-events: none;
   }
 
   #shopify-section-{{ section.id }} .product-battery-systems__item {
-    position: absolute;
+    position: static;
     display: inline-flex;
     align-items: center;
+    justify-self: start;
     gap: 10px;
     color: #fff;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 500;
     line-height: 1.2;
     letter-spacing: 0;
+    text-align: left;
     white-space: nowrap;
     pointer-events: auto;
   }
 
-  #shopify-section-{{ section.id }} .product-battery-systems__item:nth-child(1) {
-    left: 28px;
-    top: 235px;
-  }
-
-  #shopify-section-{{ section.id }} .product-battery-systems__item:nth-child(2) {
-    left: 28px;
-    top: 306px;
-  }
-
-  #shopify-section-{{ section.id }} .product-battery-systems__item:nth-child(3) {
-    left: 28px;
-    top: 376px;
-  }
-
-  #shopify-section-{{ section.id }} .product-battery-systems__item:nth-child(n + 4) {
-    flex-direction: row-reverse;
-    right: 28px;
-  }
-
-  #shopify-section-{{ section.id }} .product-battery-systems__item:nth-child(4) {
-    top: 235px;
-  }
-
-  #shopify-section-{{ section.id }} .product-battery-systems__item:nth-child(5) {
-    top: 306px;
-  }
-
-  #shopify-section-{{ section.id }} .product-battery-systems__item:nth-child(6) {
-    top: 376px;
-  }
-
   #shopify-section-{{ section.id }} .product-battery-systems__icon {
-    width: 32px;
-    height: 32px;
+    display: flex;
     flex: 0 0 32px;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    overflow: visible;
+    box-sizing: border-box;
     color: #fff;
-    line-height: 0;
   }
 
   #shopify-section-{{ section.id }} .product-battery-systems__icon svg {
+    display: block;
     width: 100%;
     height: 100%;
-    display: block;
+    overflow: visible;
   }
 
   #shopify-section-{{ section.id }} .product-battery-systems__label {
     display: block;
+    text-align: left;
   }
 
   @media only screen and (max-width: 767px) {
@@ -139,8 +118,7 @@
     }
 
     #shopify-section-{{ section.id }} .product-battery-systems__stage {
-      min-height: 0;
-      aspect-ratio: 350 / 608;
+      height:600px;
     }
 
     #shopify-section-{{ section.id }} .product-battery-systems__image--desktop {
@@ -152,12 +130,11 @@
     }
 
     #shopify-section-{{ section.id }} .product-battery-systems__content {
-      min-height: 0;
-      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 32px 0 18px;
+      min-height: 0;
+      height: 100%;
     }
 
     #shopify-section-{{ section.id }} .product-battery-systems__heading {
@@ -171,8 +148,10 @@
       inset: auto;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(2, max-content);
+      grid-auto-flow: row;
       gap: 10px 4px;
-      padding: 0 0 0;
+      padding: 0;
       pointer-events: auto;
     }
 
@@ -182,10 +161,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-self: stretch;
       gap: 4px;
       min-width: 0;
       color: #fff;
-      font-size: 10px;
+      font-size: 14px;
       line-height: 1.1;
       text-align: center;
       white-space: normal;
@@ -196,11 +176,27 @@
       height: 32px;
       flex-basis: 32px;
     }
+
+    #shopify-section-{{ section.id }} .product-battery-systems__label {
+      text-align: center;
+    }
   }
 {% endstyle %}
 
 <section class="product-battery-systems">
   <div class="product-battery-systems__inner">
+    <h2 class="product-battery-systems__heading">
+      {%- if section.settings.heading != blank -%}
+        {{ section.settings.heading }}
+      {%- endif -%}
+
+      {%- if section.settings.heading_accent != blank -%}
+        <span class="product-battery-systems__heading-accent">
+          {{ section.settings.heading_accent }}
+        </span>
+      {%- endif -%}
+    </h2>
+
     <div class="product-battery-systems__stage">
       {%- if section.settings.image_desktop != blank -%}
         {{
@@ -240,24 +236,24 @@
       {%- endif -%}
 
       <div class="product-battery-systems__content">
-        <h2 class="product-battery-systems__heading">
-          {%- if section.settings.heading != blank -%}
-            {{ section.settings.heading }}
-          {%- endif -%}
-          {%- if section.settings.heading_accent != blank -%}
-            <span class="product-battery-systems__heading-accent">{{ section.settings.heading_accent }}</span>
-          {%- endif -%}
-        </h2>
-
         {%- if section.blocks.size > 0 -%}
           <ul class="product-battery-systems__list">
             {%- for block in section.blocks -%}
               {%- if block.settings.label != blank -%}
-                <li class="product-battery-systems__item" {{ block.shopify_attributes }}>
-                  <span class="product-battery-systems__icon" aria-hidden="true">
+                <li
+                  class="product-battery-systems__item"
+                  {{ block.shopify_attributes }}
+                >
+                  <span
+                    class="product-battery-systems__icon"
+                    aria-hidden="true"
+                  >
                     {%- render 'battery-icons', name: block.settings.icon -%}
                   </span>
-                  <span class="product-battery-systems__label">{{ block.settings.label }}</span>
+
+                  <span class="product-battery-systems__label">
+                    {{ block.settings.label }}
+                  </span>
                 </li>
               {%- endif -%}
             {%- endfor -%}
@@ -395,3 +391,4 @@
   ]
 }
 {% endschema %}
+```

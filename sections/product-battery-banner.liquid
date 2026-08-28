@@ -11,7 +11,6 @@
 
   #shopify-section-{{ section.id }} .product-battery-banner__image {
     width: 100%;
-    height: auto;
     max-height: 860px;
     display: block;
     object-fit: cover;
@@ -63,9 +62,11 @@
 
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .product-battery-banner {
-      min-height: 0;
+      /* min-height: 520px; */
     }
-
+    #shopify-section-{{ section.id }} .product-battery-banner__heading-accent {
+      display:block;
+    }
     #shopify-section-{{ section.id }} .product-battery-banner__image--desktop {
       display: none;
     }
