@@ -174,7 +174,7 @@
             "x_position": 21,
             "y_position": 70,
             "heading": "12-Hour Long-Lasting Runtime",
-            "description": "<p>Stay warm all day with up to 10 hours of heat and 3 adjustable heating levels: High (144°F, 3 hrs), Medium (130°F, 8 hrs), and Low (112°F, 12 hrs). Whether you need a quick burst of heat or steady warmth for extended wear, this heated coat delivers reliable performance for any activity.</p>",
+            "description": "<p>Stay warm all day with up to 12 hours of heat and 3 adjustable heating levels: High (144°F, 3 hrs), Medium (130°F, 8 hrs), and Low (112°F, 12 hrs). Whether you need a quick burst of heat or steady warmth for extended wear, this heated coat delivers reliable performance for any activity.</p>",
             "video_or_image": "image",
             "image": "shopify://shop_images/long-lasting-hours-7.5K-12.jpg"
           }
@@ -214,7 +214,9 @@
         "nav_title": "Features",
         "background_image": "shopify://shop_images/40058_2x_7bb103e6-0745-4dcb-ad16-a87e7616bb66.png",
         "element": "shopify://shop_images/M19_arm_black_heating.png",
-        "heading": "Lightweight, Heated, 12V Jacket Ready"
+        "heading": "Lightweight, Heated, 12V Jacket Ready",
+        "switch_to": true,
+        "popup_trigger": "click"
       }
     },
     "product_image_content_g3c3AM": {
@@ -247,11 +249,11 @@
           "type": "battery",
           "settings": {
             "heading": "7.5K",
-            "low_range_temperature": 100,
-            "low_range_heating_duration": 13,
-            "medium_range_temperature": 113,
-            "medium_range_heating_duration": 27,
-            "high_range_temperature": 131,
+            "low_range_temperature": 112,
+            "low_range_heating_duration": 12,
+            "medium_range_temperature": 130,
+            "medium_range_heating_duration": 8,
+            "high_range_temperature": 144,
             "high_range_heating_duration": 3
           }
         },
@@ -259,12 +261,12 @@
           "type": "battery",
           "settings": {
             "heading": "10K",
-            "low_range_temperature": 100,
-            "low_range_heating_duration": 16,
-            "medium_range_temperature": 113,
-            "medium_range_heating_duration": 12,
-            "high_range_temperature": 131,
-            "high_range_heating_duration": 6
+            "low_range_temperature": 112,
+            "low_range_heating_duration": 13,
+            "medium_range_temperature": 130,
+            "medium_range_heating_duration": 9,
+            "high_range_temperature": 144,
+            "high_range_heating_duration": 4
           }
         }
       },
