@@ -103,6 +103,256 @@
       ],
       "settings": {}
     },
+    "product_battery_banner_riHEL3": {
+      "type": "product-battery-banner",
+      "name": "Product Battery Banner",
+      "settings": {
+        "image_desktop": "shopify://shop_images/AI-W2117.jpg",
+        "title1": "Power Behind",
+        "title2": "Your Warmth",
+        "description": "<p>Engineered exclusively for extreme warmth and comfort, delivering reliable power to keep your heated vest active whenever you need it.</p>"
+      }
+    },
+    "product_battery_power_rzeL9x": {
+      "type": "product-battery-power",
+      "blocks": {
+        "image_r4JAKR": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/heatingN-kit-two.webp",
+            "title": "Compact power image",
+            "description": ""
+          }
+        },
+        "image_9hi9aV": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/heatingN-kit-battery.webp",
+            "title": "Compact power image",
+            "description": ""
+          }
+        },
+        "image_nmaHXN": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/heatingN-setup-one2-mobile.webp",
+            "title": "Compact power image",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_r4JAKR",
+        "image_9hi9aV",
+        "image_nmaHXN"
+      ],
+      "name": "Product Battery Power",
+      "settings": {
+        "heading_before": "COMPACT POWER FOR",
+        "heading_accent": "7.4V",
+        "heading_after": "HEATED APPAREL",
+        "description": "<p>Lightweight, portable power designed for everyday wearability and convenience.</p>"
+      }
+    },
+    "product_battery_specs_PxQdqC": {
+      "type": "product-battery-specs",
+      "blocks": {
+        "spec_ip69kX": {
+          "type": "spec",
+          "settings": {
+            "value": "36WH",
+            "title": "Capacity",
+            "description": "Reliable power for everyday warmth.",
+            "icon": "capacity"
+          }
+        },
+        "spec_x8WVi9": {
+          "type": "spec",
+          "settings": {
+            "value": "6.56oz",
+            "title": "Lightweight",
+            "description": "Compact and easy to carry anywhere.",
+            "icon": "feather"
+          }
+        },
+        "spec_te47Yc": {
+          "type": "spec",
+          "settings": {
+            "value": "2.5H",
+            "title": "Fast Recharge",
+            "description": "Fully recharges in about 2.5 hours with a 20W+ charger.",
+            "icon": "bolt"
+          }
+        },
+        "spec_TErEg4": {
+          "type": "spec",
+          "settings": {
+            "value": "3",
+            "title": "Versatile Outputs",
+            "description": "USB-C, USB-A & 7.2V DC outputs for heated apparel and everyday devices.",
+            "icon": "output"
+          }
+        },
+        "spec_A98wtW": {
+          "type": "spec",
+          "settings": {
+            "value": "5",
+            "title": "Safety Certifications",
+            "description": "Certified for reliable safety and performance.",
+            "icon": "shield"
+          }
+        }
+      },
+      "block_order": [
+        "spec_ip69kX",
+        "spec_x8WVi9",
+        "spec_te47Yc",
+        "spec_TErEg4",
+        "spec_A98wtW"
+      ],
+      "name": "Product Battery Specs",
+      "settings": {
+        "heading": "EVERYTHING YOU NEED",
+        "heading_accent": "AT A GLANCE"
+      }
+    },
+    "product_batter_protections_4jzByW": {
+      "type": "product-batter-protections",
+      "blocks": {
+        "protection_bNxBzi": {
+          "type": "protection",
+          "settings": {
+            "image": "shopify://shop_images/heatingN-options-one.webp",
+            "title": "Temperature Monitoring",
+            "description": "<p>Smart NTC sensor monitors battery temperature in real-time, instantly adjusting performance parameters to ensure completely safe operation.</p>"
+          }
+        },
+        "protection_a6AGFg": {
+          "type": "protection",
+          "settings": {
+            "image": "shopify://shop_images/heatingN-position-two.webp",
+            "title": "Stable Power Output",
+            "description": "<p>BMS (Battery Management System) regulates stable constant voltage output for continuous optimal performance of your apparel's heating elements.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "protection_bNxBzi",
+        "protection_a6AGFg"
+      ],
+      "name": "Battery Protections",
+      "settings": {
+        "heading": "BUILT WITH MULTIPLE",
+        "heading_accent": "SAFETY PROTECTIONS"
+      }
+    },
+    "product_battery_systems_Aw9MEx": {
+      "type": "product-battery-systems",
+      "blocks": {
+        "protection_6zieGN": {
+          "type": "protection",
+          "settings": {
+            "icon": "protection",
+            "label": "Over-Charge Protection"
+          }
+        },
+        "protection_69aETX": {
+          "type": "protection",
+          "settings": {
+            "icon": "current",
+            "label": "Over-Current Protection"
+          }
+        },
+        "protection_iGdmm4": {
+          "type": "protection",
+          "settings": {
+            "icon": "temperature",
+            "label": "Over-Temperature Protection"
+          }
+        },
+        "protection_tK4nbQ": {
+          "type": "protection",
+          "settings": {
+            "icon": "discharge",
+            "label": "Over-Discharge Protection"
+          }
+        },
+        "protection_4thNMb": {
+          "type": "protection",
+          "settings": {
+            "icon": "voltage",
+            "label": "Over-Voltage Protection"
+          }
+        },
+        "protection_DV3VXz": {
+          "type": "protection",
+          "settings": {
+            "icon": "circuit",
+            "label": "Short-Circuit Protection"
+          }
+        }
+      },
+      "block_order": [
+        "protection_6zieGN",
+        "protection_69aETX",
+        "protection_iGdmm4",
+        "protection_tK4nbQ",
+        "protection_4thNMb",
+        "protection_DV3VXz"
+      ],
+      "name": "Product Battery Systems",
+      "settings": {
+        "heading": "MULTIPLE",
+        "heading_accent": "PROTECTION SYSTEMS"
+      }
+    },
+    "product_battery_safety_iYcyYJ": {
+      "type": "product-battery-safety",
+      "blocks": {
+        "certificate_xCtTcV": {
+          "type": "certificate",
+          "settings": {
+            "icon": "shopify://shop_images/heatingN-kit-connector.webp"
+          }
+        },
+        "certificate_LKWUwg": {
+          "type": "certificate",
+          "settings": {
+            "icon": "shopify://shop_images/heatingN-kit-motorcycle.webp"
+          }
+        },
+        "certificate_JTyExw": {
+          "type": "certificate",
+          "settings": {
+            "icon": "shopify://shop_images/heatingN-kit-cable.webp"
+          }
+        },
+        "certificate_PHGzAM": {
+          "type": "certificate",
+          "settings": {}
+        },
+        "certificate_kE6zQb": {
+          "type": "certificate",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "certificate_xCtTcV",
+        "certificate_LKWUwg",
+        "certificate_JTyExw",
+        "certificate_PHGzAM",
+        "certificate_kE6zQb"
+      ],
+      "name": "Product battery safety",
+      "settings": {
+        "background_color": "#151A22",
+        "text_color": "#FFFFFF",
+        "accent_color": "#FFFFFF",
+        "title": "Advanced Battery Safety",
+        "safety_title": "7 Safety Protections",
+        "description": "<p>Built-in protection against overcharging, over-discharging, overcurrent, short circuits, overvoltage, overheating, and power surges.</p>"
+      }
+    },
     "product_review_section_VnyXRe": {
       "type": "product-review-section",
       "blocks": {
@@ -143,6 +393,12 @@
   },
   "order": [
     "main-product",
+    "product_battery_banner_riHEL3",
+    "product_battery_power_rzeL9x",
+    "product_battery_specs_PxQdqC",
+    "product_batter_protections_4jzByW",
+    "product_battery_systems_Aw9MEx",
+    "product_battery_safety_iYcyYJ",
     "product_review_section_VnyXRe",
     "product_featured_banner_mazp9M"
   ]
