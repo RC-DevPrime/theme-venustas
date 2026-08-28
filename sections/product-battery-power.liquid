@@ -1,24 +1,24 @@
 {% style %}
-  #shopify-section-{{ section.id }} .heating-compact-power-gallery {
+  #shopify-section-{{ section.id }} .product-battery-power {
     width: 100%;
     background: #fff;
     color: var(--venustas-black, #1f1f1f);
     font-family: 'Montserrat', sans-serif;
   }
 
-  #shopify-section-{{ section.id }} .heating-compact-power-gallery__inner {
+  #shopify-section-{{ section.id }} .product-battery-power__inner {
     width: min(100% - 40px, 1240px);
     margin: 0 auto;
     padding: 72px 0;
     box-sizing: border-box;
   }
 
-  #shopify-section-{{ section.id }} .heating-compact-power-gallery__header {
+  #shopify-section-{{ section.id }} .product-battery-power__header {
     margin-bottom: 52px;
     text-align: center;
   }
 
-  #shopify-section-{{ section.id }} .heating-compact-power-gallery__heading {
+  #shopify-section-{{ section.id }} .product-battery-power__heading {
     margin: 0 0 8px;
     color: var(--venustas-black, #1f1f1f);
     font-size: 28px;
@@ -28,11 +28,11 @@
     text-transform: uppercase;
   }
 
-  #shopify-section-{{ section.id }} .heating-compact-power-gallery__heading-accent {
+  #shopify-section-{{ section.id }} .product-battery-power__heading-accent {
     color: var(--color-brand, #B93205);
   }
 
-  #shopify-section-{{ section.id }} .heating-compact-power-gallery__description {
+  #shopify-section-{{ section.id }} .product-battery-power__description {
     margin: 0;
     color: #515151;
     font-size: 16px;
@@ -41,22 +41,22 @@
     letter-spacing: 0;
   }
 
-  #shopify-section-{{ section.id }} .heating-compact-power-gallery__description p {
+  #shopify-section-{{ section.id }} .product-battery-power__description p {
     margin: 0;
   }
 
-  #shopify-section-{{ section.id }} .heating-compact-power-gallery__grid {
+  #shopify-section-{{ section.id }} .product-battery-power__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 400px));
     justify-content: center;
   }
 
-  #shopify-section-{{ section.id }} .heating-compact-power-gallery__item {
+  #shopify-section-{{ section.id }} .product-battery-power__item {
     width: 400px;
     max-width: 100%;
   }
 
-  #shopify-section-{{ section.id }} .heating-compact-power-gallery__image {
+  #shopify-section-{{ section.id }} .product-battery-power__image {
     width: 400px;
     height: 580px;
     max-width: 100%;
@@ -65,66 +65,66 @@
     border-radius: 20px;
   }
 
-  #shopify-section-{{ section.id }} .heating-compact-power-gallery__image--mobile {
+  #shopify-section-{{ section.id }} .product-battery-power__image--mobile {
     display: none;
   }
 
   @media only screen and (max-width: 767px) {
-    #shopify-section-{{ section.id }} .heating-compact-power-gallery__inner {
+    #shopify-section-{{ section.id }} .product-battery-power__inner {
       width: 100%;
       padding: 40px 20px;
     }
 
-    #shopify-section-{{ section.id }} .heating-compact-power-gallery__header {
+    #shopify-section-{{ section.id }} .product-battery-power__header {
       margin-bottom: 22px;
     }
 
-    #shopify-section-{{ section.id }} .heating-compact-power-gallery__heading {
+    #shopify-section-{{ section.id }} .product-battery-power__heading {
       margin-bottom: 8px;
       font-size: 24px;
       line-height: 1.12;
     }
 
-    #shopify-section-{{ section.id }} .heating-compact-power-gallery__description {
+    #shopify-section-{{ section.id }} .product-battery-power__description {
       font-size: 16px;
       line-height: 1.3;
     }
 
-    #shopify-section-{{ section.id }} .heating-compact-power-gallery__grid {
+    #shopify-section-{{ section.id }} .product-battery-power__grid {
       grid-template-columns: repeat(3, 106px);
       justify-content: center;
       gap: 12px;
     }
 
-    #shopify-section-{{ section.id }} .heating-compact-power-gallery__item,
-    #shopify-section-{{ section.id }} .heating-compact-power-gallery__image {
+    #shopify-section-{{ section.id }} .product-battery-power__item,
+    #shopify-section-{{ section.id }} .product-battery-power__image {
       width: 106px;
     }
 
-    #shopify-section-{{ section.id }} .heating-compact-power-gallery__image {
+    #shopify-section-{{ section.id }} .product-battery-power__image {
       height: 158px;
       border-radius: 4px;
     }
 
-    #shopify-section-{{ section.id }} .heating-compact-power-gallery__image--desktop {
+    #shopify-section-{{ section.id }} .product-battery-power__image--desktop {
       display: none;
     }
 
-    #shopify-section-{{ section.id }} .heating-compact-power-gallery__image--mobile {
+    #shopify-section-{{ section.id }} .product-battery-power__image--mobile {
       display: block;
     }
   }
 {% endstyle %}
 
-<section class="heating-compact-power-gallery">
-  <div class="heating-compact-power-gallery__inner">
-    <div class="heating-compact-power-gallery__header">
-      <h2 class="heating-compact-power-gallery__heading">
+<section class="product-battery-power">
+  <div class="product-battery-power__inner">
+    <div class="product-battery-power__header">
+      <h2 class="product-battery-power__heading">
         {%- if section.settings.heading_before != blank -%}
           {{ section.settings.heading_before }}
         {%- endif -%}
         {%- if section.settings.heading_accent != blank -%}
-          <span class="heating-compact-power-gallery__heading-accent">{{ section.settings.heading_accent }}</span>
+          <span class="product-battery-power__heading-accent">{{ section.settings.heading_accent }}</span>
         {%- endif -%}
         {%- if section.settings.heading_after != blank -%}
           {{ section.settings.heading_after }}
@@ -132,21 +132,21 @@
       </h2>
 
       {%- if section.settings.description != blank -%}
-        <div class="heating-compact-power-gallery__description">
+        <div class="product-battery-power__description">
           {{ section.settings.description }}
         </div>
       {%- endif -%}
     </div>
 
-    <div class="heating-compact-power-gallery__grid">
+    <div class="product-battery-power__grid">
       {%- for block in section.blocks -%}
-        <div class="heating-compact-power-gallery__item" {{ block.shopify_attributes }}>
+        <div class="product-battery-power__item" {{ block.shopify_attributes }}>
           {%- if block.settings.image_desktop != blank -%}
             {{
               block.settings.image_desktop
               | image_url: width: 900
               | image_tag:
-                class: 'heating-compact-power-gallery__image heating-compact-power-gallery__image--desktop',
+                class: 'product-battery-power__image product-battery-power__image--desktop',
                 loading: 'lazy',
                 widths: '300,400,600,800,900',
                 sizes: '(max-width: 767px) 0px, min((100vw - 40px) / 3, 400px)',
@@ -159,7 +159,7 @@
               block.settings.image_mobile
               | image_url: width: 320
               | image_tag:
-                class: 'heating-compact-power-gallery__image heating-compact-power-gallery__image--mobile',
+                class: 'product-battery-power__image product-battery-power__image--mobile',
                 loading: 'lazy',
                 widths: '106,160,212,320',
                 sizes: '106px',
@@ -170,7 +170,7 @@
               block.settings.image_desktop
               | image_url: width: 320
               | image_tag:
-                class: 'heating-compact-power-gallery__image heating-compact-power-gallery__image--mobile',
+                class: 'product-battery-power__image product-battery-power__image--mobile',
                 loading: 'lazy',
                 widths: '106,160,212,320',
                 sizes: '106px',
@@ -185,9 +185,9 @@
 
 {% schema %}
 {
-  "name": "Heating Compact Power",
+  "name": "Product Battery Power",
   "tag": "section",
-  "class": "heating-compact-power-gallery-section",
+  "class": "product-battery-power-section",
   "settings": [
     {
       "type": "text",
@@ -246,7 +246,7 @@
   ],
   "presets": [
     {
-      "name": "Heating Compact Power",
+      "name": "Product Battery Power",
       "blocks": [
         {
           "type": "image"
