@@ -136,7 +136,7 @@
 
   <div class="product-battery-banner__content">
     <h2 class="product-battery-banner__heading">
-      Power Behind <span class="product-battery-banner__heading-accent">Your Warmth</span>
+     {{ section.settings.title1 }}<span class="product-battery-banner__heading-accent">{{ section.settings.title2 }}</span>
     </h2>
 
     {%- if section.settings.description != blank -%}
@@ -157,6 +157,18 @@
       "type": "image_picker",
       "id": "image_desktop",
       "label": "Desktop background image"
+    },
+    {
+      "type": "text",
+      "id": "title1",
+      "label": "Title 1",
+      "default": "Power Behind"
+    },
+    {
+      "type": "text",
+      "id": "title2",
+      "label": "Title 2",
+      "default": "Your Warmth"
     },
     {
       "type": "image_picker",
