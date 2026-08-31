@@ -162,6 +162,12 @@
   #shopify-section-{{ section.id }} .product-battery-certification__description p {
     margin: 0;
   }
+  @media screen and (min-width: 1400px){
+    #shopify-section-{{ section.id }} .product-battery-certification__bg-image{
+      object-fit:contain;
+      object-position: right center;
+    }
+  }
 
   @media screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .product-battery-certification {
@@ -317,10 +323,7 @@
         {% if section.settings.warranty_title != blank or section.settings.description != blank %}
           <div class="product-battery-certification__warranty">
             <span class="product-battery-certification__warranty-icon" aria-hidden="true">
-              <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M28 6L47 13.125V27.32C47 39.3 38.925 47.9 28 50.856C17.075 47.9 9 39.3 9 27.32V13.125L28 6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-                <path d="M24.2 31.9C24.2 31.9 25.783 29.789 28 29.789C30.217 29.789 31.8 31.9 31.8 31.9M25.044 22.922H25.065M30.956 22.922H30.977M38.556 26.722C38.556 32.551 33.829 37.278 28 37.278C22.171 37.278 17.444 32.551 17.444 26.722C17.444 20.893 22.171 16.167 28 16.167C33.829 16.167 38.556 20.893 38.556 26.722Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/battery-cert-icon.webp?v=1788168808" alt="Warranty icon" width="56" height="56">
             </span>
 
             <div class="product-battery-certification__warranty-copy">

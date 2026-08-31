@@ -11,7 +11,7 @@
 
   #shopify-section-{{ section.id }} .product-battery-systems__inner {
     position: relative;
-    width: min(100% - 40px, 1240px);
+    /* width: min(100% - 40px, 1240px); */
     margin: 0 auto;
     box-sizing: border-box;
   }
@@ -36,6 +36,8 @@
   }
 
   #shopify-section-{{ section.id }} .product-battery-systems__content {
+    width: min(100% - 40px, 1240px);
+    margin: 0 auto;
     position: relative;
     z-index: 1;
     min-height: 575px;
