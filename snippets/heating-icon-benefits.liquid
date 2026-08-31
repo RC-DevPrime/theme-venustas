@@ -1,0 +1,208 @@
+{%- liquid
+  assign benefits_scope_id = section_id | default: section.id
+  assign benefits_blocks = blocks | default: section.blocks
+  assign benefits_section_background = section_background | default: '#1A1A1A'
+  assign benefits_panel_background = panel_background | default: '#161615'
+  assign benefits_panel_border_color = panel_border_color | default: '#2A2A28'
+  assign benefits_title_color = title_color | default: '#ffffff'
+  assign benefits_text_color = text_color | default: 'rgba(255, 255, 255, 0.8)'
+  assign benefits_use_product_icons = use_product_icons | default: false
+  assign benefits_root_class = root_class | default: ''
+  assign benefits_inner_padding = inner_padding | default: '56px 0 100px'
+  assign benefits_mobile_inner_padding = mobile_inner_padding | default: '0 20px 40px'
+  assign benefits_panel_padding = panel_padding | default: '34px 64px'
+  assign benefits_mobile_panel_padding = mobile_panel_padding | default: '16px'
+  assign benefits_panel_gap = panel_gap | default: '42px'
+  assign benefits_mobile_panel_gap = mobile_panel_gap | default: '16px'
+  assign benefits_mobile_columns = mobile_columns | default: 1
+  assign benefits_mobile_card = mobile_card | default: false
+-%}
+
+{% style %}
+  #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits {
+    width: 100%;
+    background: {{ benefits_section_background }};
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__inner {
+    max-width:1340px;
+    width: 100%;
+    margin: 0 auto;
+    padding: {{ benefits_inner_padding }};
+  }
+
+  #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__panel {
+    display: grid;
+    grid-template-columns: repeat({{ benefits_blocks.size | at_least: 1 }}, minmax(0, 1fr));
+    gap: {{ benefits_panel_gap }};
+    padding: {{ benefits_panel_padding }};
+    border: 1px solid {{ benefits_panel_border_color }};
+    border-radius: 12px;
+    background: {{ benefits_panel_background }};
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__item {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__icon {
+    width: 48px;
+    height: 48px;
+    color: var(--color-brand, #B93205);
+    line-height: 0;
+  }
+
+  #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__icon .icon-bg-wrapper {
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(185, 50, 5, 0.16);
+    color: currentColor;
+  }
+
+  #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__icon svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__title {
+    margin: 0 0 12px;
+    color: {{ benefits_title_color }};
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__text {
+    margin: 0;
+    color: {{ benefits_text_color }};
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__inner {
+      width: 100%;
+      padding: {{ benefits_mobile_inner_padding }};
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__panel {
+      display: grid;
+      grid-template-columns: repeat({{ benefits_mobile_columns }}, minmax(0, 1fr));
+      gap: {{ benefits_mobile_panel_gap }};
+      padding: {{ benefits_mobile_panel_padding }};
+    }
+
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__item {
+      grid-template-columns: 40px minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__icon,
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__icon .icon-bg-wrapper {
+      width: 40px;
+      height: 40px;
+    }
+
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__icon .icon-bg-wrapper svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__title {
+      margin-bottom: 8px;
+      font-size: 16px;
+      line-height: 1.18;
+    }
+
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__text {
+      font-size: 16px;
+      line-height: 1.18;
+    }
+
+    {%- if benefits_mobile_card -%}
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__panel {
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__item {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+      gap: 8px;
+      padding: 14px;
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__item .heating-icon-benefits__icon,
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__item .heating-icon-benefits__icon .icon-bg-wrapper {
+      width: 48px;
+      height: 48px;
+    }
+
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__item .heating-icon-benefits__icon svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__title {
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    #shopify-section-{{ benefits_scope_id }} .heating-icon-benefits__text {
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.3;
+    }
+    {%- endif -%}
+  }
+{% endstyle %}
+
+<section class="heating-icon-benefits {{ benefits_root_class }}">
+  <div class="heating-icon-benefits__inner">
+    <div class="heating-icon-benefits__panel">
+      {%- for block in benefits_blocks -%}
+        <article class="heating-icon-benefits__item" {{ block.shopify_attributes }}>
+          <div class="heating-icon-benefits__icon" aria-hidden="true">
+            {%- if benefits_use_product_icons -%}
+              <span class="icon-bg-wrapper">
+                {%- render 'product-heating-icons', icon: block.settings.icon -%}
+              </span>
+            {%- else -%}
+              {%- render 'heating-icons', name: block.settings.icon, has_bg: true -%}
+            {%- endif -%}
+          </div>
+
+          <div class="heating-icon-benefits__copy">
+            {%- if block.settings.title != blank -%}
+              <h3 class="heating-icon-benefits__title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.text != blank -%}
+              <p class="heating-icon-benefits__text">{{ block.settings.text }}</p>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>

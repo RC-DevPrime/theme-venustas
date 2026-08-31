@@ -1,0 +1,482 @@
+{% comment %}
+  Product Heating Power - Battery/power option card (desktop + mobile images)
+  Usage: {% render 'product-heating-power-card', section_id: section.id, block: block %}
+{% endcomment %}
+{%- assign pc_scope = section_id | default: section.id -%}
+{% style %}
+  #shopify-section-{{ pc_scope }} .product-heating-power-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    border-radius: 16px;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 8px 16px;
+    border-radius: 0 0 0 6px;
+    background: var(--color-brand);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__title {
+    margin: 0 0 2px;
+    color: var(--venustas-black);
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__subtitle {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__desc {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__visual {
+    height: 280px;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__check {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    color: var(--color-brand);
+    line-height: 0;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__check svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__note {
+    margin: 0;
+    color: var(--venustas-black);
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime,
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__specs {
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(26, 26, 26, 0.04);
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-title {
+    margin: 0 0 16px;
+    color: var(--venustas-black);
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-cols {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-level {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-level-text {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-dot--high {
+    background: var(--color-brand);
+    box-shadow: 0 0 8px rgba(185, 50, 5, 0.35);
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-dot--medium {
+    background: #fff;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-dot--low {
+    background: #0d6efd;
+    box-shadow: 0 0 8px rgba(13, 110, 253, 0.35);
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-value {
+    margin: 0;
+    color: var(--venustas-black);
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-unit {
+    margin-left: 2px;
+    font-size: 12px;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__footnote {
+    margin: 0;
+    color: #515151;
+    font-size: 10px;
+    font-weight: 400;
+    font-style: italic;
+    text-align: center;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__specs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 15px;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__spec {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__spec-icon {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--color-brand);
+    line-height: 0;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__spec-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__spec-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__spec-title {
+    margin: 0;
+    color: var(--venustas-black);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ pc_scope }} .product-heating-power-card__spec-sub {
+    margin: 0;
+    color: #515151;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ pc_scope }} .product-heating-power-card {
+      gap: 20px;
+      padding: 20px;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__subtitle {
+      font-size: 13px;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__desc {
+      color: #555;
+      font-size: 13px;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__visual {
+      height: 180px;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__image {
+      object-fit: contain;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__image--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__note {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime,
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__specs {
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(26, 26, 26, 0.03);
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-title {
+      margin-bottom: 12px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-cols {
+      gap: 4px;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-dot {
+      width: 8px;
+      height: 8px;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-value {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__runtime-unit {
+      font-size: 11px;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__specs {
+      flex-direction: column;
+      gap: 10px;
+      padding: 12px;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__spec {
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__spec-copy {
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__spec-title {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__spec-sub {
+      font-size: 11px;
+    }
+
+    #shopify-section-{{ pc_scope }} .product-heating-power-card__badge {
+      padding: 6px 12px;
+      border-radius: 0 0 0 8px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+  }
+{% endstyle %}
+
+<article class="product-heating-power-card" {{ block.shopify_attributes }}>
+  {%- if block.settings.show_badge and block.settings.badge_text != blank -%}
+    <span class="product-heating-power-card__badge">{{ block.settings.badge_text }}</span>
+  {%- endif -%}
+
+  {%- if block.settings.title != blank -%}
+    <h3 class="product-heating-power-card__title">{{ block.settings.title }}</h3>
+  {%- endif -%}
+  {%- if block.settings.subtitle != blank -%}
+    <p class="product-heating-power-card__subtitle">{{ block.settings.subtitle }}</p>
+  {%- endif -%}
+  {%- if block.settings.description != blank -%}
+    <p class="product-heating-power-card__desc">{{ block.settings.description }}</p>
+  {%- endif -%}
+
+  {%- if block.settings.image_desktop != blank or block.settings.image_mobile != blank -%}
+    <div class="product-heating-power-card__visual">
+      {%- if block.settings.image_desktop != blank -%}
+        {{
+          block.settings.image_desktop
+          | image_url: width: 900
+          | image_tag:
+            class: 'product-heating-power-card__image product-heating-power-card__image--desktop',
+            loading: 'lazy',
+            widths: '360,540,720,900',
+            sizes: '(max-width: 767px) 0px, 433px',
+            alt: block.settings.image_desktop.alt | default: block.settings.title
+        }}
+      {%- endif -%}
+      {%- if block.settings.image_mobile != blank -%}
+        {{
+          block.settings.image_mobile
+          | image_url: width: 720
+          | image_tag:
+            class: 'product-heating-power-card__image product-heating-power-card__image--mobile',
+            loading: 'lazy',
+            widths: '350,480,720',
+            sizes: '(max-width: 767px) 100vw, 0px',
+            alt: block.settings.image_mobile.alt | default: block.settings.title
+        }}
+      {%- elsif block.settings.image_desktop != blank -%}
+        {{
+          block.settings.image_desktop
+          | image_url: width: 720
+          | image_tag:
+            class: 'product-heating-power-card__image product-heating-power-card__image--mobile',
+            loading: 'lazy',
+            widths: '350,480,720',
+            sizes: '(max-width: 767px) 100vw, 0px',
+            alt: block.settings.image_desktop.alt | default: block.settings.title
+        }}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if block.settings.action_note != blank -%}
+    <div class="product-heating-power-card__action">
+      <span class="product-heating-power-card__check" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M5.2 8.2L7 10L10.8 6.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <p class="product-heating-power-card__note">{{ block.settings.action_note }}</p>
+    </div>
+  {%- endif -%}
+
+  {%- if block.settings.card_type == 'specs' -%}
+    <div class="product-heating-power-card__specs">
+      {%- if block.settings.spec_1_title != blank -%}
+        <div class="product-heating-power-card__spec">
+          <span class="product-heating-power-card__spec-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M9 9l6 6M15 9l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <div class="product-heating-power-card__spec-copy">
+            <p class="product-heating-power-card__spec-title">{{ block.settings.spec_1_title }}</p>
+            <p class="product-heating-power-card__spec-sub">{{ block.settings.spec_1_sub }}</p>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if block.settings.spec_2_title != blank -%}
+        <div class="product-heating-power-card__spec">
+          <span class="product-heating-power-card__spec-icon" aria-hidden="true">
+            {%- render 'product-heating-icons', icon: 'icon-motorbike' -%}
+          </span>
+          <div class="product-heating-power-card__spec-copy">
+            <p class="product-heating-power-card__spec-title">{{ block.settings.spec_2_title }}</p>
+            <p class="product-heating-power-card__spec-sub">{{ block.settings.spec_2_sub }}</p>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if block.settings.spec_3_title != blank -%}
+        <div class="product-heating-power-card__spec">
+          <span class="product-heating-power-card__spec-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.5 9c2 0 3.5 1.34 3.5 3s-1.5 3-3.5 3c-3.6 0-5.5-6-9.1-6C6.4 9 5 10.34 5 12s1.4 3 3.4 3c3.6 0 5.5-6 9.1-6z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <div class="product-heating-power-card__spec-copy">
+            <p class="product-heating-power-card__spec-title">{{ block.settings.spec_3_title }}</p>
+            <p class="product-heating-power-card__spec-sub">{{ block.settings.spec_3_sub }}</p>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    {%- if block.settings.runtime_label != blank -%}
+      <div class="product-heating-power-card__runtime">
+        <p class="product-heating-power-card__runtime-title">{{ block.settings.runtime_label }}</p>
+        <div class="product-heating-power-card__runtime-cols">
+          <div class="product-heating-power-card__runtime-col">
+            <div class="product-heating-power-card__runtime-level">
+              <span class="product-heating-power-card__runtime-level-text">High</span>
+              <span class="product-heating-power-card__runtime-dot product-heating-power-card__runtime-dot--high"></span>
+            </div>
+            {%- if block.settings.runtime_high_value != blank -%}
+              <p class="product-heating-power-card__runtime-value">{{ block.settings.runtime_high_value }}<span class="product-heating-power-card__runtime-unit">{{ block.settings.runtime_high_unit }}</span></p>
+            {%- endif -%}
+          </div>
+          <div class="product-heating-power-card__runtime-col">
+            <div class="product-heating-power-card__runtime-level">
+              <span class="product-heating-power-card__runtime-level-text">Medium</span>
+              <span class="product-heating-power-card__runtime-dot product-heating-power-card__runtime-dot--medium"></span>
+            </div>
+            {%- if block.settings.runtime_medium_value != blank -%}
+              <p class="product-heating-power-card__runtime-value">{{ block.settings.runtime_medium_value }}<span class="product-heating-power-card__runtime-unit">{{ block.settings.runtime_medium_unit }}</span></p>
+            {%- endif -%}
+          </div>
+          <div class="product-heating-power-card__runtime-col">
+            <div class="product-heating-power-card__runtime-level">
+              <span class="product-heating-power-card__runtime-level-text">Low</span>
+              <span class="product-heating-power-card__runtime-dot product-heating-power-card__runtime-dot--low"></span>
+            </div>
+            {%- if block.settings.runtime_low_value != blank -%}
+              <p class="product-heating-power-card__runtime-value">{{ block.settings.runtime_low_value }}<span class="product-heating-power-card__runtime-unit">{{ block.settings.runtime_low_unit }}</span></p>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+    {%- if block.settings.footnote != blank -%}
+      <p class="product-heating-power-card__footnote">{{ block.settings.footnote }}</p>
+    {%- endif -%}
+  {%- endif -%}
+</article>

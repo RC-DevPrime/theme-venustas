@@ -1,0 +1,100 @@
+{% comment %}
+  Product Heating Intro - Layering card (single image, desktop/mobile same)
+  Usage: {% render 'product-heating-layer-card', section_id: section.id, number: x, title: y, text: z, image: img %}
+{% endcomment %}
+{%- assign lc_scope = section_id | default: section.id -%}
+{% style %}
+  #shopify-section-{{ lc_scope }} .product-heating-layer-card {
+    position: relative;
+    min-height: 174px;
+    padding: 28px;
+    overflow: hidden;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ lc_scope }} .product-heating-layer-card__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ lc_scope }} .product-heating-layer-card__copy {
+    position: relative;
+    max-width: 178px;
+  }
+
+  #shopify-section-{{ lc_scope }} .product-heating-layer-card__title {
+    margin: 0 0 16px;
+    color: var(--venustas-black);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ lc_scope }} .product-heating-layer-card__number {
+    color: var(--color-brand);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ lc_scope }} .product-heating-layer-card__text {
+    margin: 0;
+    color: var(--venustas-black);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ lc_scope }} .product-heating-layer-card {
+      min-height: 128px;
+      padding: 20px 20px 24px;
+    }
+
+    #shopify-section-{{ lc_scope }} .product-heating-layer-card__copy {
+      max-width: none;
+    }
+
+    #shopify-section-{{ lc_scope }} .product-heating-layer-card__number {
+      font-size: 24px;
+    }
+  }
+{% endstyle %}
+
+<article class="product-heating-layer-card">
+  {%- if image != blank -%}
+    {{
+      image
+      | image_url: width: 900
+      | image_tag:
+        class: 'product-heating-layer-card__image',
+        loading: 'lazy',
+        widths: '300,480,700,900',
+        sizes: '(max-width: 767px) 100vw, 433px',
+        alt: title
+    }}
+  {%- endif -%}
+
+  <div class="product-heating-layer-card__copy">
+    {%- if number != blank or title != blank -%}
+      <p class="product-heating-layer-card__title">
+        {%- if number != blank -%}
+          <span class="product-heating-layer-card__number">{{ number }}</span>
+        {%- endif -%}
+        {%- if title != blank -%}
+          {{ title }}
+        {%- endif -%}
+      </p>
+    {%- endif -%}
+
+    {%- if text != blank -%}
+      <p class="product-heating-layer-card__text">{{ text }}</p>
+    {%- endif -%}
+  </div>
+</article>

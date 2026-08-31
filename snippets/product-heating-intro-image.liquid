@@ -1,0 +1,80 @@
+{% comment %}
+  Product Heating Intro - Main image (desktop / mobile split)
+  Usage: {% render 'product-heating-intro-image', section_id: section.id, image_desktop: x, image_mobile: y, alt: z %}
+{% endcomment %}
+{%- assign imi_scope = section_id | default: section.id -%}
+{% style %}
+  #shopify-section-{{ imi_scope }} .product-heating-intro__media {
+    height: 560px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #efefef;
+  }
+
+  #shopify-section-{{ imi_scope }} .product-heating-intro__media-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ imi_scope }} .product-heating-intro__media-image--mobile {
+    display: none;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ imi_scope }} .product-heating-intro__media {
+      height: 320px;
+      background: #f5f5f5;
+    }
+
+    #shopify-section-{{ imi_scope }} .product-heating-intro__media-image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ imi_scope }} .product-heating-intro__media-image--mobile {
+      display: block;
+    }
+  }
+{% endstyle %}
+
+{%- if image_desktop != blank or image_mobile != blank -%}
+  <div class="product-heating-intro__media">
+    {%- if image_desktop != blank -%}
+      {{
+        image_desktop
+        | image_url: width: 1000
+        | image_tag:
+          class: 'product-heating-intro__media-image product-heating-intro__media-image--desktop',
+          loading: 'lazy',
+          widths: '400,600,800,1000',
+          sizes: '(max-width: 767px) 0px, 500px',
+          alt: alt
+      }}
+    {%- endif -%}
+
+    {%- if image_mobile != blank -%}
+      {{
+        image_mobile
+        | image_url: width: 780
+        | image_tag:
+          class: 'product-heating-intro__media-image product-heating-intro__media-image--mobile',
+          loading: 'lazy',
+          widths: '390,520,780',
+          sizes: '(max-width: 767px) 100vw, 0px',
+          alt: alt
+      }}
+    {%- elsif image_desktop != blank -%}
+      {{
+        image_desktop
+        | image_url: width: 780
+        | image_tag:
+          class: 'product-heating-intro__media-image product-heating-intro__media-image--mobile',
+          loading: 'lazy',
+          widths: '390,520,780',
+          sizes: '(max-width: 767px) 100vw, 0px',
+          alt: alt
+      }}
+    {%- endif -%}
+  </div>
+{%- endif -%}
