@@ -1,0 +1,480 @@
+{% style %}
+  #shopify-section-{{ section.id }} .product-heating-intro {
+    width: 100%;
+    border-bottom: 1px solid #E5E7EB;
+    background: #fff;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 80px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 500px;
+    column-gap: 80px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__head {
+    grid-column: 1;
+    margin-bottom: 72px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__media {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__eyebrow {
+    margin: 0 0 16px;
+    color: var(--color-brand);
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__heading {
+    margin: 0 0 24px;
+    color: var(--venustas-black);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__description {
+    margin: 0;
+    color: var(--venustas-black);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__features {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 36px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__feature-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 12px;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__feature-icon {
+    flex: none;
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(185, 50, 5, 0.16);
+    color: var(--color-brand);
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__feature-icon svg {
+    width: 26px;
+    height: 26px;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__feature-copy {
+    flex: 1;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__feature-title {
+    margin: 0 0 8px;
+    color: var(--venustas-black);
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__feature-text {
+    margin: 0;
+    color: var(--venustas-black);
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__layering {
+    margin-top: 56px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__layering-head {
+    margin-bottom: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__layering-heading {
+    margin: 0 0 16px;
+    color: var(--venustas-black);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__layering-description {
+    margin: 0;
+    color: var(--venustas-black);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__layering-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 56px;
+    padding: 32px 40px;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__bottom-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__bottom-heading {
+    margin: 0;
+    color: var(--color-brand);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__bottom-text {
+    margin: 0;
+    color: var(--venustas-black);
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__usage {
+    display: flex;
+    gap: 64px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__usage-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--venustas-black);
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__usage-icon {
+    width: 40px;
+    height: 40px;
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__usage-icon svg {
+    width: 40px;
+    height: 40px;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-intro__usage-label {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-heating-intro__inner {
+      width: 100%;
+      padding: 48px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__content {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__head {
+      margin-bottom: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__media {
+      grid-column: 1;
+      grid-row: auto;
+      margin-bottom: 48px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__eyebrow {
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1429em;
+      text-transform: uppercase;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__heading {
+      margin-bottom: 16px;
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__features {
+      grid-column: 1;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__feature-card {
+      padding: 16px;
+      border-radius: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__feature-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__feature-title {
+      font-size: 15px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__feature-text {
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__layering {
+      margin-top: 48px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__layering-heading {
+      margin-bottom: 8px;
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__layering-cards {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__bottom {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 28px;
+      margin-top: 48px;
+      padding: 32px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__bottom-copy {
+      gap: 6px;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__bottom-heading {
+      font-size: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__bottom-text {
+      font-size: 16px;
+      font-weight: 300;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__usage {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-intro__usage-item {
+      padding: 10px 8px;
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      background: #fff;
+      box-sizing: border-box;
+    }
+  }
+{% endstyle %}
+
+<section class="product-heating-intro">
+  <div class="product-heating-intro__inner">
+    <div class="product-heating-intro__content">
+      <div class="product-heating-intro__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="product-heating-intro__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="product-heating-intro__heading">{{ section.settings.heading | newline_to_br }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <p class="product-heating-intro__description">{{ section.settings.description }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- render 'product-heating-intro-image',
+        section_id: section.id,
+        image_desktop: section.settings.main_image_desktop,
+        image_mobile: section.settings.main_image_mobile,
+        alt: section.settings.heading
+      -%}
+
+      <div class="product-heating-intro__features">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'feature_card' -%}
+            <article class="product-heating-intro__feature-card" {{ block.shopify_attributes }}>
+              <div class="product-heating-intro__feature-icon" aria-hidden="true">
+                {%- render 'product-heating-icons', icon: block.settings.icon -%}
+              </div>
+              <div class="product-heating-intro__feature-copy">
+                {%- if block.settings.title != blank -%}
+                  <h3 class="product-heating-intro__feature-title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <p class="product-heating-intro__feature-text">{{ block.settings.text }}</p>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="product-heating-intro__layering">
+      <div class="product-heating-intro__layering-head">
+        {%- if section.settings.layering_heading != blank -%}
+          <h2 class="product-heating-intro__layering-heading">{{ section.settings.layering_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.layering_description != blank -%}
+          <p class="product-heating-intro__layering-description">{{ section.settings.layering_description }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="product-heating-intro__layering-cards">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'layer_card' -%}
+            {%- render 'product-heating-layer-card',
+              section_id: section.id,
+              number: block.settings.number,
+              title: block.settings.title,
+              text: block.settings.text,
+              image: block.settings.image
+            -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="product-heating-intro__bottom">
+      <div class="product-heating-intro__bottom-copy">
+        {%- if section.settings.bottom_heading != blank -%}
+          <p class="product-heating-intro__bottom-heading">{{ section.settings.bottom_heading }}</p>
+        {%- endif -%}
+        {%- if section.settings.bottom_text != blank -%}
+          <p class="product-heating-intro__bottom-text">{{ section.settings.bottom_text }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="product-heating-intro__usage">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'usage_item' -%}
+            <div class="product-heating-intro__usage-item" {{ block.shopify_attributes }}>
+              <div class="product-heating-intro__usage-icon" aria-hidden="true">
+                {%- render 'product-heating-icons', icon: block.settings.icon -%}
+              </div>
+              {%- if block.settings.label != blank -%}
+                <p class="product-heating-intro__usage-label">{{ block.settings.label }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ProductH Introduction",
+  "tag": "section",
+  "class": "product-heating-introduction-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small title", "default": "Engineered For Modern Riders" },
+    { "type": "textarea", "id": "heading", "label": "Heading (Enter = line break)", "default": "Introducing WV12\nProfessional Heated Mid-Layer Vest" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "WV12 is designed as the intelligent heated mid-layer that delivers powerful, even warmth across your core. Wear it under your riding jacket and feel the difference on every cold ride." },
+    { "type": "header", "content": "Main image" },
+    { "type": "image_picker", "id": "main_image_desktop", "label": "Desktop image" },
+    { "type": "image_picker", "id": "main_image_mobile", "label": "Mobile image" },
+    { "type": "header", "content": "Layering system" },
+    { "type": "text", "id": "layering_heading", "label": "Layering heading", "default": "The Right Layering System" },
+    { "type": "textarea", "id": "layering_description", "label": "Layering description", "default": "WV12 fits between your base layer and outer shell to lock in heat and maximize performance." },
+    { "type": "header", "content": "Bottom bar" },
+    { "type": "text", "id": "bottom_heading", "label": "Bottom heading", "default": "Designed as a mid-layer. Built for riders." },
+    { "type": "text", "id": "bottom_text", "label": "Bottom text", "default": "WV12 delivers warmth that moves with you." }
+  ],
+  "blocks": [
+    {
+      "type": "feature_card",
+      "name": "Feature card",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon name", "info": "Icons provided separately. e.g. icon-heat, icon-battery" },
+        { "type": "text", "id": "title", "label": "Title", "default": "38W High-Power Heating" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Advanced heating system delivers powerful warmth across 5 zones." }
+      ]
+    },
+    {
+      "type": "layer_card",
+      "name": "Layering card",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number", "default": "1" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Base Layer" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Moisture-wicking to keep you dry." },
+        { "type": "image_picker", "id": "image", "label": "Background image" }
+      ]
+    },
+    {
+      "type": "usage_item",
+      "name": "Usage item",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon name", "info": "Icons provided separately. e.g. icon-motorcycle, icon-mountain" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Motorcycle Riding" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ProductH Introduction",
+      "blocks": [
+        { "type": "feature_card", "settings": { "icon": "icon-heat", "title": "38W High-Power Heating", "text": "Advanced heating system delivers powerful warmth across 5 zones." } },
+        { "type": "feature_card", "settings": { "icon": "icon-battery", "title": "Dual Power Options", "text": "Venustas 7.5K/10K battery or 12V vehicle power for all-day warmth anywhere." } },
+        { "type": "feature_card", "settings": { "icon": "icon-fit", "title": "Optimized Mid-Layer Fit", "text": "Slim, flexible design fits perfectly under any riding jacket." } },
+        { "type": "feature_card", "settings": { "icon": "icon-protection", "title": "Built for Extreme Conditions", "text": "Rugged materials and smart design keep you warm and protected." } },
+        { "type": "layer_card", "settings": { "number": "1", "title": "Base Layer", "text": "Moisture-wicking to keep you dry." } },
+        { "type": "layer_card", "settings": { "number": "2", "title": "WV12 Heated Vest", "text": "Active heat to warm your core." } },
+        { "type": "layer_card", "settings": { "number": "3", "title": "Riding Jacket", "text": "Blocks wind and snow, keeps heat in." } },
+        { "type": "usage_item", "settings": { "icon": "icon-motorcycle", "label": "Motorcycle Riding" } },
+        { "type": "usage_item", "settings": { "icon": "icon-snow", "label": "Snowmobile" } },
+        { "type": "usage_item", "settings": { "icon": "icon-mountain", "label": "Outdoor Work" } },
+        { "type": "usage_item", "settings": { "icon": "icon-adventure", "label": "Extreme Adventures" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
