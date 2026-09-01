@@ -1,0 +1,392 @@
+{%- render 'product-heating-power-options-styles' -%}
+
+<section class="product-heating-power-options">
+  <div class="product-heating-power-options__container">
+    <div class="product-heating-power-options__header">
+      <div class="product-heating-power-options__heading-group">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="product-heating-power-options__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="product-heating-power-options__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.description != blank -%}
+        <div class="product-heating-power-options__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="product-heating-power-options__cards-wrap">
+      <div class="product-heating-power-options__cards">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'power_card' -%}
+            <article class="product-heating-power-options__card" {{ block.shopify_attributes }}>
+              {%- if block.settings.badge != blank -%}
+                <span class="product-heating-power-options__badge">{{ block.settings.badge }}</span>
+              {%- endif -%}
+
+              <div class="product-heating-power-options__card-header">
+                {%- if block.settings.title != blank -%}
+                  <h3 class="product-heating-power-options__card-title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if block.settings.subtitle != blank -%}
+                  <p class="product-heating-power-options__card-subtitle">{{ block.settings.subtitle }}</p>
+                {%- endif -%}
+              </div>
+
+              {%- if block.settings.description != blank -%}
+                <p class="product-heating-power-options__card-text">{{ block.settings.description }}</p>
+              {%- endif -%}
+
+              {%- if block.settings.image_desktop != blank or block.settings.image_mobile != blank -%}
+                <div class="product-heating-power-options__media">
+                  {%- if block.settings.image_desktop != blank -%}
+                    {{
+                      block.settings.image_desktop
+                      | image_url: width: 900
+                      | image_tag:
+                        class: 'product-heating-power-options__image product-heating-power-options__image--desktop',
+                        loading: 'lazy',
+                        widths: '350, 500, 700, 900',
+                        sizes: '(max-width: 767px) calc(100vw - 80px), 385px',
+                        alt: block.settings.image_desktop.alt | default: block.settings.title
+                    }}
+                  {%- endif -%}
+                  {%- if block.settings.image_mobile != blank -%}
+                    {{
+                      block.settings.image_mobile
+                      | image_url: width: 700
+                      | image_tag:
+                        class: 'product-heating-power-options__image product-heating-power-options__image--mobile',
+                        loading: 'lazy',
+                        widths: '310, 500, 700',
+                        sizes: 'calc(100vw - 80px)',
+                        alt: block.settings.image_mobile.alt | default: block.settings.title
+                    }}
+                  {%- elsif block.settings.image_desktop != blank -%}
+                    {{
+                      block.settings.image_desktop
+                      | image_url: width: 700
+                      | image_tag:
+                        class: 'product-heating-power-options__image product-heating-power-options__image--mobile',
+                        loading: 'lazy',
+                        widths: '310, 500, 700',
+                        sizes: 'calc(100vw - 80px)',
+                        alt: block.settings.image_desktop.alt | default: block.settings.title
+                    }}
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.note != blank -%}
+                <div class="product-heating-power-options__note">
+                  <span class="product-heating-power-options__note-icon">{%- render 'product-heating-icons', icon: 'icon-heat' -%}</span>
+                  <span>{{ block.settings.note }}</span>
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.card_type == 'motorcycle' -%}
+                <div class="product-heating-power-options__specs">
+                  <div class="product-heating-power-options__spec">
+                    <span class="product-heating-power-options__spec-icon">{%- render 'product-heating-icons', icon: 'icon-plug' -%}</span>
+                    <div><p class="product-heating-power-options__spec-title">Y-Cable Required</p><p class="product-heating-power-options__spec-text">Sold Separately</p></div>
+                  </div>
+                  <div class="product-heating-power-options__spec">
+                    <span class="product-heating-power-options__spec-icon">{%- render 'product-heating-icons', icon: 'icon-motorbike' -%}</span>
+                    <div><p class="product-heating-power-options__spec-title">12V Power Compatible</p><p class="product-heating-power-options__spec-text">Motorcycle 12V battery</p></div>
+                  </div>
+                  <div class="product-heating-power-options__spec">
+                    <span class="product-heating-power-options__spec-icon">{%- render 'product-heating-icons', icon: 'icon-protection' -%}</span>
+                    <div><p class="product-heating-power-options__spec-title">Unlimited Runtime</p><p class="product-heating-power-options__spec-text">As long as your bike is running</p></div>
+                  </div>
+                </div>
+              {%- else -%}
+                <div class="product-heating-power-options__runtime">
+                  {%- if block.settings.runtime_title != blank -%}
+                    <p class="product-heating-power-options__runtime-title">{{ block.settings.runtime_title }}</p>
+                  {%- endif -%}
+                  <div class="product-heating-power-options__runtime-grid">
+                    <div class="product-heating-power-options__runtime-item">
+                      <div class="product-heating-power-options__runtime-label">High <span class="product-heating-power-options__dot product-heating-power-options__dot--high"></span></div>
+                      <div class="product-heating-power-options__runtime-value">{{ block.settings.high_runtime }} <span class="product-heating-power-options__runtime-unit">hrs</span></div>
+                    </div>
+                    <div class="product-heating-power-options__runtime-item">
+                      <div class="product-heating-power-options__runtime-label">Medium <span class="product-heating-power-options__dot product-heating-power-options__dot--medium"></span></div>
+                      <div class="product-heating-power-options__runtime-value">{{ block.settings.medium_runtime }} <span class="product-heating-power-options__runtime-unit">hrs</span></div>
+                    </div>
+                    <div class="product-heating-power-options__runtime-item">
+                      <div class="product-heating-power-options__runtime-label">Low <span class="product-heating-power-options__dot product-heating-power-options__dot--low"></span></div>
+                      <div class="product-heating-power-options__runtime-value">{{ block.settings.low_runtime }} <span class="product-heating-power-options__runtime-unit">hrs</span></div>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.footnote != blank -%}
+                <p class="product-heating-power-options__footnote">{{ block.settings.footnote }}</p>
+              {%- endif -%}
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="product-heating-power-options__dots" aria-hidden="true">
+        <span class="product-heating-power-options__page-dot"></span>
+        <span class="product-heating-power-options__page-dot"></span>
+        <span class="product-heating-power-options__page-dot"></span>
+      </div>
+    </div>
+
+    <div class="product-heating-power-options__benefits">
+      <div class="product-heating-power-options__benefit">
+        <span class="product-heating-power-options__benefit-icon">{%- render 'product-heating-icons', icon: 'icon-battery' -%}</span>
+        <div><p class="product-heating-power-options__benefit-title">Flexible Battery Options</p><p class="product-heating-power-options__benefit-text">Use 1 or 2 batteries based on your runtime needs.</p></div>
+      </div>
+      <div class="product-heating-power-options__benefit">
+        <span class="product-heating-power-options__benefit-icon">{%- render 'product-heating-icons', icon: 'icon-plug' -%}</span>
+        <div><p class="product-heating-power-options__benefit-title">Dual Power Ports</p><p class="product-heating-power-options__benefit-text">Left and right ports for maximum flexibility and balanced power.</p></div>
+      </div>
+      <div class="product-heating-power-options__benefit">
+        <span class="product-heating-power-options__benefit-icon">{%- render 'product-heating-icons', icon: 'icon-motorbike' -%}</span>
+        <div><p class="product-heating-power-options__benefit-title">Motorcycle Compatible</p><p class="product-heating-power-options__benefit-text">12V system integration for seamless long-distance riding warmth.</p></div>
+      </div>
+      <div class="product-heating-power-options__benefit">
+        <span class="product-heating-power-options__benefit-icon">{%- render 'product-heating-icons', icon: 'icon-protection' -%}</span>
+        <div><p class="product-heating-power-options__benefit-title">Safe &amp; Reliable</p><p class="product-heating-power-options__benefit-text">Overheat, short-circuit and low-voltage protection for worry-free use.</p></div>
+      </div>
+    </div>
+
+    {%- if section.settings.cta_title != blank or section.settings.cta_text != blank -%}
+      <div class="product-heating-power-options__cta">
+        <div class="product-heating-power-options__cta-message">
+          <span class="product-heating-power-options__alert">!</span>
+          <div>
+            {%- if section.settings.cta_title != blank -%}
+              <p class="product-heating-power-options__cta-title">{{ section.settings.cta_title }}</p>
+            {%- endif -%}
+            {%- if section.settings.cta_text != blank -%}
+              <p class="product-heating-power-options__cta-text">{{ section.settings.cta_text }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="product-heating-power-options__cta-action">
+          <div class="product-heating-power-options__price">
+            {%- if section.settings.compare_price != blank -%}
+              <span class="product-heating-power-options__compare-price">{{ section.settings.compare_price }}</span>
+            {%- endif -%}
+            {%- if section.settings.sale_price != blank -%}
+              <span class="product-heating-power-options__sale-price">{{ section.settings.sale_price }}</span>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.button_text != blank -%}
+            <a class="product-heating-power-options__button" href="{{ section.settings.button_link | default: '#' }}">
+              <span>{%- render 'product-heating-icons', icon: 'icon-battery' -%}</span>
+              {{ section.settings.button_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ProductH Power Options",
+  "tag": "section",
+  "class": "product-heating-power-options-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Flexible Power Options"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "One Vest. Multiple Ways To Stay Warm."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>WV12 adapts to your adventure with flexible battery configurations and motorcycle-ready 12V power options.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "CTA title",
+      "default": "Y-CABLE IS REQUIRED FOR MOTORCYCLE 12V POWER AND SOLD SEPARATELY."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Add the Y-Cable to your cart to connect MW12 to your motorcycle 12V power."
+    },
+    {
+      "type": "text",
+      "id": "compare_price",
+      "label": "Compare price",
+      "default": "$19.99"
+    },
+    {
+      "type": "text",
+      "id": "sale_price",
+      "label": "Sale price",
+      "default": "$17.99"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Add Y-Cable Set"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "power_card",
+      "name": "Power card",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "select",
+          "id": "card_type",
+          "label": "Card type",
+          "options": [
+            {
+              "value": "battery",
+              "label": "Battery runtime"
+            },
+            {
+              "value": "motorcycle",
+              "label": "Motorcycle specs"
+            }
+          ],
+          "default": "battery"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Single Battery"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Portable Warmth"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Perfect for daily use, commuting, and short outdoor activities."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Desktop image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile image"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Connection note",
+          "default": "Connect 1 battery to either power port"
+        },
+        {
+          "type": "text",
+          "id": "runtime_title",
+          "label": "Runtime title",
+          "default": "RUNTIME (7.5K BATTERY)"
+        },
+        {
+          "type": "text",
+          "id": "high_runtime",
+          "label": "High runtime",
+          "default": "~ 3.5"
+        },
+        {
+          "type": "text",
+          "id": "medium_runtime",
+          "label": "Medium runtime",
+          "default": "~ 6.5"
+        },
+        {
+          "type": "text",
+          "id": "low_runtime",
+          "label": "Low runtime",
+          "default": "~ 11"
+        },
+        {
+          "type": "text",
+          "id": "footnote",
+          "label": "Footnote",
+          "default": "*Runtime may vary based on heat setting, conditions and battery capacity."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ProductH Power Options",
+      "blocks": [
+        {
+          "type": "power_card",
+          "settings": {
+            "title": "Single Battery",
+            "subtitle": "Portable Warmth",
+            "description": "Perfect for daily use, commuting, and short outdoor activities.",
+            "note": "Connect 1 battery to either power port",
+            "runtime_title": "RUNTIME (7.5K BATTERY)",
+            "high_runtime": "~ 3.5",
+            "medium_runtime": "~ 6.5",
+            "low_runtime": "~ 11"
+          }
+        },
+        {
+          "type": "power_card",
+          "settings": {
+            "title": "Dual Battery",
+            "subtitle": "Extended Runtime",
+            "description": "Double the batteries. Double the runtime. Ideal for long days in extreme cold.",
+            "note": "Connect 2 batteries (one on each side)",
+            "runtime_title": "RUNTIME ( TWO 7.5K BATTERIES)",
+            "high_runtime": "~ 7",
+            "medium_runtime": "~ 13",
+            "low_runtime": "~ 20",
+            "badge": "Best Choice"
+          }
+        },
+        {
+          "type": "power_card",
+          "settings": {
+            "card_type": "motorcycle",
+            "title": "Motorcycle 12V Power",
+            "subtitle": "Unlimited Riding Warmth",
+            "description": "Tap into your motorcycle's 12V power for unlimited heat on the road.",
+            "note": "Connect Y-Cable to 12V power and plug into vest",
+            "footnote": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

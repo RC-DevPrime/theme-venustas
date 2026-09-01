@@ -295,7 +295,7 @@
 
           <div class="product-heating-comparison__card-body">
             {%- if block.settings.image != blank -%}
-              {% comment %} <div class="product-heating-comparison__media{% if image_contain %} product-heating-comparison__media--contain{% endif %}">
+               <div class="product-heating-comparison__media{% if image_contain %} product-heating-comparison__media--contain{% endif %}">
                 {{
                   block.settings.image
                   | image_url: width: 720
@@ -306,11 +306,11 @@
                     sizes: '(max-width: 767px) calc(100vw - 40px), 360px',
                     alt: block.settings.image.alt | default: block.settings.title
                 }}
-              </div> {% endcomment %}
+              </div> 
             {%- endif -%}
 
             <div class="product-heating-comparison__list">
-              {% comment %} {%- for i in (1..4) -%}
+              {%- for i in (1..4) -%}
                 {%- assign item_title = block.settings['item_' | append: i | append: '_title'] -%}
                 {%- assign item_text = block.settings['item_' | append: i | append: '_text'] -%}
                 {%- if item_title != blank or item_text != blank -%}
@@ -326,7 +326,7 @@
                     </div>
                   </div>
                 {%- endif -%}
-              {%- endfor -%} {% endcomment %}
+              {%- endfor -%} 
             </div>
           </div>
         </div>

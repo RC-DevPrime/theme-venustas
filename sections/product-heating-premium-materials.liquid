@@ -1,0 +1,222 @@
+{%- render 'product-heating-premium-materials-styles' -%}
+
+<section class="product-heating-premium-materials">
+  <div class="product-heating-premium-materials__container">
+    <div class="product-heating-premium-materials__header">
+      <div class="product-heating-premium-materials__heading-group">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="product-heating-premium-materials__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="product-heating-premium-materials__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.description != blank -%}
+        <div class="product-heating-premium-materials__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="product-heating-premium-materials__showcase">
+      <div class="product-heating-premium-materials__specs product-heating-premium-materials__specs--left">
+        <div class="product-heating-premium-materials__spec-block">
+          {%- if section.settings.left_label != blank -%}
+            <p class="product-heating-premium-materials__spec-eyebrow">{{ section.settings.left_label }}</p>
+          {%- endif -%}
+          {%- if section.settings.left_title != blank -%}
+            <h3 class="product-heating-premium-materials__spec-title">{{ section.settings.left_title }}</h3>
+          {%- endif -%}
+          {%- if section.settings.left_description != blank -%}
+            <div class="product-heating-premium-materials__spec-description">{{ section.settings.left_description }}</div>
+          {%- endif -%}
+        </div>
+        <div class="product-heating-premium-materials__divider"></div>
+        <div class="product-heating-premium-materials__features">
+          <div class="product-heating-premium-materials__feature">
+            <span class="product-heating-premium-materials__feature-icon">{%- render 'product-heating-icons', icon: 'icon-cloud-snow' -%}</span>
+            <div><p class="product-heating-premium-materials__feature-title">Wind Resistant</p><p class="product-heating-premium-materials__feature-text">Blocks cold wind effectively.</p></div>
+          </div>
+          <div class="product-heating-premium-materials__feature">
+            <span class="product-heating-premium-materials__feature-icon">{%- render 'product-heating-icons', icon: 'icon-snowflake' -%}</span>
+            <div><p class="product-heating-premium-materials__feature-title">Water Resistant</p><p class="product-heating-premium-materials__feature-text">Beads up light rain and snow.</p></div>
+          </div>
+          <div class="product-heating-premium-materials__feature">
+            <span class="product-heating-premium-materials__feature-icon">{%- render 'product-heating-icons', icon: 'icon-protection' -%}</span>
+            <div><p class="product-heating-premium-materials__feature-title">Durable &amp; Tough</p><p class="product-heating-premium-materials__feature-text">Ripstop construction resists tears and abrasion.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-heating-premium-materials__visual">
+        {%- if section.settings.image_desktop != blank -%}
+          {{
+            section.settings.image_desktop
+            | image_url: width: 1100
+            | image_tag:
+              class: 'product-heating-premium-materials__main-image product-heating-premium-materials__main-image--desktop',
+              loading: 'lazy',
+              widths: '350, 500, 700, 900, 1100',
+              sizes: '(max-width: 767px) calc(100vw - 40px), 430px',
+              alt: section.settings.image_desktop.alt | default: section.settings.title
+          }}
+        {%- endif -%}
+        {%- if section.settings.image_mobile != blank -%}
+          {{
+            section.settings.image_mobile
+            | image_url: width: 900
+            | image_tag:
+              class: 'product-heating-premium-materials__main-image product-heating-premium-materials__main-image--mobile',
+              loading: 'lazy',
+              widths: '350, 500, 700, 900',
+              sizes: 'calc(100vw - 40px)',
+              alt: section.settings.image_mobile.alt | default: section.settings.title
+          }}
+        {%- elsif section.settings.image_desktop != blank -%}
+          {{
+            section.settings.image_desktop
+            | image_url: width: 900
+            | image_tag:
+              class: 'product-heating-premium-materials__main-image product-heating-premium-materials__main-image--mobile',
+              loading: 'lazy',
+              widths: '350, 500, 700, 900',
+              sizes: 'calc(100vw - 40px)',
+              alt: section.settings.image_desktop.alt | default: section.settings.title
+          }}
+        {%- endif -%}
+      </div>
+
+      <div class="product-heating-premium-materials__specs">
+        <div class="product-heating-premium-materials__spec-block">
+          {%- if section.settings.right_label != blank -%}
+            <p class="product-heating-premium-materials__spec-eyebrow">{{ section.settings.right_label }}</p>
+          {%- endif -%}
+          {%- if section.settings.right_title != blank -%}
+            <h3 class="product-heating-premium-materials__spec-title">{{ section.settings.right_title }}</h3>
+          {%- endif -%}
+          {%- if section.settings.right_description != blank -%}
+            <div class="product-heating-premium-materials__spec-description">{{ section.settings.right_description }}</div>
+          {%- endif -%}
+        </div>
+        <div class="product-heating-premium-materials__divider"></div>
+        <div class="product-heating-premium-materials__features">
+          <div class="product-heating-premium-materials__feature">
+            <span class="product-heating-premium-materials__feature-icon">{%- render 'product-heating-icons', icon: 'icon-heat' -%}</span>
+            <div><p class="product-heating-premium-materials__feature-title">Soft Touch</p><p class="product-heating-premium-materials__feature-text">Smooth and gentle against your skin.</p></div>
+          </div>
+          <div class="product-heating-premium-materials__feature">
+            <span class="product-heating-premium-materials__feature-icon">{%- render 'product-heating-icons', icon: 'icon-heat' -%}</span>
+            <div><p class="product-heating-premium-materials__feature-title">Heat Retention</p><p class="product-heating-premium-materials__feature-text">Enhances warmth and keeps heat close.</p></div>
+          </div>
+          <div class="product-heating-premium-materials__feature">
+            <span class="product-heating-premium-materials__feature-icon">{%- render 'product-heating-icons', icon: 'icon-fit' -%}</span>
+            <div><p class="product-heating-premium-materials__feature-title">Comfortable</p><p class="product-heating-premium-materials__feature-text">Breathable and moisture managing for comfort.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="product-heating-premium-materials__details">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'detail_card' -%}
+            <article class="product-heating-premium-materials__detail" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 900
+                  | image_tag:
+                    class: 'product-heating-premium-materials__detail-image',
+                    loading: 'lazy',
+                    widths: '350, 500, 700, 900',
+                    sizes: '(max-width: 767px) calc(100vw - 40px), 431px',
+                    alt: block.settings.image.alt | default: block.settings.title
+                }}
+              {%- endif -%}
+              {%- if block.settings.number != blank -%}
+                <p class="product-heating-premium-materials__detail-number">{{ block.settings.number }}</p>
+              {%- endif -%}
+              {%- if block.settings.title != blank -%}
+                <h3 class="product-heating-premium-materials__detail-title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <div class="product-heating-premium-materials__detail-copy">
+                  <div class="product-heating-premium-materials__detail-text">{{ block.settings.text }}</div>
+                </div>
+              {%- endif -%}
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <div class="product-heating-premium-materials__benefits">
+      {%- render 'benefit-icon-benefits', class_prefix: 'product-heating-premium-materials', icon: 'icon-protection', title: 'Weather Protection', text: 'Defends against wind, light rain, and snow for reliable warmth.' -%}
+      {%- render 'benefit-icon-benefits', class_prefix: 'product-heating-premium-materials', icon: 'icon-heat', title: 'All-Day Comfort', text: 'Soft, warm, and breathable materials keep you comfortable on every ride.' -%}
+      {%- render 'benefit-icon-benefits', class_prefix: 'product-heating-premium-materials', icon: 'icon-fit', title: 'Built to Last', text: 'Premium fabrics and reinforced construction stand up to extreme conditions.' -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ProductH Materials",
+  "tag": "section",
+  "class": "product-heating-premium-materials-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Premium Materials" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Premium Materials For Extreme Conditions." },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Built with weather-resistant fabrics and thoughtful construction for cold-weather performance you can rely on.</p>" },
+    { "type": "image_picker", "id": "image_desktop", "label": "Desktop vest image" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Mobile vest image" },
+    { "type": "text", "id": "left_label", "label": "Left label", "default": "Outer Shell" },
+    { "type": "text", "id": "left_title", "label": "Left title", "default": "75D Polyester + TPU Waterproof Membrane" },
+    { "type": "richtext", "id": "left_description", "label": "Left description", "default": "<p>Durable outer shell blocks wind, resists water, and stands up to harsh environments.</p>" },
+    { "type": "text", "id": "right_label", "label": "Right label", "default": "Inner Lining" },
+    { "type": "text", "id": "right_title", "label": "Right title", "default": "Graphene Fabric" },
+    { "type": "richtext", "id": "right_description", "label": "Right description", "default": "<p>Advanced inner lining locks in heat and delivers superior comfort all day long.</p>" }
+  ],
+  "blocks": [
+    {
+      "type": "detail_card",
+      "name": "Detail card",
+      "limit": 3,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "number", "label": "Number", "default": "01" },
+        { "type": "text", "id": "title", "label": "Title", "default": "YKK Zippers" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Premium YKK zippers ensure smooth operation and lasting reliability in harsh weather.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ProductH Materials",
+      "blocks": [
+        {
+          "type": "detail_card",
+          "settings": {
+            "number": "01",
+            "title": "YKK Zippers",
+            "text": "<p>Premium YKK zippers ensure smooth operation and lasting reliability in harsh weather.</p>"
+          }
+        },
+        {
+          "type": "detail_card",
+          "settings": {
+            "number": "02",
+            "title": "Fleece-Lined Collar",
+            "text": "<p>Soft fleece lining adds warmth and comfort around your neck.</p>"
+          }
+        },
+        {
+          "type": "detail_card",
+          "settings": {
+            "number": "03",
+            "title": "PFC-Free DWR Coating",
+            "text": "<p>Durable water repellency without PFC chemicals. Keeps you dry and safe in wet conditions.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

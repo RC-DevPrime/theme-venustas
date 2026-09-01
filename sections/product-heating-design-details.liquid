@@ -1,0 +1,418 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .product-heating-design-details {
+    width: 100%;
+    background: #fff;
+    color: var(--venustas-black, #1a1a1a);
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__container {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 48px 0 100px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin: 0 0 56px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__heading-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__eyebrow {
+    margin: 0;
+    color: var(--color-brand, #b93205);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-transform: capitalize;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__title {
+    margin: 0;
+    color: #111827;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__description {
+    margin: 0;
+    max-width: 860px;
+    color: rgba(26, 26, 26, 0.9);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, 279px);
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__card {
+    position: relative;
+    display: flex;
+    min-height: 0;
+    overflow: hidden;
+    align-items: flex-end;
+    border-radius: 16px;
+    background: #e7edf3;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__card--tall {
+    grid-row: span 2;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.4) 76%, rgba(0, 0, 0, 0.47) 100%);
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__card-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 21px 22px 18px;
+    color: #fff;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__card-title {
+    margin: 0 0 5px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__card-text {
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 13.5px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__card-text p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-design-details__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #111827;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-heating-design-details__container {
+      width: 100%;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-design-details__header {
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-design-details__heading-group {
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-design-details__eyebrow {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-design-details__title {
+      font-size: 24px;
+      line-height: 1.08;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-design-details__description {
+      color: #4b5563;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-design-details__grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-design-details__card,
+    #shopify-section-{{ section.id }} .product-heating-design-details__card--tall {
+      width: 100%;
+      min-height: 200px;
+      grid-row: auto;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-design-details__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-design-details__image--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-design-details__card-content {
+      padding: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-design-details__card-title {
+      margin-bottom: 6px;
+      font-size: 18px;
+      line-height: 1.3;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-design-details__card-text {
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+  }
+{%- endstyle -%}
+
+<section class="product-heating-design-details">
+  <div class="product-heating-design-details__container">
+    <div class="product-heating-design-details__header">
+      <div class="product-heating-design-details__heading-group">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="product-heating-design-details__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="product-heating-design-details__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.description != blank -%}
+        <div class="product-heating-design-details__description">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="product-heating-design-details__grid">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'detail_card' -%}
+              <article
+                class="product-heating-design-details__card{% if block.settings.is_tall %} product-heating-design-details__card--tall{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.image_desktop != blank -%}
+                  {{
+                    block.settings.image_desktop
+                    | image_url: width: 1200
+                    | image_tag:
+                      class: 'product-heating-design-details__image product-heating-design-details__image--desktop',
+                      loading: 'lazy',
+                      widths: '350, 500, 700, 900, 1200',
+                      sizes: '(max-width: 767px) 100vw, min(32vw, 435px)',
+                      alt: block.settings.image_desktop.alt | default: block.settings.title
+                  }}
+                {%- endif -%}
+
+                {%- if block.settings.image_mobile != blank -%}
+                  {{
+                    block.settings.image_mobile
+                    | image_url: width: 900
+                    | image_tag:
+                      class: 'product-heating-design-details__image product-heating-design-details__image--mobile',
+                      loading: 'lazy',
+                      widths: '350, 500, 700, 900',
+                      sizes: 'calc(100vw - 40px)',
+                      alt: block.settings.image_mobile.alt | default: block.settings.title
+                  }}
+                {%- elsif block.settings.image_desktop != blank -%}
+                  {{
+                    block.settings.image_desktop
+                    | image_url: width: 900
+                    | image_tag:
+                      class: 'product-heating-design-details__image product-heating-design-details__image--mobile',
+                      loading: 'lazy',
+                      widths: '350, 500, 700, 900',
+                      sizes: 'calc(100vw - 40px)',
+                      alt: block.settings.image_desktop.alt | default: block.settings.title
+                  }}
+                {%- else -%}
+                  <div class="product-heating-design-details__placeholder">Upload card image</div>
+                {%- endif -%}
+
+                <div class="product-heating-design-details__card-content">
+                  {%- if block.settings.title != blank -%}
+                    <h3 class="product-heating-design-details__card-title">{{ block.settings.title }}</h3>
+                  {%- endif -%}
+
+                  {%- if block.settings.text != blank -%}
+                    <div class="product-heating-design-details__card-text">
+                      {{ block.settings.text }}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </article>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ProductH Design Details",
+  "tag": "section",
+  "class": "product-heating-design-details-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Design Details"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Designed For Riders And Extreme Outdoors."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Every detail is engineered for mobility, comfort, and long-lasting performance in cold environments.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "detail_card",
+      "name": "Detail card",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Desktop image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Athletic Mid-Layer Fit"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Slim, ergonomic fit works perfectly under motorcycle jackets and ski shells.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_tall",
+          "label": "Make card span two rows on desktop",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ProductH Design Details",
+      "blocks": [
+        {
+          "type": "detail_card",
+          "settings": {
+            "title": "Athletic Mid-Layer Fit",
+            "text": "<p>Slim, ergonomic fit works perfectly under motorcycle jackets and ski shells. Stretch side panels maximize mobility without bulk.</p>"
+          }
+        },
+        {
+          "type": "detail_card",
+          "settings": {
+            "title": "Fleece-Lined Stand Collar",
+            "text": "<p>Soft fleece lining with chin guard blocks cold wind and adds extra comfort.</p>"
+          }
+        },
+        {
+          "type": "detail_card",
+          "settings": {
+            "title": "Dual Battery Pockets",
+            "text": "<p>Two dedicated battery pockets (left &amp; right). Balanced weight distribution for all-day comfort.</p>"
+          }
+        },
+        {
+          "type": "detail_card",
+          "settings": {
+            "title": "Integrated Bottom Control Button",
+            "text": "<p>One-piece low-profile control button. Easy blind operation through outer layers. Perfect for riding and skiing.</p>"
+          }
+        },
+        {
+          "type": "detail_card",
+          "settings": {
+            "title": "Rear Storage Compartment",
+            "text": "<p>Large rear zippered pocket stores gloves, hat, or small gear. Easy access without compromising front mobility.</p>",
+            "is_tall": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

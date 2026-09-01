@@ -1,0 +1,21 @@
+{%- liquid
+  assign benefit_class = class_prefix | append: '__benefit'
+  assign icon_class = class_prefix | append: '__benefit-icon'
+  assign content_class = class_prefix | append: '__benefit-content'
+  assign title_class = class_prefix | append: '__benefit-title'
+  assign text_class = class_prefix | append: '__benefit-text'
+-%}
+
+<div class="{{ benefit_class }}">
+  <span class="{{ icon_class }}" aria-hidden="true">
+    {%- render 'product-heating-icons', icon: icon -%}
+  </span>
+  <div class="{{ content_class }}">
+    {%- if title != blank -%}
+      <p class="{{ title_class }}">{{ title }}</p>
+    {%- endif -%}
+    {%- if text != blank -%}
+      <p class="{{ text_class }}">{{ text }}</p>
+    {%- endif -%}
+  </div>
+</div>

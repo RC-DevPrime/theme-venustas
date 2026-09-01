@@ -1,0 +1,675 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .product-heating-power-options {
+    width: 100%;
+    background: #f5f5f5;
+    color: var(--venustas-black, #1a1a1a);
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__container {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 80px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 56px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__heading-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__eyebrow {
+    margin: 0;
+    color: var(--color-brand, #b93205);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-transform: capitalize;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__title {
+    margin: 0;
+    color: #111827;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__description {
+    margin: 0;
+    color: rgba(26, 26, 26, 0.9);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 56px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 24px;
+    overflow: hidden;
+    padding: 24px;
+    border-radius: 16px;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 8px 16px;
+    border-bottom-left-radius: 6px;
+    background: var(--color-brand, #b93205);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__card-title {
+    margin: 0 0 2px;
+    color: var(--venustas-black, #1a1a1a);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__card-subtitle,
+  #shopify-section-{{ section.id }} .product-heating-power-options__card-text {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__card-subtitle {
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__card-text {
+    font-weight: 400;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__media {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__note {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: var(--venustas-black, #1a1a1a);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__note-icon,
+  #shopify-section-{{ section.id }} .product-heating-power-options__spec-icon {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-brand, #b93205);
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__note-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__note-icon svg,
+  #shopify-section-{{ section.id }} .product-heating-power-options__spec-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__runtime,
+  #shopify-section-{{ section.id }} .product-heating-power-options__specs {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(26, 26, 26, 0.04);
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__runtime-title {
+    margin: 0 0 16px;
+    color: var(--venustas-black, #1a1a1a);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__runtime-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__runtime-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__runtime-label {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    color: var(--venustas-black, #1a1a1a);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__dot--high {
+    background: #d93400;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__dot--medium {
+    background: #111827;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__dot--low {
+    background: #2563ff;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__runtime-value {
+    color: var(--venustas-black, #1a1a1a);
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__runtime-unit {
+    font-size: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__footnote {
+    margin: 0;
+    color: #515151;
+    font-size: 10px;
+    font-style: italic;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__specs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    border-radius: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__spec {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__spec-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__spec-title {
+    margin: 0;
+    color: var(--venustas-black, #1a1a1a);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__spec-text {
+    margin: 0;
+    color: #515151;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__dots {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__benefits {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 52px;
+    margin-bottom: 56px;
+    padding: 16px 28px;
+    border-radius: 12px;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__benefit {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 16px 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__benefit-icon {
+    display: flex;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(185, 50, 5, 0.16);
+    color: var(--color-brand, #b93205);
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__benefit-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__benefit-title,
+  #shopify-section-{{ section.id }} .product-heating-power-options__benefit-text {
+    margin: 0;
+    color: var(--venustas-black, #1a1a1a);
+    font-size: 16px;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__benefit-title {
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__benefit-text {
+    font-weight: 300;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__cta {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 32px;
+    border-radius: 12px;
+    background: var(--color-brand, #b93205);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__cta-message {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__alert {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--color-brand, #b93205);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__cta-title,
+  #shopify-section-{{ section.id }} .product-heating-power-options__cta-text {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__cta-title {
+    margin-bottom: 2px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__cta-text {
+    font-weight: 300;
+    opacity: 0.9;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__cta-action {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+    flex: 0 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__price {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    justify-content: flex-end;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__compare-price {
+    color: #dfb1a1;
+    font-size: 14px;
+    text-decoration: line-through;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__sale-price {
+    font-size: 22px;
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-power-options__button {
+    display: inline-flex;
+    gap: 8px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--color-brand, #b93205);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-heating-power-options__container {
+      width: 100%;
+      padding: 56px 20px 40px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__header {
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__heading-group {
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__eyebrow {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__title {
+      font-size: 24px;
+      line-height: 1.12;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__description {
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__cards-wrap {
+      margin: 0 -20px 40px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__cards {
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      overflow-x: auto;
+      padding: 0 20px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__cards::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__card {
+      width: 350px;
+      max-width: calc(100vw - 40px);
+      min-height: 528px;
+      flex: 0 0 min(350px, calc(100vw - 40px));
+      gap: 20px;
+      padding: 20px;
+      scroll-snap-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__card-title {
+      font-size: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__card-subtitle,
+    #shopify-section-{{ section.id }} .product-heating-power-options__card-text {
+      font-size: 13px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__media {
+      height: 180px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__image--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__note {
+      justify-content: flex-start;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__runtime {
+      padding: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__runtime-title {
+      margin-bottom: 12px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__runtime-value {
+      font-size: 15px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__runtime-unit {
+      font-size: 11px;
+      font-weight: 400;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__specs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__spec {
+      flex-direction: row;
+      gap: 8px;
+      text-align: left;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__spec-title {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__spec-text {
+      font-size: 11px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__page-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d1d5db;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__page-dot:first-child {
+      background: var(--color-brand, #b93205);
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__benefits {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 40px;
+      padding: 0;
+      background: transparent;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__benefit {
+      min-height: 124px;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 12px;
+      background: #fff;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__benefit-title {
+      margin-bottom: 4px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__benefit-text {
+      color: #666;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.3;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__cta {
+      flex-direction: column;
+      gap: 20px;
+      align-items: stretch;
+      padding: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__cta-message {
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__alert {
+      width: 28px;
+      height: 28px;
+      flex-basis: 28px;
+      font-size: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__cta-title {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__cta-text {
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.3;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__cta-action {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__compare-price {
+      font-size: 13px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__sale-price {
+      font-size: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-power-options__button {
+      min-height: 40px;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+  }
+{%- endstyle -%}
