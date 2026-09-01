@@ -47,11 +47,13 @@
     }
     .tab-product-list-section .tabs {
         display: flex;
+        align-items: stretch;
         position: relative;
         padding: 0px;
         border-radius: 10px;
         background-color: #FFF;
-        width:280px;
+        width: fit-content;
+        max-width: 100%;
         margin: auto;
         border:1px solid #B93205;
         overflow:hidden;
@@ -73,20 +75,24 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width:140px;
-        height: 50px;
+        flex: 1 1 auto;
+        box-sizing: border-box;
+        min-width:140px;
+        min-height: 50px;
         padding: 0 25px;
         border-radius: 0;
         cursor: pointer;
         transition: color 0.15s ease-in;
         color:#B93205;
-        white-space: nowrap;
+        text-align: center;
+        overflow-wrap: anywhere;
     }
 
     .tab-product-list-section .glider {
         position: absolute;
+        top: 0;
         display: flex;
-        height: 50px;
+        height: 100%;
         background-color:#B93205;
         z-index: 1;
         border-radius: 8px;
@@ -162,15 +168,13 @@
     @media only screen and (max-width: 768px) {
         .tab-product-list-section .tabs{
             border-radius:6px;
-            width:210px;
         }
         .tab-product-list-section .tab{
-            width:105px;
-            height:35px;
+            min-width:105px;
+            min-height:35px;
             padding:0px 16px;
         }
         .tab-product-list-section .glider{
-            height:35px;
             border-radius:6px;
         }
     }
