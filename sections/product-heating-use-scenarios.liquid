@@ -1,0 +1,225 @@
+{%- render 'product-heating-use-scenarios-styles' -%}
+
+
+<section class="product-heating-use-scenarios">
+  <div class="product-heating-use-scenarios__container">
+    <div class="product-heating-use-scenarios__header">
+      <div class="product-heating-use-scenarios__heading-group">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="product-heating-use-scenarios__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="product-heating-use-scenarios__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.description != blank -%}
+        <div class="product-heating-use-scenarios__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- assign scenario_blocks = section.blocks | where: 'type', 'scenario' -%}
+    {%- if scenario_blocks.size > 0 -%}
+      <div class="product-heating-use-scenarios__cards">
+        {%- for block in scenario_blocks limit: 5 -%}
+          <article class="product-heating-use-scenarios__card" {{ block.shopify_attributes }}>
+            {%- assign card_image_desktop = block.settings.image_desktop -%}
+            {%- if card_image_desktop == blank and block.settings.image_mobile != blank -%}
+              {%- assign card_image_desktop = block.settings.image_mobile -%}
+            {%- endif -%}
+            {%- assign card_image_mobile = block.settings.image_desktop -%}
+            {%- if block.settings.image_mobile != blank -%}
+              {%- assign card_image_mobile = block.settings.image_mobile -%}
+            {%- endif -%}
+            {%- if card_image_desktop != blank -%}
+              {{
+                card_image_desktop
+                | image_url: width: 700
+                | image_tag:
+                  class: 'product-heating-use-scenarios__card-image product-heating-use-scenarios__card-image--desktop',
+                  loading: 'lazy',
+                  widths: '252, 400, 560, 700',
+                  sizes: '(max-width: 767px) 0px, 252px',
+                  alt: card_image_desktop.alt | default: block.settings.title
+              }}
+            {%- endif -%}
+            {%- if card_image_mobile != blank -%}
+              {{
+                card_image_mobile
+                | image_url: width: 700
+                | image_tag:
+                  class: 'product-heating-use-scenarios__card-image product-heating-use-scenarios__card-image--mobile',
+                  loading: 'lazy',
+                  widths: '169, 338, 500, 700',
+                  sizes: '(max-width: 767px) calc(100vw - 40px), 0px',
+                  alt: card_image_mobile.alt | default: block.settings.title
+              }}
+            {%- endif -%}
+            <div class="product-heating-use-scenarios__card-content">
+              <span class="product-heating-use-scenarios__accent"></span>
+              {%- if block.settings.title != blank -%}
+                <h3 class="product-heating-use-scenarios__card-title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p class="product-heating-use-scenarios__card-text">{{ block.settings.text }}</p>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <div class="product-heating-use-scenarios__middle">
+      <div class="product-heating-use-scenarios__mid-header">
+        {%- if section.settings.middle_title != blank -%}
+          <h2 class="product-heating-use-scenarios__mid-title">{{ section.settings.middle_title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.middle_description != blank -%}
+          <div class="product-heating-use-scenarios__mid-description">{{ section.settings.middle_description }}</div>
+        {%- endif -%}
+      </div>
+
+      {%- assign benefit_blocks = section.blocks | where: 'type', 'benefit' -%}
+      {%- if benefit_blocks.size > 0 -%}
+        {%- render 'heating-icon-benefits',
+          section_id: section.id,
+          blocks: benefit_blocks,
+          root_class: 'product-heating-use-scenarios__benefits',
+          section_background: 'transparent',
+          panel_background: '#ffffff',
+          panel_border_color: 'transparent',
+          title_color: 'var(--venustas-black, #1a1a1a)',
+          text_color: 'var(--venustas-black, #1a1a1a)',
+          use_product_icons: true,
+          inner_padding: '0',
+          mobile_inner_padding: '0',
+          panel_padding: '16px',
+          mobile_panel_padding: '0',
+          panel_gap: '52px',
+          mobile_panel_gap: '12px',
+          mobile_columns: 2,
+          mobile_card: true
+        -%}
+      {%- endif -%}
+    </div>
+
+    <div class="product-heating-use-scenarios__banner">
+      {%- assign banner_image_desktop = section.settings.banner_image_desktop -%}
+      {%- if banner_image_desktop == blank and section.settings.banner_image_mobile != blank -%}
+        {%- assign banner_image_desktop = section.settings.banner_image_mobile -%}
+      {%- endif -%}
+      {%- assign banner_image_mobile = section.settings.banner_image_desktop -%}
+      {%- if section.settings.banner_image_mobile != blank -%}
+        {%- assign banner_image_mobile = section.settings.banner_image_mobile -%}
+      {%- endif -%}
+      {%- if banner_image_desktop != blank -%}
+        {{
+          banner_image_desktop
+          | image_url: width: 1600
+          | image_tag:
+            class: 'product-heating-use-scenarios__banner-image product-heating-use-scenarios__banner-image--desktop',
+            loading: 'lazy',
+            widths: '700, 900, 1200, 1340, 1600',
+            sizes: '(max-width: 767px) 0px, min(100vw - 40px, 1340px)',
+            alt: banner_image_desktop.alt | default: section.settings.banner_title
+        }}
+      {%- endif -%}
+      {%- if banner_image_mobile != blank -%}
+        {{
+          banner_image_mobile
+          | image_url: width: 900
+          | image_tag:
+            class: 'product-heating-use-scenarios__banner-image product-heating-use-scenarios__banner-image--mobile',
+            loading: 'lazy',
+            widths: '350, 500, 700, 900',
+            sizes: '(max-width: 767px) calc(100vw - 40px), 0px',
+            alt: banner_image_mobile.alt | default: section.settings.banner_title
+        }}
+      {%- endif -%}
+      <div class="product-heating-use-scenarios__banner-content">
+        {%- if section.settings.banner_title != blank or section.settings.banner_title_accent != blank -%}
+          <h2 class="product-heating-use-scenarios__banner-title">
+            {%- if section.settings.banner_title != blank -%}{{ section.settings.banner_title }}{%- endif -%}
+            {%- if section.settings.banner_title_accent != blank -%}
+              <span class="product-heating-use-scenarios__banner-title-accent">{{ section.settings.banner_title_accent }}</span>
+            {%- endif -%}
+          </h2>
+        {%- endif -%}
+        {%- if section.settings.banner_description != blank -%}
+          <div class="product-heating-use-scenarios__banner-description">{{ section.settings.banner_description }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ProductH Use Scenarios",
+  "tag": "section",
+  "class": "product-heating-use-scenarios-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Built For Every Cold-weather Mission" },
+    { "type": "text", "id": "title", "label": "Title", "default": "One Vest. Ready For Any Adventure." },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>From long winter rides to backcountry hikes, MV11 delivers reliable warmth wherever you go.</p>" },
+    { "type": "text", "id": "middle_title", "label": "Middle title", "default": "From City Streets To Extreme Peaks" },
+    { "type": "richtext", "id": "middle_description", "label": "Middle description", "default": "<p>MV11 is your essential mid-layer for all your cold-weather missions.</p>" },
+    { "type": "image_picker", "id": "banner_image_desktop", "label": "Banner desktop image" },
+    { "type": "image_picker", "id": "banner_image_mobile", "label": "Banner mobile image" },
+    { "type": "text", "id": "banner_title", "label": "Banner title", "default": "Designed For Modern Riders. " },
+    { "type": "text", "id": "banner_title_accent", "label": "Banner accent title", "default": "Trusted By Adventurers." },
+    { "type": "richtext", "id": "banner_description", "label": "Banner description", "default": "<p>MV11 keeps you warm, so you can focus on the journey ahead.</p>" }
+  ],
+  "blocks": [
+    {
+      "type": "scenario",
+      "name": "Scenario card",
+      "limit": 5,
+      "settings": [
+        { "type": "image_picker", "id": "image_desktop", "label": "Desktop image" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Mobile image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "MOTORCYCLE RIDING" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Stay warm on every mile, no matter how cold the road gets." }
+      ]
+    },
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "icon-battery",
+          "options": [
+            { "value": "icon-battery", "label": "Battery" },
+            { "value": "icon-plug", "label": "Plug" },
+            { "value": "icon-motorbike", "label": "Motorbike" },
+            { "value": "icon-protection", "label": "Protection" },
+            { "value": "icon-heat", "label": "Heat" },
+            { "value": "icon-snowflake", "label": "Snowflake" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Flexible Battery Options" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Use 1 or 2 batteries based on your runtime needs." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ProductH Use Scenarios",
+      "blocks": [
+        { "type": "scenario", "settings": { "title": "MOTORCYCLE RIDING", "text": "Stay warm on every mile, no matter how cold the road gets." } },
+        { "type": "scenario", "settings": { "title": "SKIING & SNOW SPORTS", "text": "Lightweight warmth that moves with you on the slopes." } },
+        { "type": "scenario", "settings": { "title": "ICE FISHING", "text": "Core warmth that keeps you comfortable during long hours on the ice." } },
+        { "type": "scenario", "settings": { "title": "OUTDOOR WORK", "text": "Reliable heat for demanding work in freezing conditions." } },
+        { "type": "scenario", "settings": { "title": "HIKING & BACKCOUNTRY", "text": "Packable warmth for long treks in extreme cold environments." } },
+        { "type": "benefit", "settings": { "icon": "icon-battery", "title": "Flexible Battery Options", "text": "Use 1 or 2 batteries based on your runtime needs." } },
+        { "type": "benefit", "settings": { "icon": "icon-plug", "title": "Dual Power Ports", "text": "Left and right ports for maximum flexibility and balanced power." } },
+        { "type": "benefit", "settings": { "icon": "icon-motorbike", "title": "Motorcycle Compatible", "text": "12V system integration for seamless long-distance riding warmth." } },
+        { "type": "benefit", "settings": { "icon": "icon-protection", "title": "Safe & Reliable", "text": "Overheat, short-circuit and low-voltage protection for worry-free use." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

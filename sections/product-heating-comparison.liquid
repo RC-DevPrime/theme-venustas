@@ -315,8 +315,10 @@
 
             <div class="product-heating-comparison__list">
               {%- for i in (1..4) -%}
-                {%- assign item_title = block.settings['item_' | append: i | append: '_title'] -%}
-                {%- assign item_text = block.settings['item_' | append: i | append: '_text'] -%}
+                {%- capture item_title_key -%}item_{{ i }}_title{%- endcapture -%}
+                {%- capture item_text_key -%}item_{{ i }}_text{%- endcapture -%}
+                {%- assign item_title = block.settings[item_title_key] -%}
+                {%- assign item_text = block.settings[item_text_key] -%}
                 {%- if item_title != blank or item_text != blank -%}
                   <div class="product-heating-comparison__item">
                     <span class="product-heating-comparison__mark" aria-hidden="true">{{ mark_icon }}</span>

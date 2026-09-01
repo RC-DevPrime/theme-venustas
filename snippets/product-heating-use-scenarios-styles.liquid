@@ -1,0 +1,362 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios {
+    width: 100%;
+    background: #f5f5f5;
+    color: var(--venustas-black, #1a1a1a);
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__container {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 56px 0 40px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__header,
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__mid-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__header {
+    gap: 24px;
+    margin-bottom: 64px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__heading-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__eyebrow {
+    margin: 0;
+    color: var(--color-brand, #b93205);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: capitalize;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__title,
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__mid-title {
+    margin: 0;
+    color: #111827;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__description,
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__mid-description {
+    margin: 0;
+    color: rgba(26, 26, 26, 0.9);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__description p,
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__mid-description p,
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner-description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__cards {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 80px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__card {
+    position: relative;
+    display: flex;
+    height: 480px;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    padding: 24px;
+    border-radius: 20px;
+    color: #fff;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__card-image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 360ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__card-image--mobile,
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner-image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__card:hover .product-heating-use-scenarios__card-image,
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner:hover .product-heating-use-scenarios__banner-image {
+    transform: scale(1.04);
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(217deg, rgba(11, 12, 16, 0) 28%, rgba(9, 10, 13, 0.81) 66%, rgba(5, 6, 8, 0.96) 86%);
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__card-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__accent {
+    display: block;
+    width: 24px;
+    height: 3px;
+    border-radius: 2px;
+    background: #e24b2c;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__card-title {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__card-text {
+    margin: 0;
+    color: #d1d5db;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__middle {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 64px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__mid-header {
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__benefits .heating-icon-benefits__panel {
+    grid-template-columns: repeat(4, minmax(0, 280px));
+    justify-content: center;
+    border: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__benefits .heating-icon-benefits__title {
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__benefits .heating-icon-benefits__text {
+    font-weight: 300;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner {
+    position: relative;
+    display: flex;
+    min-height: 376px;
+    align-items: center;
+    overflow: hidden;
+    padding: 32px 48px;
+    border-radius: 12px;
+    color: #fff;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner-image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 360ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.7), rgba(102, 102, 102, 0.25));
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: min(100%, 700px);
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner-title {
+    margin: 0;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner-title-accent {
+    color: var(--color-brand, #b93205);
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner-description {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__container {
+      width: 100%;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__header {
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__heading-group {
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__title,
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__mid-title {
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__card {
+      height: 240px;
+      padding: 16px;
+      border-radius: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__card:nth-child(5) {
+      grid-column: 1 / -1;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__card-image {
+      border-radius: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__card-image--desktop,
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner-image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__card-image--mobile,
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner-image--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__card:hover .product-heating-use-scenarios__card-image,
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner:hover .product-heating-use-scenarios__banner-image {
+      transform: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__card-content {
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__accent {
+      width: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__card-title,
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__card-text {
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__middle {
+      gap: 28px;
+      margin-bottom: 48px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__mid-header {
+      gap: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__benefits .heating-icon-benefits__panel {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__benefits .heating-icon-benefits__item {
+      align-items: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__benefits .heating-icon-benefits__title {
+      font-weight: 600;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__benefits .heating-icon-benefits__text {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.3;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner {
+      min-height: 260px;
+      align-items: flex-end;
+      padding: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner::after {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 32%, rgba(0, 0, 0, 0.8) 100%);
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner-content {
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-use-scenarios__banner-description {
+      color: #d1d5db;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+  }
+{%- endstyle -%}

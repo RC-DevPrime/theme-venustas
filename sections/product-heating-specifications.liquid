@@ -1,0 +1,331 @@
+{%- render 'product-heating-specifications-styles' -%}
+
+{%- liquid
+  assign heating_zones = section.settings.heating_zones | newline_to_br | split: '<br />'
+  assign heat_settings = section.settings.heat_settings | split: ','
+  assign included_items = section.settings.included_items | newline_to_br | split: '<br />'
+-%}
+
+<section class="product-heating-specifications">
+  <div class="product-heating-specifications__container">
+    <div class="product-heating-specifications__header">
+      <div class="product-heating-specifications__heading-group">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="product-heating-specifications__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="product-heating-specifications__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.description != blank -%}
+        <div class="product-heating-specifications__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="product-heating-specifications__grid">
+      <div class="product-heating-specifications__col">
+        <article class="product-heating-specifications__card product-heating-specifications__card--heating">
+          {%- if section.settings.heating_title != blank -%}
+            <h3 class="product-heating-specifications__card-title">{{ section.settings.heating_title }}</h3>
+          {%- endif -%}
+
+          <div class="product-heating-specifications__section">
+            {%- if section.settings.power_label != blank -%}
+              <p class="product-heating-specifications__label">{{ section.settings.power_label }}</p>
+            {%- endif -%}
+            <div class="product-heating-specifications__value-row">
+              {%- if section.settings.power_value != blank -%}
+                <p class="product-heating-specifications__large-value">{{ section.settings.power_value }}</p>
+              {%- endif -%}
+              {%- if section.settings.power_text != blank -%}
+                <p class="product-heating-specifications__value-label">{{ section.settings.power_text }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+
+          {%- if section.settings.vest_front_image != blank or section.settings.vest_back_image != blank -%}
+            <div class="product-heating-specifications__vest-images">
+              {%- if section.settings.vest_front_image != blank -%}
+                {{
+                  section.settings.vest_front_image
+                  | image_url: width: 520
+                  | image_tag:
+                    class: 'product-heating-specifications__vest-image',
+                    loading: 'lazy',
+                    widths: '220, 360, 520',
+                    sizes: '(max-width: 767px) calc((100vw - 88px) / 2), 180px',
+                    alt: section.settings.vest_front_image.alt | default: section.settings.heating_title
+                }}
+              {%- endif -%}
+              {%- if section.settings.vest_back_image != blank -%}
+                {{
+                  section.settings.vest_back_image
+                  | image_url: width: 520
+                  | image_tag:
+                    class: 'product-heating-specifications__vest-image',
+                    loading: 'lazy',
+                    widths: '220, 360, 520',
+                    sizes: '(max-width: 767px) calc((100vw - 88px) / 2), 180px',
+                    alt: section.settings.vest_back_image.alt | default: section.settings.heating_title
+                }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          <div class="product-heating-specifications__divider"></div>
+
+          <div class="product-heating-specifications__section">
+            {%- if section.settings.zones_label != blank -%}
+              <p class="product-heating-specifications__label">{{ section.settings.zones_label }}</p>
+            {%- endif -%}
+            <div class="product-heating-specifications__zone-count">
+              {%- if section.settings.zone_count != blank -%}
+                <p class="product-heating-specifications__zone-number">{{ section.settings.zone_count }}</p>
+              {%- endif -%}
+              {%- if section.settings.zone_count_label != blank -%}
+                <p class="product-heating-specifications__value-label">{{ section.settings.zone_count_label }}</p>
+              {%- endif -%}
+            </div>
+            {%- if section.settings.heating_zones != blank -%}
+              <ul class="product-heating-specifications__list">
+                {%- for zone in heating_zones -%}
+                  {%- assign zone_text = zone | strip -%}
+                  {%- if zone_text != blank -%}
+                    <li class="product-heating-specifications__list-item">{{ zone_text }}</li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+
+          <div class="product-heating-specifications__divider"></div>
+
+          <div class="product-heating-specifications__section">
+            {%- if section.settings.heat_settings_label != blank -%}
+              <p class="product-heating-specifications__label">{{ section.settings.heat_settings_label }}</p>
+            {%- endif -%}
+            {%- if section.settings.heat_settings != blank -%}
+              <div class="product-heating-specifications__pills">
+                {%- for setting in heat_settings limit: 3 -%}
+                  {%- assign setting_text = setting | strip -%}
+                  {%- if setting_text != blank -%}
+                    <span class="product-heating-specifications__pill">{{ setting_text }}</span>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+
+          {%- if section.settings.temperature_label != blank or section.settings.temperature_value != blank -%}
+            <div class="product-heating-specifications__meter">
+              <div class="product-heating-specifications__meter-head">
+                <span>{{ section.settings.temperature_label }}</span>
+                <span>{{ section.settings.temperature_value }}</span>
+              </div>
+              <div class="product-heating-specifications__track">
+                <span class="product-heating-specifications__track-fill" style="width: {{ section.settings.temperature_percent }}%;"></span>
+              </div>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.duration_label != blank or section.settings.duration_value != blank -%}
+            <div class="product-heating-specifications__meter">
+              <div class="product-heating-specifications__meter-head">
+                <span>{{ section.settings.duration_label }}</span>
+                <span>{{ section.settings.duration_value }}</span>
+              </div>
+              <div class="product-heating-specifications__track">
+                <span class="product-heating-specifications__track-fill" style="width: {{ section.settings.duration_percent }}%;"></span>
+              </div>
+            </div>
+          {%- endif -%}
+        </article>
+      </div>
+
+      <div class="product-heating-specifications__col">
+        <article class="product-heating-specifications__card">
+          {%- if section.settings.power_options_title != blank -%}
+            <h3 class="product-heating-specifications__card-title">{{ section.settings.power_options_title }}</h3>
+          {%- endif -%}
+          {%- if section.settings.battery_title != blank or section.settings.battery_text != blank -%}
+            <div class="product-heating-specifications__power-row">
+              <p class="product-heating-specifications__label">{{ section.settings.battery_title }}</p>
+              <p class="product-heating-specifications__muted">{{ section.settings.battery_text }}</p>
+            </div>
+          {%- endif -%}
+          <div class="product-heating-specifications__divider"></div>
+          {%- if section.settings.dual_title != blank or section.settings.dual_text != blank -%}
+            <div class="product-heating-specifications__power-row">
+              <p class="product-heating-specifications__label">{{ section.settings.dual_title }}</p>
+              <p class="product-heating-specifications__muted">{{ section.settings.dual_text }}</p>
+            </div>
+          {%- endif -%}
+          <div class="product-heating-specifications__divider"></div>
+          {%- if section.settings.motorcycle_title != blank or section.settings.motorcycle_text != blank -%}
+            <div class="product-heating-specifications__power-row">
+              <p class="product-heating-specifications__label">{{ section.settings.motorcycle_title }}</p>
+              <p class="product-heating-specifications__muted">{{ section.settings.motorcycle_text }}</p>
+              {%- if section.settings.motorcycle_badge != blank -%}
+                <span class="product-heating-specifications__badge">{{ section.settings.motorcycle_badge }}</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </article>
+
+        <article class="product-heating-specifications__card">
+          {%- if section.settings.included_title != blank -%}
+            <h3 class="product-heating-specifications__card-title">{{ section.settings.included_title }}</h3>
+          {%- endif -%}
+          {%- if section.settings.included_image != blank -%}
+            {{
+              section.settings.included_image
+              | image_url: width: 820
+              | image_tag:
+                class: 'product-heating-specifications__kit-image',
+                loading: 'lazy',
+                widths: '300, 500, 700, 820',
+                sizes: '(max-width: 767px) calc(100vw - 88px), 345px',
+                alt: section.settings.included_image.alt | default: section.settings.included_title
+            }}
+          {%- endif -%}
+          {%- if section.settings.included_items != blank -%}
+            <div class="product-heating-specifications__included">
+              {%- for item in included_items -%}
+                {%- assign item_text = item | strip -%}
+                {%- if item_text != blank -%}
+                  <div class="product-heating-specifications__check-item">
+                    <span class="product-heating-specifications__check-icon" aria-hidden="true">{%- render 'product-heating-icons', icon: 'icon-protection' -%}</span>
+                    <span>{{ item_text }}</span>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </article>
+      </div>
+
+      <div class="product-heating-specifications__col">
+        <article class="product-heating-specifications__card">
+          <h3 class="product-heating-specifications__card-title">CONSTRUCTION</h3>
+          {%- if section.settings.construction_image_1 != blank or section.settings.construction_image_2 != blank -%}
+            <div class="product-heating-specifications__texture-grid">
+              {%- if section.settings.construction_image_1 != blank -%}
+                {{
+                  section.settings.construction_image_1
+                  | image_url: width: 700
+                  | image_tag:
+                    class: 'product-heating-specifications__texture',
+                    loading: 'lazy',
+                    widths: '300, 500, 700',
+                    sizes: '(max-width: 767px) calc((100vw - 96px) / 2), 345px',
+                    alt: section.settings.construction_image_1.alt | default: 'CONSTRUCTION'
+                }}
+              {%- endif -%}
+              {%- if section.settings.construction_image_2 != blank -%}
+                {{
+                  section.settings.construction_image_2
+                  | image_url: width: 700
+                  | image_tag:
+                    class: 'product-heating-specifications__texture',
+                    loading: 'lazy',
+                    widths: '300, 500, 700',
+                    sizes: '(max-width: 767px) calc((100vw - 96px) / 2), 345px',
+                    alt: section.settings.construction_image_2.alt | default: 'CONSTRUCTION'
+                }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          <div class="product-heating-specifications__spec-list">
+            <div class="product-heating-specifications__spec-row"><span>Fit</span><span class="product-heating-specifications__spec-value">Athletic Mid-Layer Fit</span></div>
+            <div class="product-heating-specifications__spec-row"><span>Shell</span><span class="product-heating-specifications__spec-value">75D Poly + TPU Membrane</span></div>
+            <div class="product-heating-specifications__spec-row"><span>Lining</span><span class="product-heating-specifications__spec-value">Graphene Fabric</span></div>
+            <div class="product-heating-specifications__spec-row"><span>Zipper</span><span class="product-heating-specifications__spec-value">YKK Zippers</span></div>
+          </div>
+        </article>
+
+        <article class="product-heating-specifications__card">
+          <h3 class="product-heating-specifications__card-title">CARE INSTRUCTIONS</h3>
+          <div class="product-heating-specifications__care-grid">
+            <div class="product-heating-specifications__care-item">
+              <span class="product-heating-specifications__care-icon" aria-hidden="true">{%- render 'product-heating-icons', icon: 'icon-fit' -%}</span>
+              <p class="product-heating-specifications__care-label">Machine Washable</p>
+            </div>
+            <div class="product-heating-specifications__care-item">
+              <span class="product-heating-specifications__care-icon" aria-hidden="true">{%- render 'product-heating-icons', icon: 'icon-protection' -%}</span>
+              <p class="product-heating-specifications__care-label">Do Not Dry Clean</p>
+            </div>
+            <div class="product-heating-specifications__care-item">
+              <span class="product-heating-specifications__care-icon" aria-hidden="true">{%- render 'product-heating-icons', icon: 'icon-protection' -%}</span>
+              <p class="product-heating-specifications__care-label">Do Not Iron</p>
+            </div>
+            <div class="product-heating-specifications__care-item">
+              <span class="product-heating-specifications__care-icon" aria-hidden="true">{%- render 'product-heating-icons', icon: 'icon-fit' -%}</span>
+              <p class="product-heating-specifications__care-label">Tumble Dry</p>
+            </div>
+          </div>
+          <p class="product-heating-specifications__care-note">Recommended: Hand Wash for longevity. Low temp.</p>
+        </article>
+
+        <article class="product-heating-specifications__card">
+          <h3 class="product-heating-specifications__card-title">COMPATIBILITY</h3>
+          <div class="product-heating-specifications__spec-list">
+            <div class="product-heating-specifications__compat-row"><span>7.5K BATTERY</span><span class="product-heating-specifications__compat-badge product-heating-specifications__compat-badge--blue">Included</span></div>
+            <div class="product-heating-specifications__compat-row"><span>10K BATTERY</span><span class="product-heating-specifications__compat-badge">Sold Separately</span></div>
+            <div class="product-heating-specifications__compat-row"><span>12V Y-CABLE</span><span class="product-heating-specifications__compat-badge">Sold Separately</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ProductH Specifications",
+  "tag": "section",
+  "class": "product-heating-specifications-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Technical Specifications" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Everything You Need to Know About WV12" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Volcano Series 12V Heated Vest.</p>" },
+    { "type": "header", "content": "Heating system" },
+    { "type": "text", "id": "heating_title", "label": "Card title", "default": "HEATING SYSTEM" },
+    { "type": "text", "id": "power_label", "label": "Power label", "default": "POWER OUTPUT" },
+    { "type": "text", "id": "power_value", "label": "Power value", "default": "38W" },
+    { "type": "text", "id": "power_text", "label": "Power text", "default": "High-Power Heating System" },
+    { "type": "image_picker", "id": "vest_front_image", "label": "Vest front image" },
+    { "type": "image_picker", "id": "vest_back_image", "label": "Vest back image" },
+    { "type": "text", "id": "zones_label", "label": "Zones label", "default": "HEATING ZONES" },
+    { "type": "text", "id": "zone_count", "label": "Zone count", "default": "6" },
+    { "type": "text", "id": "zone_count_label", "label": "Zone count label", "default": "Zones" },
+    { "type": "textarea", "id": "heating_zones", "label": "Heating zones", "default": "Collar\nLeft Chest\nRight Chest\nUpper Left Back\nUpper Right Back\nLower Back" },
+    { "type": "text", "id": "heat_settings_label", "label": "Heat settings label", "default": "HEAT SETTINGS" },
+    { "type": "text", "id": "heat_settings", "label": "Heat settings", "default": "HIGH,MEDIUM,LOW" },
+    { "type": "text", "id": "temperature_label", "label": "Temperature label", "default": "Temperature:" },
+    { "type": "text", "id": "temperature_value", "label": "Temperature value", "default": "100°F" },
+    { "type": "range", "id": "temperature_percent", "label": "Temperature bar percent", "min": 0, "max": 100, "step": 1, "default": 22 },
+    { "type": "text", "id": "duration_label", "label": "Duration label", "default": "Heating duration:" },
+    { "type": "text", "id": "duration_value", "label": "Duration value", "default": "10.0h" },
+    { "type": "range", "id": "duration_percent", "label": "Duration bar percent", "min": 0, "max": 100, "step": 1, "default": 100 },
+    { "type": "header", "content": "Power options" },
+    { "type": "text", "id": "power_options_title", "label": "Card title", "default": "POWER OPTIONS" },
+    { "type": "text", "id": "battery_title", "label": "Battery title", "default": "BATTERY COMPATIBLE" },
+    { "type": "text", "id": "battery_text", "label": "Battery text", "default": "Supports Venustas 7.5K / 10K Batteries" },
+    { "type": "text", "id": "dual_title", "label": "Dual title", "default": "DUAL BATTERY CONNECTION" },
+    { "type": "text", "id": "dual_text", "label": "Dual text", "default": "Two power ports for extended runtime" },
+    { "type": "text", "id": "motorcycle_title", "label": "Motorcycle title", "default": "MOTORCYCLE POWER" },
+    { "type": "text", "id": "motorcycle_text", "label": "Motorcycle text", "default": "12V Motorcycle Connection" },
+    { "type": "text", "id": "motorcycle_badge", "label": "Motorcycle badge", "default": "Y-Cable sold separately" },
+    { "type": "header", "content": "What's included" },
+    { "type": "text", "id": "included_title", "label": "Card title", "default": "WHAT'S INCLUDED" },
+    { "type": "image_picker", "id": "included_image", "label": "Included image" },
+    { "type": "textarea", "id": "included_items", "label": "Included items", "default": "WV12 Heated Vest\n7.5K Battery\nUser Manual" },
+    { "type": "header", "content": "Construction images" },
+    { "type": "image_picker", "id": "construction_image_1", "label": "Construction image 1" },
+    { "type": "image_picker", "id": "construction_image_2", "label": "Construction image 2" }
+  ],
+  "presets": [
+    { "name": "ProductH Specifications" }
+  ]
+}
+{% endschema %}
