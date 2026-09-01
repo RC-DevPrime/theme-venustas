@@ -751,7 +751,7 @@ function startOdometer() {
 document.addEventListener('DOMContentLoaded', startOdometer);
 
 
-$(document).on('click', '.icon-gift', function () {
+$(document).on('click', '.icon-gift:not(.smile-header-trigger)', function () {
     const panelContainer   = document.querySelector('.smile-panel-frame-container');
     const launcherIframe   = document.querySelector('#smile-lite-launcher-frame') 
                           || document.querySelector('.smile-launcher-frame');

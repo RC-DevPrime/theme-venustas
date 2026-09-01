@@ -16,8 +16,8 @@
     display:none !important;
 }
 #smile-ui-lite-launcher-frame-container{
-    right:unset !important;
-    left:20px;
+    right:auto !important;
+    left:20px !important;
 }
 .no-scroll{
     overflow:hidden !important;
@@ -1180,6 +1180,13 @@ a.f-white:hover{
 .header .nav-icons button.icon-gift img{
     width:19px;
     height:19px;
+}
+/* Keep the single-image Smile header icon visible after click */
+.header .nav-icons .smile-header-trigger:hover img:first-child,
+.header .nav-icons .smile-header-trigger:focus img:first-child,
+.header .nav-icons .smile-header-trigger:active img:first-child {
+    position: relative !important;
+    visibility: visible !important;
 }
 .header .nav-icons a .dot ,
 .header .nav-icons button .dot {

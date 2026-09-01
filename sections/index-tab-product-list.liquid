@@ -47,11 +47,13 @@
     }
     .tab-product-list-section .tabs {
         display: flex;
+        align-items: stretch;
         position: relative;
         padding: 0px;
         border-radius: 10px;
         background-color: #FFF;
-        width:280px;
+        width: fit-content;
+        max-width: 100%;
         margin: auto;
         border:1px solid #B93205;
         overflow:hidden;
@@ -73,20 +75,24 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width:140px;
-        height: 50px;
+        flex: 1 1 auto;
+        box-sizing: border-box;
+        min-width:140px;
+        min-height: 50px;
         padding: 0 25px;
         border-radius: 0;
         cursor: pointer;
         transition: color 0.15s ease-in;
         color:#B93205;
-        white-space: nowrap;
+        text-align: center;
+        overflow-wrap: anywhere;
     }
 
     .tab-product-list-section .glider {
         position: absolute;
+        top: 0;
         display: flex;
-        height: 50px;
+        height: 100%;
         background-color:#B93205;
         z-index: 1;
         border-radius: 8px;
@@ -101,6 +107,52 @@
 
     .tab-product-list-section .tab-container-item > .container {
         position: relative;
+    }
+
+    .tab-product-list-section .variant-option-block {
+        --card-swatch-size: 25px;
+        --card-swatch-gap: 12px;
+        --card-swatch-columns: 4;
+    }
+
+    .tab-product-list-section .variant-option-block .variant-colors {
+        display: grid;
+        grid-template-columns: repeat(var(--card-swatch-columns), var(--card-swatch-size));
+        gap: var(--card-swatch-gap);
+        align-items: center;
+        width: fit-content;
+    }
+
+    .tab-product-list-section .variant-option-block .variant-colors.variant-colors-dropdown {
+        width: auto;
+    }
+
+    .tab-product-list-section .variant-option-block .variant-colors.variant-colors-dropdown[style*="display: flex"] {
+        display: grid !important;
+    }
+
+    .tab-product-list-section .variant-option-block .variant-color-item,
+    .tab-product-list-section .variant-option-block .view-all-options-btn {
+        width: var(--card-swatch-size);
+        height: var(--card-swatch-size);
+    }
+
+    .tab-product-list-section .variant-option-block .view-all-options-btn {
+        justify-content: center;
+    }
+
+    .tab-product-list-section .variant-option-block .variant-color-box {
+        box-sizing: border-box;
+        width: var(--card-swatch-size);
+        height: var(--card-swatch-size);
+        border: 1px solid rgba(255,255,255,.75);
+        outline: 0;
+        box-shadow: 0 0 0 1px rgba(0,0,0,.28), 1px 1px 5px #0003;
+    }
+
+    .tab-product-list-section .variant-option-block .on .variant-color-box {
+        outline: 0;
+        box-shadow: 0 0 0 2px #161616, inset 0 0 0 1px rgba(255,255,255,.65);
     }
 
     /*
@@ -157,20 +209,53 @@
         }
     }
 
+    @media only screen and (max-width: 767px) {
+        .tab-product-list-section .variant-option-block {
+            --card-swatch-size: 18px;
+            --card-swatch-gap: 8px;
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        .tab-product-list-section .variant-option-block {
+            --card-swatch-size: 20px;
+            --card-swatch-gap: 6px;
+        }
+    }
+
+    @media only screen and (min-width: 1366px) {
+        .tab-product-list-section .variant-option-block {
+            --card-swatch-size: 22px;
+            --card-swatch-gap: 8px;
+        }
+    }
+
+    @media only screen and (min-width: 1536px) {
+        .tab-product-list-section .variant-option-block {
+            --card-swatch-size: 23px;
+            --card-swatch-gap: 10px;
+        }
+    }
+
+    @media only screen and (min-width: 1920px) {
+        .tab-product-list-section .variant-option-block {
+            --card-swatch-size: 25px;
+            --card-swatch-gap: 12px;
+        }
+    }
+
 
     /* FOR MOBILE PHONE */
     @media only screen and (max-width: 768px) {
         .tab-product-list-section .tabs{
             border-radius:6px;
-            width:210px;
         }
         .tab-product-list-section .tab{
-            width:105px;
-            height:35px;
+            min-width:105px;
+            min-height:35px;
             padding:0px 16px;
         }
         .tab-product-list-section .glider{
-            height:35px;
             border-radius:6px;
         }
     }
