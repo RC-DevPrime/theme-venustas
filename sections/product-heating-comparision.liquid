@@ -1,0 +1,548 @@
+{% style %}
+  #shopify-section-{{ section.id }} .product-heating-comparison {
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__inner {
+    width: min(100% - 40px, 1340px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__header {
+    max-width: 820px;
+    margin: 0 auto 60px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__heading {
+    margin: 0 0 16px;
+    color: var(--venustas-black);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__description {
+    margin: 0;
+    color: var(--venustas-black);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__cards {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__card {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-bottom: 32px;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__card-header {
+    padding: 24px 0;
+    background: var(--venustas-black);
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__card-header--brand {
+    background: var(--color-brand);
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__card-title {
+    margin: 0;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__card-body {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__media {
+    flex: none;
+    width: 360px;
+    height: 298px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__media--contain {
+    background: radial-gradient(circle at 50% 50%, rgba(185, 50, 5, 0.55) 0%, rgba(185, 50, 5, 0) 100%);
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__image--contain {
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__list {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__mark svg {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__item-copy {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__item-title {
+    margin: 0;
+    color: var(--venustas-black);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__item-text {
+    margin: 0;
+    color: var(--venustas-black);
+    opacity: 0.9;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__vs {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__vs-image {
+    display: block;
+    width: 52px;
+    height: auto;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__cta {
+    margin-top: 40px;
+    padding: 32px;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    background: #fff;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__cta-heading {
+    margin: 0 0 12px;
+    color: var(--color-brand);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-comparison__cta-text {
+    margin: 0;
+    color: var(--venustas-black);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-heating-comparison__inner {
+      width: 100%;
+      padding: 40px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-comparison__header {
+      margin-bottom: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-comparison__heading {
+      margin-bottom: 16px;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-comparison__cards {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-comparison__card-header {
+      padding: 16px 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-comparison__card-body {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 28px;
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-comparison__media {
+      width: 100%;
+      height: 298px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-comparison__list {
+      padding: 0 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-comparison__vs {
+      position: static;
+      transform: none;
+      display: flex;
+      justify-content: center;
+      margin: 8px 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-heating-comparison__cta {
+      margin-top: 40px;
+      padding: 32px 20px;
+    }
+  }
+{% endstyle %}
+
+<section class="product-heating-comparison">
+  <div class="product-heating-comparison__inner">
+    <div class="product-heating-comparison__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="product-heating-comparison__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <p class="product-heating-comparison__description">{{ section.settings.description }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="product-heating-comparison__cards">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign is_check = false
+          if block.settings.mark == 'check'
+            assign is_check = true
+          endif
+          assign image_contain = false
+          if block.settings.image_style == 'contain'
+            assign image_contain = true
+          endif
+          capture mark_icon
+            if is_check
+              echo '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="12" fill="#FEE2E2"/><path d="M17.3328 8L10.0002 15.3328L6.66724 11.9997" stroke="#B93205" stroke-width="2" stroke-linecap="round"/></svg>'
+            else
+              echo '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="12" fill="#E8E8E8"/><path d="M15 9L9 15M9 9L15 15" stroke="#515151" stroke-width="2" stroke-linecap="round"/></svg>'
+            endif
+          endcapture
+        -%}
+        <div class="product-heating-comparison__card" {{ block.shopify_attributes }}>
+          {%- if block.settings.title != blank -%}
+            <div class="product-heating-comparison__card-header{% if is_check %} product-heating-comparison__card-header--brand{% endif %}">
+              <h3 class="product-heating-comparison__card-title">{{ block.settings.title }}</h3>
+            </div>
+          {%- endif -%}
+
+          <div class="product-heating-comparison__card-body">
+            {%- if block.settings.image != blank -%}
+              {% comment %} <div class="product-heating-comparison__media{% if image_contain %} product-heating-comparison__media--contain{% endif %}">
+                {{
+                  block.settings.image
+                  | image_url: width: 720
+                  | image_tag:
+                    class: 'product-heating-comparison__image{% if image_contain %} product-heating-comparison__image--contain{% endif %}',
+                    loading: 'lazy',
+                    widths: '360,480,640,720',
+                    sizes: '(max-width: 767px) calc(100vw - 40px), 360px',
+                    alt: block.settings.image.alt | default: block.settings.title
+                }}
+              </div> {% endcomment %}
+            {%- endif -%}
+
+            <div class="product-heating-comparison__list">
+              {% comment %} {%- for i in (1..4) -%}
+                {%- assign item_title = block.settings['item_' | append: i | append: '_title'] -%}
+                {%- assign item_text = block.settings['item_' | append: i | append: '_text'] -%}
+                {%- if item_title != blank or item_text != blank -%}
+                  <div class="product-heating-comparison__item">
+                    <span class="product-heating-comparison__mark" aria-hidden="true">{{ mark_icon }}</span>
+                    <div class="product-heating-comparison__item-copy">
+                      {%- if item_title != blank -%}
+                        <p class="product-heating-comparison__item-title">{{ item_title }}</p>
+                      {%- endif -%}
+                      {%- if item_text != blank -%}
+                        <p class="product-heating-comparison__item-text">{{ item_text }}</p>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%} {% endcomment %}
+            </div>
+          </div>
+        </div>
+
+        {%- if forloop.first and section.settings.vs_icon != blank -%}
+          <div class="product-heating-comparison__vs">
+            {{
+              section.settings.vs_icon
+              | image_url: width: 104
+              | image_tag:
+                class: 'product-heating-comparison__vs-image',
+                loading: 'lazy',
+                widths: '52,104',
+                sizes: '52px',
+                alt: 'VS'
+            }}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.cta_heading != blank or section.settings.cta_text != blank -%}
+      <div class="product-heating-comparison__cta">
+        {%- if section.settings.cta_heading != blank -%}
+          <p class="product-heating-comparison__cta-heading">{{ section.settings.cta_heading }}</p>
+        {%- endif -%}
+        {%- if section.settings.cta_text != blank -%}
+          <p class="product-heating-comparison__cta-text">{{ section.settings.cta_text }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ProductH Comparison",
+  "tag": "section",
+  "class": "product-heating-comparison-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "More Layers Can't Replace Active Heat"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Traditional layering is bulky, passive, and limited. WV12 delivers consistent core warmth that moves with you."
+    },
+    {
+      "type": "image_picker",
+      "id": "vs_icon",
+      "label": "VS icon (shown between cards on mobile)"
+    },
+    {
+      "type": "header",
+      "content": "Bottom CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA heading",
+      "default": "Stop adding layers. Start with active heat."
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "WV12 replaces bulky mid-layers and delivers powerful, adjustable warmth-so you can ride farther in any condition."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparison_column",
+      "name": "Comparison column",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Column title",
+          "default": "Traditional Layers"
+        },
+        {
+          "type": "select",
+          "id": "mark",
+          "label": "Mark",
+          "default": "cross",
+          "options": [
+            { "value": "cross", "label": "Cross (negative)" },
+            { "value": "check", "label": "Check (positive)" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Column image"
+        },
+        {
+          "type": "select",
+          "id": "image_style",
+          "label": "Image fit",
+          "default": "cover",
+          "options": [
+            { "value": "cover", "label": "Cover (fill)" },
+            { "value": "contain", "label": "Contain (with glow)" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Item 1"
+        },
+        {
+          "type": "text",
+          "id": "item_1_title",
+          "label": "Item 1 title",
+          "default": "Bulky"
+        },
+        {
+          "type": "text",
+          "id": "item_1_text",
+          "label": "Item 1 text",
+          "default": "Too many layers."
+        },
+        {
+          "type": "header",
+          "content": "Item 2"
+        },
+        {
+          "type": "text",
+          "id": "item_2_title",
+          "label": "Item 2 title",
+          "default": "Passive Warmth"
+        },
+        {
+          "type": "text",
+          "id": "item_2_text",
+          "label": "Item 2 text",
+          "default": "Only traps existing heat, can't generate it."
+        },
+        {
+          "type": "header",
+          "content": "Item 3"
+        },
+        {
+          "type": "text",
+          "id": "item_3_title",
+          "label": "Item 3 title",
+          "default": "Heat Loss"
+        },
+        {
+          "type": "text",
+          "id": "item_3_text",
+          "label": "Item 3 text",
+          "default": "Wind and movement steal your heat."
+        },
+        {
+          "type": "header",
+          "content": "Item 4"
+        },
+        {
+          "type": "text",
+          "id": "item_4_title",
+          "label": "Item 4 title",
+          "default": "Short Duration"
+        },
+        {
+          "type": "text",
+          "id": "item_4_text",
+          "label": "Item 4 text",
+          "default": "Warmth fades when you stop moving."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ProductH Comparison",
+      "blocks": [
+        {
+          "type": "comparison_column",
+          "settings": {
+            "title": "Traditional Layers",
+            "mark": "cross",
+            "image_style": "cover",
+            "item_1_title": "Bulky",
+            "item_1_text": "Too many layers.",
+            "item_2_title": "Passive Warmth",
+            "item_2_text": "Only traps existing heat, can't generate it.",
+            "item_3_title": "Heat Loss",
+            "item_3_text": "Wind and movement steal your heat.",
+            "item_4_title": "Short Duration",
+            "item_4_text": "Warmth fades when you stop moving."
+          }
+        },
+        {
+          "type": "comparison_column",
+          "settings": {
+            "title": "WV12 Heated Vest",
+            "mark": "check",
+            "image_style": "contain",
+            "item_1_title": "Active Heating",
+            "item_1_text": "Generates heat across your core.",
+            "item_2_title": "Lightweight Fit",
+            "item_2_text": "Designed as a slim mid-layer.",
+            "item_3_title": "Locks In Warmth",
+            "item_3_text": "Consistent heat even in extreme conditions.",
+            "item_4_title": "All-Day Warmth",
+            "item_4_text": "Dual power options extend your heat."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
