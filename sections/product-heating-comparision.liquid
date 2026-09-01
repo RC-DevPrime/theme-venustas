@@ -278,6 +278,14 @@
           if block.settings.image_style == 'contain'
             assign image_contain = true
           endif
+          assign image_class = 'product-heating-comparison__image'
+          if image_contain
+            assign image_class = image_class | append: ' product-heating-comparison__image--contain'
+          endif
+          assign media_class = 'product-heating-comparison__media'
+          if image_contain
+            assign media_class = media_class | append: ' product-heating-comparison__media--contain'
+          endif
           capture mark_icon
             if is_check
               echo '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="12" fill="#FEE2E2"/><path d="M17.3328 8L10.0002 15.3328L6.66724 11.9997" stroke="#B93205" stroke-width="2" stroke-linecap="round"/></svg>'
@@ -295,24 +303,26 @@
 
           <div class="product-heating-comparison__card-body">
             {%- if block.settings.image != blank -%}
-               <div class="product-heating-comparison__media{% if image_contain %} product-heating-comparison__media--contain{% endif %}">
+              <div class="{{ media_class }}">
                 {{
                   block.settings.image
                   | image_url: width: 720
                   | image_tag:
-                    class: 'product-heating-comparison__image{% if image_contain %} product-heating-comparison__image--contain{% endif %}',
+                    class: image_class,
                     loading: 'lazy',
                     widths: '360,480,640,720',
                     sizes: '(max-width: 767px) calc(100vw - 40px), 360px',
                     alt: block.settings.image.alt | default: block.settings.title
                 }}
-              </div> 
+              </div>
             {%- endif -%}
 
             <div class="product-heating-comparison__list">
               {%- for i in (1..4) -%}
-                {%- assign item_title = block.settings['item_' | append: i | append: '_title'] -%}
-                {%- assign item_text = block.settings['item_' | append: i | append: '_text'] -%}
+                {%- capture item_title_key -%}item_{{ i }}_title{%- endcapture -%}
+                {%- capture item_text_key -%}item_{{ i }}_text{%- endcapture -%}
+                {%- assign item_title = block.settings[item_title_key] -%}
+                {%- assign item_text = block.settings[item_text_key] -%}
                 {%- if item_title != blank or item_text != blank -%}
                   <div class="product-heating-comparison__item">
                     <span class="product-heating-comparison__mark" aria-hidden="true">{{ mark_icon }}</span>
