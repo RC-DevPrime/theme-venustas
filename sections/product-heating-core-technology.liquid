@@ -27,7 +27,10 @@
       {%- assign product_image_mobile = section.settings.image_mobile -%}
     {%- endif -%}
 
-    <div class="product-heating-core-technology__stage">
+    <div
+      class="product-heating-core-technology__stage"
+      style="{% if product_image_desktop != blank %}--product-heating-core-stage-bg-desktop: url('{{ product_image_desktop | image_url: width: 1400 }}');{% endif %}{% if product_image_mobile != blank %} --product-heating-core-stage-bg-mobile: url('{{ product_image_mobile | image_url: width: 700 }}');{% endif %}"
+    >
       {%- if zone_blocks.size > 0 -%}
         <div class="product-heating-core-technology__zone-list product-heating-core-technology__zone-list--left">
           {%- for block in zone_blocks limit: 3 -%}
@@ -40,32 +43,7 @@
         </div>
       {%- endif -%}
 
-      <div class="product-heating-core-technology__visual">
-        {%- if product_image_desktop != blank -%}
-          {{
-            product_image_desktop
-            | image_url: width: 1000
-            | image_tag:
-              class: 'product-heating-core-technology__image product-heating-core-technology__image--desktop',
-              loading: 'lazy',
-              widths: '350, 520, 760, 1000',
-              sizes: '(max-width: 767px) 0px, 473px',
-              alt: product_image_desktop.alt | default: section.settings.title
-          }}
-        {%- endif -%}
-        {%- if product_image_mobile != blank -%}
-          {{
-            product_image_mobile
-            | image_url: width: 700
-            | image_tag:
-              class: 'product-heating-core-technology__image product-heating-core-technology__image--mobile',
-              loading: 'lazy',
-              widths: '350, 520, 700',
-              sizes: '(max-width: 767px) 350px, 0px',
-              alt: product_image_mobile.alt | default: section.settings.title
-          }}
-        {%- endif -%}
-      </div>
+      <div class="product-heating-core-technology__visual" aria-hidden="true"></div>
 
       {%- if zone_blocks.size > 3 -%}
         <div class="product-heating-core-technology__zone-list product-heating-core-technology__zone-list--right">
@@ -137,20 +115,7 @@
       "name": "Feature",
       "limit": 5,
       "settings": [
-        {
-          "type": "select",
-          "id": "icon",
-          "label": "Icon",
-          "default": "icon-heat",
-          "options": [
-            { "value": "icon-heat", "label": "Heat" },
-            { "value": "icon-snowflake", "label": "Snowflake" },
-            { "value": "icon-protection", "label": "Protection" },
-            { "value": "icon-fit", "label": "Fit" },
-            { "value": "icon-battery", "label": "Battery" },
-            { "value": "icon-plug", "label": "Plug" }
-          ]
-        },
+        { "type": "text", "id": "icon", "label": "Icon name", "default": "icon-adaptive-power" },
         { "type": "text", "id": "title", "label": "Title", "default": "41W Total Power" }
       ]
     }
@@ -165,11 +130,11 @@
         { "type": "zone", "settings": { "number": "04", "title": "Upper Left Back Zone", "text": "Delivers warmth to your upper left back." } },
         { "type": "zone", "settings": { "number": "05", "title": "Upper Right Back Zone", "text": "Delivers warmth to your upper right back." } },
         { "type": "zone", "settings": { "number": "06", "title": "Lower Back Zone", "text": "Provides essential warmth to your lower back." } },
-        { "type": "feature", "settings": { "icon": "icon-heat", "title": "41W Total Power" } },
-        { "type": "feature", "settings": { "icon": "icon-snowflake", "title": "6 Heating Zones" } },
-        { "type": "feature", "settings": { "icon": "icon-protection", "title": "Safe & Reliable" } },
-        { "type": "feature", "settings": { "icon": "icon-fit", "title": "Lightweight Design" } },
-        { "type": "feature", "settings": { "icon": "icon-battery", "title": "Dual Power Options" } }
+        { "type": "feature", "settings": { "icon": "icon-adaptive-power", "title": "41W Total Power" } },
+        { "type": "feature", "settings": { "icon": "icon-adaptive-temperature", "title": "6 Heating Zones" } },
+        { "type": "feature", "settings": { "icon": "icon-adaptive-shield", "title": "Safe & Reliable" } },
+        { "type": "feature", "settings": { "icon": "icon-adaptive-feather", "title": "Lightweight Design" } },
+        { "type": "feature", "settings": { "icon": "icon-adaptive-battery", "title": "Dual Power Options" } }
       ]
     }
   ]

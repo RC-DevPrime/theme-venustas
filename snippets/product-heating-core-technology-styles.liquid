@@ -7,10 +7,8 @@
 #shopify-section-{{ section.id }} .product-heating-core-technology__title{margin:0;color:#fff;font-size:28px;font-weight:700;line-height:1.2;text-transform:uppercase}
 #shopify-section-{{ section.id }} .product-heating-core-technology__description{margin:0;max-width:980px;color:rgba(255,255,255,.9);font-size:16px;font-weight:300;line-height:1.45}
 #shopify-section-{{ section.id }} .product-heating-core-technology__description p{margin:0}
-#shopify-section-{{ section.id }} .product-heating-core-technology__stage{position:relative;display:grid;min-height:613px;grid-template-columns:240px minmax(0,1fr) 240px;gap:48px;align-items:center;margin-bottom:56px}
-#shopify-section-{{ section.id }} .product-heating-core-technology__visual{position:relative;display:flex;min-width:0;height:100%;align-items:center;justify-content:center}
-#shopify-section-{{ section.id }} .product-heating-core-technology__image{display:block;width:min(100%,473px);height:613px;object-fit:contain}
-#shopify-section-{{ section.id }} .product-heating-core-technology__image--mobile{display:none}
+#shopify-section-{{ section.id }} .product-heating-core-technology__stage{position:relative;display:grid;min-height:613px;grid-template-columns:240px minmax(0,1fr) 240px;gap:48px;align-items:center;margin-bottom:56px;background-image:var(--product-heating-core-stage-bg-desktop);background-repeat:no-repeat;background-position:center;background-size:contain}
+#shopify-section-{{ section.id }} .product-heating-core-technology__visual{min-width:0;height:613px;pointer-events:none}
 #shopify-section-{{ section.id }} .product-heating-core-technology__zone-list{display:flex;flex-direction:column;gap:80px}
 #shopify-section-{{ section.id }} .product-heating-core-technology__zone-list--right{align-items:flex-start}
 #shopify-section-{{ section.id }} .product-heating-core-technology__zone{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
@@ -30,12 +28,9 @@
 #shopify-section-{{ section.id }} .product-heating-core-technology__eyebrow{font-size:14px;font-weight:700;text-transform:uppercase}
 #shopify-section-{{ section.id }} .product-heating-core-technology__title{font-size:24px}
 #shopify-section-{{ section.id }} .product-heating-core-technology__description{font-size:16px;line-height:1.35}
-#shopify-section-{{ section.id }} .product-heating-core-technology__stage{display:block;min-height:0;margin-bottom:24px}
+#shopify-section-{{ section.id }} .product-heating-core-technology__stage{display:block;min-height:260px;margin-bottom:24px;border-radius:16px;background-image:var(--product-heating-core-stage-bg-mobile,var(--product-heating-core-stage-bg-desktop));background-size:contain}
 #shopify-section-{{ section.id }} .product-heating-core-technology__zone-list{display:none}
-#shopify-section-{{ section.id }} .product-heating-core-technology__visual{height:260px;margin-bottom:24px;overflow:hidden;border-radius:16px}
-#shopify-section-{{ section.id }} .product-heating-core-technology__image{width:350px;height:260px;max-width:100%}
-#shopify-section-{{ section.id }} .product-heating-core-technology__image--desktop{display:none}
-#shopify-section-{{ section.id }} .product-heating-core-technology__image--mobile{display:block}
+#shopify-section-{{ section.id }} .product-heating-core-technology__visual{height:260px}
 #shopify-section-{{ section.id }} .product-heating-core-technology__mobile-zones{display:flex;flex-direction:column;gap:12px;margin-bottom:30px}
 #shopify-section-{{ section.id }} .product-heating-core-technology__mobile-zones .product-heating-core-technology__zone{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 16px;padding:16px;border:1px solid #262628;border-radius:12px;background:#161618}
 #shopify-section-{{ section.id }} .product-heating-core-technology__mobile-zones .product-heating-core-technology__zone-number{grid-row:1 / span 2;font-size:20px;align-self:center}

@@ -80,7 +80,18 @@
 
               {%- if block.settings.note != blank -%}
                 <div class="product-heating-power-options__note">
-                  <span class="product-heating-power-options__note-icon">{%- render 'product-heating-icons', icon: 'icon-heat' -%}</span>
+                  <span class="product-heating-power-options__note-icon">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_3214_2842)">
+                      <path d="M14.5331 6.66666C14.8376 8.16086 14.6206 9.71428 13.9183 11.0679C13.2161 12.4214 12.071 13.4934 10.6741 14.1049C9.27718 14.7164 7.71284 14.8305 6.24196 14.4282C4.77107 14.026 3.48255 13.1316 2.59127 11.8943C1.7 10.657 1.25984 9.15148 1.3442 7.62892C1.42856 6.10635 2.03234 4.65872 3.05486 3.52744C4.07737 2.39616 5.45681 1.64961 6.96313 1.4123C8.46946 1.17498 10.0116 1.46123 11.3324 2.22333M5.99935 7.33301L7.99935 9.33301L14.666 2.66634" stroke="#B93205" stroke-width="2" stroke-linecap="round"/>
+                      </g>
+                      <defs>
+                      <clipPath id="clip0_3214_2842">
+                      <rect width="16" height="16" fill="white"/>
+                      </clipPath>
+                      </defs>
+                      </svg>
+                  </span>
                   <span>{{ block.settings.note }}</span>
                 </div>
               {%- endif -%}
@@ -88,7 +99,7 @@
               {%- if block.settings.card_type == 'motorcycle' -%}
                 <div class="product-heating-power-options__specs">
                   <div class="product-heating-power-options__spec">
-                    <span class="product-heating-power-options__spec-icon">{%- render 'product-heating-icons', icon: 'icon-plug' -%}</span>
+                    <span class="product-heating-power-options__spec-icon">{%- render 'product-heating-icons', icon: 'icon-circle-x' -%}</span>
                     <div><p class="product-heating-power-options__spec-title">Y-Cable Required</p><p class="product-heating-power-options__spec-text">Sold Separately</p></div>
                   </div>
                   <div class="product-heating-power-options__spec">
@@ -96,7 +107,7 @@
                     <div><p class="product-heating-power-options__spec-title">12V Power Compatible</p><p class="product-heating-power-options__spec-text">Motorcycle 12V battery</p></div>
                   </div>
                   <div class="product-heating-power-options__spec">
-                    <span class="product-heating-power-options__spec-icon">{%- render 'product-heating-icons', icon: 'icon-protection' -%}</span>
+                    <span class="product-heating-power-options__spec-icon">{%- render 'product-heating-icons', icon: 'icon-infinity' -%}</span>
                     <div><p class="product-heating-power-options__spec-title">Unlimited Runtime</p><p class="product-heating-power-options__spec-text">As long as your bike is running</p></div>
                   </div>
                 </div>
@@ -142,7 +153,7 @@
         <div><p class="product-heating-power-options__benefit-title">Flexible Battery Options</p><p class="product-heating-power-options__benefit-text">Use 1 or 2 batteries based on your runtime needs.</p></div>
       </div>
       <div class="product-heating-power-options__benefit">
-        <span class="product-heating-power-options__benefit-icon">{%- render 'product-heating-icons', icon: 'icon-plug' -%}</span>
+        <span class="product-heating-power-options__benefit-icon">{%- render 'product-heating-icons', icon: 'icon-power-plug' -%}</span>
         <div><p class="product-heating-power-options__benefit-title">Dual Power Ports</p><p class="product-heating-power-options__benefit-text">Left and right ports for maximum flexibility and balanced power.</p></div>
       </div>
       <div class="product-heating-power-options__benefit">
@@ -155,34 +166,41 @@
       </div>
     </div>
 
-    {%- if section.settings.cta_title != blank or section.settings.cta_text != blank -%}
+    {%- assign cta_product = section.settings.cta_product -%}
+    {%- if cta_product != blank -%}
+      {%- assign cta_variant = cta_product.selected_or_first_available_variant -%}
       <div class="product-heating-power-options__cta">
         <div class="product-heating-power-options__cta-message">
           <span class="product-heating-power-options__alert">!</span>
           <div>
-            {%- if section.settings.cta_title != blank -%}
-              <p class="product-heating-power-options__cta-title">{{ section.settings.cta_title }}</p>
-            {%- endif -%}
-            {%- if section.settings.cta_text != blank -%}
-              <p class="product-heating-power-options__cta-text">{{ section.settings.cta_text }}</p>
-            {%- endif -%}
+            <p class="product-heating-power-options__cta-title">Y-CABLE IS REQUIRED FOR MOTORCYCLE 12V POWER AND SOLD SEPARATELY.</p>
+            <p class="product-heating-power-options__cta-text">Add the Y-Cable to your cart to connect MW12 to your motorcycle 12V power.</p>
           </div>
         </div>
         <div class="product-heating-power-options__cta-action">
           <div class="product-heating-power-options__price">
-            {%- if section.settings.compare_price != blank -%}
-              <span class="product-heating-power-options__compare-price">{{ section.settings.compare_price }}</span>
+            {%- if cta_variant.compare_at_price != blank and cta_variant.compare_at_price > cta_variant.price -%}
+              <span class="product-heating-power-options__compare-price">{{ cta_variant.compare_at_price | money }}</span>
             {%- endif -%}
-            {%- if section.settings.sale_price != blank -%}
-              <span class="product-heating-power-options__sale-price">{{ section.settings.sale_price }}</span>
-            {%- endif -%}
+            <span class="product-heating-power-options__sale-price">{{ cta_variant.price | money }}</span>
           </div>
-          {%- if section.settings.button_text != blank -%}
-            <a class="product-heating-power-options__button" href="{{ section.settings.button_link | default: '#' }}">
-              <span>{%- render 'product-heating-icons', icon: 'icon-battery' -%}</span>
-              {{ section.settings.button_text }}
-            </a>
-          {%- endif -%}
+          {%- assign product_form_id = 'product-heating-power-options-cta-' | append: section.id -%}
+          {%- form 'product', cta_product, id: product_form_id, class: 'product-heating-power-options__form atc-form form', novalidate: 'novalidate', data-type: 'add-to-cart-form', action: 'javascript:void(0)' -%}
+            <input type="hidden" name="id" class="product-main-id" value="{{ cta_variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button
+              type="submit"
+              name="add"
+              class="product-heating-power-options__button btn-atc{% unless cta_variant.available %} is-sold-out{% endunless %}"
+              {% unless cta_variant.available %}disabled aria-disabled="true"{% endunless %}
+            >
+              <span class="product-heating-power-options__button-inner">
+                <span class="product-heating-power-options__button-icon">{%- render 'product-heating-icons', icon: 'icon-battery' -%}</span>
+                {%- if cta_variant.available -%}Add Y-Cable Set{%- else -%}Sold Out{%- endif -%}
+              </span>
+              <div class="atc-overlay"><div class="atc-spinner"></div></div>
+            </button>
+          {%- endform -%}
         </div>
       </div>
     {%- endif -%}
@@ -214,39 +232,9 @@
       "default": "<p>WV12 adapts to your adventure with flexible battery configurations and motorcycle-ready 12V power options.</p>"
     },
     {
-      "type": "text",
-      "id": "cta_title",
-      "label": "CTA title",
-      "default": "Y-CABLE IS REQUIRED FOR MOTORCYCLE 12V POWER AND SOLD SEPARATELY."
-    },
-    {
-      "type": "text",
-      "id": "cta_text",
-      "label": "CTA text",
-      "default": "Add the Y-Cable to your cart to connect MW12 to your motorcycle 12V power."
-    },
-    {
-      "type": "text",
-      "id": "compare_price",
-      "label": "Compare price",
-      "default": "$19.99"
-    },
-    {
-      "type": "text",
-      "id": "sale_price",
-      "label": "Sale price",
-      "default": "$17.99"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button text",
-      "default": "Add Y-Cable Set"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button link"
+      "type": "product",
+      "id": "cta_product",
+      "label": "CTA product"
     }
   ],
   "blocks": [

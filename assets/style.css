@@ -1,7 +1,31 @@
+:root {
+    --color-brand: #B93205;
+    --button-border-radius: 4px;
+    --venustas-black:#1A1A1A;
+    --border-radius:6px;
+}
 * {
     margin: 0;
     padding: 0;
 }
+.product-heating-icons_bg{
+    flex: none;
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(185, 50, 5, 0.16);
+    color: var(--color-brand);
+    line-height: 0;
+  }
+
+.product-heating-icons_bg svg {
+    width: 28px;
+    height: 28px;
+    display: block;
+  }
 #epb_container {
     display:none !important;
 }

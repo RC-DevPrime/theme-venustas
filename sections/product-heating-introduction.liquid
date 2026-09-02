@@ -71,20 +71,8 @@
     box-sizing: border-box;
   }
 
-  #shopify-section-{{ section.id }} .product-heating-intro__feature-icon {
-    flex: none;
-    width: 48px;
-    height: 48px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(185, 50, 5, 0.16);
-    color: var(--color-brand);
-    line-height: 0;
-  }
 
-  #shopify-section-{{ section.id }} .product-heating-intro__feature-icon svg {
+  #shopify-section-{{ section.id }} .product-heating-icons_bg svg {
     width: 26px;
     height: 26px;
     display: block;
@@ -188,6 +176,7 @@
     width: 40px;
     height: 40px;
     line-height: 0;
+    color:var(--color-brand);
   }
 
   #shopify-section-{{ section.id }} .product-heating-intro__usage-icon svg {
@@ -244,11 +233,6 @@
     #shopify-section-{{ section.id }} .product-heating-intro__feature-card {
       padding: 16px;
       border-radius: 12px;
-    }
-
-    #shopify-section-{{ section.id }} .product-heating-intro__feature-icon svg {
-      width: 24px;
-      height: 24px;
     }
 
     #shopify-section-{{ section.id }} .product-heating-intro__feature-title {
@@ -337,7 +321,7 @@
         {%- for block in section.blocks -%}
           {%- if block.type == 'feature_card' -%}
             <article class="product-heating-intro__feature-card" {{ block.shopify_attributes }}>
-              <div class="product-heating-intro__feature-icon" aria-hidden="true">
+              <div class="product-heating-icons_bg" aria-hidden="true">
                 {%- render 'product-heating-icons', icon: block.settings.icon -%}
               </div>
               <div class="product-heating-intro__feature-copy">

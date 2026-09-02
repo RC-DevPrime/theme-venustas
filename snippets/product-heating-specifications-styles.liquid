@@ -117,11 +117,11 @@
     line-height: 1.25;
   }
   #shopify-section-{{ section.id }} .product-heating-specifications__vest-images {
-    display: grid;
+    display: flex;
+    width: min(100%, 410px);
     height: 240px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
     align-items: center;
+    justify-content: center;
     overflow: hidden;
     border-radius: 6px;
   }
@@ -421,7 +421,9 @@
       font-weight: 700;
     }
     #shopify-section-{{ section.id }} .product-heating-specifications__vest-images {
-      height: 200px;
+      width: min(100%, 350px);
+      height: 360px;
+      margin: 0 auto;
       border-radius: 12px;
     }
     #shopify-section-{{ section.id }} .product-heating-specifications__list-item {

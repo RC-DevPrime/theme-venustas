@@ -211,6 +211,11 @@
     inset: 0;
     background: linear-gradient(180deg, rgba(102, 102, 102, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
     pointer-events: none;
+    transition: background 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .product-heating-premium-materials__detail:hover::after {
+    background: rgba(0, 0, 0, 0.62);
   }
 
   #shopify-section-{{ section.id }} .product-heating-premium-materials__detail-image {

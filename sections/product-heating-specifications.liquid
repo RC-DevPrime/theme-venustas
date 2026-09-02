@@ -43,32 +43,18 @@
             </div>
           </div>
 
-          {%- if section.settings.vest_front_image != blank or section.settings.vest_back_image != blank -%}
+          {%- if section.settings.vest_front_image != blank -%}
             <div class="product-heating-specifications__vest-images">
-              {%- if section.settings.vest_front_image != blank -%}
-                {{
-                  section.settings.vest_front_image
-                  | image_url: width: 520
-                  | image_tag:
-                    class: 'product-heating-specifications__vest-image',
-                    loading: 'lazy',
-                    widths: '220, 360, 520',
-                    sizes: '(max-width: 767px) calc((100vw - 88px) / 2), 180px',
-                    alt: section.settings.vest_front_image.alt | default: section.settings.heating_title
-                }}
-              {%- endif -%}
-              {%- if section.settings.vest_back_image != blank -%}
-                {{
-                  section.settings.vest_back_image
-                  | image_url: width: 520
-                  | image_tag:
-                    class: 'product-heating-specifications__vest-image',
-                    loading: 'lazy',
-                    widths: '220, 360, 520',
-                    sizes: '(max-width: 767px) calc((100vw - 88px) / 2), 180px',
-                    alt: section.settings.vest_back_image.alt | default: section.settings.heating_title
-                }}
-              {%- endif -%}
+              {{
+                section.settings.vest_front_image
+                | image_url: width: 820
+                | image_tag:
+                  class: 'product-heating-specifications__vest-image',
+                  loading: 'lazy',
+                  widths: '350, 410, 700, 820',
+                  sizes: '(max-width: 767px) min(350px, calc(100vw - 88px)), 410px',
+                  alt: section.settings.vest_front_image.alt | default: section.settings.heating_title
+              }}
             </div>
           {%- endif -%}
 
@@ -293,8 +279,7 @@
     { "type": "text", "id": "power_label", "label": "Power label", "default": "POWER OUTPUT" },
     { "type": "text", "id": "power_value", "label": "Power value", "default": "38W" },
     { "type": "text", "id": "power_text", "label": "Power text", "default": "High-Power Heating System" },
-    { "type": "image_picker", "id": "vest_front_image", "label": "Vest front image" },
-    { "type": "image_picker", "id": "vest_back_image", "label": "Vest back image" },
+    { "type": "image_picker", "id": "vest_front_image", "label": "Vest image" },
     { "type": "text", "id": "zones_label", "label": "Zones label", "default": "HEATING ZONES" },
     { "type": "text", "id": "zone_count", "label": "Zone count", "default": "6" },
     { "type": "text", "id": "zone_count_label", "label": "Zone count label", "default": "Zones" },
