@@ -1,0 +1,177 @@
+{%- render 'product-heating-core-technology-styles' -%}
+
+<section class="product-heating-core-technology">
+  <div class="product-heating-core-technology__container">
+    <div class="product-heating-core-technology__header">
+      <div class="product-heating-core-technology__heading-group">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="product-heating-core-technology__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="product-heating-core-technology__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.description != blank -%}
+        <div class="product-heating-core-technology__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- assign zone_blocks = section.blocks | where: 'type', 'zone' -%}
+    {%- assign feature_blocks = section.blocks | where: 'type', 'feature' -%}
+    {%- assign product_image_desktop = section.settings.image_desktop -%}
+    {%- if product_image_desktop == blank and section.settings.image_mobile != blank -%}
+      {%- assign product_image_desktop = section.settings.image_mobile -%}
+    {%- endif -%}
+    {%- assign product_image_mobile = section.settings.image_desktop -%}
+    {%- if section.settings.image_mobile != blank -%}
+      {%- assign product_image_mobile = section.settings.image_mobile -%}
+    {%- endif -%}
+
+    <div class="product-heating-core-technology__stage">
+      {%- if zone_blocks.size > 0 -%}
+        <div class="product-heating-core-technology__zone-list product-heating-core-technology__zone-list--left">
+          {%- for block in zone_blocks limit: 3 -%}
+            <article class="product-heating-core-technology__zone" {{ block.shopify_attributes }}>
+              {%- if block.settings.number != blank -%}<p class="product-heating-core-technology__zone-number">{{ block.settings.number }}</p>{%- endif -%}
+              {%- if block.settings.title != blank -%}<h3 class="product-heating-core-technology__zone-title">{{ block.settings.title }}</h3>{%- endif -%}
+              {%- if block.settings.text != blank -%}<p class="product-heating-core-technology__zone-text">{{ block.settings.text }}</p>{%- endif -%}
+            </article>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="product-heating-core-technology__visual">
+        {%- if product_image_desktop != blank -%}
+          {{
+            product_image_desktop
+            | image_url: width: 1000
+            | image_tag:
+              class: 'product-heating-core-technology__image product-heating-core-technology__image--desktop',
+              loading: 'lazy',
+              widths: '350, 520, 760, 1000',
+              sizes: '(max-width: 767px) 0px, 473px',
+              alt: product_image_desktop.alt | default: section.settings.title
+          }}
+        {%- endif -%}
+        {%- if product_image_mobile != blank -%}
+          {{
+            product_image_mobile
+            | image_url: width: 700
+            | image_tag:
+              class: 'product-heating-core-technology__image product-heating-core-technology__image--mobile',
+              loading: 'lazy',
+              widths: '350, 520, 700',
+              sizes: '(max-width: 767px) 350px, 0px',
+              alt: product_image_mobile.alt | default: section.settings.title
+          }}
+        {%- endif -%}
+      </div>
+
+      {%- if zone_blocks.size > 3 -%}
+        <div class="product-heating-core-technology__zone-list product-heating-core-technology__zone-list--right">
+          {%- for block in zone_blocks offset: 3 limit: 3 -%}
+            <article class="product-heating-core-technology__zone" {{ block.shopify_attributes }}>
+              {%- if block.settings.number != blank -%}<p class="product-heating-core-technology__zone-number">{{ block.settings.number }}</p>{%- endif -%}
+              {%- if block.settings.title != blank -%}<h3 class="product-heating-core-technology__zone-title">{{ block.settings.title }}</h3>{%- endif -%}
+              {%- if block.settings.text != blank -%}<p class="product-heating-core-technology__zone-text">{{ block.settings.text }}</p>{%- endif -%}
+            </article>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if zone_blocks.size > 0 -%}
+      <div class="product-heating-core-technology__mobile-zones">
+        {%- for block in zone_blocks limit: 6 -%}
+          <article class="product-heating-core-technology__zone" {{ block.shopify_attributes }}>
+            {%- if block.settings.number != blank -%}<p class="product-heating-core-technology__zone-number">{{ block.settings.number }}</p>{%- endif -%}
+            {%- if block.settings.title != blank -%}<h3 class="product-heating-core-technology__zone-title">{{ block.settings.title }}</h3>{%- endif -%}
+            {%- if block.settings.text != blank -%}<p class="product-heating-core-technology__zone-text">{{ block.settings.text }}</p>{%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if feature_blocks.size > 0 -%}
+      <div class="product-heating-core-technology__features">
+        {%- for block in feature_blocks limit: 5 -%}
+          <article class="product-heating-core-technology__feature" {{ block.shopify_attributes }}>
+            <span class="product-heating-core-technology__feature-icon" aria-hidden="true">
+              {%- render 'product-heating-icons', icon: block.settings.icon -%}
+            </span>
+            {%- if block.settings.title != blank -%}
+              <p class="product-heating-core-technology__feature-title">{{ block.settings.title }}</p>
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ProductH Core Technology",
+  "tag": "section",
+  "class": "product-heating-core-technology-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Core Technology" },
+    { "type": "text", "id": "title", "label": "Title", "default": "41W High-Power Heating System" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Engineered with advanced carbon fiber heating elements, MV11 delivers powerful, consistent warmth across 6 key zones.</p>" },
+    { "type": "image_picker", "id": "image_desktop", "label": "Desktop product image" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Mobile product image" }
+  ],
+  "blocks": [
+    {
+      "type": "zone",
+      "name": "Heating zone",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number", "default": "01" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Collar Zone" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Keeps your neck warm and protected." }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "icon-heat",
+          "options": [
+            { "value": "icon-heat", "label": "Heat" },
+            { "value": "icon-snowflake", "label": "Snowflake" },
+            { "value": "icon-protection", "label": "Protection" },
+            { "value": "icon-fit", "label": "Fit" },
+            { "value": "icon-battery", "label": "Battery" },
+            { "value": "icon-plug", "label": "Plug" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "41W Total Power" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ProductH Core Technology",
+      "blocks": [
+        { "type": "zone", "settings": { "number": "01", "title": "Collar Zone", "text": "Keeps your neck warm and protected." } },
+        { "type": "zone", "settings": { "number": "02", "title": "Left Chest Zone", "text": "Warms your left chest for core comfort." } },
+        { "type": "zone", "settings": { "number": "03", "title": "Right Chest Zone", "text": "Warms your right chest for balanced heat." } },
+        { "type": "zone", "settings": { "number": "04", "title": "Upper Left Back Zone", "text": "Delivers warmth to your upper left back." } },
+        { "type": "zone", "settings": { "number": "05", "title": "Upper Right Back Zone", "text": "Delivers warmth to your upper right back." } },
+        { "type": "zone", "settings": { "number": "06", "title": "Lower Back Zone", "text": "Provides essential warmth to your lower back." } },
+        { "type": "feature", "settings": { "icon": "icon-heat", "title": "41W Total Power" } },
+        { "type": "feature", "settings": { "icon": "icon-snowflake", "title": "6 Heating Zones" } },
+        { "type": "feature", "settings": { "icon": "icon-protection", "title": "Safe & Reliable" } },
+        { "type": "feature", "settings": { "icon": "icon-fit", "title": "Lightweight Design" } },
+        { "type": "feature", "settings": { "icon": "icon-battery", "title": "Dual Power Options" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

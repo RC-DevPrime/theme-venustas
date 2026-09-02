@@ -1,0 +1,66 @@
+{%- style -%}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat{width:100%;background:var(--venustas-black,#1a1a1a);color:#fff;font-family:'Montserrat',sans-serif}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__container{width:min(100% - 40px,1340px);margin:0 auto;padding:96px 0 56px;box-sizing:border-box}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__header{display:flex;max-width:610px;flex-direction:column;gap:16px;margin-bottom:44px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__title{margin:0;color:#fff;font-size:28px;font-weight:700;line-height:1.12}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__description{margin:0;color:rgba(255,255,255,.9);font-size:16px;font-weight:300;line-height:1.35}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__description p{margin:0}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__main{display:grid;grid-template-columns:minmax(0,678px) minmax(0,627px);gap:35px;align-items:start}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__control-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:12px;align-items:start}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__levels{display:flex;flex-direction:column;gap:16px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level{display:flex;min-height:104px;gap:20px;align-items:center;padding:20px;border:1px solid #22222a;border-radius:12px;background:#111115;box-sizing:border-box}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level--active{border-color:#e53935;background:#161113;box-shadow:0 4px 8px rgba(229,57,53,.08)}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level-dot{width:16px;height:16px;flex:0 0 16px;border-radius:50%;background:var(--level-color,#fff)}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level-body{display:flex;min-width:0;flex:1 1 auto;flex-direction:column;gap:4px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level-head{display:flex;align-items:center;justify-content:space-between;gap:16px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level-title{margin:0;color:#fff;font-size:18px;font-weight:700;line-height:1.15}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level-power{margin:0;color:var(--level-color,#fff);font-size:16px;font-weight:600;line-height:1.15;white-space:nowrap}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level-text{margin:0;color:rgba(255,255,255,.8);font-size:14px;font-weight:400;line-height:1.25}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__feature-image-wrap{overflow:hidden;border-radius:8px;background:#111115}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__feature-image{display:block;width:100%;height:388px;object-fit:cover;border-radius:8px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__feature-image--mobile{display:none}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-column{display:flex;flex-direction:column;gap:28px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-title{margin:0;color:#fff;font-size:24px;font-weight:500;line-height:1.2}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-card{overflow:hidden;border:1px solid #22222a;border-radius:16px;background:#111115}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-image{display:block;width:100%;height:auto;border-radius:16px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-image--mobile{display:none}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-note{margin:0;color:#fff;font-size:12px;font-weight:400;line-height:1.35}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__benefits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:72px;padding:24px 16px;border:1px solid #2a2a2a;border-radius:16px;background:rgba(0,0,0,.3);box-sizing:border-box}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__benefit{display:flex;gap:16px;align-items:center;padding:12px 16px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__benefit-icon{display:flex;width:48px;height:48px;flex:0 0 48px;align-items:center;justify-content:center;border-radius:50%;background:rgba(224,58,20,.2);color:var(--color-brand,#b93205)}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__benefit-icon svg{width:22px;height:22px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__benefit-text{display:flex;min-width:0;flex-direction:column;gap:8px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__benefit-title{margin:0;color:#fff;font-size:18px;font-weight:700;line-height:1.2}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__benefit-description{margin:0;color:#fff;font-size:16px;font-weight:300;line-height:1.25}
+@media only screen and (max-width:767px){
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__container{width:100%;padding:40px 20px;box-sizing:border-box}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__header{max-width:none;gap:12px;margin-bottom:24px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__title{font-size:24px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__description{color:#afafaf;font-size:16px;line-height:1.25}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__main{display:flex;flex-direction:column;gap:28px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__control-panel{display:flex;flex-direction:column;gap:20px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__levels{gap:12px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level{min-height:auto;flex-direction:column;gap:8px;align-items:flex-start;padding:18px;border-radius:16px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level-dot{width:12px;height:12px;flex-basis:12px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level-body{width:100%;gap:8px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level-head{width:100%}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level-title{font-size:16px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level-power{font-size:15px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__level-text{color:#afafaf;font-size:13px;font-weight:300;line-height:1.4}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__feature-image-wrap{border-radius:16px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__feature-image{height:180px;border-radius:16px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__feature-image--desktop{display:none}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__feature-image--mobile{display:block}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-column{gap:20px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-title{font-size:18px;font-weight:600}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-card{padding:16px;border-radius:16px;box-sizing:border-box}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-image{border-radius:0}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-image--desktop{display:none}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-image--mobile{display:block}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__chart-note{color:#8e8e93;font-size:12px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__benefits{display:flex;flex-direction:column;gap:12px;margin-top:28px;padding:0;border:0;background:transparent}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__benefit{gap:16px;padding:18px;border:1px solid #22222a;border-radius:16px;background:#111115}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__benefit-title{font-size:15px}
+#shopify-section-{{ section.id }} .product-heating-adaptive-heat__benefit-description{color:#afafaf;font-size:13px;line-height:1.4}
+}
+{%- endstyle -%}

@@ -1,0 +1,192 @@
+{%- render 'product-heating-adaptive-heat-styles' -%}
+
+{%- liquid
+  assign feature_image_desktop = section.settings.feature_image_desktop
+  if feature_image_desktop == blank and section.settings.feature_image_mobile != blank
+    assign feature_image_desktop = section.settings.feature_image_mobile
+  endif
+
+  assign feature_image_mobile = section.settings.feature_image_desktop
+  if section.settings.feature_image_mobile != blank
+    assign feature_image_mobile = section.settings.feature_image_mobile
+  endif
+
+  assign chart_image_desktop = section.settings.chart_image_desktop
+  if chart_image_desktop == blank and section.settings.chart_image_mobile != blank
+    assign chart_image_desktop = section.settings.chart_image_mobile
+  endif
+
+  assign chart_image_mobile = section.settings.chart_image_desktop
+  if section.settings.chart_image_mobile != blank
+    assign chart_image_mobile = section.settings.chart_image_mobile
+  endif
+-%}
+
+<section class="product-heating-adaptive-heat">
+  <div class="product-heating-adaptive-heat__container">
+    <div class="product-heating-adaptive-heat__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="product-heating-adaptive-heat__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="product-heating-adaptive-heat__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="product-heating-adaptive-heat__main">
+      <div class="product-heating-adaptive-heat__control-panel">
+        <div class="product-heating-adaptive-heat__levels">
+          {%- for i in (1..3) -%}
+            {%- liquid
+              assign level_title_key = 'level_' | append: i | append: '_title'
+              assign level_power_key = 'level_' | append: i | append: '_power'
+              assign level_text_key = 'level_' | append: i | append: '_text'
+              assign level_color_key = 'level_' | append: i | append: '_color'
+              assign level_title = section.settings[level_title_key]
+              assign level_power = section.settings[level_power_key]
+              assign level_text = section.settings[level_text_key]
+              assign level_color = section.settings[level_color_key]
+            -%}
+            <article class="product-heating-adaptive-heat__level{% if forloop.first %} product-heating-adaptive-heat__level--active{% endif %}">
+              <span class="product-heating-adaptive-heat__level-dot" style="--level-color: {{ level_color }};"></span>
+              <div class="product-heating-adaptive-heat__level-body">
+                <div class="product-heating-adaptive-heat__level-head">
+                  {%- if level_title != blank -%}
+                    <h3 class="product-heating-adaptive-heat__level-title">{{ level_title }}</h3>
+                  {%- endif -%}
+                  {%- if level_power != blank -%}
+                    <p class="product-heating-adaptive-heat__level-power" style="--level-color: {{ level_color }};">{{ level_power }}</p>
+                  {%- endif -%}
+                </div>
+                {%- if level_text != blank -%}
+                  <p class="product-heating-adaptive-heat__level-text">{{ level_text }}</p>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        {%- if feature_image_desktop != blank -%}
+          <div class="product-heating-adaptive-heat__feature-image-wrap">
+            {{
+              feature_image_desktop
+              | image_url: width: 760
+              | image_tag:
+                class: 'product-heating-adaptive-heat__feature-image product-heating-adaptive-heat__feature-image--desktop',
+                loading: 'lazy',
+                widths: '360, 520, 760',
+                sizes: '(max-width: 767px) 0px, 340px',
+                alt: feature_image_desktop.alt | default: section.settings.title
+            }}
+            {%- if feature_image_mobile != blank -%}
+              {{
+                feature_image_mobile
+                | image_url: width: 700
+                | image_tag:
+                  class: 'product-heating-adaptive-heat__feature-image product-heating-adaptive-heat__feature-image--mobile',
+                  loading: 'lazy',
+                  widths: '320, 520, 700',
+                  sizes: '(max-width: 767px) calc(100vw - 40px), 0px',
+                  alt: feature_image_mobile.alt | default: section.settings.title
+              }}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="product-heating-adaptive-heat__chart-column">
+        {%- if section.settings.chart_title != blank -%}
+          <h3 class="product-heating-adaptive-heat__chart-title">{{ section.settings.chart_title }}</h3>
+        {%- endif -%}
+        {%- if chart_image_desktop != blank -%}
+          <div class="product-heating-adaptive-heat__chart-card">
+            {{
+              chart_image_desktop
+              | image_url: width: 1200
+              | image_tag:
+                class: 'product-heating-adaptive-heat__chart-image product-heating-adaptive-heat__chart-image--desktop',
+                loading: 'lazy',
+                widths: '520, 760, 980, 1200',
+                sizes: '(max-width: 767px) 0px, 627px',
+                alt: chart_image_desktop.alt | default: section.settings.chart_title
+            }}
+            {%- if chart_image_mobile != blank -%}
+              {{
+                chart_image_mobile
+                | image_url: width: 700
+                | image_tag:
+                  class: 'product-heating-adaptive-heat__chart-image product-heating-adaptive-heat__chart-image--mobile',
+                  loading: 'lazy',
+                  widths: '318, 520, 700',
+                  sizes: '(max-width: 767px) calc(100vw - 72px), 0px',
+                  alt: chart_image_mobile.alt | default: section.settings.chart_title
+              }}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.chart_note != blank -%}
+          <p class="product-heating-adaptive-heat__chart-note">{{ section.settings.chart_note }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="product-heating-adaptive-heat__benefits" aria-label="Heating benefits">
+      <article class="product-heating-adaptive-heat__benefit">
+        <span class="product-heating-adaptive-heat__benefit-icon" aria-hidden="true">
+          {%- render 'product-heating-icons', icon: 'icon-heat' -%}
+        </span>
+        <div class="product-heating-adaptive-heat__benefit-text">
+          <h3 class="product-heating-adaptive-heat__benefit-title">Advanced Safety Protection</h3>
+          <p class="product-heating-adaptive-heat__benefit-description">Overheat protection, short-circuit protection and temperature control for total peace of mind.</p>
+        </div>
+      </article>
+      <article class="product-heating-adaptive-heat__benefit">
+        <span class="product-heating-adaptive-heat__benefit-icon" aria-hidden="true">
+          {%- render 'product-heating-icons', icon: 'icon-snowflake' -%}
+        </span>
+        <div class="product-heating-adaptive-heat__benefit-text">
+          <h3 class="product-heating-adaptive-heat__benefit-title">Premium Carbon Fiber Heating Elements</h3>
+          <p class="product-heating-adaptive-heat__benefit-description">Lightweight, flexible, and built to last. Engineered for riders who demand the best.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ProductH Adaptive Heat",
+  "tag": "section",
+  "class": "product-heating-adaptive-heat-section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Heat That Adapts To You" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>3 adjustable heat levels let you easily control your warmth for any condition.</p>" },
+    { "type": "header", "content": "Images" },
+    { "type": "image_picker", "id": "feature_image_desktop", "label": "Desktop feature image" },
+    { "type": "image_picker", "id": "feature_image_mobile", "label": "Mobile feature image" },
+    { "type": "image_picker", "id": "chart_image_desktop", "label": "Desktop chart image" },
+    { "type": "image_picker", "id": "chart_image_mobile", "label": "Mobile chart image" },
+    { "type": "header", "content": "Heat chart" },
+    { "type": "text", "id": "chart_title", "label": "Chart title", "default": "Heat Up Fast. Stay Warm Longer." },
+    { "type": "text", "id": "chart_note", "label": "Chart note", "default": "Heat up in seconds, not minutes. Consistent warmth that lasts." },
+    { "type": "header", "content": "High level" },
+    { "type": "text", "id": "level_1_title", "label": "Title", "default": "HIGH" },
+    { "type": "text", "id": "level_1_power", "label": "Power", "default": "~ 38W" },
+    { "type": "text", "id": "level_1_text", "label": "Text", "default": "Rapid heating for extreme cold conditions." },
+    { "type": "color", "id": "level_1_color", "label": "Color", "default": "#E53935" },
+    { "type": "header", "content": "Medium level" },
+    { "type": "text", "id": "level_2_title", "label": "Title", "default": "MEDIUM" },
+    { "type": "text", "id": "level_2_power", "label": "Power", "default": "~ 25W" },
+    { "type": "text", "id": "level_2_text", "label": "Text", "default": "Balanced warmth for everyday street riding." },
+    { "type": "color", "id": "level_2_color", "label": "Color", "default": "#FFFFFF" },
+    { "type": "header", "content": "Low level" },
+    { "type": "text", "id": "level_3_title", "label": "Title", "default": "LOW" },
+    { "type": "text", "id": "level_3_power", "label": "Power", "default": "~ 16W" },
+    { "type": "text", "id": "level_3_text", "label": "Text", "default": "Gentle efficient runtime for mild conditions." },
+    { "type": "color", "id": "level_3_color", "label": "Color", "default": "#2196F3" }
+  ],
+  "presets": [
+    { "name": "ProductH Adaptive Heat" }
+  ]
+}
+{% endschema %}
