@@ -1,0 +1,279 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-faq-accordion {
+    width: 100%;
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .heating-faq-accordion__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 112px 0 96px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-faq-accordion__item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.22);
+  }
+
+  #shopify-section-{{ section.id }} .heating-faq-accordion__summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 40px;
+    align-items: center;
+    gap: 24px;
+    padding: 16px 0;
+    color: {{ section.settings.text_color }};
+    cursor: pointer;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-faq-accordion__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-faq-accordion__question {
+    color: inherit;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.28;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-faq-accordion__icon {
+    width: 40px;
+    height: 40px;
+    color: var(--color-brand, #B93205);
+    line-height: 0;
+    transition: transform 180ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .heating-faq-accordion__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .heating-faq-accordion__item:not([open]) .heating-faq-accordion__icon {
+    transform: rotate(180deg);
+  }
+
+  #shopify-section-{{ section.id }} .heating-faq-accordion__answer {
+    margin-bottom: 24px;
+    color: rgba(31, 31, 31, 0.78);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-faq-accordion__answer p {
+    margin: 0 0 14px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-faq-accordion__answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-faq-accordion__inner {
+      width: 100%;
+      padding: 50px 20px 110px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-faq-accordion__summary {
+      grid-template-columns: minmax(0, 1fr) 32px;
+      gap: 16px;
+      padding: 24px 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-faq-accordion__question {
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    #shopify-section-{{ section.id }} .heating-faq-accordion__icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-faq-accordion__answer {
+      margin-bottom: 24px;
+      font-size: 16px;
+      line-height: 1.32;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-faq-accordion" data-heating-faq-accordion id="faq">
+  <div class="heating-faq-accordion__inner">
+    {%- for block in section.blocks -%}
+      <details class="heating-faq-accordion__item" {% if forloop.first and section.settings.open_first_item %}open{% endif %} {{ block.shopify_attributes }}>
+        <summary class="heating-faq-accordion__summary">
+          {%- if block.settings.question != blank -%}
+            <span class="heating-faq-accordion__question">{{ block.settings.question }}</span>
+          {%- endif -%}
+          <span class="heating-faq-accordion__icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+              <path d="M30 25L20 15L10 25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </summary>
+
+        {%- if block.settings.answer != blank -%}
+          <div class="heating-faq-accordion__answer">
+            {{ block.settings.answer | newline_to_br }}
+          </div>
+        {%- endif -%}
+      </details>
+    {%- endfor -%}
+  </div>
+</section>
+
+<script>
+  (function() {
+    var root = document.querySelector('#shopify-section-{{ section.id }} [data-heating-faq-accordion]');
+    if (!root) return;
+
+    root.querySelectorAll('.heating-faq-accordion__item').forEach(function(item) {
+      item.addEventListener('toggle', function() {
+        if (!item.open) return;
+        root.querySelectorAll('.heating-faq-accordion__item[open]').forEach(function(openItem) {
+          if (openItem !== item) openItem.removeAttribute('open');
+        });
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Heating FAQ Accordion",
+  "tag": "section",
+  "class": "heating-faq-accordion-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1F1F1F"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first_item",
+      "label": "Open first item by default",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Can I use the heated vest without my motorcycle?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Yes. MV11 and WV12 include battery power for portable warmth."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating FAQ Accordion",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use the heated vest without my motorcycle?",
+            "answer": "Yes. MV11 and WV12 include battery power for portable warmth."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I connect the vest to my motorcycle?",
+            "answer": "Yes. The vest can also connect through a compatible Y-cable for motorcycle power."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need to buy the complete heated system?",
+            "answer": "No. You can start with the heated gear you need most.\nThe Venustas Heated Riding System is modular. Start with a heated jacket for upper-body warmth, add heated pants for more coverage, and expand with additional accessories as your riding needs change."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use the heated jacket or pants separately?",
+            "answer": "Yes. Each heated layer is designed to work independently.\nThe heated jacket and heated pants can each connect directly to your motorcycle’s 12V power system using their dedicated connection cable."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I connect the heated jacket and pants together?",
+            "answer": "Yes. The jacket and pants can be combined into a complete heated setup using the compatible 3-way connection cable.\nThis allows both pieces to be powered together from your motorcycle."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How does the heated gear get power?",
+            "answer": "You have two power options depending on how you ride.\nFor motorcycle riding, connect your heated gear directly to your motorcycle’s 12V power system for continuous warmth.\nFor portable warmth beyond the bike, compatible Venustas batteries allow you to use your heated gear in more situations."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Is this a replacement for motorcycle protective gear?",
+            "answer": "No. Venustas heated gear is designed to be worn as a warming layer under your protective riding gear.\nYour outer riding gear provides protection from impact, abrasion, and weather. Venustas provides active warmth."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Will heated gear feel bulky under my riding gear?",
+            "answer": "No. Venustas heated layers are designed to provide warmth without adding unnecessary bulk.\nThe slim profile allows riders to layer comfortably while maintaining mobility and riding freedom."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "When should I use heated motorcycle gear?",
+            "answer": "Heated gear is designed for rides when temperatures drop, including cold mornings, long-distance touring, changing weather, and extended time outdoors.\nIt helps riders stay comfortable when traditional layers are no longer enough."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I add more heated accessories later?",
+            "answer": "Yes. The Venustas heated system is designed to expand with your needs.\nAdditional heated accessories such as gloves and socks can help provide more complete warmth when conditions become colder."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Is the heated gear only for motorcycles?",
+            "answer": "No. While designed with riders in mind, compatible Venustas heated gear can also be used for other cold-weather activities.\nExamples include outdoor work, camping, and winter activities."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
