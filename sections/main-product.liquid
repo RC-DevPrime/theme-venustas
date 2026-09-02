@@ -134,9 +134,12 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                                         
                                     </div>
                                 
-                                    {%- assign saved_amount = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price -%}
+                                    {%- liquid
+                                        assign saved_amount = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price
+                                        assign promotion_mf = product.metafields.promo.cart_discount_text
+                                    -%}
 
-                                    {% if product.selected_or_first_available_variant.compare_at_price != blank %}
+                                    {% if product.selected_or_first_available_variant.compare_at_price != blank and promotion_mf == blank %}
                                         {% if saved_amount != 0 %}
                                             <span data-save-price class="product__price-savings">
                                                 Save {{ saved_amount | money }}
@@ -144,10 +147,6 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                                         {% endif %}
                                     {% endif %}
 
-                                
-                                    {%- liquid
-                                        assign promotion_mf = product.metafields.promo.cart_discount_text
-                                    -%}
                                     {% if promotion_mf != blank %}
                                         <div class="promotion rte">
                                             {% if promotion_mf.type contains 'rich_text' %}
