@@ -103,6 +103,93 @@
       ],
       "settings": {}
     },
+    "product_heating_hero_banner_riwLAX": {
+      "type": "product-heating-hero-banner",
+      "blocks": {
+        "feature_card_iKmG7A": {
+          "type": "feature_card",
+          "settings": {
+            "icon": "icon-motorbike",
+            "title": "Winter Motorcycle Riding",
+            "text": "Stay warm on every cold-weather ride."
+          }
+        },
+        "feature_card_xU4zjW": {
+          "type": "feature_card",
+          "settings": {
+            "icon": "icon-snowflake",
+            "title": "Snowmobile Adventures",
+            "text": "Consistent warmth for long hours in the cold."
+          }
+        },
+        "feature_card_Rm3yEk": {
+          "type": "feature_card",
+          "settings": {
+            "icon": "icon-cloud-snow",
+            "title": "Extreme Outdoor Work",
+            "text": "Built for the harshest conditions and demanding days."
+          }
+        }
+      },
+      "block_order": [
+        "feature_card_iKmG7A",
+        "feature_card_xU4zjW",
+        "feature_card_Rm3yEk"
+      ],
+      "name": "ProductH Hero Banner",
+      "settings": {
+        "heading": "Extreme Warmth For The Coldest Rides",
+        "description": "Cold weather doesn't just make riding uncomfortable. Wind chill, freezing temperatures, and long exposure can quickly drain your warmth and shorten your riding season. MV11 delivers active warmth where cold hits hardest."
+      }
+    },
+    "product_heating_comparision_py7Eyz": {
+      "type": "product-heating-comparision",
+      "blocks": {
+        "comparison_column_ftfRNW": {
+          "type": "comparison_column",
+          "settings": {
+            "title": "Traditional Layers",
+            "mark": "cross",
+            "image_style": "cover",
+            "item_1_title": "Bulky",
+            "item_1_text": "Too many layers.",
+            "item_2_title": "Passive Warmth",
+            "item_2_text": "Only traps existing heat, can't generate it.",
+            "item_3_title": "Heat Loss",
+            "item_3_text": "Wind and movement steal your heat.",
+            "item_4_title": "Short Duration",
+            "item_4_text": "Warmth fades when you stop moving."
+          }
+        },
+        "comparison_column_CVJFUK": {
+          "type": "comparison_column",
+          "settings": {
+            "title": "WV12 Heated Vest",
+            "mark": "check",
+            "image_style": "contain",
+            "item_1_title": "Active Heating",
+            "item_1_text": "Generates heat across your core.",
+            "item_2_title": "Lightweight Fit",
+            "item_2_text": "Designed as a slim mid-layer.",
+            "item_3_title": "Locks In Warmth",
+            "item_3_text": "Consistent heat even in extreme conditions.",
+            "item_4_title": "All-Day Warmth",
+            "item_4_text": "Dual power options extend your heat."
+          }
+        }
+      },
+      "block_order": [
+        "comparison_column_ftfRNW",
+        "comparison_column_CVJFUK"
+      ],
+      "name": "ProductH Comparison",
+      "settings": {
+        "heading": "More Layers Can't Replace Active Heat",
+        "description": "Traditional layering is bulky, passive, and limited. WV12 delivers consistent core warmth that moves with you.",
+        "cta_heading": "Stop adding layers. Start with active heat.",
+        "cta_text": "WV12 replaces bulky mid-layers and delivers powerful, adjustable warmth-so you can ride farther in any condition."
+      }
+    },
     "product_review_section_VnyXRe": {
       "type": "product-review-section",
       "blocks": {
@@ -143,6 +230,8 @@
   },
   "order": [
     "main-product",
+    "product_heating_hero_banner_riwLAX",
+    "product_heating_comparision_py7Eyz",
     "product_review_section_VnyXRe",
     "product_featured_banner_mazp9M"
   ]
