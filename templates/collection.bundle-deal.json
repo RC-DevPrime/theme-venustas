@@ -13,8 +13,8 @@
       "type": "collection-featured-banner",
       "settings": {
         "image": "shopify://shop_images/collection-heated-jacket.jpg",
-        "heading": "Bundle Deal",
-        "description": "<p>Stay warm and stylish this winter with our premium Heated Jacket Bundle! Enjoy unbeatable comfort with advanced carbon-fiber heating zones and soft, cozy fleece. Shop now to get <strong>30% off</strong> and receive a <strong>$10 Gift Card</strong> on orders over $200. Don’t miss this <strong>limited-time deal</strong>—perfect for gifting or treating yourself!</p>"
+        "heading": "{{ collection.title }}",
+        "description": "{{ collection.description }}"
       }
     },
     "collection-list": {
