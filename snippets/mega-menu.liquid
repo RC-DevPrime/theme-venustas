@@ -390,6 +390,86 @@
         </div>
     </div>
   
+  {% elsif block.type == 'dislay_5' %}
+    <!-- DISPLAY 5 -->
+    <div class="row display-5 mega-menu-tab-list">
+      <div class="col-5">
+        <div class="display-5-menu-columns">
+          {% if block.settings.menu_list_1 != blank %}
+            <div class="menu-item">
+              <div class="pp-bold body-lg pb-2" {% if block.settings.Menu_list_label_1 == blank %}style="opacity:0;"{% endif %}>
+                {% if block.settings.Menu_list_label_1 != blank %}
+                  {{ block.settings.Menu_list_label_1 }}
+                {% else %}
+                  Spaces
+                {% endif %}
+              </div>
+              <div class="menu-list">
+                {% for link in block.settings.menu_list_1.links %}
+                  <a href="{{ link.url }}" class="pp-regular body-lg">{{ link.title }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.menu_list_2 != blank %}
+            <div class="menu-item">
+              <div class="pp-bold body-lg pb-2" {% if block.settings.Menu_list_label_2 == blank %}style="opacity:0;"{% endif %}>
+                {% if block.settings.Menu_list_label_2 != blank %}
+                  {{ block.settings.Menu_list_label_2 }}
+                {% else %}
+                  Spaces
+                {% endif %}
+              </div>
+              <div class="menu-list">
+                {% for link in block.settings.menu_list_2.links %}
+                  <a href="{{ link.url }}" class="pp-regular body-lg">{{ link.title }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-7">
+        <div class="row display-5-feature-grid">
+          {% if block.settings.image_1 != blank or block.settings.image_title_1 != blank %}
+            <div class="col-6">
+              <div class="display-5-feature-item">
+                {% if block.settings.image_1 != blank %}
+                  <a href="{{ block.settings.image_url_1 | default: '#' }}" class="featured-menu-item mb-3">
+                    <img src="{{ block.settings.image_1 | img_url: 'master' }}" alt="{{ block.settings.image_title_1 | escape }}">
+                  </a>
+                {% endif %}
+                {% if block.settings.image_title_1 != blank %}
+                  <a href="{{ block.settings.title_url_1 | default: block.settings.image_url_1 | default: '#' }}" class="display-5-feature-title pp-bold body-lg">
+                    {{ block.settings.image_title_1 }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.image_2 != blank or block.settings.image_title_2 != blank %}
+            <div class="col-6">
+              <div class="display-5-feature-item">
+                {% if block.settings.image_2 != blank %}
+                  <a href="{{ block.settings.image_url_2 | default: '#' }}" class="featured-menu-item mb-3">
+                    <img src="{{ block.settings.image_2 | img_url: 'master' }}" alt="{{ block.settings.image_title_2 | escape }}">
+                  </a>
+                {% endif %}
+                {% if block.settings.image_title_2 != blank %}
+                  <a href="{{ block.settings.title_url_2 | default: block.settings.image_url_2 | default: '#' }}" class="display-5-feature-title pp-bold body-lg">
+                    {{ block.settings.image_title_2 }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
   {% elsif block.type == 'dislay_4' %} 
     <!-- DISPLAY 4 -->
     <div class="row display-4 mega-menu-tab-list">

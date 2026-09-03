@@ -816,7 +816,7 @@
                           {% if has_mega_menu %}
                             {% for block in section.blocks %}
                                 {% if clean_title == block.settings.menu_tag %}
-                                  {% if block.type == 'dislay_1' or block.type == 'dislay_2' or block.type == 'dislay_3' or block.type == 'dislay_4'  %} 
+                                  {% if block.type == 'dislay_1' or block.type == 'dislay_2' or block.type == 'dislay_3' or block.type == 'dislay_4' or block.type == 'dislay_5'  %} 
                                     <span class="f-layer">
                                       <button data-mega="{{ clean_title | handleize }}">
                                           <span class="d-flex align-items-center gap-1">
@@ -1384,6 +1384,131 @@
                         </div>
                       </div>
             
+                    {% elsif block.type == 'dislay_5' %} <!-- DISPLAY 5 -->
+                      <div class="mega-menu mega-mobile" data-mega="{{ clean_title | handleize }}">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                                <p class="mega-title">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                    {{ clean_title }}
+                                </p>
+                                {% if block.settings.main_link != blank %}
+                                  <a href="{{ block.settings.main_link }}" class="pp-semibold f-main body">View All ></a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column gap-0">
+                          <div class="menu-list-container-item display-5">
+                            <div class="accordion">
+                              {% assign index = forloop.index %}
+
+                              {% if block.settings.menu_list_1 != blank %}
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="heading-{{ block.settings.Menu_list_label_1 | handleize }}-{{ index }}">
+                                      <button
+                                      class="accordion-button f-white pp-semibold body-xl l-h-normal"
+                                      type="button"
+                                      data-bs-toggle="collapse"
+                                      data-bs-target="#collapse-{{ block.settings.Menu_list_label_1 | handleize }}-{{ index }}"
+                                      aria-expanded="true"
+                                      aria-controls="collapse-{{ block.settings.Menu_list_label_1 | handleize }}-{{ index }}">
+                                          {{ block.settings.Menu_list_label_1 }}
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                            <g transform="rotate(90 9 9)">
+                                              <circle cx="9" cy="9" r="9" style="fill:#f1f1f1"/>
+                                              <path d="m4.423.334 2.721 2.721A.313.313 0 0 1 6.7 3.5L3.98.776a.514.514 0 0 0-.726 0L.533 3.5a.313.313 0 0 1-.442-.442L2.812.334a1.14 1.14 0 0 1 1.611 0Z" transform="rotate(-90 9.912 2.705)" style="fill:#5d5d5d;stroke:#5d5d5d;stroke-width:.5px;isolation:isolate"/>
+                                            </g>
+                                          </svg>
+                                      </button>
+                                  </h2>
+                                  <div
+                                      id="collapse-{{ block.settings.Menu_list_label_1 | handleize }}-{{ index }}"
+                                      class="accordion-collapse collapse show"
+                                      aria-labelledby="heading-{{ block.settings.Menu_list_label_1 | handleize }}-{{ index }}"
+                                      data-bs-parent="#faqAccordion">
+                                      <div class="accordion-body">
+                                          <div class="menu-list">
+                                            {% for link in block.settings.menu_list_1.links %}
+                                              <a href="{{ link.url }}" class="pp-regular body-lg">{{ link.title }}</a>
+                                            {% endfor %}
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+                              {% endif %}
+
+                              {% if block.settings.menu_list_2 != blank %}
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="heading-{{ block.settings.Menu_list_label_2 | handleize }}-{{ index }}">
+                                      <button
+                                      class="accordion-button f-white pp-semibold body-xl l-h-normal collapsed"
+                                      type="button"
+                                      data-bs-toggle="collapse"
+                                      data-bs-target="#collapse-{{ block.settings.Menu_list_label_2 | handleize }}-{{ index }}"
+                                      aria-expanded="false"
+                                      aria-controls="collapse-{{ block.settings.Menu_list_label_2 | handleize }}-{{ index }}">
+                                          {{ block.settings.Menu_list_label_2 }}
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                            <g transform="rotate(90 9 9)">
+                                              <circle cx="9" cy="9" r="9" style="fill:#f1f1f1"/>
+                                              <path d="m4.423.334 2.721 2.721A.313.313 0 0 1 6.7 3.5L3.98.776a.514.514 0 0 0-.726 0L.533 3.5a.313.313 0 0 1-.442-.442L2.812.334a1.14 1.14 0 0 1 1.611 0Z" transform="rotate(-90 9.912 2.705)" style="fill:#5d5d5d;stroke:#5d5d5d;stroke-width:.5px;isolation:isolate"/>
+                                            </g>
+                                          </svg>
+                                      </button>
+                                  </h2>
+                                  <div
+                                      id="collapse-{{ block.settings.Menu_list_label_2 | handleize }}-{{ index }}"
+                                      class="accordion-collapse collapse"
+                                      aria-labelledby="heading-{{ block.settings.Menu_list_label_2 | handleize }}-{{ index }}"
+                                      data-bs-parent="#faqAccordion">
+                                      <div class="accordion-body">
+                                          <div class="menu-list">
+                                            {% for link in block.settings.menu_list_2.links %}
+                                              <a href="{{ link.url }}" class="pp-regular body-lg">{{ link.title }}</a>
+                                            {% endfor %}
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+                              {% endif %}
+                            </div>
+                          </div>
+
+                          <div class="display-5-mobile-features">
+                            {% if block.settings.image_1 != blank or block.settings.image_title_1 != blank %}
+                              <div class="display-5-feature-item">
+                                {% if block.settings.image_1 != blank %}
+                                  <a href="{{ block.settings.image_url_1 | default: '#' }}" class="featured-menu-item mb-2">
+                                    <img src="{{ block.settings.image_1 | img_url: 'master' }}" alt="{{ block.settings.image_title_1 | escape }}">
+                                  </a>
+                                {% endif %}
+                                {% if block.settings.image_title_1 != blank %}
+                                  <a href="{{ block.settings.title_url_1 | default: block.settings.image_url_1 | default: '#' }}" class="display-5-feature-title pp-bold body">
+                                    {{ block.settings.image_title_1 }}
+                                  </a>
+                                {% endif %}
+                              </div>
+                            {% endif %}
+
+                            {% if block.settings.image_2 != blank or block.settings.image_title_2 != blank %}
+                              <div class="display-5-feature-item">
+                                {% if block.settings.image_2 != blank %}
+                                  <a href="{{ block.settings.image_url_2 | default: '#' }}" class="featured-menu-item mb-2">
+                                    <img src="{{ block.settings.image_2 | img_url: 'master' }}" alt="{{ block.settings.image_title_2 | escape }}">
+                                  </a>
+                                {% endif %}
+                                {% if block.settings.image_title_2 != blank %}
+                                  <a href="{{ block.settings.title_url_2 | default: block.settings.image_url_2 | default: '#' }}" class="display-5-feature-title pp-bold body">
+                                    {{ block.settings.image_title_2 }}
+                                  </a>
+                                {% endif %}
+                              </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+
                     {% elsif block.type == 'dislay_3' or block.type == 'dislay_4' %} <!-- DISPLAY 3 -->
                     
                       <div class="mega-menu mega-mobile" data-mega="{{ clean_title | handleize }}">
@@ -2502,6 +2627,98 @@
                   "type": "link_list",
                   "id": "menu_list_5",
                   "label": "Menu List"
+                }
+            ]
+        },
+        {
+            "type": "dislay_5",
+            "name": "Display - 5",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "menu_tag",
+                    "label": "Menu Tag"
+                },
+                {
+                    "type": "url",
+                    "id": "main_link",
+                    "label": "Main Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Menu List Column 1"
+                },
+                {
+                    "type": "text",
+                    "id": "Menu_list_label_1",
+                    "label": "Menu List Label"
+                },
+                {
+                  "type": "link_list",
+                  "id": "menu_list_1",
+                  "label": "Menu List"
+                },
+                {
+                    "type": "header",
+                    "content": "Menu List Column 2"
+                },
+                {
+                    "type": "text",
+                    "id": "Menu_list_label_2",
+                    "label": "Menu List Label"
+                },
+                {
+                  "type": "link_list",
+                  "id": "menu_list_2",
+                  "label": "Menu List"
+                },
+                {
+                  "type": "header",
+                  "content": "Image Column 1"
+                },
+                {
+                  "type": "image_picker",
+                  "id": "image_1",
+                  "label": "Image"
+                },
+                {
+                  "type": "url",
+                  "id": "image_url_1",
+                  "label": "Image Link"
+                },
+                {
+                  "type": "text",
+                  "id": "image_title_1",
+                  "label": "Image Title"
+                },
+                {
+                  "type": "url",
+                  "id": "title_url_1",
+                  "label": "Title Link"
+                },
+                {
+                  "type": "header",
+                  "content": "Image Column 2"
+                },
+                {
+                  "type": "image_picker",
+                  "id": "image_2",
+                  "label": "Image"
+                },
+                {
+                  "type": "url",
+                  "id": "image_url_2",
+                  "label": "Image Link"
+                },
+                {
+                  "type": "text",
+                  "id": "image_title_2",
+                  "label": "Image Title"
+                },
+                {
+                  "type": "url",
+                  "id": "title_url_2",
+                  "label": "Title Link"
                 }
             ]
         },
