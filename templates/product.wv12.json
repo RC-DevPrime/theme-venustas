@@ -103,6 +103,69 @@
       ],
       "settings": {}
     },
+    "heating_anchor_nav_BxFiUU": {
+      "type": "heating-anchor-nav",
+      "blocks": {
+        "link_RBwmBf": {
+          "type": "link",
+          "settings": {
+            "label": "Overview",
+            "target_id": "producth-overview"
+          }
+        },
+        "link_MyXwWx": {
+          "type": "link",
+          "settings": {
+            "label": "Venustas Riding System",
+            "target_id": "venustas-riding-system"
+          }
+        },
+        "link_fpjVmB": {
+          "type": "link",
+          "settings": {
+            "label": "Setup Options",
+            "target_id": "setup-options"
+          }
+        },
+        "link_nr4Nmp": {
+          "type": "link",
+          "settings": {
+            "label": "How It Works",
+            "target_id": "how-it-works"
+          }
+        },
+        "link_6Hmbjx": {
+          "type": "link",
+          "settings": {
+            "label": "Riding Guild",
+            "target_id": "riding-guild"
+          }
+        },
+        "link_qExHJc": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "faq"
+          }
+        }
+      },
+      "block_order": [
+        "link_RBwmBf",
+        "link_MyXwWx",
+        "link_fpjVmB",
+        "link_nr4Nmp",
+        "link_6Hmbjx",
+        "link_qExHJc"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#F5F5F5",
+        "nav_background": "#FFFFFF",
+        "text_color": "#1F1F1F",
+        "aria_label": "Page navigation",
+        "mobile_button_label": "Open page navigation"
+      }
+    },
     "product_heating_hero_banner_JHpf74": {
       "type": "product-heating-hero-banner",
       "blocks": {
@@ -503,7 +566,8 @@
       "settings": {
         "eyebrow": "Flexible Power Options",
         "title": "One Vest. Multiple Ways To Stay Warm.",
-        "description": "<p>WV12 adapts to your adventure with flexible battery configurations and motorcycle-ready 12V power options.</p>"
+        "description": "<p>WV12 adapts to your adventure with flexible battery configurations and motorcycle-ready 12V power options.</p>",
+        "cta_product": ""
       }
     },
     "product_heating_design_details_kVB3DK": {
@@ -854,8 +918,8 @@
       ],
       "name": "Heating FAQ Accordion",
       "settings": {
-        "background_color": "#F5F5F5",
-        "text_color": "#1F1F1F",
+        "background_color": "#f5f5f5",
+        "text_color": "#1f1f1f",
         "open_first_item": true
       }
     },
@@ -899,6 +963,7 @@
   },
   "order": [
     "main-product",
+    "heating_anchor_nav_BxFiUU",
     "product_heating_hero_banner_JHpf74",
     "product_heating_comparision_gXjiYc",
     "product_heating_introduction_8wLFki",
