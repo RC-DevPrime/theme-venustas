@@ -1,6 +1,7 @@
 /* DISPLAY - 1 MEGA MENU */
 .header .mega-menu .display-1{
     --bs-gutter-x: 20px;
+    margin-left:calc(140px + 2rem);
 }
 .header .mega-menu .menu-list-container{
     display:flex;
@@ -242,20 +243,52 @@
 .header .mega-menu .display-5.mega-menu-tab-list{
     --bs-gutter-x: 28px;
     align-items:flex-start;
+    margin-left:calc(136px + 2rem);
+}
+.header .mega-menu .display-5 .display-5-menu-col{
+    /* width:260px; */
+}
+.header .mega-menu .display-5 .display-5-feature-col{
+    width:620px;
 }
 .header .mega-menu .display-5-menu-columns{
     display:flex;
-    gap:50px;
+    gap:35px;
+}
+.header .mega-menu .display-5-menu-columns .menu-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+.header .mega-menu .display-5-menu-columns .menu-list a{
+    position:relative;
+    width:fit-content;
+}
+.header .mega-menu .display-5-menu-columns .menu-list a:before{
+    content:"";
+    display:block;
+    width:0;
+    height:1px;
+    background-color:#ff4438;
+    position:absolute;
+    bottom:0;
+    transition: all 0.3s ease;
+}
+.header .mega-menu .display-5-menu-columns .menu-list a:hover:before{
+    width:100%;
 }
 .header .mega-menu .display-5-feature-grid{
     --bs-gutter-x:20px;
+    justify-content:flex-end;
 }
 .header .mega-menu .display-5 .featured-menu-item{
-    height:170px;
+    width:300px;
+    height:189px;
     border-radius:8px;
     overflow:hidden;
 }
 .header .mega-menu .display-5-feature-title{
+    font-size:12px;
     color:#141414;
     display:block;
     line-height:1.3;
@@ -401,17 +434,35 @@
 
 
 /* FOR MOBILE PHONE */
-@media only screen and (max-width: 768px) {
+
+@media only screen and (max-width: 1279px) {
   .header .display-3 .menu-list-collection-item{
       height: 170px;
   }
-  .header .mega-menu .display-5 .featured-menu-item{
-      height:150px;
+  .header .mega-menu .display-5.mega-menu-tab-list{
+      width:100%;
+      margin-left:0;
+  }
+  .header .mega-menu .display-5-mobile-features .featured-menu-item{
+      width:100%;
+      height:180px;
   }
   .header .mega-menu .display-5-mobile-features{
       display:flex;
-      flex-direction:column;
-      gap:18px;
-      padding-top:18px;
+      flex-direction:row;
+      gap:12px;
+      padding:0;
   }
+  .header .mega-menu .display-5-mobile-features .display-5-feature-item{
+      flex:1 1 0;
+      min-width:0;
+  }
+}
+@media only screen and (min-width: 1600px) {
+    .header .mega-menu .display-1{
+        margin-left:calc(152px + 2rem);
+    }
+    .header .mega-menu .display-5.mega-menu-tab-list{
+        margin-left:calc(148px + 2rem);
+    }
 }
