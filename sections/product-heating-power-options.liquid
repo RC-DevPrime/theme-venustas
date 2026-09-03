@@ -119,15 +119,15 @@
                   <div class="product-heating-power-options__runtime-grid">
                     <div class="product-heating-power-options__runtime-item">
                       <div class="product-heating-power-options__runtime-label">High <span class="product-heating-power-options__dot product-heating-power-options__dot--high"></span></div>
-                      <div class="product-heating-power-options__runtime-value">{{ block.settings.high_runtime }} <span class="product-heating-power-options__runtime-unit">hrs</span></div>
+                      <div class="product-heating-power-options__runtime-value">{{ block.settings.high_runtime }} <span class="product-heating-power-options__runtime-unit">HRS</span></div>
                     </div>
                     <div class="product-heating-power-options__runtime-item">
                       <div class="product-heating-power-options__runtime-label">Medium <span class="product-heating-power-options__dot product-heating-power-options__dot--medium"></span></div>
-                      <div class="product-heating-power-options__runtime-value">{{ block.settings.medium_runtime }} <span class="product-heating-power-options__runtime-unit">hrs</span></div>
+                      <div class="product-heating-power-options__runtime-value">{{ block.settings.medium_runtime }} <span class="product-heating-power-options__runtime-unit">HRS</span></div>
                     </div>
                     <div class="product-heating-power-options__runtime-item">
                       <div class="product-heating-power-options__runtime-label">Low <span class="product-heating-power-options__dot product-heating-power-options__dot--low"></span></div>
-                      <div class="product-heating-power-options__runtime-value">{{ block.settings.low_runtime }} <span class="product-heating-power-options__runtime-unit">hrs</span></div>
+                      <div class="product-heating-power-options__runtime-value">{{ block.settings.low_runtime }} <span class="product-heating-power-options__runtime-unit">HRS</span></div>
                     </div>
                   </div>
                 </div>
@@ -174,7 +174,9 @@
           <span class="product-heating-power-options__alert">!</span>
           <div>
             <p class="product-heating-power-options__cta-title">Y-CABLE IS REQUIRED FOR MOTORCYCLE 12V POWER AND SOLD SEPARATELY.</p>
-            <p class="product-heating-power-options__cta-text">Add the Y-Cable to your cart to connect MW12 to your motorcycle 12V power.</p>
+            {%- if section.settings.cta_text != blank -%}
+              <p class="product-heating-power-options__cta-text">{{ section.settings.cta_text }}</p>
+            {%- endif -%}
           </div>
         </div>
         <div class="product-heating-power-options__cta-action">
@@ -195,7 +197,7 @@
               {% unless cta_variant.available %}disabled aria-disabled="true"{% endunless %}
             >
               <span class="product-heating-power-options__button-inner">
-                <span class="product-heating-power-options__button-icon">{%- render 'product-heating-icons', icon: 'icon-battery' -%}</span>
+                <span class="product-heating-power-options__button-icon">{%- render 'product-heating-icons', icon: 'icon-add' -%}</span>
                 {%- if cta_variant.available -%}Add Y-Cable Set{%- else -%}Sold Out{%- endif -%}
               </span>
               <div class="atc-overlay"><div class="atc-spinner"></div></div>
@@ -235,6 +237,12 @@
       "type": "product",
       "id": "cta_product",
       "label": "CTA product"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Add the Y-Cable to your cart to connect MW12 to your motorcycle 12V power."
     }
   ],
   "blocks": [

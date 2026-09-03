@@ -9,8 +9,18 @@
   #shopify-section-{{ section.id }} .heating-faq-accordion__inner {
     width: min(100% - 40px, 1340px);
     margin: 0 auto;
-    padding: 112px 0 96px;
+    padding: 80px 0 96px;
     box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-faq-accordion__title {
+    margin: 0 0 56px;
+    color: {{ section.settings.text_color }};
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-align: center;
   }
 
   #shopify-section-{{ section.id }} .heating-faq-accordion__item {
@@ -78,7 +88,12 @@
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .heating-faq-accordion__inner {
       width: 100%;
-      padding: 50px 20px 110px;
+      padding: 40px 20px 110px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-faq-accordion__title {
+      margin-bottom: 32px;
+      font-size: 24px;
     }
 
     #shopify-section-{{ section.id }} .heating-faq-accordion__summary {
@@ -107,6 +122,10 @@
 
 <section class="heating-faq-accordion" data-heating-faq-accordion id="faq">
   <div class="heating-faq-accordion__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="heating-faq-accordion__title">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
     {%- for block in section.blocks -%}
       <details class="heating-faq-accordion__item" {% if forloop.first and section.settings.open_first_item %}open{% endif %} {{ block.shopify_attributes }}>
         <summary class="heating-faq-accordion__summary">
@@ -152,6 +171,12 @@
   "tag": "section",
   "class": "heating-faq-accordion-section",
   "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
     {
       "type": "color",
       "id": "background_color",
