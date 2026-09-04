@@ -1,0 +1,433 @@
+
+{% style %}
+  #shopify-section-{{ section.id }}{
+    max-height: 800px;
+  }
+  #shopify-section-{{ section.id }} .product-battery-systems {
+    width: 100%;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-systems__inner {
+    position: relative;
+    /* width: min(100% - 40px, 1240px); */
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-systems__stage {
+    position: relative;
+    padding: 72px 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-systems__image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-systems__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-systems__image--large {
+    display: none;
+  }
+
+  {%- if section.settings.image_large != blank -%}
+    @media only screen and (min-width: 1600px) {
+      #shopify-section-{{ section.id }} .product-battery-systems__image--desktop {
+        display: none;
+      }
+
+      #shopify-section-{{ section.id }} .product-battery-systems__image--large {
+        display: block;
+      }
+    }
+  {%- endif -%}
+
+  #shopify-section-{{ section.id }} .product-battery-systems__content {
+    width: min(100% - 40px, 1240px);
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    min-height: 575px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-systems__heading {
+    margin: 0 0 40px;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-systems__heading-accent {
+    color: var(--color-brand, #b93205);
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-systems__list {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-template-rows: repeat(3, max-content);
+    grid-auto-flow: column;
+    align-content: center;
+    justify-content: space-between;
+    row-gap: 38px;
+    margin: 0;
+    padding: 0 28px;
+    list-style: none;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-systems__item {
+    position: static;
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-align: left;
+    white-space: nowrap;
+    pointer-events: auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-systems__icon {
+    display: flex;
+    flex: 0 0 32px;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    overflow: visible;
+    box-sizing: border-box;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-systems__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-systems__label {
+    display: block;
+    text-align: left;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-battery-systems__inner {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-systems__stage {
+      padding: 40px 20px;
+      height:600px;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-systems__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-systems__image--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-systems__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 0;
+      height: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-systems__heading {
+      padding: 0 10px;
+      font-size: 24px;
+      line-height: 1.35;
+    }
+    #shopify-section-{{ section.id }} .product-battery-systems__heading-accent {
+      font-size: 24px;
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-systems__list {
+      position: relative;
+      inset: auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(2, max-content);
+      grid-auto-flow: row;
+      gap: 10px 4px;
+      padding: 0;
+      pointer-events: auto;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-systems__item,
+    #shopify-section-{{ section.id }} .product-battery-systems__item:nth-child(n) {
+      position: static;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-self: stretch;
+      gap: 4px;
+      min-width: 0;
+      color: #fff;
+      font-size: 14px;
+      line-height: 1.1;
+      text-align: center;
+      white-space: normal;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-systems__icon {
+      width: 32px;
+      height: 32px;
+      flex-basis: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-systems__label {
+      text-align: center;
+    }
+  }
+{% endstyle %}
+
+<section class="product-battery-systems">
+  <div class="product-battery-systems__inner">
+    <div class="product-battery-systems__stage">
+      {%- if section.settings.image_desktop != blank -%}
+        {{
+          section.settings.image_desktop
+          | image_url: width: 2480
+          | image_tag:
+            class: 'product-battery-systems__image product-battery-systems__image--desktop',
+            loading: 'lazy',
+            widths: '750,1000,1240,1600,2000,2480',
+            sizes: '(max-width: 767px) 0px, min(100vw - 40px, 1240px)',
+            alt: section.settings.image_desktop.alt | default: section.settings.heading
+        }}
+      {%- endif -%}
+
+      {%- if section.settings.image_large != blank -%}
+        {{
+          section.settings.image_large
+          | image_url: width: 3200
+          | image_tag:
+            class: 'product-battery-systems__image product-battery-systems__image--large',
+            loading: 'lazy',
+            widths: '1600,2000,2480,2880,3200',
+            sizes: '(min-width: 1600px) 100vw, 0px',
+            alt: section.settings.image_large.alt | default: section.settings.heading
+        }}
+      {%- endif -%}
+
+      {%- if section.settings.image_mobile != blank -%}
+        {{
+          section.settings.image_mobile
+          | image_url: width: 900
+          | image_tag:
+            class: 'product-battery-systems__image product-battery-systems__image--mobile',
+            loading: 'lazy',
+            widths: '350,500,700,900',
+            sizes: 'calc(100vw - 40px)',
+            alt: section.settings.image_mobile.alt | default: section.settings.heading
+        }}
+      {%- elsif section.settings.image_desktop != blank -%}
+        {{
+          section.settings.image_desktop
+          | image_url: width: 900
+          | image_tag:
+            class: 'product-battery-systems__image product-battery-systems__image--mobile',
+            loading: 'lazy',
+            widths: '350,500,700,900',
+            sizes: 'calc(100vw - 40px)',
+            alt: section.settings.image_desktop.alt | default: section.settings.heading
+        }}
+      {%- endif -%}
+
+      <div class="product-battery-systems__content">
+        <h2 class="product-battery-systems__heading">
+          {%- if section.settings.heading != blank -%}
+            {{ section.settings.heading }}
+          {%- endif -%}
+    
+          {%- if section.settings.heading_accent != blank -%}
+            <span class="product-battery-systems__heading-accent">
+              {{ section.settings.heading_accent }}
+            </span>
+          {%- endif -%}
+        </h2>
+        {%- if section.blocks.size > 0 -%}
+          <ul class="product-battery-systems__list">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.label != blank -%}
+                <li
+                  class="product-battery-systems__item"
+                  {{ block.shopify_attributes }}
+                >
+                  <span
+                    class="product-battery-systems__icon"
+                    aria-hidden="true"
+                  >
+                    {%- render 'battery-icons', name: block.settings.icon -%}
+                  </span>
+
+                  <span class="product-battery-systems__label">
+                    {{ block.settings.label }}
+                  </span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Battery Systems",
+  "tag": "section",
+  "class": "product-battery-systems-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_large",
+      "label": "Large screen background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile background image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "MULTIPLE"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Heading accent",
+      "default": "PROTECTION SYSTEMS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "protection",
+      "name": "Protection item",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "protection",
+          "options": [
+            {
+              "value": "protection",
+              "label": "Protection"
+            },
+            {
+              "value": "current",
+              "label": "Current"
+            },
+            {
+              "value": "temperature",
+              "label": "Temperature"
+            },
+            {
+              "value": "discharge",
+              "label": "Discharge"
+            },
+            {
+              "value": "voltage",
+              "label": "Voltage"
+            },
+            {
+              "value": "circuit",
+              "label": "Circuit"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Over-Charge Protection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Battery Systems",
+      "blocks": [
+        {
+          "type": "protection",
+          "settings": {
+            "icon": "protection",
+            "label": "Over-Charge Protection"
+          }
+        },
+        {
+          "type": "protection",
+          "settings": {
+            "icon": "current",
+            "label": "Over-Current Protection"
+          }
+        },
+        {
+          "type": "protection",
+          "settings": {
+            "icon": "temperature",
+            "label": "Over-Temperature Protection"
+          }
+        },
+        {
+          "type": "protection",
+          "settings": {
+            "icon": "discharge",
+            "label": "Over-Discharge Protection"
+          }
+        },
+        {
+          "type": "protection",
+          "settings": {
+            "icon": "voltage",
+            "label": "Over-Voltage Protection"
+          }
+        },
+        {
+          "type": "protection",
+          "settings": {
+            "icon": "circuit",
+            "label": "Short-Circuit Protection"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

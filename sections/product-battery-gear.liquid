@@ -1,0 +1,152 @@
+{% style %}
+  #shopify-section-{{ section.id }} .product-battery-gear {
+    width: 100%;
+    height: 848px;
+    overflow: hidden;
+    background: #fff;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .product-battery-gear__title {
+    position: absolute;
+    width:100%;
+    top: 72px;
+    text-align:center;
+    font-size: 28px;
+    font-weight: 700;
+    color:var(--venustas-black);
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-gear__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-gear__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-gear__placeholder {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: #1a1a1a;
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 1600px){
+    #shopify-section-{{ section.id }} .product-battery-gear{
+      height:1000px;
+    }
+    
+  }
+  @media screen and (min-width: 1400px){
+    #shopify-section-{{ section.id }} .product-battery-gear__image{
+      object-fit:contain;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-battery-gear {
+      height: 582px;
+    }
+    #shopify-section-{{ section.id }} .product-battery-gear__title {
+      margin: 0 auto;
+      top:40px;
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-gear__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-gear__image--mobile {
+      display: block;
+    }
+  }
+{% endstyle %}
+
+<section class="product-battery-gear">
+  {% if section.settings.title != blank %}
+       <h2 class="product-battery-gear__title">{{ section.settings.title }}</h2>
+  {% endif %}
+  {% if section.settings.image_desktop != blank %}
+    {{
+      section.settings.image_desktop
+      | image_url: width: 2880
+      | image_tag:
+        class: 'product-battery-gear__image product-battery-gear__image--desktop',
+        loading: 'lazy',
+        widths: '750, 1000, 1340, 1600, 2000, 2400, 2880',
+        sizes: '100vw',
+        alt: section.settings.image_desktop.alt | default: 'Power your gear with ease'
+    }}
+  {% endif %}
+
+  {% if section.settings.image_mobile != blank %}
+    {{
+      section.settings.image_mobile
+      | image_url: width: 900
+      | image_tag:
+        class: 'product-battery-gear__image product-battery-gear__image--mobile',
+        loading: 'lazy',
+        widths: '375, 550, 750, 900',
+        sizes: '100vw',
+        alt: section.settings.image_mobile.alt | default: 'Power your gear with ease'
+    }}
+  {% elsif section.settings.image_desktop != blank %}
+    {{
+      section.settings.image_desktop
+      | image_url: width: 900
+      | image_tag:
+        class: 'product-battery-gear__image product-battery-gear__image--mobile',
+        loading: 'lazy',
+        widths: '375, 550, 750, 900',
+        sizes: '100vw',
+        alt: section.settings.image_desktop.alt | default: 'Power your gear with ease'
+    }}
+  {% endif %}
+
+  {% if section.settings.image_desktop == blank and section.settings.image_mobile == blank %}
+    <div class="product-battery-gear__placeholder">
+      Upload desktop and mobile battery images.
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Product Battery Gear",
+  "tag": "section",
+  "class": "product-battery-gear-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "POWER YOUR GEAR WITH EASE"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop battery image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile battery image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Battery Gear"
+    }
+  ]
+}
+{% endschema %}

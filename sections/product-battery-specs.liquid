@@ -1,0 +1,342 @@
+{% style %}
+  #shopify-section-{{ section.id }} .product-battery-specs {
+    width: 100%;
+    background: #10171F;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__inner {
+    width: min(100% - 40px, 1240px);
+    margin: 0 auto;
+    padding: 72px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__header {
+    margin-bottom: 56px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__heading,
+  #shopify-section-{{ section.id }} .product-battery-specs__accent {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.22;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__accent {
+    color: var(--color-brand, #B93205);
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__rows {
+    display: grid;
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__row {
+    display: grid;
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__row--top {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__row--bottom {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__item {
+    min-height: 132px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-self: stretch;
+    gap: 16px;
+    padding: 32px;
+    border: 1px solid #252F3D;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #1E2633 25%, #151B24 75%);
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__item-copy {
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__item-heading {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__value {
+    margin: 0 0 10px;
+    color: #54BDFF;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__card-title {
+    margin: 0;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__card-description {
+    margin: 8px 0 0;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__icon {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #6AC7FF;
+    border-radius: 50%;
+    color: #6AC7FF;
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-battery-specs__icon svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-battery-specs__inner {
+      width: 100%;
+      padding: 40px 16px;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-specs__header {
+      margin-bottom: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-specs__heading,
+    #shopify-section-{{ section.id }} .product-battery-specs__accent {
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-specs__rows,
+    #shopify-section-{{ section.id }} .product-battery-specs__row {
+      gap: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-specs__row--top,
+    #shopify-section-{{ section.id }} .product-battery-specs__row--bottom {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-specs__item {
+      min-height: 0;
+      padding: 20px;
+      gap: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-specs__item-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-specs__value {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.1;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-specs__card-title {
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-specs__card-description {
+      margin-top: 14px;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    #shopify-section-{{ section.id }} .product-battery-specs__icon {
+      width: 40px;
+      height: 40px;
+      flex-basis: 40px;
+    }
+  }
+{% endstyle %}
+
+<section class="product-battery-specs">
+  <div class="product-battery-specs__inner">
+    <div class="product-battery-specs__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="product-battery-specs__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.heading_accent != blank -%}
+        <p class="product-battery-specs__accent">{{ section.settings.heading_accent }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="product-battery-specs__rows">
+        <div class="product-battery-specs__row product-battery-specs__row--top">
+          {%- for block in section.blocks limit: 3 -%}
+            {%- render 'battery-spec-item', block: block -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if section.blocks.size > 3 -%}
+          <div class="product-battery-specs__row product-battery-specs__row--bottom">
+            {%- for block in section.blocks offset: 3 -%}
+              {%- render 'battery-spec-item', block: block -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Battery Specs",
+  "tag": "section",
+  "class": "product-battery-specs-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "EVERYTHING YOU NEED"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Heading accent",
+      "default": "AT A GLANCE"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spec",
+      "name": "Spec card",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "36WH"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Capacity"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Reliable power for everyday warmth."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "capacity",
+          "options": [
+            {
+              "value": "capacity",
+              "label": "Capacity"
+            },
+            {
+              "value": "feather",
+              "label": "Feather"
+            },
+            {
+              "value": "bolt",
+              "label": "Bolt"
+            },
+            {
+              "value": "output",
+              "label": "Output"
+            },
+            {
+              "value": "shield",
+              "label": "Shield"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Battery Specs",
+      "blocks": [
+        {
+          "type": "spec",
+          "settings": {
+            "value": "36WH",
+            "title": "Capacity",
+            "description": "Reliable power for everyday warmth.",
+            "icon": "capacity"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "value": "6.56oz",
+            "title": "Lightweight",
+            "description": "Compact and easy to carry anywhere.",
+            "icon": "feather"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "value": "2.5H",
+            "title": "Fast Recharge",
+            "description": "Fully recharges in about 2.5 hours with a 20W+ charger.",
+            "icon": "bolt"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "value": "3",
+            "title": "Versatile Outputs",
+            "description": "USB-C, USB-A & 7.2V DC outputs for heated apparel and everyday devices.",
+            "icon": "output"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "value": "5",
+            "title": "Safety Certifications",
+            "description": "Certified for reliable safety and performance.",
+            "icon": "shield"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
