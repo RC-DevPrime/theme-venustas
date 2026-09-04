@@ -103,6 +103,85 @@
       ],
       "settings": {}
     },
+    "heating_anchor_nav_UqKHW6": {
+      "type": "heating-anchor-nav",
+      "blocks": {
+        "link_b8kgNe": {
+          "type": "link",
+          "settings": {
+            "label": "Overview",
+            "target_id": "producth-overview"
+          }
+        },
+        "link_HTq7fi": {
+          "type": "link",
+          "settings": {
+            "label": "41W Heating",
+            "target_id": "producth-38w-heating"
+          }
+        },
+        "link_6qbVp9": {
+          "type": "link",
+          "settings": {
+            "label": "Power System",
+            "target_id": "producth-power-system"
+          }
+        },
+        "link_NCWX7b": {
+          "type": "link",
+          "settings": {
+            "label": "Design Features",
+            "target_id": "producth-design-features"
+          }
+        },
+        "link_QyQyAL": {
+          "type": "link",
+          "settings": {
+            "label": "Materials",
+            "target_id": "producth-materials"
+          }
+        },
+        "link_XJtqrY": {
+          "type": "link",
+          "settings": {
+            "label": "Specs",
+            "target_id": "producth-specs"
+          }
+        },
+        "link_TqfVR7": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "producth-faq"
+          }
+        },
+        "link_4XKg9d": {
+          "type": "link",
+          "settings": {
+            "label": "Review",
+            "target_id": "producth-review"
+          }
+        }
+      },
+      "block_order": [
+        "link_b8kgNe",
+        "link_HTq7fi",
+        "link_6qbVp9",
+        "link_NCWX7b",
+        "link_QyQyAL",
+        "link_XJtqrY",
+        "link_TqfVR7",
+        "link_4XKg9d"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#F5F5F5",
+        "nav_background": "#FFFFFF",
+        "text_color": "#1F1F1F",
+        "aria_label": "Page navigation",
+        "mobile_button_label": "Open page navigation"
+      }
+    },
     "product_heating_hero_banner_riwLAX": {
       "type": "product-heating-hero-banner",
       "blocks": {
@@ -139,7 +218,7 @@
       "name": "ProductH Hero Banner",
       "settings": {
         "heading": "Extreme Warmth For The Coldest Rides",
-        "description": "Cold weather doesn't just make riding uncomfortable. Wind chill, freezing temperatures, and long exposure can quickly drain your warmth and shorten your riding season. MV11 delivers active warmth where cold hits hardest."
+        "description": "Cold weather doesn't just make riding uncomfortable. Wind chill, freezing temperatures, and long exposure can quickly drain your warmth and shorten your riding season. \n<p>MV11 delivers active warmth where cold hits hardest.</p>"
       }
     },
     "product_heating_comparision_py7Eyz": {
@@ -164,7 +243,7 @@
         "comparison_column_CVJFUK": {
           "type": "comparison_column",
           "settings": {
-            "title": "WV12 Heated Vest",
+            "title": "MV11 Heated Vest",
             "mark": "check",
             "image_style": "contain",
             "item_1_title": "Active Heating",
@@ -185,9 +264,9 @@
       "name": "ProductH Comparison",
       "settings": {
         "heading": "More Layers Can't Replace Active Heat",
-        "description": "Traditional layering is bulky, passive, and limited. WV12 delivers consistent core warmth that moves with you.",
+        "description": "Traditional layering is bulky, passive, and limited. MV11 delivers consistent core warmth that moves with you.",
         "cta_heading": "Stop adding layers. Start with active heat.",
-        "cta_text": "WV12 replaces bulky mid-layers and delivers powerful, adjustable warmth-so you can ride farther in any condition."
+        "cta_text": "MV11 replaces bulky mid-layers and delivers powerful, adjustable warmth-so you can ride farther in any condition."
       }
     },
     "product_heating_introduction_cjbHDi": {
@@ -197,7 +276,7 @@
           "type": "feature_card",
           "settings": {
             "icon": "icon-heat",
-            "title": "38W High-Power Heating",
+            "title": "41W High-Power Heating",
             "text": "Advanced heating system delivers powerful warmth across 5 zones."
           }
         },
@@ -237,7 +316,7 @@
           "type": "layer_card",
           "settings": {
             "number": "2",
-            "title": "WV12 Heated Vest",
+            "title": "MV11 Heated Vest",
             "text": "Active heat to warm your core."
           }
         },
@@ -294,12 +373,12 @@
       "name": "ProductH Introduction",
       "settings": {
         "eyebrow": "Engineered For Modern Riders",
-        "heading": "Introducing WV12\nProfessional Heated Mid-Layer Vest",
-        "description": "WV12 is designed as the intelligent heated mid-layer that delivers powerful, even warmth across your core. Wear it under your riding jacket and feel the difference on every cold ride.",
+        "heading": "Introducing MV11\nProfessional Heated Mid-Layer Vest",
+        "description": "MV11 is designed as the intelligent heated mid-layer that delivers powerful, even warmth across your core. Wear it under your riding jacket and feel the difference on every cold ride.",
         "layering_heading": "The Right Layering System",
-        "layering_description": "WV12 fits between your base layer and outer shell to lock in heat and maximize performance.",
+        "layering_description": "MV11 fits between your base layer and outer shell to lock in heat and maximize performance.",
         "bottom_heading": "Designed as a mid-layer. Built for riders.",
-        "bottom_text": "WV12 delivers warmth that moves with you."
+        "bottom_text": "MV11 delivers warmth that moves with you."
       }
     },
     "product_heating_core_technology_WBr8Yb": {
@@ -418,17 +497,17 @@
         "chart_title": "Heat Up Fast. Stay Warm Longer.",
         "chart_note": "Heat up in seconds, not minutes. Consistent warmth that lasts.",
         "level_1_title": "HIGH",
-        "level_1_power": "~ 38W",
+        "level_1_power": "~ 41W",
         "level_1_text": "Rapid heating for extreme cold conditions.",
-        "level_1_color": "#E53935",
+        "level_1_color": "#e53935",
         "level_2_title": "MEDIUM",
-        "level_2_power": "~ 25W",
+        "level_2_power": "~ 28W",
         "level_2_text": "Balanced warmth for everyday street riding.",
-        "level_2_color": "#FFFFFF",
+        "level_2_color": "#ffffff",
         "level_3_title": "LOW",
         "level_3_power": "~ 16W",
         "level_3_text": "Gentle efficient runtime for mild conditions.",
-        "level_3_color": "#2196F3"
+        "level_3_color": "#2196f3"
       }
     },
     "product_heating_power_options_8qHYEE": {
@@ -492,8 +571,9 @@
       "settings": {
         "eyebrow": "Flexible Power Options",
         "title": "One Vest. Multiple Ways To Stay Warm.",
-        "description": "<p>WV12 adapts to your adventure with flexible battery configurations and motorcycle-ready 12V power options.</p>",
-        "cta_text": "Add the Y-Cable to your cart to connect MW12 to your motorcycle 12V power."
+        "description": "<p>MV11 adapts to your adventure with flexible battery configurations and motorcycle-ready 12V power options.</p>",
+        "cta_product": "5v-3a-charging-cable-usb-a-to-usb-a",
+        "cta_text": "Add the Y-Cable to your cart to connect MV11 to your motorcycle 12V power."
       }
     },
     "product_heating_design_details_yQVeqE": {
@@ -825,8 +905,9 @@
       ],
       "name": "Heating FAQ Accordion",
       "settings": {
-        "background_color": "#F5F5F5",
-        "text_color": "#1F1F1F",
+        "heading": "Frequently Asked Questions",
+        "background_color": "#f5f5f5",
+        "text_color": "#1f1f1f",
         "open_first_item": true
       }
     },
@@ -870,6 +951,7 @@
   },
   "order": [
     "main-product",
+    "heating_anchor_nav_UqKHW6",
     "product_heating_hero_banner_riwLAX",
     "product_heating_comparision_py7Eyz",
     "product_heating_introduction_cjbHDi",
