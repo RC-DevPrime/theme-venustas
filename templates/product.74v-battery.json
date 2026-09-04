@@ -103,6 +103,284 @@
       ],
       "settings": {}
     },
+    "product_battery_banner_riHEL3": {
+      "type": "product-battery-banner",
+      "name": "Product Battery Banner",
+      "settings": {
+        "image_desktop": "shopify://shop_images/battery-hero-bg.webp",
+        "title1": "Power Behind",
+        "title2": "Your Warmth",
+        "image_mobile": "shopify://shop_images/battery-hero-bg-mobile.webp",
+        "description": "<p>Engineered exclusively for extreme warmth and comfort, delivering reliable power to keep your heated vest active whenever you need it.</p>"
+      }
+    },
+    "product_battery_power_rzeL9x": {
+      "type": "product-battery-power",
+      "blocks": {
+        "image_r4JAKR": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/img1.webp",
+            "title": "Compact power image",
+            "description": ""
+          }
+        },
+        "image_9hi9aV": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/img2_1.webp",
+            "title": "Compact power image",
+            "description": ""
+          }
+        },
+        "image_nmaHXN": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/img3.webp",
+            "title": "Compact power image",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_r4JAKR",
+        "image_9hi9aV",
+        "image_nmaHXN"
+      ],
+      "name": "Product Battery Power",
+      "settings": {
+        "heading_before": "COMPACT POWER FOR",
+        "heading_accent": "7.4V",
+        "heading_after": "HEATED APPAREL",
+        "description": "<p>Lightweight, portable power designed for everyday wearability and convenience.</p>"
+      }
+    },
+    "product_battery_specs_PxQdqC": {
+      "type": "product-battery-specs",
+      "blocks": {
+        "spec_ip69kX": {
+          "type": "spec",
+          "settings": {
+            "value": "36WH",
+            "title": "Capacity",
+            "description": "Reliable power for everyday warmth.",
+            "icon": "capacity"
+          }
+        },
+        "spec_x8WVi9": {
+          "type": "spec",
+          "settings": {
+            "value": "6.56oz",
+            "title": "Lightweight",
+            "description": "Compact and easy to carry anywhere.",
+            "icon": "feather"
+          }
+        },
+        "spec_te47Yc": {
+          "type": "spec",
+          "settings": {
+            "value": "2.5H",
+            "title": "Fast Recharge",
+            "description": "Fully recharges in about 2.5 hours with a 20W+ charger.",
+            "icon": "bolt"
+          }
+        },
+        "spec_TErEg4": {
+          "type": "spec",
+          "settings": {
+            "value": "3",
+            "title": "Versatile Outputs",
+            "description": "USB-C, USB-A & 7.2V DC outputs for heated apparel and everyday devices.",
+            "icon": "output"
+          }
+        },
+        "spec_A98wtW": {
+          "type": "spec",
+          "settings": {
+            "value": "5",
+            "title": "Safety Certifications",
+            "description": "Certified for reliable safety and performance.",
+            "icon": "shield"
+          }
+        }
+      },
+      "block_order": [
+        "spec_ip69kX",
+        "spec_x8WVi9",
+        "spec_te47Yc",
+        "spec_TErEg4",
+        "spec_A98wtW"
+      ],
+      "name": "Product Battery Specs",
+      "settings": {
+        "heading": "EVERYTHING YOU NEED",
+        "heading_accent": "AT A GLANCE"
+      }
+    },
+    "product_battery_carry_THXRfk": {
+      "type": "product-battery-carry",
+      "name": "Product Battery Carry",
+      "settings": {
+        "title": "Lightweight To Carry",
+        "image_desktop": "shopify://shop_images/battery-carry-bg.webp",
+        "image_mobile": "shopify://shop_images/battery-carry-bg-mobile.webp"
+      }
+    },
+    "product_battery_gear_4fGfAH": {
+      "type": "product-battery-gear",
+      "name": "Product Battery Gear",
+      "settings": {
+        "title": "POWER YOUR GEAR WITH EASE",
+        "image_desktop": "shopify://shop_images/battery-gear-bg.webp",
+        "image_mobile": "shopify://shop_images/battery-gear-bg-mobile.webp"
+      }
+    },
+    "product_batter_protections_4jzByW": {
+      "type": "product-batter-protections",
+      "blocks": {
+        "protection_bNxBzi": {
+          "type": "protection",
+          "settings": {
+            "image": "shopify://shop_images/battery-protections-one.webp",
+            "title": "Temperature Monitoring",
+            "description": "<p>Smart NTC sensor monitors battery temperature in real-time, instantly adjusting performance parameters to ensure completely safe operation.</p>"
+          }
+        },
+        "protection_a6AGFg": {
+          "type": "protection",
+          "settings": {
+            "image": "shopify://shop_images/battery-protections-two.webp",
+            "title": "Stable Power Output",
+            "description": "<p>BMS (Battery Management System) regulates stable constant voltage output for continuous optimal performance of your apparel's heating elements.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "protection_bNxBzi",
+        "protection_a6AGFg"
+      ],
+      "name": "Battery Protections",
+      "settings": {
+        "heading": "BUILT WITH MULTIPLE",
+        "heading_accent": "SAFETY PROTECTIONS"
+      }
+    },
+    "product_battery_systems_Aw9MEx": {
+      "type": "product-battery-systems",
+      "blocks": {
+        "protection_6zieGN": {
+          "type": "protection",
+          "settings": {
+            "icon": "protection",
+            "label": "Over-Charge Protection"
+          }
+        },
+        "protection_69aETX": {
+          "type": "protection",
+          "settings": {
+            "icon": "current",
+            "label": "Over-Current Protection"
+          }
+        },
+        "protection_iGdmm4": {
+          "type": "protection",
+          "settings": {
+            "icon": "temperature",
+            "label": "Over-Temperature Protection"
+          }
+        },
+        "protection_tK4nbQ": {
+          "type": "protection",
+          "settings": {
+            "icon": "discharge",
+            "label": "Over-Discharge Protection"
+          }
+        },
+        "protection_4thNMb": {
+          "type": "protection",
+          "settings": {
+            "icon": "voltage",
+            "label": "Over-Voltage Protection"
+          }
+        },
+        "protection_DV3VXz": {
+          "type": "protection",
+          "settings": {
+            "icon": "circuit",
+            "label": "Short-Circuit Protection"
+          }
+        }
+      },
+      "block_order": [
+        "protection_6zieGN",
+        "protection_69aETX",
+        "protection_iGdmm4",
+        "protection_tK4nbQ",
+        "protection_4thNMb",
+        "protection_DV3VXz"
+      ],
+      "name": "Product Battery Systems",
+      "settings": {
+        "image_desktop": "shopify://shop_images/battery-systems-bg.webp",
+        "image_mobile": "shopify://shop_images/battery-systems-bg-mobile.webp",
+        "heading": "MULTIPLE",
+        "heading_accent": "PROTECTION SYSTEMS"
+      }
+    },
+    "product_battery_certification_zf3WK7": {
+      "type": "product-battery-certification",
+      "blocks": {
+        "certificate_WcKY6m": {
+          "type": "certificate",
+          "settings": {
+            "icon": "shopify://shop_images/battery-cert-one.webp"
+          }
+        },
+        "certificate_pWHTkB": {
+          "type": "certificate",
+          "settings": {
+            "icon": "shopify://shop_images/battery-cert-two.webp"
+          }
+        },
+        "certificate_jxeRpk": {
+          "type": "certificate",
+          "settings": {
+            "icon": "shopify://shop_images/battery-cert-three.webp"
+          }
+        },
+        "certificate_QBC7Ke": {
+          "type": "certificate",
+          "settings": {
+            "icon": "shopify://shop_images/battery-cert-four.webp"
+          }
+        },
+        "certificate_anNrck": {
+          "type": "certificate",
+          "settings": {
+            "icon": "shopify://shop_images/battery-cert-five.webp"
+          }
+        }
+      },
+      "block_order": [
+        "certificate_WcKY6m",
+        "certificate_pWHTkB",
+        "certificate_jxeRpk",
+        "certificate_QBC7Ke",
+        "certificate_anNrck"
+      ],
+      "name": "Product Battery Cert",
+      "settings": {
+        "background_color": "#151a22",
+        "text_color": "#ffffff",
+        "image_desktop": "shopify://shop_images/battery-cert-bg.webp",
+        "image_mobile": "shopify://shop_images/battery-safety-bg-mobile_c47bfb8d-acbd-46fe-83e4-484466805e2d.webp",
+        "title": "TESTED FOR SAFETY.",
+        "title_second": "BUILT TO LAST.",
+        "cert_title": "7 Safety Certifications",
+        "warranty_title": "1-Year Battery Warranty",
+        "description": "<p>Reliable support for your Venustas heated apparel power system.</p>"
+      }
+    },
     "product_review_section_VnyXRe": {
       "type": "product-review-section",
       "blocks": {
@@ -143,6 +421,14 @@
   },
   "order": [
     "main-product",
+    "product_battery_banner_riHEL3",
+    "product_battery_power_rzeL9x",
+    "product_battery_specs_PxQdqC",
+    "product_battery_carry_THXRfk",
+    "product_battery_gear_4fGfAH",
+    "product_batter_protections_4jzByW",
+    "product_battery_systems_Aw9MEx",
+    "product_battery_certification_zf3WK7",
     "product_review_section_VnyXRe",
     "product_featured_banner_mazp9M"
   ]
