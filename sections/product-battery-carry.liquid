@@ -20,6 +20,22 @@
     display: none;
   }
 
+  #shopify-section-{{ section.id }} .product-battery-carry__image--large {
+    display: none;
+  }
+
+  {%- if section.settings.image_large != blank -%}
+    @media screen and (min-width: 1600px) {
+      #shopify-section-{{ section.id }} .product-battery-carry__image--desktop {
+        display: none;
+      }
+
+      #shopify-section-{{ section.id }} .product-battery-carry__image--large {
+        display: block;
+      }
+    }
+  {%- endif -%}
+
   #shopify-section-{{ section.id }} .product-battery-carry__title {
     position: absolute;
     top: 72px;
@@ -84,6 +100,19 @@
     }}
   {% endif %}
 
+  {% if section.settings.image_large != blank %}
+    {{
+      section.settings.image_large
+      | image_url: width: 3200
+      | image_tag:
+        class: 'product-battery-carry__image product-battery-carry__image--large',
+        loading: 'lazy',
+        widths: '1600, 2000, 2400, 2880, 3200',
+        sizes: '(min-width: 1600px) 100vw, 0px',
+        alt: section.settings.image_large.alt | default: section.settings.title
+    }}
+  {% endif %}
+
   {% if section.settings.image_mobile != blank %}
     {{
       section.settings.image_mobile
@@ -108,9 +137,9 @@
     }}
   {% endif %}
 
-  {% if section.settings.image_desktop == blank and section.settings.image_mobile == blank %}
+  {% if section.settings.image_desktop == blank and section.settings.image_large == blank and section.settings.image_mobile == blank %}
     <div class="product-battery-carry__placeholder">
-      Upload desktop and mobile carry images.
+      Upload desktop, large screen, and mobile carry images.
     </div>
   {% endif %}
 </section>
@@ -131,6 +160,11 @@
       "type": "image_picker",
       "id": "image_desktop",
       "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_large",
+      "label": "Large screen image"
     },
     {
       "type": "image_picker",

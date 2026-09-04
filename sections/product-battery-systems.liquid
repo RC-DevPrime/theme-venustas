@@ -35,6 +35,22 @@
     display: none;
   }
 
+  #shopify-section-{{ section.id }} .product-battery-systems__image--large {
+    display: none;
+  }
+
+  {%- if section.settings.image_large != blank -%}
+    @media only screen and (min-width: 1600px) {
+      #shopify-section-{{ section.id }} .product-battery-systems__image--desktop {
+        display: none;
+      }
+
+      #shopify-section-{{ section.id }} .product-battery-systems__image--large {
+        display: block;
+      }
+    }
+  {%- endif -%}
+
   #shopify-section-{{ section.id }} .product-battery-systems__content {
     width: min(100% - 40px, 1240px);
     margin: 0 auto;
@@ -206,6 +222,19 @@
         }}
       {%- endif -%}
 
+      {%- if section.settings.image_large != blank -%}
+        {{
+          section.settings.image_large
+          | image_url: width: 3200
+          | image_tag:
+            class: 'product-battery-systems__image product-battery-systems__image--large',
+            loading: 'lazy',
+            widths: '1600,2000,2480,2880,3200',
+            sizes: '(min-width: 1600px) 100vw, 0px',
+            alt: section.settings.image_large.alt | default: section.settings.heading
+        }}
+      {%- endif -%}
+
       {%- if section.settings.image_mobile != blank -%}
         {{
           section.settings.image_mobile
@@ -280,6 +309,11 @@
       "type": "image_picker",
       "id": "image_desktop",
       "label": "Desktop background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_large",
+      "label": "Large screen background image"
     },
     {
       "type": "image_picker",
