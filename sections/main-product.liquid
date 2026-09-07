@@ -270,17 +270,11 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                                     </div>
                             </div>
                         {%- when 'choose_runtime' %}
-                            {% comment %}Rendered immediately before the variant selector below.{% endcomment %}
+                            {% render 'choose-runtime', block: block, section: section, product: product %}
                         {%- when 'variant_option' %}
-                            {%- for runtime_block in section.blocks -%}
-                                {%- if runtime_block.type == 'choose_runtime' -%}
-                                    {% render 'choose-runtime', block: runtime_block, section: section, product: product %}
-                                {%- endif -%}
-                            {%- endfor -%}
                             {% unless product.has_only_default_variant %}
                                 <div class="product-details">
                                     {% render 'product-variant', product: product %}
-                                </div>
                             {% endunless %}
                         {%- when 'hightlights' %}
                             <div class="product-details"> 
