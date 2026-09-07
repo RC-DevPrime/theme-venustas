@@ -39,6 +39,7 @@
       {%- else -%}
         <div class="choose-runtime__option is-disabled" aria-disabled="true">
       {%- endif -%}
+          <span class="choose-runtime__check" aria-hidden="true"></span>
           <strong class="choose-runtime__option-title">{{ block.settings.option_2_title | escape }}</strong>
           <span class="choose-runtime__option-subtitle">{{ block.settings.option_2_subtitle | escape }}</span>
           <span class="choose-runtime__divider"></span>
@@ -51,10 +52,11 @@
       {%- endif -%}
 
       {%- if block.settings.option_3_link != blank -%}
-        <a class="choose-runtime__option" href="{{ block.settings.option_3_link }}">
+        <a class="choose-runtime__option choose-runtime__option--max" href="{{ block.settings.option_3_link }}">
       {%- else -%}
-        <div class="choose-runtime__option is-disabled" aria-disabled="true">
+        <div class="choose-runtime__option choose-runtime__option--max is-disabled" aria-disabled="true">
       {%- endif -%}
+          <span class="choose-runtime__check" aria-hidden="true"></span>
           <span class="choose-runtime__badge">{{ block.settings.option_3_badge | escape }}</span>
           <strong class="choose-runtime__option-title">{{ block.settings.option_3_title | escape }}</strong>
           <span class="choose-runtime__option-subtitle">{{ block.settings.option_3_subtitle | escape }}</span>
@@ -132,16 +134,53 @@
       const trigger = root.querySelector('.choose-runtime__help');
       const dialog = root.querySelector('.runtime-comparison');
       const closeButton = root.querySelector('.runtime-comparison__close');
+      const optionLinks = root.querySelectorAll('a.choose-runtime__option');
       if (!trigger || !dialog || !closeButton) return;
 
+      const positionDialog = () => {
+        if (!dialog.open) return;
+
+        const triggerRect = trigger.getBoundingClientRect();
+        const dialogWidth = dialog.offsetWidth;
+        const viewportGutter = 16;
+        const centeredLeft = triggerRect.left + triggerRect.width / 2;
+        const minimumLeft = viewportGutter + dialogWidth / 2;
+        const maximumLeft = window.innerWidth - viewportGutter - dialogWidth / 2;
+        const left = Math.min(Math.max(centeredLeft, minimumLeft), maximumLeft);
+
+        dialog.style.setProperty('--runtime-dialog-left', `${left}px`);
+        dialog.style.setProperty('--runtime-dialog-top', `${triggerRect.bottom + 4}px`);
+      };
+
       root.dataset.runtimeReady = 'true';
+      optionLinks.forEach((optionLink) => {
+        optionLink.addEventListener('click', (event) => {
+          if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+          event.preventDefault();
+          root.querySelectorAll('.choose-runtime__option').forEach((option) => {
+            option.classList.remove('is-selected');
+            option.removeAttribute('aria-current');
+          });
+          optionLink.classList.add('is-selected');
+          optionLink.setAttribute('aria-current', 'true');
+
+          window.setTimeout(() => window.location.assign(optionLink.href), 160);
+        });
+      });
+
       trigger.addEventListener('click', () => {
-        if (!dialog.open) dialog.showModal();
+        if (!dialog.open) {
+          dialog.showModal();
+          positionDialog();
+        }
       });
       closeButton.addEventListener('click', () => dialog.close());
       dialog.addEventListener('click', (event) => {
         if (event.target === dialog) dialog.close();
       });
+      window.addEventListener('resize', positionDialog);
+      window.addEventListener('scroll', positionDialog, true);
     })();
   </script>
 {%- endif -%}
