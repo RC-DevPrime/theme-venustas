@@ -1038,7 +1038,19 @@
                                         <div class="accordion-body">
                                             <div class="menu-list">
                                               {% for link in block.settings.menu_list_2.links %}
-                                                <a href="{{ link.url }}" class="pp-regular body">{{ link.title }}</a>
+                                                {% assign menu_title_parts = link.title | split: '#' %}
+                                                {% assign menu_clean_title = menu_title_parts.first | strip %}
+                                                {% assign menu_badge = menu_title_parts[1] | strip | downcase %}
+
+                                                <a href="{{ link.url }}" class="mega-menu-link pp-regular body">
+                                                  <span>{{ menu_clean_title }}</span>
+
+                                                  {% if menu_badge == 'hot' %}
+                                                    <span class="mega-menu-link__badge mega-menu-link__badge--hot">
+                                                      Hot
+                                                    </span>
+                                                  {% endif %}
+                                                </a>
                                               {% endfor %}
                                             </div>
                                         </div>
@@ -1473,7 +1485,19 @@
                                     <div class="accordion-body">
                                         <div class="menu-list">
                                           {% for link in block.settings.menu_list_2.links %}
-                                            <a href="{{ link.url }}" class="pp-regular body">{{ link.title }}</a>
+                                            {% assign menu_title_parts = link.title | split: '#' %}
+                                            {% assign menu_clean_title = menu_title_parts.first | strip %}
+                                            {% assign menu_badge = menu_title_parts[1] | strip | downcase %}
+
+                                            <a href="{{ link.url }}" class="mega-menu-link pp-regular body">
+                                              <span>{{ menu_clean_title }}</span>
+
+                                              {% if menu_badge == 'hot' %}
+                                                <span class="mega-menu-link__badge mega-menu-link__badge--hot">
+                                                  Hot
+                                                </span>
+                                              {% endif %}
+                                            </a>
                                           {% endfor %}
                                         </div>
                                     </div>
