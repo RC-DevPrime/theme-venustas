@@ -1765,6 +1765,15 @@ a.f-white:hover{
     flex-direction:column;
     gap:10px;
 }
+.nav-mobile .mega-mobile .mega-menu-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    width:fit-content;
+}
+.nav-mobile .mega-mobile .mega-menu-link__badge--hot{
+    margin-top:0;
+}
 .nav-mobile .mega-mobile .display-2 .accordion-body .menu-list{
     display: flex;
     flex-direction: unset;
