@@ -233,6 +233,38 @@
     overflow:hidden;
 }
 
+/* DISPLAY - 5 MEGA MENU */
+.header .mega-menu .display-5{
+    font-size:inherit;
+    font-weight:inherit;
+    line-height:inherit;
+}
+.header .mega-menu .display-5.mega-menu-tab-list{
+    --bs-gutter-x: 28px;
+    align-items:flex-start;
+}
+.header .mega-menu .display-5-menu-columns{
+    display:flex;
+    gap:50px;
+}
+.header .mega-menu .display-5-feature-grid{
+    --bs-gutter-x:20px;
+}
+.header .mega-menu .display-5 .featured-menu-item{
+    height:170px;
+    border-radius:8px;
+    overflow:hidden;
+}
+.header .mega-menu .display-5-feature-title{
+    color:#141414;
+    display:block;
+    line-height:1.3;
+    text-decoration:none;
+}
+.header .mega-menu .display-5-feature-title:hover{
+    color:#FF4438;
+}
+
 
 
 /* ================== Badge Overlay CSS ========================*/
@@ -372,5 +404,14 @@
 @media only screen and (max-width: 768px) {
   .header .display-3 .menu-list-collection-item{
       height: 170px;
+  }
+  .header .mega-menu .display-5 .featured-menu-item{
+      height:150px;
+  }
+  .header .mega-menu .display-5-mobile-features{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      padding-top:18px;
   }
 }
