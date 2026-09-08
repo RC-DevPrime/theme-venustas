@@ -1,0 +1,186 @@
+{%- liquid
+  assign show_runtime = false
+  assign target_product = block.settings.target_product
+
+  if block.settings.show_on_all_products
+    assign show_runtime = true
+  elsif target_product != blank and target_product.id == product.id
+    assign show_runtime = true
+  endif
+-%}
+
+{%- if show_runtime -%}
+  {{ 'choose-runtime.css' | asset_url | stylesheet_tag }}
+
+  {%- assign dialog_id = 'RuntimeComparison-' | append: section.id | append: '-' | append: block.id -%}
+  <div class="product-details choose-runtime" id="ChooseRuntime-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+    <div class="choose-runtime__heading-row">
+      <h2 class="choose-runtime__heading">{{ block.settings.heading | escape }}</h2>
+      <button
+        class="choose-runtime__help"
+        type="button"
+        aria-label="Open runtime and battery comparison"
+        aria-controls="{{ dialog_id }}"
+        aria-haspopup="dialog"
+      >?</button>
+    </div>
+
+    <div class="choose-runtime__options" aria-label="Runtime options">
+      <div class="choose-runtime__option is-selected" aria-current="true">
+        <span class="choose-runtime__check" aria-hidden="true"></span>
+        <strong class="choose-runtime__option-title">{{ block.settings.option_1_title | escape }}</strong>
+        <span class="choose-runtime__option-subtitle">{{ block.settings.option_1_subtitle | escape }}</span>
+        <span class="choose-runtime__divider"></span>
+        <strong class="choose-runtime__option-price">{{ block.settings.option_1_price | escape }}</strong>
+      </div>
+
+      {%- if block.settings.option_2_link != blank -%}
+        <a class="choose-runtime__option" href="{{ block.settings.option_2_link }}">
+      {%- else -%}
+        <div class="choose-runtime__option is-disabled" aria-disabled="true">
+      {%- endif -%}
+          <span class="choose-runtime__check" aria-hidden="true"></span>
+          <strong class="choose-runtime__option-title">{{ block.settings.option_2_title | escape }}</strong>
+          <span class="choose-runtime__option-subtitle">{{ block.settings.option_2_subtitle | escape }}</span>
+          <span class="choose-runtime__divider"></span>
+          <strong class="choose-runtime__option-price">{{ block.settings.option_2_price | escape }}</strong>
+          <span class="choose-runtime__option-note">{{ block.settings.option_2_note | escape }}</span>
+      {%- if block.settings.option_2_link != blank -%}
+        </a>
+      {%- else -%}
+        </div>
+      {%- endif -%}
+
+      {%- if block.settings.option_3_link != blank -%}
+        <a class="choose-runtime__option choose-runtime__option--max" href="{{ block.settings.option_3_link }}">
+      {%- else -%}
+        <div class="choose-runtime__option choose-runtime__option--max is-disabled" aria-disabled="true">
+      {%- endif -%}
+          <span class="choose-runtime__check" aria-hidden="true"></span>
+          <span class="choose-runtime__badge">{{ block.settings.option_3_badge | escape }}</span>
+          <strong class="choose-runtime__option-title">{{ block.settings.option_3_title | escape }}</strong>
+          <span class="choose-runtime__option-subtitle">{{ block.settings.option_3_subtitle | escape }}</span>
+          <span class="choose-runtime__divider"></span>
+          <strong class="choose-runtime__option-price">{{ block.settings.option_3_price | escape }}</strong>
+          <span class="choose-runtime__option-note">{{ block.settings.option_3_note | escape }}</span>
+      {%- if block.settings.option_3_link != blank -%}
+        </a>
+      {%- else -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <dialog class="runtime-comparison" id="{{ dialog_id }}" aria-labelledby="{{ dialog_id }}-title">
+      <div class="runtime-comparison__header">
+        <h2 id="{{ dialog_id }}-title">{{ block.settings.comparison_title | escape }}</h2>
+        <button class="runtime-comparison__close" type="button" aria-label="Close comparison">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div class="runtime-comparison__grid">
+        <div class="runtime-comparison__cell runtime-comparison__corner"></div>
+        <div class="runtime-comparison__cell runtime-comparison__column-heading">
+          <strong>Standard</strong><span>5K Battery</span>
+          {%- if block.settings.standard_image != blank -%}
+            {{ block.settings.standard_image | image_url: width: 360 | image_tag: loading: 'lazy', widths: '180, 360', alt: '5K battery' }}
+          {%- else -%}
+            <img src="{{ 'choose-runtime-standard.png' | asset_url }}" loading="lazy" width="360" height="270" alt="5K battery">
+          {%- endif -%}
+        </div>
+        <div class="runtime-comparison__cell runtime-comparison__column-heading">
+          <strong>Pro</strong><span>7.5K Battery</span>
+          {%- if block.settings.pro_image != blank -%}
+            {{ block.settings.pro_image | image_url: width: 360 | image_tag: loading: 'lazy', widths: '180, 360', alt: '7.5K battery' }}
+          {%- else -%}
+            <img src="{{ 'choose-runtime-pro.png' | asset_url }}" loading="lazy" width="360" height="270" alt="7.5K battery">
+          {%- endif -%}
+        </div>
+        <div class="runtime-comparison__cell runtime-comparison__column-heading">
+          <strong>Max</strong><span>10K Battery</span>
+          {%- if block.settings.max_image != blank -%}
+            {{ block.settings.max_image | image_url: width: 360 | image_tag: loading: 'lazy', widths: '180, 360', alt: '10K battery' }}
+          {%- else -%}
+            <img src="{{ 'choose-runtime-max.png' | asset_url }}" loading="lazy" width="360" height="270" alt="10K battery">
+          {%- endif -%}
+        </div>
+
+        <div class="runtime-comparison__cell runtime-comparison__label">
+          <span class="runtime-comparison__desktop-label">Runtime<br> (Low Heat Level)</span>
+          <span class="runtime-comparison__mobile-label">Runtime (Low Heat)</span>
+        </div>
+        <div class="runtime-comparison__cell runtime-comparison__value">{{ block.settings.option_1_title | escape }}</div>
+        <div class="runtime-comparison__cell runtime-comparison__value">{{ block.settings.option_2_title | escape }}</div>
+        <div class="runtime-comparison__cell runtime-comparison__value">{{ block.settings.option_3_title | escape }}</div>
+
+        <div class="runtime-comparison__cell runtime-comparison__label">Battery Capacity</div>
+        <div class="runtime-comparison__cell runtime-comparison__value">5000mAh@7.4V (37Wh)</div>
+        <div class="runtime-comparison__cell runtime-comparison__value">5000mAh@11.1V (55.5Wh)</div>
+        <div class="runtime-comparison__cell runtime-comparison__value">10000mAh@7.4V (74Wh)</div>
+
+        <div class="runtime-comparison__cell runtime-comparison__label">Battery Weight</div>
+        <div class="runtime-comparison__cell runtime-comparison__value runtime-comparison__weight">6.56oz</div>
+        <div class="runtime-comparison__cell runtime-comparison__value runtime-comparison__weight">10.4oz</div>
+        <div class="runtime-comparison__cell runtime-comparison__value runtime-comparison__weight">12.8oz</div>
+      </div>
+    </dialog>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.getElementById('ChooseRuntime-{{ section.id }}-{{ block.id }}');
+      if (!root || root.dataset.runtimeReady === 'true') return;
+
+      const trigger = root.querySelector('.choose-runtime__help');
+      const dialog = root.querySelector('.runtime-comparison');
+      const closeButton = root.querySelector('.runtime-comparison__close');
+      const optionLinks = root.querySelectorAll('a.choose-runtime__option');
+      if (!trigger || !dialog || !closeButton) return;
+
+      const positionDialog = () => {
+        if (!dialog.open) return;
+
+        const triggerRect = trigger.getBoundingClientRect();
+        const dialogWidth = dialog.offsetWidth;
+        const viewportGutter = 16;
+        const centeredLeft = triggerRect.left + triggerRect.width / 2;
+        const minimumLeft = viewportGutter + dialogWidth / 2;
+        const maximumLeft = window.innerWidth - viewportGutter - dialogWidth / 2;
+        const left = Math.min(Math.max(centeredLeft, minimumLeft), maximumLeft);
+
+        dialog.style.setProperty('--runtime-dialog-left', `${left}px`);
+        dialog.style.setProperty('--runtime-dialog-top', `${triggerRect.bottom + 4}px`);
+      };
+
+      root.dataset.runtimeReady = 'true';
+      optionLinks.forEach((optionLink) => {
+        optionLink.addEventListener('click', (event) => {
+          if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+          event.preventDefault();
+          root.querySelectorAll('.choose-runtime__option').forEach((option) => {
+            option.classList.remove('is-selected');
+            option.removeAttribute('aria-current');
+          });
+          optionLink.classList.add('is-selected');
+          optionLink.setAttribute('aria-current', 'true');
+
+          window.setTimeout(() => window.location.assign(optionLink.href), 160);
+        });
+      });
+
+      trigger.addEventListener('click', () => {
+        if (!dialog.open) {
+          dialog.showModal();
+          positionDialog();
+        }
+      });
+      closeButton.addEventListener('click', () => dialog.close());
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+      window.addEventListener('resize', positionDialog);
+      window.addEventListener('scroll', positionDialog, true);
+    })();
+  </script>
+{%- endif -%}

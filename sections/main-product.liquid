@@ -269,6 +269,8 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                                     </div>
                                     </div>
                             </div>
+                        {%- when 'choose_runtime' %}
+                            {% render 'choose-runtime', block: block, section: section, product: product %}
                         {%- when 'variant_option' %}
                             {% unless product.has_only_default_variant %}
                                 <div class="product-details">
@@ -1300,6 +1302,148 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                     "id": "link",
                     "label": "Link",
                   }
+                ]
+            },
+            {
+                "type": "choose_runtime",
+                "name": "Choose Your Runtime",
+                "settings": [
+                    {
+                        "type": "checkbox",
+                        "id": "show_on_all_products",
+                        "label": "Show on all products",
+                        "default": false
+                    },
+                    {
+                        "type": "product",
+                        "id": "target_product",
+                        "label": "Product to show on"
+                    },
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Choose Your Runtime"
+                    },
+                    {
+                        "type": "header",
+                        "content": "Standard option"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_1_title",
+                        "label": "Runtime",
+                        "default": "Up to 10 hrs"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_1_subtitle",
+                        "label": "Label",
+                        "default": "Standard"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_1_price",
+                        "label": "Price text",
+                        "default": "Included"
+                    },
+                    {
+                        "type": "header",
+                        "content": "Pro option"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_2_title",
+                        "label": "Runtime",
+                        "default": "Up to 13 hrs"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_2_subtitle",
+                        "label": "Label",
+                        "default": "Pro"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_2_price",
+                        "label": "Price text",
+                        "default": "+$10.00"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_2_note",
+                        "label": "Comparison text",
+                        "default": "+3 hrs vs. Standard"
+                    },
+                    {
+                        "type": "url",
+                        "id": "option_2_link",
+                        "label": "Destination link"
+                    },
+                    {
+                        "type": "header",
+                        "content": "Max option"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_3_badge",
+                        "label": "Badge",
+                        "default": "LONGEST RUNTIME"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_3_title",
+                        "label": "Runtime",
+                        "default": "Up to 20 hrs"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_3_subtitle",
+                        "label": "Label",
+                        "default": "Max"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_3_price",
+                        "label": "Price text",
+                        "default": "+$30.00"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_3_note",
+                        "label": "Comparison text",
+                        "default": "+10 hrs vs. Standard"
+                    },
+                    {
+                        "type": "url",
+                        "id": "option_3_link",
+                        "label": "Destination link"
+                    },
+                    {
+                        "type": "header",
+                        "content": "Comparison popup"
+                    },
+                    {
+                        "type": "text",
+                        "id": "comparison_title",
+                        "label": "Popup heading",
+                        "default": "Runtime & Battery Comparison"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "standard_image",
+                        "label": "Standard battery image"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "pro_image",
+                        "label": "Pro battery image"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "max_image",
+                        "label": "Max battery image"
+                    }
                 ]
             },
             {
