@@ -7,12 +7,35 @@
         display:block;
         overflow:hidden;
         position:relative;
+        aspect-ratio:458 / 608;
         border-radius:8px;
     }
     .featured-image-slider-section .featured-image-item .image-container img{
+        display:block;
         width:100%;
         height:100%;
+        object-fit:cover;
         transition: all 0.3s ease;
+    }
+    /* Match Swiper's responsive layout before its lazy initialization runs. */
+    .featured-image-slider-section .featured-image-slider:not(.swiper-initialized) .swiper-wrapper {
+        gap:15px;
+    }
+    .featured-image-slider-section .featured-image-slider:not(.swiper-initialized) .swiper-slide {
+        flex:0 0 calc(83.333333% - 2.5px);
+        width:calc(83.333333% - 2.5px);
+    }
+    @media (min-width: 768px) {
+        .featured-image-slider-section .featured-image-slider:not(.swiper-initialized) .swiper-slide {
+            flex-basis:calc(50% - 7.5px);
+            width:calc(50% - 7.5px);
+        }
+    }
+    @media (min-width: 1024px) {
+        .featured-image-slider-section .featured-image-slider:not(.swiper-initialized) .swiper-slide {
+            flex-basis:calc(31.25% - 10.3125px);
+            width:calc(31.25% - 10.3125px);
+        }
     }
     .featured-image-slider-section .featured-image-item .image-container:hover img{
         transform: scale(1.1);
@@ -63,13 +86,14 @@
                         <a href="{{ block.settings.link }}" class="image-container" aria-label="{{ block.settings.heading }}">
                             <img
                                 class="featured-img"
+                                style="object-position: {{ block.settings.image.presentation.focal_point | default: 'center center' }};"
                                 src="{{ block.settings.image | image_url: width: 460, format: 'webp', quality: 60 }}"
                                 srcset="
                                     {{ block.settings.image | image_url: width: 230, format: 'webp', quality: 60 }} 230w,
                                     {{ block.settings.image | image_url: width: 460, format: 'webp', quality: 60 }} 460w,
                                     {{ block.settings.image | image_url: width: 920, format: 'webp', quality: 60 }} 920w
                                 "
-                                sizes="(max-width: 768px) 100vw, 50vw"
+                                sizes="(min-width: 1024px) 31vw, (min-width: 768px) 50vw, 83vw"
                                 width="458"
                                 height="608"
                                 alt="{{ block.settings.image.alt | escape }}"
