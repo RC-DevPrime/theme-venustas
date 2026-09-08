@@ -1154,9 +1154,21 @@ a.f-white:hover{
         visibility:visible;
     }
 }
-.header .nav-icons svg{
-    width:20px;
-    height:fit-content;
+
+.header .nav-icons .nav-icon.icon-wishlist,
+.header .nav-icons .nav-icon.icon-user,
+.header .nav-icons .nav-icon.icon-cart{
+    font-size:16px;
+    transition:color .2s ease;
+}
+.header .nav-icons .nav-icon:is(.icon-gift, .icon-wishlist, .icon-user, .icon-cart) svg{
+    width:1em;
+    height:1em;
+}
+.header .nav-icons .nav-icon:is(.icon-wishlist, .icon-user, .icon-cart):hover,
+.header .nav-icons .nav-icon:is(.icon-wishlist, .icon-user, .icon-cart):focus-visible,
+.header .nav-icons .nav-icon:is(.icon-wishlist, .icon-user, .icon-cart).active{
+    color:#B93205;
 }
 .header .nav-icons a.nav-icon.icon-search,
 .header .nav-icons button.nav-icon.icon-search{
@@ -2659,14 +2671,16 @@ a.f-white:hover{
     .oke-sr-count, .oke-sr-rating, .oke-sr-stars{
         font-size:10px !important;
     }
-    .header .nav-icons button.icon-cart img{
-        width:20px;
+    .header .nav-icons .nav-icon.icon-wishlist,
+    .header .nav-icons .nav-icon.icon-gift,
+    .header .nav-icons .nav-icon.icon-cart{
+        font-size:20px;
     }
     .header .header-wrapper-mobile .container{
         display: grid !important;
         grid-template-columns: auto 1fr auto auto auto;
         align-items: center;
-        column-gap: 14px;
+        column-gap: 16px;
     }
     .header .header-wrapper-mobile .container > .h-auto{
         grid-column: 1;
