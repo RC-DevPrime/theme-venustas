@@ -1309,11 +1309,6 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                 "name": "Choose Your Runtime",
                 "settings": [
                     {
-                        "type": "product",
-                        "id": "target_product",
-                        "label": "Product to show on"
-                    },
-                    {
                         "type": "select",
                         "id": "default_option",
                         "label": "Default selected option",
@@ -1340,10 +1335,6 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                         "default": "Choose Your Runtime"
                     },
                     {
-                        "type": "header",
-                        "content": "Standard option"
-                    },
-                    {
                         "type": "text",
                         "id": "option_1_title",
                         "label": "Runtime",
@@ -1358,7 +1349,14 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                     {
                         "type": "text",
                         "id": "option_1_price",
-                        "label": "Price text"
+                        "label": "Price text",
+                        "default": "-$10.00"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_1_note",
+                        "label": "Comparison text",
+                        "default": "-3 hrs vs. Pro"
                     },
                     {
                         "type": "url",
