@@ -275,6 +275,7 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                             {% unless product.has_only_default_variant %}
                                 <div class="product-details">
                                     {% render 'product-variant', product: product %}
+                                </div>
                             {% endunless %}
                         {%- when 'hightlights' %}
                             <div class="product-details"> 
@@ -1308,15 +1309,29 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                 "name": "Choose Your Runtime",
                 "settings": [
                     {
-                        "type": "checkbox",
-                        "id": "show_on_all_products",
-                        "label": "Show on all products",
-                        "default": false
-                    },
-                    {
                         "type": "product",
                         "id": "target_product",
                         "label": "Product to show on"
+                    },
+                    {
+                        "type": "select",
+                        "id": "default_option",
+                        "label": "Default selected option",
+                        "options": [
+                            {
+                                "value": "standard",
+                                "label": "Standard"
+                            },
+                            {
+                                "value": "pro",
+                                "label": "Pro"
+                            },
+                            {
+                                "value": "max",
+                                "label": "Max"
+                            }
+                        ],
+                        "default": "standard"
                     },
                     {
                         "type": "text",
@@ -1343,8 +1358,12 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                     {
                         "type": "text",
                         "id": "option_1_price",
-                        "label": "Price text",
-                        "default": "Included"
+                        "label": "Price text"
+                    },
+                    {
+                        "type": "url",
+                        "id": "option_1_link",
+                        "label": "Destination link"
                     },
                     {
                         "type": "header",
@@ -1417,10 +1436,6 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                         "type": "url",
                         "id": "option_3_link",
                         "label": "Destination link"
-                    },
-                    {
-                        "type": "header",
-                        "content": "Comparison popup"
                     },
                     {
                         "type": "text",

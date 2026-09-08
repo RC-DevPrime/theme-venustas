@@ -1,10 +1,9 @@
 {%- liquid
   assign show_runtime = false
   assign target_product = block.settings.target_product
+  assign default_option = block.settings.default_option | default: 'standard'
 
-  if block.settings.show_on_all_products
-    assign show_runtime = true
-  elsif target_product != blank and target_product.id == product.id
+  if target_product != blank and target_product.id == product.id
     assign show_runtime = true
   endif
 -%}
@@ -26,16 +25,30 @@
     </div>
 
     <div class="choose-runtime__options" aria-label="Runtime options">
-      <div class="choose-runtime__option is-selected" aria-current="true">
+      {%- if default_option == 'standard' -%}
+        <div class="choose-runtime__option is-selected" aria-current="true">
+      {%- elsif block.settings.option_1_link != blank -%}
+        <a class="choose-runtime__option" href="{{ block.settings.option_1_link }}" target="_blank" rel="noopener noreferrer">
+      {%- else -%}
+        <div class="choose-runtime__option is-disabled" aria-disabled="true">
+      {%- endif -%}
         <span class="choose-runtime__check" aria-hidden="true"></span>
         <strong class="choose-runtime__option-title">{{ block.settings.option_1_title | escape }}</strong>
         <span class="choose-runtime__option-subtitle">{{ block.settings.option_1_subtitle | escape }}</span>
         <span class="choose-runtime__divider"></span>
-        <strong class="choose-runtime__option-price">{{ block.settings.option_1_price | escape }}</strong>
-      </div>
+        <strong class="choose-runtime__option-price">
+          {%- if default_option == 'standard' -%}Included{%- else -%}{{ block.settings.option_1_price | escape }}{%- endif -%}
+        </strong>
+      {%- if default_option == 'standard' or block.settings.option_1_link == blank -%}
+        </div>
+      {%- else -%}
+        </a>
+      {%- endif -%}
 
-      {%- if block.settings.option_2_link != blank -%}
-        <a class="choose-runtime__option" href="{{ block.settings.option_2_link }}">
+      {%- if default_option == 'pro' -%}
+        <div class="choose-runtime__option is-selected" aria-current="true">
+      {%- elsif block.settings.option_2_link != blank -%}
+        <a class="choose-runtime__option" href="{{ block.settings.option_2_link }}" target="_blank" rel="noopener noreferrer">
       {%- else -%}
         <div class="choose-runtime__option is-disabled" aria-disabled="true">
       {%- endif -%}
@@ -43,16 +56,22 @@
           <strong class="choose-runtime__option-title">{{ block.settings.option_2_title | escape }}</strong>
           <span class="choose-runtime__option-subtitle">{{ block.settings.option_2_subtitle | escape }}</span>
           <span class="choose-runtime__divider"></span>
-          <strong class="choose-runtime__option-price">{{ block.settings.option_2_price | escape }}</strong>
-          <span class="choose-runtime__option-note">{{ block.settings.option_2_note | escape }}</span>
-      {%- if block.settings.option_2_link != blank -%}
-        </a>
-      {%- else -%}
+          <strong class="choose-runtime__option-price">
+            {%- if default_option == 'pro' -%}Included{%- else -%}{{ block.settings.option_2_price | escape }}{%- endif -%}
+          </strong>
+          {%- unless default_option == 'pro' -%}
+            <span class="choose-runtime__option-note">{{ block.settings.option_2_note | escape }}</span>
+          {%- endunless -%}
+      {%- if default_option == 'pro' or block.settings.option_2_link == blank -%}
         </div>
+      {%- else -%}
+        </a>
       {%- endif -%}
 
-      {%- if block.settings.option_3_link != blank -%}
-        <a class="choose-runtime__option choose-runtime__option--max" href="{{ block.settings.option_3_link }}">
+      {%- if default_option == 'max' -%}
+        <div class="choose-runtime__option choose-runtime__option--max is-selected" aria-current="true">
+      {%- elsif block.settings.option_3_link != blank -%}
+        <a class="choose-runtime__option choose-runtime__option--max" href="{{ block.settings.option_3_link }}" target="_blank" rel="noopener noreferrer">
       {%- else -%}
         <div class="choose-runtime__option choose-runtime__option--max is-disabled" aria-disabled="true">
       {%- endif -%}
@@ -61,12 +80,16 @@
           <strong class="choose-runtime__option-title">{{ block.settings.option_3_title | escape }}</strong>
           <span class="choose-runtime__option-subtitle">{{ block.settings.option_3_subtitle | escape }}</span>
           <span class="choose-runtime__divider"></span>
-          <strong class="choose-runtime__option-price">{{ block.settings.option_3_price | escape }}</strong>
-          <span class="choose-runtime__option-note">{{ block.settings.option_3_note | escape }}</span>
-      {%- if block.settings.option_3_link != blank -%}
-        </a>
-      {%- else -%}
+          <strong class="choose-runtime__option-price">
+            {%- if default_option == 'max' -%}Included{%- else -%}{{ block.settings.option_3_price | escape }}{%- endif -%}
+          </strong>
+          {%- unless default_option == 'max' -%}
+            <span class="choose-runtime__option-note">{{ block.settings.option_3_note | escape }}</span>
+          {%- endunless -%}
+      {%- if default_option == 'max' or block.settings.option_3_link == blank -%}
         </div>
+      {%- else -%}
+        </a>
       {%- endif -%}
     </div>
 
@@ -155,17 +178,14 @@
       root.dataset.runtimeReady = 'true';
       optionLinks.forEach((optionLink) => {
         optionLink.addEventListener('click', (event) => {
-          if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+          if (event.button !== 0) return;
 
-          event.preventDefault();
           root.querySelectorAll('.choose-runtime__option').forEach((option) => {
             option.classList.remove('is-selected');
             option.removeAttribute('aria-current');
           });
           optionLink.classList.add('is-selected');
           optionLink.setAttribute('aria-current', 'true');
-
-          window.setTimeout(() => window.location.assign(optionLink.href), 160);
         });
       });
 
