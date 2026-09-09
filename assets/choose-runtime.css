@@ -89,7 +89,11 @@ a.choose-runtime__option:hover {
   display: block;
 }
 
-.choose-runtime__option--max.is-selected .choose-runtime__badge {
+.choose-runtime__option--max.is-selected {
+  border-width: 1px;
+}
+
+.choose-runtime__option--max.is-selected .choose-runtime__check {
   display: none;
 }
 
@@ -109,6 +113,9 @@ a.choose-runtime__option:hover {
   position: absolute;
   top: 0;
   left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   max-width: calc(100% - 16px);
   padding: 4px 10px;
   transform: translateX(-50%);
@@ -116,9 +123,11 @@ a.choose-runtime__option:hover {
   color: #fff;
   font-size: 10px;
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  text-align: center;
   text-transform: uppercase;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .choose-runtime__option-title {
@@ -337,10 +346,6 @@ a.choose-runtime__option:hover {
     overflow: hidden;
   }
 
-  .choose-runtime__option--max.is-selected {
-    padding-top: 28px;
-  }
-
   .choose-runtime__option-title {
     font-size: 15px;
   }
@@ -369,7 +374,7 @@ a.choose-runtime__option:hover {
     padding: 6px 4px;
     border-radius: 7px 7px 0 0;
     transform: none;
-    font-size: 10px;
+    font-size: 9px;
     text-transform: none;
   }
 

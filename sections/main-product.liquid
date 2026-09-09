@@ -1309,25 +1309,30 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                 "name": "Choose Your Runtime",
                 "settings": [
                     {
-                        "type": "checkbox",
-                        "id": "show_on_all_products",
-                        "label": "Show on all products",
-                        "default": false
-                    },
-                    {
-                        "type": "product",
-                        "id": "target_product",
-                        "label": "Product to show on"
+                        "type": "select",
+                        "id": "default_option",
+                        "label": "Default selected option",
+                        "options": [
+                            {
+                                "value": "standard",
+                                "label": "Standard"
+                            },
+                            {
+                                "value": "pro",
+                                "label": "Pro"
+                            },
+                            {
+                                "value": "max",
+                                "label": "Max"
+                            }
+                        ],
+                        "default": "standard"
                     },
                     {
                         "type": "text",
                         "id": "heading",
                         "label": "Heading",
                         "default": "Choose Your Runtime"
-                    },
-                    {
-                        "type": "header",
-                        "content": "Standard option"
                     },
                     {
                         "type": "text",
@@ -1345,7 +1350,18 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                         "type": "text",
                         "id": "option_1_price",
                         "label": "Price text",
-                        "default": "Included"
+                        "default": "-$10.00"
+                    },
+                    {
+                        "type": "text",
+                        "id": "option_1_note",
+                        "label": "Comparison text",
+                        "default": "-3 hrs vs. Pro"
+                    },
+                    {
+                        "type": "url",
+                        "id": "option_1_link",
+                        "label": "Destination link"
                     },
                     {
                         "type": "header",
@@ -1418,10 +1434,6 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                         "type": "url",
                         "id": "option_3_link",
                         "label": "Destination link"
-                    },
-                    {
-                        "type": "header",
-                        "content": "Comparison popup"
                     },
                     {
                         "type": "text",
