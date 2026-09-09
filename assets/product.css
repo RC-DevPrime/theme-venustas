@@ -503,7 +503,7 @@ body.product-media-lightbox-open {
 }
 .product .product-price .price-regular {
     font-family: 'Montserrat';
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 700;
     color: #B93205;
 }
@@ -968,6 +968,7 @@ body.product-media-lightbox-open {
 /* HIGHTLIGHTS ---------------------------------------- */
 .product .highlights-accordion{
     padding-top:5px;
+    font-weight: 300;
 }
 .product .highlights-accordion .accrodion-heading{
     display:flex;
@@ -978,17 +979,15 @@ body.product-media-lightbox-open {
 .product .highlights-accordion .accordion-content{
 }
 .product .highlights-accordion .accordion-content ul{
-    padding-top:10px;
+    padding-top:12px;
     padding-left: 1.2rem;
 }
-.product .highlights-accordion .accordion-content ul:last-child{
-    padding-top:0;
-}
+
 .product .highlights-accordion .accordion-content ul li{
     margin-bottom:6px;
 }
 .product .highlights-accordion .accordion-content ul li::marker {
-  font-size: 0.7em; 
+  font-size: 0.5em; 
 }
 
 /* AVAILABILIY ---------------------------------------- */
@@ -1092,8 +1091,8 @@ body.product-media-lightbox-open {
 
 /* PRODUCT SUPPORT -------------------------------------------- */
 .product .support-product-container{
-    background: #F9F9F9;
-    border-radius: 8px 8px 8px 8px;
+    background: rgba(185, 50, 5, 0.12);
+    border-radius: 12px;
     padding:25px 15px;
     margin-top:15px;
 }
@@ -1105,11 +1104,12 @@ body.product-media-lightbox-open {
     gap:0.7rem;
 }
 .product .support-product-container .support-product-item p{
-    color:#6B6B6B;
+    color:#1A1A1A;
+    font-weight: 400;
 }
 .product .support-product-container .support-product-item strong{
-    font-weight:600;
-    color:#000;
+    font-weight:700;
+    color:#1A1A1A;
 }
 .product .support-product-container .support-product-item .icon-support{
     width:30px;
@@ -1732,7 +1732,7 @@ body.product-media-lightbox-open {
         font-size:20px;
     }
     .product .product-price .product-compare-price{
-        font-size:12px;
+        font-size:14px;
     }
     .product .product-price{
         gap: 4px;

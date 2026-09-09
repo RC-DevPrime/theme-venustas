@@ -12,11 +12,33 @@
         position:relative;
         border-radius:16px;
         display:block;
+        aspect-ratio:1 / 1;
     }
     .instagram-gallery-slider-section .instagram-gallery-slider .instagram-item img{
+        display:block;
         width:100%;
         height:100%;
         object-fit:cover;
+    }
+    /* Match Swiper's responsive layout before its lazy initialization runs. */
+    .instagram-gallery-slider-section .instagram-gallery-slider:not(.swiper-initialized) .swiper-wrapper{
+        gap:12px;
+    }
+    .instagram-gallery-slider-section .instagram-gallery-slider:not(.swiper-initialized) .swiper-slide{
+        flex:0 0 100%;
+        width:100%;
+    }
+    @media only screen and (min-width: 768px) {
+        .instagram-gallery-slider-section .instagram-gallery-slider:not(.swiper-initialized) .swiper-slide{
+            flex-basis:calc(50% - 6px);
+            width:calc(50% - 6px);
+        }
+    }
+    @media only screen and (min-width: 1024px) {
+        .instagram-gallery-slider-section .instagram-gallery-slider:not(.swiper-initialized) .swiper-slide{
+            flex-basis:calc(22.727273% - 9.272727px);
+            width:calc(22.727273% - 9.272727px);
+        }
     }
     .instagram-gallery-slider-section .instagram-gallery-slider .instagram-item:hover:before{
         opacity:0.7;
@@ -125,6 +147,7 @@
                 <div class="swiper-slide">
                     <a href="{{ block.settings.link }}" class="instagram-item" target="_blank">
                         <img
+                        style="object-position: {{ block.settings.image.presentation.focal_point | default: 'center center' }};"
                         src="{{ block.settings.image | image_url: width: 600 }}"
                         srcset="
                             {{ block.settings.image | image_url: width: 300 }} 300w,
@@ -132,7 +155,7 @@
                             {{ block.settings.image | image_url: width: 600 }} 600w,
                             {{ block.settings.image | image_url: width: 900 }} 900w
                         "
-                        sizes="(max-width: 768px) 50vw, 25vw"
+                        sizes="(min-width: 1600px) 349px, (min-width: 1024px) 23vw, (min-width: 768px) 50vw, 100vw"
                         width="{{ block.settings.image.width }}"
                         height="{{ block.settings.image.height }}"
                         alt="instagram-gallery-{{ block.settings.image.alt | escape }}"
@@ -173,7 +196,7 @@
         {
             "type": "richtext",
             "id": "description",
-            "label": "Description",
+            "label": "Description"
         }
     ],
     "blocks": [
@@ -192,7 +215,7 @@
                     "label": "Link"
                 }
             ]
-        },
+        }
     ],
     "presets": [
         {
