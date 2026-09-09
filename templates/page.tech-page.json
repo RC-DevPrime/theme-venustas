@@ -37,6 +37,10 @@
       "settings": {
         "bg_image": "shopify://shop_images/tech_BG.jpg",
         "overlay_opacity": 0,
+        "bg_position_x": 50,
+        "bg_position_y": 0,
+        "bg_position_y_narrow": 20,
+        "narrow_viewport_extra_top": 12,
         "hero_height": 800,
         "mobile_height": 560,
         "top_padding": 48,
@@ -721,6 +725,15 @@
     "tech_meida_9hABhr": {
       "type": "tech-meida",
       "blocks": {
+        "card_EwB7MY": {
+          "type": "card",
+          "settings": {
+            "card_title": "Chrome Angelz RC",
+            "card_desc": "My first impression of the Venustas fleece lined heated jacket has been fantastic! It’s incredibly soft, comfortable, fits true to size, and the controls are so easy to use. I love that it has three heat settings, and as a motorcycle rider in New York, staying warm during those colder rides is so important. I can’t wait to put it to the test this riding season and share my experience with fellow riders!",
+            "card_logo": "shopify://shop_images/Chrome_Angelz_RC.png",
+            "card_link": "https://chromeangelzrc.com"
+          }
+        },
         "card_VrpGdw": {
           "type": "card",
           "settings": {
@@ -804,6 +817,7 @@
         }
       },
       "block_order": [
+        "card_EwB7MY",
         "card_VrpGdw",
         "card_P9eKYc",
         "card_kMdNJn",
@@ -1072,6 +1086,8 @@
         "card_gap": 22,
         "mobile_card_gap": 12,
         "card_radius": 12,
+        "card_aspect_ratio_w": 432,
+        "card_aspect_ratio_h": 464,
         "card_height": 480,
         "mobile_card_height": 360,
         "bg_color": "#f1f1f1",
