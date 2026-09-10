@@ -77,6 +77,9 @@
     left: 1rem;
     z-index: 2;
 }
+.product .breadcrumbs {
+    min-height: 22.4px;
+}
 .product .breadcrumbs a {
     font-family: var(--font-primary);
     font-weight: 400;
@@ -86,6 +89,12 @@
 }
 .product .breadcrumbs a:last-child {
     color: #000;
+}
+
+@media only screen and (min-width: 768px) {
+    .product .breadcrumbs {
+        min-height: 25.6px;
+    }
 }
 
 .product .products-row {
