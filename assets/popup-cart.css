@@ -24,7 +24,7 @@
     table-layout: fixed;
 }
 .main-cart table th {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 18px;
     font-weight: 500;
     border-bottom: 1px solid #c8c8c8;
@@ -225,7 +225,7 @@
 .main-cart .product-price ,
 #popup-cart .product-price ,
 .popup-container  .product-price{
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 18px;
     font-weight: 600;
     display: flex;
@@ -252,7 +252,7 @@
 .main-cart .product-price .discounted,
 #popup-cart .product-price .discounted ,
 .popup-container  .product-price .discounted{
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 500;
     font-size: 12px;
     width: fit-content;
@@ -288,7 +288,7 @@
     border-top: 1px solid #E6E6E6;
 }
 .main-cart .order-summary .discount-wrapper small {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 600;
     font-size: 14px;
     color: #1a1a1a;
@@ -313,7 +313,7 @@
     outline: none;
     background: #B93205;
     color: #fff;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 500;
     font-size: 14px;
     padding: 0 40px;
@@ -361,7 +361,7 @@
     border: 1px solid #c8c8c8;
     border-radius: 5px;
     padding: 10px;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 14px;
     font-weight: 600;
     color: #161616;
@@ -370,7 +370,7 @@
     outline: none;
 }
 .main-cart .order-summary .cart-checkout a {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 16px;
     font-weight: 600;
     color: #FFF;
@@ -513,7 +513,7 @@
     line-height: 1.5em;
 }
 #popup-cart .cart .cart-body .product-cart .product-title {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 16px;
     font-weight: 500;
     color: #1a1a1a;
@@ -525,7 +525,7 @@
     text-decoration:underline;
 }
 #popup-cart .cart .cart-body .product-cart .product-price {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 16px;
     font-weight: 500;
     display: flex;
@@ -533,7 +533,7 @@
     gap:6px;
 }
 #popup-cart .cart .cart-body .product-cart .product-price .discounted {
-    font-family: Montserrat;
+    font-family: var(--font-primary);
     font-weight: 500;
     font-size: 11px;
     width: fit-content;
@@ -789,7 +789,7 @@
     height: 100%;
 }
 #popup-cart .slider .owl-carousel .btn-ymal {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 600;
     font-size: 14px;
     color: #fff !important;
@@ -824,7 +824,7 @@
     margin-bottom: 20px;
 }
 #popup-cart .discount-wrapper small {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 600;
     font-size: 14px;
     color: #1a1a1a;
@@ -849,7 +849,7 @@
     outline: none;
     background: #B93205;
     color: #fff;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 500;
     font-size: 14px;
     padding: 0 40px;
@@ -892,7 +892,7 @@
     box-shadow: 0px -3px 10px 1px rgba(0, 0, 0, 0.11);
 }
 #popup-cart .cart .cart-checkout a {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 16px;
     font-weight: 500;
     color: #fff;
@@ -917,7 +917,7 @@
     color: #e51b1b;
 }
 #popup-cart .cart .cart-checkout small {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 500;
     font-size: 12px;
     color: #999;
@@ -1119,7 +1119,7 @@
     .main-cart .variants .variant .variant-name,
     #popup-cart .variants .variant .variant-name,
     .popup-container  .variants .variant .variant-name{
-        font-family: Montserrat;
+        font-family: var(--font-primary);
         font-size: 18px;
         font-weight: 700;
         margin-bottom: 10px;
@@ -1149,7 +1149,7 @@
     .main-cart .variant .nav-variants-selector,
     #popup-cart .variant .nav-variants-selector,
     .popup-container .variant .nav-variants-selector{
-        font-family: Montserrat;
+        font-family: var(--font-primary);
         font-weight: 500;
         font-size: 16px;
         border: 1px solid #DEDEDE;
@@ -1242,7 +1242,7 @@
     #popup-cart .quantity button,
     .popup-container .quantity button {
         padding: 6px 15px;
-        font-family: Montserrat;
+        font-family: var(--font-primary);
         font-size: 20px;
         font-weight: 600;
         color: #1a1a1a;
@@ -1258,7 +1258,7 @@
     .main-cart .quantity input,
     #popup-cart  .quantity input ,
     .popup-container .quantity input{
-        font-family: Montserrat;
+        font-family: var(--font-primary);
         font-size: 16px;
         font-weight: 600;
         text-align: center;

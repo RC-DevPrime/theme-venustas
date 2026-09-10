@@ -4,6 +4,7 @@
     --button-border-radius: 4px;
     --venustas-black:#1A1A1A;
     --border-radius:6px;
+    --font-primary: 'Montserrat', 'Montserrat Fallback', Verdana, sans-serif;
 }
 * {
     margin: 0;
@@ -32,14 +33,14 @@ h1, h2, h3, h4, h5, h6, p, ul, ol {
 }
 
 body {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     color:#1A1A1A;
     display: grid;
     grid-template-columns: 100%;
 }
 
 a {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 600;
     font-size: 18px;
     color: #161616;
@@ -73,40 +74,40 @@ button{
 }
 
 .pp-thin {
-    font-family: 'Montserrat';
-    font-weight: 100 !important;
+    font-family: var(--font-primary);
+    font-weight: 300 !important;
 }
 .pp-extralight {
-    font-family: 'Montserrat';
-    font-weight: 200 !important;
+    font-family: var(--font-primary);
+    font-weight: 300 !important;
 }
 .pp-light {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 300 !important;
 }
 .pp-regular {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 400 !important;
 }
 .pp-medium {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 500 !important;
 }
 .pp-semibold {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 600 !important;
 }
 .pp-bold {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 700 !important;
 }
 .pp-extrabold {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 800 !important;
 }
 .pp-black {
-    font-family: 'Montserrat';
-    font-weight: 900 !important;
+    font-family: var(--font-primary);
+    font-weight: 800 !important;
 }
 
 .title-xl {
@@ -241,7 +242,7 @@ a.f-white:hover{
 
 .btn {
     position: relative;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 16px;
     font-weight: 600;
     padding: 12px 26px;
@@ -255,7 +256,7 @@ a.f-white:hover{
 }
 .btn-hover{
     position: relative;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 16px;
     font-weight: 600;
     padding: 12px 26px;
@@ -562,7 +563,7 @@ a.f-white:hover{
     outline: none;
     box-shadow: none;
     border: none;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 400;
     font-size: 16px;
     color: #FFF;
@@ -672,7 +673,7 @@ a.f-white:hover{
     transform: rotate(45deg);
 }
 .footer .newsletter .nl-status {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 400;
     font-size: 18px;
     color: #fff;
@@ -698,7 +699,7 @@ a.f-white:hover{
 }
 .footer .footer-nav a {
     text-decoration: none;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 300;
     font-size: 16px;
     display: block;
@@ -764,7 +765,7 @@ a.f-white:hover{
   color:#fff;
 }
 .footer .contact {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 400;
     font-size: 16px;
     color: #fff !important;
@@ -810,7 +811,7 @@ a.f-white:hover{
     padding-top: 0;
 }
 .footer .accordion-button {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 400;
     font-size: 16px;
     padding: 20px 10px 20px 0;
@@ -844,7 +845,7 @@ a.f-white:hover{
     padding: 5px;
 }
 .footer .switcher select {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 300;
     font-size: 16px;
     outline: none;
@@ -984,7 +985,7 @@ a.f-white:hover{
     left:55px;
 }
 .header .announcement-content {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 300;
     font-size: 16px;
     color: inherit;
@@ -994,7 +995,7 @@ a.f-white:hover{
 }
 .header .announcement-content span,
 .header .announcement-content a {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     color: inherit;
     font-weight: 300;
     font-size: 16px;
@@ -1077,7 +1078,7 @@ a.f-white:hover{
     gap: 40px;
 }
 .header .nav-items a {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 600;
     font-size: 16px;
     color: #161616;
@@ -1235,7 +1236,7 @@ a.f-white:hover{
 }
 
 .header .icon-local {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 500;
     font-size: 14px;
     line-height: 14px;
@@ -1350,7 +1351,7 @@ a.f-white:hover{
     padding:10px 20px 15px;
 }
 .header .drops .drop .item {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 600;
     font-size: 16px;
     color: #000;
@@ -1417,7 +1418,7 @@ a.f-white:hover{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 700;
     font-size: 20px;
     color: #161616;
@@ -1671,7 +1672,7 @@ a.f-white:hover{
 }
 .nav-mobile .action a,
 .nav-mobile .action button {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 16px;
     font-weight: 500;
     text-decoration: none;
@@ -1692,7 +1693,7 @@ a.f-white:hover{
 }
 .nav-mobile .accordion a,
 .nav-mobile .accordion button {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     /* font-weight: 500;
     font-size: 18px; */
     text-decoration: none;
@@ -1718,7 +1719,7 @@ a.f-white:hover{
 .nav-mobile .accordion a[data-mega],
 .nav-mobile .accordion button[data-mega]
 .nav-mobile .accordion .menu {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 400;
     font-size: 16px;
     color: #161616;
@@ -1744,7 +1745,7 @@ a.f-white:hover{
     /* padding-top: 0; */
 }
 .nav-mobile #accordion-menu .accordion-button {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 600;
     font-size: 18px;
     padding: 20px 10px 20px 0;
@@ -1885,7 +1886,7 @@ a.f-white:hover{
     --bs-gutter-y: 20px;
 }
 .nav-mobile .mega-mobile .mega-title {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 500;
     font-size: 18px;
     color: #161616;
@@ -1948,7 +1949,7 @@ a.f-white:hover{
 }
 .nav-mobile .accordion-item .f-layer a,
 .nav-mobile .accordion-item .f-layer button{
-    font-family: Montserrat;
+    font-family: var(--font-primary);
     font-weight: 500;
     font-size: 18px;
     padding: 15px 0 15px 0;
@@ -2303,7 +2304,7 @@ a.f-white:hover{
     border: none;
     outline: none;
     box-shadow: none;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 500;
     font-size: 16px;
     background:unset;
@@ -2442,7 +2443,7 @@ a.f-white:hover{
     margin-left: 5px;
 }
 #predictive-search .view-all {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 500;
     font-size: 16px;
     color: #161616;
@@ -2667,7 +2668,7 @@ a.f-white:hover{
     margin-bottom:0 !important;
 }
 #klaviyo-bis-button-container button{
-    font-family: 'Montserrat' !important;
+    font-family: var(--font-primary) !important;
     font-weight: 600 !important;
 }
 .cart #klaviyo-bis-button-container button{
@@ -2679,6 +2680,9 @@ a.f-white:hover{
 @media only screen and (max-width: 1279px) {
     .footer .accordion-button:after {
         background-image: url(https://cdn.shopify.com/s/files/1/0457/1099/9709/files/arrow-down.png?v=1763896421);
+    }
+    .footer .list-payment{
+        justify-content: flex-start;
     }
 }
 

@@ -78,7 +78,7 @@
     z-index: 2;
 }
 .product .breadcrumbs a {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 400;
     font-size: 16px;
     color: #ababab;
@@ -478,7 +478,7 @@ body.product-media-lightbox-open {
     background: #B93205;
 }
 .product .product-title {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 700;
 }
 .product .loox-rating {
@@ -488,7 +488,7 @@ body.product-media-lightbox-open {
     color: #B93205;
 }
 .product .loox-rating .loox-rating-label {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 14px;
     font-weight: 400;
     color: #666;
@@ -502,7 +502,7 @@ body.product-media-lightbox-open {
     line-height:normal;
 }
 .product .product-price .price-regular {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 32px;
     font-weight: 700;
     color: #B93205;
@@ -514,7 +514,7 @@ body.product-media-lightbox-open {
     color: #999999;
 }
 .product .product-price .promotion {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 14px;
     font-weight: 600;
     background: #FF5C5C;
@@ -566,7 +566,7 @@ body.product-media-lightbox-open {
     margin-bottom:15px;
 }
 .product .variants .variant .variant-name {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 10px;
@@ -580,7 +580,7 @@ body.product-media-lightbox-open {
     display: none !important;
 }
 .product .variants .variant .variants-selector {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 500;
     font-size: 16px;
     border: 1px solid #DEDEDE;
@@ -768,7 +768,7 @@ body.product-media-lightbox-open {
 }
 
 .product .details-label {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 600;
     font-size: 18px;
     display: flex;
@@ -786,7 +786,7 @@ body.product-media-lightbox-open {
     color: inherit;
 }
 .product .details-description {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 400;
     font-size: 14px;
     margin-bottom: 20px;
@@ -809,14 +809,14 @@ body.product-media-lightbox-open {
 }
 .product .quantity button {
     padding: 6px 20px;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 20px;
     font-weight: 600;
     color: #1a1a1a;
     background: none;
 }
 .product .quantity input {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 16px;
     font-weight: 600;
     text-align: center;
@@ -833,7 +833,7 @@ body.product-media-lightbox-open {
 }
 
 .product .size-fit-btn {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-size: 16px;
     font-weight: 500;
     padding: 8px 20px;
@@ -868,10 +868,10 @@ body.product-media-lightbox-open {
     border:none;
     padding-left:0px;
     padding-bottom:10px;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
 }
 .product .product-description{
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     font-weight: 400;
     padding-left:20px;
     padding-top:10px;
@@ -903,7 +903,7 @@ body.product-media-lightbox-open {
     }
     .discount-banner-content .discount-percentage{
         font-size: clamp(18px, 1.15vw, 24px);
-        font-family: 'Montserrat';
+        font-family: var(--font-primary);
         line-height:1.15;
         width: 100%;
         display: flex;
@@ -1052,7 +1052,7 @@ body.product-media-lightbox-open {
     width:100%;
 }
 .product .product-form .btn-atc {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     position: relative;
     background: #B93205;
     width: 100%;
@@ -1075,7 +1075,7 @@ body.product-media-lightbox-open {
     color: #fff;
 }
 .product .product-form .btn-bn {
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     position: relative;
     background: #ff4438;
     width: 100%;
