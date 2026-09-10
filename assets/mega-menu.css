@@ -2,6 +2,8 @@
 .header .mega-menu .display-1{
     --bs-gutter-x: 20px;
     margin-left:calc(140px + 2rem);
+    display:flex;
+    flex-wrap: wrap;
 }
 .header .mega-menu .menu-list-container{
     display:flex;
@@ -78,6 +80,7 @@
 .header .mega-menu .container{
     padding-left:50px;
     padding-right:50px;
+    padding-top:24px;
 }
 .header .mega-menu .menu-list-product-item .product-image-container img{
     width:100%;
@@ -244,6 +247,8 @@
     --bs-gutter-x: 28px;
     align-items:flex-start;
     margin-left:calc(136px + 2rem);
+    display: flex;
+    flex-wrap: wrap;
 }
 .header .mega-menu .display-5 .display-5-menu-col{
     /* width:260px; */
@@ -254,6 +259,7 @@
 .header .mega-menu .display-5-menu-columns{
     display:flex;
     gap:35px;
+    padding-left:4px;
 }
 .header .mega-menu .display-5-menu-columns .menu-list{
     display:flex;
