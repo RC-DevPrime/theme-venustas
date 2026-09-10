@@ -877,11 +877,13 @@ a.f-white:hover{
 /* Wrapper */
 .announcement-swiper {
     width: 100%;
+    height: var(--announcement-height);
 }
 
 /* Make vertical wrapper animate height smoothly */
 .announcement-swiper .swiper-wrapper {
     transition-property: transform, height !important;
+    height: 100%;
 }
 
 /* Slide layout */
@@ -891,6 +893,7 @@ a.f-white:hover{
     justify-content: center;
     align-items: center;
     overflow:hidden;
+    height: 100%;
 }
 
 /* Vertical Navigation */
@@ -928,7 +931,8 @@ a.f-white:hover{
     background: #161616;
     overflow: hidden;
     position:relative;
-    transition: all 0.3s ease;
+    height: var(--announcement-current-height);
+    transition: height 0.3s ease;
 }
 .header .announcement-bar:hover{
     background: #B93205 !important;
@@ -937,12 +941,19 @@ a.f-white:hover{
     color:#FFF !important; 
 }
 .header .announcement-bar .container {
-    padding: 10px 50px;
+    height: 100%;
+    padding: 0 50px;
     position: relative;
+}
+.header .announcement-bar-slider {
+    height: 100%;
 }
 .header .announcement-bar .announcement-close{
     font-size: 16px;
     color: #fff;
+    padding: 0;
+    border: 0;
+    background: transparent;
     position: absolute;
     right: 25px;
     top: 0;
@@ -1029,7 +1040,11 @@ a.f-white:hover{
     background: #fff;
     box-shadow: 0px 3px 6px 1px rgba(0,0,0,0.1);
     z-index: 999997;
-    transition: all .2s ease;
+    height: var(--headerHeight);
+    transition: box-shadow .2s ease;
+}
+.header-placeholder {
+    height: var(--headerHeight);
 }
 .header .container{
     padding: 14px 50px;
@@ -2249,6 +2264,7 @@ a.f-white:hover{
 }
 .predictive-search .wrapper {
     position: relative;
+    margin-top: var(--announcement-current-height);
     background: #fff;
     z-index: 3;
     box-shadow: 0 3px 6px 1px #0000001a;

@@ -123,20 +123,6 @@ If you plan to remove PageFly, please see the guide in our help center first: ht
 
       {%- if template.name == 'product' -%}
         {{ 'product.css' | asset_url | stylesheet_tag }}
-
-        <link rel="preload"
-              href="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/Proxima-Novacond-ExtraBold.woff2?v=1758608017"
-              as="font"
-              type="font/woff2"
-              crossorigin>
-
-        {% style %}
-          @font-face {
-            font-family: 'Proxima-Novacond-ExtraBold';
-            src: url('https://cdn.shopify.com/s/files/1/0457/1099/9709/files/Proxima-Novacond-ExtraBold.woff2?v=1758608017') format('woff2');
-            font-display: swap;
-          }
-        {% endstyle %}
       {%- endif -%}
 
       {%- if template.name == 'collection' or template.name == 'search' -%}

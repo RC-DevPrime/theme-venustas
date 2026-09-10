@@ -321,8 +321,40 @@
 {% endcase %}
 
 {% assign announcement_bar_count = 0 %}
-<nav class="header">
-    {% if section.settings.announcement_bar %}
+{% assign current_timestamp = 'now' | date: '%s' | plus: 0 %}
+{% if section.settings.announcement_bar %}
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'announcement_bar' %}
+        {% if block.settings.announcement_content != blank %}
+          {% assign announcement_bar_count = announcement_bar_count | plus: 1 %}
+        {% endif %}
+      {% when 'announcement_countdown' %}
+        {% assign countdown_timestamp = block.settings.date_time | date: '%s' | plus: 0 %}
+        {% if block.settings.date_time != blank and countdown_timestamp > current_timestamp %}
+          {% assign announcement_bar_count = announcement_bar_count | plus: 1 %}
+        {% endif %}
+    {% endcase %}
+  {% endfor %}
+{% endif %}
+
+<style>
+  :root {
+    --announcement-height: 37px;
+    --announcement-current-height: {% if announcement_bar_count > 0 %}37px{% else %}0px{% endif %};
+    --header-nav-height: 40px;
+    --headerHeight: calc(var(--header-nav-height) + var(--announcement-current-height));
+  }
+  @media only screen and (min-width: 768px) and (max-width: 1279px) {
+    :root { --header-nav-height: 54.7px; }
+  }
+  @media only screen and (min-width: 1280px) {
+    :root { --header-nav-height: 61.2px; }
+  }
+</style>
+
+<nav class="header{% if announcement_bar_count > 0 %} has-announcement{% endif %}">
+    {% if announcement_bar_count > 0 %}
       <div class="announcement-bar" style="background:{{ section.settings.background_color }};">
           <div class="container">
 
@@ -330,12 +362,11 @@
                   <div class="swiper announcement-swiper" data-autoplay="{{ section.settings.autoplay }}">
                       <div class="swiper-wrapper">
 
-                          {% assign announcement_bar_count = 0 %}
-
                           {% for block in section.blocks %}
                               {% case block.type %}
 
                               {% when 'announcement_bar' %}
+                                {% if block.settings.announcement_content != blank %}
                                   <div class="swiper-slide">
                                       <a href="{{ block.settings.link }}" class="announcement-content content-link" style="color:{{ section.settings.text_color }};">
                                           {{ block.settings.announcement_content | replace: '<p>','' | replace: '</p>','' }}
@@ -346,12 +377,11 @@
                                           </span>
                                         </a>
                                   </div>
-                                  {% assign announcement_bar_count = announcement_bar_count | plus: 1 %}
+                                {% endif %}
 
 
                               {% when 'announcement_countdown' %}
-                                  {% assign countdown_timestamp = block.settings.date_time | date: '%s' %}
-                                  {% assign current_timestamp = 'now' | date: '%s' %}
+                                  {% assign countdown_timestamp = block.settings.date_time | date: '%s' | plus: 0 %}
                                   {% if block.settings.date_time != blank and countdown_timestamp > current_timestamp %}
                                       <div class="swiper-slide countdown-bar" data-set-date="{{ block.settings.date_time }}">
                                           <div class="announcement-content" style="color:{{ section.settings.text_color }};">
@@ -377,7 +407,6 @@
 
                                           </div>
                                       </div>
-                                      {% assign announcement_bar_count = announcement_bar_count | plus: 1 %}
                                   {% endif %}
 
                               {% endcase %}
@@ -400,7 +429,9 @@
 
           </div>
 
-          <i class="fa-solid fa-xmark announcement-close d-lg-block d-md-block d-sm-block"></i>
+          <button type="button" class="announcement-close d-lg-block d-md-block d-sm-block" aria-label="Close announcement">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
       </div>
     {% endif %}
 
@@ -2011,6 +2042,7 @@
     </div>
 
 </nav>
+<div class="header-placeholder" aria-hidden="true"></div>
 
 
 {% schema %}
