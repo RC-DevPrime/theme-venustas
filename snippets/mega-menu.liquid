@@ -393,7 +393,7 @@
   {% elsif block.type == 'dislay_5' %}
     <!-- DISPLAY 5 -->
     <div class="row display-5 mega-menu-tab-list">
-      <div class="col-5">
+      <div class="col-auto display-5-menu-col">
         <div class="display-5-menu-columns">
           {% if block.settings.menu_list_1 != blank %}
             <div class="menu-item">
@@ -406,7 +406,7 @@
               </div>
               <div class="menu-list">
                 {% for link in block.settings.menu_list_1.links %}
-                  <a href="{{ link.url }}" class="pp-regular body-lg">{{ link.title }}</a>
+                  <a href="{{ link.url }}" class="mega-menu-link pp-regular body-lg">{{ link.title }}</a>
                 {% endfor %}
               </div>
             </div>
@@ -423,7 +423,19 @@
               </div>
               <div class="menu-list">
                 {% for link in block.settings.menu_list_2.links %}
-                  <a href="{{ link.url }}" class="pp-regular body-lg">{{ link.title }}</a>
+                  {% assign menu_title_parts = link.title | split: '#' %}
+                  {% assign menu_clean_title = menu_title_parts.first | strip %}
+                  {% assign menu_badge = menu_title_parts[1] | strip | downcase %}
+
+                  <a href="{{ link.url }}" class="mega-menu-link pp-regular body-lg">
+                    <span>{{ menu_clean_title }}</span>
+
+                    {% if menu_badge == 'hot' %}
+                      <span class="mega-menu-link__badge mega-menu-link__badge--hot">
+                        Hot
+                      </span>
+                    {% endif %}
+                  </a>
                 {% endfor %}
               </div>
             </div>
@@ -431,7 +443,7 @@
         </div>
       </div>
 
-      <div class="col-7">
+      <div class="col-auto display-5-feature-col ms-auto">
         <div class="row display-5-feature-grid">
           {% if block.settings.image_1 != blank or block.settings.image_title_1 != blank %}
             <div class="col-6">
