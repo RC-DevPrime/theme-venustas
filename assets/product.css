@@ -1001,7 +1001,19 @@ body.product-media-lightbox-open {
 
 /* AVAILABILIY ---------------------------------------- */
 .product .availability-section {
+    --inventory-details-height: 163px;
     padding-top:5px;
+}
+.product .availability-section .availability-inventory-slot {
+    min-height: var(--inventory-details-height);
+}
+.product .availability-section .iia-details-container {
+    height: var(--inventory-details-height);
+}
+@media only screen and (max-width: 767px) {
+    .product .availability-section {
+        --inventory-details-height: 145px;
+    }
 }
 .product .iia-header-container{
     display:none;
