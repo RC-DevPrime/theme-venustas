@@ -1,6 +1,18 @@
-{%- assign default_option = block.settings.default_option | default: 'standard' -%}
+{%- liquid
+  assign show_runtime = true
+  assign default_option = block.settings.default_option | default: 'standard'
 
-{{ 'choose-runtime.css' | asset_url | stylesheet_tag }}
+  for product_tag in product.tags
+    assign product_tag_handle = product_tag | handleize
+    if product_tag_handle == 'open-box'
+      assign show_runtime = false
+      break
+    endif
+  endfor
+-%}
+{%- if show_runtime -%}
+  {{ product_tag_handle}}
+  {{ 'choose-runtime.css' | asset_url | stylesheet_tag }}
 
   {%- assign dialog_id = 'RuntimeComparison-' | append: section.id | append: '-' | append: block.id -%}
   <div class="product-details choose-runtime" id="ChooseRuntime-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
@@ -197,3 +209,4 @@
       window.addEventListener('scroll', positionDialog, true);
     })();
   </script>
+{%- endif -%}
