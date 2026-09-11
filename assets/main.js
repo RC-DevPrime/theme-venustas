@@ -10,35 +10,15 @@ if ($('.announcement-bar').length) {
 
         let autoplaySeconds = $(this).data('autoplay');
         let autoplayEnabled = autoplaySeconds > 0;
-
+        let mobileQuery = window.matchMedia('(max-width: 767px)');
         let container = this;
-        let fixedSlideHeight = 0;
-
-        let swiper = new Swiper(container, {
-            direction: 'vertical',
-            loop: true,
-            speed: 400,
-            autoHeight: false, 
-
-            autoplay: autoplayEnabled ? {
-                delay: autoplaySeconds * 1000,
-                disableOnInteraction: false
-            } : false,
-
-            navigation: {
-                nextEl: '.announcement-next',
-                prevEl: '.announcement-prev',
-            },
-
-            on: {
-                init: function () {
-                    applyFixedSlideHeight(this);
-                },
-                slideChangeTransitionEnd: function () {
-                    applyFixedSlideHeight(this);
-                }
-            }
-        });
+        let wrapper = container.querySelector('.swiper-wrapper');
+        let swiper;
+        let refreshFrame = 0;
+        let refreshPending = false;
+        let lastObservedWidth = null;
+        let announcementResizeObserver;
+        let usesResizeFallback = false;
 
         function getMaxSlideHeight(swiperInstance) {
             let maxHeight = 0;
@@ -52,39 +32,200 @@ if ($('.announcement-bar').length) {
             return maxHeight;
         }
 
-        function applyFixedSlideHeight(swiperInstance) {
-            if (!fixedSlideHeight) {
-                fixedSlideHeight = getMaxSlideHeight(swiperInstance);
-            }
-            if (!fixedSlideHeight) return;
+        function updateHeaderOffsets() {
+            let hAnnouncementbarDynamic = $('.shopify-section-group-header-group .header').outerHeight();
+            let announcementHeight = $('.shopify-section-group-header-group .header .announcement-bar').outerHeight();
 
-            swiperInstance.slides.forEach(function (slide) {
-                slide.style.height = fixedSlideHeight + 'px';
-            });
-
-            container.style.height = fixedSlideHeight + 'px';
-            container.querySelector('.swiper-wrapper').style.height = fixedSlideHeight + 'px';
-
-            // 🔥 Add your dynamic header update here
-            setTimeout(function () {
-                let hAnnouncementbarDynamic = $('.shopify-section-group-header-group .header').outerHeight();
-
-                // Update header padding
-                $('body').css('padding-top', `${hAnnouncementbarDynamic}px`);
-
-                // Update predictive search offset
-                $('.predictive-search .wrapper').css(
-                    'margin-top',
-                    `${$('.shopify-section-group-header-group .header .announcement-bar').outerHeight() + 2}px`
-                );
-            }, 150); // short delay for height update
+            $('body').css('padding-top', `${hAnnouncementbarDynamic}px`);
+            $('.predictive-search .wrapper').css('margin-top', `${announcementHeight + 2}px`);
         }
 
-        // Recalculate fixed height when viewport changes to avoid wrap-induced jumps.
-        $(window).on('resize', function () {
-            fixedSlideHeight = 0;
-            applyFixedSlideHeight(swiper);
+        function resetAnnouncementMarquees() {
+            container.querySelectorAll('.announcement-marquee-viewport').forEach(function (viewport) {
+                let track = viewport.querySelector('.announcement-marquee-track');
+                let slide = viewport.closest('.swiper-slide');
+                if (!track || !slide) return;
+
+                track.querySelectorAll('.announcement-marquee-item[aria-hidden="true"]').forEach(function (clone) {
+                    clone.remove();
+                });
+                viewport.classList.remove('is-marquee');
+                slide.classList.remove('has-announcement-marquee');
+                viewport.style.removeProperty('--announcement-marquee-distance');
+                viewport.style.removeProperty('--announcement-marquee-duration');
+            });
+        }
+
+        function applyAnnouncementMarquees() {
+            if (!mobileQuery.matches) return;
+
+            let marquees = [];
+            container.querySelectorAll('.announcement-marquee-viewport').forEach(function (viewport) {
+                let track = viewport.querySelector('.announcement-marquee-track');
+                let slide = viewport.closest('.swiper-slide');
+                if (!track || !slide) return;
+
+                let item = track.querySelector('.announcement-marquee-item');
+                let availableWidth = viewport.clientWidth - 36;
+                if (!item || item.scrollWidth <= availableWidth) return;
+
+                marquees.push({
+                    viewport: viewport,
+                    track: track,
+                    slide: slide,
+                    item: item,
+                    distance: item.getBoundingClientRect().width + 32
+                });
+            });
+
+            // Apply only after every item has been measured against the same clone-free layout.
+            marquees.forEach(function (marquee) {
+                let clone = marquee.item.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                clone.removeAttribute('id');
+                clone.querySelectorAll('[id]').forEach(function (element) {
+                    element.removeAttribute('id');
+                });
+                clone.querySelectorAll('a, button, input, select, textarea, summary, iframe, object, embed, [tabindex], [contenteditable]').forEach(function (element) {
+                    element.setAttribute('tabindex', '-1');
+                    if (element.matches('button, input, select, textarea')) element.disabled = true;
+                    if (element.hasAttribute('contenteditable')) element.setAttribute('contenteditable', 'false');
+                });
+                marquee.track.appendChild(clone);
+
+                marquee.viewport.style.setProperty('--announcement-marquee-distance', marquee.distance + 'px');
+                marquee.viewport.style.setProperty('--announcement-marquee-duration', Math.max(marquee.distance / 40, 8) + 's');
+                marquee.viewport.classList.add('is-marquee');
+                marquee.slide.classList.add('has-announcement-marquee');
+            });
+        }
+
+        function clearAnnouncementHeights(swiperInstance) {
+            swiperInstance.slides.forEach(function (slide) {
+                slide.style.height = '';
+            });
+            container.style.height = '';
+            if (wrapper) wrapper.style.height = '';
+        }
+
+        function beginAnnouncementRefresh() {
+            refreshFrame = 0;
+            if (!swiper || swiper.destroyed || !container.isConnected) return;
+
+            if (swiper.animating) {
+                refreshPending = true;
+                return;
+            }
+
+            refreshPending = false;
+            clearAnnouncementHeights(swiper);
+            resetAnnouncementMarquees();
+
+            // Force the clean state to layout, then rebuild everything in this same task.
+            void container.offsetWidth;
+            applyAnnouncementMarquees();
+
+            let realIndex = swiper.realIndex;
+            let fixedSlideHeight = getMaxSlideHeight(swiper);
+            if (!fixedSlideHeight) return;
+
+            swiper.slides.forEach(function (slide) {
+                slide.style.height = fixedSlideHeight + 'px';
+            });
+            container.style.height = fixedSlideHeight + 'px';
+            if (wrapper) wrapper.style.height = fixedSlideHeight + 'px';
+
+            // Update only after every height has been committed so Swiper reads one stable layout.
+            swiper.update();
+            if (swiper.params.loop && typeof swiper.slideToLoop === 'function') {
+                swiper.slideToLoop(realIndex, 0, false);
+            }
+
+            updateHeaderOffsets();
+
+            if (refreshPending) scheduleAnnouncementRefresh();
+        }
+
+        function scheduleAnnouncementRefresh() {
+            if (!swiper || swiper.destroyed || !container.isConnected) return;
+
+            refreshPending = true;
+            if (swiper.animating || refreshFrame) return;
+
+            refreshFrame = requestAnimationFrame(beginAnnouncementRefresh);
+        }
+
+        function handleAnnouncementTransitionEnd() {
+            if (refreshPending) scheduleAnnouncementRefresh();
+        }
+
+        function handleMobileQueryChange() {
+            scheduleAnnouncementRefresh();
+        }
+
+        function cleanupAnnouncementLayout() {
+            if (refreshFrame) cancelAnimationFrame(refreshFrame);
+            if (announcementResizeObserver) announcementResizeObserver.disconnect();
+            window.removeEventListener('orientationchange', scheduleAnnouncementRefresh);
+            if (usesResizeFallback) window.removeEventListener('resize', scheduleAnnouncementRefresh);
+            if (mobileQuery.removeEventListener) {
+                mobileQuery.removeEventListener('change', handleMobileQueryChange);
+            } else {
+                mobileQuery.removeListener(handleMobileQueryChange);
+            }
+        }
+
+        swiper = new Swiper(container, {
+            direction: 'vertical',
+            loop: true,
+            speed: 400,
+            autoHeight: false,
+
+            autoplay: autoplayEnabled ? {
+                delay: autoplaySeconds * 1000,
+                disableOnInteraction: false
+            } : false,
+
+            navigation: {
+                nextEl: '.announcement-next',
+                prevEl: '.announcement-prev',
+            },
+
+            on: {
+                init: scheduleAnnouncementRefresh,
+                slideChangeTransitionEnd: handleAnnouncementTransitionEnd,
+                destroy: cleanupAnnouncementLayout
+            }
         });
+
+        window.addEventListener('orientationchange', scheduleAnnouncementRefresh);
+        if (mobileQuery.addEventListener) {
+            mobileQuery.addEventListener('change', handleMobileQueryChange);
+        } else {
+            mobileQuery.addListener(handleMobileQueryChange);
+        }
+
+        if (window.ResizeObserver) {
+            announcementResizeObserver = new ResizeObserver(function (entries) {
+                let observedWidth = Math.round(entries[0].contentRect.width);
+                if (observedWidth === lastObservedWidth) return;
+                lastObservedWidth = observedWidth;
+                scheduleAnnouncementRefresh();
+            });
+            announcementResizeObserver.observe(container);
+        } else {
+            usesResizeFallback = true;
+            window.addEventListener('resize', scheduleAnnouncementRefresh);
+        }
+
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function () {
+                scheduleAnnouncementRefresh();
+            });
+        }
+
+        // Swiper's init callback can run before the instance assignment completes.
+        scheduleAnnouncementRefresh();
 
     });
 

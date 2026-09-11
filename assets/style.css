@@ -994,6 +994,11 @@ a.f-white:hover{
     font-weight: 600;
     text-decoration: none;
 }
+.header .announcement-marquee-viewport,
+.header .announcement-marquee-track,
+.header .announcement-marquee-item{
+    display:inline;
+}
 .header .announcement-content .date-time-container{
     font-size: 11px;
     font-weight:400;
@@ -2845,6 +2850,54 @@ a.f-white:hover{
     .header .action .icon-local.is-open .switcher{
         visibility: visible;
         z-index: 20;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .header .content-link .announcement-marquee-viewport{
+        display:block;
+        width:100%;
+        overflow:hidden;
+    }
+    .header .content-link .announcement-marquee-track{
+        display:flex;
+        width:max-content;
+        margin:0 auto;
+    }
+    .header .content-link .announcement-marquee-item{
+        display:block;
+        flex:0 0 auto;
+        white-space:nowrap;
+    }
+    .header .content-link .announcement-marquee-viewport.is-marquee .announcement-marquee-track{
+        gap:32px;
+        margin:0;
+        animation:announcement-marquee var(--announcement-marquee-duration) linear infinite;
+    }
+    .header .swiper-slide.has-announcement-marquee .announcement-content{
+        box-sizing:border-box;
+        padding-right:36px;
+    }
+    @keyframes announcement-marquee{
+        to{
+            transform:translateX(calc(-1 * var(--announcement-marquee-distance)));
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) and (prefers-reduced-motion: reduce) {
+    .header .content-link .announcement-marquee-viewport.is-marquee .announcement-marquee-track{
+        display:block;
+        width:100%;
+        animation:none;
+    }
+    .header .content-link .announcement-marquee-viewport.is-marquee .announcement-marquee-item:first-child{
+        width:100%;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+    .header .content-link .announcement-marquee-viewport.is-marquee .announcement-marquee-item[aria-hidden="true"]{
+        display:none;
     }
 }
 
