@@ -186,9 +186,9 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
             <span class="pp-semibold body d-lg-block d-md-block d-sm-none">
                 {{ product_label }}
             </span>
-            <span class="pp-semibold body-xs d-lg-none d-md-none d-sm-block">
+            {% comment %} <span class="pp-semibold body-xs d-lg-none d-md-none d-sm-block">
                 {{ product_label }}
-            </span>
+            </span> {% endcomment %}
         </div>
         <a href="{{ product.url }}" class="product-title d-block pb-2">
             <h4 class="d-lg-block d-md-block d-sm-none body-lg pp-bold">

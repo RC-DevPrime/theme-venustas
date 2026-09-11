@@ -369,11 +369,17 @@
                                 {% if block.settings.announcement_content != blank %}
                                   <div class="swiper-slide">
                                       <a href="{{ block.settings.link }}" class="announcement-content content-link" style="color:{{ section.settings.text_color }};">
-                                          {{ block.settings.announcement_content | replace: '<p>','' | replace: '</p>','' }}
-                                          <span class="arrow-icon">
-                                            <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                              <path d="M1 7H17M17 7L13 3.5M17 7L13 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
-                                            </svg>
+                                          <span class="announcement-marquee-viewport">
+                                            <span class="announcement-marquee-track">
+                                              <span class="announcement-marquee-item">
+                                                {{ block.settings.announcement_content | replace: '<p>','' | replace: '</p>','' }}
+                                                <span class="arrow-icon">
+                                                  <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M1 7H17M17 7L13 3.5M17 7L13 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                  </svg>
+                                                </span>
+                                              </span>
+                                            </span>
                                           </span>
                                         </a>
                                   </div>
