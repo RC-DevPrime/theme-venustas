@@ -8,6 +8,9 @@
 .product-item .bss_pl_img{
     display:none !important;
 }
+.oke-sr-count{
+    margin-top:2px;
+}
 
 .no-scroll{
     overflow:hidden !important;
@@ -2066,6 +2069,11 @@ a.f-white:hover{
     position:absolute;
     top:0;
     right:0;
+    z-index:1;
+}
+.product-item .custom-label,
+.product-item .product-title{
+    padding-right:24px;
 }
 .wishlist-button button.swym-button{
     border:none !important;
@@ -2652,6 +2660,9 @@ a.f-white:hover{
 
 /* FOR MOBILE PHONE */
 @media only screen and (max-width: 768px) {
+    .btn-atc.is-sold-out span.body{
+        font-size:10px;
+    }
     .oke-sr-count, .oke-sr-rating, .oke-sr-stars{
         font-size:10px !important;
     }

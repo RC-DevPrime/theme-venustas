@@ -176,9 +176,9 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                         <span class="pp-semibold body d-lg-block d-md-block d-sm-none">
                             {{ product_label }}
                         </span>
-                        <span class="pp-semibold body-xs d-lg-none d-md-none d-sm-block">
+                        {% comment %} <span class="pp-semibold body-xs d-lg-none d-md-none d-sm-block">
                             <span class="truncate-1-text">{{ product_label }}</span>
-                        </span>
+                        </span> {% endcomment %}
                         <span class="in-cart-badge" style="display:none;"></span>
                     </div>
                     <a href="{{ product.url }}" class="product-title d-block pb-1">
