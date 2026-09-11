@@ -870,6 +870,7 @@ a.f-white:hover{
 /* Wrapper */
 .announcement-swiper {
     width: 100%;
+    --announcement-marquee-delay: 1600ms;
 }
 
 /* Make vertical wrapper animate height smoothly */
@@ -974,6 +975,7 @@ a.f-white:hover{
     width: 90%;
     margin: 0 auto;
 }
+
 .header .announcement-content span,
 .header .announcement-content a {
     font-family: 'Montserrat';
@@ -2872,10 +2874,16 @@ a.f-white:hover{
     .header .content-link .announcement-marquee-viewport.is-marquee .announcement-marquee-track{
         gap:32px;
         margin:0;
-        animation:announcement-marquee var(--announcement-marquee-duration) linear infinite;
+    }
+    .header .content-link .announcement-marquee-viewport.is-marquee.is-marquee-playing .announcement-marquee-track{
+        animation:announcement-marquee var(--announcement-marquee-duration) linear var(--announcement-marquee-delay) infinite;
     }
     .header .swiper-slide.has-announcement-marquee .announcement-content{
         box-sizing:border-box;
+        width:100%;
+        margin-left:0;
+        margin-right:0;
+        padding-left:0;
         padding-right:36px;
     }
     @keyframes announcement-marquee{
@@ -2886,7 +2894,7 @@ a.f-white:hover{
 }
 
 @media only screen and (max-width: 767px) and (prefers-reduced-motion: reduce) {
-    .header .content-link .announcement-marquee-viewport.is-marquee .announcement-marquee-track{
+    .header .content-link .announcement-marquee-viewport.is-marquee.is-marquee-playing .announcement-marquee-track{
         display:block;
         width:100%;
         animation:none;

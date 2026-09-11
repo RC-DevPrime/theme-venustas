@@ -49,7 +49,7 @@ if ($('.announcement-bar').length) {
                 track.querySelectorAll('.announcement-marquee-item[aria-hidden="true"]').forEach(function (clone) {
                     clone.remove();
                 });
-                viewport.classList.remove('is-marquee');
+                viewport.classList.remove('is-marquee', 'is-marquee-playing');
                 slide.classList.remove('has-announcement-marquee');
                 viewport.style.removeProperty('--announcement-marquee-distance');
                 viewport.style.removeProperty('--announcement-marquee-duration');
@@ -66,7 +66,7 @@ if ($('.announcement-bar').length) {
                 if (!track || !slide) return;
 
                 let item = track.querySelector('.announcement-marquee-item');
-                let availableWidth = viewport.clientWidth - 36;
+                let availableWidth = Math.max(Math.min(viewport.clientWidth, slide.clientWidth - 36), 0);
                 if (!item || item.scrollWidth <= availableWidth) return;
 
                 marquees.push({
@@ -108,6 +108,24 @@ if ($('.announcement-bar').length) {
             if (wrapper) wrapper.style.height = '';
         }
 
+        function stopAnnouncementMarquees() {
+            container.querySelectorAll('.announcement-marquee-viewport.is-marquee-playing').forEach(function (viewport) {
+                viewport.classList.remove('is-marquee-playing');
+            });
+        }
+
+        function startActiveAnnouncementMarquee() {
+            stopAnnouncementMarquees();
+            if (!mobileQuery.matches) return;
+
+            let viewport = container.querySelector('.swiper-slide-active .announcement-marquee-viewport.is-marquee');
+            if (!viewport) return;
+
+            // Restart the delay whenever this slide becomes visibly active.
+            void viewport.offsetWidth;
+            viewport.classList.add('is-marquee-playing');
+        }
+
         function beginAnnouncementRefresh() {
             refreshFrame = 0;
             if (!swiper || swiper.destroyed || !container.isConnected) return;
@@ -142,6 +160,7 @@ if ($('.announcement-bar').length) {
             }
 
             updateHeaderOffsets();
+            startActiveAnnouncementMarquee();
 
             if (refreshPending) scheduleAnnouncementRefresh();
         }
@@ -156,7 +175,16 @@ if ($('.announcement-bar').length) {
         }
 
         function handleAnnouncementTransitionEnd() {
-            if (refreshPending) scheduleAnnouncementRefresh();
+            if (refreshPending) {
+                scheduleAnnouncementRefresh();
+                return;
+            }
+
+            startActiveAnnouncementMarquee();
+        }
+
+        function handleAnnouncementTransitionStart() {
+            stopAnnouncementMarquees();
         }
 
         function handleMobileQueryChange() {
@@ -193,6 +221,7 @@ if ($('.announcement-bar').length) {
 
             on: {
                 init: scheduleAnnouncementRefresh,
+                slideChangeTransitionStart: handleAnnouncementTransitionStart,
                 slideChangeTransitionEnd: handleAnnouncementTransitionEnd,
                 destroy: cleanupAnnouncementLayout
             }
