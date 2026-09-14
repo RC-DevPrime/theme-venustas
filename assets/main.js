@@ -29,12 +29,6 @@ function initAnnouncementSwipers(root) {
             return maxHeight;
         }
 
-        function updatePredictiveSearchOffset() {
-            let announcementHeight = $('.shopify-section-group-header-group .header .announcement-bar').outerHeight();
-
-            $('.predictive-search .wrapper').css('margin-top', `${announcementHeight + 2}px`);
-        }
-
         function resetAnnouncementMarquees() {
             container.querySelectorAll('.announcement-marquee-viewport').forEach(function (viewport) {
                 let track = viewport.querySelector('.announcement-marquee-track');
@@ -154,7 +148,6 @@ function initAnnouncementSwipers(root) {
                 swiper.slideToLoop(realIndex, 0, false);
             }
 
-            updatePredictiveSearchOffset();
             startActiveAnnouncementMarquee();
 
             if (refreshPending) scheduleAnnouncementRefresh();

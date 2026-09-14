@@ -407,39 +407,34 @@
                                         Sort By:
                                     </span>
 
-                                    {% assign current_sort = search.sort_by | default: 'relevance' %}
+                                    {% assign current_sort = search.sort_by | default: search.default_sort_by | default: 'relevance' %}
 
-                                    <select id="SearchSortBy">
-                                        <option value="manual"
-                                            {% if search.sort_by == 'manual' %}selected{% endif %}>
+                                    <select id="SearchSortBy" data-search-sort>
+                                        <option value="relevance"{% if current_sort == 'relevance' %} selected{% endif %}>
+                                            Relevance
+                                        </option>
+                                        <option value="manual"{% if current_sort == 'manual' %} selected{% endif %}>
                                             Featured
                                         </option>
-                                        <option value="best-selling"
-                                            {% if search.sort_by == 'best-selling' %}selected{% endif %}>
+                                        <option value="best-selling"{% if current_sort == 'best-selling' %} selected{% endif %}>
                                             Best selling
                                         </option>
-                                        <option value="title-ascending"
-                                            {% if search.sort_by == 'title-ascending' %}selected{% endif %}>
+                                        <option value="title-ascending"{% if current_sort == 'title-ascending' %} selected{% endif %}>
                                             Alphabetically, A–Z
                                         </option>
-                                        <option value="title-descending"
-                                            {% if search.sort_by == 'title-descending' %}selected{% endif %}>
+                                        <option value="title-descending"{% if current_sort == 'title-descending' %} selected{% endif %}>
                                             Alphabetically, Z–A
                                         </option>
-                                        <option value="price-ascending"
-                                            {% if search.sort_by == 'price-ascending' %}selected{% endif %}>
+                                        <option value="price-ascending"{% if current_sort == 'price-ascending' %} selected{% endif %}>
                                             Price, low to high
                                         </option>
-                                        <option value="price-descending"
-                                            {% if search.sort_by == 'price-descending' %}selected{% endif %}>
+                                        <option value="price-descending"{% if current_sort == 'price-descending' %} selected{% endif %}>
                                             Price, high to low
                                         </option>
-                                        <option value="created-ascending"
-                                            {% if search.sort_by == 'created-ascending' %}selected{% endif %}>
+                                        <option value="created-ascending"{% if current_sort == 'created-ascending' %} selected{% endif %}>
                                             Date, old to new
                                         </option>
-                                        <option value="created-descending"
-                                            {% if search.sort_by == 'created-descending' %}selected{% endif %}>
+                                        <option value="created-descending"{% if current_sort == 'created-descending' %} selected{% endif %}>
                                             Date, new to old
                                         </option>
                                     </select>
@@ -899,17 +894,22 @@
   let collectionIndex = 0;
 
   let isAutoLoading = false;
+  let searchDataGeneration = 0;
+  let activeFilterRequest = null;
 
   // ===========================
   // LOAD ALL PAGINATE PAGES (Liquid-driven)
   // ===========================
-  async function loadNextPage() {
+  async function loadNextPage(generation = searchDataGeneration) {
     const nextBtn = document.getElementById('search-next-btn');
-    if (!nextBtn || !nextBtn.dataset.nextUrl) return;
+    if (generation !== searchDataGeneration || !nextBtn || !nextBtn.dataset.nextUrl) return;
 
     try {
       const response = await fetch(nextBtn.dataset.nextUrl, { credentials: 'same-origin' });
       const html = await response.text();
+
+      // A filter or sort request has replaced the product data while this page was loading.
+      if (generation !== searchDataGeneration) return;
 
       const doc = new DOMParser().parseFromString(html, 'text/html');
 
@@ -925,7 +925,7 @@
       const newNextBtn = doc.querySelector('#search-next-btn');
       if (newNextBtn && newNextBtn.dataset.nextUrl) {
         nextBtn.dataset.nextUrl = newNextBtn.dataset.nextUrl;
-        await loadNextPage();
+        await loadNextPage(generation);
       } else {
         nextBtn.removeAttribute('data-next-url');
       }
@@ -1275,7 +1275,7 @@ function updateSearchPageTitle() {
     const pillsWrap = document.querySelector('.filter-list-container-tab');
     const counterEl = document.querySelector('.filter-counter-products');
     const clearBtn = document.querySelector('.clear-filter.desktop'); // ✅ it's a div
-    const sortSelect = document.getElementById('SearchSortBy');
+    const sortSelect = document.querySelector('[data-search-sort]');
 
     // ✅ Update URL in address bar (no reload)
     const updateBrowserUrl = (url) => {
@@ -1353,15 +1353,26 @@ function updateSearchPageTitle() {
     // Fetch filtered products (your view=ajax endpoint)
     const fetchFilteredProducts = async () => {
         const url = buildFilterUrl();
+        const requestGeneration = ++searchDataGeneration;
+
+        if (activeFilterRequest) activeFilterRequest.abort();
+        const requestController = new AbortController();
+        activeFilterRequest = requestController;
 
         // ✅ Update URL in the browser (shareable)
         updateBrowserUrl(url);
 
         try {
-        const res = await fetch(url.toString() + '&view=ajax', { credentials: 'same-origin' });
+        const res = await fetch(url.toString() + '&view=ajax', {
+            credentials: 'same-origin',
+            signal: requestController.signal
+        });
         if (!res.ok) throw new Error(res.status);
 
         const data = await res.json();
+
+        // Ignore a slower response when the user has already changed the filters again.
+        if (requestGeneration !== searchDataGeneration) return;
 
         // Expecting: data.products = [{html,...}] based on your existing code
         if (data?.products) {
@@ -1393,7 +1404,9 @@ function updateSearchPageTitle() {
             if (typeof updateSearchPageTitle === 'function') updateSearchPageTitle();
         }
         } catch (e) {
-        console.error('Filter fetch error:', e);
+        if (e.name !== 'AbortError') console.error('Filter fetch error:', e);
+        } finally {
+        if (activeFilterRequest === requestController) activeFilterRequest = null;
         }
     };
 
@@ -1482,11 +1495,13 @@ function updateSearchPageTitle() {
     }
 
     // The first product batch is server-rendered. Load remaining data in the background.
+    const initialSearchDataGeneration = searchDataGeneration;
     await Promise.all([
-      loadNextPage(),
+      loadNextPage(initialSearchDataGeneration),
       fetchCollectionsSuggest(SEARCH_TERM)
     ]);
 
+    // Refresh counts from whichever request currently owns the latest product state.
     renderCountTab();
     updateTopResultCount();
     updateSearchPageTitle();

@@ -1,8 +1,10 @@
 {% layout none %}
 {
   "products": [
+    {% assign has_product = false %}
     {% for item in search.results %}
       {% if item.object_type == 'product' %}
+        {% if has_product %},{% endif %}
         {
           "title": {{ item.title | json }},
           "url": {{ item.url | json }},
@@ -10,31 +12,40 @@
           "created_at": {{ item.published_at | date: "%Y-%m-%dT%H:%M:%S" | json }},
           "html": {% capture html %}{% render 'search-product-item', product: item, badge_detail: true %}{% endcapture %}
                   {{ html | strip | replace: "\n", " " | json }}
-        }{% unless forloop.last %},{% endunless %}
+        }
+        {% assign has_product = true %}
       {% endif %}
     {% endfor %}
   ],
 
   "pages": [
+    {% assign has_page = false %}
     {% for item in search.results %}
       {% if item.object_type == 'page' %}
+        {% if has_page %},{% endif %}
+        {% capture page_html %}<div class="page-result">{{ item.title | escape }}</div>{% endcapture %}
         {
           "title": {{ item.title | json }},
           "url": {{ item.url | json }},
-          "html": "<div class='page-result'>{{ item.title | escape }}</div>"
-        }{% unless forloop.last %},{% endunless %}
+          "html": {{ page_html | strip | json }}
+        }
+        {% assign has_page = true %}
       {% endif %}
     {% endfor %}
   ],
 
   "articles": [
+    {% assign has_article = false %}
     {% for item in search.results %}
       {% if item.object_type == 'article' %}
+        {% if has_article %},{% endif %}
+        {% capture article_html %}<div class="article-result">{{ item.title | escape }}</div>{% endcapture %}
         {
           "title": {{ item.title | json }},
           "url": {{ item.url | json }},
-          "html": "<div class='article-result'>{{ item.title | escape }}</div>"
-        }{% unless forloop.last %},{% endunless %}
+          "html": {{ article_html | strip | json }}
+        }
+        {% assign has_article = true %}
       {% endif %}
     {% endfor %}
   ]
