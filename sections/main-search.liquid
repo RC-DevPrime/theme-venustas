@@ -696,7 +696,22 @@
                                     {% if product_count > 0 %}
 
                                     <!-- PRODUCT GRID -->
-                                    <div class="row search-products-row" id="search-results-container"></div>
+                                    {% assign initial_product_count = product_count | at_most: 8 %}
+                                    {% assign rendered_product_count = 0 %}
+                                    <div
+                                        class="row search-products-row"
+                                        id="search-results-container"
+                                        data-initial-product-count="{{ initial_product_count }}"
+                                    >
+                                        {% for item in search.results %}
+                                            {% if item.object_type == 'product' and rendered_product_count < initial_product_count %}
+                                                <div class="col-lg-4 col-md-4 col-sm-6 search-item">
+                                                    {% render 'search-product-item', product: item, badge_detail: true %}
+                                                </div>
+                                                {% assign rendered_product_count = rendered_product_count | plus: 1 %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
 
                                     <!-- FOOTER -->
                                     <div class="row">
@@ -708,7 +723,7 @@
 
                                         <div class="product-count-text f-gray">
                                             Showing 
-                                            <span class="current-range" id="search-range">0–0</span>
+                                            <span class="current-range" id="search-range">1–{{ initial_product_count }}</span>
                                             of <span class="final-count">{{ product_count }}</span> products
                                         </div>
 
@@ -877,7 +892,8 @@
   // ===========================
   window.SearchData = window.SearchData || { products: [], pages: [], articles: [], collections: [] };
 
-  let productIndex = 0;
+  const initialProductsContainer = document.getElementById('search-results-container');
+  let productIndex = Number(initialProductsContainer?.dataset.initialProductCount) || 0;
   let articleIndex = 0;
   let pageIndex = 0;
   let collectionIndex = 0;
@@ -1093,6 +1109,17 @@ function updateSearchPageTitle() {
 
     const btn = document.getElementById('load-more');
     if (productIndex >= total && btn) btn.style.display = 'none';
+  }
+
+  function updateProductLoadMoreState() {
+    const btn = document.getElementById('load-more');
+    if (!btn) return;
+
+    if (productIndex >= window.SearchData.products.length) {
+      btn.style.display = 'none';
+    } else {
+      btn.style.removeProperty('display');
+    }
   }
 
   function renderNextArticles() {
@@ -1448,18 +1475,22 @@ function updateSearchPageTitle() {
   // ===========================
   document.addEventListener('DOMContentLoaded', async () => {
     bindEvents();
+    initSearchFilters();
 
-    // Load all liquid pages AND collections suggest
+    if (window.applySwatchFallbacks && initialProductsContainer) {
+      window.applySwatchFallbacks(initialProductsContainer);
+    }
+
+    // The first product batch is server-rendered. Load remaining data in the background.
     await Promise.all([
       loadNextPage(),
       fetchCollectionsSuggest(SEARCH_TERM)
     ]);
 
     renderCountTab();
-     updateTopResultCount();   
-  updateSearchPageTitle();  // ✅ updates <title>
-    resetAndRerenderAll();
-    initSearchFilters();
+    updateTopResultCount();
+    updateSearchPageTitle();
+    updateProductLoadMoreState();
   });
 
 document.querySelectorAll('.tab-search .tab-item').forEach(tab => {

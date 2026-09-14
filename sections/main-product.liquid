@@ -318,20 +318,20 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                                         <span class="body-lg pp-bold d-lg-block d-md-block d-sm-none">Availability</span>
                                         <span class="body pp-bold d-lg-none d-md-none d-sm-block">Availability</span>
                                     </div>
+                                    <div class="availability-inventory-slot"></div>
                                 </div>
 
                                 <div class="size-chart-injector form__label">
                                     <script>
                                         document.addEventListener("DOMContentLoaded", function () {
                                             var inventoryInfo = document.querySelector("#inventory-info-app");
-                                            var availabilitySection = document.querySelector(".availability-section");
+                                            var inventorySlot = document.querySelector(".availability-section .availability-inventory-slot");
 
-                                            if (inventoryInfo && availabilitySection) {
-                                                availabilitySection.appendChild(inventoryInfo);
+                                            if (inventoryInfo && inventorySlot) {
+                                                inventorySlot.appendChild(inventoryInfo);
                                                 inventoryInfo.style.display = "block";
-                                                console.log("✅ inventory-info-app moved inside availability-section");
                                             } else {
-                                                console.warn("⚠️ Either #inventory-info-app or .availability-section not found.");
+                                                console.warn("⚠️ Either #inventory-info-app or .availability-inventory-slot not found.");
                                             }
                                         });
                                     </script>
