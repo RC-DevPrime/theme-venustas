@@ -407,39 +407,34 @@
                                         Sort By:
                                     </span>
 
-                                    {% assign current_sort = search.sort_by | default: 'relevance' %}
+                                    {% assign current_sort = search.sort_by | default: search.default_sort_by | default: 'relevance' %}
 
-                                    <select id="SearchSortBy">
-                                        <option value="manual"
-                                            {% if search.sort_by == 'manual' %}selected{% endif %}>
+                                    <select id="SearchSortBy" data-search-sort>
+                                        <option value="relevance"{% if current_sort == 'relevance' %} selected{% endif %}>
+                                            Relevance
+                                        </option>
+                                        <option value="manual"{% if current_sort == 'manual' %} selected{% endif %}>
                                             Featured
                                         </option>
-                                        <option value="best-selling"
-                                            {% if search.sort_by == 'best-selling' %}selected{% endif %}>
+                                        <option value="best-selling"{% if current_sort == 'best-selling' %} selected{% endif %}>
                                             Best selling
                                         </option>
-                                        <option value="title-ascending"
-                                            {% if search.sort_by == 'title-ascending' %}selected{% endif %}>
+                                        <option value="title-ascending"{% if current_sort == 'title-ascending' %} selected{% endif %}>
                                             Alphabetically, A–Z
                                         </option>
-                                        <option value="title-descending"
-                                            {% if search.sort_by == 'title-descending' %}selected{% endif %}>
+                                        <option value="title-descending"{% if current_sort == 'title-descending' %} selected{% endif %}>
                                             Alphabetically, Z–A
                                         </option>
-                                        <option value="price-ascending"
-                                            {% if search.sort_by == 'price-ascending' %}selected{% endif %}>
+                                        <option value="price-ascending"{% if current_sort == 'price-ascending' %} selected{% endif %}>
                                             Price, low to high
                                         </option>
-                                        <option value="price-descending"
-                                            {% if search.sort_by == 'price-descending' %}selected{% endif %}>
+                                        <option value="price-descending"{% if current_sort == 'price-descending' %} selected{% endif %}>
                                             Price, high to low
                                         </option>
-                                        <option value="created-ascending"
-                                            {% if search.sort_by == 'created-ascending' %}selected{% endif %}>
+                                        <option value="created-ascending"{% if current_sort == 'created-ascending' %} selected{% endif %}>
                                             Date, old to new
                                         </option>
-                                        <option value="created-descending"
-                                            {% if search.sort_by == 'created-descending' %}selected{% endif %}>
+                                        <option value="created-descending"{% if current_sort == 'created-descending' %} selected{% endif %}>
                                             Date, new to old
                                         </option>
                                     </select>
@@ -696,7 +691,22 @@
                                     {% if product_count > 0 %}
 
                                     <!-- PRODUCT GRID -->
-                                    <div class="row search-products-row" id="search-results-container"></div>
+                                    {% assign initial_product_count = product_count | at_most: 8 %}
+                                    {% assign rendered_product_count = 0 %}
+                                    <div
+                                        class="row search-products-row"
+                                        id="search-results-container"
+                                        data-initial-product-count="{{ initial_product_count }}"
+                                    >
+                                        {% for item in search.results %}
+                                            {% if item.object_type == 'product' and rendered_product_count < initial_product_count %}
+                                                <div class="col-lg-4 col-md-4 col-sm-6 search-item">
+                                                    {% render 'search-product-item', product: item, badge_detail: true %}
+                                                </div>
+                                                {% assign rendered_product_count = rendered_product_count | plus: 1 %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
 
                                     <!-- FOOTER -->
                                     <div class="row">
@@ -708,7 +718,7 @@
 
                                         <div class="product-count-text f-gray">
                                             Showing 
-                                            <span class="current-range" id="search-range">0–0</span>
+                                            <span class="current-range" id="search-range">1–{{ initial_product_count }}</span>
                                             of <span class="final-count">{{ product_count }}</span> products
                                         </div>
 
@@ -877,23 +887,29 @@
   // ===========================
   window.SearchData = window.SearchData || { products: [], pages: [], articles: [], collections: [] };
 
-  let productIndex = 0;
+  const initialProductsContainer = document.getElementById('search-results-container');
+  let productIndex = Number(initialProductsContainer?.dataset.initialProductCount) || 0;
   let articleIndex = 0;
   let pageIndex = 0;
   let collectionIndex = 0;
 
   let isAutoLoading = false;
+  let searchDataGeneration = 0;
+  let activeFilterRequest = null;
 
   // ===========================
   // LOAD ALL PAGINATE PAGES (Liquid-driven)
   // ===========================
-  async function loadNextPage() {
+  async function loadNextPage(generation = searchDataGeneration) {
     const nextBtn = document.getElementById('search-next-btn');
-    if (!nextBtn || !nextBtn.dataset.nextUrl) return;
+    if (generation !== searchDataGeneration || !nextBtn || !nextBtn.dataset.nextUrl) return;
 
     try {
       const response = await fetch(nextBtn.dataset.nextUrl, { credentials: 'same-origin' });
       const html = await response.text();
+
+      // A filter or sort request has replaced the product data while this page was loading.
+      if (generation !== searchDataGeneration) return;
 
       const doc = new DOMParser().parseFromString(html, 'text/html');
 
@@ -909,7 +925,7 @@
       const newNextBtn = doc.querySelector('#search-next-btn');
       if (newNextBtn && newNextBtn.dataset.nextUrl) {
         nextBtn.dataset.nextUrl = newNextBtn.dataset.nextUrl;
-        await loadNextPage();
+        await loadNextPage(generation);
       } else {
         nextBtn.removeAttribute('data-next-url');
       }
@@ -1095,6 +1111,17 @@ function updateSearchPageTitle() {
     if (productIndex >= total && btn) btn.style.display = 'none';
   }
 
+  function updateProductLoadMoreState() {
+    const btn = document.getElementById('load-more');
+    if (!btn) return;
+
+    if (productIndex >= window.SearchData.products.length) {
+      btn.style.display = 'none';
+    } else {
+      btn.style.removeProperty('display');
+    }
+  }
+
   function renderNextArticles() {
     const container = document.getElementById('article-results-container');
     if (!container) return;
@@ -1248,7 +1275,7 @@ function updateSearchPageTitle() {
     const pillsWrap = document.querySelector('.filter-list-container-tab');
     const counterEl = document.querySelector('.filter-counter-products');
     const clearBtn = document.querySelector('.clear-filter.desktop'); // ✅ it's a div
-    const sortSelect = document.getElementById('SearchSortBy');
+    const sortSelect = document.querySelector('[data-search-sort]');
 
     // ✅ Update URL in address bar (no reload)
     const updateBrowserUrl = (url) => {
@@ -1326,15 +1353,26 @@ function updateSearchPageTitle() {
     // Fetch filtered products (your view=ajax endpoint)
     const fetchFilteredProducts = async () => {
         const url = buildFilterUrl();
+        const requestGeneration = ++searchDataGeneration;
+
+        if (activeFilterRequest) activeFilterRequest.abort();
+        const requestController = new AbortController();
+        activeFilterRequest = requestController;
 
         // ✅ Update URL in the browser (shareable)
         updateBrowserUrl(url);
 
         try {
-        const res = await fetch(url.toString() + '&view=ajax', { credentials: 'same-origin' });
+        const res = await fetch(url.toString() + '&view=ajax', {
+            credentials: 'same-origin',
+            signal: requestController.signal
+        });
         if (!res.ok) throw new Error(res.status);
 
         const data = await res.json();
+
+        // Ignore a slower response when the user has already changed the filters again.
+        if (requestGeneration !== searchDataGeneration) return;
 
         // Expecting: data.products = [{html,...}] based on your existing code
         if (data?.products) {
@@ -1366,7 +1404,9 @@ function updateSearchPageTitle() {
             if (typeof updateSearchPageTitle === 'function') updateSearchPageTitle();
         }
         } catch (e) {
-        console.error('Filter fetch error:', e);
+        if (e.name !== 'AbortError') console.error('Filter fetch error:', e);
+        } finally {
+        if (activeFilterRequest === requestController) activeFilterRequest = null;
         }
     };
 
@@ -1448,18 +1488,24 @@ function updateSearchPageTitle() {
   // ===========================
   document.addEventListener('DOMContentLoaded', async () => {
     bindEvents();
+    initSearchFilters();
 
-    // Load all liquid pages AND collections suggest
+    if (window.applySwatchFallbacks && initialProductsContainer) {
+      window.applySwatchFallbacks(initialProductsContainer);
+    }
+
+    // The first product batch is server-rendered. Load remaining data in the background.
+    const initialSearchDataGeneration = searchDataGeneration;
     await Promise.all([
-      loadNextPage(),
+      loadNextPage(initialSearchDataGeneration),
       fetchCollectionsSuggest(SEARCH_TERM)
     ]);
 
+    // Refresh counts from whichever request currently owns the latest product state.
     renderCountTab();
-     updateTopResultCount();   
-  updateSearchPageTitle();  // ✅ updates <title>
-    resetAndRerenderAll();
-    initSearchFilters();
+    updateTopResultCount();
+    updateSearchPageTitle();
+    updateProductLoadMoreState();
   });
 
 document.querySelectorAll('.tab-search .tab-item').forEach(tab => {
