@@ -326,10 +326,38 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
                                         document.addEventListener("DOMContentLoaded", function () {
                                             var inventoryInfo = document.querySelector("#inventory-info-app");
                                             var inventorySlot = document.querySelector(".availability-section .availability-inventory-slot");
+                                            var availabilityDetails = inventorySlot && inventorySlot.closest(".product-details");
 
                                             if (inventoryInfo && inventorySlot) {
                                                 inventorySlot.appendChild(inventoryInfo);
                                                 inventoryInfo.style.display = "block";
+
+                                                function hasMeaningfulInventoryContent() {
+                                                    return Boolean(
+                                                        inventoryInfo.querySelector(".iia-list-item, .iia-details-container, .iia-list") ||
+                                                        (inventoryInfo.textContent || "").trim()
+                                                    );
+                                                }
+
+                                                function updateInventoryVisibility() {
+                                                    var isResolvedEmpty = inventoryInfo.getAttribute("iia-is-default") === "true" &&
+                                                        !hasMeaningfulInventoryContent();
+
+                                                    if (availabilityDetails) {
+                                                        availabilityDetails.classList.toggle("is-inventory-empty", isResolvedEmpty);
+                                                    }
+                                                }
+
+                                                updateInventoryVisibility();
+
+                                                var inventoryObserver = new MutationObserver(updateInventoryVisibility);
+                                                inventoryObserver.observe(inventoryInfo, {
+                                                    childList: true,
+                                                    subtree: true,
+                                                    characterData: true,
+                                                    attributes: true,
+                                                    attributeFilter: ["iia-is-default"]
+                                                });
                                             } else {
                                                 console.warn("⚠️ Either #inventory-info-app or .availability-inventory-slot not found.");
                                             }
