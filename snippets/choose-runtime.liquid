@@ -11,7 +11,6 @@
   endfor
 -%}
 {%- if show_runtime -%}
-  {{ product_tag_handle}}
   {{ 'choose-runtime.css' | asset_url | stylesheet_tag }}
 
   {%- assign dialog_id = 'RuntimeComparison-' | append: section.id | append: '-' | append: block.id -%}
