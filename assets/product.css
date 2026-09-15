@@ -1007,6 +1007,9 @@ body.product-media-lightbox-open {
     --inventory-details-height: 163px;
     padding-top:5px;
 }
+.product .product-details.is-inventory-empty {
+    display: none;
+}
 .product .availability-section .availability-inventory-slot {
     min-height: var(--inventory-details-height);
 }
