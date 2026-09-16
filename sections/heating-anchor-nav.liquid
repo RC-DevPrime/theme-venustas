@@ -22,21 +22,19 @@
   }
 
   #shopify-section-{{ section.id }} .heating-anchor-nav__bar {
-    width: min(100%, 1200px);
+    width: min(100%, 1340px);
     margin: 0 auto;
-    border-radius: 999px;
-    background: {{ section.settings.nav_background }};
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.16);
     pointer-events: auto;
   }
 
   #shopify-section-{{ section.id }} .heating-anchor-nav__list {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 0 98px;
+    padding: 0 72px;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
@@ -51,12 +49,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 64px;
-    padding: 0 24px;
-    color: {{ section.settings.text_color }};
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.2;
+    min-height: 56px;
+    padding: 0 26px;
+    color: #14161a;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 21.84px;
     text-align: center;
     text-decoration: none;
     white-space: nowrap;
@@ -66,11 +64,11 @@
   #shopify-section-{{ section.id }} .heating-anchor-nav__link::after {
     content: '';
     position: absolute;
-    left: 28px;
-    right: 28px;
+    left: 24px;
+    right: 24px;
     bottom: 0;
     height: 3px;
-    border-radius: 999px;
+    border-radius: 2px 2px 0 0;
     background: var(--color-brand, #B93205);
     transform: scaleX(0);
     transform-origin: center;
@@ -78,7 +76,7 @@
   }
 
   #shopify-section-{{ section.id }} .heating-anchor-nav__link.is-active {
-    color: var(--color-brand, #B93205);
+    color: #14161a;
   }
 
   #shopify-section-{{ section.id }} .heating-anchor-nav__link.is-active::after {
@@ -99,6 +97,7 @@
     }
 
     #shopify-section-{{ section.id }} .heating-anchor-nav__list {
+      justify-content: flex-start;
       padding: 0 36px;
     }
 

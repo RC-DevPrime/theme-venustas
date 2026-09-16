@@ -1,0 +1,257 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-glove-control {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    color: var(--venustas-black, #14161a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 44px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__title {
+    margin: 0;
+    color: var(--venustas-black, #14161a);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__description {
+    max-width: 1120px;
+    margin: 0;
+    color: #565b63;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__card {
+    position: relative;
+    min-height: 360px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #f0f0f0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__picture,
+  #shopify-section-{{ section.id }} .heating-glove-control__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__image {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__placeholder {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #6d7278;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-glove-control__inner {
+      width: 100%;
+      padding: 56px 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__header {
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__title {
+      font-size: 24px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__description {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__card {
+      min-height: 200px;
+      border-radius: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__placeholder {
+      min-height: 200px;
+      padding: 16px;
+    }
+  }
+{% endstyle %}
+
+{%- assign first_mobile_image = section.settings.first_mobile_image | default: section.settings.first_desktop_image -%}
+{%- assign second_mobile_image = section.settings.second_mobile_image | default: section.settings.second_desktop_image -%}
+
+<section class="heating-glove-control">
+  <div class="heating-glove-control__inner">
+    <div class="heating-glove-control__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heating-glove-control__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heating-glove-control__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="heating-glove-control__grid">
+      <div class="heating-glove-control__card">
+        {%- if section.settings.first_desktop_image != blank or first_mobile_image != blank -%}
+          <picture class="heating-glove-control__picture">
+            {%- if first_mobile_image != blank -%}
+              <source
+                media="(max-width: 767px)"
+                srcset="
+                  {{ first_mobile_image | image_url: width: 350 }} 350w,
+                  {{ first_mobile_image | image_url: width: 700 }} 700w
+                "
+                sizes="calc(100vw - 40px)"
+              >
+            {%- endif -%}
+            {%- assign first_image = section.settings.first_desktop_image | default: first_mobile_image -%}
+            {{
+              first_image
+              | image_url: width: 1400
+              | image_tag:
+                class: 'heating-glove-control__image',
+                loading: 'lazy',
+                widths: '350, 700, 900, 1100, 1400',
+                sizes: '(max-width: 767px) calc(100vw - 40px), 654px',
+                alt: first_image.alt | default: section.settings.title
+            }}
+          </picture>
+        {%- else -%}
+          <div class="heating-glove-control__placeholder">Upload a control image or GIF.</div>
+        {%- endif -%}
+      </div>
+
+      <div class="heating-glove-control__card">
+        {%- if section.settings.second_desktop_image != blank or second_mobile_image != blank -%}
+          <picture class="heating-glove-control__picture">
+            {%- if second_mobile_image != blank -%}
+              <source
+                media="(max-width: 767px)"
+                srcset="
+                  {{ second_mobile_image | image_url: width: 350 }} 350w,
+                  {{ second_mobile_image | image_url: width: 700 }} 700w
+                "
+                sizes="calc(100vw - 40px)"
+              >
+            {%- endif -%}
+            {%- assign second_image = section.settings.second_desktop_image | default: second_mobile_image -%}
+            {{
+              second_image
+              | image_url: width: 1400
+              | image_tag:
+                class: 'heating-glove-control__image',
+                loading: 'lazy',
+                widths: '350, 700, 900, 1100, 1400',
+                sizes: '(max-width: 767px) calc(100vw - 40px), 654px',
+                alt: second_image.alt | default: section.settings.title
+            }}
+          </picture>
+        {%- else -%}
+          <div class="heating-glove-control__placeholder">Upload a comparison image or GIF.</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating Glove Control",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "ProductH title",
+      "default": "One button. Three levels. Glove-Friendly Control."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "ProductH description",
+      "default": "<p>High. Medium. Low. All controlled directly from the garment with one easy-to-reach button — even with gloves on. No separate controller. No handlebar mount. No extra cable running down your sleeve. Just press the button to change heat levels while you ride.</p>"
+    },
+    {
+      "type": "header",
+      "content": "ProductH first media"
+    },
+    {
+      "type": "image_picker",
+      "id": "first_desktop_image",
+      "label": "ProductH first desktop image or GIF"
+    },
+    {
+      "type": "image_picker",
+      "id": "first_mobile_image",
+      "label": "ProductH first mobile image or GIF"
+    },
+    {
+      "type": "header",
+      "content": "ProductH second media"
+    },
+    {
+      "type": "image_picker",
+      "id": "second_desktop_image",
+      "label": "ProductH second desktop image or GIF"
+    },
+    {
+      "type": "image_picker",
+      "id": "second_mobile_image",
+      "label": "ProductH second mobile image or GIF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Glove Control"
+    }
+  ]
+}
+{% endschema %}

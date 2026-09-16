@@ -1,0 +1,414 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-bike-power {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    color: #14161a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__inner {
+    display: flex;
+    width: min(100% - 40px, 1340px);
+    min-height: 359px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__copy {
+    display: flex;
+    width: 600px;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__title {
+    width: 521px;
+    margin: 0;
+    color: #14161a;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__description {
+    width: 521px;
+    margin: 0;
+    color: #565b63;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__chart {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__label {
+    margin: 0;
+    color: #14161a;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 0.15px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__battery-track {
+    position: relative;
+    width: 100%;
+    height: 36px;
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__battery-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: #dadada;
+    opacity: 0;
+    animation: heating-bike-power-line 2s linear infinite;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__battery-segment {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-radius: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__battery-segment--low {
+    width: 0;
+    height: 16px;
+    background: #ebe4e1;
+    animation: heating-bike-power-battery-low 2s linear infinite;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__battery-segment--medium {
+    width: 0;
+    height: 26px;
+    border-radius: 4px;
+    background: #e5cfc8;
+    animation: heating-bike-power-battery-medium 2s linear infinite;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__battery-segment--full {
+    width: 0;
+    height: 36px;
+    border-radius: 6px;
+    background: #e6bcae;
+    animation: heating-bike-power-battery-full 2s linear infinite;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__full-text,
+  #shopify-section-{{ section.id }} .heating-bike-power__recharge-text {
+    position: absolute;
+    top: 14px;
+    margin: 0;
+    color: #515151;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    white-space: nowrap;
+    opacity: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__full-text {
+    left: 15px;
+    animation: heating-bike-power-full-text 2s linear infinite;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__recharge-text {
+    left: 250px;
+    animation: heating-bike-power-recharge-text 2s linear infinite;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__apex-track {
+    width: 100%;
+    height: 36px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #eceee9;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__apex-fill {
+    display: flex;
+    width: 0.01px;
+    height: 36px;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #da642a 0%, #b63004 59.615%, #952500 100%);
+    box-sizing: border-box;
+    animation: heating-bike-power-apex 2s linear infinite;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__apex-text {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__axis {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    justify-content: space-between;
+    gap: 0;
+    padding-top: 10px;
+    border-top: 1px solid #dadada;
+  }
+
+  #shopify-section-{{ section.id }} .heating-bike-power__axis span {
+    color: #8a8f97;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.68;
+    white-space: nowrap;
+  }
+
+  @keyframes heating-bike-power-line {
+    0%, 38% { opacity: 0; }
+    63%, 100% { opacity: 0.5; }
+  }
+
+  @keyframes heating-bike-power-battery-low {
+    0%, 8.952% { width: 0; }
+    38%, 100% { width: 39%; }
+  }
+
+  @keyframes heating-bike-power-battery-medium {
+    0%, 4.286% { width: 0; }
+    21.619%, 100% { width: 30.333%; }
+  }
+
+  @keyframes heating-bike-power-battery-full {
+    0% { width: 0; }
+    6.75%, 100% { width: 19.333%; }
+  }
+
+  @keyframes heating-bike-power-full-text {
+    0%, 37.85% { opacity: 0; }
+    62.85%, 100% { opacity: 1; }
+  }
+
+  @keyframes heating-bike-power-recharge-text {
+    0%, 38.9% { opacity: 0; }
+    63.9%, 100% { opacity: 1; }
+  }
+
+  @keyframes heating-bike-power-apex {
+    0% { width: 0.01px; }
+    85.048%, 100% { width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .heating-bike-power__battery-line,
+    #shopify-section-{{ section.id }} .heating-bike-power__battery-segment,
+    #shopify-section-{{ section.id }} .heating-bike-power__full-text,
+    #shopify-section-{{ section.id }} .heating-bike-power__recharge-text,
+    #shopify-section-{{ section.id }} .heating-bike-power__apex-fill {
+      animation: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__battery-line {
+      opacity: 0.5;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__battery-segment--low {
+      width: 39%;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__battery-segment--medium {
+      width: 30.333%;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__battery-segment--full {
+      width: 19.333%;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__full-text,
+    #shopify-section-{{ section.id }} .heating-bike-power__recharge-text {
+      opacity: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__apex-fill {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-bike-power__inner {
+      width: 100%;
+      min-height: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 32px;
+      padding: 56px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__copy,
+    #shopify-section-{{ section.id }} .heating-bike-power__chart {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__copy {
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__title {
+      width: 100%;
+      font-size: 24px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__description {
+      width: 100%;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__chart {
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__group {
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__label {
+      font-size: 14px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__battery-track {
+      height: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__battery-line {
+      height: 2px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__battery-segment--low {
+      height: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__battery-segment--medium {
+      height: 22px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__battery-segment--full {
+      height: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__recharge-text {
+      right: 0;
+      left: auto;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__apex-fill {
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 4px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-bike-power__apex-track {
+      height: 32px;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-bike-power">
+  <div class="heating-bike-power__inner">
+    <div class="heating-bike-power__copy">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heating-bike-power__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heating-bike-power__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="heating-bike-power__chart">
+      <div class="heating-bike-power__group">
+        <p class="heating-bike-power__label">Running on a battery</p>
+        <div class="heating-bike-power__battery-track" aria-hidden="true">
+          <span class="heating-bike-power__battery-line"></span>
+          <span class="heating-bike-power__battery-segment heating-bike-power__battery-segment--low"></span>
+          <span class="heating-bike-power__battery-segment heating-bike-power__battery-segment--medium"></span>
+          <span class="heating-bike-power__battery-segment heating-bike-power__battery-segment--full"></span>
+          <span class="heating-bike-power__full-text">Full</span>
+          <span class="heating-bike-power__recharge-text">Time to recharge</span>
+        </div>
+      </div>
+
+      <div class="heating-bike-power__group">
+        <p class="heating-bike-power__label">Apex™ Running on the bike</p>
+        <div class="heating-bike-power__apex-track" aria-hidden="true">
+          <div class="heating-bike-power__apex-fill">
+            <span class="heating-bike-power__apex-text">Same heat, hour one to hour ten</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="heating-bike-power__axis" aria-hidden="true">
+        <span>0</span>
+        <span>2h</span>
+        <span>4h</span>
+        <span>6h</span>
+        <span>8h</span>
+        <span>10h</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating Bike Power",
+  "tag": "section",
+  "class": "heating-bike-power-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Your bike is the battery"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Apex takes its power straight from the motorcycle, so there's nothing to charge before you leave and nothing to keep an eye on while you ride. Pick a level and it stays there. Off the bike, the 7.5K battery (sold seperately) takes over.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Bike Power"
+    }
+  ]
+}
+{% endschema %}
