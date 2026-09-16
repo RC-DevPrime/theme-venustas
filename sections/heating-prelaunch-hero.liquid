@@ -1,0 +1,414 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero {
+    position: relative;
+    width: 100%;
+    min-height: 769px;
+    overflow: hidden;
+    background: #14161a;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__media,
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__media::after,
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__image {
+    position: absolute;
+    inset: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__media::after {
+    content: '';
+    z-index: 1;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.08) 50%, rgba(0, 0, 0, 0) 100%);
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__inner {
+    position: relative;
+    z-index: 2;
+    width: min(100% - 40px, 1340px);
+    min-height: 657px;
+    margin: 0 auto;
+    padding-top: 151px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__content {
+    width: min(100%, 508px);
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__eyebrow {
+    margin: 0 0 8px;
+    color: var(--color-brand, #b93205);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__title {
+    max-width: 510px;
+    margin: 0 0 16px;
+    color: #fff;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -1.5px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__description {
+    max-width: 420px;
+    margin: 0 0 24px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.625;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__button {
+    display: inline-flex;
+    min-height: 41px;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding: 12px 20px 14px;
+    border-radius: 6px;
+    background: var(--color-brand, #b93205);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__button svg {
+    width: 12px;
+    height: 12px;
+    flex: 0 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__note,
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__progress-text {
+    margin: 0;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.68;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__progress {
+    width: min(100%, 380px);
+    margin-top: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__progress-track {
+    width: 100%;
+    height: 6px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__progress-fill {
+    display: block;
+    width: 94.5%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--color-brand, #b93205);
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__progress-text {
+    margin-top: 11px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__stats {
+    position: relative;
+    z-index: 2;
+    min-height: 112px;
+    margin-top: auto;
+    background: rgba(166, 166, 166, 0.4);
+    backdrop-filter: blur(1.5px);
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__stats-inner {
+    display: grid;
+    width: min(100% - 40px, 1340px);
+    min-height: 112px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    gap: 24px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat-value {
+    margin: 0 0 6px;
+    color: var(--color-brand, #b93205);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.9px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat-text {
+    margin: 0;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.68;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero {
+      min-height: 652px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__media::after {
+      background: linear-gradient(180deg, rgba(165, 163, 131, 0) 18.13%, rgba(39, 33, 41, 0.8) 78.96%);
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__image--mobile {
+      display: block;
+      object-position: center top;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__inner {
+      width: 100%;
+      min-height: 0;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__content {
+      width: 100%;
+      margin: 0 auto 31px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__eyebrow {
+      margin-bottom: 8px;
+      font-size: 11px;
+      line-height: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__title {
+      margin-bottom: 16px;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: 0;
+      text-shadow: 0 4px 25.5px rgba(0, 0, 0, 0.25);
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__description {
+      max-width: none;
+      margin-bottom: 24px;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__button {
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 12px;
+      padding: 12px 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__button span {
+      flex: 1 1 auto;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__note {
+      color: #a5aab1;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__progress {
+      width: 100%;
+      margin-top: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__progress-text {
+      color: #d0d0d0;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__stats {
+      width: 100%;
+      min-height: 132px;
+      background: rgba(88, 86, 94, 0.4);
+      backdrop-filter: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__stats-inner {
+      width: 100%;
+      min-height: 132px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      padding: 16px 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat {
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat-value {
+      margin-bottom: 4px;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat-text {
+      font-size: 13px;
+      line-height: 1.15;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-prelaunch-hero">
+  <div class="heating-prelaunch-hero__media" aria-hidden="true">
+    {%- if section.settings.desktop_image != blank -%}
+      {{
+        section.settings.desktop_image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'heating-prelaunch-hero__image heating-prelaunch-hero__image--desktop',
+          loading: 'eager',
+          widths: '960, 1340, 1600, 1920, 2400',
+          sizes: '100vw',
+          alt: ''
+      }}
+    {%- endif -%}
+    {%- if section.settings.mobile_image != blank -%}
+      {{
+        section.settings.mobile_image
+        | image_url: width: 900
+        | image_tag:
+          class: 'heating-prelaunch-hero__image heating-prelaunch-hero__image--mobile',
+          loading: 'eager',
+          widths: '390, 600, 750, 900',
+          sizes: '100vw',
+          alt: ''
+      }}
+    {%- elsif section.settings.desktop_image != blank -%}
+      {{
+        section.settings.desktop_image
+        | image_url: width: 900
+        | image_tag:
+          class: 'heating-prelaunch-hero__image heating-prelaunch-hero__image--mobile',
+          loading: 'eager',
+          widths: '390, 600, 750, 900',
+          sizes: '100vw',
+          alt: ''
+      }}
+    {%- endif -%}
+  </div>
+
+  <div class="heating-prelaunch-hero__inner">
+    <div class="heating-prelaunch-hero__content">
+      <p class="heating-prelaunch-hero__eyebrow">PRE-LAUNCH · OCTOBER 2026</p>
+      {%- if section.settings.title != blank -%}
+        <h2 class="heating-prelaunch-hero__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heating-prelaunch-hero__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+      <a class="heating-prelaunch-hero__button" href="{{ section.settings.button_link | default: '#' }}">
+        <span>Reserve for $10</span>
+        <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M4.5 9L7.5 6L4.5 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <p class="heating-prelaunch-hero__note">Fully refundable. Cancel any time before launch.</p>
+      <div class="heating-prelaunch-hero__progress" aria-hidden="true">
+        <div class="heating-prelaunch-hero__progress-track">
+          <span class="heating-prelaunch-hero__progress-fill"></span>
+        </div>
+        <p class="heating-prelaunch-hero__progress-text">99 of 100 Founder Passes left</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="heating-prelaunch-hero__stats">
+    <div class="heating-prelaunch-hero__stats-inner">
+      <div class="heating-prelaunch-hero__stat">
+        <p class="heating-prelaunch-hero__stat-value">144°F</p>
+        <p class="heating-prelaunch-hero__stat-text">Max heating temperature · 12V powered</p>
+      </div>
+      <div class="heating-prelaunch-hero__stat">
+        <p class="heating-prelaunch-hero__stat-value">8</p>
+        <p class="heating-prelaunch-hero__stat-text">Heat zones across jacket and pants</p>
+      </div>
+      <div class="heating-prelaunch-hero__stat">
+        <p class="heating-prelaunch-hero__stat-value">$0</p>
+        <p class="heating-prelaunch-hero__stat-text">Extra parts needed — cable and fuse in the box</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating Prelaunch Hero",
+  "tag": "section",
+  "class": "heating-prelaunch-hero-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Heated riding gear that runs on your bike."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>No battery to charge. No controller to buy. Just the Apex jacket liner and pant liner, wired into your 12V power.</p>"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Reserve link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Prelaunch Hero"
+    }
+  ]
+}
+{% endschema %}
