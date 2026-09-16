@@ -1,0 +1,25 @@
+{%- assign fallback_image = desktop_image | default: mobile_image -%}
+
+{%- if fallback_image != blank -%}
+  <picture class="{{ picture_class }}">
+    {%- if mobile_image != blank -%}
+      <source
+        media="(max-width: 767px)"
+        srcset="{{ mobile_image | image_url: width: 420 }} 420w, {{ mobile_image | image_url: width: 700 }} 700w"
+        sizes="{{ mobile_sizes | default: '203px' }}"
+      >
+    {%- endif -%}
+    {{
+      fallback_image
+      | image_url: width: image_width
+      | image_tag:
+        class: image_class,
+        loading: loading,
+        widths: widths,
+        sizes: sizes,
+        alt: fallback_image.alt | default: alt
+    }}
+  </picture>
+{%- else -%}
+  <div class="{{ placeholder_class }}">{{ placeholder }}</div>
+{%- endif -%}

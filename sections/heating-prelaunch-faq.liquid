@@ -1,0 +1,243 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    color: var(--venustas-black, #14161a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__eyebrow {
+    margin: 0 0 40px;
+    color: var(--color-brand, #b93205);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 654px));
+    gap: 0 32px;
+    border-top: 1px solid #e3e4e0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__item {
+    border-bottom: 1px solid #e3e4e0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__summary {
+    display: flex;
+    min-height: 70px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 0;
+    color: #14161a;
+    cursor: pointer;
+    list-style: none;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__question {
+    min-width: 0;
+    margin: 0;
+    color: #14161a;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.68;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__icon {
+    flex: 0 0 auto;
+    color: var(--color-brand, #b93205);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__icon::before {
+    content: '+';
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__item[open] .heating-prelaunch-faq__icon::before {
+    content: '−';
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__answer {
+    padding: 0 0 28px;
+    color: #565b63;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.62;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__answer p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__answer p + p {
+    margin-top: 12px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-prelaunch-faq__inner {
+      width: 100%;
+      padding: 56px 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-faq__eyebrow {
+      margin-bottom: 32px;
+      font-size: 11px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-faq__grid {
+      display: flex;
+      flex-direction: column;
+      border-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-faq__summary {
+      min-height: 54px;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-faq__question {
+      overflow: hidden;
+      font-size: 14px;
+      line-height: 1.2;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-faq__answer {
+      padding-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-prelaunch-faq">
+  <div class="heating-prelaunch-faq__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="heating-prelaunch-faq__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    <div class="heating-prelaunch-faq__grid">
+      {%- for block in section.blocks -%}
+        <details class="heating-prelaunch-faq__item" {{ block.shopify_attributes }}>
+          <summary class="heating-prelaunch-faq__summary">
+            {%- if block.settings.question != blank -%}
+              <span class="heating-prelaunch-faq__question">{{ block.settings.question }}</span>
+            {%- endif -%}
+            <span class="heating-prelaunch-faq__icon" aria-hidden="true"></span>
+          </summary>
+          {%- if block.settings.answer != blank -%}
+            <div class="heating-prelaunch-faq__answer">{{ block.settings.answer }}</div>
+          {%- endif -%}
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "ProductH eyebrow",
+      "default": "FAQ"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "ProductH FAQ",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "ProductH question",
+          "default": "Do I get $100 off if I buy both?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "ProductH answer",
+          "default": "<p>No. The reservation gives you one $50 launch coupon for a qualifying Apex™ order, whether you buy one piece or both.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating FAQ",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do I get $100 off if I buy both?",
+            "answer": "<p>No. The reservation gives you one $50 launch coupon for a qualifying Apex™ order, whether you buy one piece or both.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get my $10 back?",
+            "answer": "<p>Yes. The $10 reservation is refundable any time before launch.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need to buy anything else?",
+            "answer": "<p>No. You can reserve now and decide at launch. A qualifying order includes the launch coupon benefit, lifetime heating element warranty, and free 3-Way Cable.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Will it drain my battery?",
+            "answer": "<p>On most bikes, no. The jacket draws 42W and the pants 38W — 80W together, about 6.67A at 12V. That sits inside the spare output of a typical charging system at riding revs, and it's light enough that stop-and-go idling isn't a problem either. Smaller-displacement and older bikes have an easier time with this load than with systems drawing twice as much. The one thing to avoid is leaving it powered with the engine off.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I wear these on their own?",
+            "answer": "<p>They are designed as heated mid-layers under protective riding gear, not as standalone protective outerwear.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "When does it ship?",
+            "answer": "<p>Launch and shipping timing will be shared with reservation customers by email.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

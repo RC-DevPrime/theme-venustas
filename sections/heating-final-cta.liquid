@@ -1,0 +1,205 @@
+{%- liquid
+  assign deposit_product = section.settings.deposit_product
+  assign deposit_variant = nil
+  assign checkout_url = '#'
+  if deposit_product != blank and deposit_product.selected_or_first_available_variant != blank
+    assign deposit_variant = deposit_product.selected_or_first_available_variant
+    assign checkout_url = routes.root_url | append: 'cart/' | append: deposit_variant.id | append: ':1?checkout'
+  endif
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .heating-final-cta {
+    width: 100%;
+    overflow: hidden;
+    background:
+      linear-gradient(0deg, rgba(185, 50, 5, 0.5) 0%, rgba(20, 22, 26, 0.5) 65.529%),
+      #14161a;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-final-cta__inner {
+    display: flex;
+    width: min(100% - 80px, 1840px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 80px 0 60px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-final-cta__title {
+    margin: 0;
+    color: #fff;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-final-cta__description {
+    max-width: 593px;
+    margin: 14px 0 40px;
+    color: #a5aab1;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heating-final-cta__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-final-cta__button {
+    display: inline-flex;
+    width: 196px;
+    min-height: 41px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px 14px;
+    border: 0;
+    border-radius: 6px;
+    background: var(--color-brand, #b93205);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-final-cta__button[aria-disabled='true'] {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-final-cta__note {
+    margin: 24px 0 0;
+    color: #a5aab1;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.68;
+  }
+
+  #shopify-section-{{ section.id }} .heating-final-cta__email {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #e83a00;
+    font: inherit;
+    text-decoration: underline;
+    text-underline-position: from-font;
+    cursor: pointer;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-final-cta__inner {
+      width: 100%;
+      gap: 24px;
+      padding: 56px 20px 40px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-final-cta__title {
+      font-size: 22px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-final-cta__description {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .heating-final-cta__button {
+      width: 100%;
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-final-cta__note {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-final-cta">
+  <div class="heating-final-cta__inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="heating-final-cta__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    {%- if section.settings.description != blank -%}
+      <div class="heating-final-cta__description">{{ section.settings.description }}</div>
+    {%- endif -%}
+
+    <a class="heating-final-cta__button" href="{{ checkout_url }}" aria-disabled="{% if deposit_variant == nil %}true{% else %}false{% endif %}">
+      <span>Reserve for $10</span>
+      <span aria-hidden="true">›</span>
+    </a>
+
+    <p class="heating-final-cta__note">
+      <span>Not ready? </span>
+      <button class="heating-final-cta__email" type="button" data-heating-klaviyo-open data-form-id="{{ section.settings.klaviyo_form_id | escape }}">Leave your email</button>
+      <span> and we'll tell you the moment it goes live.</span>
+    </p>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+    const trigger = section.querySelector('[data-heating-klaviyo-open]');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', () => {
+      const formId = trigger.dataset.formId;
+      if (!formId) return;
+      window._klOnsite = window._klOnsite || [];
+      window._klOnsite.push(['openForm', formId]);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Heating Final CTA",
+  "settings": [
+    {
+      "type": "product",
+      "id": "deposit_product",
+      "label": "ProductH $10 deposit product"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_form_id",
+      "label": "ProductH Klaviyo form ID",
+      "info": "Used by _klOnsite.openForm when Leave your email is clicked."
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "ProductH title",
+      "default": "100 passes. October launch."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "ProductH description",
+      "default": "<p>Lock the lifetime warranty before it's gone.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Final CTA"
+    }
+  ]
+}
+{% endschema %}

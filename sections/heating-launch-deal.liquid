@@ -1,0 +1,360 @@
+{%- liquid
+  assign deposit_product = section.settings.deposit_product
+  assign deposit_variant = nil
+  assign checkout_url = '#'
+  if deposit_product != blank and deposit_product.selected_or_first_available_variant != blank
+    assign deposit_variant = deposit_product.selected_or_first_available_variant
+    assign checkout_url = routes.root_url | append: 'cart/' | append: deposit_variant.id | append: ':1?checkout'
+  endif
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .heating-launch-deal {
+    width: 100%;
+    overflow: hidden;
+    background: #f0f0f0;
+    color: var(--venustas-black, #14161a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__top {
+    display: grid;
+    grid-template-columns: 647px minmax(0, 1fr);
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__table-wrap {
+    overflow: hidden;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__table th,
+  #shopify-section-{{ section.id }} .heating-launch-deal__table td {
+    height: 58px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e3e4e0;
+    color: #515151;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.68;
+    text-align: left;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__table th {
+    height: 55px;
+    padding: 18px 20px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.54;
+    letter-spacing: 0.99px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__table tr:last-child td {
+    border-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__table th:first-child,
+  #shopify-section-{{ section.id }} .heating-launch-deal__table td:first-child {
+    width: 245px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__table th:nth-child(2),
+  #shopify-section-{{ section.id }} .heating-launch-deal__table td:nth-child(2) {
+    width: 200px;
+    background: #fbeeea;
+    color: var(--color-brand, #b93205);
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__table th:nth-child(2) {
+    background: var(--color-brand, #b93205);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__copy {
+    max-width: 446px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__title {
+    margin: 0 0 14px;
+    color: var(--venustas-black, #14161a);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__description {
+    margin: 0 0 34px;
+    color: #565b63;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__button {
+    display: inline-flex;
+    min-width: 200px;
+    min-height: 41px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px 14px;
+    border-radius: 6px;
+    background: var(--color-brand, #b93205);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__button[aria-disabled='true'] {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__note {
+    max-width: 446px;
+    margin: 13px 0 0;
+    color: #8a8f97;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.68;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 52px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__step {
+    min-height: 221px;
+    padding: 34px;
+    border-radius: 6px;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__step-index {
+    margin: 0 0 14px;
+    color: #565b63;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.68px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__step-title {
+    margin: 0 0 6px;
+    color: var(--venustas-black, #14161a);
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: -0.38px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-launch-deal__step-text {
+    margin: 0;
+    color: #565b63;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.68;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-launch-deal__inner {
+      width: 100%;
+      padding: 56px 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heating-launch-deal__top {
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-launch-deal__table-wrap {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-launch-deal__table th,
+    #shopify-section-{{ section.id }} .heating-launch-deal__table td {
+      height: 44px;
+      padding: 10px 12px;
+      font-size: 11px;
+      line-height: 1.15;
+    }
+
+    #shopify-section-{{ section.id }} .heating-launch-deal__table th {
+      height: 41px;
+      font-size: 9px;
+      letter-spacing: 0.8px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-launch-deal__table th:first-child,
+    #shopify-section-{{ section.id }} .heating-launch-deal__table td:first-child {
+      width: 38%;
+    }
+
+    #shopify-section-{{ section.id }} .heating-launch-deal__table th:nth-child(2),
+    #shopify-section-{{ section.id }} .heating-launch-deal__table td:nth-child(2),
+    #shopify-section-{{ section.id }} .heating-launch-deal__table th:nth-child(3),
+    #shopify-section-{{ section.id }} .heating-launch-deal__table td:nth-child(3) {
+      width: 31%;
+    }
+
+    #shopify-section-{{ section.id }} .heating-launch-deal__copy {
+      width: 100%;
+      max-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-launch-deal__title {
+      margin-bottom: 12px;
+      font-size: 24px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-launch-deal__description {
+      margin-bottom: 32px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #shopify-section-{{ section.id }} .heating-launch-deal__button {
+      width: 100%;
+      min-height: 41px;
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-launch-deal__note {
+      max-width: none;
+      margin-top: 32px;
+      color: #565b63;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .heating-launch-deal__steps {
+      display: none;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-launch-deal">
+  <div class="heating-launch-deal__inner">
+    <div class="heating-launch-deal__top">
+      <div class="heating-launch-deal__table-wrap">
+        <table class="heating-launch-deal__table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Reserve now · $10</th>
+              <th>Buy after launch</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Reservation</td><td>$10</td><td>—</td></tr>
+            <tr><td>Purchase coupon</td><td>$50</td><td>—</td></tr>
+            <tr><td>Heating element warranty</td><td>Lifetime</td><td>3 years</td></tr>
+            <tr><td>3-Way Cable</td><td>Free</td><td>$17.99</td></tr>
+            <tr><td>Apex™ Heated Jacket Liner</td><td>$189.99</td><td>$239.99</td></tr>
+            <tr><td>Apex™ Heated Pants Liner</td><td>$149.99</td><td>$199.99</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="heating-launch-deal__copy">
+        {%- if section.settings.title != blank -%}
+          <h2 class="heating-launch-deal__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="heating-launch-deal__description">{{ section.settings.description }}</div>
+        {%- endif -%}
+        <a class="heating-launch-deal__button" href="{{ checkout_url }}" aria-disabled="{% if deposit_variant == nil %}true{% else %}false{% endif %}">
+          <span>Reserve for $10</span>
+          <span aria-hidden="true">›</span>
+        </a>
+        <p class="heating-launch-deal__note">$50 off your order, one time, whether you buy one piece or both. Refund anytime before launch.</p>
+      </div>
+    </div>
+
+    <div class="heating-launch-deal__steps">
+      <article class="heating-launch-deal__step">
+        <p class="heating-launch-deal__step-index">01</p>
+        <h3 class="heating-launch-deal__step-title">Reserve for $10</h3>
+        <p class="heating-launch-deal__step-text">Fully refundable any time before launch.</p>
+      </article>
+      <article class="heating-launch-deal__step">
+        <p class="heating-launch-deal__step-index">02</p>
+        <h3 class="heating-launch-deal__step-title">We email you at launch</h3>
+        <p class="heating-launch-deal__step-text">Your $50 coupon (applies to Apex™ series only) will be sent to you — place order with the same email address you reserved with.</p>
+      </article>
+      <article class="heating-launch-deal__step">
+        <p class="heating-launch-deal__step-index">03</p>
+        <h3 class="heating-launch-deal__step-title">Order and ride</h3>
+        <p class="heating-launch-deal__step-text">Lifetime warranty and the free 3-Way Cable come with a qualifying order.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating Launch Deal",
+  "settings": [
+    {
+      "type": "product",
+      "id": "deposit_product",
+      "label": "ProductH $10 deposit product"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "ProductH title",
+      "default": "Same products. Better launch benefits."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "ProductH description",
+      "default": "<p>One $10 payment now. It comes back as $50 at launch, along with a warranty we won't offer again.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Launch Deal"
+    }
+  ]
+}
+{% endschema %}
