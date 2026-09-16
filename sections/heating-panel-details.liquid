@@ -1,0 +1,340 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-panel-details {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    color: var(--venustas-black, #14161a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 44px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__title {
+    margin: 0;
+    color: var(--venustas-black, #14161a);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__description {
+    margin: 0;
+    color: #565b63;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__media {
+    position: relative;
+    height: 360px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #f0f0f0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__picture,
+  #shopify-section-{{ section.id }} .heating-panel-details__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__image {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__placeholder {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    color: #565b63;
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__item-title {
+    margin: 0;
+    color: var(--venustas-black, #14161a);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: -0.15px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-panel-details__item-text {
+    margin: 0;
+    color: #565b63;
+    font-size: 13.5px;
+    font-weight: 400;
+    line-height: 1.68;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-panel-details {
+      background: #f0f0f0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-panel-details__inner {
+      width: 100%;
+      padding: 56px 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heating-panel-details__header {
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-panel-details__title {
+      font-size: 24px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-panel-details__description {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #shopify-section-{{ section.id }} .heating-panel-details__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-panel-details__card {
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-panel-details__card--wide {
+      grid-column: 1 / -1;
+    }
+
+    #shopify-section-{{ section.id }} .heating-panel-details__media {
+      height: 230px;
+      border-radius: 6px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-panel-details__item-title {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-panel-details__item-text {
+      font-size: 12px;
+      line-height: 1.2;
+    }
+  }
+{% endstyle %}
+
+{%- liquid
+  assign image_1_mobile = section.settings.image_1_mobile | default: section.settings.image_1
+  assign image_2_mobile = section.settings.image_2_mobile | default: section.settings.image_2
+  assign image_3_mobile = section.settings.image_3_mobile | default: section.settings.image_3
+  assign image_4_mobile = section.settings.image_4_mobile | default: section.settings.image_4
+  assign image_5_mobile = section.settings.image_5_mobile | default: section.settings.image_5
+-%}
+
+<section class="heating-panel-details">
+  <div class="heating-panel-details__inner">
+    <div class="heating-panel-details__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heating-panel-details__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heating-panel-details__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="heating-panel-details__grid">
+      <article class="heating-panel-details__card">
+        <div class="heating-panel-details__media">
+          {%- render 'heating-panel-details-image', desktop_image: section.settings.image_1, mobile_image: image_1_mobile, title: '320T matte shell' -%}
+        </div>
+        <div class="heating-panel-details__copy">
+          <h3 class="heating-panel-details__item-title">320T matte shell</h3>
+          <p class="heating-panel-details__item-text">Sheds rain and wet snow, no plastic sheen</p>
+        </div>
+      </article>
+
+      <article class="heating-panel-details__card">
+        <div class="heating-panel-details__media">
+          {%- render 'heating-panel-details-image', desktop_image: section.settings.image_2, mobile_image: image_2_mobile, title: 'Ripstop shoulders' -%}
+        </div>
+        <div class="heating-panel-details__copy">
+          <h3 class="heating-panel-details__item-title">Ripstop shoulders</h3>
+          <p class="heating-panel-details__item-text">Where a jacket takes the most rub</p>
+        </div>
+      </article>
+
+      <article class="heating-panel-details__card">
+        <div class="heating-panel-details__media">
+          {%- render 'heating-panel-details-image', desktop_image: section.settings.image_3, mobile_image: image_3_mobile, title: 'Stretch panels' -%}
+        </div>
+        <div class="heating-panel-details__copy">
+          <h3 class="heating-panel-details__item-title">Stretch panels</h3>
+          <p class="heating-panel-details__item-text">Reach the bars with no pull across the back</p>
+        </div>
+      </article>
+
+      <article class="heating-panel-details__card">
+        <div class="heating-panel-details__media">
+          {%- render 'heating-panel-details-image', desktop_image: section.settings.image_4, mobile_image: image_4_mobile, title: 'Graphene lining' -%}
+        </div>
+        <div class="heating-panel-details__copy">
+          <h3 class="heating-panel-details__item-title">Graphene lining</h3>
+          <p class="heating-panel-details__item-text">Spreads heat evenly, kills hot spots</p>
+        </div>
+      </article>
+
+      <article class="heating-panel-details__card heating-panel-details__card--wide">
+        <div class="heating-panel-details__media">
+          {%- render 'heating-panel-details-image', desktop_image: section.settings.image_5, mobile_image: image_5_mobile, title: 'YKK zippers' -%}
+        </div>
+        <div class="heating-panel-details__copy">
+          <h3 class="heating-panel-details__item-title">YKK zippers</h3>
+          <p class="heating-panel-details__item-text">They still move at 20°F</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating Panel Details",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "ProductH title",
+      "default": "Every panel is there for a reason"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "ProductH description",
+      "default": "<p>Five fabrics, placed where the ride actually puts wear on you.</p>"
+    },
+    {
+      "type": "header",
+      "content": "ProductH 320T matte shell"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "ProductH desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1_mobile",
+      "label": "ProductH mobile image"
+    },
+    {
+      "type": "header",
+      "content": "ProductH Ripstop shoulders"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "ProductH desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2_mobile",
+      "label": "ProductH mobile image"
+    },
+    {
+      "type": "header",
+      "content": "ProductH Stretch panels"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "ProductH desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3_mobile",
+      "label": "ProductH mobile image"
+    },
+    {
+      "type": "header",
+      "content": "ProductH Graphene lining"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "ProductH desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4_mobile",
+      "label": "ProductH mobile image"
+    },
+    {
+      "type": "header",
+      "content": "ProductH YKK zippers"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "ProductH desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5_mobile",
+      "label": "ProductH mobile image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Panel Details"
+    }
+  ]
+}
+{% endschema %}

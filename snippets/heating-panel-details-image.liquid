@@ -1,0 +1,28 @@
+{%- assign fallback_image = desktop_image | default: mobile_image -%}
+
+{%- if fallback_image != blank -%}
+  <picture class="heating-panel-details__picture">
+    {%- if mobile_image != blank -%}
+      <source
+        media="(max-width: 767px)"
+        srcset="
+          {{ mobile_image | image_url: width: 350 }} 350w,
+          {{ mobile_image | image_url: width: 700 }} 700w
+        "
+        sizes="(max-width: 767px) calc((100vw - 56px) / 2), 252px"
+      >
+    {%- endif -%}
+    {{
+      fallback_image
+      | image_url: width: 700
+      | image_tag:
+        class: 'heating-panel-details__image',
+        loading: 'lazy',
+        widths: '250, 350, 500, 700',
+        sizes: '(max-width: 767px) calc((100vw - 56px) / 2), 252px',
+        alt: fallback_image.alt | default: title
+    }}
+  </picture>
+{%- else -%}
+  <div class="heating-panel-details__placeholder">Upload image</div>
+{%- endif -%}
