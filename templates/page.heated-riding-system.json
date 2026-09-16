@@ -13,9 +13,149 @@
       "type": "main-page",
       "name": "Main Page",
       "settings": {}
+    },
+    "heating_anchor_nav_ajJzDW": {
+      "type": "heating-anchor-nav",
+      "blocks": {
+        "link_fBxFD8": {
+          "type": "link",
+          "settings": {
+            "label": "Heating System",
+            "target_id": "heating-system"
+          }
+        },
+        "link_UeaPHK": {
+          "type": "link",
+          "settings": {
+            "label": "Runtime",
+            "target_id": "heating-runtime"
+          }
+        },
+        "link_pkPcWF": {
+          "type": "link",
+          "settings": {
+            "label": "Setup",
+            "target_id": "heating-setup"
+          }
+        },
+        "link_Yfa89V": {
+          "type": "link",
+          "settings": {
+            "label": "Temp Control",
+            "target_id": "heating-temp-control"
+          }
+        },
+        "link_QaBVFJ": {
+          "type": "link",
+          "settings": {
+            "label": "Apex™ Series",
+            "target_id": "heating-apex-series"
+          }
+        },
+        "link_faQHP9": {
+          "type": "link",
+          "settings": {
+            "label": "Power Option",
+            "target_id": "heating-power-option"
+          }
+        },
+        "link_8XjrtJ": {
+          "type": "link",
+          "settings": {
+            "label": "Details",
+            "target_id": "heating-detail"
+          }
+        },
+        "link_XcYzMA": {
+          "type": "link",
+          "settings": {
+            "label": "Benefits",
+            "target_id": "heating-benefits"
+          }
+        },
+        "link_bxaiwm": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "faq"
+          }
+        }
+      },
+      "block_order": [
+        "link_fBxFD8",
+        "link_UeaPHK",
+        "link_pkPcWF",
+        "link_Yfa89V",
+        "link_QaBVFJ",
+        "link_faQHP9",
+        "link_8XjrtJ",
+        "link_XcYzMA",
+        "link_bxaiwm"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#F5F5F5",
+        "nav_background": "#FFFFFF",
+        "text_color": "#1F1F1F",
+        "aria_label": "Page navigation",
+        "mobile_button_label": "Open page navigation"
+      }
+    },
+    "heating_power_options_wnJmtX": {
+      "type": "heating-power-options",
+      "name": "Heating Power Options",
+      "settings": {
+        "eyebrow": "Powered Your Way",
+        "heading": "One Heated System. Two Ways To Stay Warm.",
+        "description": "Choose the power source that fits your ride-continuous motorcycle power on the road, or portable Venustas battery power beyond the bike.",
+        "feature_title": "Motorcycle Powered",
+        "feature_image": "shopify://shop_images/heating-challenge.jpg",
+        "feature_subtitle": "Powered By Your Motorcycle's 12V System.",
+        "feature_description": "<p>Connect your heated gear directly to your motorcycle for reliable, continuous power during long rides.</p>",
+        "tag_1": "Long-distance touring",
+        "tag_2": "Highway riding",
+        "tag_3": "Extended cold-weather rides",
+        "flow_image_1": "shopify://shop_images/heatingN-kit-motorcycle.webp",
+        "flow_label_1": "Motorcycle 12V",
+        "flow_image_2": "shopify://shop_images/heatingN-kit-cable.webp",
+        "flow_label_2": "12V Connection Cable",
+        "flow_image_3": "shopify://shop_images/heatingN-options-kit.webp",
+        "flow_label_3": "Heated Jacket/Pants",
+        "product_card_title": "Battery Powered",
+        "product_card_description": "Portable warmth wherever your adventure takes you.",
+        "scene_image_1": "shopify://shop_images/heatingN-options-one.webp",
+        "scene_title_1": "Garage",
+        "scene_text_1": "Stay warm while you work on your bike.",
+        "scene_image_2": "shopify://shop_images/heatingN-options-two.webp",
+        "scene_title_2": "Outdoor",
+        "scene_text_2": "Perfect for camping, hiking, and more.",
+        "scene_image_3": "shopify://shop_images/heatingN-options-three.webp",
+        "scene_title_3": "Everyday",
+        "scene_text_3": "Reliable warmth for daily life in the cold.",
+        "option_heading": "Venustas",
+        "option_heading_accent": "Battery Options",
+        "product_image": "shopify://shop_images/heatingN-options-battery.webp",
+        "product_title": "7.5K Battery",
+        "runtime_jacket_high": "3h",
+        "runtime_jacket_medium": "5h",
+        "runtime_jacket_low": "8h",
+        "runtime_pants_high": "2h",
+        "runtime_pants_medium": "4h",
+        "runtime_pants_low": "6h",
+        "product_subtitle": "Extended Runtime Power",
+        "product_price": "$79.99",
+        "selling_point_1": "Short rides",
+        "selling_point_2": "Extended warmth",
+        "selling_point_3": "Maximum runtime",
+        "cta_label": "Add 7.5K Battery",
+        "cta_link": "",
+        "legal_text": "Batteries sold separately. Compatible with Venustas heated apparel. WV12 and MV11 heated vests include battery power for portable warmth."
+      }
     }
   },
   "order": [
-    "main_page_3cKYFc"
+    "main_page_3cKYFc",
+    "heating_anchor_nav_ajJzDW",
+    "heating_power_options_wnJmtX"
   ]
 }
