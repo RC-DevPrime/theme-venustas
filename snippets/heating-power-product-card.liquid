@@ -98,9 +98,18 @@
             <p class="heating-power-options__product-price">{{ battery_price }}</p>
           </div>
           <ul class="heating-power-options__selling-list">
-            <li><span aria-hidden="true">⌇</span>Short rides</li>
-            <li><span aria-hidden="true">⌇</span>Extended warmth</li>
-            <li><span aria-hidden="true">◷</span>Maximum runtime</li>
+            <li>
+              <span aria-hidden="true">{%- render 'heating-icons', icon: section_settings.selling_icon_1 -%}</span>
+              Short rides
+            </li>
+            <li>
+              <span aria-hidden="true">{%- render 'heating-icons', icon: section_settings.selling_icon_2 -%}</span>
+              Extended warmth
+            </li>
+            <li>
+              <span aria-hidden="true">{%- render 'heating-icons', icon: section_settings.selling_icon_3 -%}</span>
+              Maximum runtime
+            </li>
           </ul>
         </div>
       </div>
