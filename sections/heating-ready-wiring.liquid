@@ -1,0 +1,126 @@
+{%- render 'heating-ready-wiring-styles', section_id: section.id -%}
+
+<section class="heating-ready-wiring">
+  <div class="heating-ready-wiring__inner">
+    <header class="heating-ready-wiring__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heating-ready-wiring__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heating-ready-wiring__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="heating-ready-wiring__grid">
+      <article class="heating-ready-wiring__card">
+        <div class="heating-ready-wiring__media">
+          {%- if section.settings.venustas_media != blank -%}
+            {{
+              section.settings.venustas_media
+              | image_url: width: 1400
+              | image_tag:
+                class: 'heating-ready-wiring__image',
+                loading: 'lazy',
+                widths: '350, 700, 900, 1100, 1400',
+                sizes: '(max-width: 767px) calc(100vw - 40px), 654px',
+                alt: section.settings.venustas_media.alt | default: 'Venustas preassembled wiring system'
+            }}
+          {%- else -%}
+            <div class="heating-ready-wiring__placeholder"></div>
+          {%- endif -%}
+          <span class="heating-ready-wiring__brand heating-ready-wiring__brand--accent">VENUSTAS</span>
+        </div>
+
+        <div class="heating-ready-wiring__diagram">
+          <h3 class="heating-ready-wiring__diagram-title">Apex™ Series</h3>
+          <div class="heating-ready-wiring__primary">
+            <span class="heating-ready-wiring__node heating-ready-wiring__node--dark">12V power</span>
+            <span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node-wrap"><span class="heating-ready-wiring__node heating-ready-wiring__node--accent">Y cable</span><span class="heating-ready-wiring__note">fuse already inside</span></span>
+            <span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node">Jacket / Pants Liner</span>
+            <span class="heating-ready-wiring__metric"><strong>3 connections</strong><span>Nothing to choose or assemble</span></span>
+          </div>
+          <p class="heating-ready-wiring__secondary-label">Running both on one lead</p>
+          <div class="heating-ready-wiring__secondary">
+            <span class="heating-ready-wiring__apparel-pair"><span class="heating-ready-wiring__node">Jacket Liner</span><span class="heating-ready-wiring__plus">+</span><span class="heating-ready-wiring__node">Pants Liner</span></span>
+            <span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node-wrap"><span class="heating-ready-wiring__node heating-ready-wiring__node--dashed">3-Way cable</span><span class="heating-ready-wiring__note">free with reservation</span></span>
+            <span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node-wrap"><span class="heating-ready-wiring__node heating-ready-wiring__node--accent">Y cable</span><span class="heating-ready-wiring__note">fuse inside</span></span>
+            <span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node">12V Power</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="heating-ready-wiring__card">
+        <div class="heating-ready-wiring__media">
+          {%- if section.settings.other_media != blank -%}
+            {{
+              section.settings.other_media
+              | image_url: width: 1400
+              | image_tag:
+                class: 'heating-ready-wiring__image',
+                loading: 'lazy',
+                widths: '350, 700, 900, 1100, 1400',
+                sizes: '(max-width: 767px) calc(100vw - 40px), 654px',
+                alt: section.settings.other_media.alt | default: 'Typical heated gear wiring system'
+            }}
+          {%- else -%}
+            <div class="heating-ready-wiring__placeholder"></div>
+          {%- endif -%}
+          <span class="heating-ready-wiring__brand">OTHER BRANDS</span>
+        </div>
+
+        <div class="heating-ready-wiring__diagram heating-ready-wiring__diagram--other">
+          <h3 class="heating-ready-wiring__diagram-title">A typical 12V system</h3>
+          <div class="heating-ready-wiring__other-chain">
+            <span class="heating-ready-wiring__node">12V power</span><span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node heating-ready-wiring__node--dashed">Battery harness</span><span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node heating-ready-wiring__node--dashed">Fuse</span><span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node heating-ready-wiring__node--dashed">Controller</span><span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node">Jacket liner</span>
+          </div>
+          <span class="heating-ready-wiring__metric"><strong>5 connections</strong><span>Two extra and a fuse decision</span></span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating Ready Wiring",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "ProductH title",
+      "default": "Nothing to assemble"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "ProductH description",
+      "default": "<p>The Y cable comes with the fuse already fitted and already rated for everything you can plug in — jacket, pants, gloves, socks. Attach it to your battery and the wiring is done. Heat control is in the garment, so there's no controller to mount either.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "venustas_media",
+      "label": "ProductH Venustas image or GIF"
+    },
+    {
+      "type": "image_picker",
+      "id": "other_media",
+      "label": "ProductH other brands image or GIF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Ready Wiring"
+    }
+  ]
+}
+{% endschema %}
+
