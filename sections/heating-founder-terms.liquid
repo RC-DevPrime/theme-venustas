@@ -1,0 +1,71 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-founder-terms {
+    width: 100%;
+    overflow: hidden;
+    background: #f0f0f0;
+    color: #8a8f97;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-founder-terms__inner {
+    width: min(100%, 1200px);
+    margin: 0 auto;
+    padding: 56px 40px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-founder-terms__text {
+    margin: 0;
+    color: #8a8f97;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+  }
+
+  #shopify-section-{{ section.id }} .heating-founder-terms__text p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-founder-terms__text p + p {
+    margin-top: 12px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-founder-terms__inner {
+      width: 100%;
+      padding: 40px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-founder-terms__text {
+      font-size: 10px;
+      line-height: 1.98;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-founder-terms">
+  <div class="heating-founder-terms__inner">
+    {%- if section.settings.text != blank -%}
+      <div class="heating-founder-terms__text">{{ section.settings.text }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating Founder Terms",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "ProductH terms text",
+      "default": "<p>The Founder Pass is a $10 reservation for the Apex™ heated riding system, fully refundable at any time before launch. At launch it converts to a $50 coupon valid on the Apex™ Heated Jacket Liner and Apex™ Heated Pant Liner only, limited to one use per customer, $50 off your order regardless of quantity. The coupon does not combine with other order-level discounts. Paid value ($10) does not expire and remains refundable. $50 coupon expires 12 months after launch. The lifetime heating element warranty and the free 3-Way Cable apply to a qualifying order placed with the same email address used to reserve. Limited to 100 passes.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Founder Terms"
+    }
+  ]
+}
+{% endschema %}
