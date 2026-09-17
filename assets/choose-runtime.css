@@ -89,12 +89,14 @@ a.choose-runtime__option:hover {
   display: block;
 }
 
-.choose-runtime__option--max.is-selected {
-  border-width: 1px;
+.choose-runtime__option--max.is-selected .choose-runtime__check {
+  top: 30px;
 }
 
-.choose-runtime__option--max.is-selected .choose-runtime__check {
-  display: none;
+@media (max-width: 548px) {
+  .choose-runtime__option--max.is-selected .choose-runtime__check {
+    display: none;
+  }
 }
 
 .choose-runtime__check::after {
