@@ -1,6 +1,10 @@
 {%- liquid
   assign founder_total = 100
-  assign founder_inventory = 99
+  assign founder_inventory = 100
+  assign dynamic_inventory = section.settings.dynamic_inventory | default: 100
+  if dynamic_inventory < 1
+    assign dynamic_inventory = 100
+  endif
   assign founder_product = section.settings.founder_product
   if founder_product != blank and founder_product.selected_or_first_available_variant != blank
     assign founder_variant = founder_product.selected_or_first_available_variant
@@ -13,7 +17,13 @@
   elsif founder_inventory > founder_total
     assign founder_inventory = founder_total
   endif
-  assign founder_percent = founder_inventory | times: 100 | divided_by: founder_total
+  assign founder_sold = founder_total | minus: founder_inventory
+  assign dynamic_inventory_left = dynamic_inventory | minus: founder_sold
+  if dynamic_inventory_left < 0
+    assign dynamic_inventory_left = 0
+  endif
+  assign founder_percent = dynamic_inventory_left | times: 100 | divided_by: dynamic_inventory
+  assign founder_display_count = founder_percent
   assign reserve_url = '#'
   if founder_variant != blank
     assign reserve_url = routes.root_url | append: 'cart/' | append: founder_variant.id | append: ':1?checkout'
@@ -119,12 +129,25 @@
     text-align: center;
     text-decoration: none;
     box-sizing: border-box;
+    transition: background-color 260ms ease, color 260ms ease;
   }
 
-  #shopify-section-{{ section.id }} .heating-prelaunch-hero__button svg {
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__button-icon {
     width: 12px;
     height: 12px;
     flex: 0 0 auto;
+    opacity: 1;
+    transition: opacity 260ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__button:not([aria-disabled='true']):hover {
+    background: #8f2403;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__button:not([aria-disabled='true']):hover .heating-prelaunch-hero__button-icon {
+    opacity: 0;
   }
 
   #shopify-section-{{ section.id }} .heating-prelaunch-hero__button[aria-disabled='true'] {
@@ -383,7 +406,7 @@
         aria-disabled="{% if founder_variant == blank %}true{% else %}false{% endif %}"
       >
         <span>Reserve for $10</span>
-        <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <svg class="heating-prelaunch-hero__button-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true">
           <path d="M4.5 9L7.5 6L4.5 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
       </a>
@@ -392,7 +415,7 @@
         <div class="heating-prelaunch-hero__progress-track">
           <span class="heating-prelaunch-hero__progress-fill" style="width: {{ founder_percent }}%;"></span>
         </div>
-        <p class="heating-prelaunch-hero__progress-text">{{ founder_inventory }} of {{ founder_total }} Founder Passes left</p>
+        <p class="heating-prelaunch-hero__progress-text">{{ founder_display_count }} of {{ founder_total }} Founder Passes left</p>
       </div>
     </div>
   </div>
@@ -449,6 +472,12 @@
       "type": "product",
       "id": "founder_product",
       "label": "Founder pass product"
+    },
+    {
+      "type": "number",
+      "id": "dynamic_inventory",
+      "label": "Dynamic inventory count",
+      "default": 100
     }
   ],
   "presets": [

@@ -133,7 +133,8 @@
     color: var(--color-brand, #b93205);
   }
 
-  #shopify-section-{{ section.id }} .heating-12v-carousel__icon img {
+  #shopify-section-{{ section.id }} .heating-12v-carousel__icon img,
+  #shopify-section-{{ section.id }} .heating-12v-carousel__icon svg {
     display: block;
     width: 100%;
     height: 100%;
@@ -316,6 +317,7 @@
 
       <div class="heating-12v-carousel__controls" aria-label="12V use cases">
         {%- for block in section.blocks -%}
+          {%- assign scene_icon_name = block.settings.icon_name | default: block.settings.title -%}
           <button
             class="heating-12v-carousel__control{% if forloop.first %} is-active{% endif %}"
             type="button"
@@ -324,8 +326,8 @@
             style="--heating-12v-active-color: {{ block.settings.active_color }};"
           >
             <span class="heating-12v-carousel__icon">
-              {%- if block.settings.icon != blank -%}
-                {{ block.settings.icon | image_url: width: 64 | image_tag: loading: 'lazy', widths: '32, 64', sizes: '30px', alt: block.settings.title }}
+              {%- if scene_icon_name != blank -%}
+                {%- render 'heating-icons', icon: scene_icon_name -%}
               {%- else -%}
                 <span class="heating-12v-carousel__fallback-icon"></span>
               {%- endif -%}
@@ -340,6 +342,7 @@
 
       <div class="heating-12v-carousel__mobile-track" data-heating-12v-track>
         {%- for block in section.blocks -%}
+          {%- assign scene_icon_name = block.settings.icon_name | default: block.settings.title -%}
           <article class="heating-12v-carousel__mobile-card" data-heating-12v-card>
             <div class="heating-12v-carousel__mobile-media">
               {%- render 'heating-12v-image',
@@ -359,8 +362,8 @@
             </div>
             <div class="heating-12v-carousel__mobile-body">
               <span class="heating-12v-carousel__icon">
-                {%- if block.settings.icon != blank -%}
-                  {{ block.settings.icon | image_url: width: 64 | image_tag: loading: 'lazy', widths: '32, 64', sizes: '30px', alt: block.settings.title }}
+                {%- if scene_icon_name != blank -%}
+                  {%- render 'heating-icons', icon: scene_icon_name -%}
                 {%- else -%}
                   <span class="heating-12v-carousel__fallback-icon"></span>
                 {%- endif -%}
@@ -429,9 +432,9 @@
           "label": "ProductH mobile image"
         },
         {
-          "type": "image_picker",
-          "id": "icon",
-          "label": "ProductH icon"
+          "type": "text",
+          "id": "icon_name",
+          "label": "ProductH icon name"
         },
         {
           "type": "color_background",
@@ -460,38 +463,23 @@
       "blocks": [
         {
           "type": "scene",
-          "settings": {
-            "title": "Motorcycle",
-            "text": "Touring, commuting, ADV"
-          }
+          "settings": { "title": "Motorcycle", "text": "Touring, commuting, ADV", "icon_name": "motorcycle" }
         },
         {
           "type": "scene",
-          "settings": {
-            "title": "ATV / UTV",
-            "text": "Open cab, cold trails"
-          }
+          "settings": { "title": "ATV / UTV", "text": "Open cab, cold trails", "icon_name": "atv" }
         },
         {
           "type": "scene",
-          "settings": {
-            "title": "Snowmobile",
-            "text": "Sustained sub-freezing"
-          }
+          "settings": { "title": "Snowmobile", "text": "Sustained sub-freezing", "icon_name": "snowmobile" }
         },
         {
           "type": "scene",
-          "settings": {
-            "title": "Boat",
-            "text": "Wind chill on the water"
-          }
+          "settings": { "title": "Boat", "text": "Wind chill on the water", "icon_name": "boat" }
         },
         {
           "type": "scene",
-          "settings": {
-            "title": "Light aircraft",
-            "text": "Unheated cabins"
-          }
+          "settings": { "title": "Light aircraft", "text": "Unheated cabins", "icon_name": "aircraft" }
         }
       ]
     }

@@ -71,6 +71,24 @@
     text-align: center;
     text-decoration: none;
     box-sizing: border-box;
+    transition: background-color 260ms ease, color 260ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .heating-final-cta__button-icon {
+    display: inline-flex;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 260ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .heating-final-cta__button:not([aria-disabled='true']):hover {
+    background: #8f2403;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-final-cta__button:not([aria-disabled='true']):hover .heating-final-cta__button-icon {
+    opacity: 0;
   }
 
   #shopify-section-{{ section.id }} .heating-final-cta__button[aria-disabled='true'] {
@@ -152,12 +170,12 @@
       aria-disabled="{% if deposit_variant == nil %}true{% else %}false{% endif %}"
     >
       <span>Reserve for $10</span>
-      <span aria-hidden="true">›</span>
+      <span class="heating-final-cta__button-icon" aria-hidden="true">›</span>
     </a>
 
     <p class="heating-final-cta__note">
       <span>Not ready? </span>
-      <button class="heating-final-cta__email" type="button" data-heating-klaviyo-open data-form-id="{{ section.settings.klaviyo_form_id | escape }}">Leave your email</button>
+      <button class="heating-final-cta__email" type="button" data-heating-klaviyo-open data-form-id="{{ section.settings.klaviyo_form_id | default: 'WKbAcQ' | escape }}">Leave your email</button>
       <span> and we'll tell you the moment it goes live.</span>
     </p>
   </div>
@@ -194,7 +212,8 @@
       "type": "text",
       "id": "klaviyo_form_id",
       "label": "ProductH Klaviyo form ID",
-      "info": "Used by _klOnsite.openForm when Leave your email is clicked."
+      "info": "Used by _klOnsite.openForm when Leave your email is clicked.",
+      "default": "WKbAcQ"
     },
     {
       "type": "text",
