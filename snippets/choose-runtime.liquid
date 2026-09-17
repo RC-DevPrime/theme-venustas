@@ -2,6 +2,15 @@
   assign show_runtime = true
   assign default_option = block.settings.default_option | default: 'standard'
 
+  case default_option
+    when 'pro'
+      assign option_order = 'pro,max,standard' | split: ','
+    when 'max'
+      assign option_order = 'max,pro,standard' | split: ','
+    else
+      assign option_order = 'standard,pro,max' | split: ','
+  endcase
+
   for product_tag in product.tags
     assign product_tag_handle = product_tag | handleize
     if product_tag_handle == 'open-box'
@@ -27,75 +36,55 @@
     </div>
 
     <div class="choose-runtime__options" aria-label="Runtime options">
-      {%- if default_option == 'standard' -%}
-        <div class="choose-runtime__option is-selected" aria-current="true">
-      {%- elsif block.settings.option_1_link != blank -%}
-        <a class="choose-runtime__option" href="{{ block.settings.option_1_link }}" target="_blank" rel="noopener noreferrer">
-      {%- else -%}
-        <div class="choose-runtime__option is-disabled" aria-disabled="true">
-      {%- endif -%}
-        <span class="choose-runtime__check" aria-hidden="true"></span>
-        <strong class="choose-runtime__option-title">{{ block.settings.option_1_title | escape }}</strong>
-        <span class="choose-runtime__option-subtitle">{{ block.settings.option_1_subtitle | escape }}</span>
-        <span class="choose-runtime__divider"></span>
-        <strong class="choose-runtime__option-price">
-          {%- if default_option == 'standard' -%}Included{%- else -%}{{ block.settings.option_1_price | escape }}{%- endif -%}
-        </strong>
-        {%- unless default_option == 'standard' -%}
-          <span class="choose-runtime__option-note">{{ block.settings.option_1_note | escape }}</span>
-        {%- endunless -%}
-      {%- if default_option == 'standard' or block.settings.option_1_link == blank -%}
-        </div>
-      {%- else -%}
-        </a>
-      {%- endif -%}
+      {%- for option_name in option_order -%}
+        {%- liquid
+          case option_name
+            when 'standard'
+              assign option_index = 1
+            when 'pro'
+              assign option_index = 2
+            else
+              assign option_index = 3
+          endcase
 
-      {%- if default_option == 'pro' -%}
-        <div class="choose-runtime__option is-selected" aria-current="true">
-      {%- elsif block.settings.option_2_link != blank -%}
-        <a class="choose-runtime__option" href="{{ block.settings.option_2_link }}" target="_blank" rel="noopener noreferrer">
-      {%- else -%}
-        <div class="choose-runtime__option is-disabled" aria-disabled="true">
-      {%- endif -%}
-          <span class="choose-runtime__check" aria-hidden="true"></span>
-          <strong class="choose-runtime__option-title">{{ block.settings.option_2_title | escape }}</strong>
-          <span class="choose-runtime__option-subtitle">{{ block.settings.option_2_subtitle | escape }}</span>
-          <span class="choose-runtime__divider"></span>
-          <strong class="choose-runtime__option-price">
-            {%- if default_option == 'pro' -%}Included{%- else -%}{{ block.settings.option_2_price | escape }}{%- endif -%}
-          </strong>
-          {%- unless default_option == 'pro' -%}
-            <span class="choose-runtime__option-note">{{ block.settings.option_2_note | escape }}</span>
-          {%- endunless -%}
-      {%- if default_option == 'pro' or block.settings.option_2_link == blank -%}
-        </div>
-      {%- else -%}
-        </a>
-      {%- endif -%}
+          assign title_key = 'option_' | append: option_index | append: '_title'
+          assign subtitle_key = 'option_' | append: option_index | append: '_subtitle'
+          assign price_key = 'option_' | append: option_index | append: '_price'
+          assign note_key = 'option_' | append: option_index | append: '_note'
+          assign link_key = 'option_' | append: option_index | append: '_link'
+          assign option_title = block.settings[title_key]
+          assign option_subtitle = block.settings[subtitle_key]
+          assign option_price = block.settings[price_key]
+          assign option_note = block.settings[note_key]
+          assign option_link = block.settings[link_key]
+          assign is_default = false
+          if option_name == default_option
+            assign is_default = true
+          endif
+        -%}
 
-      {%- if default_option == 'max' -%}
-        <div class="choose-runtime__option choose-runtime__option--max is-selected" aria-current="true">
-      {%- elsif block.settings.option_3_link != blank -%}
-        <a class="choose-runtime__option choose-runtime__option--max" href="{{ block.settings.option_3_link }}" target="_blank" rel="noopener noreferrer">
-      {%- else -%}
-        <div class="choose-runtime__option choose-runtime__option--max is-disabled" aria-disabled="true">
-      {%- endif -%}
-          <span class="choose-runtime__check" aria-hidden="true"></span>
-          <span class="choose-runtime__badge">{{ block.settings.option_3_badge | escape }}</span>
-          <strong class="choose-runtime__option-title">{{ block.settings.option_3_title | escape }}</strong>
-          <span class="choose-runtime__option-subtitle">{{ block.settings.option_3_subtitle | escape }}</span>
-          <span class="choose-runtime__divider"></span>
-          <strong class="choose-runtime__option-price">
-            {%- if default_option == 'max' -%}Included{%- else -%}{{ block.settings.option_3_price | escape }}{%- endif -%}
-          </strong>
-          {%- unless default_option == 'max' -%}
-            <span class="choose-runtime__option-note">{{ block.settings.option_3_note | escape }}</span>
-          {%- endunless -%}
-      {%- if default_option == 'max' or block.settings.option_3_link == blank -%}
-        </div>
-      {%- else -%}
-        </a>
-      {%- endif -%}
+        {%- if is_default -%}
+          <div class="choose-runtime__option choose-runtime__option--{{ option_name }} is-selected" aria-current="true">
+        {%- elsif option_link != blank -%}
+          <a class="choose-runtime__option choose-runtime__option--{{ option_name }}" href="{{ option_link }}" target="_blank" rel="noopener noreferrer">
+        {%- else -%}
+          <div class="choose-runtime__option choose-runtime__option--{{ option_name }} is-disabled" aria-disabled="true">
+        {%- endif -%}
+            <span class="choose-runtime__check" aria-hidden="true"></span>
+            {%- if option_name == 'max' and block.settings.option_3_badge != blank -%}
+              <span class="choose-runtime__badge">{{ block.settings.option_3_badge | escape }}</span>
+            {%- endif -%}
+            <strong class="choose-runtime__option-title">{{ option_title | escape }}</strong>
+            <span class="choose-runtime__option-subtitle">{{ option_subtitle | escape }}</span>
+            <span class="choose-runtime__divider"></span>
+            <strong class="choose-runtime__option-price">
+              {%- if is_default -%}Included{%- else -%}{{ option_price | escape }}{%- endif -%}
+            </strong>
+            {%- unless is_default -%}
+              <span class="choose-runtime__option-note">{{ option_note | escape }}</span>
+            {%- endunless -%}
+        {%- if is_default or option_link == blank -%}</div>{%- else -%}</a>{%- endif -%}
+      {%- endfor -%}
     </div>
 
     <dialog class="runtime-comparison" id="{{ dialog_id }}" aria-labelledby="{{ dialog_id }}-title">
@@ -162,7 +151,6 @@
       const trigger = root.querySelector('.choose-runtime__help');
       const dialog = root.querySelector('.runtime-comparison');
       const closeButton = root.querySelector('.runtime-comparison__close');
-      const optionLinks = root.querySelectorAll('a.choose-runtime__option');
       if (!trigger || !dialog || !closeButton) return;
 
       const positionDialog = () => {
@@ -181,19 +169,6 @@
       };
 
       root.dataset.runtimeReady = 'true';
-      optionLinks.forEach((optionLink) => {
-        optionLink.addEventListener('click', (event) => {
-          if (event.button !== 0) return;
-
-          root.querySelectorAll('.choose-runtime__option').forEach((option) => {
-            option.classList.remove('is-selected');
-            option.removeAttribute('aria-current');
-          });
-          optionLink.classList.add('is-selected');
-          optionLink.setAttribute('aria-current', 'true');
-        });
-      });
-
       trigger.addEventListener('click', () => {
         if (!dialog.open) {
           dialog.showModal();

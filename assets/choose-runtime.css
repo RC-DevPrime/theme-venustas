@@ -89,12 +89,8 @@ a.choose-runtime__option:hover {
   display: block;
 }
 
-.choose-runtime__option--max.is-selected {
-  border-width: 1px;
-}
-
 .choose-runtime__option--max.is-selected .choose-runtime__check {
-  display: none;
+  top: 30px;
 }
 
 .choose-runtime__check::after {
