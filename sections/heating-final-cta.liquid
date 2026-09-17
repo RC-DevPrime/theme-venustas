@@ -78,6 +78,10 @@
     pointer-events: none;
   }
 
+  #shopify-section-{{ section.id }} .heating-final-cta__button[aria-busy='true'] {
+    cursor: wait;
+  }
+
   #shopify-section-{{ section.id }} .heating-final-cta__note {
     margin: 24px 0 0;
     color: #a5aab1;
@@ -139,7 +143,14 @@
       <div class="heating-final-cta__description">{{ section.settings.description }}</div>
     {%- endif -%}
 
-    <a class="heating-final-cta__button" href="{{ checkout_url }}" aria-disabled="{% if deposit_variant == nil %}true{% else %}false{% endif %}">
+    <a
+      class="heating-final-cta__button"
+      href="{{ checkout_url }}"
+      data-heating-direct-checkout
+      data-variant-id="{{ deposit_variant.id }}"
+      data-root-url="{{ routes.root_url }}"
+      aria-disabled="{% if deposit_variant == nil %}true{% else %}false{% endif %}"
+    >
       <span>Reserve for $10</span>
       <span aria-hidden="true">›</span>
     </a>
@@ -167,6 +178,8 @@
     });
   })();
 </script>
+
+<script src="{{ 'heating-direct-checkout.js' | asset_url }}" defer="defer"></script>
 
 {% schema %}
 {

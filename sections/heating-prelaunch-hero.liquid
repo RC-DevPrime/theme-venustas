@@ -14,7 +14,7 @@
     assign founder_inventory = founder_total
   endif
   assign founder_percent = founder_inventory | times: 100 | divided_by: founder_total
-  assign reserve_url = section.settings.button_link | default: '#'
+  assign reserve_url = '#'
   if founder_variant != blank
     assign reserve_url = routes.root_url | append: 'cart/' | append: founder_variant.id | append: ':1?checkout'
   endif
@@ -125,6 +125,15 @@
     width: 12px;
     height: 12px;
     flex: 0 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__button[aria-disabled='true'] {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__button[aria-busy='true'] {
+    cursor: wait;
   }
 
   #shopify-section-{{ section.id }} .heating-prelaunch-hero__note,
@@ -365,7 +374,14 @@
       {%- if section.settings.description != blank -%}
         <div class="heating-prelaunch-hero__description">{{ section.settings.description }}</div>
       {%- endif -%}
-      <a class="heating-prelaunch-hero__button" href="{{ reserve_url }}">
+      <a
+        class="heating-prelaunch-hero__button"
+        href="{{ reserve_url }}"
+        data-heating-direct-checkout
+        data-variant-id="{{ founder_variant.id }}"
+        data-root-url="{{ routes.root_url }}"
+        aria-disabled="{% if founder_variant == blank %}true{% else %}false{% endif %}"
+      >
         <span>Reserve for $10</span>
         <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
           <path d="M4.5 9L7.5 6L4.5 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
@@ -399,6 +415,8 @@
   </div>
 </section>
 
+<script src="{{ 'heating-direct-checkout.js' | asset_url }}" defer="defer"></script>
+
 {% schema %}
 {
   "name": "Heating Prelaunch Hero",
@@ -426,11 +444,6 @@
       "id": "description",
       "label": "Description",
       "default": "<p>No battery to charge. No controller to buy. Just the Apex jacket liner and pant liner, wired into your 12V power.</p>"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Fallback reserve link"
     },
     {
       "type": "product",

@@ -1,7 +1,7 @@
 {% style %}
   #shopify-section-{{ section.id }} {
     position: sticky;
-    top: 110px;
+    top: 98px;
     z-index: 20;
   }
 
@@ -11,6 +11,7 @@
     z-index: 20;
     background: {{ section.settings.section_background }};
     font-family: var(--font-primary);
+    border-bottom: 0.731px solid #E5E7EB;
   }
 
   #shopify-section-{{ section.id }} .heating-anchor-nav__sticky-wrap {
@@ -272,10 +273,10 @@
     var root = document.querySelector('#shopify-section-{{ section.id }} [data-heating-anchor-nav]');
     if (!root) return;
 
-    var desktopHeaderOffset = 110;
-    var tabletHeaderOffset = 96;
-    var mobileHeaderOffset = 110;
-    var desktopNavOffset = 64;
+    var desktopHeaderOffset = 98;
+    var tabletHeaderOffset = 91;
+    var mobileHeaderOffset = 77;
+    var desktopNavOffset = 61;
     var desktopLinks = Array.prototype.slice.call(root.querySelectorAll('.heating-anchor-nav__link'));
     var mobileRoot = root.querySelector('.heating-anchor-nav__mobile');
     var mobileLinks = Array.prototype.slice.call(root.querySelectorAll('.heating-anchor-nav__mobile-link'));

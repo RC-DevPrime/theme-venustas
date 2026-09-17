@@ -138,6 +138,10 @@
     pointer-events: none;
   }
 
+  #shopify-section-{{ section.id }} .heating-launch-deal__button[aria-busy='true'] {
+    cursor: wait;
+  }
+
   #shopify-section-{{ section.id }} .heating-launch-deal__note {
     max-width: 446px;
     margin: 13px 0 0;
@@ -301,7 +305,14 @@
         {%- if section.settings.description != blank -%}
           <div class="heating-launch-deal__description">{{ section.settings.description }}</div>
         {%- endif -%}
-        <a class="heating-launch-deal__button" href="{{ checkout_url }}" aria-disabled="{% if deposit_variant == nil %}true{% else %}false{% endif %}">
+        <a
+          class="heating-launch-deal__button"
+          href="{{ checkout_url }}"
+          data-heating-direct-checkout
+          data-variant-id="{{ deposit_variant.id }}"
+          data-root-url="{{ routes.root_url }}"
+          aria-disabled="{% if deposit_variant == nil %}true{% else %}false{% endif %}"
+        >
           <span>Reserve for $10</span>
           <span aria-hidden="true">›</span>
         </a>
@@ -328,6 +339,8 @@
     </div>
   </div>
 </section>
+
+<script src="{{ 'heating-direct-checkout.js' | asset_url }}" defer="defer"></script>
 
 {% schema %}
 {
