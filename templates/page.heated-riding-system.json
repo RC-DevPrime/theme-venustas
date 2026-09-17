@@ -209,6 +209,158 @@
         "image_4": "shopify://shop_images/battery-10K-content-pc-3.webp",
         "image_5": "shopify://shop_images/battery-10K-content-pc-2.webp"
       }
+    },
+    "heating_road_notes_nDacQp": {
+      "type": "heating-road-notes",
+      "name": "Heating Road Notes",
+      "settings": {
+        "title": "Two things you'll notice on the road",
+        "description": "<p>Neither is why you'd buy a heated liner. Both are why you'd keep this one.</p>"
+      }
+    },
+    "heating_12v_carousel_kWTK33": {
+      "type": "heating-12v-carousel",
+      "blocks": {
+        "scene_zfaTWU": {
+          "type": "scene",
+          "settings": {
+            "active_color": "rgba(255,255,255,0.4)",
+            "title": "Motorcycle",
+            "text": "Touring, commuting, ADV"
+          }
+        },
+        "scene_hqxjT9": {
+          "type": "scene",
+          "settings": {
+            "active_color": "rgba(255,255,255,0.4)",
+            "title": "ATV / UTV",
+            "text": "Open cab, cold trails"
+          }
+        },
+        "scene_CfNpyD": {
+          "type": "scene",
+          "settings": {
+            "active_color": "rgba(255,255,255,0.4)",
+            "title": "Snowmobile",
+            "text": "Sustained sub-freezing"
+          }
+        },
+        "scene_6jJnAq": {
+          "type": "scene",
+          "settings": {
+            "active_color": "rgba(255,255,255,0.4)",
+            "title": "Boat",
+            "text": "Wind chill on the water"
+          }
+        },
+        "scene_U698PQ": {
+          "type": "scene",
+          "settings": {
+            "active_color": "rgba(255,255,255,0.4)",
+            "title": "Light aircraft",
+            "text": "Unheated cabins"
+          }
+        }
+      },
+      "block_order": [
+        "scene_zfaTWU",
+        "scene_hqxjT9",
+        "scene_CfNpyD",
+        "scene_6jJnAq",
+        "scene_U698PQ"
+      ],
+      "name": "Heating 12V Carousel",
+      "settings": {
+        "title": "If it has a 12V circuit, it works",
+        "description": "<p>Built for motorcycles first, but the power source is the only requirement. Anything running a 12V DC circuit drives the same liners.</p>",
+        "hold_seconds": 3,
+        "fade_seconds": 3
+      }
+    },
+    "heating_launch_deal_QWmKHR": {
+      "type": "heating-launch-deal",
+      "name": "Heating Launch Deal",
+      "settings": {
+        "deposit_product": "",
+        "title": "Same products. Better launch benefits.",
+        "description": "<p>One $10 payment now. It comes back as $50 at launch, along with a warranty we won't offer again.</p>"
+      }
+    },
+    "heating_prelaunch_faq_qdtXzC": {
+      "type": "heating-prelaunch-faq",
+      "blocks": {
+        "faq_GAFkbR": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I get $100 off if I buy both?",
+            "answer": "<p>No. The reservation gives you one $50 launch coupon for a qualifying Apex™ order, whether you buy one piece or both.</p>"
+          }
+        },
+        "faq_4mYMkP": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get my $10 back?",
+            "answer": "<p>Yes. The $10 reservation is refundable any time before launch.</p>"
+          }
+        },
+        "faq_ek7wtC": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need to buy anything else?",
+            "answer": "<p>No. You can reserve now and decide at launch. A qualifying order includes the launch coupon benefit, lifetime heating element warranty, and free 3-Way Cable.</p>"
+          }
+        },
+        "faq_nMBeKk": {
+          "type": "faq",
+          "settings": {
+            "question": "Will it drain my battery?",
+            "answer": "<p>On most bikes, no. The jacket draws 42W and the pants 38W — 80W together, about 6.67A at 12V. That sits inside the spare output of a typical charging system at riding revs, and it's light enough that stop-and-go idling isn't a problem either. Smaller-displacement and older bikes have an easier time with this load than with systems drawing twice as much. The one thing to avoid is leaving it powered with the engine off.</p>"
+          }
+        },
+        "faq_3zn4AW": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I wear these on their own?",
+            "answer": "<p>They are designed as heated mid-layers under protective riding gear, not as standalone protective outerwear.</p>"
+          }
+        },
+        "faq_Fjwr97": {
+          "type": "faq",
+          "settings": {
+            "question": "When does it ship?",
+            "answer": "<p>Launch and shipping timing will be shared with reservation customers by email.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_GAFkbR",
+        "faq_4mYMkP",
+        "faq_ek7wtC",
+        "faq_nMBeKk",
+        "faq_3zn4AW",
+        "faq_Fjwr97"
+      ],
+      "name": "Heating FAQ",
+      "settings": {
+        "eyebrow": "FAQ"
+      }
+    },
+    "heating_final_cta_ePHdgr": {
+      "type": "heating-final-cta",
+      "name": "Heating Final CTA",
+      "settings": {
+        "deposit_product": "",
+        "klaviyo_form_id": "",
+        "title": "100 passes. October launch.",
+        "description": "<p>Lock the lifetime warranty before it's gone.</p>"
+      }
+    },
+    "heating_founder_terms_peLmYD": {
+      "type": "heating-founder-terms",
+      "name": "Heating Founder Terms",
+      "settings": {
+        "text": "<p>The Founder Pass is a $10 reservation for the Apex™ heated riding system, fully refundable at any time before launch. At launch it converts to a $50 coupon valid on the Apex™ Heated Jacket Liner and Apex™ Heated Pant Liner only, limited to one use per customer, $50 off your order regardless of quantity. The coupon does not combine with other order-level discounts. Paid value ($10) does not expire and remains refundable. $50 coupon expires 12 months after launch. The lifetime heating element warranty and the free 3-Way Cable apply to a qualifying order placed with the same email address used to reserve. Limited to 100 passes.</p>"
+      }
     }
   },
   "order": [
@@ -220,6 +372,12 @@
     "heating_glove_control_rRNCVy",
     "heating_liner_system_hpakDV",
     "heating_power_options_wnJmtX",
-    "heating_panel_details_WNLDNU"
+    "heating_panel_details_WNLDNU",
+    "heating_road_notes_nDacQp",
+    "heating_12v_carousel_kWTK33",
+    "heating_launch_deal_QWmKHR",
+    "heating_prelaunch_faq_qdtXzC",
+    "heating_final_cta_ePHdgr",
+    "heating_founder_terms_peLmYD"
   ]
 }
