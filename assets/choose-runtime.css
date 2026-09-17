@@ -93,6 +93,12 @@ a.choose-runtime__option:hover {
   top: 30px;
 }
 
+@media (max-width: 548px) {
+  .choose-runtime__option--max.is-selected .choose-runtime__check {
+    display: none;
+  }
+}
+
 .choose-runtime__check::after {
   content: "";
   position: absolute;
