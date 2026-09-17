@@ -128,7 +128,7 @@
 {%- assign first_mobile_image = section.settings.first_mobile_image | default: section.settings.first_desktop_image -%}
 {%- assign second_mobile_image = section.settings.second_mobile_image | default: section.settings.second_desktop_image -%}
 
-<section class="heating-glove-control">
+<section class="heating-glove-control" id="heating-glove-control">
   <div class="heating-glove-control__inner">
     <div class="heating-glove-control__header">
       {%- if section.settings.title != blank -%}

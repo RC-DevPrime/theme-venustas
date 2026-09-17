@@ -1,6 +1,6 @@
 {%- render 'heating-ready-wiring-styles', section_id: section.id -%}
 
-<section class="heating-ready-wiring">
+<section class="heating-ready-wiring" id="heating-setup">
   <div class="heating-ready-wiring__inner">
     <header class="heating-ready-wiring__header">
       {%- if section.settings.title != blank -%}
@@ -36,7 +36,7 @@
           <div class="heating-ready-wiring__primary">
             <span class="heating-ready-wiring__node heating-ready-wiring__node--dark">12V power</span>
             <span class="heating-ready-wiring__connector"></span>
-            <span class="heating-ready-wiring__node-wrap"><span class="heating-ready-wiring__node heating-ready-wiring__node--accent">Y cable</span><span class="heating-ready-wiring__note">fuse already inside</span></span>
+            <span class="heating-ready-wiring__node-wrap"><span class="heating-ready-wiring__node cable heating-ready-wiring__node--accent">Y cable</span><span class="heating-ready-wiring__note">fuse already inside</span></span>
             <span class="heating-ready-wiring__connector"></span>
             <span class="heating-ready-wiring__node">Jacket / Pants Liner</span>
             <span class="heating-ready-wiring__metric"><strong>3 connections</strong><span>Nothing to choose or assemble</span></span>
@@ -44,12 +44,19 @@
           <p class="heating-ready-wiring__secondary-label">Running both on one lead</p>
           <div class="heating-ready-wiring__secondary">
             <span class="heating-ready-wiring__apparel-pair"><span class="heating-ready-wiring__node">Jacket Liner</span><span class="heating-ready-wiring__plus">+</span><span class="heating-ready-wiring__node">Pants Liner</span></span>
+            <svg width="20" height="46" viewBox="0 0 20 46" fill="none" xmlns="http://www.w3.org/2000/svg" class="heating-ready-wiring__branch heating-ready-wiring__branch--desktop">
+              <path d="M0 0.5H19V45.5H0" stroke="black"></path>
+            </svg>
+            <svg width="7" height="58" viewBox="0 0 7 58" fill="none" xmlns="http://www.w3.org/2000/svg" class="heating-ready-wiring__branch heating-ready-wiring__branch--mobile">
+              <path d="M0 0.5H6V57.5H0" stroke="black"/>
+            </svg>
+
             <span class="heating-ready-wiring__connector"></span>
-            <span class="heating-ready-wiring__node-wrap"><span class="heating-ready-wiring__node heating-ready-wiring__node--dashed">3-Way cable</span><span class="heating-ready-wiring__note">free with reservation</span></span>
+            <span class="heating-ready-wiring__node-wrap heating-ready-wiring__node-wrap--three-way"><span class="heating-ready-wiring__node cable110 heating-ready-wiring__node--dashed">3-Way cable</span><span class="heating-ready-wiring__note">free with reservation</span></span>
             <span class="heating-ready-wiring__connector"></span>
-            <span class="heating-ready-wiring__node-wrap"><span class="heating-ready-wiring__node heating-ready-wiring__node--accent">Y cable</span><span class="heating-ready-wiring__note">fuse inside</span></span>
+            <span class="heating-ready-wiring__node-wrap heating-ready-wiring__node-wrap--y-cable"><span class="heating-ready-wiring__node cable110 heating-ready-wiring__node--accent">Y cable</span><span class="heating-ready-wiring__note">fuse inside</span></span>
             <span class="heating-ready-wiring__connector"></span>
-            <span class="heating-ready-wiring__node">12V Power</span>
+            <span class="heating-ready-wiring__node cable120">12V Power</span>
           </div>
         </div>
       </article>
@@ -123,4 +130,3 @@
   ]
 }
 {% endschema %}
-
