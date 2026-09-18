@@ -1,5 +1,6 @@
 {%- liquid
 assign current_variant = product.selected_or_first_available_variant
+assign sale_badge_type = 'discount'
  
 assign new_badge_type = settings.new_badge_type | default: 'auto' 
 
