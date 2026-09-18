@@ -16,13 +16,13 @@
 
 <article class="heating-power-options__product-card">
   <div class="heating-power-options__card-heading heating-power-options__card-heading--product">
-    <span class="heating-power-options__card-icon" aria-hidden="true">
-      <svg viewBox="0 0 30 30" fill="none"><path d="M26 16.32V13.2M7.25 10.07H19.75C20.9 10.07 21.83 10.77 21.83 11.63V17.88C21.83 18.75 20.9 19.45 19.75 19.45H7.25C6.09 19.45 5.16 18.75 5.16 17.88V11.63C5.16 10.77 6.09 10.07 7.25 10.07Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    </span>
-    <div>
+    <div class="heating-power-options__card-title-row">
+      <span class="heating-power-options__card-icon" aria-hidden="true">
+        <svg viewBox="0 0 30 30" fill="none"><path d="M26 16.32V13.2M7.25 10.07H19.75C20.9 10.07 21.83 10.77 21.83 11.63V17.88C21.83 18.75 20.9 19.45 19.75 19.45H7.25C6.09 19.45 5.16 18.75 5.16 17.88V11.63C5.16 10.77 6.09 10.07 7.25 10.07Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
       <h3 class="heating-power-options__card-title">Battery Powered</h3>
-      <p class="heating-power-options__card-kicker">Portable warmth wherever your adventure takes you.</p>
     </div>
+    <p class="heating-power-options__card-kicker">Portable warmth wherever your adventure takes you.</p>
   </div>
 
   <div class="heating-power-options__scenes">
@@ -81,7 +81,7 @@
           <div class="heating-power-options__product-line">
             <div>
               <h5 class="heating-power-options__product-title">
-                {{ battery_title }}
+                7.5K Battery
                 <span class="heating-power-options__tooltip">
                   <button class="heating-power-options__tooltip-trigger" type="button" aria-label="View battery runtime">
                     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 5.33V8M8 10.67H8.01M14.67 8A6.67 6.67 0 1 1 1.33 8A6.67 6.67 0 0 1 14.67 8Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -122,7 +122,7 @@
         data-variant-id="{{ battery_variant.id }}"
         {% if battery_variant == nil or battery_variant.available == false %}disabled{% endif %}
       >
-        <span>ADD 7.5K BATTERY</span><span aria-hidden="true">›</span>
+        <span>ADD 7.5K BATTERY</span><span class="heating-power-options__cta-icon" aria-hidden="true">›</span>
       </button>
     </div>
   </div>

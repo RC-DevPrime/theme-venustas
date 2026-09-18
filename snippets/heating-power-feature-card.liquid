@@ -66,6 +66,7 @@
       {%- liquid
         assign image_key = 'flow_image_' | append: index
         assign flow_image = section_settings[image_key]
+        assign flow_image_class = 'heating-power-options__flow-image heating-power-options__flow-image--' | append: index
         case index
           when 1
             assign flow_label = 'Motorcycle 12V'
@@ -75,13 +76,13 @@
             assign flow_label = 'Heated Jacket/Pants'
         endcase
       -%}
-      <div class="heating-power-options__flow-item">
+      <div class="heating-power-options__flow-item heating-power-options__flow-item--{{ index }}">
         {%- if flow_image != blank -%}
           {{
             flow_image
             | image_url: width: 320
             | image_tag:
-              class: 'heating-power-options__flow-image',
+              class: flow_image_class,
               loading: 'lazy',
               widths: '104, 160, 220, 320',
               sizes: '(max-width: 767px) 92px, 104px',

@@ -297,8 +297,15 @@
     color: #6b7280;
     font-size: 11px;
   }
+  @media only screen and (max-width: 1339px) {
+    #shopify-section-{{ section_id }} .heating-ready-wiring__grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
 
-  @media only screen and (max-width: 767px) {
+  }
+  @media only screen and (max-width: 670px) {
     #shopify-section-{{ section_id }} .heating-ready-wiring__inner {
       width: 100%;
       padding: 56px 20px;
@@ -384,9 +391,9 @@
     }
 
     #shopify-section-{{ section_id }} .heating-ready-wiring__secondary {
-      width: 100%;
       align-items: center;
-      /* justify-content: center; */
+      width: 360px;
+      margin: 0 auto;
     }
 
     #shopify-section-{{ section_id }} .heating-ready-wiring__secondary > .heating-ready-wiring__node-wrap {

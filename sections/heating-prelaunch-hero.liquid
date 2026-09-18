@@ -213,12 +213,18 @@
   }
 
   #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat-value {
-    margin: 0 0 6px;
+    margin: 0;
     color: var(--color-brand, #b93205);
     font-size: 30px;
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.9px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat {
+    display: grid;
+    grid-template-rows: 39px auto;
+    align-items: start;
   }
 
   #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat-text {
@@ -326,17 +332,18 @@
       width: 100%;
       min-height: 132px;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0;
+      align-items: start;
+      gap: 30px;
       padding: 16px 20px;
       box-sizing: border-box;
     }
 
     #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat {
+      grid-template-rows: 28px auto;
       text-align: center;
     }
 
     #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat-value {
-      margin-bottom: 4px;
       font-size: 24px;
       line-height: 1;
       letter-spacing: 0;

@@ -210,7 +210,7 @@
     line-height: 1.68;
   }
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 1000px) {
     #shopify-section-{{ section.id }} .heating-launch-deal__inner {
       width: 100%;
       padding: 56px 20px;
@@ -288,7 +288,13 @@
     }
 
     #shopify-section-{{ section.id }} .heating-launch-deal__steps {
-      display: none;
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      align-items: start;
+    }
+    #shopify-section-{{ section.id }} .heating-launch-deal__step{
+      min-height: auto;
+      padding:20px;
     }
   }
 {% endstyle %}
