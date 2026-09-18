@@ -37,12 +37,15 @@
     display: flex;
 }
 .product .main-media .badge.sale-badge{
-    left: 1rem;
-    background: linear-gradient(99deg, #ff7d3e, #db451c 33%, #e1542c 71%, #ff8c20);
+    top:0;
+    left: 0;
+    background: linear-gradient(93deg, #DB451C 34.47%, #FF7D3E 100%);
     color: #fff;
+    font-size: 12px;
+    border-radius: 5px 0;
 }
 .product .main-media .badge.sale-badge span{
-    padding: 4px 15px;
+    padding: 6px 9px 6px 11px;
 }
 .product .main-media  .badge.new-badge span{
     padding: 2px 10px;
