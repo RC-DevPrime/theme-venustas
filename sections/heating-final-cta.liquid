@@ -183,16 +183,26 @@
 
 <script>
   (() => {
-    const section = document.getElementById('shopify-section-{{ section.id }}');
-    if (!section) return;
-    const trigger = section.querySelector('[data-heating-klaviyo-open]');
-    if (!trigger) return;
+    if (window.__heatingFinalCtaKlaviyoBound) return;
+    window.__heatingFinalCtaKlaviyoBound = true;
 
-    trigger.addEventListener('click', () => {
-      const formId = trigger.dataset.formId;
+    const openKlaviyoForm = (trigger) => {
+      const formId = (trigger.dataset.formId || 'WKbAcQ').trim();
       if (!formId) return;
-      window._klOnsite = window._klOnsite || [];
-      window._klOnsite.push(['openForm', formId]);
+
+      [0, 300, 900].forEach((delay) => {
+        window.setTimeout(() => {
+          window._klOnsite = window._klOnsite || [];
+          window._klOnsite.push(['openForm', formId]);
+        }, delay);
+      });
+    };
+
+    document.addEventListener('click', (event) => {
+      const trigger = event.target.closest('[data-heating-klaviyo-open]');
+      if (!trigger) return;
+      event.preventDefault();
+      openKlaviyoForm(trigger);
     });
   })();
 </script>

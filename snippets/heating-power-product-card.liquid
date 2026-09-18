@@ -82,7 +82,7 @@
             <div>
               <h5 class="heating-power-options__product-title">
                 7.5K Battery
-                <span class="heating-power-options__tooltip">
+                <span class="heating-power-options__tooltip d-md-none d-lg-none d-sm-none">
                   <button class="heating-power-options__tooltip-trigger" type="button" aria-label="View battery runtime">
                     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 5.33V8M8 10.67H8.01M14.67 8A6.67 6.67 0 1 1 1.33 8A6.67 6.67 0 0 1 14.67 8Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
                   </button>
@@ -97,7 +97,7 @@
               </h5>
               <p class="heating-power-options__product-subtitle">Extended Runtime Power</p>
             </div>
-            <p class="heating-power-options__product-price">{{ battery_price }}</p>
+            {% comment %} <p class="heating-power-options__product-price">{{ battery_price }}</p> {% endcomment %}
           </div>
           <ul class="heating-power-options__selling-list">
             <li>
@@ -116,7 +116,7 @@
         </div>
       </div>
       <button
-        class="heating-power-options__cta"
+        class="heating-power-options__cta d-md-none d-lg-none d-sm-none"
         type="button"
         data-heating-power-add
         data-variant-id="{{ battery_variant.id }}"
