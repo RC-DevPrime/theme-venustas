@@ -6,7 +6,9 @@
   assign battery_price = '$79.99'
   if battery_product != blank
     assign battery_variant = battery_product.selected_or_first_available_variant
-    assign battery_image = battery_product.featured_image | default: battery_image
+    if battery_image == blank
+      assign battery_image = battery_product.featured_image
+    endif
     assign battery_title = battery_product.title
     assign battery_price = battery_variant.price | money
   endif
