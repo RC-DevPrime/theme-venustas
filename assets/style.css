@@ -2033,18 +2033,21 @@ a.f-white:hover{
     position:absolute;
     top:10px;
     z-index:3;
-    border-radius: 4px 4px 4px 4px;
+    border-radius: 5px;
     padding:0px;
     display:flex;
 }
 .product-item .product-image .badge.sale-badge{
-    left:8px;
-    background: linear-gradient( 99deg, #FF7D3E 0%, #DB451C 33%, #E1542C 71%, #FF8C20 100%);
+    background: linear-gradient(269deg, #F37C4B -22.82%, #DE4C23 45.94%, #F27625 99.03%);
     color:#FFF;
+    top:0;
+    left: 0;
+    border-radius: 5px 0;
 }
 .product-item .product-image .badge.sale-badge span {
-    padding: 3px 7px;
-    font-size: 11px;
+    padding: 8px 9px;
+    font-size: 12px;
+    font-weight: 600;
     line-height: 1.3;
 }
 .product-item .product-image .badge.new-badge{
@@ -2740,9 +2743,7 @@ a.f-white:hover{
     }
 
     .product-item .product-image .badge.sale-badge{
-        top:8px;
-        left:5px;
-        border-radius: 2px;
+        border-radius: 5px 0;
     }
     .product-item .product-image .badge.new-badge{
         top:8px;
@@ -2750,8 +2751,8 @@ a.f-white:hover{
         border-radius: 2px;
     }
     .product-item .product-image .badge.sale-badge span{
-        font-size:8px;
-        padding:3px 6px;
+        font-size:9px;
+        padding: 6px 6px 6px 7px;
     }
     .product-item .product-image .badge.new-badge span{
         padding:3px 6px;
