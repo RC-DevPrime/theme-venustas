@@ -2031,20 +2031,22 @@ a.f-white:hover{
 }
 .product-item .product-image .badge{
     position:absolute;
-    top:10px;
+    /* top:10px; */
     z-index:3;
     border-radius: 4px 4px 4px 4px;
     padding:0px;
     display:flex;
 }
 .product-item .product-image .badge.sale-badge{
-    left:8px;
-    background: linear-gradient( 99deg, #FF7D3E 0%, #DB451C 33%, #E1542C 71%, #FF8C20 100%);
+    background: linear-gradient(269deg, #F37C4B -22.82%, #DE4C23 45.94%, #F27625 99.03%);
     color:#FFF;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 .product-item .product-image .badge.sale-badge span {
-    padding: 3px 7px;
-    font-size: 11px;
+    padding: 6px 6px 6px 7px;
+    font-size: 9px;
+    font-weight: 600;
     line-height: 1.3;
 }
 .product-item .product-image .badge.new-badge{
