@@ -1,5 +1,14 @@
 {%- render 'heating-ready-wiring-styles', section_id: section.id -%}
 
+{% style %}
+  @media only screen and (min-width: 1340px) {
+    #shopify-section-{{ section.id }} .heating-ready-wiring__media {
+      height: 408px !important;
+      aspect-ratio: auto !important;
+    }
+  }
+{% endstyle %}
+
 {%- liquid
   assign venustas_ratio = section.settings.venustas_video.preview_image.aspect_ratio | default: section.settings.venustas_media.aspect_ratio | default: 1.603
   assign other_ratio = section.settings.other_video.preview_image.aspect_ratio | default: section.settings.other_media.aspect_ratio | default: 1.603
