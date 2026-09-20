@@ -54,7 +54,7 @@
   }
   #shopify-section-{{ section.id }} .heating-prelaunch-hero__image { width: 100%; height: 100%; object-fit: cover; object-position: center; }
   #shopify-section-{{ section.id }} .heating-prelaunch-hero__inner {
-    position: relative; z-index: 2; width: min(calc(100% - 40px), 1340px); min-height: 768px; margin: 0 auto; padding-top: 137px; box-sizing: border-box;
+    position: relative; z-index: 2; width: min(calc(100% - 40px), 1340px); min-height: 768px; margin: 0 auto; padding-top: 137px; padding-bottom: 168px; box-sizing: border-box;
   }
   #shopify-section-{{ section.id }} .heating-prelaunch-hero__content { width: min(100%, 807px); }
   #shopify-section-{{ section.id }} .heating-prelaunch-hero__eyebrow {
@@ -92,7 +92,15 @@
   #shopify-section-{{ section.id }} .heating-prelaunch-hero__benefit-value { font-size: 20px; font-weight: 600; line-height: 1.65; }
   #shopify-section-{{ section.id }} .heating-prelaunch-hero__benefit { display: flex; flex-direction: column; gap: 4px; }
   #shopify-section-{{ section.id }} .heating-prelaunch-hero__benefit-text { font-size: 12px; line-height: 1.68; }
-  #shopify-section-{{ section.id }} .heating-prelaunch-hero__stats { display: none; }
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__stats {
+    position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; display: block; min-height: 128px; background: #1a1a1a;
+  }
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__stats-inner {
+    display: grid; width: min(calc(100% - 40px), 1340px); grid-template-columns: repeat(3,minmax(0,1fr)); gap: 40px; margin: 0 auto; padding: 32px 0 28px; box-sizing: border-box;
+  }
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat { min-width: 0; }
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat-value { color: var(--color-brand, #b93205); font-size: 30px; font-weight: 700; line-height: 1.2; }
+  #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat-text { margin-top: 4px; color: #fff; font-size: 13px; font-weight: 400; line-height: 1.4; overflow-wrap: anywhere; }
 
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .heating-prelaunch-hero { min-height: 0; }
@@ -110,7 +118,7 @@
     #shopify-section-{{ section.id }} .heating-prelaunch-hero__progress { width: 100%; margin-top: 24px; }
     #shopify-section-{{ section.id }} .heating-prelaunch-hero__progress-text { margin-top: 8px; color: #d0d0d0; line-height: 1.4; }
     #shopify-section-{{ section.id }} .heating-prelaunch-hero__benefits { width: 100%; min-height: 0; grid-template-columns: 1fr; gap: 40px; margin-top: 32px; padding: 16px 24px; background: rgba(185,50,5,.4); }
-    #shopify-section-{{ section.id }} .heating-prelaunch-hero__stats { display: block; width: 100%; margin-top: 26px; border-top: 1px solid var(--color-brand, #b93205); }
+    #shopify-section-{{ section.id }} .heating-prelaunch-hero__stats { position: static; min-height: 0; width: 100%; margin-top: 26px; border-top: 1px solid var(--color-brand, #b93205); }
     #shopify-section-{{ section.id }} .heating-prelaunch-hero__stats-inner { display: grid; width: 100%; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; padding: 20px; box-sizing: border-box; }
     #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat { min-width: 0; text-align: center; }
     #shopify-section-{{ section.id }} .heating-prelaunch-hero__stat-value { color: var(--color-brand, #b93205); font-size: 24px; font-weight: 700; line-height: 1.2; }
@@ -175,7 +183,7 @@
     { "type": "image_picker", "id": "desktop_image", "label": "Desktop image" },
     { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" },
     { "type": "text", "id": "eyebrow_desktop", "label": "Desktop eyebrow", "default": "PRE-LAUNCH · NOV 2, 2026" },
-    { "type": "text", "id": "eyebrow_mobile", "label": "Mobile eyebrow", "default": "PRE-LAUNCH · OCTOBER 2026" },
+    { "type": "text", "id": "eyebrow_mobile", "label": "Mobile eyebrow", "default": "PRE-LAUNCH · NOV 2, 2026" },
     { "type": "text", "id": "title", "label": "Title", "default": "Heated riding gear that runs on your bike." },
     { "type": "richtext", "id": "description", "label": "Description", "default": "<p>No battery to charge. No controller to buy. Just the Apex jacket liner and pant liner, wired into your 12V power.</p>" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Reserve for $10" },
@@ -187,7 +195,7 @@
     { "type": "text", "id": "benefit_2_text", "label": "Benefit 2 text", "default": "heating element warranty — normally 3 years" },
     { "type": "text", "id": "benefit_3_value", "label": "Benefit 3 value", "default": "Free" },
     { "type": "text", "id": "benefit_3_text", "label": "Benefit 3 text", "default": "3-Way cable, $17.99 after launch" },
-    { "type": "header", "content": "Mobile specifications" },
+    { "type": "header", "content": "Specifications" },
     { "type": "text", "id": "stat_1_value", "label": "Specification 1 value", "default": "144°F" },
     { "type": "text", "id": "stat_1_text", "label": "Specification 1 text", "default": "Max heating temperature · 12V powered" },
     { "type": "text", "id": "stat_2_value", "label": "Specification 2 value", "default": "8" },
