@@ -3,6 +3,7 @@
     position: relative;
     width: 100%;
     height: 400svh;
+    --ember: #ff4f27;
     background: linear-gradient(180deg, #14161a 42.308%, #531602 100%);
     color: #fff;
     font-family: 'Montserrat', sans-serif;
@@ -31,24 +32,44 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: min(100%, 926px);
+    width: min(100%, 1020px);
     margin: 0;
-    color: #fff;
-    font-size: 64px;
-    font-weight: 400;
-    line-height: 1.2;
+    color: transparent;
+    font-size: 86px;
+    font-weight: 800;
+    line-height: 1.35;
     text-align: center;
-    opacity: var(--story-heading-opacity, 1);
+    opacity: var(--story-heading-opacity, 0);
     transform: translate(-50%, calc(-50% + var(--story-heading-y, 0px)));
     will-change: transform, opacity;
   }
 
-  #shopify-section-{{ section.id }} .heating-brand-story__heading-accent {
+  #shopify-section-{{ section.id }} .heating-brand-story__heading-layer {
     display: block;
-    color: var(--color-brand, #b93205);
-    font-size: 96px;
-    font-weight: 600;
-    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heating-brand-story__heading-layer--base {
+    color: #a0a1a6;
+    opacity: var(--story-base-opacity, 1);
+  }
+
+  #shopify-section-{{ section.id }} .heating-brand-story__heading-layer--gradient {
+    position: absolute;
+    inset: 0;
+    color: transparent;
+    opacity: var(--story-gradient-opacity, 0);
+  }
+
+  #shopify-section-{{ section.id }} .heating-brand-story__heading-layer--gradient .heating-brand-story__heading-line {
+    display: block;
+    background: linear-gradient(100deg, var(--story-grad-start, var(--ember)) 0%, var(--story-grad-mid, #ff936c) 52%, var(--story-grad-end, #ffc4ad) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  #shopify-section-{{ section.id }} .heating-brand-story__heading-line {
+    display: block;
   }
 
   #shopify-section-{{ section.id }} .heating-brand-story__stats {
@@ -60,7 +81,7 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     align-items: center;
     opacity: var(--story-stats-opacity, 0);
-    transform: translateY(calc(-50% + var(--story-stats-y, 50px)));
+    transform: translateY(calc(-50% + var(--story-stats-y, 120px)));
     will-change: transform, opacity;
   }
 
@@ -121,15 +142,22 @@
       font-size: 32px;
       font-weight: 800;
       line-height: 1.2;
+      color: #ff8b63;
       opacity: 1;
       transform: none;
     }
 
-    #shopify-section-{{ section.id }} .heating-brand-story__heading-accent {
+    #shopify-section-{{ section.id }} .heating-brand-story__heading-layer--base {
+      color: inherit;
+      opacity: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heating-brand-story__heading-layer--gradient {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-brand-story__heading-line {
       display: inline;
-      font-size: inherit;
-      font-weight: inherit;
-      line-height: inherit;
     }
 
     #shopify-section-{{ section.id }} .heating-brand-story__stats {
@@ -167,13 +195,23 @@
   <div class="heating-brand-story__stage">
     <div class="heating-brand-story__inner">
       {%- if section.settings.heading != blank or section.settings.heading_accent != blank -%}
-        <h2 class="heating-brand-story__heading">
-          {%- if section.settings.heading != blank -%}
-            {{ section.settings.heading }}
-          {%- endif -%}
-          {%- if section.settings.heading_accent != blank -%}
-            <span class="heating-brand-story__heading-accent">{{ section.settings.heading_accent }}</span>
-          {%- endif -%}
+        <h2 class="heating-brand-story__heading" aria-label="{{ section.settings.heading | append: ' ' | append: section.settings.heading_accent | strip | escape }}">
+          <span class="heating-brand-story__heading-layer heating-brand-story__heading-layer--base">
+            {%- if section.settings.heading != blank -%}
+              <span class="heating-brand-story__heading-line">{{ section.settings.heading }}</span>
+            {%- endif -%}
+            {%- if section.settings.heading_accent != blank -%}
+              <span class="heating-brand-story__heading-line">{{ section.settings.heading_accent }}</span>
+            {%- endif -%}
+          </span>
+          <span class="heating-brand-story__heading-layer heating-brand-story__heading-layer--gradient" aria-hidden="true">
+            {%- if section.settings.heading != blank -%}
+              <span class="heating-brand-story__heading-line">{{ section.settings.heading }}</span>
+            {%- endif -%}
+            {%- if section.settings.heading_accent != blank -%}
+              <span class="heating-brand-story__heading-line">{{ section.settings.heading_accent }}</span>
+            {%- endif -%}
+          </span>
         </h2>
       {%- endif -%}
 
@@ -212,6 +250,10 @@
     const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
     const range = (value, start, end) => clamp((value - start) / (end - start));
     const mix = (from, to, amount) => from + (to - from) * amount;
+    const mixColor = (from, to, amount) => {
+      const channel = (index) => Math.round(mix(from[index], to[index], amount));
+      return `rgb(${channel(0)}, ${channel(1)}, ${channel(2)})`;
+    };
 
     const render = () => {
       frame = 0;
@@ -219,6 +261,11 @@
       if (media.matches) {
         section.style.removeProperty('--story-heading-opacity');
         section.style.removeProperty('--story-heading-y');
+        section.style.removeProperty('--story-base-opacity');
+        section.style.removeProperty('--story-gradient-opacity');
+        section.style.removeProperty('--story-grad-start');
+        section.style.removeProperty('--story-grad-mid');
+        section.style.removeProperty('--story-grad-end');
         section.style.removeProperty('--story-stats-opacity');
         section.style.removeProperty('--story-stats-y');
         return;
@@ -226,25 +273,39 @@
 
       if (reducedMotion.matches) {
         section.style.setProperty('--story-heading-opacity', '1');
-        section.style.setProperty('--story-heading-y', '-190px');
+        section.style.setProperty('--story-heading-y', '-86px');
+        section.style.setProperty('--story-base-opacity', '0');
+        section.style.setProperty('--story-gradient-opacity', '1');
+        section.style.setProperty('--story-grad-start', 'rgb(255, 79, 39)');
+        section.style.setProperty('--story-grad-mid', 'rgb(255, 132, 92)');
+        section.style.setProperty('--story-grad-end', 'rgb(255, 193, 170)');
         section.style.setProperty('--story-stats-opacity', '1');
-        section.style.setProperty('--story-stats-y', '205px');
+        section.style.setProperty('--story-stats-y', '132px');
         return;
       }
 
       const rect = section.getBoundingClientRect();
       const distance = Math.max(section.offsetHeight - window.innerHeight, 1);
       const progress = clamp(-rect.top / distance);
-      const firstExit = range(progress, 0.2, 0.34);
-      const secondEnter = range(progress, 0.27, 0.42);
-      const finale = range(progress, 0.6, 0.82);
-      const headingOpacity = Math.max(1 - firstExit, range(progress, 0.62, 0.74));
-      const headingY = mix(0, -190, finale);
-      const statsY = mix(50, 0, secondEnter) + mix(0, 205, finale);
+      const intro = range(progress, 0.03, 0.18);
+      const gradientEnter = range(progress, 0.25, 0.5);
+      const gradientDepth = range(progress, 0.38, 0.72);
+      const finale = range(progress, 0.66, 0.84);
+      const statsEnter = range(progress, 0.7, 0.86);
+      const headingY = mix(0, -86, finale);
+      const statsY = mix(160, 132, statsEnter);
+      const gradStart = mixColor([255, 163, 135], [255, 79, 39], gradientDepth);
+      const gradMid = mixColor([255, 191, 170], [255, 132, 92], gradientDepth);
+      const gradEnd = mixColor([255, 224, 214], [255, 193, 170], gradientDepth);
 
-      section.style.setProperty('--story-heading-opacity', headingOpacity.toFixed(3));
+      section.style.setProperty('--story-heading-opacity', intro.toFixed(3));
       section.style.setProperty('--story-heading-y', `${headingY.toFixed(2)}px`);
-      section.style.setProperty('--story-stats-opacity', secondEnter.toFixed(3));
+      section.style.setProperty('--story-base-opacity', (1 - gradientEnter).toFixed(3));
+      section.style.setProperty('--story-gradient-opacity', gradientEnter.toFixed(3));
+      section.style.setProperty('--story-grad-start', gradStart);
+      section.style.setProperty('--story-grad-mid', gradMid);
+      section.style.setProperty('--story-grad-end', gradEnd);
+      section.style.setProperty('--story-stats-opacity', statsEnter.toFixed(3));
       section.style.setProperty('--story-stats-y', `${statsY.toFixed(2)}px`);
     };
 
