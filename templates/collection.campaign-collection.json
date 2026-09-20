@@ -12,7 +12,7 @@
     "collection-featured-banner": {
       "type": "collection-featured-banner",
       "settings": {
-        "image": "shopify://shop_images/Season-Ready-Event-0818-0901-COLLECTION.jpg",
+        "image": "{{ collection.image }}",
         "heading": "{{ collection.title }}",
         "description": "{{ collection.description }}"
       }
