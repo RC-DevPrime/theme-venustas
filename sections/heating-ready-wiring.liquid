@@ -1,5 +1,10 @@
 {%- render 'heating-ready-wiring-styles', section_id: section.id -%}
 
+{%- liquid
+  assign venustas_ratio = section.settings.venustas_video.preview_image.aspect_ratio | default: section.settings.venustas_media.aspect_ratio | default: 1.603
+  assign other_ratio = section.settings.other_video.preview_image.aspect_ratio | default: section.settings.other_media.aspect_ratio | default: 1.603
+-%}
+
 <section class="heating-ready-wiring" id="heating-setup">
   <div class="heating-ready-wiring__inner">
     <header class="heating-ready-wiring__header">
@@ -13,8 +18,20 @@
 
     <div class="heating-ready-wiring__grid">
       <article class="heating-ready-wiring__card">
-        <div class="heating-ready-wiring__media">
-          {%- if section.settings.venustas_media != blank -%}
+        <div class="heating-ready-wiring__media" style="height: auto; aspect-ratio: {{ venustas_ratio }};">
+          {%- if section.settings.venustas_video != blank -%}
+            {{
+              section.settings.venustas_video
+              | video_tag:
+                class: 'heating-ready-wiring__image js-autoplay-in-view',
+                loop: true,
+                muted: true,
+                playsinline: true,
+                controls: true,
+                preload: 'none',
+                image_size: '1400x'
+            }}
+          {%- elsif section.settings.venustas_media != blank -%}
             {{
               section.settings.venustas_media
               | image_url: width: 1400
@@ -62,8 +79,20 @@
       </article>
 
       <article class="heating-ready-wiring__card">
-        <div class="heating-ready-wiring__media">
-          {%- if section.settings.other_media != blank -%}
+        <div class="heating-ready-wiring__media" style="height: auto; aspect-ratio: {{ other_ratio }};">
+          {%- if section.settings.other_video != blank -%}
+            {{
+              section.settings.other_video
+              | video_tag:
+                class: 'heating-ready-wiring__image js-autoplay-in-view',
+                loop: true,
+                muted: true,
+                playsinline: true,
+                controls: true,
+                preload: 'none',
+                image_size: '1400x'
+            }}
+          {%- elsif section.settings.other_media != blank -%}
             {{
               section.settings.other_media
               | image_url: width: 1400
@@ -96,6 +125,42 @@
   </div>
 </section>
 
+<script>
+  (() => {
+    const sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot || sectionRoot.dataset.inViewVideoReady === 'true') return;
+
+    const videos = sectionRoot.querySelectorAll('.js-autoplay-in-view');
+    if (!videos.length) return;
+    sectionRoot.dataset.inViewVideoReady = 'true';
+
+    const playVideo = (video) => {
+      const playPromise = video.play();
+      if (playPromise) playPromise.catch(() => {});
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) playVideo(entry.target);
+          else entry.target.pause();
+        });
+      }, { threshold: 0.15 });
+
+      videos.forEach((video) => observer.observe(video));
+      sectionRoot.inViewVideoObserver = observer;
+
+      document.addEventListener('shopify:section:unload', function unload(event) {
+        if (event.detail.sectionId !== '{{ section.id }}') return;
+        observer.disconnect();
+        document.removeEventListener('shopify:section:unload', unload);
+      });
+    } else {
+      videos.forEach(playVideo);
+    }
+  })();
+</script>
+
 {% schema %}
 {
   "name": "Heating Ready Wiring",
@@ -115,12 +180,22 @@
     {
       "type": "image_picker",
       "id": "venustas_media",
-      "label": "ProductH Venustas image or GIF"
+      "label": "ProductH Venustas image"
+    },
+    {
+      "type": "video",
+      "id": "venustas_video",
+      "label": "ProductH Venustas video (MP4 recommended)"
     },
     {
       "type": "image_picker",
       "id": "other_media",
-      "label": "ProductH other brands image or GIF"
+      "label": "ProductH other brands image"
+    },
+    {
+      "type": "video",
+      "id": "other_video",
+      "label": "ProductH other brands video (MP4 recommended)"
     }
   ],
   "presets": [

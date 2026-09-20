@@ -57,7 +57,7 @@
   #shopify-section-{{ section.id }} .heating-road-notes__media {
     position: relative;
     width: 100%;
-    height: 300px;
+    aspect-ratio: 109 / 50;
     overflow: hidden;
     border-radius: 12px;
     background: #f0f0f0;
@@ -68,13 +68,15 @@
   }
 
   #shopify-section-{{ section.id }} .heating-road-notes__picture,
-  #shopify-section-{{ section.id }} .heating-road-notes__image {
+  #shopify-section-{{ section.id }} .heating-road-notes__image,
+  #shopify-section-{{ section.id }} .heating-road-notes__video {
     display: block;
     width: 100%;
     height: 100%;
   }
 
-  #shopify-section-{{ section.id }} .heating-road-notes__image {
+  #shopify-section-{{ section.id }} .heating-road-notes__image,
+  #shopify-section-{{ section.id }} .heating-road-notes__video {
     object-fit: cover;
     object-position: center;
   }
@@ -146,7 +148,6 @@
     }
 
     #shopify-section-{{ section.id }} .heating-road-notes__media {
-      height: 200px;
       border-radius: 12px;
     }
 
@@ -171,8 +172,10 @@
 {% endstyle %}
 
 {%- liquid
-  assign first_mobile_image = section.settings.first_mobile_image | default: section.settings.first_desktop_image
-  assign second_mobile_image = section.settings.second_mobile_image | default: section.settings.second_desktop_image
+  assign first_image = section.settings.first_desktop_image | default: section.settings.first_mobile_image
+  assign second_image = section.settings.second_desktop_image | default: section.settings.second_mobile_image
+  assign first_ratio = section.settings.first_video.preview_image.aspect_ratio | default: first_image.aspect_ratio | default: 2.18
+  assign second_ratio = section.settings.second_video.preview_image.aspect_ratio | default: second_image.aspect_ratio | default: 2.18
 -%}
 
 <section class="heating-road-notes">
@@ -188,17 +191,11 @@
 
     <div class="heating-road-notes__grid">
       <article class="heating-road-notes__card">
-        <div class="heating-road-notes__media">
-          {%- if section.settings.first_desktop_image != blank or first_mobile_image != blank -%}
+        <div class="heating-road-notes__media" style="aspect-ratio: {{ first_ratio }};">
+          {%- if section.settings.first_video != blank -%}
+            {{ section.settings.first_video | video_tag: class: 'heating-road-notes__video js-autoplay-in-view', loop: true, muted: true, playsinline: true, controls: true, preload: 'none', image_size: '1400x' }}
+          {%- elsif first_image != blank -%}
             <picture class="heating-road-notes__picture">
-              {%- if first_mobile_image != blank -%}
-                <source
-                  media="(max-width: 767px)"
-                  srcset="{{ first_mobile_image | image_url: width: 350 }} 350w, {{ first_mobile_image | image_url: width: 700 }} 700w"
-                  sizes="calc(100vw - 40px)"
-                >
-              {%- endif -%}
-              {%- assign first_image = section.settings.first_desktop_image | default: first_mobile_image -%}
               {{
                 first_image
                 | image_url: width: 1400
@@ -219,17 +216,11 @@
       </article>
 
       <article class="heating-road-notes__card heating-road-notes__card--accent">
-        <div class="heating-road-notes__media">
-          {%- if section.settings.second_desktop_image != blank or second_mobile_image != blank -%}
+        <div class="heating-road-notes__media" style="aspect-ratio: {{ second_ratio }};">
+          {%- if section.settings.second_video != blank -%}
+            {{ section.settings.second_video | video_tag: class: 'heating-road-notes__video js-autoplay-in-view', loop: true, muted: true, playsinline: true, controls: true, preload: 'none', image_size: '1400x' }}
+          {%- elsif second_image != blank -%}
             <picture class="heating-road-notes__picture">
-              {%- if second_mobile_image != blank -%}
-                <source
-                  media="(max-width: 767px)"
-                  srcset="{{ second_mobile_image | image_url: width: 350 }} 350w, {{ second_mobile_image | image_url: width: 700 }} 700w"
-                  sizes="calc(100vw - 40px)"
-                >
-              {%- endif -%}
-              {%- assign second_image = section.settings.second_desktop_image | default: second_mobile_image -%}
               {{
                 second_image
                 | image_url: width: 1400
@@ -251,6 +242,42 @@
     </div>
   </div>
 </section>
+
+<script>
+  (() => {
+    const sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot || sectionRoot.dataset.inViewVideoReady === 'true') return;
+
+    const videos = sectionRoot.querySelectorAll('.js-autoplay-in-view');
+    if (!videos.length) return;
+    sectionRoot.dataset.inViewVideoReady = 'true';
+
+    const playVideo = (video) => {
+      const playPromise = video.play();
+      if (playPromise) playPromise.catch(() => {});
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) playVideo(entry.target);
+          else entry.target.pause();
+        });
+      }, { threshold: 0.15 });
+
+      videos.forEach((video) => observer.observe(video));
+      sectionRoot.inViewVideoObserver = observer;
+
+      document.addEventListener('shopify:section:unload', function unload(event) {
+        if (event.detail.sectionId !== '{{ section.id }}') return;
+        observer.disconnect();
+        document.removeEventListener('shopify:section:unload', unload);
+      });
+    } else {
+      videos.forEach(playVideo);
+    }
+  })();
+</script>
 
 {% schema %}
 {
@@ -275,12 +302,12 @@
     {
       "type": "image_picker",
       "id": "first_desktop_image",
-      "label": "ProductH desktop image or GIF"
+      "label": "ProductH image"
     },
     {
-      "type": "image_picker",
-      "id": "first_mobile_image",
-      "label": "ProductH mobile image or GIF"
+      "type": "video",
+      "id": "first_video",
+      "label": "ProductH video (MP4 recommended)"
     },
     {
       "type": "header",
@@ -289,12 +316,12 @@
     {
       "type": "image_picker",
       "id": "second_desktop_image",
-      "label": "ProductH desktop image or GIF"
+      "label": "ProductH image"
     },
     {
-      "type": "image_picker",
-      "id": "second_mobile_image",
-      "label": "ProductH mobile image or GIF"
+      "type": "video",
+      "id": "second_video",
+      "label": "ProductH video (MP4 recommended)"
     }
   ],
   "presets": [
