@@ -30,6 +30,7 @@
 
   #shopify-section-{{ section.id }} .heating-12v-carousel__stage {
     position: relative;
+    aspect-ratio: 1920 / 849;
     min-height: 650px;
     padding: 80px 0;
     box-sizing: border-box;
@@ -117,7 +118,7 @@
   #shopify-section-{{ section.id }} .heating-12v-carousel__controls {
     position: absolute;
     left: 50%;
-    bottom: 42px;
+    bottom: 100px;
     z-index: 2;
     display: flex;
     width: min(100%, 852px);
@@ -192,7 +193,7 @@
   #shopify-section-{{ section.id }} .heating-12v-carousel__footnote {
     position: absolute;
     left: 50%;
-    bottom: 10px;
+    bottom: 36px;
     z-index: 2;
     margin: 0;
     color: var(--heating-12v-footnote-color);
@@ -206,9 +207,10 @@
   #shopify-section-{{ section.id }} .heating-12v-carousel__mobile-track {
     display: none;
   }
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 1279px) {
     #shopify-section-{{ section.id }} .heating-12v-carousel__stage {
       display: block;
+      aspect-ratio: auto;
       min-height: 0;
       padding: 56px 0;
     }
