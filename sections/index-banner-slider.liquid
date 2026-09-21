@@ -7,11 +7,11 @@
       <link
         rel="preload"
         as="image"
-        href="{{ first_desktop_img | image_url: width: 1600 }}"
+        href="{{ first_desktop_img | image_url: width: 1920 }}"
         imagesrcset="
           {{ first_desktop_img | image_url: width: 960 }} 960w,
           {{ first_desktop_img | image_url: width: 1400 }} 1400w,
-          {{ first_desktop_img | image_url: width: 1600 }} 1600w"
+          {{ first_desktop_img | image_url: width: 1920 }} 1920w"
         imagesizes="100vw"
         media="(min-width: 992px)"
         fetchpriority="high">
@@ -102,12 +102,12 @@
                       srcset="
                         {{ desktop_img | image_url: width: 960 }} 960w,
                         {{ desktop_img | image_url: width: 1400 }} 1400w,
-                        {{ desktop_img | image_url: width: 1600 }} 1600w"
+                        {{ desktop_img | image_url: width: 1920 }} 1920w"
                       sizes="100vw">
                   {% endif %}
                   <img
                     class="banner-bg"
-                    src="{% if desktop_img != blank %}{{ desktop_img | image_url: width: 1600 }}{% else %}{{ mobile_img | image_url: width: 900 }}{% endif %}"
+                    src="{% if desktop_img != blank %}{{ desktop_img | image_url: width: 1920 }}{% else %}{{ mobile_img | image_url: width: 900 }}{% endif %}"
                     width="{% if desktop_img != blank %}{{ desktop_img.width }}{% else %}{{ mobile_img.width }}{% endif %}"
                     height="{% if desktop_img != blank %}{{ desktop_img.height }}{% else %}{{ mobile_img.height }}{% endif %}"
                     alt="{{ mobile_img.alt | default: desktop_img.alt | default: block.settings.title | default: shop.name | escape }}"
