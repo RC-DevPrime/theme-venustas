@@ -12,9 +12,9 @@
     "collection-featured-banner": {
       "type": "collection-featured-banner",
       "settings": {
-        "image": "shopify://shop_images/collection-heated-jacket.jpg",
-        "heading": "Mega Clearance Sale",
-        "description": "<p><br/>Shop our comfortable, lightweight, and warm heated vests, hoodies & jackets — <strong>25% off 1 pc, 35% off 2+ pcs</strong>! Enjoy great savings this spring. Stay comfortable all season long. Shop now while stocks last!</p>"
+        "image": "{{ collection.image }}",
+        "heading": "{{ collection.title }}",
+        "description": "{{ collection.description }}"
       }
     },
     "collection-list": {
