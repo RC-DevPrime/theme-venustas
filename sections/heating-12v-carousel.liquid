@@ -4,7 +4,28 @@
     overflow: hidden;
     background: #f0f0f0;
     color: var(--venustas-black, #14161a);
+    --heating-12v-title-color: #fff;
+    --heating-12v-description-color: #fff;
+    --heating-12v-label-color: #fff;
+    --heating-12v-text-color: #fff;
+    --heating-12v-footnote-color: #fff;
     font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel[data-tone='black'] {
+    --heating-12v-title-color: #14161a;
+    --heating-12v-description-color: #343a40;
+    --heating-12v-label-color: #14161a;
+    --heating-12v-text-color: #272d45;
+    --heating-12v-footnote-color: #343a40;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel[data-tone='white'] {
+    --heating-12v-title-color: #fff;
+    --heating-12v-description-color: #fff;
+    --heating-12v-label-color: #fff;
+    --heating-12v-text-color: #fff;
+    --heating-12v-footnote-color: #fff;
   }
 
   #shopify-section-{{ section.id }} .heating-12v-carousel__stage {
@@ -74,7 +95,7 @@
 
   #shopify-section-{{ section.id }} .heating-12v-carousel__title {
     margin: 0;
-    color:#fff;
+    color: var(--heating-12v-title-color);
     font-size: 34px;
     font-weight: 700;
     line-height: 1.16;
@@ -84,7 +105,7 @@
   #shopify-section-{{ section.id }} .heating-12v-carousel__description {
     max-width: 593px;
     margin: 0;
-    color: #fff;
+    color: var(--heating-12v-description-color);
     font-size: 16px;
     font-weight: 400;
     line-height: 1.72;
@@ -152,7 +173,7 @@
 
   #shopify-section-{{ section.id }} .heating-12v-carousel__label {
     margin: 16px 0 0;
-    color: #ffffff;
+    color: var(--heating-12v-label-color);
     font-size: 15px;
     font-weight: 600;
     line-height: 1.68;
@@ -162,7 +183,7 @@
 
   #shopify-section-{{ section.id }} .heating-12v-carousel__text {
     margin: 4px 0 0;
-    color: #ffffff;
+    color: var(--heating-12v-text-color);
     font-size: 13px;
     font-weight: 400;
     line-height: 1.68;
@@ -174,7 +195,7 @@
     bottom: 10px;
     z-index: 2;
     margin: 0;
-    color:#ffffff;
+    color: var(--heating-12v-footnote-color);
     font-size: 12px;
     font-weight: 400;
     line-height: 1.68;
@@ -191,17 +212,21 @@
       min-height: 0;
       padding: 56px 0;
     }
-    #shopify-section-{{ section.id }} .heating-12v-carousel__title{
-      color:#14161a;
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__title {
+      color: #14161a;
     }
-    #shopify-section-{{ section.id }} .heating-12v-carousel__description{
-      color:#565B63;
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__description {
+      color: #565b63;
     }
-    #shopify-section-{{ section.id }} .heating-12v-carousel__label{
-      color:#14161a;
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__label {
+      color: #14161a;
     }
-    #shopify-section-{{ section.id }} .heating-12v-carousel__text{
-      color:#272D45;
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__text {
+      color: #272d45;
     }
     #shopify-section-{{ section.id }} .heating-12v-carousel__bg,
     #shopify-section-{{ section.id }} .heating-12v-carousel__shade,
@@ -293,10 +318,15 @@
 
 {%- assign fade_seconds = section.settings.fade_seconds | default: 3 -%}
 {%- assign hold_seconds = section.settings.hold_seconds | default: 3 -%}
+{%- assign initial_tone = 'white' -%}
+{%- if section.blocks.size > 0 -%}
+  {%- assign initial_tone = section.blocks.first.settings.text_tone | default: 'white' -%}
+{%- endif -%}
 
 <section
   class="heating-12v-carousel"
   data-heating-12v-carousel
+  data-tone="{{ initial_tone }}"
   data-fade="{{ fade_seconds }}"
   data-hold="{{ hold_seconds }}"
   style="--heating-12v-fade: {{ fade_seconds }}s;"
@@ -341,6 +371,7 @@
             type="button"
             data-heating-12v-control
             data-index="{{ forloop.index0 }}"
+            data-tone="{{ block.settings.text_tone | default: 'white' }}"
             style="--heating-12v-active-color: {{ block.settings.active_color }};"
           >
             <span class="heating-12v-carousel__icon">
@@ -459,6 +490,22 @@
           "id": "active_color",
           "label": "ProductH active background",
           "default": "rgba(255,255,255,0.4)"
+        },
+        {
+          "type": "select",
+          "id": "text_tone",
+          "label": "ProductH text tone",
+          "default": "white",
+          "options": [
+            {
+              "value": "black",
+              "label": "Black"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            }
+          ]
         },
         {
           "type": "text",

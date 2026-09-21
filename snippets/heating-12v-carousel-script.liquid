@@ -20,6 +20,7 @@
       index = (next + slides.length) % slides.length;
       slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
       controls.forEach((control, i) => control.classList.toggle('is-active', i === index));
+      root.dataset.tone = controls[index]?.dataset.tone || 'white';
       if (track && cards[index] && window.matchMedia('(max-width: 767px)').matches) {
         track.scrollTo({ left: cards[index].offsetLeft - track.offsetLeft, behavior: 'smooth' });
       }
