@@ -1,0 +1,243 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    color: var(--venustas-black, #14161a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__eyebrow {
+    margin: 0 0 40px;
+    color: var(--color-brand, #b93205);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 654px));
+    gap: 0 32px;
+    border-top: 1px solid #e3e4e0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__item {
+    border-bottom: 1px solid #e3e4e0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__summary {
+    display: flex;
+    min-height: 70px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 0;
+    color: #14161a;
+    cursor: pointer;
+    list-style: none;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__question {
+    min-width: 0;
+    margin: 0;
+    color: #14161a;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.68;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__icon {
+    flex: 0 0 auto;
+    color: var(--color-brand, #b93205);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__icon::before {
+    content: '+';
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__item[open] .heating-prelaunch-faq__icon::before {
+    content: '−';
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__answer {
+    padding: 0 0 28px;
+    color: #565b63;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.62;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__answer p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-prelaunch-faq__answer p + p {
+    margin-top: 12px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-prelaunch-faq__inner {
+      width: 100%;
+      padding: 56px 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-faq__eyebrow {
+      margin-bottom: 32px;
+      font-size: 11px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-faq__grid {
+      display: flex;
+      flex-direction: column;
+      border-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-faq__summary {
+      min-height: 54px;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-faq__question {
+      overflow: hidden;
+      font-size: 14px;
+      line-height: 1.2;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #shopify-section-{{ section.id }} .heating-prelaunch-faq__answer {
+      padding-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+{% endstyle %}
+
+<section class="heating-prelaunch-faq" id="heating-faq">
+  <div class="heating-prelaunch-faq__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="heating-prelaunch-faq__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    <div class="heating-prelaunch-faq__grid">
+      {%- for block in section.blocks -%}
+        <details class="heating-prelaunch-faq__item" {{ block.shopify_attributes }}>
+          <summary class="heating-prelaunch-faq__summary">
+            {%- if block.settings.question != blank -%}
+              <span class="heating-prelaunch-faq__question">{{ block.settings.question }}</span>
+            {%- endif -%}
+            <span class="heating-prelaunch-faq__icon" aria-hidden="true"></span>
+          </summary>
+          {%- if block.settings.answer != blank -%}
+            <div class="heating-prelaunch-faq__answer">{{ block.settings.answer }}</div>
+          {%- endif -%}
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "ProductH eyebrow",
+      "default": "FAQ"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "ProductH FAQ",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "ProductH question",
+          "default": "Can I get my $10 back?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "ProductH answer",
+          "default": "<p>Yes. Any time before launch, email us and we'll refund it in full. After launch it becomes a $50 coupon — and if you don't use it and ask for refund, we'll still refund the original $10.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating FAQ",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get my $10 back?",
+            "answer": "<p>Yes. Any time before launch, email us and we'll refund it in full. After launch it becomes a $50 coupon — and if you don't use it and ask for refund, we'll still refund the original $10.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do I get $100 off if I buy both?",
+            "answer": "<p>No. It's $50 off your order, one time, whether you buy one piece or both. If you intend to buy both, please reserve twice.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need to buy anything else?",
+            "answer": "<p>No. Both liners ship with the Y cable set and inline fuse. Heat control is built into the garment.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I wear these on their own?",
+            "answer": "<p>They're mid-layers. They go under your riding jacket and pants, over a thin base layer.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Will it drain my battery?",
+            "answer": "<p>待补具体数据</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "When does it ship?",
+            "answer": "<p>October 2026. If anything slips, we'll email you and you can take a full refund on the spot.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

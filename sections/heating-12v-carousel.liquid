@@ -1,0 +1,555 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-12v-carousel {
+    width: 100%;
+    overflow: hidden;
+    background: #f0f0f0;
+    color: var(--venustas-black, #14161a);
+    --heating-12v-title-color: #fff;
+    --heating-12v-description-color: #fff;
+    --heating-12v-label-color: #fff;
+    --heating-12v-text-color: #fff;
+    --heating-12v-footnote-color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel[data-tone='black'] {
+    --heating-12v-title-color: #14161a;
+    --heating-12v-description-color: #343a40;
+    --heating-12v-label-color: #14161a;
+    --heating-12v-text-color: #272d45;
+    --heating-12v-footnote-color: #343a40;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel[data-tone='white'] {
+    --heating-12v-title-color: #fff;
+    --heating-12v-description-color: #fff;
+    --heating-12v-label-color: #fff;
+    --heating-12v-text-color: #fff;
+    --heating-12v-footnote-color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__stage {
+    position: relative;
+    aspect-ratio: 1920 / 849;
+    min-height: 650px;
+    padding: 80px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__bg {
+    position: absolute;
+    inset: 0;
+    background: #f0f0f0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity var(--heating-12v-fade, 3s) ease;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__slide.is-active {
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__slide-picture,
+  #shopify-section-{{ section.id }} .heating-12v-carousel__slide-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__slide-image {
+    object-fit: cover;
+    object-position: bottom center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(189, 215, 255, 0) 0%, rgba(255, 255, 255, 0.3) 100%);
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__inner {
+    position: static;
+    display: flex;
+    width: min(100% - 40px, 1340px);
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__header {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    max-width: 1120px;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+    filter: drop-shadow(0 0 30px #fff);
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__title {
+    margin: 0;
+    color: var(--heating-12v-title-color);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__description {
+    max-width: 593px;
+    margin: 0;
+    color: var(--heating-12v-description-color);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__description p {
+    margin: 0;
+  }
+  #shopify-section-{{ section.id }} .heating-12v-carousel__controls {
+    position: absolute;
+    left: 50%;
+    bottom: 100px;
+    z-index: 2;
+    display: flex;
+    width: min(100%, 852px);
+    gap: 8px;
+    justify-content: center;
+    margin-top: 0;
+    transform: translateX(-50%);
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__control {
+    display: flex;
+    width: 166px;
+    min-height: 144px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #14161a;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__control.is-active {
+    background: var(--heating-12v-active-color, rgba(255, 255, 255, 0.4));
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__icon {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-brand, #b93205);
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__icon img,
+  #shopify-section-{{ section.id }} .heating-12v-carousel__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__fallback-icon {
+    width: 18px;
+    height: 18px;
+    border: 2px solid currentColor;
+    border-radius: 999px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__label {
+    margin: 16px 0 0;
+    color: var(--heating-12v-label-color);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: -0.15px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__text {
+    margin: 4px 0 0;
+    color: var(--heating-12v-text-color);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.68;
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} .heating-12v-carousel__footnote {
+    position: absolute;
+    left: 50%;
+    bottom: 36px;
+    z-index: 2;
+    margin: 0;
+    color: var(--heating-12v-footnote-color);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.68;
+    text-align: center;
+    transform: translateX(-50%);
+  }
+
+  #shopify-section-{{ section.id }} .heating-12v-carousel__mobile-track {
+    display: none;
+  }
+  @media only screen and (max-width: 1279px) {
+    #shopify-section-{{ section.id }} .heating-12v-carousel__stage {
+      display: block;
+      aspect-ratio: auto;
+      min-height: 0;
+      padding: 56px 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__title {
+      color: #14161a;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__description {
+      color: #565b63;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__label {
+      color: #14161a;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__text {
+      color: #272d45;
+    }
+    #shopify-section-{{ section.id }} .heating-12v-carousel__bg,
+    #shopify-section-{{ section.id }} .heating-12v-carousel__shade,
+    #shopify-section-{{ section.id }} .heating-12v-carousel__controls,
+    #shopify-section-{{ section.id }} .heating-12v-carousel__footnote {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__inner {
+      width: 100%;
+      align-items: flex-start;
+      gap: 32px;
+      padding: 0 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__header {
+      align-items: flex-start;
+      gap: 12px;
+      text-align: left;
+      filter: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__title {
+      font-size: 24px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__description {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__mobile-track {
+      display: flex;
+      width: calc(100vw - 40px);
+      gap: 12px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      border-radius: 6px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__mobile-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__mobile-card {
+      display: flex;
+      width: 203px;
+      flex: 0 0 203px;
+      flex-direction: column;
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__mobile-media {
+      height: 203px;
+      overflow: hidden;
+      border-radius: 6px 6px 0 0;
+      background: #e5edf8;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__mobile-picture,
+    #shopify-section-{{ section.id }} .heating-12v-carousel__mobile-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__mobile-image {
+      object-fit: cover;
+      object-position: bottom center;
+    }
+
+    #shopify-section-{{ section.id }} .heating-12v-carousel__mobile-body {
+      display: flex;
+      min-height: 144px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: 0 0 6px 6px;
+      background: rgba(255, 255, 255, 0.4);
+      box-sizing: border-box;
+    }
+  }
+{% endstyle %}
+
+{%- assign fade_seconds = section.settings.fade_seconds | default: 3 -%}
+{%- assign hold_seconds = section.settings.hold_seconds | default: 3 -%}
+{%- assign initial_tone = 'white' -%}
+{%- if section.blocks.size > 0 -%}
+  {%- assign initial_tone = section.blocks.first.settings.text_tone | default: 'white' -%}
+{%- endif -%}
+
+<section
+  class="heating-12v-carousel"
+  data-heating-12v-carousel
+  data-tone="{{ initial_tone }}"
+  data-fade="{{ fade_seconds }}"
+  data-hold="{{ hold_seconds }}"
+  style="--heating-12v-fade: {{ fade_seconds }}s;"
+>
+  <div class="heating-12v-carousel__stage">
+    <div class="heating-12v-carousel__bg" aria-hidden="true">
+      {%- for block in section.blocks -%}
+        <div class="heating-12v-carousel__slide{% if forloop.first %} is-active{% endif %}" data-heating-12v-slide {{ block.shopify_attributes }}>
+          {%- render 'heating-12v-image',
+            desktop_image: block.settings.desktop_image,
+            mobile_image: block.settings.mobile_image,
+            picture_class: 'heating-12v-carousel__slide-picture',
+            image_class: 'heating-12v-carousel__slide-image',
+            image_width: 2400,
+            widths: '800, 1200, 1600, 2000, 2400',
+            sizes: '100vw',
+            loading: 'lazy',
+            alt: block.settings.title,
+            placeholder_class: 'heating-12v-carousel__placeholder',
+            placeholder: 'Upload desktop background image'
+          -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    <div class="heating-12v-carousel__shade"></div>
+
+    <div class="heating-12v-carousel__inner">
+      <div class="heating-12v-carousel__header">
+        {%- if section.settings.title != blank -%}
+          <h2 class="heating-12v-carousel__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="heating-12v-carousel__description">{{ section.settings.description }}</div>
+        {%- endif -%}
+      </div>
+
+      <div class="heating-12v-carousel__controls" aria-label="12V use cases">
+        {%- for block in section.blocks -%}
+          {%- assign scene_icon_name = block.settings.icon_name | default: block.settings.title -%}
+          <button
+            class="heating-12v-carousel__control{% if forloop.first %} is-active{% endif %}"
+            type="button"
+            data-heating-12v-control
+            data-index="{{ forloop.index0 }}"
+            data-tone="{{ block.settings.text_tone | default: 'white' }}"
+            style="--heating-12v-active-color: {{ block.settings.active_color }};"
+          >
+            <span class="heating-12v-carousel__icon">
+              {%- if scene_icon_name != blank -%}
+                {%- render 'heating-icons', icon: scene_icon_name -%}
+              {%- else -%}
+                <span class="heating-12v-carousel__fallback-icon"></span>
+              {%- endif -%}
+            </span>
+            <span class="heating-12v-carousel__label">{{ block.settings.title }}</span>
+            <span class="heating-12v-carousel__text">{{ block.settings.text }}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+
+      <p class="heating-12v-carousel__footnote">Anything running a 12V DC circuit drives the same liners.</p>
+
+      <div class="heating-12v-carousel__mobile-track" data-heating-12v-track>
+        {%- for block in section.blocks -%}
+          {%- assign scene_icon_name = block.settings.icon_name | default: block.settings.title -%}
+          <article class="heating-12v-carousel__mobile-card" data-heating-12v-card>
+            <div class="heating-12v-carousel__mobile-media">
+              {%- render 'heating-12v-image',
+                desktop_image: block.settings.desktop_image,
+                mobile_image: block.settings.mobile_image,
+                picture_class: 'heating-12v-carousel__mobile-picture',
+                image_class: 'heating-12v-carousel__mobile-image',
+                image_width: 700,
+                widths: '300, 420, 700',
+                sizes: '203px',
+                mobile_sizes: '203px',
+                loading: 'lazy',
+                alt: block.settings.title,
+                placeholder_class: 'heating-12v-carousel__placeholder',
+                placeholder: 'Upload mobile image'
+              -%}
+            </div>
+            <div class="heating-12v-carousel__mobile-body">
+              <span class="heating-12v-carousel__icon">
+                {%- if scene_icon_name != blank -%}
+                  {%- render 'heating-icons', icon: scene_icon_name -%}
+                {%- else -%}
+                  <span class="heating-12v-carousel__fallback-icon"></span>
+                {%- endif -%}
+              </span>
+              <h3 class="heating-12v-carousel__label">{{ block.settings.title }}</h3>
+              <p class="heating-12v-carousel__text">{{ block.settings.text }}</p>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- render 'heating-12v-carousel-script' -%}
+
+{% schema %}
+{
+  "name": "Heating 12V Carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "ProductH title",
+      "default": "If it has a 12V circuit, it works"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "ProductH description",
+      "default": "<p>Built for motorcycles first, but the power source is the only requirement. Anything running a 12V DC circuit drives the same liners.</p>"
+    },
+    {
+      "type": "range",
+      "id": "hold_seconds",
+      "label": "ProductH stay time seconds",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "fade_seconds",
+      "label": "ProductH carousel frequency seconds",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "scene",
+      "name": "ProductH scene",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "ProductH desktop background"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "ProductH mobile image"
+        },
+        {
+          "type": "text",
+          "id": "icon_name",
+          "label": "ProductH icon name"
+        },
+        {
+          "type": "color_background",
+          "id": "active_color",
+          "label": "ProductH active background",
+          "default": "rgba(255,255,255,0.4)"
+        },
+        {
+          "type": "select",
+          "id": "text_tone",
+          "label": "ProductH text tone",
+          "default": "white",
+          "options": [
+            {
+              "value": "black",
+              "label": "Black"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "ProductH scene title",
+          "default": "Motorcycle"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "ProductH scene text",
+          "default": "Touring, commuting, ADV"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating 12V Carousel",
+      "blocks": [
+        {
+          "type": "scene",
+          "settings": { "title": "Motorcycle", "text": "Touring, commuting, ADV", "icon_name": "motorcycle" }
+        },
+        {
+          "type": "scene",
+          "settings": { "title": "ATV / UTV", "text": "Open cab, cold trails", "icon_name": "atv" }
+        },
+        {
+          "type": "scene",
+          "settings": { "title": "Snowmobile", "text": "Sustained sub-freezing", "icon_name": "snowmobile" }
+        },
+        {
+          "type": "scene",
+          "settings": { "title": "Boat", "text": "Wind chill on the water", "icon_name": "boat" }
+        },
+        {
+          "type": "scene",
+          "settings": { "title": "Light aircraft", "text": "Unheated cabins", "icon_name": "aircraft" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

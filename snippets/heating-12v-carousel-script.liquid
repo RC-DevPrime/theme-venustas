@@ -1,0 +1,55 @@
+<script>
+  (() => {
+    const section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+
+    const root = section.querySelector('[data-heating-12v-carousel]');
+    const slides = [...section.querySelectorAll('[data-heating-12v-slide]')];
+    const controls = [...section.querySelectorAll('[data-heating-12v-control]')];
+    const track = section.querySelector('[data-heating-12v-track]');
+    const cards = [...section.querySelectorAll('[data-heating-12v-card]')];
+    if (!root || !slides.length) return;
+
+    const hold = Math.max(parseFloat(root.dataset.hold || '3'), 1) * 1000;
+    const fade = Math.max(parseFloat(root.dataset.fade || '3'), 0) * 1000;
+    const interval = hold + fade;
+    let index = 0;
+    let timer = null;
+
+    const setActive = (next) => {
+      index = (next + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
+      controls.forEach((control, i) => control.classList.toggle('is-active', i === index));
+      root.dataset.tone = controls[index]?.dataset.tone || 'white';
+      if (track && cards[index] && window.matchMedia('(max-width: 767px)').matches) {
+        track.scrollTo({ left: cards[index].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+      }
+    };
+
+    const start = () => {
+      window.clearInterval(timer);
+      timer = window.setInterval(() => setActive(index + 1), interval);
+    };
+
+    controls.forEach((control) => {
+      control.addEventListener('click', () => {
+        setActive(parseInt(control.dataset.index || '0', 10));
+        start();
+      });
+    });
+
+    if (track) {
+      track.addEventListener('scroll', () => {
+        if (!window.matchMedia('(max-width: 767px)').matches) return;
+        const next = cards.reduce((closest, card, i) => {
+          const distance = Math.abs(card.offsetLeft - track.scrollLeft);
+          return distance < closest.distance ? { index: i, distance } : closest;
+        }, { index, distance: Infinity }).index;
+        if (next !== index) setActive(next);
+      }, { passive: true });
+    }
+
+    start();
+    document.addEventListener('shopify:section:unload', () => window.clearInterval(timer), { once: true });
+  })();
+</script>

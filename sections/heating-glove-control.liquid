@@ -1,0 +1,278 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-glove-control {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    color: var(--venustas-black, #14161a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 44px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__title {
+    margin: 0;
+    color: var(--venustas-black, #14161a);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__description {
+    max-width: 1120px;
+    margin: 0;
+    color: #565b63;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__card {
+    position: relative;
+    aspect-ratio: 109 / 60;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #f0f0f0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__picture,
+  #shopify-section-{{ section.id }} .heating-glove-control__image,
+  #shopify-section-{{ section.id }} .heating-glove-control__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__image,
+  #shopify-section-{{ section.id }} .heating-glove-control__video {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__placeholder {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #6d7278;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heating-glove-control__inner {
+      width: 100%;
+      padding: 56px 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__header {
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__title {
+      font-size: 24px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__description {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__card {
+      border-radius: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__placeholder {
+      padding: 16px;
+    }
+  }
+{% endstyle %}
+
+{%- liquid
+  assign first_image = section.settings.first_desktop_image | default: section.settings.first_mobile_image
+  assign second_image = section.settings.second_desktop_image | default: section.settings.second_mobile_image
+  assign first_ratio = section.settings.first_video.preview_image.aspect_ratio | default: first_image.aspect_ratio | default: 1.817
+  assign second_ratio = section.settings.second_video.preview_image.aspect_ratio | default: second_image.aspect_ratio | default: 1.817
+-%}
+
+<section class="heating-glove-control" id="heating-temp-control">
+  <div class="heating-glove-control__inner">
+    <div class="heating-glove-control__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heating-glove-control__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heating-glove-control__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="heating-glove-control__grid">
+      <div class="heating-glove-control__card" style="aspect-ratio: {{ first_ratio }};">
+        {%- if section.settings.first_video != blank -%}
+          {{ section.settings.first_video | video_tag: class: 'heating-glove-control__video js-autoplay-in-view', loop: true, muted: true, playsinline: true, controls: true, preload: 'none', image_size: '1400x' }}
+        {%- elsif first_image != blank -%}
+          <picture class="heating-glove-control__picture">
+            {{
+              first_image
+              | image_url: width: 1400
+              | image_tag:
+                class: 'heating-glove-control__image',
+                loading: 'lazy',
+                widths: '350, 700, 900, 1100, 1400',
+                sizes: '(max-width: 767px) calc(100vw - 40px), 654px',
+                alt: first_image.alt | default: section.settings.title
+            }}
+          </picture>
+        {%- else -%}
+          <div class="heating-glove-control__placeholder">Upload a control image or MP4 video.</div>
+        {%- endif -%}
+      </div>
+
+      <div class="heating-glove-control__card" style="aspect-ratio: {{ second_ratio }};">
+        {%- if section.settings.second_video != blank -%}
+          {{ section.settings.second_video | video_tag: class: 'heating-glove-control__video js-autoplay-in-view', loop: true, muted: true, playsinline: true, controls: true, preload: 'none', image_size: '1400x' }}
+        {%- elsif second_image != blank -%}
+          <picture class="heating-glove-control__picture">
+            {{
+              second_image
+              | image_url: width: 1400
+              | image_tag:
+                class: 'heating-glove-control__image',
+                loading: 'lazy',
+                widths: '350, 700, 900, 1100, 1400',
+                sizes: '(max-width: 767px) calc(100vw - 40px), 654px',
+                alt: second_image.alt | default: section.settings.title
+            }}
+          </picture>
+        {%- else -%}
+          <div class="heating-glove-control__placeholder">Upload a comparison image or MP4 video.</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot || sectionRoot.dataset.inViewVideoReady === 'true') return;
+
+    const videos = sectionRoot.querySelectorAll('.js-autoplay-in-view');
+    if (!videos.length) return;
+    sectionRoot.dataset.inViewVideoReady = 'true';
+
+    const playVideo = (video) => {
+      const playPromise = video.play();
+      if (playPromise) playPromise.catch(() => {});
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) playVideo(entry.target);
+          else entry.target.pause();
+        });
+      }, { threshold: 0.15 });
+
+      videos.forEach((video) => observer.observe(video));
+      sectionRoot.inViewVideoObserver = observer;
+
+      document.addEventListener('shopify:section:unload', function unload(event) {
+        if (event.detail.sectionId !== '{{ section.id }}') return;
+        observer.disconnect();
+        document.removeEventListener('shopify:section:unload', unload);
+      });
+    } else {
+      videos.forEach(playVideo);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Heating Glove Control",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "ProductH title",
+      "default": "One button. Three levels. Glove-Friendly Control."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "ProductH description",
+      "default": "<p>High. Medium. Low. All controlled directly from the garment with one easy-to-reach button — even with gloves on. No separate controller. No handlebar mount. No extra cable running down your sleeve. Just press the button to change heat levels while you ride.</p>"
+    },
+    {
+      "type": "header",
+      "content": "ProductH first media"
+    },
+    {
+      "type": "image_picker",
+      "id": "first_desktop_image",
+      "label": "ProductH first image"
+    },
+    {
+      "type": "video",
+      "id": "first_video",
+      "label": "ProductH first video (MP4 recommended)"
+    },
+    {
+      "type": "header",
+      "content": "ProductH second media"
+    },
+    {
+      "type": "image_picker",
+      "id": "second_desktop_image",
+      "label": "ProductH second image"
+    },
+    {
+      "type": "video",
+      "id": "second_video",
+      "label": "ProductH second video (MP4 recommended)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Glove Control"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,97 @@
+<article class="heating-power-options__feature-card">
+  <div class="heating-power-options__card-heading">
+    <span class="heating-power-options__card-icon" aria-hidden="true">
+      <svg viewBox="0 0 28 28" fill="none">
+        <path d="M20.82 14.09L19.66 10.59M3.32 8.26L10.32 10.59C10.32 9.97 10.57 9.38 11.01 8.94C11.44 8.5 12.04 8.26 12.66 8.26H14.99C16.19 8.26 17.19 9.17 17.31 10.37M9.15 17.59H12.66C13.3 17.59 13.82 17.07 13.82 16.42C13.82 12.56 16.96 9.42 20.82 9.42C21.47 9.42 21.99 8.9 21.99 8.26V7.38C21.74 5.86 20.9 4.5 19.66 3.59M9.15 17.59A3.5 3.5 0 1 1 2.15 17.59A3.5 3.5 0 0 1 9.15 17.59ZM25.49 17.59A3.5 3.5 0 1 1 18.49 17.59A3.5 3.5 0 0 1 25.49 17.59Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </span>
+    <h3 class="heating-power-options__card-title">Motorcycle Powered</h3>
+  </div>
+
+  {%- if section_settings.feature_image != blank -%}
+    <picture class="heating-power-options__feature-media">
+      {%- if section_settings.feature_mobile_image != blank -%}
+        <source media="(max-width: 767px)" srcset="{{ section_settings.feature_mobile_image | image_url: width: 750 }}">
+      {%- endif -%}
+      {{
+        section_settings.feature_image
+        | image_url: width: 1400
+        | image_tag:
+          class: 'heating-power-options__feature-image',
+          loading: 'lazy',
+          widths: '350, 600, 900, 1200, 1400',
+          sizes: '(max-width: 767px) calc(100vw - 40px), (max-width: 1379px) calc((100vw - 96px) / 2), 646px',
+          alt: 'Motorcycle rider using Venustas heated gear'
+      }}
+    </picture>
+  {%- endif -%}
+
+  <div class="heating-power-options__feature-copy">
+    <h4 class="heating-power-options__feature-subtitle">Powered by Your Motorcycle's 12V System.</h4>
+    <p class="heating-power-options__feature-description">Connect your heated gear directly to your motorcycle for reliable, continuous power during long rides.</p>
+  </div>
+
+  <ul class="heating-power-options__tag-list" aria-label="Best uses for motorcycle power">
+    <li class="heating-power-options__tag-item">
+      <span class="heating-power-options__tag-icon" aria-hidden="true">
+        <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="34" height="34" rx="17" fill="#FBF2EF"/>
+          <path d="M8.5 24.7808V8.78076H9.64286V24.7808H8.5ZM15.9286 24.7808V21.2642H17.0714V24.7808H15.9286ZM23.3571 24.7808V8.78076H24.5V24.7808H23.3571ZM15.9286 18.539V15.0225H17.0714V18.539H15.9286ZM15.9286 12.2973V8.78076H17.0714V12.2973H15.9286Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span>Long-distance touring</span>
+    </li>
+    <li class="heating-power-options__tag-item">
+      <span class="heating-power-options__tag-icon" aria-hidden="true">
+        <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="30" height="30" rx="15" fill="#FBF2EF"/>
+          <path d="M8.54348 20.7808C7.69841 20.7808 6.97993 20.4665 6.38804 19.8381C5.79601 19.2098 5.5 18.4471 5.5 17.55C5.5 16.6849 5.77841 15.9435 6.33522 15.3258C6.89217 14.708 7.57812 14.3795 8.39304 14.3405H9.02848L7.65043 13.1121H5.5V12.2956H8.57696L11.1187 13.8932L14.6974 12.4731H18.2726L16.2224 9.70384H14.1957V8.78076H16.6472L18.2726 10.989L20.8511 9.98792V11.5855H18.7174L21.0083 14.7028C21.2257 14.5631 21.4578 14.4642 21.7048 14.4062C21.9517 14.3482 22.2023 14.3192 22.4565 14.3192C23.3016 14.3192 24.0201 14.6335 24.612 15.2619C25.204 15.8902 25.5 16.6529 25.5 17.55C25.5 18.4471 25.204 19.2098 24.612 19.8381C24.0201 20.4665 23.3016 20.7808 22.4565 20.7808C21.6115 20.7808 20.893 20.4665 20.3011 19.8381C19.7091 19.2098 19.413 18.4471 19.413 17.55C19.413 17.1109 19.493 16.6982 19.653 16.3119C19.813 15.9255 20.0385 15.5808 20.3293 15.2778L19.2926 13.872L16.1689 18.9346H13.928L11.587 16.7866V17.6033C11.5703 18.4896 11.2676 19.2408 10.6789 19.8568C10.0904 20.4728 9.37855 20.7808 8.54348 20.7808ZM8.54348 19.8577C9.15551 19.8577 9.67087 19.6355 10.0896 19.1912C10.5081 18.7468 10.7174 18.1997 10.7174 17.55C10.7174 16.9003 10.5081 16.3532 10.0896 15.9088C9.67087 15.4645 9.15551 15.2423 8.54348 15.2423C7.93145 15.2423 7.41609 15.4645 6.99739 15.9088C6.57884 16.3532 6.36957 16.9003 6.36957 17.55C6.36957 18.1997 6.57884 18.7468 6.99739 19.1912C7.41609 19.6355 7.93145 19.8577 8.54348 19.8577ZM22.4565 19.8577C23.0686 19.8577 23.5839 19.6355 24.0026 19.1912C24.4212 18.7468 24.6304 18.1997 24.6304 17.55C24.6304 16.9003 24.4212 16.3532 24.0026 15.9088C23.5839 15.4645 23.0686 15.2423 22.4565 15.2423C21.8445 15.2423 21.3291 15.4645 20.9104 15.9088C20.4919 16.3532 20.2826 16.9003 20.2826 17.55C20.2826 18.1997 20.4919 18.7468 20.9104 19.1912C21.3291 19.6355 21.8445 19.8577 22.4565 19.8577ZM15.6907 18.0115L18.5635 13.3961H14.8678L10.9683 14.9264L14.2459 18.0115H15.6907Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span>Highway riding</span>
+    </li>
+    <li class="heating-power-options__tag-item">
+      <span class="heating-power-options__tag-icon" aria-hidden="true">
+        <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="30" height="30" rx="15" fill="#FBF2EF"/>
+          <path d="M14.5789 22.7808V18.7031L11.4211 21.8189L10.8251 21.2229L14.5789 17.469V15.2018H12.3118L8.55789 18.9557L7.96189 18.3597L11.0777 15.2018H7V14.3597H11.0777L7.96189 11.2018L8.55789 10.6058L12.3118 14.3597H14.5789V12.0926L10.8251 8.33866L11.4211 7.74266L14.5789 10.8584V6.78076H15.4211V10.8584L18.5789 7.74266L19.1749 8.33866L15.4211 12.0926V14.3597H17.6882L21.4421 10.6058L22.0381 11.2018L18.9223 14.3597H23V15.2018H18.9223L22.0381 18.3597L21.4421 18.9557L17.6882 15.2018H15.4211V17.469L19.1749 21.2229L18.5789 21.8189L15.4211 18.7031V22.7808H14.5789Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span>Extended cold-weather rides</span>
+    </li>
+  </ul>
+
+  <div class="heating-power-options__flow">
+    {%- for index in (1..3) -%}
+      {%- liquid
+        assign image_key = 'flow_image_' | append: index
+        assign flow_image = section_settings[image_key]
+        assign flow_image_class = 'heating-power-options__flow-image heating-power-options__flow-image--' | append: index
+        case index
+          when 1
+            assign flow_label = 'Motorcycle 12V'
+          when 2
+            assign flow_label = '12V Connection Cable'
+          else
+            assign flow_label = 'Heated Jacket/Pants'
+        endcase
+      -%}
+      <div class="heating-power-options__flow-item heating-power-options__flow-item--{{ index }}">
+        {%- if flow_image != blank -%}
+          {{
+            flow_image
+            | image_url: width: 320
+            | image_tag:
+              class: flow_image_class,
+              loading: 'lazy',
+              widths: '104, 160, 220, 320',
+              sizes: '(max-width: 767px) 92px, 104px',
+              alt: flow_label
+          }}
+        {%- endif -%}
+        <p class="heating-power-options__flow-label">{{ flow_label }}</p>
+      </div>
+      {%- unless forloop.last -%}<span class="heating-power-options__flow-arrow" aria-hidden="true">→</span>{%- endunless -%}
+    {%- endfor -%}
+  </div>
+</article>

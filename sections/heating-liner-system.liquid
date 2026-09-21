@@ -1,0 +1,408 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heating-liner-system {
+    width: 100%;
+    overflow: hidden;
+    background: #f0f0f0;
+    color: var(--venustas-black, #14161a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 46px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__title {
+    margin: 0;
+    color: var(--venustas-black, #14161a);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__description {
+    margin: 0;
+    color: #565b63;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__content {
+    display: grid;
+    grid-template-columns: 630px minmax(0, 1fr);
+    gap: 80px;
+    align-items: start;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__media {
+    position: relative;
+    height: 750px;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__picture,
+  #shopify-section-{{ section.id }} .heating-liner-system__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__picture {
+    position: absolute;
+    inset: 0;
+    opacity: 1;
+    transition: opacity 220ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__picture--alternate {
+    opacity: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__media:hover .heating-liner-system__picture--alternate,
+  #shopify-section-{{ section.id }} .heating-liner-system__media.is-active .heating-liner-system__picture--alternate {
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__media:hover .heating-liner-system__picture--primary,
+  #shopify-section-{{ section.id }} .heating-liner-system__media.is-active .heating-liner-system__picture--primary {
+    opacity: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__image {
+    object-fit: contain;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__placeholder {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    color: #565b63;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__details {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    padding-top: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__product {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__meta {
+    margin: 0 0 5px;
+    color: var(--color-brand, #B93205);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.68;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__product-title {
+    margin: 0;
+    color: var(--venustas-black, #14161a);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: -0.44px;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__item {
+    padding: 12px 0;
+    border-top: 1px solid #e3e4e0;
+    color: #565b63;
+    font-size: 14.5px;
+    font-weight: 400;
+    line-height: 1.68;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__item strong {
+    color: var(--venustas-black, #14161a);
+    font-weight: 700;
+  }
+
+  @media only screen and (max-width: 1000px) {
+    #shopify-section-{{ section.id }} .heating-liner-system__inner {
+      width: 100%;
+      padding: 56px 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__header {
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__title {
+      font-size: 24px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__description {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__content {
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__media {
+      width: 100%;
+      height: 464px;
+      border-radius: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__media:hover .heating-liner-system__picture--alternate {
+      opacity: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__media:hover .heating-liner-system__picture--primary {
+      opacity: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__media.is-active .heating-liner-system__picture--alternate {
+      opacity: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__media.is-active .heating-liner-system__picture--primary {
+      opacity: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__details {
+      width: 100%;
+      gap: 56px;
+      padding-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__product {
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__meta {
+      margin: 0 0 4px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__product-title {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heating-liner-system__item {
+      padding: 12px 0;
+      border-top: 0;
+      border-bottom: 1px solid #e3e4e0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+{% endstyle %}
+
+{%- liquid
+  assign primary_mobile = section.settings.primary_mobile_image | default: section.settings.primary_desktop_image
+  assign alternate_mobile = section.settings.alternate_mobile_image | default: section.settings.alternate_desktop_image
+-%}
+
+<section class="heating-liner-system" id="heating-apex-series">
+  <div class="heating-liner-system__inner">
+    <div class="heating-liner-system__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heating-liner-system__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heating-liner-system__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="heating-liner-system__content">
+      <div class="heating-liner-system__media" data-heating-liner-toggle role="button" tabindex="0" aria-label="Toggle liner image">
+        {%- if section.settings.primary_desktop_image != blank or primary_mobile != blank -%}
+          <picture class="heating-liner-system__picture heating-liner-system__picture--primary">
+            {%- if primary_mobile != blank -%}
+              <source media="(max-width: 767px)" srcset="{{ primary_mobile | image_url: width: 700 }} 700w, {{ primary_mobile | image_url: width: 1000 }} 1000w" sizes="calc(100vw - 40px)">
+            {%- endif -%}
+            {%- assign primary_image = section.settings.primary_desktop_image | default: primary_mobile -%}
+            {{
+              primary_image
+              | image_url: width: 1500
+              | image_tag:
+                class: 'heating-liner-system__image',
+                loading: 'lazy',
+                widths: '350, 700, 1000, 1200, 1500',
+                sizes: '(max-width: 767px) calc(100vw - 40px), 658px',
+                alt: primary_image.alt | default: section.settings.title
+            }}
+          </picture>
+        {%- endif -%}
+
+        {%- if section.settings.alternate_desktop_image != blank or alternate_mobile != blank -%}
+          <picture class="heating-liner-system__picture heating-liner-system__picture--alternate">
+            {%- if alternate_mobile != blank -%}
+              <source media="(max-width: 767px)" srcset="{{ alternate_mobile | image_url: width: 700 }} 700w, {{ alternate_mobile | image_url: width: 1000 }} 1000w" sizes="calc(100vw - 40px)">
+            {%- endif -%}
+            {%- assign alternate_image = section.settings.alternate_desktop_image | default: alternate_mobile -%}
+            {{
+              alternate_image
+              | image_url: width: 1500
+              | image_tag:
+                class: 'heating-liner-system__image',
+                loading: 'lazy',
+                widths: '350, 700, 1000, 1200, 1500',
+                sizes: '(max-width: 767px) calc(100vw - 40px), 658px',
+                alt: alternate_image.alt | default: section.settings.title
+            }}
+          </picture>
+        {%- endif -%}
+
+        {%- if section.settings.primary_desktop_image == blank and primary_mobile == blank and section.settings.alternate_desktop_image == blank and alternate_mobile == blank -%}
+          <div class="heating-liner-system__placeholder">Upload default and switch images.</div>
+        {%- endif -%}
+      </div>
+
+      <div class="heating-liner-system__details">
+        <div class="heating-liner-system__product">
+          <div>
+            <p class="heating-liner-system__meta">MMJ01 · $239.99</p>
+            <h3 class="heating-liner-system__product-title">Apex™ Heated Jacket Liner</h3>
+          </div>
+          <ul class="heating-liner-system__list">
+            <li class="heating-liner-system__item"><strong>Six heat zones</strong> — collar, chest ×2, sleeves ×2, back</li>
+            <li class="heating-liner-system__item"><strong>42W</strong> at full power, 144°F on high</li>
+            <li class="heating-liner-system__item"><strong>Packs into its own back pocket</strong></li>
+            <li class="heating-liner-system__item"><strong>Expansion ports</strong> at the cuffs for heated gloves</li>
+          </ul>
+        </div>
+
+        <div class="heating-liner-system__product">
+          <div>
+            <p class="heating-liner-system__meta">MMP03 · $199.99</p>
+            <h3 class="heating-liner-system__product-title">Apex™ Heated Pants Liner</h3>
+          </div>
+          <ul class="heating-liner-system__list">
+            <li class="heating-liner-system__item"><strong>Two full-leg zones</strong>, not just the thighs</li>
+            <li class="heating-liner-system__item"><strong>38W</strong> at full power, 144°F on high</li>
+            <li class="heating-liner-system__item"><strong>Zippered ankles</strong> to pull on over boots</li>
+            <li class="heating-liner-system__item"><strong>Cable pocket</strong> inside each ankle</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+
+    const media = section.querySelector('[data-heating-liner-toggle]');
+    if (!media) return;
+
+    const toggle = () => {
+      if (window.matchMedia('(max-width: 767px)').matches) {
+        media.classList.toggle('is-active');
+      }
+    };
+
+    media.addEventListener('click', toggle);
+    media.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggle();
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Heating Liner System",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "ProductH title",
+      "default": "Two liners. One power source."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "ProductH description",
+      "default": "<p>Both pieces are mid-layers — they go under your riding jacket and pants, not over them. Wired together, one lead off the bike runs the whole thing.</p>"
+    },
+    {
+      "type": "header",
+      "content": "ProductH default image"
+    },
+    {
+      "type": "image_picker",
+      "id": "primary_desktop_image",
+      "label": "ProductH desktop default image"
+    },
+    {
+      "type": "image_picker",
+      "id": "primary_mobile_image",
+      "label": "ProductH mobile default image"
+    },
+    {
+      "type": "header",
+      "content": "ProductH switch image"
+    },
+    {
+      "type": "image_picker",
+      "id": "alternate_desktop_image",
+      "label": "ProductH desktop switch image"
+    },
+    {
+      "type": "image_picker",
+      "id": "alternate_mobile_image",
+      "label": "ProductH mobile switch image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Liner System"
+    }
+  ]
+}
+{% endschema %}

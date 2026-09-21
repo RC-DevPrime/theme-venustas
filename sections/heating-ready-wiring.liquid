@@ -1,0 +1,216 @@
+{%- render 'heating-ready-wiring-styles', section_id: section.id -%}
+
+{% style %}
+  @media only screen and (min-width: 1340px) {
+    #shopify-section-{{ section.id }} .heating-ready-wiring__media {
+      height: 408px !important;
+      aspect-ratio: auto !important;
+    }
+  }
+{% endstyle %}
+
+{%- liquid
+  assign venustas_ratio = section.settings.venustas_video.preview_image.aspect_ratio | default: section.settings.venustas_media.aspect_ratio | default: 1.603
+  assign other_ratio = section.settings.other_video.preview_image.aspect_ratio | default: section.settings.other_media.aspect_ratio | default: 1.603
+-%}
+
+<section class="heating-ready-wiring" id="heating-setup">
+  <div class="heating-ready-wiring__inner">
+    <header class="heating-ready-wiring__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heating-ready-wiring__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heating-ready-wiring__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="heating-ready-wiring__grid">
+      <article class="heating-ready-wiring__card">
+        <div class="heating-ready-wiring__media" style="height: auto; aspect-ratio: {{ venustas_ratio }};">
+          {%- if section.settings.venustas_video != blank -%}
+            {{
+              section.settings.venustas_video
+              | video_tag:
+                class: 'heating-ready-wiring__image js-autoplay-in-view',
+                loop: true,
+                muted: true,
+                playsinline: true,
+                controls: true,
+                preload: 'none',
+                image_size: '1400x'
+            }}
+          {%- elsif section.settings.venustas_media != blank -%}
+            {{
+              section.settings.venustas_media
+              | image_url: width: 1400
+              | image_tag:
+                class: 'heating-ready-wiring__image',
+                loading: 'lazy',
+                widths: '350, 700, 900, 1100, 1400',
+                sizes: '(max-width: 767px) calc(100vw - 40px), 654px',
+                alt: section.settings.venustas_media.alt | default: 'Venustas preassembled wiring system'
+            }}
+          {%- else -%}
+            <div class="heating-ready-wiring__placeholder"></div>
+          {%- endif -%}
+          <span class="heating-ready-wiring__brand heating-ready-wiring__brand--accent">VENUSTAS</span>
+        </div>
+
+        <div class="heating-ready-wiring__diagram">
+          <h3 class="heating-ready-wiring__diagram-title">Apex™ Series</h3>
+          <div class="heating-ready-wiring__primary">
+            <span class="heating-ready-wiring__node heating-ready-wiring__node--dark">12V power</span>
+            <span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node-wrap"><span class="heating-ready-wiring__node cable heating-ready-wiring__node--accent">Y cable</span><span class="heating-ready-wiring__note">fuse already inside</span></span>
+            <span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node">Jacket / Pants Liner</span>
+            <span class="heating-ready-wiring__metric"><strong>3 connections</strong><span>Nothing to choose or assemble</span></span>
+          </div>
+          <p class="heating-ready-wiring__secondary-label">Running both on one lead</p>
+          <div class="heating-ready-wiring__secondary">
+            <span class="heating-ready-wiring__apparel-pair"><span class="heating-ready-wiring__node">Jacket Liner</span><span class="heating-ready-wiring__plus">+</span><span class="heating-ready-wiring__node">Pants Liner</span></span>
+            <svg width="20" height="46" viewBox="0 0 20 46" fill="none" xmlns="http://www.w3.org/2000/svg" class="heating-ready-wiring__branch heating-ready-wiring__branch--desktop">
+              <path d="M0 0.5H19V45.5H0" stroke="black"></path>
+            </svg>
+            <svg width="7" height="58" viewBox="0 0 7 58" fill="none" xmlns="http://www.w3.org/2000/svg" class="heating-ready-wiring__branch heating-ready-wiring__branch--mobile">
+              <path d="M0 0.5H6V57.5H0" stroke="black"/>
+            </svg>
+
+            <span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node-wrap heating-ready-wiring__node-wrap--three-way"><span class="heating-ready-wiring__node cable110 heating-ready-wiring__node--dashed">3-Way cable</span><span class="heating-ready-wiring__note">free with reservation</span></span>
+            <span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node-wrap heating-ready-wiring__node-wrap--y-cable"><span class="heating-ready-wiring__node cable110 heating-ready-wiring__node--accent">Y cable</span><span class="heating-ready-wiring__note">fuse inside</span></span>
+            <span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node cable120">12V Power</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="heating-ready-wiring__card">
+        <div class="heating-ready-wiring__media" style="height: auto; aspect-ratio: {{ other_ratio }};">
+          {%- if section.settings.other_video != blank -%}
+            {{
+              section.settings.other_video
+              | video_tag:
+                class: 'heating-ready-wiring__image js-autoplay-in-view',
+                loop: true,
+                muted: true,
+                playsinline: true,
+                controls: true,
+                preload: 'none',
+                image_size: '1400x'
+            }}
+          {%- elsif section.settings.other_media != blank -%}
+            {{
+              section.settings.other_media
+              | image_url: width: 1400
+              | image_tag:
+                class: 'heating-ready-wiring__image',
+                loading: 'lazy',
+                widths: '350, 700, 900, 1100, 1400',
+                sizes: '(max-width: 767px) calc(100vw - 40px), 654px',
+                alt: section.settings.other_media.alt | default: 'Typical heated gear wiring system'
+            }}
+          {%- else -%}
+            <div class="heating-ready-wiring__placeholder"></div>
+          {%- endif -%}
+          <span class="heating-ready-wiring__brand">OTHER BRANDS</span>
+        </div>
+
+        <div class="heating-ready-wiring__diagram heating-ready-wiring__diagram--other">
+          <h3 class="heating-ready-wiring__diagram-title">A typical 12V system</h3>
+          <div class="heating-ready-wiring__other-chain">
+            <span class="heating-ready-wiring__node">12V power</span><span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node heating-ready-wiring__node--dashed">Battery harness</span><span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node heating-ready-wiring__node--dashed">Fuse</span><span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node heating-ready-wiring__node--dashed">Controller</span><span class="heating-ready-wiring__connector"></span>
+            <span class="heating-ready-wiring__node">Jacket liner</span>
+          </div>
+          <span class="heating-ready-wiring__metric"><strong>5 connections</strong><span>Two extra and a fuse decision</span></span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot || sectionRoot.dataset.inViewVideoReady === 'true') return;
+
+    const videos = sectionRoot.querySelectorAll('.js-autoplay-in-view');
+    if (!videos.length) return;
+    sectionRoot.dataset.inViewVideoReady = 'true';
+
+    const playVideo = (video) => {
+      const playPromise = video.play();
+      if (playPromise) playPromise.catch(() => {});
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) playVideo(entry.target);
+          else entry.target.pause();
+        });
+      }, { threshold: 0.15 });
+
+      videos.forEach((video) => observer.observe(video));
+      sectionRoot.inViewVideoObserver = observer;
+
+      document.addEventListener('shopify:section:unload', function unload(event) {
+        if (event.detail.sectionId !== '{{ section.id }}') return;
+        observer.disconnect();
+        document.removeEventListener('shopify:section:unload', unload);
+      });
+    } else {
+      videos.forEach(playVideo);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Heating Ready Wiring",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "ProductH title",
+      "default": "Nothing to assemble"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "ProductH description",
+      "default": "<p>The Y cable comes with the fuse already fitted and already rated for everything you can plug in — jacket, pants, gloves, socks. Attach it to your battery and the wiring is done. Heat control is in the garment, so there's no controller to mount either.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "venustas_media",
+      "label": "ProductH Venustas image"
+    },
+    {
+      "type": "video",
+      "id": "venustas_video",
+      "label": "ProductH Venustas video (MP4 recommended)"
+    },
+    {
+      "type": "image_picker",
+      "id": "other_media",
+      "label": "ProductH other brands image"
+    },
+    {
+      "type": "video",
+      "id": "other_video",
+      "label": "ProductH other brands video (MP4 recommended)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Ready Wiring"
+    }
+  ]
+}
+{% endschema %}

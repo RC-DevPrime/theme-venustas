@@ -1,0 +1,134 @@
+{%- liquid
+  assign battery_product = section_settings.battery_product
+  assign battery_variant = nil
+  assign battery_image = section_settings.product_image
+  assign battery_title = '7.5K Battery'
+  assign battery_price = '$79.99'
+  if battery_product != blank
+    assign battery_variant = battery_product.selected_or_first_available_variant
+    if battery_image == blank
+      assign battery_image = battery_product.featured_image
+    endif
+    assign battery_title = battery_product.title
+    assign battery_price = battery_variant.price | money
+  endif
+-%}
+
+<article class="heating-power-options__product-card">
+  <div class="heating-power-options__card-heading heating-power-options__card-heading--product">
+    <div class="heating-power-options__card-title-row">
+      <span class="heating-power-options__card-icon" aria-hidden="true">
+        <svg viewBox="0 0 30 30" fill="none"><path d="M26 16.32V13.2M7.25 10.07H19.75C20.9 10.07 21.83 10.77 21.83 11.63V17.88C21.83 18.75 20.9 19.45 19.75 19.45H7.25C6.09 19.45 5.16 18.75 5.16 17.88V11.63C5.16 10.77 6.09 10.07 7.25 10.07Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <h3 class="heating-power-options__card-title">Battery Powered</h3>
+    </div>
+    <p class="heating-power-options__card-kicker">Portable warmth wherever your adventure takes you.</p>
+  </div>
+
+  <div class="heating-power-options__scenes">
+    {%- for index in (1..3) -%}
+      {%- liquid
+        assign image_key = 'scene_image_' | append: index
+        assign scene_image = section_settings[image_key]
+        case index
+          when 1
+            assign scene_title = 'GARAGE'
+            assign scene_text = 'Stay warm while you work on your bike.'
+          when 2
+            assign scene_title = 'OUTDOOR'
+            assign scene_text = 'Perfect for camping, hiking, and more.'
+          else
+            assign scene_title = 'EVERYDAY'
+            assign scene_text = 'Reliable warmth for daily life in the cold.'
+        endcase
+      -%}
+      <div class="heating-power-options__scene">
+        {%- if scene_image != blank -%}
+          {{
+            scene_image
+            | image_url: width: 480
+            | image_tag:
+              class: 'heating-power-options__scene-image',
+              loading: 'lazy',
+              widths: '120, 180, 240, 360, 480',
+              sizes: '(max-width: 767px) calc((100vw - 52px) / 3), 194px',
+              alt: scene_title
+          }}
+        {%- endif -%}
+        <h4 class="heating-power-options__scene-title">{{ scene_title }}</h4>
+        <p class="heating-power-options__scene-text">{{ scene_text }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="heating-power-options__product-panel">
+    <h4 class="heating-power-options__option-heading">VENUSTAS <span>BATTERY OPTIONS</span></h4>
+    <div class="heating-power-options__product-box-wrapper">
+      <div class="heating-power-options__product-box">
+        {%- if battery_image != blank -%}
+          {{
+            battery_image
+            | image_url: width: 420
+            | image_tag:
+              class: 'heating-power-options__product-image',
+              loading: 'lazy',
+              widths: '100, 160, 240, 320, 420',
+              sizes: '(max-width: 767px) 64px, 161px',
+              alt: battery_title
+          }}
+        {%- endif -%}
+        <div class="heating-power-options__product-info">
+          <div class="heating-power-options__product-line">
+            <div>
+              <h5 class="heating-power-options__product-title">
+                 {{ battery_title }}
+                <span class="heating-power-options__tooltip d-md-none d-lg-none d-sm-none">
+                  <button class="heating-power-options__tooltip-trigger" type="button" aria-label="View battery runtime">
+                    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 5.33V8M8 10.67H8.01M14.67 8A6.67 6.67 0 1 1 1.33 8A6.67 6.67 0 0 1 14.67 8Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  </button>
+                  <span class="heating-power-options__tooltip-panel" role="tooltip">
+                    <span class="heating-power-options__runtime-table">
+                      <span>Type/Runtime</span><span>High</span><span>Medium</span><span>Low</span>
+                      <strong>For Heated Jacket Liner</strong><span>{{ section_settings.runtime_jacket_high }}</span><span>{{ section_settings.runtime_jacket_medium }}</span><span>{{ section_settings.runtime_jacket_low }}</span>
+                      <strong>For Heated Pants Liner</strong><span>{{ section_settings.runtime_pants_high }}</span><span>{{ section_settings.runtime_pants_medium }}</span><span>{{ section_settings.runtime_pants_low }}</span>
+                    </span>
+                  </span>
+                </span>
+              </h5>
+              <p class="heating-power-options__product-subtitle">Extended Runtime Power</p>
+            </div>
+            {% comment %} <p class="heating-power-options__product-price">{{ battery_price }}</p> {% endcomment %}
+          </div>
+          <ul class="heating-power-options__selling-list">
+            <li>
+              <span aria-hidden="true">{%- render 'heating-icons', icon: section_settings.selling_icon_1 -%}</span>
+              Short rides
+            </li>
+            <li>
+              <span aria-hidden="true">{%- render 'heating-icons', icon: section_settings.selling_icon_2 -%}</span>
+              Extended warmth
+            </li>
+            <li>
+              <span aria-hidden="true">{%- render 'heating-icons', icon: section_settings.selling_icon_3 -%}</span>
+              Maximum runtime
+            </li>
+          </ul>
+        </div>
+      </div>
+      <button
+        class="heating-power-options__cta d-md-none d-lg-none d-sm-none"
+        type="button"
+        data-heating-power-add
+        data-variant-id="{{ battery_variant.id }}"
+        {% if battery_variant == nil or battery_variant.available == false %}disabled{% endif %}
+      >
+        <span>ADD 7.5K BATTERY</span><span class="heating-power-options__cta-icon" aria-hidden="true">›</span>
+      </button>
+    </div>
+  </div>
+
+  <p class="heating-power-options__legal">
+    <span aria-hidden="true">?</span>
+    <span>Batteries sold separately. Compatible with Venustas heated apparel.</span>
+  </p>
+</article>

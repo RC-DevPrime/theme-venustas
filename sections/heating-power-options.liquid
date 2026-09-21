@@ -1,0 +1,176 @@
+{%- render 'heating-power-options-styles', section_id: section.id -%}
+
+<section class="heating-power-options" id="heating-power-option">
+  <div class="heating-power-options__inner">
+    <header class="heating-power-options__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heating-power-options__heading">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro_text != blank -%}
+        <p class="heating-power-options__description">{{ section.settings.intro_text }}</p>
+      {%- endif -%}
+    </header>
+
+    <div class="heating-power-options__layout">
+      <div class="heating-power-options__column">
+        {%- render 'heating-power-feature-card', section_settings: section.settings -%}
+      </div>
+      <div class="heating-power-options__column">
+        {%- render 'heating-power-product-card', section_settings: section.settings -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'heating-power-options.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Heating Power Options",
+  "tag": "section",
+  "class": "heating-power-options-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "ProductH title",
+      "default": "Powered Your Way"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text",
+      "label": "ProductH description",
+      "default": "Choose the power source that fits your ride — continuous motorcycle power on the road, or portable Venustas battery power off the bike."
+    },
+    {
+      "type": "header",
+      "content": "ProductH motorcycle images"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_image",
+      "label": "ProductH desktop main image"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_mobile_image",
+      "label": "ProductH mobile main image"
+    },
+    {
+      "type": "image_picker",
+      "id": "flow_image_1",
+      "label": "ProductH motorcycle image"
+    },
+    {
+      "type": "image_picker",
+      "id": "flow_image_2",
+      "label": "ProductH cable image"
+    },
+    {
+      "type": "image_picker",
+      "id": "flow_image_3",
+      "label": "ProductH apparel image"
+    },
+    {
+      "type": "header",
+      "content": "ProductH battery images"
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_1",
+      "label": "ProductH garage image"
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_2",
+      "label": "ProductH outdoor image"
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_3",
+      "label": "ProductH everyday image"
+    },
+    {
+      "type": "product",
+      "id": "battery_product",
+      "label": "ProductH 7.5K battery product"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "ProductH battery product image",
+      "info": "Optional. If empty, the selected battery product featured image is used."
+    },
+    {
+      "type": "header",
+      "content": "ProductH selling point icons"
+    },
+    {
+      "type": "text",
+      "id": "selling_icon_1",
+      "label": "ProductH short rides icon",
+      "default": "connection",
+      "info": "Available: connection, heat, runtime"
+    },
+    {
+      "type": "text",
+      "id": "selling_icon_2",
+      "label": "ProductH warmth icon",
+      "default": "heat",
+      "info": "Available: connection, heat, runtime"
+    },
+    {
+      "type": "text",
+      "id": "selling_icon_3",
+      "label": "ProductH runtime icon",
+      "default": "runtime",
+      "info": "Available: connection, heat, runtime"
+    },
+    {
+      "type": "header",
+      "content": "ProductH runtime tooltip"
+    },
+    {
+      "type": "text",
+      "id": "runtime_jacket_high",
+      "label": "ProductH jacket high",
+      "default": "3h"
+    },
+    {
+      "type": "text",
+      "id": "runtime_jacket_medium",
+      "label": "ProductH jacket medium",
+      "default": "5h"
+    },
+    {
+      "type": "text",
+      "id": "runtime_jacket_low",
+      "label": "ProductH jacket low",
+      "default": "8h"
+    },
+    {
+      "type": "text",
+      "id": "runtime_pants_high",
+      "label": "ProductH pants high",
+      "default": "2h"
+    },
+    {
+      "type": "text",
+      "id": "runtime_pants_medium",
+      "label": "ProductH pants medium",
+      "default": "4h"
+    },
+    {
+      "type": "text",
+      "id": "runtime_pants_low",
+      "label": "ProductH pants low",
+      "default": "6h"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heating Power Options"
+    }
+  ]
+}
+{% endschema %}
