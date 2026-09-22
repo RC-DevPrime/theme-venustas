@@ -658,6 +658,24 @@ body.product-media-lightbox-open {
     border-radius: inherit;
     display: block;
 }
+.product .variants .variant .variants-selector.color.has-new {
+    overflow: visible;
+}
+.product .variants .variant .variants-selector.color .color-new-tag {
+    position: absolute;
+    bottom: -22px;
+    background-color: #D13F0E;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 2px 2px;
+    border-radius: 2px;
+    letter-spacing: .3px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 2;
+}
 .product .variants .variant .variants-selector.color.selected {
     /* border: 1px solid #000; */
     outline: 1px solid #161616;
