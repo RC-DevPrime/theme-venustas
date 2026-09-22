@@ -59,12 +59,12 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
 
         <div class="row products-row">
             
-            <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="col-lg-6 col-sm-12 ">
                 <div class="sticky-top">
-                    {% render 'product-media', product: product, new_badge: new_badge %}
+                    {% render 'product-media',sale_badge_type: sale_badge_type,badge_detail: true,product: product, new_badge: new_badge %}
                 </div>
             </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 overflow-hidden">
+            <div class="col-lg-6 col-sm-12 overflow-hidden">
                 {%- for block in section.blocks -%}
                     {%- case block.type -%}
                         {%- when 'tags' %}

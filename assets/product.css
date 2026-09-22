@@ -69,6 +69,7 @@
 }
 .product .section-content {
     padding-top: 50px;
+    max-width: 1500px;
 }
 .product .discount-tag{
     background: #B93205;
@@ -421,7 +422,7 @@ body.product-media-lightbox-open {
     left: 0;
     right: 0;
     padding: 15px 15px;
-    max-width:650px;
+    /* max-width:650px; */
     min-width:550px;
 }
 .product .main-prod-image-container{
@@ -1869,6 +1870,21 @@ body.product-media-lightbox-open {
     }
     .product .product-media .main-media .float-nav button{
         --btn-pos: 5px;
+    }
+}
+
+/* 992px 以下：主图高度自适应，宽高保持比例 */
+@media (max-width: 991.98px) {
+    .product .product-media .main-slider {
+        height: auto;
+    }
+    .product .product-media .main-slider .swiper-wrapper,
+    .product .product-media .main-slider .swiper-slide {
+        height: auto;
+    }
+    .product .product-media .main-slider .swiper-slide img {
+        width: 100%;
+        height: auto;
     }
 }
 /* ipad Air */
