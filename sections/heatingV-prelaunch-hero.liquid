@@ -1,0 +1,212 @@
+{%- liquid
+  assign founder_total = section.settings.dynamic_inventory | default: 100
+  if founder_total < 1
+    assign founder_total = 200
+  endif
+  assign founder_remaining = founder_total
+  assign founder_available = false
+  assign founder_product = section.settings.founder_product
+  if founder_product != blank
+    assign founder_variant = founder_product.selected_or_first_available_variant | default: founder_product.variants.first
+  endif
+  if founder_variant != blank
+    if founder_variant.inventory_management != blank
+      assign founder_remaining = founder_variant.inventory_quantity
+    elsif founder_variant.available
+      assign founder_available = true
+    endif
+  endif
+  if founder_remaining < 0
+    assign founder_remaining = 0
+  elsif founder_remaining > founder_total
+    assign founder_remaining = founder_total
+  endif
+  if founder_variant != blank and founder_variant.inventory_management != blank
+    if founder_variant.available and founder_remaining > 0
+      assign founder_available = true
+    else
+      assign founder_available = false
+      assign founder_remaining = 0
+    endif
+  elsif founder_variant != blank and founder_variant.available == false
+    assign founder_remaining = 0
+  endif
+  assign founder_percent = founder_remaining | times: 200 | divided_by: founder_total
+  assign reserve_url = '#'
+  if founder_available
+    assign reserve_url = routes.root_url | append: 'cart/' | append: founder_variant.id | append: ':1?checkout'
+  endif
+  assign desktop_hero_image = section.settings.desktop_image | default: section.settings.mobile_image
+  assign mobile_hero_image = section.settings.mobile_image | default: desktop_hero_image
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero {
+    position: relative; width: 100%; min-height: 768px; overflow: hidden;
+    background: #1a1a1a; color: #fff; font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__media,
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__media::after,
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__image { position: absolute; inset: 0; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__media::after {
+    content: ''; z-index: 1; pointer-events: none;
+    background: linear-gradient(90deg, rgba(0,0,0,.42) 0%, rgba(0,0,0,.14) 48%, rgba(0,0,0,0) 74%);
+  }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__image { width: 100%; height: 100%; object-fit: cover; object-position: right; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__inner {
+    position: relative; z-index: 2; width: min(calc(100% - 40px), 1340px); min-height: 768px; margin: 0 auto; padding-top: 137px; padding-bottom: 168px; box-sizing: border-box;
+  }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__content { width: min(100%, 807px); }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__eyebrow {
+    margin: 0 0 8px; color: var(--color-brand, #b93205); font-size: 16px; font-weight: 600; line-height: 1.2; letter-spacing: 1.21px; text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__eyebrow-mobile { display: none; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__title {
+    max-width: 509px; margin: 0 0 16px; color: #fff; font-size: 42px; font-weight: 700; line-height: 1.25; letter-spacing: -1.5px;
+  }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__description {
+    max-width: 420px; margin: 0 0 24px; color: #fff; font-size: 15px; font-weight: 300; line-height: 1.625;
+  }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__description p { margin: 0; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__button {
+    display: inline-flex; width: 169px; min-height: 41px; align-items: center; justify-content: center; gap: 8px; margin-bottom: 32px; padding: 12px 16px;
+    border-radius: 6px; background: var(--color-brand, #b93205); color: #fff; font-size: 14px; font-weight: 600; line-height: 1; text-align: center; text-decoration: none; box-sizing: border-box; transition: background-color .2s ease;
+  }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__button-icon { width: 12px; height: 12px; flex: 0 0 auto; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__button:not([aria-disabled='true']):hover { background: #8f2403; color: #fff; text-decoration: none; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__button[aria-disabled='true'] { opacity: .55; pointer-events: none; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__button[aria-busy='true'] { cursor: wait; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__note,
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__progress-text { margin: 0; color: #fff; font-size: 12px; font-weight: 400; line-height: 1.68; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__progress { width: min(100%, 380px); margin-top: 16px; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__progress-track { width: 100%; height: 6px; overflow: hidden; border-radius: 999px; background: #fff; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__progress-fill { display: block; height: 100%; border-radius: inherit; background: var(--color-brand, #b93205); }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__progress-text { margin-top: 8px; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefits {
+    display: grid; width: min(809px, calc(100vw - 40px)); grid-template-columns: 224px 272px 195px; gap: 40px; margin-top: 40px; padding: 16px 24px; border-radius: 16px; background: rgba(52,47,74,.59); box-sizing: border-box;
+  }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefit-value,
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefit-text,
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat-value,
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat-text { margin: 0; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefit-value { font-size: 20px; font-weight: 600; line-height: 1.65; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefit { display: flex; flex-direction: column; gap: 4px; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefit-text { font-size: 12px; line-height: 1.68; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stats {
+    position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; display: block; min-height: 128px; background: #1a1a1a;
+  }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stats-inner {
+    display: grid; width: min(calc(100% - 40px), 1340px); grid-template-columns: repeat(3,minmax(0,1fr)); gap: 40px; margin: 0 auto; padding: 32px 0 28px; box-sizing: border-box;
+  }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat { min-width: 0; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat-value { color: var(--color-brand, #b93205); font-size: 30px; font-weight: 700; line-height: 1.2; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat-text { margin-top: 4px; color: #fff; font-size: 13px; font-weight: 400; line-height: 1.4; overflow-wrap: anywhere; }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero { min-height: 0; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__media { position: relative; inset: auto; width: 100%; aspect-ratio: 1; overflow: hidden; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__media::after { display: none; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__inner { width: 100%; min-height: 0; padding: 32px 20px 0; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__content { width: 100%; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__eyebrow { margin-bottom: 8px; font-size: 11px; line-height: 1; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__eyebrow-desktop { display: none; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__eyebrow-mobile { display: inline; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__title { margin-bottom: 16px; font-size: 24px; line-height: 1.2; letter-spacing: 0; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__description { max-width: none; margin-bottom: 24px; font-size: 16px; line-height: 1.15; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__button { width: 100%; margin-bottom: 12px; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__note { color: #a5aab1; line-height: 1.4; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__progress { width: 100%; margin-top: 24px; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__progress-text { margin-top: 8px; color: #d0d0d0; line-height: 1.4; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefits { width: 100%; min-height: 0; grid-template-columns: 1fr; gap: 40px; margin-top: 32px; padding: 16px 24px; background: rgba(185,50,5,.4); }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stats { position: static; min-height: 0; width: 100%; margin-top: 26px; border-top: 1px solid var(--color-brand, #b93205); }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stats-inner { display: grid; width: 100%; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; padding: 20px; box-sizing: border-box; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat { min-width: 0; text-align: center; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat-value { color: var(--color-brand, #b93205); font-size: 24px; font-weight: 700; line-height: 1.2; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat-text { margin-top: 4px; color: #fff; font-size: 13px; line-height: 1.25; overflow-wrap: anywhere; }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 900px) {
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefits { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
+  }
+{% endstyle %}
+
+<section class="heatingv-prelaunch-hero">
+  <div class="heatingv-prelaunch-hero__media" aria-hidden="true">
+    {%- if desktop_hero_image != blank -%}
+      <picture>
+        <source
+          media="(max-width: 767px)"
+          srcset="{{ mobile_hero_image | image_url: width: 390 }} 390w, {{ mobile_hero_image | image_url: width: 600 }} 600w, {{ mobile_hero_image | image_url: width: 750 }} 750w, {{ mobile_hero_image | image_url: width: 900 }} 900w"
+          sizes="100vw"
+        >
+        {{ desktop_hero_image | image_url: width: 2400 | image_tag: class: 'heatingv-prelaunch-hero__image', loading: 'eager', fetchpriority: 'high', widths: '960, 1340, 1600, 1920, 2400', sizes: '100vw', alt: '' }}
+      </picture>
+    {%- endif -%}
+  </div>
+  <div class="heatingv-prelaunch-hero__inner">
+    <div class="heatingv-prelaunch-hero__content">
+      {%- if section.settings.eyebrow_desktop != blank or section.settings.eyebrow_mobile != blank -%}
+        <p class="heatingv-prelaunch-hero__eyebrow"><span class="heatingv-prelaunch-hero__eyebrow-desktop">{{ section.settings.eyebrow_desktop }}</span><span class="heatingv-prelaunch-hero__eyebrow-mobile">{{ section.settings.eyebrow_mobile }}</span></p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}<h1 class="heatingv-prelaunch-hero__title">{{ section.settings.title }}</h1>{%- endif -%}
+      {%- if section.settings.description != blank -%}<div class="heatingv-prelaunch-hero__description">{{ section.settings.description }}</div>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="heatingv-prelaunch-hero__button" href="{{ reserve_url }}" data-heating-direct-checkout data-variant-id="{% if founder_available %}{{ founder_variant.id }}{% endif %}" data-root-url="{{ routes.root_url }}" aria-disabled="{% unless founder_available %}true{% else %}false{% endunless %}"{% unless founder_available %} tabindex="-1"{% endunless %}>
+          <span>{{ section.settings.button_label }}</span><svg class="heatingv-prelaunch-hero__button-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4.5 9 7.5 6 4.5 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </a>
+      {%- endif -%}
+      {%- if section.settings.refund_note != blank -%}<p class="heatingv-prelaunch-hero__note">{{ section.settings.refund_note }}</p>{%- endif -%}
+      <div class="heatingv-prelaunch-hero__progress">
+        <div class="heatingv-prelaunch-hero__progress-track" role="progressbar" aria-label="Founder passes left" aria-valuemin="0" aria-valuemax="{{ founder_total }}" aria-valuenow="{{ founder_remaining }}"><span class="heatingv-prelaunch-hero__progress-fill" style="width: {{ founder_percent }}%;"></span></div>
+        <p class="heatingv-prelaunch-hero__progress-text">{{ founder_remaining }} of {{ founder_total }} Founder Passes left</p>
+      </div>
+      <div class="heatingv-prelaunch-hero__benefits">
+        {%- for index in (1..3) -%}
+          {%- assign value_key = 'benefit_' | append: index | append: '_value' -%}{%- assign text_key = 'benefit_' | append: index | append: '_text' -%}
+          <div class="heatingv-prelaunch-hero__benefit"><p class="heatingv-prelaunch-hero__benefit-value">{{ section.settings[value_key] }}</p><p class="heatingv-prelaunch-hero__benefit-text">{{ section.settings[text_key] }}</p></div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+  <div class="heatingv-prelaunch-hero__stats"><div class="heatingv-prelaunch-hero__stats-inner">
+    {%- for index in (1..4) -%}
+      {%- assign value_key = 'stat_' | append: index | append: '_value' -%}{%- assign text_key = 'stat_' | append: index | append: '_text' -%}
+      <div class="heatingv-prelaunch-hero__stat"><p class="heatingv-prelaunch-hero__stat-value">{{ section.settings[value_key] }}</p><p class="heatingv-prelaunch-hero__stat-text">{{ section.settings[text_key] }}</p></div>
+    {%- endfor -%}
+  </div></div>
+</section>
+<script src="{{ 'heating-direct-checkout.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "HeatingV Prelaunch Hero", "tag": "section", "class": "heatingv-prelaunch-hero-section",
+  "settings": [
+    { "type": "image_picker", "id": "desktop_image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" },
+    { "type": "text", "id": "eyebrow_desktop", "label": "Desktop eyebrow", "default": "PRE-LAUNCH • VOLCANO™ FLAGSHIP VEST" },
+    { "type": "text", "id": "eyebrow_mobile", "label": "Mobile eyebrow", "default": "PRE-LAUNCH • VOLCANO™ FLAGSHIP VEST" },
+    { "type": "text", "id": "title", "label": "Title", "default": "The Warmest Vest We've Ever Made" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>4X the power of our everyday heated gear — built for −40°F cold. Two 54Wh batteries included.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Reserve for $10" },
+    { "type": "text", "id": "refund_note", "label": "Refund note", "default": "Fully refundable. Cancel any time before launch. Launching Nov 6th, 2026." },
+    { "type": "header", "content": "Founder benefits" },
+    { "type": "text", "id": "benefit_1_value", "label": "Benefit 1 value", "default": "$50" },
+    { "type": "text", "id": "benefit_1_text", "label": "Benefit 1 text", "default": "off at launch, applied automatically" },
+    { "type": "text", "id": "benefit_2_value", "label": "Benefit 2 value", "default": "Lifetime" },
+    { "type": "text", "id": "benefit_2_text", "label": "Benefit 2 text", "default": "heating element warranty — normally 3 years" },
+    { "type": "text", "id": "benefit_3_value", "label": "Benefit 3 value", "default": "Free" },
+    { "type": "text", "id": "benefit_3_text", "label": "Benefit 3 text", "default": "Y cable, $17.99 after launch" },
+    { "type": "header", "content": "Specifications" },
+    { "type": "text", "id": "stat_1_value", "label": "Specification 1 value", "default": "−40°F to 41°F" },
+    { "type": "text", "id": "stat_1_text", "label": "Specification 1 text", "default": "Idea for" },
+    { "type": "text", "id": "stat_2_value", "label": "Specification 2 value", "default": "41W" },
+    { "type": "text", "id": "stat_2_text", "label": "Specification 2 text", "default": "4x a standard heated vest" },
+    { "type": "text", "id": "stat_3_value", "label": "Specification 3 value", "default": "108Wh" },
+    { "type": "text", "id": "stat_3_text", "label": "Specification 3 text", "default": "Two 7.5K batteries included" },
+    { "type": "text", "id": "stat_4_value", "label": "Specification 4 value", "default": "Unlimited" },
+    { "type": "text", "id": "stat_4_text", "label": "Specification 4 text", "default": "Runtime on 12V vehicle power" },
+    { "type": "product", "id": "founder_product", "label": "Founder pass product" },
+    { "type": "number", "id": "dynamic_inventory", "label": "Dynamic inventory count", "default": 200 }
+  ],
+  "presets": [{ "name": "HeatingV Prelaunch Hero" }]
+}
+{% endschema %}
