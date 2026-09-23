@@ -50,7 +50,14 @@
   }
 
   #shopify-section-{{ section.id }} .heating-glove-control__card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__media {
     position: relative;
+    width: 100%;
     aspect-ratio: 109 / 60;
     overflow: hidden;
     border-radius: 12px;
@@ -69,6 +76,27 @@
   #shopify-section-{{ section.id }} .heating-glove-control__video {
     object-fit: cover;
     object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__brand {
+    display: inline-flex;
+    align-self: flex-start;
+    margin-top: 24px;
+    min-height: 38px;
+    align-items: center;
+    padding: 8px 18px;
+    border-radius: 10px;
+    background: #515151;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.52px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heating-glove-control__brand--accent {
+    background: linear-gradient(111deg, #531602 19.62%, var(--color-brand, #b93205) 97.9%);
   }
 
   #shopify-section-{{ section.id }} .heating-glove-control__placeholder {
@@ -111,11 +139,21 @@
     #shopify-section-{{ section.id }} .heating-glove-control__grid {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 32px;
     }
 
-    #shopify-section-{{ section.id }} .heating-glove-control__card {
+    #shopify-section-{{ section.id }} .heating-glove-control__media {
       border-radius: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heating-glove-control__brand {
+      order: -1;
+      margin-top: 0;
+      margin-bottom: 12px;
+      min-height: 32px;
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 12px;
     }
 
     #shopify-section-{{ section.id }} .heating-glove-control__placeholder {
@@ -143,46 +181,52 @@
     </div>
 
     <div class="heating-glove-control__grid">
-      <div class="heating-glove-control__card" style="aspect-ratio: {{ first_ratio }};">
-        {%- if section.settings.first_video != blank -%}
-          {{ section.settings.first_video | video_tag: class: 'heating-glove-control__video js-autoplay-in-view', loop: true, muted: true, playsinline: true, controls: true, preload: 'none', image_size: '1400x' }}
-        {%- elsif first_image != blank -%}
-          <picture class="heating-glove-control__picture">
-            {{
-              first_image
-              | image_url: width: 1400
-              | image_tag:
-                class: 'heating-glove-control__image',
-                loading: 'lazy',
-                widths: '350, 700, 900, 1100, 1400',
-                sizes: '(max-width: 767px) calc(100vw - 40px), 654px',
-                alt: first_image.alt | default: section.settings.title
-            }}
-          </picture>
-        {%- else -%}
-          <div class="heating-glove-control__placeholder">Upload a control image or MP4 video.</div>
-        {%- endif -%}
+      <div class="heating-glove-control__card">
+        <div class="heating-glove-control__media" style="aspect-ratio: {{ first_ratio }};">
+          {%- if section.settings.first_video != blank -%}
+            {{ section.settings.first_video | video_tag: class: 'heating-glove-control__video js-autoplay-in-view', loop: true, muted: true, playsinline: true, controls: true, preload: 'none', image_size: '1400x' }}
+          {%- elsif first_image != blank -%}
+            <picture class="heating-glove-control__picture">
+              {{
+                first_image
+                | image_url: width: 1400
+                | image_tag:
+                  class: 'heating-glove-control__image',
+                  loading: 'lazy',
+                  widths: '350, 700, 900, 1100, 1400',
+                  sizes: '(max-width: 767px) calc(100vw - 40px), 654px',
+                  alt: first_image.alt | default: section.settings.title
+              }}
+            </picture>
+          {%- else -%}
+            <div class="heating-glove-control__placeholder">Upload a control image or MP4 video.</div>
+          {%- endif -%}
+        </div>
+        <span class="heating-glove-control__brand heating-glove-control__brand--accent">VENUSTAS</span>
       </div>
 
-      <div class="heating-glove-control__card" style="aspect-ratio: {{ second_ratio }};">
-        {%- if section.settings.second_video != blank -%}
-          {{ section.settings.second_video | video_tag: class: 'heating-glove-control__video js-autoplay-in-view', loop: true, muted: true, playsinline: true, controls: true, preload: 'none', image_size: '1400x' }}
-        {%- elsif second_image != blank -%}
-          <picture class="heating-glove-control__picture">
-            {{
-              second_image
-              | image_url: width: 1400
-              | image_tag:
-                class: 'heating-glove-control__image',
-                loading: 'lazy',
-                widths: '350, 700, 900, 1100, 1400',
-                sizes: '(max-width: 767px) calc(100vw - 40px), 654px',
-                alt: second_image.alt | default: section.settings.title
-            }}
-          </picture>
-        {%- else -%}
-          <div class="heating-glove-control__placeholder">Upload a comparison image or MP4 video.</div>
-        {%- endif -%}
+      <div class="heating-glove-control__card">
+        <div class="heating-glove-control__media" style="aspect-ratio: {{ second_ratio }};">
+          {%- if section.settings.second_video != blank -%}
+            {{ section.settings.second_video | video_tag: class: 'heating-glove-control__video js-autoplay-in-view', loop: true, muted: true, playsinline: true, controls: true, preload: 'none', image_size: '1400x' }}
+          {%- elsif second_image != blank -%}
+            <picture class="heating-glove-control__picture">
+              {{
+                second_image
+                | image_url: width: 1400
+                | image_tag:
+                  class: 'heating-glove-control__image',
+                  loading: 'lazy',
+                  widths: '350, 700, 900, 1100, 1400',
+                  sizes: '(max-width: 767px) calc(100vw - 40px), 654px',
+                  alt: second_image.alt | default: section.settings.title
+              }}
+            </picture>
+          {%- else -%}
+            <div class="heating-glove-control__placeholder">Upload a comparison image or MP4 video.</div>
+          {%- endif -%}
+        </div>
+        <span class="heating-glove-control__brand">OTHER BRANDS</span>
       </div>
     </div>
   </div>
