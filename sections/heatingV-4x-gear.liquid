@@ -1,0 +1,477 @@
+{%- assign first_desktop = section.settings.first_desktop_image | default: section.settings.first_mobile_image -%}
+{%- assign first_mobile = section.settings.first_mobile_image | default: first_desktop -%}
+{%- assign second_desktop = section.settings.second_desktop_image | default: section.settings.second_mobile_image -%}
+{%- assign second_mobile = section.settings.second_mobile_image | default: second_desktop -%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .heatingV-4x-gear {
+    width: 100%;
+    overflow: hidden;
+    background: #f0f0f0;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear *,
+  #shopify-section-{{ section.id }} .heatingV-4x-gear *::before,
+  #shopify-section-{{ section.id }} .heatingV-4x-gear *::after {
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__inner {
+    display: flex;
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    align-items: center;
+    gap: 40px;
+  }
+
+  /* ---------- Media ---------- */
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__media {
+    position: relative;
+    flex: 0 1 678px;
+    min-width: 0;
+    aspect-ratio: 678 / 626;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #e6e6e6;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__figure {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__figure--first {
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear.is-inview .heatingV-4x-gear__figure--first {
+    opacity: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear.is-inview .heatingV-4x-gear__figure--second {
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__placeholder {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: #8b8b8b;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* ---------- Content ---------- */
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__content {
+    display: flex;
+    flex: 1 1 622px;
+    min-width: 0;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__eyebrow {
+    margin: 0;
+    color: #b93205;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__title {
+    margin: 0;
+    color: #1a1a1a;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__desc {
+    margin: 0;
+    color: #565b63;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  /* ---------- Comparison chart ---------- */
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__chart {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__callout {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__callout-eyebrow {
+    margin: 0;
+    color: #565b63;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__callout-value {
+    margin: 0;
+    font-size: 64px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__callout-num {
+    color: #b93205;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__callout-text {
+    color: #1a1a1a;
+    font-size: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__bars {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__row {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__row--standard {
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__track {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__fill {
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__fill--volcano {
+    display: flex;
+    width: 0;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(90deg, #da642a 0%, #b63004 59.615%, #952500 100%);
+    transition: width 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__fill-label {
+    padding-left: 16px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__fill--standard {
+    flex: none;
+    width: 0;
+    background: #6c757d;
+    transition: width 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear.is-inview .heatingV-4x-gear__fill--volcano {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear.is-inview .heatingV-4x-gear__fill--standard {
+    width: 132px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__value {
+    flex: none;
+    margin: 0;
+    color: #b93205;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__label {
+    flex: none;
+    margin: 0;
+    color: #6c757d;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  /* ---------- Mobile ---------- */
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__inner {
+      width: 100%;
+      padding: 56px 20px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__media {
+      flex: none;
+      width: 100%;
+      aspect-ratio: 350 / 331;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__content {
+      flex: none;
+      width: 100%;
+      gap: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__eyebrow {
+      font-size: 12px;
+      line-height: 1.4;
+      letter-spacing: 2px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__title {
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__desc {
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__fill {
+      height: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__row {
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-4x-gear.is-inview .heatingV-4x-gear__fill--standard {
+      width: 70px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__figure,
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__fill--volcano,
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__fill--standard {
+      transition-duration: 0.01ms;
+      transition-delay: 0s;
+    }
+  }
+{% endstyle %}
+
+<section class="heatingV-4x-gear">
+  <div class="heatingV-4x-gear__inner">
+    <div class="heatingV-4x-gear__media">
+      <figure class="heatingV-4x-gear__figure heatingV-4x-gear__figure--first">
+        {%- if first_desktop != blank -%}
+          <picture class="heatingV-4x-gear__picture">
+            {%- if first_mobile != blank -%}
+              <source
+                media="(max-width: 767px)"
+                srcset="
+                  {{ first_mobile | image_url: width: 350 }} 350w,
+                  {{ first_mobile | image_url: width: 700 }} 700w
+                "
+                sizes="calc(100vw - 40px)"
+              >
+            {%- endif -%}
+            {{
+              first_desktop
+              | image_url: width: 1400
+              | image_tag:
+                class: 'heatingV-4x-gear__image',
+                loading: 'lazy',
+                widths: '350, 500, 678, 1000, 1400',
+                sizes: '(max-width: 767px) calc(100vw - 40px), 678px',
+                alt: first_desktop.alt | default: 'Volcano heated liner front view'
+            }}
+          </picture>
+        {%- else -%}
+          <div class="heatingV-4x-gear__placeholder">Image 1</div>
+        {%- endif -%}
+      </figure>
+
+      <figure class="heatingV-4x-gear__figure heatingV-4x-gear__figure--second">
+        {%- if second_desktop != blank -%}
+          <picture class="heatingV-4x-gear__picture">
+            {%- if second_mobile != blank -%}
+              <source
+                media="(max-width: 767px)"
+                srcset="
+                  {{ second_mobile | image_url: width: 350 }} 350w,
+                  {{ second_mobile | image_url: width: 700 }} 700w
+                "
+                sizes="calc(100vw - 40px)"
+              >
+            {%- endif -%}
+            {{
+              second_desktop
+              | image_url: width: 1400
+              | image_tag:
+                class: 'heatingV-4x-gear__image',
+                loading: 'lazy',
+                widths: '350, 500, 678, 1000, 1400',
+                sizes: '(max-width: 767px) calc(100vw - 40px), 678px',
+                alt: second_desktop.alt | default: 'Volcano heated liner back view'
+            }}
+          </picture>
+        {%- else -%}
+          <div class="heatingV-4x-gear__placeholder">Image 2</div>
+        {%- endif -%}
+      </figure>
+    </div>
+
+    <div class="heatingV-4x-gear__content">
+      <div class="heatingV-4x-gear__header">
+        <p class="heatingV-4x-gear__eyebrow">Built for &minus;40&deg;F to 41&deg;F</p>
+        <h2 class="heatingV-4x-gear__title">4X the Power of Everyday Heated Gear</h2>
+        <p class="heatingV-4x-gear__desc">
+          Once the cold gets serious, heat leaves your body faster than a standard vest can put it back. Volcano&trade; drives four times the power into the same six zones &mdash; enough to stay ahead of it from a mild 41&deg;F morning all the way down to &minus;40&deg;F.
+        </p>
+      </div>
+
+      <div class="heatingV-4x-gear__chart">
+        <div class="heatingV-4x-gear__callout">
+          <p class="heatingV-4x-gear__callout-eyebrow">Up to</p>
+          <p class="heatingV-4x-gear__callout-value"><span class="heatingV-4x-gear__callout-num">4X</span> <span class="heatingV-4x-gear__callout-text">More Heat</span></p>
+        </div>
+
+        <div class="heatingV-4x-gear__bars">
+          <div class="heatingV-4x-gear__row">
+            <div class="heatingV-4x-gear__track">
+              <div class="heatingV-4x-gear__fill heatingV-4x-gear__fill--volcano">
+                <span class="heatingV-4x-gear__fill-label">Volcano&trade; Heated Liner</span>
+              </div>
+            </div>
+            <p class="heatingV-4x-gear__value">41 Watts</p>
+          </div>
+
+          <div class="heatingV-4x-gear__row heatingV-4x-gear__row--standard">
+            <div class="heatingV-4x-gear__fill heatingV-4x-gear__fill--standard"></div>
+            <p class="heatingV-4x-gear__label">10W Standard heated vest</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot || sectionRoot.dataset.heatingVPowerReady === 'true') return;
+
+    const target = sectionRoot.querySelector('.heatingV-4x-gear');
+    if (!target) return;
+    sectionRoot.dataset.heatingVPowerReady = 'true';
+
+    const play = () => target.classList.add('is-inview');
+
+    if (!('IntersectionObserver' in window)) {
+      play();
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        play();
+        observer.disconnect();
+      });
+    }, { threshold: 0.25 });
+
+    observer.observe(target);
+
+    document.addEventListener('shopify:section:unload', function unload(event) {
+      if (event.detail.sectionId !== '{{ section.id }}') return;
+      observer.disconnect();
+      document.removeEventListener('shopify:section:unload', unload);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "HeatingV 4X Gear",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image 1 (first frame)"
+    },
+    {
+      "type": "image_picker",
+      "id": "first_desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "first_mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "header",
+      "content": "Image 2 (second frame)"
+    },
+    {
+      "type": "image_picker",
+      "id": "second_desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "second_mobile_image",
+      "label": "Mobile image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HeatingV 4X Gear"
+    }
+  ]
+}
+{% endschema %}

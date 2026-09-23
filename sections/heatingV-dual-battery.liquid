@@ -1,0 +1,354 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heatingv-dual-battery {
+    width: 100%;
+    overflow: hidden;
+    background: #14161a;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__inner {
+    display: flex;
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 64px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__header {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__title,
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__description {
+    margin: 0;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__title {
+    color: #fff;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 39.44px;
+    letter-spacing: -0.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__description {
+    color: #d0d0d0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 27.52px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__row {
+    display: grid;
+    width: 100%;
+    grid-template-columns: minmax(0, 853px) minmax(0, 455px);
+    gap: 32px;
+    align-items: start;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__media {
+    position: relative;
+    width: 100%;
+    height: 515px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #000;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__levels {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__card {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 28px;
+    border: 2px solid #fff;
+    border-radius: 16px;
+    background: #161616;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__card-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__temp {
+    margin: 0;
+    color: #fff;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__label {
+    margin: 0;
+    color: #d8d8d8;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__pill {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__card--high {
+    border-color: #b93205;
+  }
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__card--high .heatingv-dual-battery__pill {
+    background: #b93205;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__card--medium {
+    border-color: #fff;
+  }
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__card--medium .heatingv-dual-battery__pill {
+    background: #fff;
+    color: #1a1a1a;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__card--low {
+    border-color: #0d6efd;
+  }
+  #shopify-section-{{ section.id }} .heatingv-dual-battery__card--low .heatingv-dual-battery__pill {
+    background: #0d6efd;
+    color: #fff;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingv-dual-battery__inner {
+      width: 100%;
+      padding: 80px 20px 56px;
+      gap: 56px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-dual-battery__header {
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-dual-battery__title {
+      font-size: 24px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-dual-battery__description {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-dual-battery__row {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-dual-battery__levels {
+      order: 1;
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-dual-battery__media {
+      order: 2;
+      height: 480px;
+      border-radius: 6px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-dual-battery__image {
+      object-position: bottom;
+    }
+  }
+{% endstyle %}
+
+<section class="heatingv-dual-battery" id="heatingv-dual-battery">
+  <div class="heatingv-dual-battery__inner">
+    <header class="heatingv-dual-battery__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heatingv-dual-battery__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heatingv-dual-battery__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="heatingv-dual-battery__row">
+      <div class="heatingv-dual-battery__media">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 1800
+            | image_tag:
+              class: 'heatingv-dual-battery__image',
+              loading: 'lazy',
+              widths: '350, 700, 900, 1100, 1400, 1800',
+              sizes: '(max-width: 767px) calc(100vw - 40px), 853px',
+              alt: section.settings.image.alt | default: 'Venustas dual battery heated vest'
+          }}
+        {%- endif -%}
+      </div>
+
+      <div class="heatingv-dual-battery__levels">
+        <div class="heatingv-dual-battery__card heatingv-dual-battery__card--high">
+          <div class="heatingv-dual-battery__card-copy">
+            <p class="heatingv-dual-battery__temp">{{ section.settings.high_temp | default: '144℉' }}</p>
+            <p class="heatingv-dual-battery__label">{{ section.settings.high_label | default: '4 hours continuous heat' }}</p>
+          </div>
+          <span class="heatingv-dual-battery__pill">{{ section.settings.high_pill | default: 'HIGH' }}</span>
+        </div>
+
+        <div class="heatingv-dual-battery__card heatingv-dual-battery__card--medium">
+          <div class="heatingv-dual-battery__card-copy">
+            <p class="heatingv-dual-battery__temp">{{ section.settings.medium_temp | default: '130℉' }}</p>
+            <p class="heatingv-dual-battery__label">{{ section.settings.medium_label | default: '6 hours continuous heat' }}</p>
+          </div>
+          <span class="heatingv-dual-battery__pill">{{ section.settings.medium_pill | default: 'MEDIUM' }}</span>
+        </div>
+
+        <div class="heatingv-dual-battery__card heatingv-dual-battery__card--low">
+          <div class="heatingv-dual-battery__card-copy">
+            <p class="heatingv-dual-battery__temp">{{ section.settings.low_temp | default: '112℉' }}</p>
+            <p class="heatingv-dual-battery__label">{{ section.settings.low_label | default: '11 hours continuous heat' }}</p>
+          </div>
+          <span class="heatingv-dual-battery__pill">{{ section.settings.low_pill | default: 'LOW' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HeatingV Dual Battery",
+  "tag": "section",
+  "class": "heatingv-dual-battery-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The First Venustas Vest That Runs Both Batteries at Once"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Both 7.5K cells work on their own or together. Carry one when you want the vest light, both when you're out all day — and when they're both in, they run at the same time instead of one waiting its turn. It can heat up up to 11 hours, which covers a dawn-to-dark day on the ice, a full shift outside, or a long ride — without rationing the heat or hunting for an outlet.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "High level"
+    },
+    {
+      "type": "text",
+      "id": "high_temp",
+      "label": "High temperature",
+      "default": "144℉"
+    },
+    {
+      "type": "text",
+      "id": "high_label",
+      "label": "High label",
+      "default": "4 hours continuous heat"
+    },
+    {
+      "type": "text",
+      "id": "high_pill",
+      "label": "High pill",
+      "default": "HIGH"
+    },
+    {
+      "type": "header",
+      "content": "Medium level"
+    },
+    {
+      "type": "text",
+      "id": "medium_temp",
+      "label": "Medium temperature",
+      "default": "130℉"
+    },
+    {
+      "type": "text",
+      "id": "medium_label",
+      "label": "Medium label",
+      "default": "6 hours continuous heat"
+    },
+    {
+      "type": "text",
+      "id": "medium_pill",
+      "label": "Medium pill",
+      "default": "MEDIUM"
+    },
+    {
+      "type": "header",
+      "content": "Low level"
+    },
+    {
+      "type": "text",
+      "id": "low_temp",
+      "label": "Low temperature",
+      "default": "112℉"
+    },
+    {
+      "type": "text",
+      "id": "low_label",
+      "label": "Low label",
+      "default": "11 hours continuous heat"
+    },
+    {
+      "type": "text",
+      "id": "low_pill",
+      "label": "Low pill",
+      "default": "LOW"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HeatingV Dual Battery"
+    }
+  ]
+}
+{% endschema %}
