@@ -44,6 +44,69 @@
         "dynamic_inventory": 200
       }
     },
+    "heating_anchor_nav_AJHz6f": {
+      "type": "heating-anchor-nav",
+      "blocks": {
+        "link_ntfxay": {
+          "type": "link",
+          "settings": {
+            "label": "Why Heated Gear",
+            "target_id": "why-heated-gear"
+          }
+        },
+        "link_LbE6gV": {
+          "type": "link",
+          "settings": {
+            "label": "Venustas Riding System",
+            "target_id": "venustas-riding-system"
+          }
+        },
+        "link_NF3fTh": {
+          "type": "link",
+          "settings": {
+            "label": "Setup Options",
+            "target_id": "setup-options"
+          }
+        },
+        "link_eLw8kJ": {
+          "type": "link",
+          "settings": {
+            "label": "How It Works",
+            "target_id": "how-it-works"
+          }
+        },
+        "link_bbzU7i": {
+          "type": "link",
+          "settings": {
+            "label": "Riding Guild",
+            "target_id": "riding-guild"
+          }
+        },
+        "link_QAVG3V": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "faq"
+          }
+        }
+      },
+      "block_order": [
+        "link_ntfxay",
+        "link_LbE6gV",
+        "link_NF3fTh",
+        "link_eLw8kJ",
+        "link_bbzU7i",
+        "link_QAVG3V"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#F5F5F5",
+        "nav_background": "#FFFFFF",
+        "text_color": "#1F1F1F",
+        "aria_label": "Page navigation",
+        "mobile_button_label": "Open page navigation"
+      }
+    },
     "heating_v_heat_zones_xDVxNT": {
       "type": "heatingV-heat-zones",
       "name": "HeatingV Heat Zones",
@@ -165,6 +228,7 @@
   "order": [
     "main_page_3cKYFc",
     "heating_v_prelaunch_hero_pdL93V",
+    "heating_anchor_nav_AJHz6f",
     "heating_v_heat_zones_xDVxNT",
     "heating_v_liner_system_rQ6KqF",
     "heating_v_panel_details_HBrpdg",
