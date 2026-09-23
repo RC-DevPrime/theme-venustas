@@ -1,0 +1,245 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heatingv-power {
+    width: 100%;
+    overflow: hidden;
+    background: #14161a;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-power__inner {
+    display: flex;
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-power__header {
+    display: flex;
+    width: min(100%, 1340px);
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-power__eyebrow-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-power__eyebrow,
+  #shopify-section-{{ section.id }} .heatingv-power__title,
+  #shopify-section-{{ section.id }} .heatingv-power__description {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-power__eyebrow {
+    color: #c03000;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 18.48px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-power__title {
+    color: #fff;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 39.44px;
+    letter-spacing: -0.952px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-power__description {
+    max-width: 1040px;
+    color: #d0d0d0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 27.52px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-power__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-power__media {
+    position: relative;
+    width: min(100%, 1340px);
+    aspect-ratio: 1340 / 728;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #000;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-power__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-power__placeholder {
+    width: 100%;
+    height: 100%;
+    background: #1c1f24;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingv-power__inner {
+      width: 100%;
+      padding: 56px 20px;
+      gap: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-power__header {
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-power__eyebrow-wrap {
+      gap: 4px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-power__eyebrow {
+      font-size: 13px;
+      line-height: 1.2;
+      letter-spacing: 2px;
+      white-space: normal;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-power__title {
+      font-size: 24px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-power__description {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-power__media {
+      border-radius: 8px;
+    }
+  }
+{% endstyle %}
+
+<section class="heatingv-power" id="heatingv-power">
+  <div class="heatingv-power__inner">
+    <header class="heatingv-power__header">
+      <div class="heatingv-power__eyebrow-wrap">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="heatingv-power__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="heatingv-power__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.description != blank -%}
+        <div class="heatingv-power__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="heatingv-power__media">
+      {%- if section.settings.video != blank -%}
+        {{
+          section.settings.video
+          | video_tag:
+            class: 'heatingv-power__video js-autoplay-in-view',
+            loop: true,
+            muted: true,
+            playsinline: true,
+            controls: true,
+            preload: 'none',
+            image_size: '1400x'
+        }}
+      {%- else -%}
+        <div class="heatingv-power__placeholder"></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot || sectionRoot.dataset.inViewVideoReady === 'true') return;
+
+    const videos = sectionRoot.querySelectorAll('.js-autoplay-in-view');
+    if (!videos.length) return;
+    sectionRoot.dataset.inViewVideoReady = 'true';
+
+    const playVideo = (video) => {
+      const playPromise = video.play();
+      if (playPromise) playPromise.catch(() => {});
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) playVideo(entry.target);
+          else entry.target.pause();
+        });
+      }, { threshold: 0.15 });
+
+      videos.forEach((video) => observer.observe(video));
+      sectionRoot.inViewVideoObserver = observer;
+
+      document.addEventListener('shopify:section:unload', function unload(event) {
+        if (event.detail.sectionId !== '{{ section.id }}') return;
+        observer.disconnect();
+        document.removeEventListener('shopify:section:unload', unload);
+      });
+    } else {
+      videos.forEach(playVideo);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "HeatingV Power",
+  "tag": "section",
+  "class": "heatingv-power-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "How Volcano™ Started"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "You Asked More Heat. So We Built Volcano™"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Year after year, the riders, anglers and crews who stayed out longest told us the same two things: more heat when it really gets cold, and more time before the battery gives out. Volcano is our answer.</p>"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video (MP4 recommended)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HeatingV Power"
+    }
+  ]
+}
+{% endschema %}
