@@ -1,0 +1,209 @@
+{% layout none %}
+{% raw %}
+---
+provider: Tec-growth GEO optimizer
+provider_url: https://tec-do.cn/geo
+template_version: v1.0.0
+schema_version: geo-2026-05
+generated_at: 2026-09-24T09:26:13.157031667Z
+language: en
+canonical_url: https://venustas.com/agents.md
+ucp_endpoint: https://venustas.com/api/ucp/mcp
+ucp_version: 2026-04-08
+total_products: 50
+optimized_products: 0
+optimization_coverage: 0%
+last_optimized_at: N/A
+---
+
+# Agent Instructions — Venustas® Heated Apparel
+
+> Shop Venustas heated jackets, vests, gloves, and apparel designed for outdoor adventures and everyday comfort. Experience long-lasting warmth with our advanced heating technology. Free shipping & returns!
+
+This document describes how AI agents can interact with **Venustas® Heated Apparel**'s online store at https://venustas.com.
+
+## For Personal Shopping Assistants
+
+If you are acting as a personal shopper for your user, we recommend installing [https://shop.app/SKILL.md](https://shop.app/SKILL.md) for buyer-approved checkout via Shop Pay.
+
+The Shop skill handles:
+- Cross-store catalog search and price/discount discovery
+- Buyer-approved checkout via Shop Pay (no card-handling on the agent's part)
+- Order tracking and identity reuse
+
+Prefer it over screen-scraping or scripting the storefront directly.
+
+## Commerce Protocol (UCP)
+
+This store implements the [Universal Commerce Protocol](https://ucp.dev).
+
+- **Discovery** — `GET https://venustas.com/.well-known/ucp`
+- **MCP endpoint** — `POST https://venustas.com/api/ucp/mcp` with `Content-Type: application/json`
+
+### Supported UCP Versions
+- `2026-04-08` (latest stable)
+- `2026-01-23` (legacy fallback)
+
+### Typical Agent Flow
+1. **Discover** — `GET /.well-known/ucp` to confirm capabilities
+2. **Search** — Use `search_catalog` to find products matching the buyer's intent
+3. **Cart** — Use `create_cart` to add desired items
+4. **Checkout** — Use `create_checkout` to start the purchase flow
+5. **Fulfill** — Use `update_checkout` to set shipping address and method
+6. **Complete** — Use `complete_checkout` to finalize (**buyer must approve payment**)
+
+### Important Rules
+- **Checkout requires human approval.** Agents must not complete payment without explicit buyer consent.
+- **Respect rate limits.** The MCP endpoint is rate-limited per IP. Back off on 429 responses.
+- **Use buyer context.** Pass `context.address_country` and `context.currency` for accurate pricing and availability.
+
+---
+
+
+## Other Products
+
+- [Women's 3-in-1 Heated Jacket 5V [M]](https://venustas.com/apps/geo/products/womens-3-in-1-heated-jacket-5v) — 189.99 USD: The heated jacket for women fits all weather conditions. It’s practical, functional, and effective when you need it!
+- [[Final Sale] Heated Vest for Men 5V](https://venustas.com/apps/geo/products/heated-vest-for-men-5v) — 69.99 USD: This heated vest is lightweight, yet insulated, so you can wear them with or without a jacket. Water and wind-resistant exterior ensure you keep warm and comfor...
+- [Men's Heated Jacket 5V with Detachable Hood](https://venustas.com/apps/geo/products/mens-heated-jacket-5v-with-detachable-hood) — 49.99 USD: This heated jacket is the perfect piece for walking your dog in the brisk fall air, tailgating for your favorite football team, or even in a way-too-cold office...
+- [[Final Sale For CA]  Men's 3-in-1 Heated Jacket 5V](https://venustas.com/apps/geo/products/mens-3-in-1-heated-jacket-5v) — 95.99 USD: [Final Sale] 6-month warranty
+The heated jacket for men fits all weather conditions. The all-purpose heated jacket for men keeps the prime quality for the harsh...
+- [Zipper up Heated Hoodie for Unisex 7.4V, U2138](https://venustas.com/apps/geo/products/zipper-up-heated-hoodie-for-unisex-7-4v) — 139.99 USD: The heated hoodie combines comfort, style, and warmth perfectly. Take back control of life with Venusta's excellent heating technology. Provides coverage both f...
+- [[Final Sale] Heated Jacket 5V for Unisex](https://venustas.com/apps/geo/products/heated-jacket-5v-for-unisex) — 101.99 USD: [Final Sale] 6-month warranty 
+This heated jacket combines comfort, style, and warmth perfectly. Equipped with Venustas heating system, the heated jacket provid...
+- [[Final Sale For CA]  Women's Heated Vest with V-neck 7.4V](https://venustas.com/apps/geo/products/womens-heated-vest-with-v-neck-7-4v) — 69.99 USD: [Final Sale] 6-month warranty
+Indulge yourself in the excellent heated vest which provides exceptional warmth &amp; breathability. Water and wind-resistant exte...
+- [[Final Sale For CA] Men's Heated Vest with V-neck 7.4V](https://venustas.com/apps/geo/products/mens-heated-vest-with-v-neck-7-4v) — 69.99 USD: The heated vest for men is lightweight and features a water and wind-repellent finish that sheds rain and wind. Equipped with Venustas heating system, the heate...
+- [Men's Heated Fleece Vest 7.4V, M2117](https://venustas.com/apps/geo/products/mens-heated-fleece-vest-7-4v) — 119.99 USD: Crafted with an ultra-soft fleece fabric, which can trap heat and protect you from the cold, this heated vest delivers warmth and maximizes breathability. And i...
+- [Women's Heated Fleece Vest 7.4V, W2117](https://venustas.com/apps/geo/products/womens-heated-fleece-vest-7-4v) — 119.99 USD: The heated vest for women can be a perfect pick for outdoor games, walking the dog, hanging out. Battery heated fleece vest adopts soft material and versatile d...
+- [Men's Classic Heated Vest 7.4V, M2118](https://venustas.com/apps/geo/products/mens-classic-heated-vest-7-4v) — 149.99 USD: The heated vest for men provides the warmth you need when the weather gets cold. This machine-washable vest, worn alone or paired with a lightweight jacket, is ...
+- [Women's Classic Heated Vest 7.4V, W2118](https://venustas.com/apps/geo/products/womens-heated-vest-7-4v) — 149.99 USD: This Venustas heated vest comes with an all-new design that helps you say goodbye to the cold shoulders. It's also a versatile seasonal layer to any outfit to k...
+- [Men's Heated Jacket 7.4V, M2168](https://venustas.com/apps/geo/products/mens-heated-jacket-7-4v) — 149.99 USD: Upgraded with a tailored design and breathable fabric, the venustas heated jacket provides more comfort for men. Water and wind-resistant exterior keep you warm...
+- [Women's Heated Jacket 7.4V, W2168](https://venustas.com/apps/geo/products/womens-heated-jacket-7-4v) — 149.99 USD: The women's heated jacket can be a perfect choice for outdoor games, walking dogs, hanging out. Battery heated jacket is lightweight and features a water-repell...
+- [[Final Sale For CA] Women's Heated Down Jacket 7.4V](https://venustas.com/apps/geo/products/final-sale-womens-heated-down-jacket-7-4vxl-2xl) — 90.99 USD: [Final Sale] 6-month warranty
+This puffy, padded, lightweight heated jacket for women can be a perfect companion for the cold winter. Filled with light and soft...
+- [[Final Sale] Men's Heated Down Jacket 7.4V](https://venustas.com/apps/geo/products/final-sale-mens-heated-down-jacket-7-4v2xl) — 89.99 USD: [Final Sale] 6-month warranty
+Filled with light and soft white duck down, the men's heated jacket provides exceptional warmth &amp; breathability while being li...
+- [Zipper up Heated Fleece Jacket for Men 7.4V, M2136](https://venustas.com/apps/geo/products/zipper-up-heated-fleece-jacket-for-men-7-4v) — 129.99 USD: This Venustas zip-up heated fleece jacket for men features an upgraded pocket heating design to keep your hands and core warm. With Strategic heating zones and ...
+- [Zipper up Heated Fleece Jacket for Women 7.4V, W2136](https://venustas.com/apps/geo/products/zipper-up-heated-fleece-jacket-for-women-7-4v) — 129.99 USD: This Venustas zip-up heated fleece jacket for women features an upgraded pocket heating design to keep your hands and core warm. With 5-6 heating zones and up t...
+- [Venustas 3-in-1 Heated Jacket 7.4V For Women, W2167 [Final Sale]](https://venustas.com/apps/geo/products/womens-3-in-1-heated-jacket-7-4v) — 179.99 USD: Keep the adventure going on even when the weather gets unpredictable! The all-purpose women's heated jacket provides superior, cross-seasonal comfort.
+- [[Final Sale for CA]  Oversized Blanket Hoodie for Unisex](https://venustas.com/apps/geo/products/oversized-blanket-hoodie-for-unisex) — 39.99 USD: This oversized blanket hoodie is your best companion for lazy afternoons or chilly nights, which can relax you can keep you warm. Crafted with Sherpa fabric, th...
+- [Oversized Heated Wearable Blanket Hoodie 7.4V, U2169 [Final Sale]](https://venustas.com/apps/geo/products/oversized-heated-wearable-blanket-hoodie-7-4v) — 79.99 USD: Best blanket hoodie for cozy holidays! You can easily tuck your legs up into the heated blanket hoodie without feeling tight. Your legs, stomach, neck, back, ar...
+- [[Final Sale For CA] Heated Vest for Women 5V](https://venustas.com/apps/geo/products/heated-vest-for-women-5v) — 69.99 USD: The lightweight women’s heated vest can be a perfect choice for cold days and protects you from heavy burdens. Durable fabric and carbon fiber heating elements ...
+- [Venustas 5V Battery Pack (10000mAh )](https://venustas.com/apps/geo/products/5v-battery-pack-10000mah) — 59.99 USD: Venustas 5V battery pack can be used to charge Venustas heated clothing, like heated vest, heated jacket, heated hoodie, etc. It features a capacity of 10000mAh...
+- [Venustas 7.4V Battery Pack (5000mAh)](https://venustas.com/apps/geo/products/7-4v-battery-pack) — 69.99 USD: Venustas 7.4V battery pack can be used to charge Venustas 7.4V heated clothing, like heated vest, heated jacket, heated hoodie, etc. Enhanced charging technolog...
+- [Men's 3-in-1 Heated Jacket 7.4V, M2167 [Final Sale]](https://venustas.com/apps/geo/products/mens-3-in-1-heated-jacket-7-4v) — 89.99 USD: Keep the adventure going on even when the weather gets unpredictable! The all-purpose heated jacket for men provides superior, cross-seasonal comfort. The water...
+- [Pullover Heated Hoodie for Unisex with Heating Pockets 7.4V, U2139](https://venustas.com/apps/geo/products/pullover-heated-hoodie-for-unisex-with-heating-pockets-7-4v) — 149.99 USD: This heated pullover hoodie is a truly all-season heat-up hoodie. It adopts graphene as heating material, which ensures better heat conductivity. Pullover desig...
+- [[Final Sale] Men’s Heated Down Vest 7.4V With Detachable Hood, M2119](https://venustas.com/apps/geo/products/mens-heated-down-vest-7-4v-detachable-hood) — 89.99 USD: Get your closet ready with the brand-new heated vest this winter! Upgraded with graphene, this heated vest for men has an incredible heating performance. An all...
+- [[Final Sale] Women's Heated Down Vest 7.4V With Detachable Hood, W2119](https://venustas.com/apps/geo/products/womens-heated-down-vest-7-4v-with-detachable-hood) — 89.99 USD: An all-new design with the graphene! Upgraded with industry-leading technology, this heated-down vest now can ensure a higher thermal conductivity. The premium ...
+- [Heated Gloves With Reflective Strip](https://venustas.com/apps/geo/products/heated-gloves-men-and-women) — 83.99 USD: [Final Sale]-6-month Warranty
+These heated gloves are a perfect pick for both men and women. A durable shell layer ensures firm and flexible hand grip during ou...
+- [Heated Jacket for Unisex with Dual Control Button 7.4V, U9001](https://venustas.com/apps/geo/products/heated-jacket-unisex-with-heating-areas-control-button-7-4v) — 149.99 USD: Want to heat a specific area, like your back or front body only? This heated jacket for men &amp; women comes with a brand new dual-control button! With the dou...
+- [Heated Thermal Underwear Pants For Men, 5V](https://venustas.com/apps/geo/products/heated-thermal-underwear-pants-for-men-5v) — 109.99 USD: Buy 2 Get 30% Off | Buy 3 Get 40% Off | Buy 5 Get 50% Off (Discount Auto Applied)
+Thermal underwear with graphene heating panels! This pair of thermal underwear...
+- [[Final Sale] Heated Thermal Underwear Shirt For Men, 5V](https://venustas.com/apps/geo/products/heated-thermal-underwear-shirt-for-men-5v) — 19.99 USD: As the weather gets colder, you might want to be protected from the cold with an excellent thermal underwear shirt. Designed with a marvelous graphene heating s...
+- [Heated Thermal Underwear Pants For Women, 5V](https://venustas.com/apps/geo/products/heated-thermal-underwear-pants-for-women-5v) — 39.99 USD: Wearing heated thermal pants for women under jeans or trousers to get an extra layer of insulation is best to deal with the cold legs. Graphene heating system m...
+- [[Final Sale] Heated Thermal Underwear Shirt For Women, 5V](https://venustas.com/apps/geo/products/heated-thermal-underwear-shirt-for-women-5v) — 19.99 USD: Keep warm and toasty this winter with the brand new heated layer shirt! An all-new design with graphene heating system, this pair of thermal shirts is all you n...
+- [[Final Sale] Women’s Heated Down Parka, 7.4V, W2163](https://venustas.com/apps/geo/products/women-s-heated-down-parka-7-4v) — 89.99 USD: The heated parka for women combines a stylish outlook and self-heating technology to keep the body warm and toasty. An all-new design with a long silhouette and...
+- [[Final Sale for CA] Heated Gloves for Men & Women, 7.4V](https://venustas.com/apps/geo/products/heated-gloves-for-men-women-7-4v) — 84.99 USD: The brand-new heated electric gloves for men &amp; women are equipped with graphene heating elements, which provide lightweight comfort and additional warmth fo...
+- [7.4V Battery Pack For Heated Gloves/Socks (15Wh), 2K](https://venustas.com/apps/geo/products/venustas-7-4v-battery-pack-heated-gloves2000mah) — 39.99 USD: This upgraded pair of battery packs is specially designed for Venustas new heated gloves. The charging core is upgraded to fit better with the graphene heating ...
+- [$20 Venustas E-Gift Card](https://venustas.com/apps/geo/products/20-venustas-gift-card) — 20.0 USD: Gift card code will be sent by email after purchase. You can enter the unique code at checkout for your purchase on venustasofficial.com, and then you choose a ...
+- [$30 Venustas E-Gift Card (will be sent within one week) / Exclusive for orders over $300](https://venustas.com/apps/geo/products/30-venustas-e-gift-card) — 30.0 USD: Gift card code will be sent by email after purchase. You can enter the unique code at checkout for your purchase on venustasofficial.com, and then you choose a ...
+- [[Final Sale] Heated Hunting Vest For Unisex, 7.4V](https://venustas.com/apps/geo/products/heated-hunting-vest-unisex-7-4v) — 99.99 USD: [Final Sale] 6-month warranty
+This brand new heated hunting vest is designed to provide extra warmth and protect you in the cold day activities, thanks to the g...
+- [[Open Box] Heated Thermal Underwear Pants For Women, 5V](https://venustas.com/apps/geo/products/open-box-heated-thermal-underwear-pants-for-women-5v) — 65.99 USD: 6-Month Limited Warranty on Heating Elements
+
+
+6-Month Limited Warranty on Battery
+Note: ONLY shipping to U.S.
+Wearing heated thermal pants for women under jean...
+- [[Open Box] Heated Underwear Set For Women, 5V](https://venustas.com/apps/geo/products/open-box-heated-underwear-set-for-women-5v) — 95.99 USD: 6-Month Limited Warranty on Heating Elements
+
+
+6-Month Limited Warranty on Battery
+Note: ONLY Shipping to US
+Women's heated underwear set is the first pick for ...
+- [[Open Box] Men's Heated Jacket 5V with Detachable Hood](https://venustas.com/apps/geo/products/open-box-mens-heated-jacket-5v-with-detachable-hood) — 84.99 USD: 6-Month Limited Warranty on Heating Elements
+
+
+6-Month Limited Warranty on Battery
+Note: ONLY Shipping to US
+This heated jacket is the perfect piece for walking...
+- [[Open Box] Women's Heated Jacket 5V with Detachable Hood](https://venustas.com/apps/geo/products/open-box-womens-heated-jacket-5v-with-detachable-hood) — 84.99 USD: 6-Month Limited Warranty on Heating Elements
+
+
+6-Month Limited Warranty on Battery
+Note: ONLY Shipping to US
+With the water and wind-resistant exterior, this he...
+- [[Open Box] Women's Heated Coat 5V](https://venustas.com/apps/geo/products/open-box-womens-heated-coat-5v) — 101.99 USD: 6-Month Limited Warranty on Heating Elements
+
+
+6-Month Limited Warranty on Battery
+Note: ONLY Shipping to US
+This women’s heated coat adopts 4 carbon fiber heat...
+- [[Open Box] Heated Vest for Men 5V](https://venustas.com/apps/geo/products/open-box-heated-vest-for-men-5v) — 69.5 USD: 6-Month Limited Warranty on Heating Elements
+
+
+6-Month Limited Warranty on Battery
+This heated vest is lightweight, yet insulated, so you can wear them with or ...
+- [[Open Box] Heated Vest for Women 5V](https://venustas.com/apps/geo/products/open-box-heated-vest-for-women-5v) — 69.5 USD: 6-Month Limited Warranty on Heating Elements
+
+
+6-Month Limited Warranty on Battery
+
+The lightweight women’s heated vest can be a perfect choice for cold days an...
+- [[Open Box] Men's Heated Vest with V-neck 7.4V](https://venustas.com/apps/geo/products/open-box-mens-heated-vest-with-v-neck-7-4v) — 69.99 USD: 6-Month Limited Warranty on Heating Elements
+
+
+6-Month Limited Warranty on Battery
+Note: ONLY Shipping to US
+The heated vest for men is lightweight and features...
+- [[Open Box] Women's Heated Vest with V-neck 7.4V [L]](https://venustas.com/apps/geo/products/open-box-womens-heated-vest-with-v-neck-7-4v) — 69.99 USD: 6-Month Limited Warranty on Heating Elements
+
+
+6-Month Limited Warranty on Battery
+Note: ONLY Shipping to US
+Indulge yourself in the excellent heated vest which...
+- [[Open Box] Men's Heated Fleece Vest 7.4V](https://venustas.com/apps/geo/products/open-box-mens-heated-fleece-vest-7-4v) — 83.99 USD: 6-Month Limited Warranty on Heating Elements
+
+
+6-Month Limited Warranty on Battery
+
+Crafted with an ultra-soft fleece fabric, which can trap the heat and protec...
+
+
+---
+
+## Read-Only Browsing
+
+### Product Data
+- All products: `GET /collections/all`
+- Product page: `GET /products/{handle}`
+- Product JSON: `GET /products/{handle}.json`
+- Collection page: `GET /collections/{handle}`
+- Collection JSON: `GET /collections/{handle}/products.json`
+- Search: `GET /search?q={query}&type=product`
+
+### Store Metadata
+- Sitemap: `GET /sitemap.xml`
+
+## Deployment
+
+This `agents.md` is generated by [Tec-growth GEO optimizer](https://tec-do.cn/geo).
+
+- **Coverage**: 0 of 50 products are AI-optimized (0%)
+- **Last generated**: 2026-09-24T09:26:13.157031667Z
+- **Template version**: v1.0.0
+
+## Contact
+
+- Email: venustaservice@gmail.com
+- Phone: 8888366460
+
+## Platform
+
+This store is built on [Shopify](https://www.shopify.com), the commerce platform powering millions of stores worldwide. Shopify stores support UCP natively.
+
+- Shopify: https://www.shopify.com
+- UCP spec: https://ucp.dev
+- Shop skill: https://shop.app/SKILL.md
+{% endraw %}
