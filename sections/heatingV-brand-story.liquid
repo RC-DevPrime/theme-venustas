@@ -40,7 +40,9 @@
     line-height: 1.35;
     text-align: center;
     opacity: var(--story-heading-opacity, 0);
-    transform: translate(-50%, calc(-50% + var(--story-heading-y, 0px)));
+    /* Pinned to the exact centre for the whole scroll — only the colour and
+       opacity animate. */
+    transform: translate(-50%, -50%);
     will-change: transform, opacity;
   }
 
@@ -69,12 +71,14 @@
   }
 
   #shopify-section-{{ section.id }} .heatingv-brand-story__heading-line {
+    font-size:128px;
     display: block;
   }
 
   #shopify-section-{{ section.id }} .heatingv-brand-story__stats {
+    font-size: 24px;
     position: absolute;
-    top: 36%;
+    top: 50%;
     left: 0;
     display: flex;
     width: 100%;
@@ -82,7 +86,10 @@
     align-items: center;
     text-align: center;
     opacity: var(--story-stats-opacity, 0);
-    transform: translateY(calc(-50% + var(--story-stats-y, 120px)));
+    /* The heading never moves, so the copy is a fixed drop below the centre
+       line: it keeps its distance no matter how tall the viewport is.
+       --story-stats-y only drives the slide-in as it fades up. */
+    transform: translateY(calc(-50% + var(--story-stats-y, 118px)));
     will-change: transform, opacity;
   }
 
@@ -133,10 +140,12 @@
     }
 
     #shopify-section-{{ section.id }} .heatingv-brand-story__heading-line {
+      font-size: 52px;
       display: inline;
     }
 
     #shopify-section-{{ section.id }} .heatingv-brand-story__stats {
+      font-size: 16px;
       position: static;
       display: flex;
       width: 100%;
@@ -209,7 +218,6 @@
 
       if (media.matches) {
         section.style.removeProperty('--story-heading-opacity');
-        section.style.removeProperty('--story-heading-y');
         section.style.removeProperty('--story-base-opacity');
         section.style.removeProperty('--story-gradient-opacity');
         section.style.removeProperty('--story-grad-start');
@@ -222,14 +230,13 @@
 
       if (reducedMotion.matches) {
         section.style.setProperty('--story-heading-opacity', '1');
-        section.style.setProperty('--story-heading-y', '-86px');
         section.style.setProperty('--story-base-opacity', '0');
         section.style.setProperty('--story-gradient-opacity', '1');
         section.style.setProperty('--story-grad-start', 'rgb(255, 79, 39)');
         section.style.setProperty('--story-grad-mid', 'rgb(255, 132, 92)');
         section.style.setProperty('--story-grad-end', 'rgb(255, 193, 170)');
         section.style.setProperty('--story-stats-opacity', '1');
-        section.style.setProperty('--story-stats-y', '132px');
+        section.style.setProperty('--story-stats-y', '118px');
         return;
       }
 
@@ -239,16 +246,13 @@
       const intro = range(progress, 0.03, 0.18);
       const gradientEnter = range(progress, 0.25, 0.5);
       const gradientDepth = range(progress, 0.38, 0.72);
-      const finale = range(progress, 0.66, 0.84);
       const statsEnter = range(progress, 0.7, 0.86);
-      const headingY = mix(0, -86, finale);
-      const statsY = mix(160, 132, statsEnter);
+      const statsY = mix(146, 118, statsEnter);
       const gradStart = mixColor([255, 163, 135], [255, 79, 39], gradientDepth);
       const gradMid = mixColor([255, 191, 170], [255, 132, 92], gradientDepth);
       const gradEnd = mixColor([255, 224, 214], [255, 193, 170], gradientDepth);
 
       section.style.setProperty('--story-heading-opacity', intro.toFixed(3));
-      section.style.setProperty('--story-heading-y', `${headingY.toFixed(2)}px`);
       section.style.setProperty('--story-base-opacity', (1 - gradientEnter).toFixed(3));
       section.style.setProperty('--story-gradient-opacity', gradientEnter.toFixed(3));
       section.style.setProperty('--story-grad-start', gradStart);
