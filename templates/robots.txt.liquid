@@ -1,0 +1,13 @@
+{% for group in robots.default_groups %}
+  {{- group.user_agent }}
+  {%- for rule in group.rules -%}
+    {{ rule }}
+  {%- endfor -%}
+  {%- if group.sitemap != blank %}
+    {{ group.sitemap }}
+  {%- endif %}
+{% endfor %}
+
+# tec-do GEO AI Crawler Discovery (geo-ai-crawler-sitemap-injected)
+Sitemap: https://{{ request.host }}/apps/geo/sitemap.xml
+Sitemap: https://{{ request.host }}/apps/geo/llms.txt
