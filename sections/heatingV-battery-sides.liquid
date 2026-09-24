@@ -108,11 +108,9 @@
       gap: 24px;
     }
 
-    #shopify-section-{{ section.id }} .heatingv-battery-sides__row--text-first .heatingv-battery-sides__media {
-      order: -1;
-    }
-
+    /* Copy on top, image below — on both rows, whatever the DOM order is. */
     #shopify-section-{{ section.id }} .heatingv-battery-sides__media {
+      order: 1;
       width: 100%;
       border-radius: 8px;
     }

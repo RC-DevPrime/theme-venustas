@@ -262,14 +262,23 @@
 
     #shopify-section-{{ section.id }} .heatingV-4x-gear__media {
       flex: none;
+      order: 2;
       width: 100%;
       aspect-ratio: 350 / 331;
     }
 
+    /* Let header and chart take part in the __inner column so the media can sit
+       between them: header → media → chart. */
     #shopify-section-{{ section.id }} .heatingV-4x-gear__content {
-      flex: none;
-      width: 100%;
-      gap: 32px;
+      display: contents;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__header {
+      order: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__chart {
+      order: 3;
     }
 
     #shopify-section-{{ section.id }} .heatingV-4x-gear__eyebrow {
@@ -290,6 +299,17 @@
 
     #shopify-section-{{ section.id }} .heatingV-4x-gear__fill {
       height: 32px;
+    }
+
+    /* Hold the first frame long enough to read it before the crossfade starts,
+       then dissolve and grow the bars more slowly than on desktop. */
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__figure {
+      transition: opacity 1.8s ease 1.2s;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__fill--volcano,
+    #shopify-section-{{ section.id }} .heatingV-4x-gear__fill--standard {
+      transition: width 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s;
     }
 
     #shopify-section-{{ section.id }} .heatingV-4x-gear__row {
@@ -445,12 +465,26 @@
       return;
     }
 
+    // Play once ~20% of the section is on screen; rewind as soon as it's nearly
+    // gone, with a small band between the two so a slow scroll can't flicker.
+    const PLAY_AT = 0.2;
+    const RESET_BELOW = 0.08;
+    const isMobile = window.matchMedia('(max-width: 767px)');
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.intersectionRatio >= 0.25) play();
-        else if (entry.intersectionRatio === 0) reset();
+        if (entry.intersectionRatio >= PLAY_AT) {
+          const firstPlay = !playing;
+          play();
+          // On phones the section is taller than the viewport, so any rewind
+          // would land while part of it is still on screen. Play it through
+          // once and stop watching, leaving the finished state in place.
+          if (firstPlay && isMobile.matches) observer.unobserve(entry.target);
+        } else if (!isMobile.matches && entry.intersectionRatio < RESET_BELOW) {
+          reset();
+        }
       });
-    }, { threshold: [0, 0.25] });
+    }, { threshold: [0, RESET_BELOW, PLAY_AT] });
 
     observer.observe(target);
 

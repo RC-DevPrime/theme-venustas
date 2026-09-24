@@ -136,13 +136,19 @@
     stroke-width: 2;
   }
 
-  /* ---------- In-view state (plays once) ---------- */
+  /* ---------- In-view state (replays on every entry) ---------- */
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__card.is-in-view .heatingV-volcano-chart__line {
     stroke-dashoffset: 0;
   }
 
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__card.is-in-view .heatingV-volcano-chart__dot {
     opacity: 1;
+  }
+
+  /* ---------- Reset (instant rewind while off-screen) ---------- */
+  #shopify-section-{{ section.id }} .heatingV-volcano-chart__card--no-transition .heatingV-volcano-chart__line,
+  #shopify-section-{{ section.id }} .heatingV-volcano-chart__card--no-transition .heatingV-volcano-chart__dot {
+    transition: none;
   }
 
   /* ---------- Legend ---------- */
@@ -217,6 +223,7 @@
     #shopify-section-{{ section.id }} .heatingV-volcano-chart__legend {
       gap: 20px;
       flex-wrap: wrap;
+      justify-content: flex-start;
     }
 
     #shopify-section-{{ section.id }} .heatingV-volcano-chart__legend-text {
@@ -402,22 +409,42 @@
     const cards = sectionRoot.querySelectorAll('.heatingV-volcano-chart__card');
     if (!cards.length) return;
 
-    const reveal = (card) => card.classList.add('is-in-view');
+    const NO_TRANSITION = 'heatingV-volcano-chart__card--no-transition';
+    const playing = new WeakSet();
+
+    // Snap back to the pre-play state without animating the rewind.
+    const rewind = (card) => {
+      card.classList.add(NO_TRANSITION);
+      card.classList.remove('is-in-view');
+      void card.offsetWidth;
+      card.classList.remove(NO_TRANSITION);
+    };
+
+    const play = (card) => {
+      if (playing.has(card)) return;
+      playing.add(card);
+      rewind(card);
+      card.classList.add('is-in-view');
+    };
+
+    const reset = (card) => {
+      if (!playing.has(card)) return;
+      playing.delete(card);
+      rewind(card);
+    };
 
     // No observer support: show the finished state immediately.
     if (!('IntersectionObserver' in window)) {
-      cards.forEach(reveal);
+      cards.forEach(play);
       return;
     }
 
-    // Fires once, when 50% of the chart card is visible. Never replays.
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.intersectionRatio < 0.5) return;
-        reveal(entry.target);
-        observer.unobserve(entry.target);
+        if (entry.intersectionRatio >= 0.5) play(entry.target);
+        else if (entry.intersectionRatio === 0) reset(entry.target);
       });
-    }, { threshold: [0, 0.5, 1] });
+    }, { threshold: [0, 0.5] });
 
     cards.forEach((card) => observer.observe(card));
 
