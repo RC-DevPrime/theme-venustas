@@ -73,6 +73,7 @@
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__area {
     flex: 1 1 auto;
     min-width: 0;
+    margin-left:-60px;
   }
 
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__svg {
@@ -189,11 +190,23 @@
     line-height: 1.25;
     white-space: nowrap;
   }
+  /* ---------- Mobile ---------- */
+  @media only screen and (min-width: 501px) and (max-width: 1060px) {
+    #shopify-section-{{ section.id }} .heatingV-volcano-chart {
+      --chat-font: 28px !important;
+    }
+    #shopify-section-{{ section.id }} .heatingV-volcano-chart__area{
+      margin-left:-60px !important;
+    }
+  }
 
   /* ---------- Mobile ---------- */
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 1060px) {
     #shopify-section-{{ section.id }} .heatingV-volcano-chart {
-      --chat-font: 36px;
+      --chat-font: 26px;
+    }
+    #shopify-section-{{ section.id }} .heatingV-volcano-chart__area{
+      margin-left:-32px;
     }
 
     #shopify-section-{{ section.id }} .heatingV-volcano-chart__inner {
@@ -227,7 +240,7 @@
     }
 
     #shopify-section-{{ section.id }} .heatingV-volcano-chart__legend-text {
-      font-size: 14px;
+      font-size: 16px;
     }
   }
 

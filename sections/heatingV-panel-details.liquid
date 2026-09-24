@@ -153,7 +153,7 @@
     }
 
     #shopify-section-{{ section.id }} .heatingv-panel-details__media {
-      height: 230px;
+      min-height: 230px;
       border-radius: 6px;
     }
 
@@ -179,7 +179,7 @@
   assign image_5_mobile = section.settings.image_5_mobile | default: section.settings.image_5
 -%}
 
-<section class="heatingv-panel-details" id="heatingv-detail">
+<section class="heatingv-panel-details" id="heatingv-details">
   <div class="heatingv-panel-details__inner">
     <div class="heatingv-panel-details__header">
       {%- if section.settings.title != blank -%}
