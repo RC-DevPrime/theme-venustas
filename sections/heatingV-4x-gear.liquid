@@ -243,6 +243,13 @@
     white-space: nowrap;
   }
 
+  /* ---------- Reset (instant rewind while off-screen) ---------- */
+  #shopify-section-{{ section.id }} .heatingV-4x-gear--no-transition .heatingV-4x-gear__figure,
+  #shopify-section-{{ section.id }} .heatingV-4x-gear--no-transition .heatingV-4x-gear__fill--volcano,
+  #shopify-section-{{ section.id }} .heatingV-4x-gear--no-transition .heatingV-4x-gear__fill--standard {
+    transition: none;
+  }
+
   /* ---------- Mobile ---------- */
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .heatingV-4x-gear__inner {
@@ -304,7 +311,7 @@
   }
 {% endstyle %}
 
-<section class="heatingV-4x-gear">
+<section class="heatingV-4x-gear" id="heatingv-runtime">
   <div class="heatingV-4x-gear__inner">
     <div class="heatingV-4x-gear__media">
       <figure class="heatingV-4x-gear__figure heatingV-4x-gear__figure--first">
@@ -410,7 +417,28 @@
     if (!target) return;
     sectionRoot.dataset.heatingVPowerReady = 'true';
 
-    const play = () => target.classList.add('is-inview');
+    const NO_TRANSITION = 'heatingV-4x-gear--no-transition';
+    let playing = false;
+
+    const rewind = () => {
+      target.classList.add(NO_TRANSITION);
+      target.classList.remove('is-inview');
+      void target.offsetWidth;
+      target.classList.remove(NO_TRANSITION);
+    };
+
+    const play = () => {
+      if (playing) return;
+      playing = true;
+      rewind();
+      target.classList.add('is-inview');
+    };
+
+    const reset = () => {
+      if (!playing) return;
+      playing = false;
+      rewind();
+    };
 
     if (!('IntersectionObserver' in window)) {
       play();
@@ -419,11 +447,10 @@
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        play();
-        observer.disconnect();
+        if (entry.intersectionRatio >= 0.25) play();
+        else if (entry.intersectionRatio === 0) reset();
       });
-    }, { threshold: 0.25 });
+    }, { threshold: [0, 0.25] });
 
     observer.observe(target);
 

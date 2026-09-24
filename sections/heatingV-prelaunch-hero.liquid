@@ -1,5 +1,5 @@
 {%- liquid
-  assign founder_total = section.settings.dynamic_inventory | default: 100
+  assign founder_total = section.settings.dynamic_inventory | default: 200
   if founder_total < 1
     assign founder_total = 200
   endif
@@ -52,20 +52,21 @@
     content: ''; z-index: 1; pointer-events: none;
     background: linear-gradient(90deg, rgba(0,0,0,.42) 0%, rgba(0,0,0,.14) 48%, rgba(0,0,0,0) 74%);
   }
-  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__image { width: 100%; height: 100%; object-fit: cover; object-position: right; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__image { width: 100%; max-height: 769px; object-fit: cover; object-position: center; }
   #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__inner {
-    position: relative; z-index: 2; width: min(calc(100% - 40px), 1340px); min-height: 768px; margin: 0 auto; padding-top: 137px; padding-bottom: 168px; box-sizing: border-box;
+    position: relative; z-index: 2; width: min(calc(100% - 40px), 1340px); min-height: 768px; margin: 0 auto; padding-top: 137px; padding-bottom: 265px; box-sizing: border-box;
   }
   #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__content { width: min(100%, 807px); }
   #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__eyebrow {
     margin: 0 0 8px; color: var(--color-brand, #b93205); font-size: 16px; font-weight: 600; line-height: 1.2; letter-spacing: 1.21px; text-transform: uppercase;
   }
   #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__eyebrow-mobile { display: none; }
+  #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefit-text-mobile { display: none; }
   #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__title {
-    max-width: 509px; margin: 0 0 16px; color: #fff; font-size: 42px; font-weight: 700; line-height: 1.25; letter-spacing: -1.5px;
+    max-width: 536px; margin: 0 0 16px; color: #fff; font-size: 42px; font-weight: 700; line-height: 1.25; letter-spacing: -1.5px;
   }
   #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__description {
-    max-width: 420px; margin: 0 0 24px; color: #fff; font-size: 15px; font-weight: 300; line-height: 1.625;
+    max-width: 620px; margin: 0 0 24px; color: #fff; font-size: 15px; font-weight: 300; line-height: 1.625;
   }
   #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__description p { margin: 0; }
   #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__button {
@@ -117,15 +118,23 @@
     #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__note { color: #a5aab1; line-height: 1.4; }
     #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__progress { width: 100%; margin-top: 24px; }
     #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__progress-text { margin-top: 8px; color: #d0d0d0; line-height: 1.4; }
-    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefits { width: 100%; min-height: 0; grid-template-columns: 1fr; gap: 40px; margin-top: 32px; padding: 16px 24px; background: rgba(185,50,5,.4); }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefits { width: 100%; min-height: 0; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 32px; padding: 16px 24px; background: rgba(185,50,5,.32); }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefit { align-items: center; text-align: center; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefit-text-desktop { display: none; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefit-text-mobile { display: inline; }
     #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stats { position: static; min-height: 0; width: 100%; margin-top: 26px; border-top: 1px solid var(--color-brand, #b93205); }
-    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stats-inner { display: grid; width: 100%; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; padding: 20px; box-sizing: border-box; }
-    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat { min-width: 0; text-align: center; }
-    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat-value { color: var(--color-brand, #b93205); font-size: 24px; font-weight: 700; line-height: 1.2; }
-    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat-text { margin-top: 4px; color: #fff; font-size: 13px; line-height: 1.25; overflow-wrap: anywhere; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stats-inner { display: grid; width: 100%; grid-template-columns: minmax(0,1fr); gap: 0; padding: 4px 20px; box-sizing: border-box; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat { display: flex; min-width: 0; flex-direction: row-reverse; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; text-align: left; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat + .heatingv-prelaunch-hero__stat { border-top: 1px solid rgba(255,255,255,.14); }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat-value { flex: none; color: var(--color-brand, #b93205); font-size: 24px; font-weight: 700; line-height: 1.2; text-align: right; white-space: nowrap; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat-text { flex: 1 1 auto; min-width: 0; margin-top: 0; color: #fff; font-size: 13px; line-height: 1.35; overflow-wrap: anywhere; }
   }
   @media only screen and (min-width: 768px) and (max-width: 900px) {
     #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__benefits { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 1280px) {
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stats-inner { grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 40px; row-gap: 24px; padding: 28px 0; }
+    #shopify-section-{{ section.id }} .heatingv-prelaunch-hero__stat { text-align: center; }
   }
 {% endstyle %}
 
@@ -161,8 +170,8 @@
       </div>
       <div class="heatingv-prelaunch-hero__benefits">
         {%- for index in (1..3) -%}
-          {%- assign value_key = 'benefit_' | append: index | append: '_value' -%}{%- assign text_key = 'benefit_' | append: index | append: '_text' -%}
-          <div class="heatingv-prelaunch-hero__benefit"><p class="heatingv-prelaunch-hero__benefit-value">{{ section.settings[value_key] }}</p><p class="heatingv-prelaunch-hero__benefit-text">{{ section.settings[text_key] }}</p></div>
+          {%- assign value_key = 'benefit_' | append: index | append: '_value' -%}{%- assign text_key = 'benefit_' | append: index | append: '_text' -%}{%- assign mobile_text_key = 'benefit_' | append: index | append: '_text_mobile' -%}
+          <div class="heatingv-prelaunch-hero__benefit"><p class="heatingv-prelaunch-hero__benefit-value">{{ section.settings[value_key] }}</p><p class="heatingv-prelaunch-hero__benefit-text"><span class="heatingv-prelaunch-hero__benefit-text-desktop">{{ section.settings[text_key] }}</span><span class="heatingv-prelaunch-hero__benefit-text-mobile">{{ section.settings[mobile_text_key] | default: section.settings[text_key] }}</span></p></div>
         {%- endfor -%}
       </div>
     </div>
@@ -191,10 +200,13 @@
     { "type": "header", "content": "Founder benefits" },
     { "type": "text", "id": "benefit_1_value", "label": "Benefit 1 value", "default": "$50" },
     { "type": "text", "id": "benefit_1_text", "label": "Benefit 1 text", "default": "off at launch, applied automatically" },
+    { "type": "text", "id": "benefit_1_text_mobile", "label": "Benefit 1 text (mobile)", "default": "off with your code" },
     { "type": "text", "id": "benefit_2_value", "label": "Benefit 2 value", "default": "Lifetime" },
     { "type": "text", "id": "benefit_2_text", "label": "Benefit 2 text", "default": "heating element warranty — normally 3 years" },
+    { "type": "text", "id": "benefit_2_text_mobile", "label": "Benefit 2 text (mobile)", "default": "heating element warranty" },
     { "type": "text", "id": "benefit_3_value", "label": "Benefit 3 value", "default": "Free" },
     { "type": "text", "id": "benefit_3_text", "label": "Benefit 3 text", "default": "Y cable, $17.99 after launch" },
+    { "type": "text", "id": "benefit_3_text_mobile", "label": "Benefit 3 text (mobile)", "default": "Y cable set ($17.99)" },
     { "type": "header", "content": "Specifications" },
     { "type": "text", "id": "stat_1_value", "label": "Specification 1 value", "default": "−40°F to 41°F" },
     { "type": "text", "id": "stat_1_text", "label": "Specification 1 text", "default": "Idea for" },
