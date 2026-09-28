@@ -3,6 +3,11 @@
     .product-recommendation-section {
         position:relative;
     }
+    /* The arrows are measured against this box, so it has to be their containing
+       block instead of the full-bleed section. */
+    .product-recommendation-section .product-recommendations {
+        position:relative;
+    }
     .product-recommendation-section .float-nav button{
         background: #F1EADD;
     }
@@ -17,21 +22,35 @@
     .product-recommendation-section .float-nav .fa-chevron-right:before{
         color: #B93205;
     }
+
+    /*
+     * Pin the arrows to the slider's left/right edges and ride the product
+     * image's vertical centre, which the script measures into
+     * --product-image-nav-offset. Same approach as index-tab-product-list.
+     */
+    .product-recommendation-section .product-recommendations > .float-nav {
+        transform: translate(-50%, -50%) translateY(var(--product-image-nav-offset, 0px));
+    }
+    .product-recommendation-section .product-recommendations > .float-nav .owl-prev {
+        left: 0;
+        right: auto;
+        transform: translate(-50%, -50%);
+    }
+    .product-recommendation-section .product-recommendations > .float-nav .owl-next {
+        right: 0;
+        left: auto;
+        transform: translate(50%, -50%);
+    }
+    /* Every product already fits the viewport, so there is nothing to page to. */
+    .product-recommendation-section .product-recommendations > .float-nav.is-nav-hidden {
+        display: none;
+    }
+
     .product-recommendation-section .tab-product-list-slider .swiper-slide{
         height:auto;
     }
     .product-recommendation-section .swiper-slide{
         height:auto;
-    }
-    
-    /* FOR MOBILE PHONE */
-    @media only screen and (max-width: 768px) {
-        .product-recommendation-section .float-nav button{
-            --btn-pos:5px;
-        }
-        .product-recommendation-section .float-nav{
-            top:220px;
-        }
     }
     
     /* MOBILES ----------------------------------------------------------------------------------- */
@@ -69,16 +88,6 @@
     }
 
     /* COMPUTERS --------------------------------------------------------------------------------- */
-    @media only screen and (min-width: 1920px) {
-        .product-recommendation-section .float-nav button{
-            --btn-pos: 50px;
-        }
-    }
-    @media only screen and (min-width: 2560px) {
-        .product-recommendation-section .float-nav button{
-            --btn-pos: 50px;
-        }
-    }
 {% endstyle %}
 <div class="container section-content 
     {% if section.settings.nav_title != blank %} section-scroll
@@ -142,17 +151,21 @@
 
         // Initialize Swiper for recommendation slider
         $('.product-recommendations .recommendation-slider').each(function () {
-            let $section = $(this);
-            let $sectionRecommendation = $('.product-recommendation-section');
+            const sliderEl = this;
+            const scopeEl = sliderEl.closest('.product-recommendations');
+            const floatNav = scopeEl.querySelector('.float-nav');
+            // Read the count before Swiper touches the DOM so loop mode can't
+            // inflate it.
+            const productCount = sliderEl.querySelectorAll('.swiper-slide').length;
 
-            new Swiper(this, {
+            const swiper = new Swiper(sliderEl, {
             slidesPerView: 4,
             spaceBetween: 15,
             allowTouchMove: true,
             loop: true,
             navigation: {
-                nextEl: $sectionRecommendation.find('.float-nav .owl-next')[0],
-                prevEl: $sectionRecommendation.find('.float-nav .owl-prev')[0],
+                nextEl: floatNav.querySelector('.owl-next'),
+                prevEl: floatNav.querySelector('.owl-prev'),
             },
             breakpoints: {
                 1524: {
@@ -169,6 +182,35 @@
                 },
             },
             });
+
+            // The arrows only earn their space when something is off-screen to
+            // reach, and they have to sit on the product image rather than the
+            // middle of the whole card.
+            const syncNav = () => window.requestAnimationFrame(() => {
+                const perView = Number(swiper.params.slidesPerView) || 1;
+                const hideNav = productCount <= perView;
+                floatNav.classList.toggle('is-nav-hidden', hideNav);
+                if (hideNav) return;
+
+                // Reset before measuring so each pass reads the uncorrected
+                // position instead of stacking on the previous offset.
+                floatNav.style.setProperty('--product-image-nav-offset', '0px');
+
+                const productImage = sliderEl.querySelector('.product-image');
+                const arrow = floatNav.querySelector('.owl-prev, .owl-next');
+                if (!productImage || !arrow) return;
+
+                const imageRect = productImage.getBoundingClientRect();
+                const arrowRect = arrow.getBoundingClientRect();
+                floatNav.style.setProperty(
+                    '--product-image-nav-offset',
+                    `${(imageRect.top + imageRect.height / 2) - (arrowRect.top + arrowRect.height / 2)}px`
+                );
+            });
+
+            syncNav();
+            swiper.on('breakpoint resize', syncNav);
+            window.addEventListener('load', syncNav);
         });
         })
         .catch(e => {
