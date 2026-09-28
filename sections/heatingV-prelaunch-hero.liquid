@@ -1,9 +1,14 @@
 {%- liquid
-  assign founder_total = section.settings.dynamic_inventory | default: 200
-  if founder_total < 1
-    assign founder_total = 200
+  # Real stock on hand. Every displayed number is derived from how many of
+  # these have sold, so shrinking display_total drains the bar faster without
+  # touching the actual inventory.
+  assign base_total = 200
+  assign display_total = section.settings.dynamic_inventory | default: base_total
+  if display_total < 1
+    assign display_total = base_total
   endif
-  assign founder_remaining = founder_total
+
+  assign founder_remaining = base_total
   assign founder_available = false
   assign founder_product = section.settings.founder_product
   if founder_product != blank
@@ -18,8 +23,8 @@
   endif
   if founder_remaining < 0
     assign founder_remaining = 0
-  elsif founder_remaining > founder_total
-    assign founder_remaining = founder_total
+  elsif founder_remaining > base_total
+    assign founder_remaining = base_total
   endif
   if founder_variant != blank and founder_variant.inventory_management != blank
     if founder_variant.available and founder_remaining > 0
@@ -31,7 +36,22 @@
   elsif founder_variant != blank and founder_variant.available == false
     assign founder_remaining = 0
   endif
-  assign founder_percent = founder_remaining | times: 200 | divided_by: founder_total
+
+  assign founder_sold = base_total | minus: founder_remaining
+
+  # Bar reads on the displayed scale: 2 sold at a setting of 100 gives 98/100.
+  assign bar_remaining = display_total | minus: founder_sold
+  if bar_remaining < 0
+    assign bar_remaining = 0
+  endif
+  assign founder_percent = bar_remaining | times: 100 | divided_by: display_total
+
+  # Text stays on the 200 baseline, so those same 2 sales read as 196 of 200.
+  assign amplified_sold = founder_sold | times: base_total | divided_by: display_total
+  assign founder_left = base_total | minus: amplified_sold
+  if founder_left < 0
+    assign founder_left = 0
+  endif
   assign reserve_url = '#'
   if founder_available
     assign reserve_url = routes.root_url | append: 'cart/' | append: founder_variant.id | append: ':1?checkout'
@@ -166,8 +186,8 @@
       {%- endif -%}
       {%- if section.settings.refund_note != blank -%}<p class="heatingv-prelaunch-hero__note">{{ section.settings.refund_note }}</p>{%- endif -%}
       <div class="heatingv-prelaunch-hero__progress">
-        <div class="heatingv-prelaunch-hero__progress-track" role="progressbar" aria-label="Founder passes left" aria-valuemin="0" aria-valuemax="{{ founder_total }}" aria-valuenow="{{ founder_remaining }}"><span class="heatingv-prelaunch-hero__progress-fill" style="width: {{ founder_percent }}%;"></span></div>
-        <p class="heatingv-prelaunch-hero__progress-text">{{ founder_remaining }} of {{ founder_total }} Founder Passes left</p>
+        <div class="heatingv-prelaunch-hero__progress-track" role="progressbar" aria-label="Founder passes left" aria-valuemin="0" aria-valuemax="{{ display_total }}" aria-valuenow="{{ bar_remaining }}"><span class="heatingv-prelaunch-hero__progress-fill" style="width: {{ founder_percent }}%;"></span></div>
+        <p class="heatingv-prelaunch-hero__progress-text">{{ founder_left }} of {{ base_total }} Founder Passes left</p>
       </div>
       <div class="heatingv-prelaunch-hero__benefits">
         {%- for index in (1..3) -%}
@@ -218,7 +238,7 @@
     { "type": "text", "id": "stat_4_value", "label": "Specification 4 value", "default": "Unlimited" },
     { "type": "text", "id": "stat_4_text", "label": "Specification 4 text", "default": "Runtime on 12V vehicle power" },
     { "type": "product", "id": "founder_product", "label": "Founder pass product" },
-    { "type": "number", "id": "dynamic_inventory", "label": "Dynamic inventory count", "default": 200 }
+    { "type": "number", "id": "dynamic_inventory", "label": "Displayed total", "info": "The total the bar counts down from. Lower it to make the counter drain faster: at 100, the 2 sales on a 200 run read as 98 of 100 on the bar and 196 of 200 in the text.", "default": 200 }
   ],
   "presets": [{ "name": "HeatingV Prelaunch Hero" }]
 }
