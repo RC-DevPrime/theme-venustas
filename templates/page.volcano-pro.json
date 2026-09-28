@@ -11,11 +11,317 @@
   "sections": {
     "main_page_3cKYFc": {
       "type": "main-page",
+      "disabled": true,
       "name": "Main Page",
       "settings": {}
+    },
+    "heating_v_prelaunch_hero_pdL93V": {
+      "type": "heatingV-prelaunch-hero",
+      "name": "HeatingV Prelaunch Hero",
+      "settings": {
+        "desktop_image": "shopify://shop_images/heatingW-banner.webp",
+        "mobile_image": "shopify://shop_images/heatingW-banner-mobile.webp",
+        "eyebrow_desktop": "PRE-LAUNCH • VOLCANO™ FLAGSHIP VEST",
+        "eyebrow_mobile": "PRE-LAUNCH • VOLCANO™ FLAGSHIP VEST",
+        "title": "The Warmest Vest We've Ever Made",
+        "description": "<p>4X the power of our everyday heated gear — built for −40°F cold. Two 54Wh batteries included.</p>",
+        "button_label": "Reserve for $10",
+        "refund_note": "Fully refundable. Cancel any time before launch. Launching Nov 6th, 2026.",
+        "benefit_1_value": "$50",
+        "benefit_1_text": "off at launch, applied automatically",
+        "benefit_1_text_mobile": "off with your code",
+        "benefit_2_value": "Lifetime",
+        "benefit_2_text": "heating element warranty — normally 3 years",
+        "benefit_2_text_mobile": "heating element warranty",
+        "benefit_3_value": "Free",
+        "benefit_3_text": "Y cable, $17.99 after launch",
+        "benefit_3_text_mobile": "Y cable set ($17.99)",
+        "stat_1_value": "−40°F to 41°F",
+        "stat_1_text": "Idea for",
+        "stat_2_value": "41W",
+        "stat_2_text": "4x a standard heated vest",
+        "stat_3_value": "108Wh",
+        "stat_3_text": "Two 7.5K batteries included",
+        "stat_4_value": "Unlimited",
+        "stat_4_text": "Runtime on 12V vehicle power",
+        "founder_product": "volcano-series-founder-pass",
+        "dynamic_inventory": 200
+      }
+    },
+    "heating_v_anchor_nav_AJHz6f": {
+      "type": "heatingV-anchor-nav",
+      "blocks": {
+        "link_ntfxay": {
+          "type": "link",
+          "settings": {
+            "label": "Origin",
+            "target_id": "heatingv-origin"
+          }
+        },
+        "link_LbE6gV": {
+          "type": "link",
+          "settings": {
+            "label": "Heating System",
+            "target_id": "heatingv-heating-system"
+          }
+        },
+        "link_NF3fTh": {
+          "type": "link",
+          "settings": {
+            "label": "Dual-Battery System",
+            "target_id": "heatingv-runtime"
+          }
+        },
+        "link_eLw8kJ": {
+          "type": "link",
+          "settings": {
+            "label": "Heating Zones",
+            "target_id": "heatingv-heating-zones"
+          }
+        },
+        "link_bbzU7i": {
+          "type": "link",
+          "settings": {
+            "label": "Power Option",
+            "target_id": "heatingv-power-option"
+          }
+        },
+        "link_QAVG3V": {
+          "type": "link",
+          "settings": {
+            "label": "Volcano™ Series",
+            "target_id": "heatingv-volcano-series"
+          }
+        },
+        "link_rT4mNv": {
+          "type": "link",
+          "settings": {
+            "label": "Details",
+            "target_id": "heatingv-details"
+          }
+        },
+        "link_kP9wXs": {
+          "type": "link",
+          "settings": {
+            "label": "Benefits",
+            "target_id": "heatingv-benefits"
+          }
+        },
+        "link_hJ2cQd": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "heating-faq"
+          }
+        }
+      },
+      "block_order": [
+        "link_ntfxay",
+        "link_LbE6gV",
+        "link_NF3fTh",
+        "link_eLw8kJ",
+        "link_bbzU7i",
+        "link_QAVG3V",
+        "link_rT4mNv",
+        "link_kP9wXs",
+        "link_hJ2cQd"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#f5f5f5",
+        "nav_background": "#ffffff",
+        "text_color": "#1f1f1f",
+        "aria_label": "Page navigation",
+        "mobile_button_label": "Open page navigation"
+      }
+    },
+    "heating_v_power_bRNa9j": {
+      "type": "heatingV-power",
+      "name": "HeatingV Power",
+      "settings": {
+        "eyebrow": "How Volcano™ Started",
+        "title": "You Asked More Heat. So We Built Volcano™",
+        "description": "<p>Year after year, the riders, anglers and crews who stayed out longest told us the same two things: more heat when it really gets cold, and more time before the battery gives out. Volcano is our answer.</p>",
+        "video": "shopify://files/videos/heatingW-video.mp4"
+      }
+    },
+    "heating_v_4x_gear_X7d6Xe": {
+      "type": "heatingV-4x-gear",
+      "name": "HeatingV 4X Gear",
+      "settings": {
+        "first_desktop_image": "shopify://shop_images/heatingV-black-gear.webp",
+        "second_desktop_image": "shopify://shop_images/heatingV-red-gear.webp"
+      }
+    },
+    "heating_v_volcano_chart_rHmjrA": {
+      "type": "heatingV-volcano-chart",
+      "name": "HeatingV Volcano Chart",
+      "settings": {}
+    },
+    "heating_v_dual_battery_rFDXB4": {
+      "type": "heatingV-dual-battery",
+      "name": "HeatingV Dual Battery",
+      "settings": {
+        "title": "The First Venustas Vest That Runs Both Batteries at Once",
+        "description": "<p>Both 7.5K cells work on their own or together. Carry one when you want the vest light, both when you're out all day — and when they're both in, they run at the same time instead of one waiting its turn. It can heat up up to 11 hours, which covers a dawn-to-dark day on the ice, a full shift outside, or a long ride — without rationing the heat or hunting for an outlet.</p>",
+        "image_1": "shopify://shop_images/heatingV-vest.webp",
+        "image_1_mobile": "shopify://shop_images/heatingV-vest-mobile.webp",
+        "image_2": "shopify://shop_images/heatingV-vest2.webp",
+        "image_2_mobile": "shopify://shop_images/heatingV-vest2-mobile.webp",
+        "image_3": "shopify://shop_images/heatingV-vest3.webp",
+        "image_3_mobile": "shopify://shop_images/heatingV-vest3-mobile.webp",
+        "step_delay": 1,
+        "high_temp": "144℉",
+        "high_label": "4 hours continuous heat",
+        "high_pill": "HIGH",
+        "medium_temp": "130℉",
+        "medium_label": "6 hours continuous heat",
+        "medium_pill": "MEDIUM",
+        "low_temp": "112℉",
+        "low_label": "11 hours continuous heat",
+        "low_pill": "LOW"
+      }
+    },
+    "heating_v_heat_zones_xDVxNT": {
+      "type": "heatingV-heat-zones",
+      "name": "HeatingV Heat Zones",
+      "settings": {
+        "title": "The Largest Heating Area We've Ever Built Into a Vest",
+        "description": "<p>85% of Your Upper-Body Core, Front and Back. Heat runs from the collar, down both sides of the chest, across the upper back on both sides, and all the way over the lower back — the areas that go cold first once you stop moving, and the areas a smaller panel layout leaves out.</p>",
+        "jacket_image": "shopify://shop_images/heatingV-detail-men.webp",
+        "pants_image": "shopify://shop_images/heatingV-detail-women.webp"
+      }
+    },
+    "heating_v_battery_sides_hxPgbV": {
+      "type": "heatingV-battery-sides",
+      "name": "HeatingV Battery Sides",
+      "settings": {
+        "item_1_title": "Batteries on Your Sides, Never Your Back",
+        "item_1_description": "<p>One Battery Left. One Right. Balanced Across the Body. Sitting on a sled, riding a lift, leaning against a truck seat — the two places a battery pack usually digs in. Volcano™ keeps both off your back and off your spine.</p>",
+        "item_1_desktop_image": "shopify://shop_images/heatingV-vest.webp",
+        "item_2_title": "Near a 12V Outlet, It Never Runs Down",
+        "item_2_description": "<p>The DC lead is already built into the left hand pocket. Add the Y cable set (sold separately, reserve for free) and Volcano™ series runs straight off a snowmobile, a motorcycle or an ATV's 12V power — no battery to watch, no ceiling on the day.</p>",
+        "item_2_desktop_image": "shopify://shop_images/heatingV-12v-outlet.webp"
+      }
+    },
+    "heating_v_liner_system_rQ6KqF": {
+      "type": "heatingV-liner-system",
+      "name": "HeatingV Liner System",
+      "settings": {
+        "title": "Engineered for Him. Engineered for Her.",
+        "description": "<p>Both carry 6 heating zones, two 7.5K batteries and a 12V lead. Each is shaped to sit close without pulling, so a mid-layer stays a mid-layer under a shell.</p>",
+        "mens_desktop_image": "shopify://shop_images/heatingV-volcano-men.webp",
+        "womens_desktop_image": "shopify://shop_images/heatingV-volcano-women.webp"
+      }
+    },
+    "heating_v_panel_details_HBrpdg": {
+      "type": "heatingV-panel-details",
+      "name": "HeatingV Panel Details",
+      "settings": {
+        "title": "Every panel is there for a reason",
+        "description": "<p>A windproof, waterproof three-layer shell over a graphene lining. Pockets sized for what you actually carry. A power button where a gloved hand can find it.</p>",
+        "image_1": "shopify://shop_images/heatingV-detail1.webp",
+        "image_2": "shopify://shop_images/heatingV-detail2.webp",
+        "image_3": "shopify://shop_images/heatingV-detail3.webp",
+        "image_4": "shopify://shop_images/heatingV-detail4.webp",
+        "image_5": "shopify://shop_images/heatingV-detail5.webp",
+        "image_5_mobile": "shopify://shop_images/heatingV-detail-mobile.webp"
+      }
+    },
+    "heating_v_brand_story_AkjKTQ": {
+      "type": "heatingV-brand-story",
+      "name": "HeatingV Brand Story",
+      "settings": {
+        "heading": "VOLCANO<sup>TM</sup>",
+        "heading_accent": ""
+      }
+    },
+    "heating_v_launch_deal_UVx9J9": {
+      "type": "heatingV-launch-deal",
+      "name": "HeatingV Launch Deal",
+      "settings": {
+        "deposit_product": "volcano-series-founder-pass",
+        "title": "Same products. Better launch benefits.",
+        "description": "<p>One $10 payment now. It comes back as $50 at launch, along with a warranty we won't offer again.</p>"
+      }
+    },
+    "heating_prelaunch_faq_kTVCq9": {
+      "type": "heating-prelaunch-faq",
+      "blocks": {
+        "faq_eKhbmP": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get my $10 back?",
+            "answer": "<p>Yes. Any time before launch, email us and we'll refund it in full. After launch it becomes a $50 coupon — and if you don't use it and ask for refund, we'll still refund the original $10.</p>"
+          }
+        },
+        "faq_cgiz6T": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get my $10 back?",
+            "answer": "<p>Yes. Any time before launch, email us and we'll refund it in full. After launch it becomes a $50 coupon — and if you don't use it and ask for refund, we'll still refund the original $10.</p>"
+          }
+        },
+        "faq_t7Y7dH": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I have to buy a second battery?",
+            "answer": "<p>No. Both are in the box. The two pockets let you split the weight or keep both on one side, whichever sits better.<br/><br/></p>"
+          }
+        },
+        "faq_tDEP4a": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I use it on a snowmobile or motorcycle?",
+            "answer": "<p>The DC lead is built into the left hand pocket. Connect the Y cable set to your vehicle's 12V supply and the vest runs off the engine instead of the batteries. The Y cable set is free with a Founder Pass and $17.99 after launch.<br/><br/></p>"
+          }
+        },
+        "faq_FnREUj": {
+          "type": "faq",
+          "settings": {
+            "question": "When does it ship?",
+            "answer": "<p>November 2026. If anything slips, we'll email you and you can take a full refund on the spot.<br/><br/></p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_eKhbmP",
+        "faq_cgiz6T",
+        "faq_t7Y7dH",
+        "faq_tDEP4a",
+        "faq_FnREUj"
+      ],
+      "name": "Heating FAQ",
+      "settings": {
+        "eyebrow": "FAQ"
+      }
+    },
+    "heating_final_cta_dxtYgn": {
+      "type": "heating-final-cta",
+      "name": "Heating Final CTA",
+      "settings": {
+        "deposit_product": "volcano-series-founder-pass",
+        "klaviyo_form_id": "Tvz4zf",
+        "title": "200 passes. November launch.",
+        "description": "<p>Lock the lifetime warranty before it's gone.</p>"
+      }
     }
   },
   "order": [
-    "main_page_3cKYFc"
+    "main_page_3cKYFc",
+    "heating_v_prelaunch_hero_pdL93V",
+    "heating_v_anchor_nav_AJHz6f",
+    "heating_v_power_bRNa9j",
+    "heating_v_4x_gear_X7d6Xe",
+    "heating_v_volcano_chart_rHmjrA",
+    "heating_v_dual_battery_rFDXB4",
+    "heating_v_heat_zones_xDVxNT",
+    "heating_v_battery_sides_hxPgbV",
+    "heating_v_liner_system_rQ6KqF",
+    "heating_v_panel_details_HBrpdg",
+    "heating_v_brand_story_AkjKTQ",
+    "heating_v_launch_deal_UVx9J9",
+    "heating_prelaunch_faq_kTVCq9",
+    "heating_final_cta_dxtYgn"
   ]
 }
