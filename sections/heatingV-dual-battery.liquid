@@ -69,8 +69,8 @@
   }
 
   /* Three stacked frames that crossfade in order. Which one is visible is
-     driven by data-step on the container, so the sequence can restart from
-     the first frame without ever animating backwards. */
+     driven by data-step on the container; JS cycles that step back to 1 so
+     the loop keeps running for as long as the section is on screen. */
   #shopify-section-{{ section.id }} .heatingv-dual-battery__picture {
     position: absolute;
     inset: 0;
@@ -351,13 +351,17 @@
       timers = [];
     };
 
+    // Cycles 1 → 2 → 3 → 1 … for as long as the section is on screen, so the
+    // frames loop like a GIF instead of stopping on the last one.
     const play = () => {
       clearTimers();
-      for (let step = 2; step <= layers.length; step += 1) {
-        timers.push(window.setTimeout(() => {
-          media.dataset.step = String(step);
-        }, (step - 1) * STEP_DELAY));
-      }
+      let step = 1;
+      const advance = () => {
+        step = step >= layers.length ? 1 : step + 1;
+        media.dataset.step = String(step);
+        timers.push(window.setTimeout(advance, STEP_DELAY));
+      };
+      timers.push(window.setTimeout(advance, STEP_DELAY));
     };
 
     // Snap back to the first frame while the section is off-screen so the
