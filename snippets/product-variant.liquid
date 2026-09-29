@@ -3,6 +3,7 @@
     assign variants_option1_arr = product.variants | map: 'option1'
     assign variants_option2_arr = product.variants | map: 'option2'
     assign variants_option3_arr = product.variants | map: 'option3'
+    assign color_is_detail_lc = product.metafields.custom.color_is_detail.value | downcase
 %}
 
 <div class="variants variant-type-toggle">
@@ -165,7 +166,15 @@
                                 {% assign swatch_bg = swatch_secondary %}
                             {% endif %}
 
-                            <span class="variants-selector color {% if option.selected_value == value %}selected{% endif %} {% if option_disabled %}disabled{% endif %}" 
+                            {% assign is_new_color = false %}
+                            {% if color_is_detail_lc != blank %}
+                                {% assign color_is_new_needle = '"' | append: color_value_raw | append: '": "new"' %}
+                                {% if color_is_detail_lc contains color_is_new_needle %}
+                                    {% assign is_new_color = true %}
+                                {% endif %}
+                            {% endif %}
+
+                            <span class="variants-selector color {% if is_new_color %}has-new{% endif %} {% if option.selected_value == value %}selected{% endif %} {% if option_disabled %}disabled{% endif %}"
                                 data-id="{{ product.id }}-{{ option.position }}-{{ forloop.index0 }}">
                                 <div class="color-swatch" style="
                                     background-color: {% if metaobject_color_value != blank %}{{ metaobject_color_value }}{% else %}{{ base_color }}{% endif %};
@@ -182,6 +191,9 @@
                                 data-swatch-primary="{{ swatch_primary }}"
                                 data-swatch-secondary="{{ swatch_secondary }}"
                                 {% endif %}></div>
+                                {% if is_new_color %}
+                                <span class="color-new-tag" aria-hidden="true">NEW</span>
+                                {% endif %}
                             </span>
                             <span class="variants-option">
                                 <input type="radio" class="variant-radio {% if option_disabled %}disabled{% endif %}"

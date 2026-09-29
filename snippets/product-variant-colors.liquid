@@ -1,5 +1,6 @@
 {% assign color_option_index = 0 %}
 {% assign color_option_size = 0 %}
+{% assign color_is_detail_lc = product.metafields.custom.color_is_detail.value | downcase %}
 
 {% for option in product.options_with_values %}
   {% assign opt_name = option.name | downcase %}
@@ -100,11 +101,20 @@
           {% assign swatch_bg = swatch_secondary | image_url %}
         {% endif %}
 
+        {%- comment -%} New color flag {%- endcomment -%}
+        {% assign is_new_color = false %}
+        {% if color_is_detail_lc != blank %}
+          {% assign color_is_new_needle = '"' | append: color_value_raw | append: '": "new"' %}
+          {% if color_is_detail_lc contains color_is_new_needle %}
+            {% assign is_new_color = true %}
+          {% endif %}
+        {% endif %}
+
         {% if count <= 5 %}
 
           <li
             data-color="{{ v.id }}"
-            class="variant-color-item color-item-{{ v.id }} {% if v.id == active_variant_id %}active{% endif %} {% if forloop.first %}on{% endif %}"
+            class="variant-color-item color-item-{{ v.id }} {% if is_new_color %}has-new{% endif %} {% if v.id == active_variant_id %}active{% endif %} {% if forloop.first %}on{% endif %}"
             data-id="{{ v.id }}"
             data-product-img="{% if v.image %}{{ v.image.src | image_url: width: 800 }}{% elsif product.featured_image %}{{ product.featured_image | image_url: width: 800 }}{% endif %}"
             title="{{ color_value }}"
@@ -129,6 +139,10 @@
               data-swatch-primary="{% if swatch_primary != blank %}{{ swatch_primary | image_url }}{% endif %}"
               data-swatch-secondary="{% if swatch_secondary != blank %}{{ swatch_secondary | image_url }}{% endif %}"
             ></span>
+
+            {% if is_new_color %}
+              <span class="color-new-tag" aria-hidden="true">NEW</span>
+            {% endif %}
 
             <span class="tooltip">{{ color_value }}</span>
           </li>
@@ -146,7 +160,7 @@
 
           <li
             data-color="{{ v.id }}"
-            class="variant-color-item color-item-{{ v.id }} {% if v.id == active_variant_id %}active{% endif %}"
+            class="variant-color-item color-item-{{ v.id }} {% if is_new_color %}has-new{% endif %} {% if v.id == active_variant_id %}active{% endif %}"
             data-id="{{ v.id }}"
             data-product-img="{% if v.image %}{{ v.image.src | image_url: width: 800 }}{% elsif product.featured_image %}{{ product.featured_image | image_url: width: 800 }}{% endif %}"
             title="{{ color_value }}"
@@ -171,6 +185,10 @@
               data-swatch-primary="{% if swatch_primary != blank %}{{ swatch_primary | image_url }}{% endif %}"
               data-swatch-secondary="{% if swatch_secondary != blank %}{{ swatch_secondary | image_url }}{% endif %}"
             ></span>
+
+            {% if is_new_color %}
+              <span class="color-new-tag" aria-hidden="true">NEW</span>
+            {% endif %}
 
             <span class="tooltip">{{ color_value }}</span>
           </li>
