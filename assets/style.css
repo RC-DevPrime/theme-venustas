@@ -2218,10 +2218,11 @@ a.f-white:hover{
     position: absolute;
     background-color: #fff;
     width: 100%;
-    padding: 10px;
+    padding: 10px 10px 20px 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     z-index:99999;
     left:-10px;
+    margin-top: 12px;
 }
 .variant-option-block .variant-colors li{
     list-style: none;
@@ -2247,6 +2248,27 @@ a.f-white:hover{
 }
 .variant-option-block .on .variant-color-box{
     outline: 1px solid #161616;
+}
+.variant-option-block .variant-color-item.has-new{
+    position: relative;
+    overflow: visible;
+}
+.variant-option-block .variant-color-item .color-new-tag{
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #D13F0E;
+    color: #fff;
+    font-size: 7px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 1px 2px;
+    border-radius: 2px;
+    letter-spacing: .3px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 2;
 }
 
 

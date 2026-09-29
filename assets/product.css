@@ -663,7 +663,7 @@ body.product-media-lightbox-open {
 }
 .product .variants .variant .variants-selector.color .color-new-tag {
     position: absolute;
-    bottom: -22px;
+    top:34px;
     background-color: #D13F0E;
     color: #fff;
     font-size: 9px;
@@ -1646,6 +1646,10 @@ body.product-media-lightbox-open {
 
 /* FOR MOBILE PHONE */
 @media only screen and (max-width: 768px) {
+  .product .variants .variant .variants-selector.color .color-new-tag{
+        font-size:7px;
+        top:28px;
+   }
   .product-video-main-slider .swiper-slide{
     width:100% !important;
   }
@@ -1904,6 +1908,7 @@ body.product-media-lightbox-open {
         width: 100%;
         height: auto;
     }
+   
 }
 /* ipad Air */
 @media only screen 
