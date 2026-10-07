@@ -46,7 +46,7 @@
     <div id="predictive-search" tabindex="-1">
         <div class="inner-content">
         </div>
-        {% render 'search-recommendations', 'block': block %}
+        {% render 'search-recommendations' %}
     </div>
   {% endif %}
 </div>
@@ -84,4 +84,13 @@
         }
     ]
 }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'search-recommendations', 'block': block %}"
+  to: "{% render 'search-recommendations' %}"
+  position: 2267..2304
+{%- endcomment -%}
