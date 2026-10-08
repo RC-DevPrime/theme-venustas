@@ -898,19 +898,6 @@ a.f-white:hover{
     height: 100%;
 }
 
-/* Vertical Navigation */
-.float-nav-announcement {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.float-nav-announcement button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 6px 8px;
-}
 .header .btn-announcement-link{
     padding:4px 8px;
     width: fit-content;
@@ -936,19 +923,36 @@ a.f-white:hover{
     height: var(--announcement-current-height);
     transition: height 0.3s ease;
 }
-.header .announcement-bar:hover{
-    background: #B93205 !important;
-}
-.header .announcement-bar:hover em{
-    color:#FFF !important; 
-}
 .header .announcement-bar .container {
     height: 100%;
     padding: 0 50px;
     position: relative;
 }
-.header .announcement-bar-slider {
+.header .announcement-bar-layout {
     height: 100%;
+}
+.header .announcement-bar-layout.has-navigation {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 900px) 36px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.header .announcement-bar-slider {
+    min-width: 0;
+    height: 100%;
+}
+.header .announcement-nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    color: #fff;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
 }
 .header .announcement-bar .announcement-close{
     font-size: 16px;
@@ -965,26 +969,6 @@ a.f-white:hover{
     cursor: pointer;
     z-index: 2;
 }
-.header .announcement-bar .float-nav-announcement{
-    display:none;
-}
-.header .announcement-bar .float-nav-announcement button{
-    background: transparent;
-    border: none;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    height: fit-content;
-    z-index: 2;
-    cursor: pointer;
-}
-.header .announcement-bar .float-nav-announcement button.owl-next{
-    right:55px;
-}
-.header .announcement-bar .float-nav-announcement button.owl-prev{
-    left:55px;
-}
 .header .announcement-content {
     font-family: var(--font-primary);
     font-weight: 300;
@@ -993,6 +977,14 @@ a.f-white:hover{
     text-align: center;
     width: 90%;
     margin: 0 auto;
+}
+.header .announcement-content .content-link {
+    display: inline-block;
+    max-width: 100%;
+    cursor: pointer;
+}
+.header .announcement-content > span.content-link {
+    cursor: default;
 }
 
 .header .announcement-content span,
@@ -1037,6 +1029,24 @@ a.f-white:hover{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media only screen and (min-width: 768px) {
+    .header .announcement-bar-layout.has-navigation {
+        box-sizing: border-box;
+        padding-right: 44px;
+        padding-left: 44px;
+    }
+    .header .announcement-nav {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+    }
+    .header .announcement-bar:hover .announcement-nav,
+    .header .announcement-bar:focus-within .announcement-nav {
+        opacity: 1;
+        pointer-events: auto;
+    }
 }
 
 /* HEADER ---------------------------------------------------------- */
@@ -2904,35 +2914,52 @@ a.f-white:hover{
 }
 
 @media only screen and (max-width: 767px) {
-    .header .content-link .announcement-marquee-viewport{
+    .announcement-swiper .swiper-wrapper {
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .header .announcement-bar-layout.has-navigation {
+        display: block;
+    }
+    .header .announcement-nav {
+        display: none;
+    }
+    .header .announcement-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        width: 100%;
+        height: var(--announcement-height);
+        padding-right: 36px;
+        padding-left: 36px;
+        text-align: center;
+    }
+    .header .announcement-marquee-viewport{
         display:block;
         width:100%;
         overflow:hidden;
     }
-    .header .content-link .announcement-marquee-track{
+    .header .announcement-marquee-track{
         display:flex;
         width:max-content;
         margin:0 auto;
     }
-    .header .content-link .announcement-marquee-item{
+    .header .announcement-marquee-item{
         display:block;
         flex:0 0 auto;
         white-space:nowrap;
     }
-    .header .content-link .announcement-marquee-viewport.is-marquee .announcement-marquee-track{
+    .header .announcement-marquee-viewport.is-marquee .announcement-marquee-track{
         gap:32px;
         margin:0;
     }
-    .header .content-link .announcement-marquee-viewport.is-marquee.is-marquee-playing .announcement-marquee-track{
+    .header .announcement-marquee-viewport.is-marquee.is-marquee-playing .announcement-marquee-track{
         animation:announcement-marquee var(--announcement-marquee-duration) linear var(--announcement-marquee-delay) infinite;
     }
     .header .swiper-slide.has-announcement-marquee .announcement-content{
-        box-sizing:border-box;
         width:100%;
         margin-left:0;
         margin-right:0;
-        padding-left:0;
-        padding-right:36px;
     }
     @keyframes announcement-marquee{
         to{
@@ -2942,17 +2969,17 @@ a.f-white:hover{
 }
 
 @media only screen and (max-width: 767px) and (prefers-reduced-motion: reduce) {
-    .header .content-link .announcement-marquee-viewport.is-marquee.is-marquee-playing .announcement-marquee-track{
+    .header .announcement-marquee-viewport.is-marquee.is-marquee-playing .announcement-marquee-track{
         display:block;
         width:100%;
         animation:none;
     }
-    .header .content-link .announcement-marquee-viewport.is-marquee .announcement-marquee-item:first-child{
+    .header .announcement-marquee-viewport.is-marquee .announcement-marquee-item:first-child{
         width:100%;
         overflow:hidden;
         text-overflow:ellipsis;
     }
-    .header .content-link .announcement-marquee-viewport.is-marquee .announcement-marquee-item[aria-hidden="true"]{
+    .header .announcement-marquee-viewport.is-marquee .announcement-marquee-item[aria-hidden="true"]{
         display:none;
     }
 }

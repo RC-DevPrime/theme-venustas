@@ -358,8 +358,19 @@
       <div class="announcement-bar" style="background:{{ section.settings.background_color }};">
           <div class="container">
 
-              <div class="announcement-bar-slider">
-                  <div class="swiper announcement-swiper" data-autoplay="{{ section.settings.autoplay }}">
+              <div class="announcement-bar-layout{% if announcement_bar_count > 1 %} has-navigation{% endif %}">
+                  {% if announcement_bar_count > 1 %}
+                    <button type="button" class="announcement-nav announcement-prev" style="color:{{ section.settings.text_color }};" aria-label="Previous announcement">
+                      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                    </button>
+                  {% endif %}
+
+                  <div class="announcement-bar-slider">
+                  <div
+                    class="swiper announcement-swiper"
+                    data-autoplay-enabled="{{ section.settings.autoplay_enabled }}"
+                    data-autoplay="{{ section.settings.autoplay }}"
+                  >
                       <div class="swiper-wrapper">
 
                           {% for block in section.blocks %}
@@ -368,7 +379,12 @@
                               {% when 'announcement_bar' %}
                                 {% if block.settings.announcement_content != blank %}
                                   <div class="swiper-slide">
-                                      <a href="{{ block.settings.link }}" class="announcement-content content-link" style="color:{{ section.settings.text_color }};">
+                                      <div class="announcement-content" style="color:{{ section.settings.text_color }};">
+                                        {% if block.settings.link != blank %}
+                                          <a href="{{ block.settings.link }}" class="content-link">
+                                        {% else %}
+                                          <span class="content-link">
+                                        {% endif %}
                                           <span class="announcement-marquee-viewport">
                                             <span class="announcement-marquee-track">
                                               <span class="announcement-marquee-item">
@@ -381,7 +397,12 @@
                                               </span>
                                             </span>
                                           </span>
-                                        </a>
+                                        {% if block.settings.link != blank %}
+                                          </a>
+                                        {% else %}
+                                          </span>
+                                        {% endif %}
+                                      </div>
                                   </div>
                                 {% endif %}
 
@@ -420,18 +441,14 @@
 
                       </div> <!-- .swiper-wrapper -->
                   </div> <!-- .announcement-swiper -->
-              </div>
+                  </div>
 
               {% if announcement_bar_count > 1 %}
-              <div class="float-nav-announcement">
-                  <button class="announcement-prev">
-                      <i class="fa-solid fa-chevron-up f-white"></i>
+                    <button type="button" class="announcement-nav announcement-next" style="color:{{ section.settings.text_color }};" aria-label="Next announcement">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
                   </button>
-                  <button class="announcement-next">
-                      <i class="fa-solid fa-chevron-down f-white"></i>
-                  </button>
-              </div>
               {% endif %}
+              </div>
 
           </div>
 
@@ -2072,13 +2089,19 @@
             "label": "Main Menu"
         },
         {
+            "type": "checkbox",
+            "id": "autoplay_enabled",
+            "label": "Enable announcement autoplay",
+            "default": true
+        },
+        {
             "type": "range",
             "id": "autoplay",
             "label": "Autoplay (in seconds)",
-            "info": "When set to 0, autoplay will disable.",
-            "min": 0,
+            "info": "Controls both desktop and mobile announcement autoplay.",
+            "min": 2,
             "max": 10,
-            "default": 0,
+            "default": 4,
             "step": 1
         },
         {
