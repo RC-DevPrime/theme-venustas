@@ -995,13 +995,19 @@ a.f-white:hover{
 }
 .header .announcement-content .content-link,
 .header .announcement-content .content-link * {
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, font-weight 0.3s ease;
 }
 @media (hover: hover) {
     .header .announcement-content .content-link:hover,
     .header .announcement-content .content-link:hover * {
         color: var(--color-brand) !important;
-        font-weight: bold;
+        font-weight: 700;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .header .announcement-content .content-link,
+    .header .announcement-content .content-link * {
+        transition: none;
     }
 }
 
