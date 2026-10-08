@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "header",
   "name": "Header",
@@ -15,7 +24,7 @@
         "announcement_bar_zf9Qbr": {
           "type": "announcement_bar",
           "settings": {
-            "announcement_content": "<p>Member Month: Up to <em><strong>41%</strong></em> Off!</p>",
+            "announcement_content": "<p>Member Month: [u]Up to <em><strong>41%</strong></em> Off[/u]!</p>",
             "btn_label": "Shop now",
             "link": "shopify://collections/campaign"
           }
@@ -250,9 +259,11 @@
         "announcement_bar": true,
         "logo": "shopify://shop_images/main-header-logo.png",
         "main_menu": "main-menu",
+        "autoplay_enabled": true,
         "autoplay": 4,
         "background_color": "#000000",
-        "text_color": "#ffffff"
+        "text_color": "#ffffff",
+        "underline_text_color": "#1a1a1a"
       }
     },
     "search": {
