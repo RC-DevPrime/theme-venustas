@@ -5,10 +5,11 @@ function initAnnouncementSwipers(root) {
     $root.find('.announcement-swiper').each(function () {
         if (this.swiper) return;
 
-        let autoplaySeconds = $(this).data('autoplay');
-        let autoplayEnabled = autoplaySeconds > 0;
+        let autoplaySeconds = Number($(this).data('autoplay')) || 4;
+        let autoplayEnabled = String($(this).data('autoplay-enabled')) === 'true';
         let mobileQuery = window.matchMedia('(max-width: 767px)');
         let container = this;
+        let announcementBar = container.closest('.announcement-bar');
         let wrapper = container.querySelector('.swiper-wrapper');
         let swiper;
         let refreshFrame = 0;
@@ -16,6 +17,8 @@ function initAnnouncementSwipers(root) {
         let lastObservedWidth = null;
         let announcementResizeObserver;
         let usesResizeFallback = false;
+        let mobileAutoplayResumeTimer = 0;
+        let desktopHoverPaused = false;
 
         function getMaxSlideHeight(swiperInstance) {
             let maxHeight = 0;
@@ -133,7 +136,7 @@ function initAnnouncementSwipers(root) {
             applyAnnouncementMarquees();
 
             let realIndex = swiper.realIndex;
-            let fixedSlideHeight = getMaxSlideHeight(swiper);
+            let fixedSlideHeight = Math.max(getMaxSlideHeight(swiper), container.clientHeight);
             if (!fixedSlideHeight) return;
 
             swiper.slides.forEach(function (slide) {
@@ -179,11 +182,28 @@ function initAnnouncementSwipers(root) {
             scheduleAnnouncementRefresh();
         }
 
+        function handleAnnouncementMouseEnter() {
+            if (mobileQuery.matches || !autoplayEnabled || !swiper || !swiper.autoplay || !swiper.autoplay.running) return;
+            swiper.autoplay.pause();
+            desktopHoverPaused = true;
+        }
+
+        function handleAnnouncementMouseLeave() {
+            if (!desktopHoverPaused || !swiper || swiper.destroyed || !swiper.autoplay) return;
+            desktopHoverPaused = false;
+            swiper.autoplay.resume();
+        }
+
         function cleanupAnnouncementLayout() {
             if (refreshFrame) cancelAnimationFrame(refreshFrame);
+            if (mobileAutoplayResumeTimer) clearTimeout(mobileAutoplayResumeTimer);
             if (announcementResizeObserver) announcementResizeObserver.disconnect();
             window.removeEventListener('orientationchange', scheduleAnnouncementRefresh);
             if (usesResizeFallback) window.removeEventListener('resize', scheduleAnnouncementRefresh);
+            if (announcementBar) {
+                announcementBar.removeEventListener('mouseenter', handleAnnouncementMouseEnter);
+                announcementBar.removeEventListener('mouseleave', handleAnnouncementMouseLeave);
+            }
             if (mobileQuery.removeEventListener) {
                 mobileQuery.removeEventListener('change', handleMobileQueryChange);
             } else {
@@ -192,10 +212,17 @@ function initAnnouncementSwipers(root) {
         }
 
         swiper = new Swiper(container, {
-            direction: 'vertical',
+            direction: 'horizontal',
             loop: true,
-            speed: 400,
+            speed: 1000,
             autoHeight: false,
+            breakpoints: {
+                768: {
+                    direction: 'vertical',
+                    allowTouchMove: false,
+                    speed: 400
+                }
+            },
 
             autoplay: autoplayEnabled ? {
                 delay: autoplaySeconds * 1000,
@@ -211,11 +238,27 @@ function initAnnouncementSwipers(root) {
                 init: scheduleAnnouncementRefresh,
                 slideChangeTransitionStart: handleAnnouncementTransitionStart,
                 slideChangeTransitionEnd: handleAnnouncementTransitionEnd,
+                sliderFirstMove: function (swiperInstance) {
+                    if (!mobileQuery.matches || !autoplayEnabled || !swiperInstance.autoplay) return;
+                    if (mobileAutoplayResumeTimer) clearTimeout(mobileAutoplayResumeTimer);
+                    swiperInstance.autoplay.stop();
+                },
+                touchEnd: function (swiperInstance) {
+                    if (!mobileQuery.matches || !autoplayEnabled || !swiperInstance.autoplay) return;
+                    if (mobileAutoplayResumeTimer) clearTimeout(mobileAutoplayResumeTimer);
+                    mobileAutoplayResumeTimer = setTimeout(function () {
+                        if (!swiperInstance.destroyed && mobileQuery.matches) swiperInstance.autoplay.start();
+                    }, 3000);
+                },
                 destroy: cleanupAnnouncementLayout
             }
         });
 
         window.addEventListener('orientationchange', scheduleAnnouncementRefresh);
+        if (announcementBar) {
+            announcementBar.addEventListener('mouseenter', handleAnnouncementMouseEnter);
+            announcementBar.addEventListener('mouseleave', handleAnnouncementMouseLeave);
+        }
         if (mobileQuery.addEventListener) {
             mobileQuery.addEventListener('change', handleMobileQueryChange);
         } else {
