@@ -873,7 +873,9 @@ a.f-white:hover{
     color:#FFF;
 }
 
-
+#swym-anchor{
+   display:none !important;
+}
 /* ANNOUNCEMENT BAR ------------------------------------------------ *//* ------------ */
 /* Wrapper */
 .announcement-swiper {
@@ -2846,13 +2848,6 @@ a.f-white:hover{
     .product-item .product-details .prorw_preview_badge_setup span{
         font-size:10px;
     }
-    .product-item .wishlist-button{
-        
-    }
-
-    .product-recommendations .product-item .wishlist-button{
-
-    }
     .main-collection-product-list .recommendation-slider .product-item .wishlist-button{
         position:absolute;
     }
@@ -3009,13 +3004,6 @@ a.f-white:hover{
         display:none;
     }
 }
-
-/* ipad Air */
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px){
-}
-
 
 
 /* START: Calculator Free Shipping Message */
