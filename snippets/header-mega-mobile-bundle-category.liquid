@@ -1,4 +1,4 @@
-<details class="display-6-mobile__category" name="{{ group_name }}"{% if open %} open{% endif %}>
+<details class="display-6-mobile__category" name="{{ group_name }}" data-view-all-url="{{ collection.url | escape }}"{% if open %} open{% endif %}>
   <summary class="pp-regular">
     <span>{{ label | default: title | default: 'Bundle Category' | escape }}</span>
     <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none">

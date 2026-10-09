@@ -313,13 +313,14 @@
     display:grid;
     grid-template-columns:260px minmax(0, 1fr);
     gap:40px;
-    padding:16px 22px;
+    padding:16px 22px 16px 0;
     color:#1A1A1A;
 }
 .header .mega-menu .display-6__sidebar{
     display:flex;
     flex-direction:column;
     min-width:0;
+    background-color: #F5F5F5;
 }
 .header .mega-menu .display-6__menu-title{
     margin:0 0 12px;
@@ -531,10 +532,10 @@
 .nav-mobile .display-6-mobile__category summary svg{
     flex:0 0 auto;
     transition:transform .2s ease;
+    color:#9CA3AF;
 }
 .nav-mobile .display-6-mobile__category-content{
     padding:14px 0 18px;
-    background:#FFF5F2;
 }
 .nav-mobile .display-6-mobile__products{
     display:flex;

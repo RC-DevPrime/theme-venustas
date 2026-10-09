@@ -1,4 +1,20 @@
-<div class="mega-menu mega-mobile display-6-mobile" data-mega="{{ clean_title | handleize }}">
+{% liquid
+  assign initial_view_all_url = block.settings.category_collection_1.url
+  if initial_view_all_url == blank
+    assign initial_view_all_url = block.settings.category_collection_2.url
+  endif
+  if initial_view_all_url == blank
+    assign initial_view_all_url = block.settings.category_collection_3.url
+  endif
+  if initial_view_all_url == blank
+    assign initial_view_all_url = block.settings.category_collection_4.url
+  endif
+  if initial_view_all_url == blank
+    assign initial_view_all_url = block.settings.main_link
+  endif
+%}
+
+<div class="mega-menu mega-mobile display-6-mobile" data-mega="{{ clean_title | handleize }}" data-view-all-fallback="{{ block.settings.main_link | escape }}">
   <div class="display-6-mobile__header">
     <button type="button" class="mega-title display-6-mobile__back" aria-label="Back to main menu">
       <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -6,8 +22,8 @@
       </svg>
       <span>{{ clean_title | escape }}</span>
     </button>
-    {% if block.settings.main_link != blank %}
-      <a class="display-6-mobile__view-all pp-semibold" href="{{ block.settings.main_link }}">
+    {% if initial_view_all_url != blank %}
+      <a class="display-6-mobile__view-all pp-semibold" href="{{ initial_view_all_url | escape }}">
         {{ block.settings.view_all_label | default: 'View All' | escape }}
         <span aria-hidden="true">→</span>
       </a>
@@ -23,7 +39,7 @@
 
   {% if block.settings.main_link != blank %}
     <div class="display-6-mobile__footer">
-      <a class="display-6-mobile__shop-all pp-semibold" href="{{ block.settings.main_link }}">
+      <a class="display-6-mobile__shop-all pp-semibold" href="{{ block.settings.main_link | escape }}">
         {{ block.settings.main_link_label | default: 'Shop All Bundles' | escape }}
       </a>
     </div>

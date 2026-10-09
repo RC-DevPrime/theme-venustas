@@ -9,7 +9,7 @@
       {% endif %}
     </div>
     {% if collection != blank %}
-      <a class="bundle-menu-view-all pp-semibold" href="{{ collection.url }}">
+      <a class="bundle-menu-view-all pp-semibold" href="{{ collection.url | escape }}">
         {{ view_all_label | default: 'View All' | escape }}
         <span aria-hidden="true">→</span>
       </a>
