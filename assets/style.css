@@ -1482,7 +1482,8 @@ a.f-white:hover{
     color: #fff;
 }
 .header .mega-menu .row {
-    --bs-gutter-x: 50px;
+    --bs-gutter-x: 32px;
+    padding:16px;
 }
 .header .mega-menu .mega-tab {
     --gutter-x: 20px;
@@ -1767,15 +1768,7 @@ a.f-white:hover{
     padding:0 16px;
     border-bottom: 1px solid #E5E7EB;
 }
-.nav-mobile .accordion-item:first-child {
-    border-top: none !important;
-}
-.nav-mobile .accordion-item:last-child .accordion-body {
-    /* padding-bottom: 0; */
-}
-.nav-mobile .accordion-item:first-child .accordion-button {
-    /* padding-top: 0; */
-}
+
 .nav-mobile #accordion-menu .accordion-button {
     font-family: var(--font-primary);
     font-weight: 600;
@@ -1988,10 +1981,7 @@ a.f-white:hover{
     color: #111 !important;
     width:100%;
 }
-.nav-mobile .accordion-item:first-child .f-layer a,
-.nav-mobile .accordion-item:first-child .f-layer button{
-    padding-top:0px;
-}
+
 .nav-mobile .accordion-item .f-layer a i,
 .nav-mobile .accordion-item .f-layer button i{
     background:unset;
