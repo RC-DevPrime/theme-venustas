@@ -136,7 +136,7 @@ function initAnnouncementSwipers(root) {
             applyAnnouncementMarquees();
 
             let realIndex = swiper.realIndex;
-            let fixedSlideHeight = Math.max(getMaxSlideHeight(swiper), container.clientHeight);
+            let fixedSlideHeight = getMaxSlideHeight(swiper);
             if (!fixedSlideHeight) return;
 
             swiper.slides.forEach(function (slide) {
@@ -214,7 +214,7 @@ function initAnnouncementSwipers(root) {
         swiper = new Swiper(container, {
             direction: 'horizontal',
             loop: true,
-            speed: 1000,
+            speed: 750,
             autoHeight: false,
             breakpoints: {
                 768: {
@@ -248,7 +248,7 @@ function initAnnouncementSwipers(root) {
                     if (mobileAutoplayResumeTimer) clearTimeout(mobileAutoplayResumeTimer);
                     mobileAutoplayResumeTimer = setTimeout(function () {
                         if (!swiperInstance.destroyed && mobileQuery.matches) swiperInstance.autoplay.start();
-                    }, 3000);
+                    }, 8000);
                 },
                 destroy: cleanupAnnouncementLayout
             }

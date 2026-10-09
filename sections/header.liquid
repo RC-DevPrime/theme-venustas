@@ -455,8 +455,8 @@
 
               {% if announcement_bar_count > 1 %}
                     <button type="button" class="announcement-nav announcement-next" style="color:{{ section.settings.text_color }};" aria-label="Next announcement">
-                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-                  </button>
+                       <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </button>
               {% endif %}
               </div>
 
@@ -799,11 +799,11 @@
                       </div>
                   </form>
               </div>
-              <div class="d-flex justify-content-end pb-3">
+              {% comment %} <div class="d-flex justify-content-end pb-3">
                 <a href="#" class="pp-semibold body f-main">
                   View All >
                 </a>
-              </div>
+              </div> {% endcomment %}
               
               <div class="accordion" id="accordion-menu">
                   {% for link in section.settings.main_menu.links %}
@@ -2011,34 +2011,37 @@
                   </a>
               </div> {% endcomment %}
               <div class="user-login-container">
-                <div class="d-flex gap-2">
+                <div class="d-flex flex-column gap-2-5">
                   <div class="account-icon">
-                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/45342_2x_21a2198a-41b9-4959-8b86-4ecf0d37ad64.png?v=1761868479">
-                  </div>
-                  <div class="d-flex flex-column gap-1">
-                      <h4 class="pp-semibold body-lg f-black">
+                    <div class="d-flex flex-row gap-2-5">
+                      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="36" height="36" rx="18" fill="#B93205" fill-opacity="0.12"/>
+                        <path d="M23.834 25.5V23.8333C23.834 22.9493 23.4828 22.1014 22.8576 21.4763C22.2324 20.8512 21.3845 20.5 20.5003 20.5H15.4997C14.6156 20.5 13.7676 20.8512 13.1424 21.4763C12.5172 22.1014 12.166 22.9493 12.166 23.8333V25.5M21.3337 13.8333C21.3337 15.6743 19.8412 17.1667 18 17.1667C16.1589 17.1667 14.6663 15.6743 14.6663 13.8333C14.6663 11.9924 16.1589 10.5 18 10.5C19.8412 10.5 21.3337 11.9924 21.3337 13.8333Z" stroke-width="2" stroke-linecap="round" stroke="#1A1A1A"/>
+                      </svg>
+                      <span class="pp-semibold f-black l-h-37">
                         Log In to Join VENUSTAS
-                      </h4>
-                      <p class="pp-regular body-sm f-black"> 
-                        Log in to browse the latest collections, track your orders, and unlock more personalized recommendations.
-                      </p>
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div class="row mt-3" style="--bs-gutter-x: 8px;">
-                  <div class="col-6">
-                    <a href="{{ routes.account_url }}" class="btn-hover btn-main d-flex align-items-center justify-content-center py-2">
-                      <span class="pp-regular f-white body">Sign In</span>
-                    </a>
+                  <p class="log-text-mobile"> 
+                    Log in to browse the latest collections, track your orders, and unlock more personalized recommendations.
+                  </p>
+                  <div class="row" style="--bs-gutter-x: 8px;">
+                    <div class="col-12">
+                      <a href="{{ routes.account_url }}" class="btn-hover btn-main sign-in-btn">
+                        <span class="pp-regular f-white body">Sign In</span>
+                      </a>
+                    </div>
+                    {% comment %} <div class="col-6">
+                      <a href="{{ routes.account_url }}" class="btn btn-black d-flex align-items-center justify-content-center py-2">
+                        <span class="pp-regular f-white body">Sign Up</span>
+                      </a>
+                    </div> {% endcomment %}
                   </div>
-                  {% comment %} <div class="col-6">
-                    <a href="{{ routes.account_url }}" class="btn btn-black d-flex align-items-center justify-content-center py-2">
-                      <span class="pp-regular f-white body">Sign Up</span>
-                    </a>
-                  </div> {% endcomment %}
                 </div>
               </div>
               <div class="divider"></div>
-              <div class="d-flex justify-content-end align-items-center">
+              <div class="d-flex align-items-center pd16">
                   {% comment %} <a href="{{ routes.account_url }}">
                       <img src="https://cdn.shopify.com/s/files/1/0605/5188/9131/files/user_f0242758-a13f-4af2-a56e-70f9a993a983.png?v=1735272158">
                       {% if customer %}
@@ -2064,7 +2067,9 @@
                               CA
                           </div>
                       </div>
-                      <i class="fa-solid fa-chevron-down"></i>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 4.5L6 7.5L9 4.5" stroke-width="2" stroke-linecap="round" stroke="#1A1A1A"/>
+                      </svg>
                   </div>
               </div>
           </div>

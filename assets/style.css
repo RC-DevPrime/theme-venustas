@@ -812,9 +812,9 @@ a.f-white:hover{
 }
 .footer .accordion-button {
     font-family: var(--font-primary);
-    font-weight: 400;
+    font-weight: 500;
     font-size: 16px;
-    padding: 20px 10px 20px 0;
+    padding: 16px 10px 16px 0;
     color: #fff !important;
 }
 .footer .accordion-button::after {
@@ -1288,9 +1288,9 @@ a.f-white:hover{
     z-index: 3;
 }
 .header .icon-local .flag {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    width: 24px;
+    height: 16px;
+    border-radius: 4px;
     overflow: hidden;
     flex: 0 0 auto;
 }
@@ -1648,13 +1648,7 @@ a.f-white:hover{
     transition: all .5s ease 0.2s;
     max-width:600px;
 }
-.nav-mobile .main-nav-content .inner-nav-content{
-    padding: 20px;
-    padding-top:30px;
-    overflow-y: scroll;
-    height:100vh;
-    padding-bottom:20px;
-}
+
 .nav-mobile .main-nav-content .btn-mav-close{
     position: absolute;
     top: 0;
@@ -1691,8 +1685,10 @@ a.f-white:hover{
     object-fit:contain;
 }
 .nav-mobile .action {
-    padding-top: 20px;
-    padding-bottom:20px;
+   padding:16px 0;
+}
+.nav-mobile .user-login-container{
+    padding:0 16px;
 }
 .nav-mobile .socials {
     display: flex;
@@ -1768,7 +1764,8 @@ a.f-white:hover{
     margin-bottom: 15px;
 }
 .nav-mobile .accordion-item {
-    border-bottom: 1px solid #e6e6e6 !important;
+    padding:0 16px;
+    border-bottom: 1px solid #E5E7EB;
 }
 .nav-mobile .accordion-item:first-child {
     border-top: none !important;
@@ -1953,15 +1950,15 @@ a.f-white:hover{
     text-align: center;
 }
 .nav-mobile .nav-search-bar-container{
-    padding-bottom:15px;
+    padding:12px 16px;
 }
 .nav-mobile .nav-search-bar-container form .input-group{
     background: #F5F5F5;
-    border-radius: 8px 8px 8px 8px;
-    padding:14px 15px 14px;
+    border-radius: 8px;
+    padding:10px 12px;
     display: flex;
     align-items: center;
-    gap:16px;
+    gap:8px;
 }
 .nav-mobile .nav-search-bar-container form .input-group input{
     border:none;
@@ -1985,10 +1982,10 @@ a.f-white:hover{
 .nav-mobile .accordion-item .f-layer a,
 .nav-mobile .accordion-item .f-layer button{
     font-family: var(--font-primary);
-    font-weight: 500;
-    font-size: 18px;
-    padding: 15px 0 15px 0;
-    color: #161616 !important;
+    font-weight: 400;
+    font-size: 15px;
+    padding: 10px 0;
+    color: #111 !important;
     width:100%;
 }
 .nav-mobile .accordion-item:first-child .f-layer a,
@@ -2000,7 +1997,15 @@ a.f-white:hover{
     background:unset;
     font-size:13px;
 }
-
+.nav-mobile .log-text-mobile{
+    margin-top: 4px;
+    font-size: 13px;
+    color: #6B7280;
+}
+.nav-mobile .sign-in-btn{
+   justify-content: center;
+   border-radius: 8px;
+}
 /* FLOAT NAV ------------------------------------------------------------------- */
 
 .float-nav{
