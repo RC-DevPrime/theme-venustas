@@ -1,0 +1,31 @@
+<div class="mega-menu mega-mobile display-6-mobile" data-mega="{{ clean_title | handleize }}">
+  <div class="display-6-mobile__header">
+    <button type="button" class="mega-title display-6-mobile__back" aria-label="Back to main menu">
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M10 13 5 8l5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>{{ clean_title | escape }}</span>
+    </button>
+    {% if block.settings.main_link != blank %}
+      <a class="display-6-mobile__view-all pp-semibold" href="{{ block.settings.main_link }}">
+        {{ block.settings.view_all_label | default: 'View All' | escape }}
+        <span aria-hidden="true">→</span>
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="display-6-mobile__categories">
+    {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_1, title: block.settings.category_title_1, collection: block.settings.category_collection_1, group_name: block.id, open: true %}
+    {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_2, title: block.settings.category_title_2, collection: block.settings.category_collection_2, group_name: block.id %}
+    {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_3, title: block.settings.category_title_3, collection: block.settings.category_collection_3, group_name: block.id %}
+    {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_4, title: block.settings.category_title_4, collection: block.settings.category_collection_4, group_name: block.id %}
+  </div>
+
+  {% if block.settings.main_link != blank %}
+    <div class="display-6-mobile__footer">
+      <a class="display-6-mobile__shop-all pp-semibold" href="{{ block.settings.main_link }}">
+        {{ block.settings.main_link_label | default: 'Shop All Bundles' | escape }}
+      </a>
+    </div>
+  {% endif %}
+</div>

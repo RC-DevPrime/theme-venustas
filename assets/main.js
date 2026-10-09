@@ -509,6 +509,26 @@ if ($('.header .header-wrapper').length) {
     $(this).addClass('active');
     $container.find('.mega-menu-tab-list-content[data-tab="' + tab + '"]').addClass('active');
     $megaMenu.find('.display-2-top-link[data-tab-link="' + tab + '"]').addClass('active');
+
+    if ($container.hasClass('display-6')) {
+        $container.find('.menu-list-tab button').attr('aria-expanded', 'false');
+        $(this).find('button').attr('aria-expanded', 'true');
+    }
+    });
+
+    $('.display-6 .menu-list-tab button').on('click focus', function () {
+        var $button = $(this);
+        var $item = $button.closest('li');
+        var tab = $item.data('tab');
+        var $container = $item.closest('.mega-menu-tab-list');
+
+        $container.find('.menu-list-tab li').removeClass('active');
+        $container.find('.menu-list-tab button').attr('aria-expanded', 'false');
+        $container.find('.mega-menu-tab-list-content').removeClass('active');
+
+        $item.addClass('active');
+        $button.attr('aria-expanded', 'true');
+        $container.find('.mega-menu-tab-list-content[data-tab="' + tab + '"]').addClass('active');
     });
 
 }

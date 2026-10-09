@@ -482,6 +482,9 @@
       </div>
     </div>
 
+  {% elsif block.type == 'dislay_6' %}
+    {% render 'header-mega-desktop-display-6', block: block, clean_title: clean_title %}
+
   {% elsif block.type == 'dislay_4' %} 
     <!-- DISPLAY 4 -->
     <div class="row display-4 mega-menu-tab-list">

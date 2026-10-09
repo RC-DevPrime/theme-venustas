@@ -308,6 +308,282 @@
     color:#FF4438;
 }
 
+/* DISPLAY - 6 BUNDLE SALE */
+.header .mega-menu .display-6{
+    display:grid;
+    grid-template-columns:260px minmax(0, 1fr);
+    gap:40px;
+    padding:16px 22px;
+    color:#1A1A1A;
+}
+.header .mega-menu .display-6__sidebar{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+}
+.header .mega-menu .display-6__menu-title{
+    margin:0 0 12px;
+    padding:0 0 16px;
+    border-bottom:1px solid #D9D9D9;
+    font-size:18px;
+    line-height:1.35;
+}
+.header .mega-menu .display-6 .menu-list-tab{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+.header .mega-menu .display-6 .menu-list-tab li{
+    margin:0;
+}
+.header .mega-menu .display-6 .menu-list-tab button{
+    width:100%;
+    min-height:40px;
+    padding:8px 12px;
+    border:0;
+    border-radius:4px;
+    background:transparent;
+    color:#1A1A1A;
+    font-size:15px;
+    line-height:1.35;
+    text-align:left;
+    cursor:pointer;
+}
+.header .mega-menu .display-6 .menu-list-tab li.active button,
+.header .mega-menu .display-6 .menu-list-tab button:hover,
+.header .mega-menu .display-6 .menu-list-tab button:focus-visible{
+    background:rgba(185, 50, 5, 0.1);
+    color:#B93205;
+}
+.header .mega-menu .display-6__shop-all{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    min-height:44px;
+    margin-top:auto;
+    border:1px solid #B93205;
+    border-radius:22px;
+    color:#B93205;
+    font-size:14px;
+    text-decoration:none;
+}
+.header .mega-menu .display-6__shop-all:hover{
+    background:#B93205;
+    color:#fff;
+}
+.header .mega-menu .display-6__content{
+    min-width:0;
+}
+.header .mega-menu .display-6 .bundle-menu-panel{
+    display:none;
+}
+.header .mega-menu .display-6 .bundle-menu-panel.active{
+    display:block;
+}
+.header .mega-menu .bundle-menu-panel__header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:24px;
+    min-height:54px;
+    margin-bottom:14px;
+}
+.header .mega-menu .bundle-menu-panel__title,
+.header .mega-menu .bundle-menu-panel__subtitle{
+    margin:0;
+}
+.header .mega-menu .bundle-menu-panel__title{
+    font-size:20px;
+    line-height:1.3;
+}
+.header .mega-menu .bundle-menu-panel__subtitle{
+    margin-top:4px;
+    color:#515151;
+    font-size:14px;
+    line-height:1.45;
+}
+.header .mega-menu .bundle-menu-view-all{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding-top:5px;
+    color:#B93205;
+    font-size:12px;
+    white-space:nowrap;
+    text-decoration:none;
+}
+.header .mega-menu .bundle-menu-panel__products{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:12px;
+}
+.header .mega-menu .bundle-menu-panel__empty{
+    margin:40px 0;
+    color:#737373;
+    font-size:13px;
+}
+.bundle-menu-card{
+    display:flex;
+    min-width:0;
+    color:#1A1A1A;
+    flex-direction:column;
+    text-decoration:none;
+}
+.bundle-menu-card__image{
+    display:block;
+    width:100%;
+    aspect-ratio:236 / 189;
+    margin-bottom:10px;
+    overflow:hidden;
+    border-radius:6px;
+    background:#EFEFEF;
+}
+.bundle-menu-card__image img,
+.bundle-menu-card__placeholder{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    transition:transform .3s ease;
+}
+.bundle-menu-card:hover .bundle-menu-card__image img{
+    transform:scale(1.04);
+}
+.bundle-menu-card__title,
+.bundle-menu-card__description{
+    display:block;
+}
+.bundle-menu-card__title{
+    font-size:13px;
+    line-height:1.4;
+}
+.bundle-menu-card__description{
+    margin-top:2px;
+    color:#515151;
+    font-size:12px;
+    line-height:1.45;
+}
+
+.nav-mobile .mega-mobile.display-6-mobile{
+    padding:0;
+    color:#1A1A1A;
+    background:#fff;
+}
+.nav-mobile .display-6-mobile__header{
+    display:flex;
+    min-height:52px;
+    padding:0 16px;
+    border-bottom:1px solid #E5E7EB;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+.nav-mobile .mega-mobile .display-6-mobile__back{
+    display:flex;
+    width:auto;
+    margin:0;
+    padding:0;
+    border:0;
+    background:transparent;
+    color:#1A1A1A;
+    align-items:center;
+    gap:7px;
+    font-size:16px;
+    line-height:1.3;
+    cursor:pointer;
+}
+.nav-mobile .display-6-mobile__view-all{
+    display:inline-flex;
+    color:#B93205;
+    align-items:center;
+    gap:5px;
+    font-size:12px;
+    text-decoration:none;
+    white-space:nowrap;
+}
+.nav-mobile .display-6-mobile__category{
+    margin:0;
+    border-bottom:1px solid #E5E7EB;
+}
+.nav-mobile .display-6-mobile__category summary{
+    display:flex;
+    min-height:46px;
+    padding:0 16px;
+    color:#1A1A1A;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    font-size:15px;
+    line-height:1.3;
+    cursor:pointer;
+    list-style:none;
+}
+.nav-mobile .display-6-mobile__category summary::-webkit-details-marker{
+    display:none;
+}
+.nav-mobile .display-6-mobile__category[open] > summary{
+    color:#B93205;
+    background:#FFF5F2;
+}
+.nav-mobile .display-6-mobile__category[open] > summary svg{
+    transform:rotate(90deg);
+}
+.nav-mobile .display-6-mobile__category summary svg{
+    flex:0 0 auto;
+    transition:transform .2s ease;
+}
+.nav-mobile .display-6-mobile__category-content{
+    padding:14px 0 18px;
+    background:#FFF5F2;
+}
+.nav-mobile .display-6-mobile__products{
+    display:flex;
+    gap:12px;
+    margin-top:0;
+    padding:0 16px 4px;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+}
+.nav-mobile .display-6-mobile__products::-webkit-scrollbar{
+    display:none;
+}
+.nav-mobile .display-6-mobile__products > *{
+    width:213px;
+    flex:0 0 213px;
+    scroll-snap-align:start;
+}
+.nav-mobile .display-6-mobile .bundle-menu-card__image{
+    aspect-ratio:213 / 171;
+    margin-bottom:8px;
+    background:#F2F2F2;
+}
+.nav-mobile .display-6-mobile .bundle-menu-card__title,
+.nav-mobile .display-6-mobile .bundle-menu-card__description{
+    font-size:12px;
+}
+.nav-mobile .display-6-mobile__empty{
+    margin:8px 16px 0;
+    color:#737373;
+    font-size:12px;
+}
+.nav-mobile .display-6-mobile__footer{
+    padding:16px;
+}
+.nav-mobile .display-6-mobile__shop-all{
+    display:flex;
+    min-height:43px;
+    border-radius:8px;
+    background:#B93205;
+    color:#fff;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
+    text-decoration:none;
+}
+
 
 
 /* ================== Badge Overlay CSS ========================*/

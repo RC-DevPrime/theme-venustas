@@ -1,0 +1,30 @@
+{% liquid
+  assign menu_image = product.metafields.custom.menu_product_image.value
+  if menu_image == blank
+    assign menu_image = product.featured_image
+  endif
+
+  assign menu_title = product.metafields.custom.bundle_menu_title.value | default: product.title
+  assign menu_description = product.metafields.custom.bundle_menu_description.value
+%}
+
+<a class="bundle-menu-card" href="{{ product.url }}">
+  <span class="bundle-menu-card__image">
+    {% if menu_image != blank %}
+      {{ menu_image
+        | image_url: width: 600
+        | image_tag:
+          loading: 'lazy',
+          widths: '213, 320, 472, 600',
+          sizes: '(max-width: 1279px) 213px, 236px',
+          alt: menu_title
+      }}
+    {% else %}
+      {{ 'product-1' | placeholder_svg_tag: 'bundle-menu-card__placeholder' }}
+    {% endif %}
+  </span>
+  <span class="bundle-menu-card__title pp-semibold">{{ menu_title | escape }}</span>
+  {% if menu_description != blank %}
+    <span class="bundle-menu-card__description pp-regular">{{ menu_description | strip_html | escape }}</span>
+  {% endif %}
+</a>

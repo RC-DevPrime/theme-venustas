@@ -512,7 +512,7 @@
                           {% if has_mega_menu %}
                             {% for block in section.blocks %}
                                 {% if clean_title == block.settings.menu_tag %}
-                                  {% if block.type == 'dislay_1' or block.type == 'dislay_2' or block.type == 'dislay_3' or block.type == 'dislay_4' or block.type == 'dislay_5'  %} 
+                                  {% if block.type == 'dislay_1' or block.type == 'dislay_2' or block.type == 'dislay_3' or block.type == 'dislay_4' or block.type == 'dislay_5' or block.type == 'dislay_6' %}
                                     <span class="f-layer">
                                       <button data-mega="{{ clean_title | handleize }}">
                                           <span class="d-flex align-items-center gap-1">
@@ -672,6 +672,8 @@
                         {% render 'header-mega-mobile-display-4', block: block, clean_title: clean_title, block_index: forloop.index %}
                       {% when 'dislay_5' %}
                         {% render 'header-mega-mobile-display-5', block: block, clean_title: clean_title, block_index: forloop.index %}
+                      {% when 'dislay_6' %}
+                        {% render 'header-mega-mobile-display-6', block: block, clean_title: clean_title %}
                     {% endcase %}
                   {% endif %}
                 {% endfor %}
@@ -1473,6 +1475,140 @@
                   "type": "url",
                   "id": "title_url_2",
                   "label": "Title Link"
+                }
+            ]
+        },
+        {
+            "type": "dislay_6",
+            "name": "Display - 6 (Bundle Sale)",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "menu_tag",
+                    "label": "Menu Tag",
+                    "default": "Bundle sale",
+                    "info": "Must exactly match the navigation item name."
+                },
+                {
+                    "type": "url",
+                    "id": "main_link",
+                    "label": "Shop All Bundles Link"
+                },
+                {
+                    "type": "text",
+                    "id": "main_link_label",
+                    "label": "Shop All Button Label",
+                    "default": "Shop All Bundles"
+                },
+                {
+                    "type": "text",
+                    "id": "view_all_label",
+                    "label": "View All Label",
+                    "default": "View All"
+                },
+                {
+                    "type": "header",
+                    "content": "Bundle Category 1"
+                },
+                {
+                    "type": "text",
+                    "id": "category_label_1",
+                    "label": "Left Menu Name",
+                    "default": "Clothing + Extra Battery"
+                },
+                {
+                    "type": "text",
+                    "id": "category_title_1",
+                    "label": "Main Title",
+                    "default": "Clothing + Extra Battery"
+                },
+                {
+                    "type": "text",
+                    "id": "category_subtitle_1",
+                    "label": "Subtitle"
+                },
+                {
+                    "type": "collection",
+                    "id": "category_collection_1",
+                    "label": "Products Collection"
+                },
+                {
+                    "type": "header",
+                    "content": "Bundle Category 2"
+                },
+                {
+                    "type": "text",
+                    "id": "category_label_2",
+                    "label": "Left Menu Name",
+                    "default": "Complete Your Warmth"
+                },
+                {
+                    "type": "text",
+                    "id": "category_title_2",
+                    "label": "Main Title",
+                    "default": "Complete Your Warmth"
+                },
+                {
+                    "type": "text",
+                    "id": "category_subtitle_2",
+                    "label": "Subtitle"
+                },
+                {
+                    "type": "collection",
+                    "id": "category_collection_2",
+                    "label": "Products Collection"
+                },
+                {
+                    "type": "header",
+                    "content": "Bundle Category 3"
+                },
+                {
+                    "type": "text",
+                    "id": "category_label_3",
+                    "label": "Left Menu Name",
+                    "default": "Couple & Family"
+                },
+                {
+                    "type": "text",
+                    "id": "category_title_3",
+                    "label": "Main Title",
+                    "default": "Couple & Family"
+                },
+                {
+                    "type": "text",
+                    "id": "category_subtitle_3",
+                    "label": "Subtitle"
+                },
+                {
+                    "type": "collection",
+                    "id": "category_collection_3",
+                    "label": "Products Collection"
+                },
+                {
+                    "type": "header",
+                    "content": "Bundle Category 4"
+                },
+                {
+                    "type": "text",
+                    "id": "category_label_4",
+                    "label": "Left Menu Name",
+                    "default": "Bundles By Activity"
+                },
+                {
+                    "type": "text",
+                    "id": "category_title_4",
+                    "label": "Main Title",
+                    "default": "Bundles By Activity"
+                },
+                {
+                    "type": "text",
+                    "id": "category_subtitle_4",
+                    "label": "Subtitle"
+                },
+                {
+                    "type": "collection",
+                    "id": "category_collection_4",
+                    "label": "Products Collection"
                 }
             ]
         },

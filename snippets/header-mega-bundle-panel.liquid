@@ -1,0 +1,28 @@
+<div id="{{ tab_id }}" class="bundle-menu-panel mega-menu-tab-list-content{% if active %} active{% endif %}" data-tab="{{ tab_id }}" role="region" aria-labelledby="{{ tab_id | replace: 'bundle-category-', 'bundle-tab-' }}">
+  <div class="bundle-menu-panel__header">
+    <div>
+      {% if title != blank %}
+        <p class="bundle-menu-panel__title pp-semibold">{{ title | escape }}</p>
+      {% endif %}
+      {% if subtitle != blank %}
+        <p class="bundle-menu-panel__subtitle pp-regular">{{ subtitle | escape }}</p>
+      {% endif %}
+    </div>
+    {% if collection != blank %}
+      <a class="bundle-menu-view-all pp-semibold" href="{{ collection.url }}">
+        {{ view_all_label | default: 'View All' | escape }}
+        <span aria-hidden="true">→</span>
+      </a>
+    {% endif %}
+  </div>
+
+  {% if collection != blank and collection.products_count > 0 %}
+    <div class="bundle-menu-panel__products">
+      {% for product in collection.products limit: 4 %}
+        {% render 'header-mega-bundle-product-card', product: product %}
+      {% endfor %}
+    </div>
+  {% elsif request.design_mode %}
+    <p class="bundle-menu-panel__empty pp-regular">Select a collection to display bundle products.</p>
+  {% endif %}
+</div>
