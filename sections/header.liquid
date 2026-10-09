@@ -567,11 +567,11 @@
                 <span class="pp-regular body-sm">Search</span>
               </button>
 
-              <a href="/pages/swym-wishlist" class="nav-icon icon-wishlist {% if request.path == '/pages/swym-wishlist' %}active{% endif %}" aria-label="Wishlist">
+              <button type="button" class="nav-icon icon-wishlist" aria-label="Wishlist" data-swym-wishlist-trigger>
                 <svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8.49634 14.3348C8.24993 14.4218 7.84409 14.4218 7.59768 14.3348C5.49599 13.6173 0.799805 10.6242 0.799805 5.55119C0.799805 3.3118 2.60436 1.5 4.82925 1.5C6.14824 1.5 7.31504 2.13775 8.04701 3.12337C8.77898 2.13775 9.95303 1.5 11.2648 1.5C13.4897 1.5 15.2942 3.3118 15.2942 5.55119C15.2942 10.6242 10.598 13.6173 8.49634 14.3348Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-              </a>
+              </button>
 
               <a href="{{ routes.account_url }}" class="nav-icon icon-user {% if request.path == '/account' %}active{% endif %}" aria-label="Account">
                 <svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -680,11 +680,11 @@
               </svg>
             </button>
 
-            <a href="/pages/swym-wishlist" class="nav-icon icon-wishlist {% if request.path == '/pages/swym-wishlist' %}active{% endif %}" aria-label="Wishlist">
+            <button type="button" class="nav-icon icon-wishlist" aria-label="Wishlist" data-swym-wishlist-trigger>
               <svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.49634 14.3348C8.24993 14.4218 7.84409 14.4218 7.59768 14.3348C5.49599 13.6173 0.799805 10.6242 0.799805 5.55119C0.799805 3.3118 2.60436 1.5 4.82925 1.5C6.14824 1.5 7.31504 2.13775 8.04701 3.12337C8.77898 2.13775 9.95303 1.5 11.2648 1.5C13.4897 1.5 15.2942 3.3118 15.2942 5.55119C15.2942 10.6242 10.598 13.6173 8.49634 14.3348Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-            </a>
+            </button>
 
             <button type="button" class="nav-icon icon-cart" aria-label="Open cart">
                 <svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2081,6 +2081,20 @@
 
 </nav>
 <div class="header-placeholder" aria-hidden="true"></div>
+
+<script>
+  window.SwymCallbacks = window.SwymCallbacks || [];
+  window.SwymCallbacks.push(function(swat) {
+    document.querySelectorAll('[data-swym-wishlist-trigger]').forEach(function(trigger) {
+      if (trigger.dataset.swymWishlistBound === 'true') return;
+
+      trigger.dataset.swymWishlistBound = 'true';
+      trigger.addEventListener('click', function() {
+        swat.ui.open();
+      });
+    });
+  });
+</script>
 
 
 {% schema %}
