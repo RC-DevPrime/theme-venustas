@@ -4,9 +4,9 @@
     Quick Add are pulled automatically by reusing the theme's product-item card,
     so switching a swatch switches the image and Quick Add opens the same popup
     as product cards elsewhere.
-  - Attribute rows: set a label at section level (Row 1..8). For each row you can
+  - Attribute rows: set a label at section level (Row 1..9). For each row you can
     EITHER point to a product metafield ("namespace.key") to auto-fill every
-    column, OR leave it blank and type a value per product (Value 1..8).
+    column, OR leave it blank and type a value per product (Value 1..9).
   - Tick "Highlight this column" on the current product to feature it.
 {%- endcomment -%}
 
@@ -14,7 +14,7 @@
 
 {%- comment -%} Last non-blank row, so the featured column can round its bottom corner {%- endcomment -%}
 {%- assign last_row = 0 -%}
-{%- for i in (1..8) -%}
+{%- for i in (1..9) -%}
   {%- assign label_key = 'row_' | append: i | append: '_label' -%}
   {%- if section.settings[label_key] != blank -%}{%- assign last_row = i -%}{%- endif -%}
 {%- endfor -%}
@@ -252,7 +252,7 @@
         {% endfor %}
 
         {%- comment -%} Attribute rows {%- endcomment -%}
-        {% for i in (1..8) %}
+        {% for i in (1..9) %}
           {% assign label_key = 'row_' | append: i | append: '_label' %}
           {% assign sub_key   = 'row_' | append: i | append: '_sub' %}
           {% assign mf_key    = 'row_' | append: i | append: '_metafield' %}
@@ -364,7 +364,10 @@
     { "type": "text", "id": "row_7_metafield", "label": "Row 7 Metafield (namespace.key)" },
     { "type": "text", "id": "row_8_label", "label": "Row 8 Label" },
     { "type": "text", "id": "row_8_sub", "label": "Row 8 Sub-note" },
-    { "type": "text", "id": "row_8_metafield", "label": "Row 8 Metafield (namespace.key)" }
+    { "type": "text", "id": "row_8_metafield", "label": "Row 8 Metafield (namespace.key)" },
+    { "type": "text", "id": "row_9_label", "label": "Row 9 Label" },
+    { "type": "text", "id": "row_9_sub", "label": "Row 9 Sub-note" },
+    { "type": "text", "id": "row_9_metafield", "label": "Row 9 Metafield (namespace.key)" }
   ],
   "blocks": [
     {
@@ -395,7 +398,8 @@
         { "type": "textarea", "id": "value_5", "label": "Value 5 (Row 5)" },
         { "type": "textarea", "id": "value_6", "label": "Value 6 (Row 6)" },
         { "type": "textarea", "id": "value_7", "label": "Value 7 (Row 7)" },
-        { "type": "textarea", "id": "value_8", "label": "Value 8 (Row 8)" }
+        { "type": "textarea", "id": "value_8", "label": "Value 8 (Row 8)" },
+        { "type": "textarea", "id": "value_9", "label": "Value 9 (Row 9)" }
       ]
     }
   ],
