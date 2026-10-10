@@ -5,7 +5,7 @@
   assign has_new_tag = false
 
   for tag in product.tags
-    assign tag_handle = tag | handle
+    assign tag_handle = tag | strip | downcase | handle
     if tag_handle == 'hot'
       assign has_hot_tag = true
     elsif tag_handle == 'best-seller'
