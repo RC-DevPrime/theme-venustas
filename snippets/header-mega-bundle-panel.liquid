@@ -19,7 +19,7 @@
   {% if collection != blank and collection.products_count > 0 %}
     <div class="bundle-menu-panel__products">
       {% for product in collection.products limit: 4 %}
-        {% render 'header-mega-bundle-product-card', product: product %}
+        {% render 'header-mega-bundle-product-card', product: product, image_source: 'menu' %}
       {% endfor %}
     </div>
   {% elsif request.design_mode %}

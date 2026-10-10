@@ -1,7 +1,10 @@
 {% liquid
-  assign menu_image = product.metafields.custom.menu_product_image.value
-  if menu_image == blank
-    assign menu_image = product.featured_image
+  assign card_image = product.featured_image
+  if image_source == 'menu'
+    assign menu_image = product.metafields.custom.menu_product_image.value
+    if menu_image != blank
+      assign card_image = menu_image
+    endif
   endif
 
   assign menu_title = product.metafields.custom.bundle_menu_title.value | default: product.title
@@ -10,8 +13,8 @@
 
 <a class="bundle-menu-card" href="{{ product.url }}">
   <span class="bundle-menu-card__image">
-    {% if menu_image != blank %}
-      {{ menu_image
+    {% if card_image != blank %}
+      {{ card_image
         | image_url: width: 600
         | image_tag:
           loading: 'lazy',

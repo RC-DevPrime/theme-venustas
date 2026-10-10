@@ -10,7 +10,7 @@
       <div class="display-6-mobile__products" role="list">
         {% for product in collection.products limit: 4 %}
           <div role="listitem">
-            {% render 'header-mega-bundle-product-card', product: product %}
+            {% render 'header-mega-bundle-product-card', product: product, image_source: 'featured' %}
           </div>
         {% endfor %}
       </div>

@@ -2,9 +2,6 @@
 assign current_variant = product.selected_or_first_available_variant
 assign sale_badge_type = 'discount'
  
-assign new_badge_type = settings.new_badge_type | default: 'auto' 
-
-
   assign new_badge = false
   assign new_badge_limit = 30
   assign date_difference = 'now' | date: '%s' | minus: product.published_at | date: '%s' | divided_by: 86400
@@ -98,6 +95,7 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
             <span class="body pp-semibold">New</span>
         </span>
         {% endif %}
+        
 
 
         {% if product.variants.size > 1 %}

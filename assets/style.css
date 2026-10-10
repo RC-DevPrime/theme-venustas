@@ -1726,10 +1726,9 @@ a.f-white:hover{
 .nav-mobile .accordion a,
 .nav-mobile .accordion button {
     font-family: var(--font-primary);
-    /* font-weight: 500;
-    font-size: 18px; */
     text-decoration: none;
-    color: #161616;
+    color: #111;
+    font-weight: 400;
 }
 .nav-mobile .accordion a[data-mega],
 .nav-mobile .accordion button[data-mega] {
@@ -1770,11 +1769,12 @@ a.f-white:hover{
 }
 
 .nav-mobile #accordion-menu .accordion-button {
+    height:50px;
     font-family: var(--font-primary);
-    font-weight: 600;
-    font-size: 18px;
-    padding: 20px 10px 20px 0;
-    color: #161616 !important;
+    font-weight: 400;
+    font-size: 15px;
+    padding: 15px 10px 15px 0;
+    color: #111 !important;
 }
 .nav-mobile .accordion-button::after {
     pointer-events: auto;
@@ -1977,7 +1977,7 @@ a.f-white:hover{
     font-family: var(--font-primary);
     font-weight: 400;
     font-size: 15px;
-    padding: 10px 0;
+    padding: 15px 0;
     color: #111 !important;
     width:100%;
 }
