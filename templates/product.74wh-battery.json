@@ -332,6 +332,12 @@
     "product_battery_certification_zf3WK7": {
       "type": "product-battery-certification",
       "blocks": {
+        "certificate_anNrck": {
+          "type": "certificate",
+          "settings": {
+            "icon": "shopify://shop_images/battery-cert-five.webp"
+          }
+        },
         "certificate_WcKY6m": {
           "type": "certificate",
           "settings": {
@@ -355,20 +361,14 @@
           "settings": {
             "icon": "shopify://shop_images/battery-cert-four.webp"
           }
-        },
-        "certificate_anNrck": {
-          "type": "certificate",
-          "settings": {
-            "icon": "shopify://shop_images/battery-cert-five.webp"
-          }
         }
       },
       "block_order": [
+        "certificate_anNrck",
         "certificate_WcKY6m",
         "certificate_pWHTkB",
         "certificate_jxeRpk",
-        "certificate_QBC7Ke",
-        "certificate_anNrck"
+        "certificate_QBC7Ke"
       ],
       "name": "Product Battery Cert",
       "settings": {
@@ -376,7 +376,7 @@
         "text_color": "#ffffff",
         "image_desktop": "shopify://shop_images/battery-10K-content-pc-8.webp",
         "image_mobile": "shopify://shop_images/battery-10K-content-mb-2.webp",
-        "title": "TESTED FOR SAFETY.",
+        "title": "TESTED FOR SAFETY,",
         "title_second": "BUILT TO LAST.",
         "cert_title": "5 Safety Certifications",
         "warranty_title": "1-Year Battery Warranty",
