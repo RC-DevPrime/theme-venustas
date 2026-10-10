@@ -150,7 +150,7 @@
       "name": "Product Battery Power",
       "settings": {
         "heading_before": "ALL-AROUND POWER FOR",
-        "heading_accent": "7.4V & 12V",
+        "heading_accent": "7.4V & 9V & 12V",
         "heading_after": "HEATED APPAREL",
         "description": "<p>A balanced battery solution combining extended warmth, versatile compatibility, and everyday portability.</p>"
       }
@@ -330,6 +330,12 @@
     "product_battery_certification_zf3WK7": {
       "type": "product-battery-certification",
       "blocks": {
+        "certificate_anNrck": {
+          "type": "certificate",
+          "settings": {
+            "icon": "shopify://shop_images/battery-cert-five.webp"
+          }
+        },
         "certificate_WcKY6m": {
           "type": "certificate",
           "settings": {
@@ -347,19 +353,13 @@
           "settings": {
             "icon": "shopify://shop_images/battery-cert-four.webp"
           }
-        },
-        "certificate_anNrck": {
-          "type": "certificate",
-          "settings": {
-            "icon": "shopify://shop_images/battery-cert-five.webp"
-          }
         }
       },
       "block_order": [
+        "certificate_anNrck",
         "certificate_WcKY6m",
         "certificate_jxeRpk",
-        "certificate_QBC7Ke",
-        "certificate_anNrck"
+        "certificate_QBC7Ke"
       ],
       "name": "Product Battery Cert",
       "settings": {
