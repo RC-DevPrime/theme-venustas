@@ -2,23 +2,6 @@
 assign current_variant = product.selected_or_first_available_variant
 assign sale_badge_type = 'discount'
  
-assign new_badge_type = settings.new_badge_type | default: 'auto' 
-
-
-  assign new_badge = false
-  assign new_badge_limit = 30
-  assign date_difference = 'now' | date: '%s' | minus: product.published_at | date: '%s' | divided_by: 86400
-  if date_difference <= new_badge_limit
-    assign new_badge = true
-  else
-    for tag in product.tags
-      assign tag_handle = tag | handle
-      if tag_handle == 'new'
-        assign new_badge = true
-      endif
-    endfor
-  endif
-
 -%}
 <div class="product-item">
 
@@ -42,12 +25,7 @@ assign new_badge_type = settings.new_badge_type | default: 'auto'
         </span>
     {% endif %}
 
-    {%- comment -%} NEW BADGE {%- endcomment -%}
-    {% if new_badge %}
-        <span class="badge new-badge" aria-hidden="true">
-        <span class="body pp-semibold">New</span>
-        </span>
-    {% endif %}
+    {% render 'product-badge', product: product %}
 
     {% assign active_variant = product.selected_or_first_available_variant %}
 

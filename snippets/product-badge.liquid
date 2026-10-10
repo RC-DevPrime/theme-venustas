@@ -1,0 +1,31 @@
+{%- liquid
+  assign product_badge_label = blank
+  assign has_hot_tag = false
+  assign has_best_seller_tag = false
+  assign has_new_tag = false
+
+  for tag in product.tags
+    assign tag_handle = tag | handle
+    if tag_handle == 'hot'
+      assign has_hot_tag = true
+    elsif tag_handle == 'best-seller'
+      assign has_best_seller_tag = true
+    elsif tag_handle == 'new'
+      assign has_new_tag = true
+    endif
+  endfor
+
+  if has_hot_tag
+    assign product_badge_label = 'Hot'
+  elsif has_best_seller_tag
+    assign product_badge_label = 'Best Seller'
+  elsif has_new_tag
+    assign product_badge_label = 'New'
+  endif
+-%}
+
+{% if product_badge_label != blank %}
+  <span class="badge new-badge" aria-hidden="true">
+    <span class="body pp-semibold">{{ product_badge_label }}</span>
+  </span>
+{% endif %}
