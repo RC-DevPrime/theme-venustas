@@ -2077,20 +2077,25 @@ a.f-white:hover{
     font-weight: 600;
     line-height: 1.3;
 }
-.product-item .product-image .badge.new-badge{
+ .badge.menu-badge,.badge.new-badge{
+    position: absolute;
     top:7px;
     right:8px;
     background: #B93205;
     color: #ffffff;
-}
-.product-item .product-image:has(.bss-pl-frontend) .badge.new-badge{
-    display: none;
-}
-.product-item .product-image .badge.new-badge span{
     padding:2px 6px;
     line-height:normal;
     font-size: 12px;
 }
+.badge.menu-badge{
+    background: #ffe4dc;
+    color: #B93205;
+}
+
+.product-item .product-image:has(.bss-pl-frontend) .badge.new-badge{
+    display: none;
+}
+
 .product-item .product-image img{
     width: 100%;
     height: 100%;
@@ -2796,19 +2801,12 @@ a.f-white:hover{
     .product-item .product-image .badge.sale-badge{
         border-radius: 5px 0;
     }
-    .product-item .product-image .badge.new-badge{
-        top:8px;
-        right:5px;
-        border-radius: 2px;
-    }
+ 
     .product-item .product-image .badge.sale-badge span{
         font-size:9px;
         padding: 6px 6px 6px 7px;
     }
-    .product-item .product-image .badge.new-badge span{
-        padding:3px 6px;
-        font-size:8px;
-    }
+  
     .wishlist-button .swym-add-to-wishlist-view-product{
         font-size:18px !important;
     }
