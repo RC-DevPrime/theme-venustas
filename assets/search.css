@@ -398,8 +398,11 @@
         --bs-gutter-x:0;
     }
   }
-
-  
+  @media only screen and (max-width: 399px) {
+    .pb-sm-custom{
+        padding-bottom:1rem !important;
+    }
+  }
   /* TABLETS ----------------------------------------------------------------------------------- */
   
   @media only screen and (max-width: 768px) {
