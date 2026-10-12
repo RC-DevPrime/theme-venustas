@@ -389,23 +389,7 @@
 
 
   /* MOBILES ----------------------------------------------------------------------------------- */
-
-  @media only screen and (min-width: 0px) {
-    .main-search-section main-search input{
-        font-size:14px;
-    }
-    .main-search-section .main-search-row{
-        --bs-gutter-x:0;
-    }
-  }
-  @media only screen and (min-width: 375px) {
-    .main-search-section main-search input{
-        font-size:14px;
-    }
-    .main-search-section .main-search-row{
-        --bs-gutter-x:0;
-    }
-  }
+ 
   @media only screen and (min-width: 390px) {
     .main-search-section main-search input{
         font-size:14px;
@@ -414,39 +398,13 @@
         --bs-gutter-x:0;
     }
   }
-  @media only screen and (min-width: 414px) {
-    .main-search-section main-search input{
-        font-size:14px;
-    }
-    .main-search-section .main-search-row{
-        --bs-gutter-x:0;
-    }
-  }
-  @media only screen and (min-width: 428px) {
-    .main-search-section main-search input{
-        font-size:14px;
-    }
-    .main-search-section .main-search-row{
-        --bs-gutter-x:0;
-    }
-  }
-  @media only screen and (min-width: 480px) {
-    .main-search-section main-search input{
-        font-size:14px;
-    }
-    .main-search-section .main-search-row{
-        --bs-gutter-x:0;
-    }
-  }
+
   
   /* TABLETS ----------------------------------------------------------------------------------- */
   
-  @media only screen and (min-width: 768px) {
-    .main-search-section main-search input{
-        font-size:16px;
-    }
-    .main-search-section .main-search-row{
-        --bs-gutter-x:40px;
+  @media only screen and (max-width: 768px) {
+    .main-search-section .tab-search .tab-item{
+        padding:8px 10px;
     }
   }
   
@@ -461,53 +419,5 @@
         --bs-gutter-x:60px;
     }
   }
-  @media only screen and (min-width: 1366px) {
-    .main-search-section main-search input{
-        font-size:16px;
-    }
-    .main-search-section .main-search-row{
-        --bs-gutter-x:60px;
-    }
-  }
-  @media only screen and (min-width: 1440px) {
-    .main-search-section main-search input{
-        font-size:16px;
-    }
-    .main-search-section .main-search-row{
-        --bs-gutter-x:70px;
-    }
-  }
-  @media only screen and (min-width: 1536px) {
-    .main-search-section main-search input{
-        font-size:16px;
-    }
-    .main-search-section .main-search-row{
-        --bs-gutter-x:80px;
-    }
-  }
-  @media only screen and (min-width: 1600px) {
-    .main-search-section main-search input{
-        font-size:18px;
-    }
-    .main-search-section .main-search-row{
-        --bs-gutter-x:80px;
-    }
-  }
+
   
-  /* COMPUTERS --------------------------------------------------------------------------------- */
-  @media only screen and (min-width: 1920px) {
-    .main-search-section main-search input{
-        font-size:18px;
-    }
-    .main-search-section .main-search-row{
-        --bs-gutter-x:100px;
-    }
-  }
-  @media only screen and (min-width: 2560px) {
-    .main-search-section main-search input{
-        font-size:18px;
-    }
-    .main-search-section .main-search-row{
-        --bs-gutter-x:100px;
-    }
-  }
