@@ -28,25 +28,6 @@
     fill: #B93205;
 } */
 /* PRODUCT CUSTOM TAGS */
-.product .main-media .badge{
-    position: absolute;
-    top: 1rem;
-    z-index: 3;
-    border-radius: 4px;
-    padding: 0;
-    display: flex;
-}
-.product .main-media .badge.sale-badge{
-    top:0;
-    left: 0;
-    background: linear-gradient(93deg, #DB451C 34.47%, #FF7D3E 100%);
-    color: #fff;
-    font-size: 12px;
-    border-radius: 5px 0;
-}
-.product .main-media .badge.sale-badge span{
-    padding: 6px 9px 6px 11px;
-}
 
 .product .main-media:has(.bss-pl-frontend) .badge.new-badge{
     display: none;
