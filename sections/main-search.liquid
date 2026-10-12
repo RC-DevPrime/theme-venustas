@@ -485,7 +485,7 @@
                                                                         {% when 'boolean' or 'list' %}
                                                                             
                                                                             {% for filter_value in filter.values %}
-                                                                                
+                                                                                {% if filter_value.count > 0 %}
                                                                                 {% if filter.label == 'Color' %}
                                                                                         {% assign color_value_raw = filter_value.label | downcase %}
                                                                                         {% assign words = color_value_raw | split: ' ' %}
@@ -593,6 +593,7 @@
                                                                                                 <span class="checkmark"></span>
                                                                                                 </label>
                                                                                     </div>
+                                                                                {% endif %}
                                                                                 {% endif %}
                                                                             {% endfor %}
                                         
