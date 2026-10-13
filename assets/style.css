@@ -2117,6 +2117,22 @@ a.f-white:hover{
     z-index: 2;
     transition: opacity .5s ease, scale 0.6s ease 0.1s;
 }
+@media (hover: hover) and (pointer: fine) {
+    .product-item .product-image:hover .hover-image {
+        opacity: 1;
+    }
+}
+
+/* Touch devices should keep the primary image visible and navigate on the first tap. */
+@media (hover: none) and (pointer: coarse) {
+    .product-item .product-image {
+        touch-action: manipulation;
+    }
+
+    .product-item .product-image .hover-image {
+        display: none;
+    }
+}
 .product-item .product-image:hover .hover-image {
     opacity: 1;
 }
