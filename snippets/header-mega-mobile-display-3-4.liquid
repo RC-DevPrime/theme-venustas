@@ -1,0 +1,431 @@
+                      <div class="mega-menu mega-mobile" data-mega="{{ clean_title | handleize }}">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between align-items-center">
+                                <p class="mega-title">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                    {{ clean_title}}
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="menu-list-container-item display-3">
+                          <div class="accordion">
+                            {% assign index = block_index %}
+                            <div class="accordion-item ">
+                                <div class="display-3-image-container">
+                                  <a href="{{ block.settings.image_url_1 | default: '#' }}">
+                                    <img src="{{ block.settings.image_1 | img_url: 'master' }}">
+                                  </a>
+                                </div>
+                                <h2 class="accordion-header" id="heading-{{ block.settings.label_1 | handleize }}-{{ index }}">
+                                    <button
+                                    class="accordion-button f-white pp-semibold body-lg l-h-normal"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapse-{{ block.settings.label_1 | handleize }}-{{ index }}"
+                                    aria-expanded="true"
+                                    aria-controls="collapse-{{ block.settings.label_1 | handleize }}-{{ index }}">
+
+                                        <a href="{{ block.settings.label_url_1 }}">
+                                          {{ block.settings.label_1 }}
+                                        </a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                          <g transform="rotate(90 9 9)">
+                                            <circle cx="9" cy="9" r="9" style="fill:#f1f1f1"/>
+                                            <path d="m4.423.334 2.721 2.721A.313.313 0 0 1 6.7 3.5L3.98.776a.514.514 0 0 0-.726 0L.533 3.5a.313.313 0 0 1-.442-.442L2.812.334a1.14 1.14 0 0 1 1.611 0Z" transform="rotate(-90 9.912 2.705)" style="fill:#5d5d5d;stroke:#5d5d5d;stroke-width:.5px;isolation:isolate"/>
+                                          </g>
+                                        </svg>
+                                    </button>
+                                </h2>
+                                <div
+                                    id="collapse-{{ block.settings.label_1 | handleize }}-{{ index }}"
+                                    class="accordion-collapse collapse show"
+                                    aria-labelledby="heading-{{ block.settings.label_1 | handleize }}-{{ index }}"
+                                    data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <div class="menu-list">
+                                          {% for link in block.settings.menu_list_1.links %}
+                                            <a href="{{ link.url }}" class="pp-regular body">{{ link.title }}</a>
+                                          {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% if block.settings.label_2 != blank %}
+                            <div class="accordion-item ">
+                                <div class="display-3-image-container">
+                                  <img src="{{ block.settings.image_2 | img_url: 'master' }}">
+                                </div>
+                                <h2 class="accordion-header" id="heading-{{ block.settings.label_2 | handleize }}-{{ index }}">
+                                    <button
+                                    class="accordion-button f-white pp-semibold body-xl l-h-normal collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapse-{{ block.settings.label_2 | handleize }}-{{ index }}"
+                                    aria-expanded="false"
+                                    aria-controls="collapse-{{ block.settings.label_2 | handleize }}-{{ index }}">
+                                        <a href="{{ block.settings.label_url_2 }}">
+                                          {{ block.settings.label_2 }}
+                                        </a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                          <g transform="rotate(90 9 9)">
+                                            <circle cx="9" cy="9" r="9" style="fill:#f1f1f1"/>
+                                            <path d="m4.423.334 2.721 2.721A.313.313 0 0 1 6.7 3.5L3.98.776a.514.514 0 0 0-.726 0L.533 3.5a.313.313 0 0 1-.442-.442L2.812.334a1.14 1.14 0 0 1 1.611 0Z" transform="rotate(-90 9.912 2.705)" style="fill:#5d5d5d;stroke:#5d5d5d;stroke-width:.5px;isolation:isolate"/>
+                                          </g>
+                                        </svg>
+                                    </button>
+                                </h2>
+                                <div
+                                    id="collapse-{{ block.settings.label_2 | handleize }}-{{ index }}"
+                                    class="accordion-collapse collapse"
+                                    aria-labelledby="heading-{{ block.settings.label_2 | handleize }}-{{ index }}"
+                                    data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <div class="menu-list">
+                                          {% for link in block.settings.menu_list_2.links %}
+                                            {% assign menu_title_parts = link.title | split: '#' %}
+                                            {% assign menu_clean_title = menu_title_parts.first | strip %}
+                                            {% assign menu_badge = menu_title_parts[1] | strip | downcase %}
+
+                                            <a href="{{ link.url }}" class="mega-menu-link pp-regular body">
+                                              <span>{{ menu_clean_title }}</span>
+
+                                              {% if menu_badge == 'hot' %}
+                                                <span class="mega-menu-link__badge mega-menu-link__badge--hot">
+                                                  Hot
+                                                </span>
+                                              {% endif %}
+                                            </a>
+                                          {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% if block.settings.label_3 != blank %}
+                            <div class="accordion-item ">
+                                <div class="display-3-image-container">
+                                  <img src="{{ block.settings.image_3 | img_url: 'master' }}">
+                                </div>
+                                <h2 class="accordion-header" id="heading-{{ block.settings.label_3 | handleize }}-{{ index }}">
+                                    <button
+                                    class="accordion-button f-white pp-semibold body-xl l-h-normal collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapse-{{ block.settings.label_3 | handleize }}-{{ index }}"
+                                    aria-expanded="false"
+                                    aria-controls="collapse-{{ block.settings.label_3 | handleize }}-{{ index }}">
+
+                                        <a href="{{ block.settings.label_url_3 }}">
+                                          {{ block.settings.label_3 }}
+                                        </a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                          <g transform="rotate(90 9 9)">
+                                            <circle cx="9" cy="9" r="9" style="fill:#f1f1f1"/>
+                                            <path d="m4.423.334 2.721 2.721A.313.313 0 0 1 6.7 3.5L3.98.776a.514.514 0 0 0-.726 0L.533 3.5a.313.313 0 0 1-.442-.442L2.812.334a1.14 1.14 0 0 1 1.611 0Z" transform="rotate(-90 9.912 2.705)" style="fill:#5d5d5d;stroke:#5d5d5d;stroke-width:.5px;isolation:isolate"/>
+                                          </g>
+                                        </svg>
+                                    </button>
+                                </h2>
+                                <div
+                                    id="collapse-{{ block.settings.label_3 | handleize }}-{{ index }}"
+                                    class="accordion-collapse collapse"
+                                    aria-labelledby="heading-{{ block.settings.label_3 | handleize }}-{{ index }}"
+                                    data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <div class="menu-list">
+                                          {% for link in block.settings.menu_list_3.links %}
+                                            <a href="{{ link.url }}" class="pp-regular body">{{ link.title }}</a>
+                                          {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% if block.settings.label_4 != blank %}
+                            <div class="accordion-item ">
+                                <div class="display-3-image-container">
+                                  <img src="{{ block.settings.image_4 | img_url: 'master' }}">
+                                </div>
+                                <h2 class="accordion-header" id="heading-{{ block.settings.label_4 | handleize }}-{{ index }}">
+                                    <button
+                                    class="accordion-button f-white pp-semibold body-xl l-h-normal collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapse-{{ block.settings.label_4 | handleize }}-{{ index }}"
+                                    aria-expanded="false"
+                                    aria-controls="collapse-{{ block.settings.label_4 | handleize }}-{{ index }}">
+
+                                        <a href="{{ block.settings.label_url_4 }}">
+                                          {{ block.settings.label_4 }}
+                                        </a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                          <g transform="rotate(90 9 9)">
+                                            <circle cx="9" cy="9" r="9" style="fill:#f1f1f1"/>
+                                            <path d="m4.423.334 2.721 2.721A.313.313 0 0 1 6.7 3.5L3.98.776a.514.514 0 0 0-.726 0L.533 3.5a.313.313 0 0 1-.442-.442L2.812.334a1.14 1.14 0 0 1 1.611 0Z" transform="rotate(-90 9.912 2.705)" style="fill:#5d5d5d;stroke:#5d5d5d;stroke-width:.5px;isolation:isolate"/>
+                                          </g>
+                                        </svg>
+                                    </button>
+                                </h2>
+                                <div
+                                    id="collapse-{{ block.settings.label_4 | handleize }}-{{ index }}"
+                                    class="accordion-collapse collapse"
+                                    aria-labelledby="heading-{{ block.settings.label_4 | handleize }}-{{ index }}"
+                                    data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <div class="menu-list">
+                                          {% for link in block.settings.menu_list_4.links %}
+                                            <a href="{{ link.url }}" class="pp-regular body">{{ link.title }}</a>
+                                          {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% if block.settings.label_5 != blank %}
+                            <div class="accordion-item ">
+                                <div class="display-3-image-container">
+                                  <img src="{{ block.settings.image_5 | img_url: 'master' }}">
+                                </div>
+                                <h2 class="accordion-header" id="heading-{{ block.settings.label_5 | handleize }}-{{ index }}">
+                                    <button
+                                    class="accordion-button f-white pp-semibold body-xl l-h-normal collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapse-{{ block.settings.label_5 | handleize }}-{{ index }}"
+                                    aria-expanded="false"
+                                    aria-controls="collapse-{{ block.settings.label_5 | handleize }}-{{ index }}">
+
+                                        <a href="{{ block.settings.label_url_5 }}">
+                                          {{ block.settings.label_5 }}
+                                        </a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                          <g transform="rotate(90 9 9)">
+                                            <circle cx="9" cy="9" r="9" style="fill:#f1f1f1"/>
+                                            <path d="m4.423.334 2.721 2.721A.313.313 0 0 1 6.7 3.5L3.98.776a.514.514 0 0 0-.726 0L.533 3.5a.313.313 0 0 1-.442-.442L2.812.334a1.14 1.14 0 0 1 1.611 0Z" transform="rotate(-90 9.912 2.705)" style="fill:#5d5d5d;stroke:#5d5d5d;stroke-width:.5px;isolation:isolate"/>
+                                          </g>
+                                        </svg>
+                                    </button>
+                                </h2>
+                                <div
+                                    id="collapse-{{ block.settings.label_5 | handleize }}-{{ index }}"
+                                    class="accordion-collapse collapse"
+                                    aria-labelledby="heading-{{ block.settings.label_5 | handleize }}-{{ index }}"
+                                    data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <div class="menu-list">
+                                          {% for link in block.settings.menu_list_5.links %}
+                                            <a href="{{ link.url }}" class="pp-regular body">{{ link.title }}</a>
+                                          {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                          </div>
+                        </div>
+
+                      </div>
+
+                      {% if block.settings.nav_2 != blank %}
+                      <div class="mega-menu mega-mobile" data-mega="{{ block.settings.nav_2 | handleize }}">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between align-items-center">
+                                <p class="mega-title">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                    {{ block.settings.nav_2 }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column gap-3 display-3">
+
+                            {% if block.settings.nav_2_heading_1 != blank %}
+                              <div class="col-12">
+                                <a href="{{ block.settings.nav_2_link_1.url }}" class="menu-list-collection-item">
+                                  <img src="{{ block.settings.nav_2_bg_image_1 | img_url: 'master' }}" class="bg-image" width="100%" height="100%">
+                                  <div class="info-content d-flex flex-column">
+                                    <h6 class="body-lg pp-semibold f-white">{{ block.settings.nav_2_heading_1 }}</h6>
+                                    <h6 class="body-sm pp-regular f-white">- {{ block.settings.nav_2_link_1.title }}</h6>
+                                  </div>
+                                </a>
+                              </div>
+                            {% endif %}
+                            {% if block.settings.nav_2_heading_2 != blank %}
+                              <div class="col-12">
+                                <a href="{{ block.settings.nav_2_link_2.url }}" class="menu-list-collection-item">
+                                  <img src="{{ block.settings.nav_2_bg_image_2 | img_url: 'master' }}" class="bg-image" width="100%" height="100%">
+                                  <div class="info-content d-flex flex-column">
+                                    <h6 class="body-lg pp-semibold f-white">{{ block.settings.nav_2_heading_2 }}</h6>
+                                    <h6 class="body-sm pp-regular f-white">- {{ block.settings.nav_2_link_2.title }}</h6>
+                                  </div>
+                                </a>
+                              </div>
+                            {% endif %}
+                            {% if block.settings.nav_2_heading_3 != blank %}
+                              <div class="col-12">
+                                <a href="{{ block.settings.nav_2_link_3.url }}" class="menu-list-collection-item">
+                                  <img src="{{ block.settings.nav_2_bg_image_3 | img_url: 'master' }}" class="bg-image" width="100%" height="100%">
+                                  <div class="info-content d-flex flex-column">
+                                    <h6 class="body-lg pp-semibold f-white">{{ block.settings.nav_2_heading_3 }}</h6>
+                                    <h6 class="body-sm pp-regular f-white">- {{ block.settings.nav_2_link_3.title }}</h6>
+                                  </div>
+                                </a>
+                              </div>
+                            {% endif %}
+
+                        </div>
+                      </div>
+                      {% endif %}
+                      {% if block.settings.nav_3 != blank %}
+                      <div class="mega-menu mega-mobile" data-mega="{{ block.settings.nav_3 | handleize }}">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between align-items-center">
+                                <p class="mega-title">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                    {{ block.settings.nav_3 }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column gap-3 display-3">
+
+                            {% if block.settings.nav_3_heading_1 != blank %}
+                              <div class="col-12">
+                                <a href="{{ block.settings.nav_3_link_1.url }}" class="menu-list-collection-item">
+                                  <img src="{{ block.settings.nav_3_bg_image_1 | img_url: 'master' }}" class="bg-image" width="100%" height="100%">
+                                  <div class="info-content d-flex flex-column">
+                                    <h6 class="body-lg pp-semibold f-white">{{ block.settings.nav_3_heading_1 }}</h6>
+                                    <h6 class="body-sm pp-regular f-white">- {{ block.settings.nav_3_link_1.title }}</h6>
+                                  </div>
+                                </a>
+                              </div>
+                            {% endif %}
+                            {% if block.settings.nav_3_heading_2 != blank %}
+                              <div class="col-12">
+                                <a href="{{ block.settings.nav_3_link_2.url }}" class="menu-list-collection-item">
+                                  <img src="{{ block.settings.nav_3_bg_image_2 | img_url: 'master' }}" class="bg-image" width="100%" height="100%">
+                                  <div class="info-content d-flex flex-column">
+                                    <h6 class="body-lg pp-semibold f-white">{{ block.settings.nav_3_heading_2 }}</h6>
+                                    <h6 class="body-sm pp-regular f-white">- {{ block.settings.nav_3_link_2.title }}</h6>
+                                  </div>
+                                </a>
+                              </div>
+                            {% endif %}
+                            {% if block.settings.nav_3_heading_3 != blank %}
+                              <div class="col-12">
+                                <a href="{{ block.settings.nav_3_link_3.url }}" class="menu-list-collection-item">
+                                  <img src="{{ block.settings.nav_3_bg_image_3 | img_url: 'master' }}" class="bg-image" width="100%" height="100%">
+                                  <div class="info-content d-flex flex-column">
+                                    <h6 class="body-lg pp-semibold f-white">{{ block.settings.nav_3_heading_3 }}</h6>
+                                    <h6 class="body-sm pp-regular f-white">- {{ block.settings.nav_3_link_3.title }}</h6>
+                                  </div>
+                                </a>
+                              </div>
+                            {% endif %}
+
+                        </div>
+                      </div>
+                      {% endif %}
+                      {% if block.settings.nav_4 != blank %}
+                      <div class="mega-menu mega-mobile" data-mega="{{ block.settings.nav_4 | handleize }}">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between align-items-center">
+                                <p class="mega-title">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                    {{ block.settings.nav_4 }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column gap-3 display-3">
+
+                            {% if block.settings.nav_4_heading_1 != blank %}
+                              <div class="col-12">
+                                <a href="{{ block.settings.nav_4_link_1.url }}" class="menu-list-collection-item">
+                                  <img src="{{ block.settings.nav_4_bg_image_1 | img_url: 'master' }}" class="bg-image" width="100%" height="100%">
+                                  <div class="info-content d-flex flex-column">
+                                    <h6 class="body-lg pp-semibold f-white">{{ block.settings.nav_4_heading_1 }}</h6>
+                                    <h6 class="body-sm pp-regular f-white">- {{ block.settings.nav_4_link_1.title }}</h6>
+                                  </div>
+                                </a>
+                              </div>
+                            {% endif %}
+                            {% if block.settings.nav_4_heading_2 != blank %}
+                              <div class="col-12">
+                                <a href="{{ block.settings.nav_4_link_2.url }}" class="menu-list-collection-item">
+                                  <img src="{{ block.settings.nav_4_bg_image_2 | img_url: 'master' }}" class="bg-image" width="100%" height="100%">
+                                  <div class="info-content d-flex flex-column">
+                                    <h6 class="body-lg pp-semibold f-white">{{ block.settings.nav_4_heading_2 }}</h6>
+                                    <h6 class="body-sm pp-regular f-white">- {{ block.settings.nav_4_link_2.title }}</h6>
+                                  </div>
+                                </a>
+                              </div>
+                            {% endif %}
+                            {% if block.settings.nav_4_heading_3 != blank %}
+                              <div class="col-12">
+                                <a href="{{ block.settings.nav_4_link_3.url }}" class="menu-list-collection-item">
+                                  <img src="{{ block.settings.nav_4_bg_image_3 | img_url: 'master' }}" class="bg-image" width="100%" height="100%">
+                                  <div class="info-content d-flex flex-column">
+                                    <h6 class="body-lg pp-semibold f-white">{{ block.settings.nav_4_heading_3 }}</h6>
+                                    <h6 class="body-sm pp-regular f-white">- {{ block.settings.nav_4_link_3.title }}</h6>
+                                  </div>
+                                </a>
+                              </div>
+                            {% endif %}
+
+                        </div>
+                      </div>
+                      {% endif %}
+                      {% if block.settings.nav_5 != blank %}
+                      <div class="mega-menu mega-mobile" data-mega="{{ block.settings.nav_5 | handleize }}">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between align-items-center">
+                                <p class="mega-title">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                    {{ block.settings.nav_5 }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column gap-3 display-3">
+
+                            {% if block.settings.nav_5_heading_1 != blank %}
+                              <div class="col-12">
+                                <a href="{{ block.settings.nav_5_link_1.url }}" class="menu-list-collection-item">
+                                  <img src="{{ block.settings.nav_5_bg_image_1 | img_url: 'master' }}" class="bg-image" width="100%" height="100%">
+                                  <div class="info-content d-flex flex-column">
+                                    <h6 class="body-lg pp-semibold f-white">{{ block.settings.nav_5_heading_1 }}</h6>
+                                    <h6 class="body-sm pp-regular f-white">- {{ block.settings.nav_5_link_1.title }}</h6>
+                                  </div>
+                                </a>
+                              </div>
+                            {% endif %}
+                            {% if block.settings.nav_5_heading_2 != blank %}
+                              <div class="col-12">
+                                <a href="{{ block.settings.nav_5_link_2.url }}" class="menu-list-collection-item">
+                                  <img src="{{ block.settings.nav_5_bg_image_2 | img_url: 'master' }}" class="bg-image" width="100%" height="100%">
+                                  <div class="info-content d-flex flex-column">
+                                    <h6 class="body-lg pp-semibold f-white">{{ block.settings.nav_5_heading_2 }}</h6>
+                                    <h6 class="body-sm pp-regular f-white">- {{ block.settings.nav_5_link_2.title }}</h6>
+                                  </div>
+                                </a>
+                              </div>
+                            {% endif %}
+                            {% if block.settings.nav_5_heading_3 != blank %}
+                              <div class="col-12">
+                                <a href="{{ block.settings.nav_5_link_3.url }}" class="menu-list-collection-item">
+                                  <img src="{{ block.settings.nav_5_bg_image_3 | img_url: 'master' }}" class="bg-image" width="100%" height="100%">
+                                  <div class="info-content d-flex flex-column">
+                                    <h6 class="body-lg pp-semibold f-white">{{ block.settings.nav_5_heading_3 }}</h6>
+                                    <h6 class="body-sm pp-regular f-white">- {{ block.settings.nav_5_link_3.title }}</h6>
+                                  </div>
+                                </a>
+                              </div>
+                            {% endif %}
+
+                        </div>
+                      </div>
+                      {% endif %}

@@ -90,11 +90,7 @@
             </span>
         {% endif %}
         
-        {% if new_badge %}
-        <span class="badge new-badge" aria-hidden="true">
-            <span class="body pp-semibold">New</span>
-        </span>
-        {% endif %}
+        {% render 'product-badge', product: product %}
     </div>
 
         <div class="position-relative">
