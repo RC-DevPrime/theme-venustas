@@ -13,9 +13,274 @@
       "type": "main-page",
       "name": "Main Page",
       "settings": {}
+    },
+    "heating_v_anchor_nav_xjRk7P": {
+      "type": "heatingV-anchor-nav",
+      "blocks": {
+        "link_KHPpXN": {
+          "type": "link",
+          "settings": {
+            "label": "Why Heated Gear",
+            "target_id": "why-heated-gear"
+          }
+        },
+        "link_YG9p9p": {
+          "type": "link",
+          "settings": {
+            "label": "Venustas Riding System",
+            "target_id": "venustas-riding-system"
+          }
+        },
+        "link_Tq8NF8": {
+          "type": "link",
+          "settings": {
+            "label": "Setup Options",
+            "target_id": "setup-options"
+          }
+        },
+        "link_fgGW9G": {
+          "type": "link",
+          "settings": {
+            "label": "How It Works",
+            "target_id": "how-it-works"
+          }
+        },
+        "link_eeLMay": {
+          "type": "link",
+          "settings": {
+            "label": "Riding Guild",
+            "target_id": "riding-guild"
+          }
+        },
+        "link_mfTfAp": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "faq"
+          }
+        }
+      },
+      "block_order": [
+        "link_KHPpXN",
+        "link_YG9p9p",
+        "link_Tq8NF8",
+        "link_fgGW9G",
+        "link_eeLMay",
+        "link_mfTfAp"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#F5F5F5",
+        "nav_background": "#FFFFFF",
+        "text_color": "#1F1F1F",
+        "aria_label": "Page navigation",
+        "mobile_button_label": "Open page navigation"
+      }
+    },
+    "heating_bike_power_RCkq86": {
+      "type": "heating-bike-power",
+      "name": "Heating Bike Power",
+      "settings": {
+        "title": "Your bike is the battery",
+        "description": "<p>Apex takes its power straight from the motorcycle, so there's nothing to charge before you leave and nothing to keep an eye on while you ride. Pick a level and it stays there. Off the bike, the 7.5K battery (sold seperately) takes over.</p>"
+      }
+    },
+    "heating_ready_wiring_6qQ8fW": {
+      "type": "heating-ready-wiring",
+      "name": "Heating Ready Wiring",
+      "settings": {
+        "title": "Nothing to assemble",
+        "description": "<p>The Y cable comes with the fuse already fitted and already rated for everything you can plug in — jacket, pants, gloves, socks. Attach it to your battery and the wiring is done. Heat control is in the garment, so there's no controller to mount either.</p>"
+      }
+    },
+    "heating_glove_control_Ng6HxT": {
+      "type": "heating-glove-control",
+      "name": "Heating Glove Control",
+      "settings": {
+        "title": "One button. Three levels. Glove-Friendly Control.",
+        "description": "<p>High. Medium. Low. All controlled directly from the garment with one easy-to-reach button — even with gloves on. No separate controller. No handlebar mount. No extra cable running down your sleeve. Just press the button to change heat levels while you ride.</p>"
+      }
+    },
+    "heating_liner_system_D6JhQn": {
+      "type": "heating-liner-system",
+      "name": "Heating Liner System",
+      "settings": {
+        "title": "Two liners. One power source.",
+        "description": "<p>Both pieces are mid-layers — they go under your riding jacket and pants, not over them. Wired together, one lead off the bike runs the whole thing.</p>"
+      }
+    },
+    "heating_heat_zones_URi9Np": {
+      "type": "heating-heat-zones",
+      "name": "Heating Heat Zones",
+      "settings": {
+        "title": "Where the heat actually goes",
+        "description": "<p>Our heated gear is engineered specifically for how riders move and ride-so warmth stays in, and you stay focused.</p>"
+      }
+    },
+    "heating_panel_details_AaqmmV": {
+      "type": "heating-panel-details",
+      "name": "Heating Panel Details",
+      "settings": {
+        "title": "Every panel is there for a reason",
+        "description": "<p>Five fabrics, placed where the ride actually puts wear on you.</p>"
+      }
+    },
+    "heating_road_notes_9PURmY": {
+      "type": "heating-road-notes",
+      "name": "Heating Road Notes",
+      "settings": {
+        "title": "Two things you'll notice on the road",
+        "description": "<p>Neither is why you'd buy a heated liner. Both are why you'd keep this one.</p>"
+      }
+    },
+    "heating_12v_carousel_jHVK6J": {
+      "type": "heating-12v-carousel",
+      "blocks": {
+        "scene_ickLEe": {
+          "type": "scene",
+          "settings": {
+            "icon_name": "motorcycle",
+            "active_color": "rgba(255,255,255,0.4)",
+            "text_tone": "white",
+            "title": "Motorcycle",
+            "text": "Touring, commuting, ADV"
+          }
+        },
+        "scene_XzDDDL": {
+          "type": "scene",
+          "settings": {
+            "icon_name": "atv",
+            "active_color": "rgba(255,255,255,0.4)",
+            "text_tone": "white",
+            "title": "ATV / UTV",
+            "text": "Open cab, cold trails"
+          }
+        },
+        "scene_qUXicb": {
+          "type": "scene",
+          "settings": {
+            "icon_name": "snowmobile",
+            "active_color": "rgba(255,255,255,0.4)",
+            "text_tone": "white",
+            "title": "Snowmobile",
+            "text": "Sustained sub-freezing"
+          }
+        },
+        "scene_GPDhrT": {
+          "type": "scene",
+          "settings": {
+            "icon_name": "boat",
+            "active_color": "rgba(255,255,255,0.4)",
+            "text_tone": "white",
+            "title": "Boat",
+            "text": "Wind chill on the water"
+          }
+        },
+        "scene_7HxF9z": {
+          "type": "scene",
+          "settings": {
+            "icon_name": "aircraft",
+            "active_color": "rgba(255,255,255,0.4)",
+            "text_tone": "white",
+            "title": "Light aircraft",
+            "text": "Unheated cabins"
+          }
+        }
+      },
+      "block_order": [
+        "scene_ickLEe",
+        "scene_XzDDDL",
+        "scene_qUXicb",
+        "scene_GPDhrT",
+        "scene_7HxF9z"
+      ],
+      "name": "Heating 12V Carousel",
+      "settings": {
+        "title": "If it has a 12V circuit, it works",
+        "description": "<p>Built for motorcycles first, but the power source is the only requirement. Anything running a 12V DC circuit drives the same liners.</p>",
+        "hold_seconds": 3,
+        "fade_seconds": 3
+      }
+    },
+    "heating_prelaunch_faq_Hay6C3": {
+      "type": "heating-prelaunch-faq",
+      "blocks": {
+        "faq_zHPpfB": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get my $10 back?",
+            "answer": "<p>Yes. Any time before launch, email us and we'll refund it in full. After launch it becomes a $50 coupon — and if you don't use it and ask for refund, we'll still refund the original $10.</p>"
+          }
+        },
+        "faq_jfhF4b": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I get $100 off if I buy both?",
+            "answer": "<p>No. It's $50 off your order, one time, whether you buy one piece or both. If you intend to buy both, please reserve twice.</p>"
+          }
+        },
+        "faq_BCPJgG": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need to buy anything else?",
+            "answer": "<p>No. Both liners ship with the Y cable set and inline fuse. Heat control is built into the garment.</p>"
+          }
+        },
+        "faq_z9CMCf": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I wear these on their own?",
+            "answer": "<p>They're mid-layers. They go under your riding jacket and pants, over a thin base layer.</p>"
+          }
+        },
+        "faq_PddX38": {
+          "type": "faq",
+          "settings": {
+            "question": "Will it drain my battery?",
+            "answer": "<p>待补具体数据</p>"
+          }
+        },
+        "faq_a4BB4Y": {
+          "type": "faq",
+          "settings": {
+            "question": "When does it ship?",
+            "answer": "<p>October 2026. If anything slips, we'll email you and you can take a full refund on the spot.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_zHPpfB",
+        "faq_jfhF4b",
+        "faq_BCPJgG",
+        "faq_z9CMCf",
+        "faq_PddX38",
+        "faq_a4BB4Y"
+      ],
+      "name": "Heating FAQ",
+      "settings": {
+        "eyebrow": "FAQ"
+      }
+    },
+    "heating_founder_terms_qta9Lp": {
+      "type": "heating-founder-terms",
+      "name": "Heating Founder Terms",
+      "settings": {
+        "text": "<p>Heat levels measured at the inner lining under controlled conditions; actual warmth varies with ambient temperature, riding speed and layering. Apex™ liners are mid-layers and provide no abrasion or impact protection. A 12V DC vehicle supply is required for unlimited runtime; the 7.5K battery is sold separately. Always wear over a base layer rather than against bare skin, and do not run the heat while the engine is off. The Founder Pass discount is a one-time $50 discount code valid on the Apex™Heated Jacket Liner and Apex Heated Pant Liner only, limited to one use per customer, $50 off the order regardless of quantity, and does not combine with other order-level discounts.</p>"
+      }
     }
   },
   "order": [
-    "main_page_3cKYFc"
+    "main_page_3cKYFc",
+    "heating_v_anchor_nav_xjRk7P",
+    "heating_bike_power_RCkq86",
+    "heating_ready_wiring_6qQ8fW",
+    "heating_glove_control_Ng6HxT",
+    "heating_liner_system_D6JhQn",
+    "heating_heat_zones_URi9Np",
+    "heating_panel_details_AaqmmV",
+    "heating_road_notes_9PURmY",
+    "heating_12v_carousel_jHVK6J",
+    "heating_prelaunch_faq_Hay6C3",
+    "heating_founder_terms_qta9Lp"
   ]
 }
