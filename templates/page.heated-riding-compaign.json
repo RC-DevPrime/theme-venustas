@@ -14,6 +14,25 @@
       "name": "Main Page",
       "settings": {}
     },
+    "heating_p_hero_QwLtdB": {
+      "type": "heatingP-hero",
+      "name": "HeatingP Hero",
+      "settings": {
+        "eyebrow": "NEW •  Apex™ RIDING SYSTEM",
+        "title": "Heated riding gear that runs on your bike.",
+        "description": "<p>No battery to charge. No controller to buy. Just the Apex jacket liner and pant liner, wired into your 12V power.</p>",
+        "primary_label": "Shop the system",
+        "primary_link": "",
+        "secondary_label": "See how it powers",
+        "secondary_link": "",
+        "stat_1_value": "144°F",
+        "stat_1_text": "Max heating temperature · 12V powered",
+        "stat_2_value": "8",
+        "stat_2_text": "Heat zones across jacket and pants",
+        "stat_3_value": "$0",
+        "stat_3_text": "Extra parts needed — cable and fuse in the box"
+      }
+    },
     "heating_v_anchor_nav_xjRk7P": {
       "type": "heatingV-anchor-nav",
       "blocks": {
@@ -70,12 +89,17 @@
       ],
       "name": "Heating Anchor Nav",
       "settings": {
-        "section_background": "#F5F5F5",
-        "nav_background": "#FFFFFF",
-        "text_color": "#1F1F1F",
+        "section_background": "#f5f5f5",
+        "nav_background": "#ffffff",
+        "text_color": "#1f1f1f",
         "aria_label": "Page navigation",
         "mobile_button_label": "Open page navigation"
       }
+    },
+    "heating_p_power_modes_ihLK6C": {
+      "type": "heatingP-power-modes",
+      "name": "HeatingP Power Modes",
+      "settings": {}
     },
     "heating_bike_power_RCkq86": {
       "type": "heating-bike-power",
@@ -131,6 +155,71 @@
       "settings": {
         "title": "Two things you'll notice on the road",
         "description": "<p>Neither is why you'd buy a heated liner. Both are why you'd keep this one.</p>"
+      }
+    },
+    "heating_p_layering_k8tNFq": {
+      "type": "heatingP-layering",
+      "name": "HeatingP Layering",
+      "settings": {}
+    },
+    "heating_p_system_cards_8fHXC4": {
+      "type": "heatingP-system-cards",
+      "blocks": {
+        "card_nqepgN": {
+          "type": "card",
+          "settings": {
+            "badge": "",
+            "title": "Apex™ Jacket Liner",
+            "price": "$239.99",
+            "discount": "",
+            "description": "Core warmth, chest to collar",
+            "spec_label": "6 heat zones",
+            "spec_value": "42W • 3.5A",
+            "note": "Y cable and fuse included",
+            "button_label": "Shop Now",
+            "button_link": ""
+          }
+        },
+        "card_PxTxxf": {
+          "type": "card",
+          "settings": {
+            "badge": "Best Choice",
+            "title": "Apex™ Jacket Liner + Pants Liner + 3-Way Cable",
+            "price": "$457.97",
+            "discount": "15% off in cart",
+            "description": "Full-body heat on one lead",
+            "spec_label": "8 heat zones",
+            "spec_value": "80W • 6.67A",
+            "note": "3-Way cable needed",
+            "button_label": "Shop Now",
+            "button_link": ""
+          }
+        },
+        "card_PDYL4a": {
+          "type": "card",
+          "settings": {
+            "badge": "",
+            "title": "Apex™ Jacket Liner",
+            "price": "$239.99",
+            "discount": "",
+            "description": "Core warmth, chest to collar",
+            "spec_label": "6 heat zones",
+            "spec_value": "42W • 3.5A",
+            "note": "Y cable and fuse included",
+            "button_label": "Shop Now",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_nqepgN",
+        "card_PxTxxf",
+        "card_PDYL4a"
+      ],
+      "name": "HeatingP System Cards",
+      "settings": {
+        "title": "One System. Multiple Ways To Ride Warmer.",
+        "intro": "Our modular system lets you build your ideal setup. Start simple or go full system - the choice is yours."
       }
     },
     "heating_12v_carousel_jHVK6J": {
@@ -261,6 +350,48 @@
         "eyebrow": "FAQ"
       }
     },
+    "heating_p_season_cta_49Rzp6": {
+      "type": "heatingP-season-cta",
+      "blocks": {
+        "button_XWRapf": {
+          "type": "button",
+          "settings": {
+            "label": "Apex™ Jacket Liner",
+            "link": "",
+            "button_size": "small"
+          }
+        },
+        "button_gKn3tD": {
+          "type": "button",
+          "settings": {
+            "label": "Apex™ Jacket + Pants Liner Set",
+            "link": "",
+            "button_size": "wide"
+          }
+        },
+        "button_KTCicg": {
+          "type": "button",
+          "settings": {
+            "label": "Apex™ Pants Liner",
+            "link": "",
+            "button_size": "small"
+          }
+        }
+      },
+      "block_order": [
+        "button_XWRapf",
+        "button_gKn3tD",
+        "button_KTCicg"
+      ],
+      "name": "HeatingP CTA",
+      "settings": {
+        "title": "Ride further into the season",
+        "description": "Pick a starting point. The system grows from there.",
+        "mobile_button_label": "Shop Apex™ Collection",
+        "mobile_button_link": "",
+        "guarantee": "3-Year Warranty on Heating Elements | Free Shipping | 30-day Return"
+      }
+    },
     "heating_founder_terms_qta9Lp": {
       "type": "heating-founder-terms",
       "name": "Heating Founder Terms",
@@ -271,7 +402,9 @@
   },
   "order": [
     "main_page_3cKYFc",
+    "heating_p_hero_QwLtdB",
     "heating_v_anchor_nav_xjRk7P",
+    "heating_p_power_modes_ihLK6C",
     "heating_bike_power_RCkq86",
     "heating_ready_wiring_6qQ8fW",
     "heating_glove_control_Ng6HxT",
@@ -279,8 +412,11 @@
     "heating_heat_zones_URi9Np",
     "heating_panel_details_AaqmmV",
     "heating_road_notes_9PURmY",
+    "heating_p_layering_k8tNFq",
+    "heating_p_system_cards_8fHXC4",
     "heating_12v_carousel_jHVK6J",
     "heating_prelaunch_faq_Hay6C3",
+    "heating_p_season_cta_49Rzp6",
     "heating_founder_terms_qta9Lp"
   ]
 }
