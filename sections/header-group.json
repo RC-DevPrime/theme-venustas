@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "header",
   "name": "Header",
@@ -5,6 +14,14 @@
     "header": {
       "type": "header",
       "blocks": {
+        "announcement_bar_YhAQmA": {
+          "type": "announcement_bar",
+          "settings": {
+            "announcement_content": "<p><em><strong>Shop Weekly Deals</strong></em>: Up to 45% OFF</p>",
+            "btn_label": "Learn More",
+            "link": "shopify://collections/deal-of-the-week"
+          }
+        },
         "announcement_countdown_yPBEej": {
           "type": "announcement_countdown",
           "disabled": true,
@@ -15,6 +32,7 @@
         },
         "announcement_bar_GbrkMQ": {
           "type": "announcement_bar",
+          "disabled": true,
           "settings": {
             "announcement_content": "<p><em><strong>Limited Time Offer</strong></em><strong>:</strong>&nbsp;Enjoy an extra&nbsp;<em><strong>$10 OFF</strong></em>&nbsp;when your order reaches&nbsp;<em><strong>$200+</strong></em>!</p>",
             "btn_label": "Shop now",
@@ -191,6 +209,7 @@
         }
       },
       "block_order": [
+        "announcement_bar_YhAQmA",
         "announcement_countdown_yPBEej",
         "announcement_bar_GbrkMQ",
         "announcement_bar_zf9Qbr",
@@ -206,9 +225,11 @@
         "announcement_bar": true,
         "logo": "shopify://shop_images/main-header-logo.png",
         "main_menu": "main-menu",
+        "autoplay_enabled": true,
         "autoplay": 4,
         "background_color": "#000000",
-        "text_color": "#ffffff"
+        "text_color": "#ffffff",
+        "underline_text_color": "#ffffff"
       }
     },
     "search": {
