@@ -67,22 +67,26 @@
   #shopify-section-{{ section.id }} .heating-liner-system__picture {
     position: absolute;
     inset: 0;
-    opacity: 1;
-    transition: opacity 220ms ease;
-  }
-
-  #shopify-section-{{ section.id }} .heating-liner-system__picture--alternate {
+    margin: 0;
     opacity: 0;
+    /* Hold the first frame briefly, then dissolve slowly enough to read it. */
+    transition: opacity 1.8s ease 1.2s;
   }
 
-  #shopify-section-{{ section.id }} .heating-liner-system__media:hover .heating-liner-system__picture--alternate,
-  #shopify-section-{{ section.id }} .heating-liner-system__media.is-active .heating-liner-system__picture--alternate {
+  #shopify-section-{{ section.id }} .heating-liner-system__picture--primary {
     opacity: 1;
   }
 
-  #shopify-section-{{ section.id }} .heating-liner-system__media:hover .heating-liner-system__picture--primary,
-  #shopify-section-{{ section.id }} .heating-liner-system__media.is-active .heating-liner-system__picture--primary {
+  #shopify-section-{{ section.id }} .heating-liner-system__media.is-inview .heating-liner-system__picture--primary {
     opacity: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__media.is-inview .heating-liner-system__picture--alternate {
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heating-liner-system__media--no-transition .heating-liner-system__picture {
+    transition: none;
   }
 
   #shopify-section-{{ section.id }} .heating-liner-system__image {
@@ -189,20 +193,9 @@
       border-radius: 12px;
     }
 
-    #shopify-section-{{ section.id }} .heating-liner-system__media:hover .heating-liner-system__picture--alternate {
-      opacity: 0;
-    }
-
-    #shopify-section-{{ section.id }} .heating-liner-system__media:hover .heating-liner-system__picture--primary {
-      opacity: 1;
-    }
-
-    #shopify-section-{{ section.id }} .heating-liner-system__media.is-active .heating-liner-system__picture--alternate {
-      opacity: 1;
-    }
-
-    #shopify-section-{{ section.id }} .heating-liner-system__media.is-active .heating-liner-system__picture--primary {
-      opacity: 0;
+    #shopify-section-{{ section.id }} .heating-liner-system__picture {
+      transition-duration: 1.8s;
+      transition-delay: 1.2s;
     }
 
     #shopify-section-{{ section.id }} .heating-liner-system__details {
@@ -236,6 +229,13 @@
       line-height: 1.5;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .heating-liner-system__picture {
+      transition-duration: 0.01ms;
+      transition-delay: 0s;
+    }
+  }
 {% endstyle %}
 
 {%- liquid
@@ -255,7 +255,7 @@
     </div>
 
     <div class="heating-liner-system__content">
-      <div class="heating-liner-system__media" data-heating-liner-toggle role="button" tabindex="0" aria-label="Toggle liner image">
+      <div class="heating-liner-system__media" aria-label="Heating liner image transition">
         {%- if section.settings.primary_desktop_image != blank or primary_mobile != blank -%}
           <picture class="heating-liner-system__picture heating-liner-system__picture--primary">
             {%- if primary_mobile != blank -%}
@@ -332,24 +332,57 @@
 
 <script>
   (() => {
-    const section = document.getElementById('shopify-section-{{ section.id }}');
-    if (!section) return;
+    const sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot || sectionRoot.dataset.heatingLinerReady === 'true') return;
 
-    const media = section.querySelector('[data-heating-liner-toggle]');
+    const media = sectionRoot.querySelector('.heating-liner-system__media');
     if (!media) return;
+    sectionRoot.dataset.heatingLinerReady = 'true';
 
-    const toggle = () => {
-      if (window.matchMedia('(max-width: 767px)').matches) {
-        media.classList.toggle('is-active');
-      }
+    const NO_TRANSITION = 'heating-liner-system__media--no-transition';
+    let playing = false;
+
+    const rewind = () => {
+      media.classList.add(NO_TRANSITION);
+      media.classList.remove('is-inview');
+      void media.offsetWidth;
+      media.classList.remove(NO_TRANSITION);
     };
 
-    media.addEventListener('click', toggle);
-    media.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        toggle();
-      }
+    const play = () => {
+      if (playing) return;
+      playing = true;
+      rewind();
+      media.classList.add('is-inview');
+    };
+
+    const reset = () => {
+      if (!playing) return;
+      playing = false;
+      rewind();
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      play();
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+          play();
+        } else if (!entry.isIntersecting || entry.intersectionRatio < 0.08) {
+          reset();
+        }
+      });
+    }, { threshold: [0, 0.08, 0.2] });
+
+    observer.observe(media);
+
+    document.addEventListener('shopify:section:unload', function unload(event) {
+      if (event.detail.sectionId !== '{{ section.id }}') return;
+      observer.disconnect();
+      document.removeEventListener('shopify:section:unload', unload);
     });
   })();
 </script>
