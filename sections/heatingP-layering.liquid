@@ -1,0 +1,236 @@
+{%- liquid
+  assign image_one = section.settings.image_one
+  assign image_two = section.settings.image_two
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .heatingP-layering {
+    background: #fff;
+    color: var(--venustas-black, #1a1a1a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    padding: 80px 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 645px) minmax(0, 639px);
+    gap: 56px;
+    align-items: end;
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__media {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    width: 100%;
+    min-height: 500px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__content {
+    display: flex;
+    min-height: 496px;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 56px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__title,
+  #shopify-section-{{ section.id }} .heatingP-layering__text,
+  #shopify-section-{{ section.id }} .heatingP-layering__number,
+  #shopify-section-{{ section.id }} .heatingP-layering__card-title,
+  #shopify-section-{{ section.id }} .heatingP-layering__card-text {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__title {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -.95px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__text {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__card {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 24px;
+    border: 1px solid var(--venustas-border, #e5e7eb);
+    border-radius: 12px;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__card--active {
+    border-color: var(--color-brand, #b93205);
+    background: rgba(185, 50, 5, .06);
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__number {
+    flex: 0 0 auto;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__details {
+    display: flex;
+    min-width: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__card-title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__card--active .heatingP-layering__number,
+  #shopify-section-{{ section.id }} .heatingP-layering__card--active .heatingP-layering__card-title {
+    color: var(--color-brand, #b93205);
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-layering__card-text {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingP-layering {
+      padding: 56px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-layering__inner {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-layering__media {
+      order: 2;
+      width: 100%;
+      min-height: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-layering__image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 350 / 269.15;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-layering__content {
+      display: contents;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-layering__header {
+      order: 1;
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-layering__title {
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-layering__list {
+      order: 3;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-layering__card {
+      padding: 20px;
+    }
+  }
+{% endstyle %}
+
+<section class="heatingP-layering">
+  <div class="heatingP-layering__inner">
+    <div class="heatingP-layering__media">
+      {%- if image_one != blank -%}
+        {{ image_one | image_url: width: 1300 | image_tag: class: 'heatingP-layering__image', loading: 'lazy', widths: '350, 645, 900, 1300', sizes: '(max-width: 767px) calc(100vw - 40px), 645px', alt: '' }}
+      {%- endif -%}
+      {%- if image_two != blank -%}
+        {{ image_two | image_url: width: 1300 | image_tag: class: 'heatingP-layering__image', loading: 'lazy', widths: '350, 645, 900, 1300', sizes: '(max-width: 767px) calc(100vw - 40px), 645px', alt: '' }}
+      {%- endif -%}
+    </div>
+
+    <div class="heatingP-layering__content">
+      <div class="heatingP-layering__header">
+        <h2 class="heatingP-layering__title">It goes under your gear, not over it</h2>
+        <p class="heatingP-layering__text">Apex™ is a mid-layer. Your protective jacket and pants stay exactly as they are.</p>
+      </div>
+
+      <div class="heatingP-layering__list">
+        <div class="heatingP-layering__card">
+          <p class="heatingP-layering__number">01</p>
+          <div class="heatingP-layering__details">
+            <p class="heatingP-layering__card-title">Base layer</p>
+            <p class="heatingP-layering__card-text">A thin merino or synthetic tee. Keeps the heat off bare skin and wicks on the long slog.</p>
+          </div>
+        </div>
+
+        <div class="heatingP-layering__card heatingP-layering__card--active">
+          <p class="heatingP-layering__number">02</p>
+          <div class="heatingP-layering__details">
+            <p class="heatingP-layering__card-title">Apex™ heated liner</p>
+            <p class="heatingP-layering__card-text">Slim enough to disappear under armor. This is where the warmth comes from.</p>
+          </div>
+        </div>
+
+        <div class="heatingP-layering__card">
+          <p class="heatingP-layering__number">03</p>
+          <div class="heatingP-layering__details">
+            <p class="heatingP-layering__card-title">Your riding gear</p>
+            <p class="heatingP-layering__card-text">Abrasion and impact protection, unchanged. No need to size up.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HeatingP Layering",
+  "tag": "section",
+  "class": "heatingP-layering-section",
+  "settings": [
+    { "type": "image_picker", "id": "image_one", "label": "Image 1" },
+    { "type": "image_picker", "id": "image_two", "label": "Image 2" }
+  ],
+  "presets": [
+    { "name": "HeatingP Layering" }
+  ]
+}
+{% endschema %}

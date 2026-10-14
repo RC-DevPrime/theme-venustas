@@ -1,0 +1,257 @@
+{%- assign section_image = section.settings.image -%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .heatingP-power-modes {
+    background: #fff;
+    color: var(--venustas-black, #1a1a1a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    padding: 100px 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__inner {
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 56px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__title,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__intro,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__card-title,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__label,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__text,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__list {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__title {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -.95px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__intro {
+    color: var(--venustas-gray, #565b63);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__card {
+    overflow: hidden;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .1);
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__media {
+    height: 408px;
+    background: #ebf2fb;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__image--bike {
+    object-position: left center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__image--battery {
+    object-position: right center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__body {
+    display: flex;
+    min-height: 339px;
+    flex-direction: column;
+    gap: 24px;
+    padding: 32px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__card-title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.33;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__info {
+    display: inline-flex;
+    width: 14px;
+    height: 14px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    font-size: 9px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__text {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 22px;
+    color: var(--venustas-gray, #565b63);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingP-power-modes {
+      padding: 56px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__inner {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__header {
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__title {
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__intro {
+      color: var(--venustas-black, #1a1a1a);
+      line-height: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__media {
+      height: 218px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__body {
+      min-height: 0;
+      gap: 24px;
+      padding: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__card-title {
+      font-size: 22px;
+      line-height: 1.36;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__label {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__text {
+      font-size: 16px;
+      line-height: 1;
+    }
+  }
+{% endstyle %}
+
+<section class="heatingP-power-modes">
+  <div class="heatingP-power-modes__inner">
+    <div class="heatingP-power-modes__header">
+      <h2 class="heatingP-power-modes__title">Built for the bike. Still works off it.</h2>
+      <p class="heatingP-power-modes__intro">The Apex™ system is designed around your motorcycle's 12V supply — that's where the runtime story lives. The battery is for what happens after you park.</p>
+    </div>
+
+    <div class="heatingP-power-modes__grid">
+      <article class="heatingP-power-modes__card">
+        <div class="heatingP-power-modes__media">
+          {%- if section_image != blank -%}
+            {{ section_image | image_url: width: 1400 | image_tag: class: 'heatingP-power-modes__image heatingP-power-modes__image--bike', loading: 'lazy', widths: '350, 670, 900, 1200, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: '' }}
+          {%- endif -%}
+        </div>
+        <div class="heatingP-power-modes__body">
+          <h3 class="heatingP-power-modes__card-title">ON THE BIKE</h3>
+          <div class="heatingP-power-modes__copy">
+            <p class="heatingP-power-modes__label">Motorcycle 12V</p>
+            <p class="heatingP-power-modes__text">Wire the Y cable to your battery once. After that it's one click on the way out of the garage, and the heat doesn't stop until you do.</p>
+          </div>
+          <ul class="heatingP-power-modes__list">
+            <li>Unlimited runtime — heat for as long as the engine turns</li>
+            <li>Nothing extra to buy — Y cable and pre-sized fuse</li>
+            <li>6.67A for both liners at full power</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="heatingP-power-modes__card">
+        <div class="heatingP-power-modes__media">
+          {%- if section_image != blank -%}
+            {{ section_image | image_url: width: 1400 | image_tag: class: 'heatingP-power-modes__image heatingP-power-modes__image--battery', loading: 'lazy', widths: '350, 670, 900, 1200, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: '' }}
+          {%- endif -%}
+        </div>
+        <div class="heatingP-power-modes__body">
+          <h3 class="heatingP-power-modes__card-title">OFF THE BIKE</h3>
+          <div class="heatingP-power-modes__copy">
+            <p class="heatingP-power-modes__label">Venustas 7.5K battery • $79.99 <span class="heatingP-power-modes__info" aria-hidden="true">i</span></p>
+            <p class="heatingP-power-modes__text">Walking the paddock, standing around a campsite, watching a race in the cold. Unplug from the bike, drop the battery in the pocket, keep the heat.</p>
+          </div>
+          <ul class="heatingP-power-modes__list">
+            <li>Sold separately — not required for riding</li>
+            <li>Same garment — no second liner to buy</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HeatingP Power Modes",
+  "tag": "section",
+  "class": "heatingP-power-modes-section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Card images" }
+  ],
+  "presets": [
+    { "name": "HeatingP Power Modes" }
+  ]
+}
+{% endschema %}
