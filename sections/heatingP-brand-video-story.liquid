@@ -29,7 +29,7 @@
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__heading {
     position: absolute;
-    top: 50%;
+    top: var(--story-heading-top, 50%);
     left: 50%;
     width: min(100%, 1020px);
     margin: 0;
@@ -39,7 +39,7 @@
     line-height: 1.35;
     text-align: center;
     opacity: var(--story-heading-opacity, 0);
-    transform: translate(-50%, calc(-50% + var(--story-heading-y, 0px)));
+    transform: translate(-50%, var(--story-heading-translate, -50%));
     will-change: opacity, transform;
   }
 
@@ -68,7 +68,7 @@
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__stats {
     position: absolute;
-    top: 28%;
+    bottom: 358px;
     left: 0;
     display: grid;
     width: 100%;
@@ -103,11 +103,11 @@
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__videos {
     position: absolute;
-    top: 48%;
+    bottom: 80px;
     left: 50%;
     display: grid;
     width: min(100%, 960px);
-    grid-template-columns: 1fr 1.18fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
     align-items: end;
     opacity: var(--story-videos-opacity, 0);
@@ -123,11 +123,11 @@
   }
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__video-card--center {
-    height: 220px;
+    height: 178px;
   }
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__video-card:hover {
-    height: 230px;
+    height: 220px;
     transform: translateY(-22px);
   }
 
@@ -296,7 +296,8 @@
 
     const setStatic = () => {
       section.style.setProperty('--story-heading-opacity', '1');
-      section.style.setProperty('--story-heading-y', '-130px');
+      section.style.setProperty('--story-heading-top', '80px');
+      section.style.setProperty('--story-heading-translate', '0');
       section.style.setProperty('--story-base-opacity', '0');
       section.style.setProperty('--story-gradient-opacity', '1');
       section.style.setProperty('--story-stats-opacity', '1');
@@ -306,7 +307,7 @@
     };
 
     const clearMobile = () => {
-      ['--story-heading-opacity', '--story-heading-y', '--story-base-opacity', '--story-gradient-opacity', '--story-stats-opacity', '--story-stats-y', '--story-videos-opacity', '--story-videos-y', '--story-grad-start', '--story-grad-mid', '--story-grad-end'].forEach((name) => section.style.removeProperty(name));
+      ['--story-heading-opacity', '--story-heading-top', '--story-heading-translate', '--story-base-opacity', '--story-gradient-opacity', '--story-stats-opacity', '--story-stats-y', '--story-videos-opacity', '--story-videos-y', '--story-grad-start', '--story-grad-mid', '--story-grad-end'].forEach((name) => section.style.removeProperty(name));
     };
 
     const render = () => {
@@ -328,12 +329,15 @@
       const gradientDepth = range(progress, 0.36, 0.62);
       const statsEnter = range(progress, 0.58, 0.72);
       const videosEnter = range(progress, 0.74, 0.9);
+      const layoutEnter = range(progress, 0.18, 0.52);
+      const centeredTop = window.innerHeight / 2;
       const gradStart = mixColor([255, 163, 135], [255, 79, 39], gradientDepth);
       const gradMid = mixColor([255, 191, 170], [255, 132, 92], gradientDepth);
       const gradEnd = mixColor([255, 224, 214], [255, 193, 170], gradientDepth);
 
       section.style.setProperty('--story-heading-opacity', intro.toFixed(3));
-      section.style.setProperty('--story-heading-y', `${mix(0, -130, statsEnter).toFixed(2)}px`);
+      section.style.setProperty('--story-heading-top', `${mix(centeredTop, 80, layoutEnter).toFixed(2)}px`);
+      section.style.setProperty('--story-heading-translate', `${mix(-50, 0, layoutEnter).toFixed(2)}%`);
       section.style.setProperty('--story-base-opacity', (1 - gradientEnter).toFixed(3));
       section.style.setProperty('--story-gradient-opacity', gradientEnter.toFixed(3));
       section.style.setProperty('--story-grad-start', gradStart);
