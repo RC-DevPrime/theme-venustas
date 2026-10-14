@@ -127,6 +127,43 @@
     flex: 0 0 auto;
   }
 
+  #shopify-section-{{ section.id }} .heatingP-hero__stats {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+    padding: 20px max(20px, calc((100% - 1340px) / 2));
+    border-top: 1px solid var(--color-brand, #b93205);
+    background: var(--venustas-black, #1a1a1a);
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__stat {
+    min-width: 0;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__stat-value,
+  #shopify-section-{{ section.id }} .heatingP-hero__stat-text {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__stat-value {
+    color: var(--color-brand, #b93205);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__stat-text {
+    margin-top: 4px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.25;
+  }
+
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .heatingP-hero {
       min-height: 0;
@@ -301,7 +338,7 @@
     { "type": "url", "id": "primary_link", "label": "Primary link" },
     { "type": "text", "id": "secondary_label", "label": "Secondary label", "default": "See how it powers" },
     { "type": "url", "id": "secondary_link", "label": "Secondary link" },
-    { "type": "header", "content": "Mobile stats" },
+    { "type": "header", "content": "Stats" },
     { "type": "text", "id": "stat_1_value", "label": "Stat 1 value", "default": "144°F" },
     { "type": "text", "id": "stat_1_text", "label": "Stat 1 text", "default": "Max heating temperature · 12V powered" },
     { "type": "text", "id": "stat_2_value", "label": "Stat 2 value", "default": "8" },
