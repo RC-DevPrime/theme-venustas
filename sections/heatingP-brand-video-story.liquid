@@ -72,7 +72,7 @@
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__stats {
     position: absolute;
-    bottom: var(--story-staus-bottom);
+    top: var(--story-stats-top, 68%);
     left: 0;
     display: grid;
     width: 100%;
@@ -107,15 +107,15 @@
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__videos {
     position: absolute;
-    bottom: var(--story-video-bottom);
+    top: 50%;
     left: 50%;
     display: grid;
     width: min(100%, 960px);
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
-    align-items: end;
+    align-items: center;
     opacity: var(--story-videos-opacity, 0);
-    transform: translate(-50%, var(--story-videos-y, 80px));
+    transform: translate(-50%, calc(-50% + var(--story-videos-y, 80px)));
     will-change: opacity, transform;
   }
 
@@ -150,6 +150,12 @@
       --story-staus-bottom: 258px;
       --story-video-height: 140px;
       --story-video-hover-height: 160px;
+    }
+  }
+
+  @media screen and (min-width: 1281px) {
+    #shopify-section-{{ section.id }} .heatingP-brand-video-story__stats {
+      bottom: auto;
     }
   }
 
@@ -250,8 +256,15 @@
   }
 
   @media only screen and (min-width: 768px) and (max-width: 1280px) {
+    #shopify-section-{{ section.id }} .heatingP-brand-video-story__stats {
+      top: auto;
+      bottom: var(--story-staus-bottom);
+    }
+
     #shopify-section-{{ section.id }} .heatingP-brand-video-story__videos {
+      top: auto;
       bottom: 40px;
+      transform: translate(-50%, var(--story-videos-y, 80px));
       display: flex;
       width: calc(100% - 40px);
       gap: 12px;
@@ -334,6 +347,7 @@
 
     const media = window.matchMedia('(max-width: 767px)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const heading = section.querySelector('.heatingP-brand-video-story__heading');
     let frame = 0;
     const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
     const range = (value, start, end) => clamp((value - start) / (end - start));
@@ -378,12 +392,13 @@
       section.style.setProperty('--story-gradient-opacity', '1');
       section.style.setProperty('--story-stats-opacity', '1');
       section.style.setProperty('--story-stats-y', '0px');
+      section.style.setProperty('--story-stats-top', `${window.innerHeight / 2 + (heading?.offsetHeight || 0) / 2 + 48}px`);
       section.style.setProperty('--story-videos-opacity', '1');
       section.style.setProperty('--story-videos-y', '0px');
     };
 
     const clearMobile = () => {
-      ['--story-heading-opacity', '--story-heading-top', '--story-heading-translate', '--story-base-opacity', '--story-gradient-opacity', '--story-stats-opacity', '--story-stats-y', '--story-videos-opacity', '--story-videos-y', '--story-grad-start', '--story-grad-mid', '--story-grad-end'].forEach((name) => section.style.removeProperty(name));
+      ['--story-heading-opacity', '--story-heading-top', '--story-heading-translate', '--story-base-opacity', '--story-gradient-opacity', '--story-stats-opacity', '--story-stats-y', '--story-stats-top', '--story-videos-opacity', '--story-videos-y', '--story-grad-start', '--story-grad-mid', '--story-grad-end'].forEach((name) => section.style.removeProperty(name));
     };
 
     const render = () => {
@@ -404,7 +419,9 @@
       const gradientEnter = range(progress, 0.22, 0.45);
       const gradientDepth = range(progress, 0.36, 0.62);
       const statsEnter = range(progress, 0.58, 0.72);
-      const videosEnter = range(progress, 0.74, 0.9);
+      const desktop = window.innerWidth > 1280;
+      const textExit = range(progress, 0.72, 0.84);
+      const videosEnter = range(progress, desktop ? 0.8 : 0.74, desktop ? 0.94 : 0.9);
       const layoutEnter = range(progress, 0.16, 0.28);
       const centeredTop = window.innerHeight / 2;
       const headingTop = getHeadingTop();
@@ -412,16 +429,21 @@
       const gradMid = mixColor([255, 191, 170], [255, 132, 92], gradientDepth);
       const gradEnd = mixColor([255, 224, 214], [255, 193, 170], gradientDepth);
 
-      section.style.setProperty('--story-heading-opacity', intro.toFixed(3));
-      section.style.setProperty('--story-heading-top', `${mix(centeredTop, headingTop, layoutEnter).toFixed(2)}px`);
-      section.style.setProperty('--story-heading-translate', `${mix(-50, 0, layoutEnter).toFixed(2)}%`);
+      section.style.setProperty('--story-heading-opacity', (intro * (desktop ? 1 - textExit : 1)).toFixed(3));
+      section.style.setProperty('--story-heading-top', `${(desktop ? centeredTop : mix(centeredTop, headingTop, layoutEnter)).toFixed(2)}px`);
+      section.style.setProperty('--story-heading-translate', `${desktop ? -50 : mix(-50, 0, layoutEnter).toFixed(2)}%`);
       section.style.setProperty('--story-base-opacity', (1 - gradientEnter).toFixed(3));
       section.style.setProperty('--story-gradient-opacity', gradientEnter.toFixed(3));
       section.style.setProperty('--story-grad-start', gradStart);
       section.style.setProperty('--story-grad-mid', gradMid);
       section.style.setProperty('--story-grad-end', gradEnd);
-      section.style.setProperty('--story-stats-opacity', statsEnter.toFixed(3));
+      section.style.setProperty('--story-stats-opacity', (statsEnter * (desktop ? 1 - textExit : 1)).toFixed(3));
       section.style.setProperty('--story-stats-y', `${mix(80, 0, statsEnter).toFixed(2)}px`);
+      if (desktop) {
+        section.style.setProperty('--story-stats-top', `${(centeredTop + (heading?.offsetHeight || 0) / 2 + 48).toFixed(2)}px`);
+      } else {
+        section.style.removeProperty('--story-stats-top');
+      }
       section.style.setProperty('--story-videos-opacity', videosEnter.toFixed(3));
       section.style.setProperty('--story-videos-y', `${mix(90, 0, videosEnter).toFixed(2)}px`);
     };

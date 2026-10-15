@@ -81,52 +81,6 @@
     margin-top: 32px;
   }
 
-  #shopify-section-{{ section.id }} .heatingP-hero__button {
-    display: inline-flex;
-    min-height: 41px;
-    width: 198px;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 16px;
-    border-radius: 6px;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1;
-    text-decoration: none;
-    transition: background-color .22s ease, border-color .22s ease, color .22s ease;
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-hero__button--primary {
-    background: var(--color-brand, #b93205);
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-hero__button--secondary {
-    border: 1.2px solid #fff;
-    background: transparent;
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-hero__button:hover {
-    color: #fff;
-    text-decoration: none;
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-hero__button--primary:hover {
-    background: #8f2403;
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-hero__button--secondary:hover {
-    border-color: var(--color-brand, #b93205);
-    background: rgba(185, 50, 5, .2);
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-hero__button-icon {
-    width: 12px;
-    height: 12px;
-    flex: 0 0 auto;
-  }
-
   #shopify-section-{{ section.id }} .heatingP-hero__stats {
     position: relative;
     z-index: 1;
@@ -134,14 +88,12 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 40px;
     padding: 20px max(20px, calc((100% - 1340px) / 2));
-    border-top: 1px solid var(--color-brand, #b93205);
     background: var(--venustas-black, #1a1a1a);
     box-sizing: border-box;
   }
 
   #shopify-section-{{ section.id }} .heatingP-hero__stat {
     min-width: 0;
-    text-align: center;
   }
 
   #shopify-section-{{ section.id }} .heatingP-hero__stat-value,
@@ -289,16 +241,10 @@
       {%- if section.settings.primary_label != blank or section.settings.secondary_label != blank -%}
         <div class="heatingP-hero__actions">
           {%- if section.settings.primary_label != blank -%}
-            <a class="heatingP-hero__button heatingP-hero__button--primary" href="{{ section.settings.primary_link | default: '#' }}">
-              <span>{{ section.settings.primary_label }}</span>
-              <svg class="heatingP-hero__button-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4.5 9 7.5 6 4.5 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            </a>
+            {%- render 'heatingP-button', label: section.settings.primary_label, url: section.settings.primary_link, variant: 'primary', class: 'heatingP-hero__button' -%}
           {%- endif -%}
           {%- if section.settings.secondary_label != blank -%}
-            <a class="heatingP-hero__button heatingP-hero__button--secondary" href="{{ section.settings.secondary_link | default: '#' }}">
-              <span>{{ section.settings.secondary_label }}</span>
-              <svg class="heatingP-hero__button-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4.5 9 7.5 6 4.5 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            </a>
+            {%- render 'heatingP-button', label: section.settings.secondary_label, url: section.settings.secondary_link, variant: 'secondary', class: 'heatingP-hero__button' -%}
           {%- endif -%}
         </div>
       {%- endif -%}

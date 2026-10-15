@@ -50,49 +50,6 @@
     display: none;
   }
 
-  #shopify-section-{{ section.id }} .heatingP-button {
-    display: inline-flex;
-    min-height: 41px;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 20px 14px;
-    border: 1px solid var(--color-brand, #b93205);
-    border-radius: 6px;
-    background: var(--color-brand, #b93205);
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color .22s ease, color .22s ease;
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-button:hover {
-    background: #8f2403;
-    color: #fff;
-    text-decoration: none;
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-button__icon {
-    width: 12px;
-    height: 12px;
-    flex: 0 0 auto;
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-season-cta__button--small {
-    width: 196px;
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-season-cta__button--wide {
-    width: 292px;
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-button.heatingP-season-cta__button--small{
-    padding:12px 14px 14px;
-  }
-
   #shopify-section-{{ section.id }} .heatingP-season-cta__guarantee {
     display: flex;
     flex-wrap: wrap;
@@ -139,10 +96,6 @@
       width: 100%;
     }
 
-    #shopify-section-{{ section.id }} .heatingP-season-cta__mobile-button .heatingP-button {
-      width: 100%;
-    }
-
     #shopify-section-{{ section.id }} .heatingP-season-cta__guarantee {
       display: flex;
       width: 100%;
@@ -167,9 +120,9 @@
     {%- if section.blocks.size > 0 -%}
       <div class="heatingP-season-cta__buttons">
         {%- for block in section.blocks -%}
-          {%- assign button_width_class = 'heatingP-season-cta__button--small' -%}
+          {%- assign button_width_class = 'heatingP-button--small' -%}
           {%- if block.settings.button_size == 'wide' -%}
-            {%- assign button_width_class = 'heatingP-season-cta__button--wide' -%}
+            {%- assign button_width_class = 'heatingP-button--wide' -%}
           {%- endif -%}
           <div {{ block.shopify_attributes }}>
             {%- render 'heatingP-button', label: block.settings.label, url: block.settings.link, class: button_width_class -%}
@@ -179,7 +132,7 @@
     {%- endif -%}
 
     <div class="heatingP-season-cta__mobile-button">
-      {%- render 'heatingP-button', label: section.settings.mobile_button_label, url: section.settings.mobile_button_link -%}
+      {%- render 'heatingP-button', label: section.settings.mobile_button_label, url: section.settings.mobile_button_link, class: 'heatingP-button--full' -%}
     </div>
 
     <p class="heatingP-season-cta__guarantee">

@@ -55,7 +55,7 @@
     background: #fff;
   }
 
-  #shopify-section-{{ section.id }} .heatingP-system-cards__card--featured {
+  #shopify-section-{{ section.id }} .heatingP-system-cards__card:hover {
     box-shadow: 0 4px 12.05px rgba(0, 0, 0, .12);
   }
 
@@ -158,37 +158,6 @@
     line-height: 1;
   }
 
-  #shopify-section-{{ section.id }} .heatingP-button {
-    display: inline-flex;
-    width: 100%;
-    min-height: 48px;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 20px 14px;
-    border-radius: 6px;
-    background: var(--color-brand, #b93205);
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color .22s ease, color .22s ease;
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-button:hover {
-    background: #8f2403;
-    color: #fff;
-    text-decoration: none;
-  }
-
-  #shopify-section-{{ section.id }} .heatingP-button__icon {
-    width: 12px;
-    height: 12px;
-    flex: 0 0 auto;
-  }
-
   @media only screen and (max-width: 1100px) {
     #shopify-section-{{ section.id }} .heatingP-system-cards {
       padding: 48px 20px;
@@ -231,7 +200,7 @@
   }
 {% endstyle %}
 
-<section class="heatingP-system-cards">
+<section class="heatingP-system-cards" id="heatingP-system-cards">
   <div class="heatingP-system-cards__inner">
     <div class="heatingP-system-cards__header">
       {%- if section.settings.title != blank -%}
@@ -284,7 +253,7 @@
             {%- if block.settings.note != blank -%}
               <p class="heatingP-system-cards__note">{{ block.settings.note }}</p>
             {%- endif -%}
-            {%- render 'heatingP-button', label: block.settings.button_label, url: block.settings.button_link -%}
+            {%- render 'heatingP-button', label: block.settings.button_label, url: block.settings.button_link, class: 'heatingP-button--full heatingP-button--card' -%}
           </div>
         </article>
       {%- endfor -%}

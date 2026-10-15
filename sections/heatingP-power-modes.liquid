@@ -182,10 +182,13 @@
     line-height: 1.2;
     text-align: left;
   }
+  #shopify-section-{{ section.id }} .heatingP-power-modes__runtime-cell.head-content{
+    font-weight: 600;
+  }
 
   #shopify-section-{{ section.id }} .heatingP-power-modes__runtime-row--head .heatingP-power-modes__runtime-cell {
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 600;
   }
 
   #shopify-section-{{ section.id }} .heatingP-power-modes__text {
@@ -283,7 +286,7 @@
   }
 {% endstyle %}
 
-<section class="heatingP-power-modes">
+<section class="heatingP-power-modes" id="heatingP-power-modes">
   <div class="heatingP-power-modes__inner">
     <div class="heatingP-power-modes__header">
       <h2 class="heatingP-power-modes__title">Built for the bike. Still works off it.</h2>
@@ -331,13 +334,13 @@
                     <span class="heatingP-power-modes__runtime-cell" role="columnheader">Low</span>
                   </span>
                   <span class="heatingP-power-modes__runtime-row" role="row">
-                    <span class="heatingP-power-modes__runtime-cell" role="cell">For Heated Jacket Liner</span>
+                    <span class="heatingP-power-modes__runtime-cell head-content" role="cell">For Heated Jacket Liner</span>
                     <span class="heatingP-power-modes__runtime-cell" role="cell">3h</span>
                     <span class="heatingP-power-modes__runtime-cell" role="cell">5h</span>
                     <span class="heatingP-power-modes__runtime-cell" role="cell">8h</span>
                   </span>
                   <span class="heatingP-power-modes__runtime-row" role="row">
-                    <span class="heatingP-power-modes__runtime-cell" role="cell">For Heated Pants Liner</span>
+                    <span class="heatingP-power-modes__runtime-cell head-content" role="cell">For Heated Pants Liner</span>
                     <span class="heatingP-power-modes__runtime-cell" role="cell">2h</span>
                     <span class="heatingP-power-modes__runtime-cell" role="cell">4h</span>
                     <span class="heatingP-power-modes__runtime-cell" role="cell">6h</span>
