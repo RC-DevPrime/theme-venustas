@@ -1,0 +1,311 @@
+.size-chart-component {
+  font-family: inherit;
+}
+
+.size-chart-component__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+  font: inherit;
+  font-style: italic;
+}
+
+.size-chart-component__button-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.size-chart-component__modal .popup-content {
+  width: calc(100% - 40px);
+  max-width: 1400px;
+}
+
+.size-chart-component__modal .popup-header {
+  padding: 15px 25px 0;
+}
+
+.size-chart-component__modal .popup-container {
+  max-height: 80vh;
+  padding: 0 70px 40px;
+  overflow-y: auto;
+}
+
+.size-chart-component__heading {
+  margin: 0 0 24px;
+  color: #000;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.size-chart-component__tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.size-chart-component__tab {
+  padding: 10px 30px;
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+  background: #f0f0f0;
+  color: #000;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
+.size-chart-component__tab.is-active {
+  border-color: #b93205;
+  background: #fff;
+  color: #b93205;
+}
+
+.size-chart-component__panel {
+  padding-top: 20px;
+}
+
+.size-chart-component__topline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 24px;
+}
+
+.size-chart-component__product-title,
+.size-chart-component__instruction-title {
+  margin: 0;
+  color: #000;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.size-chart-component .toggle-size-chart {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+.size-chart-component .unit-label,
+.size-chart-component .toggle-box {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+
+.size-chart-component .unit-label {
+  color: #888;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.size-chart-component .unit-label.active {
+  color: #000;
+}
+
+.size-chart-component .toggle-box {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  border: 1px solid #b93205;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.size-chart-component .toggle-box::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: #b93205;
+  transition: left 0.25s ease;
+}
+
+.size-chart-component .toggle-box.right::after {
+  left: 16px;
+}
+
+.size-chart-component .scrollable-container {
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.size-chart-component .scrollable-container::-webkit-scrollbar {
+  height: 0;
+}
+
+.size-chart-component .size-chart-container {
+  min-width: 450px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  border-radius: 16px 16px 8px 8px;
+}
+
+.size-chart-component .size-chart-table {
+  width: 100%;
+  text-align: center;
+}
+
+.size-chart-component .size-chart-table th {
+  padding: 14px 20px;
+  border: 1px solid #f0f0f0;
+  background: #f0f0f0;
+}
+
+.size-chart-component .size-chart-table td {
+  padding: 12px 20px;
+  border-right: 1px solid #f0f0f0;
+}
+
+.size-chart-component .size-chart-table td:last-child {
+  border-right: 0;
+}
+
+.size-chart-component .size-chart-table tbody tr:first-child td {
+  font-weight: 500;
+}
+
+.size-chart-component .size-chart-table td.grey {
+  background: #f0f0f0 !important;
+}
+
+.size-chart-component .size-chart-table td.red,
+.size-chart-component .size-chart-table th.red {
+  background: #b93205 !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+.size-chart-component .size-chart-description {
+  color: #000;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.size-chart-component .size-chart-description ol,
+.size-chart-component .size-chart-description ul {
+  padding-left: 20px;
+}
+
+.size-chart-component__instruction + .size-chart-component__instruction {
+  margin-top: 24px;
+}
+
+.size-chart-component__instruction-title {
+  padding-bottom: 16px;
+  text-align: center;
+}
+
+.size-chart-component__image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.size-chart-component__image-grid--single {
+  grid-template-columns: minmax(0, 50%);
+  justify-content: center;
+}
+
+.size-chart-component__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media only screen and (max-width: 767px) {
+  .size-chart-component__modal .popup-content {
+    width: calc(100% - 20px);
+  }
+
+  .size-chart-component__modal .popup-header {
+    padding: 6px 15px;
+  }
+
+  .size-chart-component__modal .popup-close {
+    position: absolute;
+    right: 6px;
+    background: #b93205;
+  }
+
+  .size-chart-component__modal .popup-close img {
+    width: 14px;
+    height: 14px;
+    filter: invert(1);
+  }
+
+  .size-chart-component__modal .popup-container {
+    padding: 0 15px 24px;
+  }
+
+  .size-chart-component__heading {
+    margin-bottom: 16px;
+    font-size: 20px;
+  }
+
+  .size-chart-component__tabs {
+    gap: 8px;
+    padding-bottom: 16px;
+  }
+
+  .size-chart-component__tab {
+    padding: 6px 14px;
+    font-size: 16px;
+  }
+
+  .size-chart-component__topline {
+    padding-bottom: 16px;
+  }
+
+  .size-chart-component__product-title,
+  .size-chart-component__instruction-title {
+    font-size: 16px;
+  }
+
+  .size-chart-component .size-chart-table th,
+  .size-chart-component .size-chart-table td {
+    padding: 8px 12px;
+    font-size: 15px;
+  }
+
+  .size-chart-component .size-chart-table tbody td:not(:first-child) {
+    font-size: 11px;
+  }
+
+  .size-chart-component .size-chart-table tbody tr td:first-child {
+    font-weight: 600;
+  }
+
+  .size-chart-component .size-chart-description {
+    font-size: 14px;
+  }
+
+  .size-chart-component .size-chart-description li {
+    margin-bottom: 6px;
+  }
+
+  .size-chart-component__image-grid,
+  .size-chart-component__image-grid--single {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

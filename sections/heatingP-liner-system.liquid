@@ -119,6 +119,29 @@
     gap: 22px;
   }
 
+  #shopify-section-{{ section.id }} .heatingp-liner-system__summary {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .heatingp-liner-system__title-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #shopify-section-{{ section.id }} .heatingp-liner-system__size-guide {
+    flex: 0 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .heatingp-liner-system__size-guide .size-chart-component__button {
+    color: #565b63;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
   #shopify-section-{{ section.id }} .heatingp-liner-system__meta {
     margin: 0 0 5px;
     color: var(--color-brand, #B93205);
@@ -210,6 +233,21 @@
       gap: 12px;
     }
 
+    #shopify-section-{{ section.id }} .heatingp-liner-system__summary {
+      padding-top: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingp-liner-system__title-row {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .heatingp-liner-system__size-guide {
+      position: absolute;
+      top: 0;
+      right: 0;
+      text-align: right;
+    }
+
     #shopify-section-{{ section.id }} .heatingp-liner-system__meta {
       margin: 0 0 4px;
       font-size: 12px;
@@ -243,6 +281,82 @@
 {%- liquid
   assign primary_mobile = section.settings.primary_mobile_image | default: section.settings.primary_desktop_image
   assign alternate_mobile = section.settings.alternate_mobile_image | default: section.settings.alternate_desktop_image
+  assign jacket_product = section.settings.jacket_product
+  assign pants_product = section.settings.pants_product
+
+  assign jacket_title = section.settings.jacket_title
+  if jacket_title == blank and jacket_product != blank
+    assign jacket_title = jacket_product.title
+  endif
+  if jacket_title == blank
+    assign jacket_title = 'Apex™ Heated Jacket Liner'
+  endif
+
+  assign pants_title = section.settings.pants_title
+  if pants_title == blank and pants_product != blank
+    assign pants_title = pants_product.title
+  endif
+  if pants_title == blank
+    assign pants_title = 'Apex™ Heated Pants Liner'
+  endif
+
+  assign jacket_sku = section.settings.jacket_sku
+  if jacket_sku == blank and jacket_product != blank
+    assign jacket_sku = jacket_product.selected_or_first_available_variant.sku
+  endif
+  if jacket_sku == blank
+    assign jacket_sku = 'MMJ01'
+  endif
+
+  assign pants_sku = section.settings.pants_sku
+  if pants_sku == blank and pants_product != blank
+    assign pants_sku = pants_product.selected_or_first_available_variant.sku
+  endif
+  if pants_sku == blank
+    assign pants_sku = 'MMP03'
+  endif
+
+  assign jacket_price = section.settings.jacket_price
+  if jacket_price == blank and jacket_product != blank
+    assign jacket_price = jacket_product.selected_or_first_available_variant.price | money
+  endif
+  if jacket_price == blank
+    assign jacket_price = '$239.99'
+  endif
+
+  assign pants_price = section.settings.pants_price
+  if pants_price == blank and pants_product != blank
+    assign pants_price = pants_product.selected_or_first_available_variant.price | money
+  endif
+  if pants_price == blank
+    assign pants_price = '$199.99'
+  endif
+
+  assign jacket_size_chart = blank
+  assign pants_size_chart = blank
+
+  if jacket_product != blank or pants_product != blank
+    paginate shop.metaobjects.size_chart.values by 250
+      for chart in shop.metaobjects.size_chart.values
+        assign target_product_ids = chart.target_products.value | map: 'id'
+
+        if jacket_size_chart == blank and jacket_product != blank and target_product_ids contains jacket_product.id
+          assign jacket_size_chart = chart
+        endif
+
+        if pants_size_chart == blank and pants_product != blank and target_product_ids contains pants_product.id
+          assign pants_size_chart = chart
+        endif
+
+        if jacket_size_chart != blank and pants_size_chart != blank
+          break
+        endif
+      endfor
+    endpaginate
+  endif
+
+  assign jacket_size_chart_id = section.id | append: '-jacket'
+  assign pants_size_chart_id = section.id | append: '-pants'
 -%}
 
 <section class="heatingp-liner-system" id="heating-apex-series">
@@ -303,9 +417,21 @@
 
       <div class="heatingp-liner-system__details">
         <div class="heatingp-liner-system__product">
-          <div>
-            <p class="heatingp-liner-system__meta">MMJ01 · $239.99</p>
-            <h3 class="heatingp-liner-system__product-title">Apex™ Heated Jacket Liner</h3>
+          <div class="heatingp-liner-system__summary">
+            <p class="heatingp-liner-system__meta">{{ jacket_sku }} · {{ jacket_price }}</p>
+            <div class="heatingp-liner-system__title-row">
+              <h3 class="heatingp-liner-system__product-title">{{ jacket_title }}</h3>
+              {%- if jacket_size_chart != blank -%}
+                <div class="heatingp-liner-system__size-guide">
+                  {%- render 'size-chart-component',
+                    size_chart: jacket_size_chart,
+                    product: jacket_product,
+                    product_title: jacket_title,
+                    id: jacket_size_chart_id
+                  -%}
+                </div>
+              {%- endif -%}
+            </div>
             {%- render 'heatingP-liner-system-sizing' -%}
           </div>
           <ul class="heatingp-liner-system__list">
@@ -317,9 +443,21 @@
         </div>
 
         <div class="heatingp-liner-system__product">
-          <div>
-            <p class="heatingp-liner-system__meta">MMP03 · $199.99</p>
-            <h3 class="heatingp-liner-system__product-title">Apex™ Heated Pants Liner</h3>
+          <div class="heatingp-liner-system__summary">
+            <p class="heatingp-liner-system__meta">{{ pants_sku }} · {{ pants_price }}</p>
+            <div class="heatingp-liner-system__title-row">
+              <h3 class="heatingp-liner-system__product-title">{{ pants_title }}</h3>
+              {%- if pants_size_chart != blank -%}
+                <div class="heatingp-liner-system__size-guide">
+                  {%- render 'size-chart-component',
+                    size_chart: pants_size_chart,
+                    product: pants_product,
+                    product_title: pants_title,
+                    id: pants_size_chart_id
+                  -%}
+                </div>
+              {%- endif -%}
+            </div>
             {%- render 'heatingP-liner-system-sizing' -%}
           </div>
           <ul class="heatingp-liner-system__list">
@@ -406,6 +544,54 @@
       "id": "description",
       "label": "ProductH description",
       "default": "<p>Both pieces are mid-layers — they go under your riding jacket and pants, not over them. Wired together, one lead off the bike runs the whole thing.</p>"
+    },
+    {
+      "type": "header",
+      "content": "ProductH jacket product"
+    },
+    {
+      "type": "product",
+      "id": "jacket_product",
+      "label": "ProductH jacket product"
+    },
+    {
+      "type": "text",
+      "id": "jacket_sku",
+      "label": "ProductH jacket SKU override"
+    },
+    {
+      "type": "text",
+      "id": "jacket_price",
+      "label": "ProductH jacket price override"
+    },
+    {
+      "type": "text",
+      "id": "jacket_title",
+      "label": "ProductH jacket title override"
+    },
+    {
+      "type": "header",
+      "content": "ProductH pants product"
+    },
+    {
+      "type": "product",
+      "id": "pants_product",
+      "label": "ProductH pants product"
+    },
+    {
+      "type": "text",
+      "id": "pants_sku",
+      "label": "ProductH pants SKU override"
+    },
+    {
+      "type": "text",
+      "id": "pants_price",
+      "label": "ProductH pants price override"
+    },
+    {
+      "type": "text",
+      "id": "pants_title",
+      "label": "ProductH pants title override"
     },
     {
       "type": "header",

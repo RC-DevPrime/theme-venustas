@@ -3,6 +3,10 @@
     position: relative;
     height: 500svh;
     --ember: #ff4f27;
+    --story-video-bottom: 80px;
+    --story-video-height: 178px;
+    --story-staus-bottom: 358px;
+    --story-video-hover-height: 220px;
     background: linear-gradient(180deg, #14161a 42.308%, #531602 100%);
     color: #fff;
     font-family: var(--font-primary, 'Montserrat', sans-serif);
@@ -68,7 +72,7 @@
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__stats {
     position: absolute;
-    bottom: 358px;
+    bottom: var(--story-staus-bottom);
     left: 0;
     display: grid;
     width: 100%;
@@ -103,7 +107,7 @@
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__videos {
     position: absolute;
-    bottom: 80px;
+    bottom: var(--story-video-bottom);
     left: 50%;
     display: grid;
     width: min(100%, 960px);
@@ -116,19 +120,18 @@
   }
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__video-card {
-    height: 178px;
+    height: var(--story-video-height);
     overflow: hidden;
     background: rgba(255, 255, 255, .16);
-    transition: transform .28s ease, height .28s ease;
+    transition: height .28s ease;
   }
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__video-card--center {
-    height: 178px;
+    height: var(--story-video-height);
   }
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__video-card:hover {
-    height: 220px;
-    transform: translateY(-22px);
+    height: var(--story-video-hover-height);
   }
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__video {
@@ -138,7 +141,19 @@
     object-fit: cover;
   }
 
-  @media only screen and (max-width: 767px) {
+  @media screen and (min-width: 1280px) and (max-width: 1600px) {
+    #shopify-section-{{ section.id }} .heatingP-brand-video-story__heading {
+      font-size: 60px;
+    }
+    #shopify-section-{{ section.id }} .heatingP-brand-video-story{
+      --story-video-bottom: 40px;
+      --story-staus-bottom: 258px;
+      --story-video-height: 140px;
+      --story-video-hover-height: 160px;
+    }
+  }
+
+  @media only screen and (max-width: 1279px) {
     #shopify-section-{{ section.id }} .heatingP-brand-video-story {
       height: auto;
     }
@@ -233,6 +248,40 @@
       transform: none;
     }
   }
+
+  @media only screen and (min-width: 768px) and (max-width: 1280px) {
+    #shopify-section-{{ section.id }} .heatingP-brand-video-story__videos {
+      bottom: 40px;
+      display: flex;
+      width: calc(100% - 40px);
+      gap: 12px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-brand-video-story__videos::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-brand-video-story__video-card,
+    #shopify-section-{{ section.id }} .heatingP-brand-video-story__video-card--center {
+      width: calc(var(--story-video-height) * 16 / 9);
+      height: var(--story-video-height);
+      flex: 0 0 calc(var(--story-video-height) * 16 / 9);
+      aspect-ratio: 16 / 9;
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-brand-video-story__video {
+      object-fit: contain;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-brand-video-story__video-card:hover {
+      height: var(--story-video-height);
+      transform: none;
+    }
+  }
 {% endstyle %}
 
 <section id="HeatingPBrandVideoStory-{{ section.id }}" class="heatingP-brand-video-story" data-heatingp-brand-video-story>
@@ -293,10 +342,37 @@
       const channel = (index) => Math.round(mix(from[index], to[index], amount));
       return `rgb(${channel(0)}, ${channel(1)}, ${channel(2)})`;
     };
+    const getHeadingTop = () => {
+      const stickySelectors = [
+        '.product-header-sticky',
+        '.product-page-nav-header-section .main-nav-header-section',
+        '.product-page-nav-header-section',
+        '.shopify-section-header-sticky',
+        '.sticky-header',
+        '.header',
+        'header',
+        'nav'
+      ].join(',');
+      const fixedElements = Array.from(document.querySelectorAll(stickySelectors)).filter((element) => {
+        if (section.contains(element)) return false;
+        const style = window.getComputedStyle(element);
+        if (style.position !== 'fixed' && style.position !== 'sticky') return false;
+
+        const rect = element.getBoundingClientRect();
+        return rect.top <= 1 && rect.bottom > 0 && rect.height > 20 && rect.height < 160;
+      });
+
+      const navBottom = fixedElements.reduce((bottom, element) => {
+        const rect = element.getBoundingClientRect();
+        return Math.max(bottom, rect.bottom);
+      }, 0);
+
+      return Math.max(80, navBottom + 80);
+    };
 
     const setStatic = () => {
       section.style.setProperty('--story-heading-opacity', '1');
-      section.style.setProperty('--story-heading-top', '80px');
+      section.style.setProperty('--story-heading-top', `${getHeadingTop()}px`);
       section.style.setProperty('--story-heading-translate', '0');
       section.style.setProperty('--story-base-opacity', '0');
       section.style.setProperty('--story-gradient-opacity', '1');
@@ -329,14 +405,15 @@
       const gradientDepth = range(progress, 0.36, 0.62);
       const statsEnter = range(progress, 0.58, 0.72);
       const videosEnter = range(progress, 0.74, 0.9);
-      const layoutEnter = range(progress, 0.18, 0.52);
+      const layoutEnter = range(progress, 0.16, 0.28);
       const centeredTop = window.innerHeight / 2;
+      const headingTop = getHeadingTop();
       const gradStart = mixColor([255, 163, 135], [255, 79, 39], gradientDepth);
       const gradMid = mixColor([255, 191, 170], [255, 132, 92], gradientDepth);
       const gradEnd = mixColor([255, 224, 214], [255, 193, 170], gradientDepth);
 
       section.style.setProperty('--story-heading-opacity', intro.toFixed(3));
-      section.style.setProperty('--story-heading-top', `${mix(centeredTop, 80, layoutEnter).toFixed(2)}px`);
+      section.style.setProperty('--story-heading-top', `${mix(centeredTop, headingTop, layoutEnter).toFixed(2)}px`);
       section.style.setProperty('--story-heading-translate', `${mix(-50, 0, layoutEnter).toFixed(2)}%`);
       section.style.setProperty('--story-base-opacity', (1 - gradientEnter).toFixed(3));
       section.style.setProperty('--story-gradient-opacity', gradientEnter.toFixed(3));
