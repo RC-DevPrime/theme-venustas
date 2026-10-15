@@ -1,5 +1,3 @@
-{%- assign section_image = section.settings.image -%}
-
 {% style %}
   #shopify-section-{{ section.id }} .heatingP-power-modes {
     background: #fff;
@@ -207,7 +205,7 @@
     line-height: 1.6;
   }
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 1000px) {
     #shopify-section-{{ section.id }} .heatingP-power-modes {
       padding: 56px 20px;
     }
@@ -295,8 +293,8 @@
     <div class="heatingP-power-modes__grid">
       <article class="heatingP-power-modes__card">
         <div class="heatingP-power-modes__media">
-          {%- if section_image != blank -%}
-            {{ section_image | image_url: width: 1400 | image_tag: class: 'heatingP-power-modes__image heatingP-power-modes__image--bike', loading: 'lazy', widths: '350, 670, 900, 1200, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: '' }}
+          {%- if section.settings.bike_image != blank -%}
+            {{ section.settings.bike_image | image_url: width: 1400 | image_tag: class: 'heatingP-power-modes__image heatingP-power-modes__image--bike', loading: 'lazy', widths: '350, 670, 900, 1200, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: '' }}
           {%- endif -%}
         </div>
         <div class="heatingP-power-modes__body">
@@ -315,8 +313,8 @@
 
       <article class="heatingP-power-modes__card">
         <div class="heatingP-power-modes__media">
-          {%- if section_image != blank -%}
-            {{ section_image | image_url: width: 1400 | image_tag: class: 'heatingP-power-modes__image heatingP-power-modes__image--battery', loading: 'lazy', widths: '350, 670, 900, 1200, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: '' }}
+          {%- if section.settings.battery_image != blank -%}
+            {{ section.settings.battery_image | image_url: width: 1400 | image_tag: class: 'heatingP-power-modes__image heatingP-power-modes__image--battery', loading: 'lazy', widths: '350, 670, 900, 1200, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: '' }}
           {%- endif -%}
         </div>
         <div class="heatingP-power-modes__body">
@@ -365,7 +363,8 @@
   "tag": "section",
   "class": "heatingP-power-modes-section",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Card images" }
+    { "type": "image_picker", "id": "bike_image", "label": "Left card image" },
+    { "type": "image_picker", "id": "battery_image", "label": "Right card image" }
   ],
   "presets": [
     { "name": "HeatingP Power Modes" }
