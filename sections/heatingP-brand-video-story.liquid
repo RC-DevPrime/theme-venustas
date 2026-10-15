@@ -4,9 +4,10 @@
     height: 500svh;
     --ember: #ff4f27;
     --story-video-bottom: 80px;
-    --story-video-height: 178px;
+    --story-video-height: 258px;
+    --story-video-half-height: 129px;
     --story-staus-bottom: 358px;
-    --story-video-hover-height: 220px;
+    --story-video-hover-height: 300px;
     background: linear-gradient(180deg, #14161a 42.308%, #531602 100%);
     color: #fff;
     font-family: var(--font-primary, 'Montserrat', sans-serif);
@@ -107,15 +108,15 @@
 
   #shopify-section-{{ section.id }} .heatingP-brand-video-story__videos {
     position: absolute;
-    top: 50%;
+    top: calc(50% + 100px + var(--story-video-half-height));
     left: 50%;
     display: grid;
-    width: min(100%, 960px);
+    width: min(1340px, calc(100vw - 40px));
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
-    align-items: center;
+    align-items: end;
     opacity: var(--story-videos-opacity, 0);
-    transform: translate(-50%, calc(-50% + var(--story-videos-y, 80px)));
+    transform: translate(-50%, calc(-100% + var(--story-videos-y, 0px)));
     will-change: opacity, transform;
   }
 
@@ -148,8 +149,8 @@
     #shopify-section-{{ section.id }} .heatingP-brand-video-story{
       --story-video-bottom: 40px;
       --story-staus-bottom: 258px;
-      --story-video-height: 140px;
-      --story-video-hover-height: 160px;
+      --story-video-height: 258px;
+      --story-video-hover-height: 300px;
     }
   }
 
@@ -162,6 +163,9 @@
   @media only screen and (max-width: 1279px) {
     #shopify-section-{{ section.id }} .heatingP-brand-video-story {
       height: auto;
+      --story-video-height: 178px;
+      --story-video-half-height: 89px;
+      --story-video-hover-height: 220px;
     }
 
     #shopify-section-{{ section.id }} .heatingP-brand-video-story__stage {
@@ -348,10 +352,26 @@
     const media = window.matchMedia('(max-width: 767px)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const heading = section.querySelector('.heatingP-brand-video-story__heading');
+    const styleCache = Object.create(null);
+    const metrics = {
+      desktop: false,
+      distance: 1,
+      headingHeight: 0,
+      headingTop: 80,
+      pageTop: 0,
+      viewportHeight: window.innerHeight
+    };
     let frame = 0;
+    let mobileCleared = false;
+    let staticApplied = false;
     const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
     const range = (value, start, end) => clamp((value - start) / (end - start));
     const mix = (from, to, amount) => from + (to - from) * amount;
+    const setStyle = (name, value) => {
+      if (styleCache[name] === value) return;
+      styleCache[name] = value;
+      section.style.setProperty(name, value);
+    };
     const mixColor = (from, to, amount) => {
       const channel = (index) => Math.round(mix(from[index], to[index], amount));
       return `rgb(${channel(0)}, ${channel(1)}, ${channel(2)})`;
@@ -384,76 +404,104 @@
       return Math.max(80, navBottom + 80);
     };
 
+    const refreshMetrics = () => {
+      const rect = section.getBoundingClientRect();
+      metrics.desktop = window.innerWidth > 1280;
+      metrics.viewportHeight = window.innerHeight;
+      metrics.distance = Math.max(section.offsetHeight - metrics.viewportHeight, 1);
+      metrics.headingHeight = heading?.offsetHeight || 0;
+      metrics.headingTop = metrics.desktop ? 80 : getHeadingTop();
+      metrics.pageTop = rect.top + (window.pageYOffset || window.scrollY || 0);
+    };
+
     const setStatic = () => {
-      section.style.setProperty('--story-heading-opacity', '1');
-      section.style.setProperty('--story-heading-top', `${getHeadingTop()}px`);
-      section.style.setProperty('--story-heading-translate', '0');
-      section.style.setProperty('--story-base-opacity', '0');
-      section.style.setProperty('--story-gradient-opacity', '1');
-      section.style.setProperty('--story-stats-opacity', '1');
-      section.style.setProperty('--story-stats-y', '0px');
-      section.style.setProperty('--story-stats-top', `${window.innerHeight / 2 + (heading?.offsetHeight || 0) / 2 + 48}px`);
-      section.style.setProperty('--story-videos-opacity', '1');
-      section.style.setProperty('--story-videos-y', '0px');
+      setStyle('--story-heading-opacity', '1');
+      setStyle('--story-heading-top', `${metrics.desktop ? metrics.viewportHeight / 2 : metrics.headingTop}px`);
+      setStyle('--story-heading-translate', metrics.desktop ? '-50%' : '0');
+      setStyle('--story-base-opacity', '0');
+      setStyle('--story-gradient-opacity', '1');
+      setStyle('--story-stats-opacity', '1');
+      setStyle('--story-stats-y', '0px');
+      setStyle('--story-stats-top', `${metrics.viewportHeight / 2 + metrics.headingHeight / 2 + 48}px`);
+      setStyle('--story-videos-opacity', '1');
+      setStyle('--story-videos-y', '0px');
     };
 
     const clearMobile = () => {
-      ['--story-heading-opacity', '--story-heading-top', '--story-heading-translate', '--story-base-opacity', '--story-gradient-opacity', '--story-stats-opacity', '--story-stats-y', '--story-stats-top', '--story-videos-opacity', '--story-videos-y', '--story-grad-start', '--story-grad-mid', '--story-grad-end'].forEach((name) => section.style.removeProperty(name));
+      ['--story-heading-opacity', '--story-heading-top', '--story-heading-translate', '--story-base-opacity', '--story-gradient-opacity', '--story-stats-opacity', '--story-stats-y', '--story-stats-top', '--story-videos-opacity', '--story-videos-y', '--story-grad-start', '--story-grad-mid', '--story-grad-end'].forEach((name) => {
+        delete styleCache[name];
+        section.style.removeProperty(name);
+      });
     };
 
     const render = () => {
       frame = 0;
       if (media.matches) {
-        clearMobile();
+        if (!mobileCleared) {
+          clearMobile();
+          mobileCleared = true;
+        }
         return;
       }
+      mobileCleared = false;
       if (reducedMotion.matches) {
-        setStatic();
+        if (!staticApplied) {
+          setStatic();
+          staticApplied = true;
+        }
         return;
       }
+      staticApplied = false;
 
-      const rect = section.getBoundingClientRect();
-      const distance = Math.max(section.offsetHeight - window.innerHeight, 1);
-      const progress = clamp(-rect.top / distance);
+      const scrollPosition = window.pageYOffset || window.scrollY || 0;
+      const progress = clamp((scrollPosition - metrics.pageTop) / metrics.distance);
       const intro = range(progress, 0.03, 0.16);
       const gradientEnter = range(progress, 0.22, 0.45);
       const gradientDepth = range(progress, 0.36, 0.62);
       const statsEnter = range(progress, 0.58, 0.72);
-      const desktop = window.innerWidth > 1280;
       const textExit = range(progress, 0.72, 0.84);
-      const videosEnter = range(progress, desktop ? 0.8 : 0.74, desktop ? 0.94 : 0.9);
+      const videosEnter = range(progress, metrics.desktop ? 0.8 : 0.74, metrics.desktop ? 0.94 : 0.9);
       const layoutEnter = range(progress, 0.16, 0.28);
-      const centeredTop = window.innerHeight / 2;
-      const headingTop = getHeadingTop();
+      const centeredTop = metrics.viewportHeight / 2;
       const gradStart = mixColor([255, 163, 135], [255, 79, 39], gradientDepth);
       const gradMid = mixColor([255, 191, 170], [255, 132, 92], gradientDepth);
       const gradEnd = mixColor([255, 224, 214], [255, 193, 170], gradientDepth);
 
-      section.style.setProperty('--story-heading-opacity', (intro * (desktop ? 1 - textExit : 1)).toFixed(3));
-      section.style.setProperty('--story-heading-top', `${(desktop ? centeredTop : mix(centeredTop, headingTop, layoutEnter)).toFixed(2)}px`);
-      section.style.setProperty('--story-heading-translate', `${desktop ? -50 : mix(-50, 0, layoutEnter).toFixed(2)}%`);
-      section.style.setProperty('--story-base-opacity', (1 - gradientEnter).toFixed(3));
-      section.style.setProperty('--story-gradient-opacity', gradientEnter.toFixed(3));
-      section.style.setProperty('--story-grad-start', gradStart);
-      section.style.setProperty('--story-grad-mid', gradMid);
-      section.style.setProperty('--story-grad-end', gradEnd);
-      section.style.setProperty('--story-stats-opacity', (statsEnter * (desktop ? 1 - textExit : 1)).toFixed(3));
-      section.style.setProperty('--story-stats-y', `${mix(80, 0, statsEnter).toFixed(2)}px`);
-      if (desktop) {
-        section.style.setProperty('--story-stats-top', `${(centeredTop + (heading?.offsetHeight || 0) / 2 + 48).toFixed(2)}px`);
+      setStyle('--story-heading-opacity', (intro * (metrics.desktop ? 1 - textExit : 1)).toFixed(3));
+      setStyle('--story-heading-top', `${(metrics.desktop ? centeredTop : mix(centeredTop, metrics.headingTop, layoutEnter)).toFixed(2)}px`);
+      setStyle('--story-heading-translate', `${metrics.desktop ? -50 : mix(-50, 0, layoutEnter).toFixed(2)}%`);
+      setStyle('--story-base-opacity', (1 - gradientEnter).toFixed(3));
+      setStyle('--story-gradient-opacity', gradientEnter.toFixed(3));
+      setStyle('--story-grad-start', gradStart);
+      setStyle('--story-grad-mid', gradMid);
+      setStyle('--story-grad-end', gradEnd);
+      setStyle('--story-stats-opacity', (statsEnter * (metrics.desktop ? 1 - textExit : 1)).toFixed(3));
+      setStyle('--story-stats-y', `${mix(80, 0, statsEnter).toFixed(2)}px`);
+      if (metrics.desktop) {
+        setStyle('--story-stats-top', `${(centeredTop + metrics.headingHeight / 2 + 48).toFixed(2)}px`);
       } else {
+        delete styleCache['--story-stats-top'];
         section.style.removeProperty('--story-stats-top');
       }
-      section.style.setProperty('--story-videos-opacity', videosEnter.toFixed(3));
-      section.style.setProperty('--story-videos-y', `${mix(90, 0, videosEnter).toFixed(2)}px`);
+      setStyle('--story-videos-opacity', videosEnter.toFixed(3));
+      setStyle('--story-videos-y', `${mix(90, 0, videosEnter).toFixed(2)}px`);
     };
 
     const requestRender = () => {
       if (!frame) frame = window.requestAnimationFrame(render);
     };
 
+    const handleResize = () => {
+      refreshMetrics();
+      requestRender();
+    };
+
+    refreshMetrics();
     window.addEventListener('scroll', requestRender, { passive: true });
-    window.addEventListener('resize', requestRender, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
+    window.visualViewport?.addEventListener('resize', handleResize, { passive: true });
+    const resizeObserver = window.ResizeObserver ? new ResizeObserver(handleResize) : null;
+    resizeObserver?.observe(section);
     media.addEventListener?.('change', requestRender);
     reducedMotion.addEventListener?.('change', requestRender);
     requestRender();
