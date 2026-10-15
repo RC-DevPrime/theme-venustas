@@ -42,43 +42,57 @@
         "link_KHPpXN": {
           "type": "link",
           "settings": {
-            "label": "Why Heated Gear",
-            "target_id": "why-heated-gear"
+            "label": "Power Option",
+            "target_id": "heatingP-power-modes"
           }
         },
         "link_YG9p9p": {
           "type": "link",
           "settings": {
-            "label": "Venustas Riding System",
-            "target_id": "venustas-riding-system"
+            "label": "Setup Option",
+            "target_id": "heating-setup"
           }
         },
         "link_Tq8NF8": {
           "type": "link",
           "settings": {
-            "label": "Setup Options",
-            "target_id": "setup-options"
+            "label": "Temp Control",
+            "target_id": "heating-temp-control"
           }
         },
         "link_fgGW9G": {
           "type": "link",
           "settings": {
-            "label": "How It Works",
-            "target_id": "how-it-works"
+            "label": "Apex™ Series",
+            "target_id": "heating-apex-series"
           }
         },
         "link_eeLMay": {
           "type": "link",
           "settings": {
-            "label": "Riding Guild",
-            "target_id": "riding-guild"
+            "label": "Details",
+            "target_id": "heating-detail"
           }
         },
         "link_mfTfAp": {
           "type": "link",
           "settings": {
+            "label": "Expand System",
+            "target_id": "heatingP-system-cards"
+          }
+        },
+        "link_jt33ma": {
+          "type": "link",
+          "settings": {
+            "label": "Compatibility",
+            "target_id": "heating-12v-carousel"
+          }
+        },
+        "link_UniciK": {
+          "type": "link",
+          "settings": {
             "label": "FAQ",
-            "target_id": "faq"
+            "target_id": "heating-faq"
           }
         }
       },
@@ -88,7 +102,9 @@
         "link_Tq8NF8",
         "link_fgGW9G",
         "link_eeLMay",
-        "link_mfTfAp"
+        "link_mfTfAp",
+        "link_jt33ma",
+        "link_UniciK"
       ],
       "name": "Heating Anchor Nav",
       "settings": {
@@ -359,43 +375,29 @@
         "faq_zHPpfB": {
           "type": "faq",
           "settings": {
-            "question": "Can I get my $10 back?",
-            "answer": "<p>Yes. Any time before launch, email us and we'll refund it in full. After launch it becomes a $50 coupon — and if you don't use it and ask for refund, we'll still refund the original $10.</p>"
+            "question": "Will it drain my battery?",
+            "answer": "<p><br/>Not while you're riding, on most bikes. With the engine running, your charging system powers the liners and tops up the battery at the same time. With both pieces on, Apex™ draws about 80W (6.67A at 12V) — roughly half what many heated sets pull.<br/><br/>To check your own bike: your stator output needs to cover what the bike already uses plus the heated gear. For example, a 300W stator with 140W of stock load leaves 160W to spare — plenty for Apex™'s 80W. A 154W heated set would fit too, but with almost nothing left over.<br/><br/>Two things to watch: on smaller or older bikes, long stretches of idling can still run the battery down, so drop to a lower level or run one piece. And never leave the heat on with the engine off — with nothing charging, it will drain the battery fast.</p>"
           }
         },
         "faq_jfhF4b": {
           "type": "faq",
           "settings": {
-            "question": "Do I get $100 off if I buy both?",
-            "answer": "<p>No. It's $50 off your order, one time, whether you buy one piece or both. If you intend to buy both, please reserve twice.</p>"
+            "question": "Can I wear it without the motorcycle?",
+            "answer": "<p>Yes, with the 7.5K battery ($79.99, sold separately). It's built for time off the bike — walking the paddock, standing around a campsite. For riding, the 12V connection is what gives you unlimited heat.</p>"
           }
         },
         "faq_BCPJgG": {
           "type": "faq",
           "settings": {
             "question": "Do I need to buy anything else?",
-            "answer": "<p>No. Both liners ship with the Y cable set and inline fuse. Heat control is built into the garment.</p>"
+            "answer": "<p>No. Each liner ships with a Y cable and a pre-sized fuse. Heat control is built into the garment — there's no controller to buy. If you want both liners running off a single lead, the 3-Way cable is needed. (sold seperately)<br/><br/></p>"
           }
         },
         "faq_z9CMCf": {
           "type": "faq",
           "settings": {
-            "question": "Can I wear these on their own?",
-            "answer": "<p>They're mid-layers. They go under your riding jacket and pants, over a thin base layer.</p>"
-          }
-        },
-        "faq_PddX38": {
-          "type": "faq",
-          "settings": {
-            "question": "Will it drain my battery?",
-            "answer": "<p>待补具体数据</p>"
-          }
-        },
-        "faq_a4BB4Y": {
-          "type": "faq",
-          "settings": {
-            "question": "When does it ship?",
-            "answer": "<p>October 2026. If anything slips, we'll email you and you can take a full refund on the spot.</p>"
+            "question": "Can it replace my riding jacket?",
+            "answer": "<p>No. Apex™ is a mid-layer with no abrasion or impact protection. It goes under your riding gear, over a thin base layer.<br/><br/></p>"
           }
         }
       },
@@ -403,9 +405,7 @@
         "faq_zHPpfB",
         "faq_jfhF4b",
         "faq_BCPJgG",
-        "faq_z9CMCf",
-        "faq_PddX38",
-        "faq_a4BB4Y"
+        "faq_z9CMCf"
       ],
       "name": "Heating FAQ",
       "settings": {
