@@ -19,6 +19,8 @@
       "type": "heatingP-hero",
       "name": "HeatingP Hero",
       "settings": {
+        "desktop_image": "shopify://shop_images/heatingP-banner.webp",
+        "mobile_image": "shopify://shop_images/heatingP-banner-mobile.webp",
         "eyebrow": "NEW •  Apex™ RIDING SYSTEM",
         "title": "Heated riding gear that runs on your bike.",
         "description": "<p>No battery to charge. No controller to buy. Just the Apex jacket liner and pant liner, wired into your 12V power.</p>",
@@ -100,7 +102,9 @@
     "heating_p_power_modes_ihLK6C": {
       "type": "heatingP-power-modes",
       "name": "HeatingP Power Modes",
-      "settings": {}
+      "settings": {
+        "image": "shopify://shop_images/heatingP-bike.webp"
+      }
     },
     "heating_bike_power_RCkq86": {
       "type": "heating-bike-power",
@@ -136,6 +140,14 @@
       "settings": {
         "title": "Two liners. One power source.",
         "description": "<p>Both pieces are mid-layers — they go under your riding jacket and pants, not over them. Wired together, one lead off the bike runs the whole thing.</p>",
+        "jacket_product": "",
+        "jacket_sku": "",
+        "jacket_price": "",
+        "jacket_title": "",
+        "pants_product": "",
+        "pants_sku": "",
+        "pants_price": "",
+        "pants_title": "",
         "primary_desktop_image": "shopify://shop_images/heatingW-apex-black.webp",
         "primary_mobile_image": "shopify://shop_images/heatingW-apex-black-mobile.webp",
         "alternate_desktop_image": "shopify://shop_images/heatingW-apex-red.webp",
@@ -178,7 +190,9 @@
     "heating_p_layering_k8tNFq": {
       "type": "heatingP-layering",
       "name": "HeatingP Layering",
-      "settings": {}
+      "settings": {
+        "image_one": "shopify://shop_images/heatingP-shirt.gif"
+      }
     },
     "heating_p_system_cards_8fHXC4": {
       "type": "heatingP-system-cards",
@@ -186,6 +200,7 @@
         "card_nqepgN": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/heatingP-product-one.webp",
             "badge": "",
             "title": "Apex™ Jacket Liner",
             "price": "$239.99",
@@ -201,6 +216,7 @@
         "card_PxTxxf": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/heatingP-product-two.webp",
             "badge": "Best Choice",
             "title": "Apex™ Jacket Liner + Pants Liner + 3-Way Cable",
             "price": "$457.97",
@@ -216,6 +232,7 @@
         "card_PDYL4a": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/heatingP-product-three.webp",
             "badge": "",
             "title": "Apex™ Jacket Liner",
             "price": "$239.99",
