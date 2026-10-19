@@ -1,12 +1,25 @@
 {% liquid
-  assign initial_view_all_url = block.settings.category_collection_1.url
-  if initial_view_all_url == blank
+  assign first_category_index = 0
+  if block.settings.category_label_1 != blank
+    assign first_category_index = 1
+  elsif block.settings.category_label_2 != blank
+    assign first_category_index = 2
+  elsif block.settings.category_label_3 != blank
+    assign first_category_index = 3
+  elsif block.settings.category_label_4 != blank
+    assign first_category_index = 4
+  endif
+
+  if block.settings.category_label_1 != blank
+    assign initial_view_all_url = block.settings.category_collection_1.url
+  endif
+  if initial_view_all_url == blank and block.settings.category_label_2 != blank
     assign initial_view_all_url = block.settings.category_collection_2.url
   endif
-  if initial_view_all_url == blank
+  if initial_view_all_url == blank and block.settings.category_label_3 != blank
     assign initial_view_all_url = block.settings.category_collection_3.url
   endif
-  if initial_view_all_url == blank
+  if initial_view_all_url == blank and block.settings.category_label_4 != blank
     assign initial_view_all_url = block.settings.category_collection_4.url
   endif
   if initial_view_all_url == blank
@@ -31,10 +44,34 @@
   </div>
 
   <div class="display-6-mobile__categories">
-    {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_1, title: block.settings.category_title_1, collection: block.settings.category_collection_1, group_name: block.id, open: true %}
-    {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_2, title: block.settings.category_title_2, collection: block.settings.category_collection_2, group_name: block.id %}
-    {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_3, title: block.settings.category_title_3, collection: block.settings.category_collection_3, group_name: block.id %}
-    {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_4, title: block.settings.category_title_4, collection: block.settings.category_collection_4, group_name: block.id %}
+    {% if block.settings.category_label_1 != blank %}
+      {% if first_category_index == 1 %}
+        {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_1, title: block.settings.category_title_1, collection: block.settings.category_collection_1, group_name: block.id, open: true %}
+      {% else %}
+        {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_1, title: block.settings.category_title_1, collection: block.settings.category_collection_1, group_name: block.id %}
+      {% endif %}
+    {% endif %}
+    {% if block.settings.category_label_2 != blank %}
+      {% if first_category_index == 2 %}
+        {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_2, title: block.settings.category_title_2, collection: block.settings.category_collection_2, group_name: block.id, open: true %}
+      {% else %}
+        {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_2, title: block.settings.category_title_2, collection: block.settings.category_collection_2, group_name: block.id %}
+      {% endif %}
+    {% endif %}
+    {% if block.settings.category_label_3 != blank %}
+      {% if first_category_index == 3 %}
+        {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_3, title: block.settings.category_title_3, collection: block.settings.category_collection_3, group_name: block.id, open: true %}
+      {% else %}
+        {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_3, title: block.settings.category_title_3, collection: block.settings.category_collection_3, group_name: block.id %}
+      {% endif %}
+    {% endif %}
+    {% if block.settings.category_label_4 != blank %}
+      {% if first_category_index == 4 %}
+        {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_4, title: block.settings.category_title_4, collection: block.settings.category_collection_4, group_name: block.id, open: true %}
+      {% else %}
+        {% render 'header-mega-mobile-bundle-category', label: block.settings.category_label_4, title: block.settings.category_title_4, collection: block.settings.category_collection_4, group_name: block.id %}
+      {% endif %}
+    {% endif %}
   </div>
 
   {% if block.settings.main_link != blank %}
