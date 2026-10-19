@@ -362,7 +362,7 @@
     justify-content:center;
     gap:10px;
     min-height:44px;
-    margin-top:auto;
+    margin-top:24px;
     border:1px solid #B93205;
     border-radius:22px;
     color:#B93205;
@@ -441,6 +441,10 @@
     border-radius:6px;
     background:#EFEFEF;
 }
+.bundle-menu-card .menu-badge{
+    z-index:2;
+    pointer-events:none;
+}
 .bundle-menu-card__image img,
 .bundle-menu-card__placeholder{
     width:100%;
@@ -458,6 +462,9 @@
 .bundle-menu-card__title{
     font-size:13px;
     line-height:1.4;
+}
+.header .mega-menu .display-6 .bundle-menu-card__title{
+    min-height:calc(1.4em * 3);
 }
 .bundle-menu-card__description{
     margin-top:2px;
