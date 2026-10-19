@@ -1143,12 +1143,8 @@ a.f-white:hover{
     align-items: center;
     position: relative;
 }
-.header .nav-items a.active{
-    /* color: transparent;
-    background-image: linear-gradient(108deg, #B93205 0%, #EF7E00 29%, #D94E0F 62%, #B93205 100%);
-    background-size: 200% 200%;
-    background-clip: text;
-    -webkit-background-clip: text; */
+.header .nav-items a:first-child{
+    color: #B93205;
 }
 .header .nav-items a > i {
     font-size: .7em;
