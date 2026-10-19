@@ -71,6 +71,18 @@
     object-fit: cover;
   }
 
+  #shopify-section-{{ section.id }} .heatingP-power-modes__card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__card-link:hover,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__card-link:focus-visible {
+    color: inherit;
+    text-decoration: none;
+  }
+
   #shopify-section-{{ section.id }} .heatingP-power-modes__image--bike {
     object-position: left center;
   }
@@ -264,7 +276,7 @@
     #shopify-section-{{ section.id }} .heatingP-power-modes__info:hover .heatingP-power-modes__runtime,
     #shopify-section-{{ section.id }} .heatingP-power-modes__info:focus .heatingP-power-modes__runtime,
     #shopify-section-{{ section.id }} .heatingP-power-modes__info:focus-within .heatingP-power-modes__runtime {
-      transform: translate(-50%, 0);
+      transform: translate(-95%, 0);
     }
 
     #shopify-section-{{ section.id }} .heatingP-power-modes__runtime-row {
@@ -293,12 +305,16 @@
     <div class="heatingP-power-modes__grid">
       <article class="heatingP-power-modes__card">
         <div class="heatingP-power-modes__media">
-          {%- if section.settings.bike_image != blank -%}
-            {{ section.settings.bike_image | image_url: width: 1400 | image_tag: class: 'heatingP-power-modes__image heatingP-power-modes__image--bike', loading: 'lazy', widths: '350, 670, 900, 1200, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: '' }}
-          {%- endif -%}
+          <a class="heatingP-power-modes__card-link" href="{{ section.settings.bike_link | default: '#' }}" aria-label="On the bike">
+            {%- if section.settings.bike_image != blank -%}
+              {{ section.settings.bike_image | image_url: width: 1400 | image_tag: class: 'heatingP-power-modes__image heatingP-power-modes__image--bike', loading: 'lazy', widths: '350, 670, 900, 1200, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: '' }}
+            {%- endif -%}
+          </a>
         </div>
         <div class="heatingP-power-modes__body">
-          <h3 class="heatingP-power-modes__card-title">ON THE BIKE</h3>
+          <a class="heatingP-power-modes__card-link" href="{{ section.settings.bike_link | default: '#' }}">
+            <h3 class="heatingP-power-modes__card-title">ON THE BIKE</h3>
+          </a>
           <div class="heatingP-power-modes__copy">
             <p class="heatingP-power-modes__label">Motorcycle 12V</p>
             <p class="heatingP-power-modes__text">Wire the Y cable to your battery once. After that it's one click on the way out of the garage, and the heat doesn't stop until you do.</p>
@@ -313,12 +329,16 @@
 
       <article class="heatingP-power-modes__card">
         <div class="heatingP-power-modes__media">
-          {%- if section.settings.battery_image != blank -%}
-            {{ section.settings.battery_image | image_url: width: 1400 | image_tag: class: 'heatingP-power-modes__image heatingP-power-modes__image--battery', loading: 'lazy', widths: '350, 670, 900, 1200, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: '' }}
-          {%- endif -%}
+          <a class="heatingP-power-modes__card-link" href="{{ battery_product.url | default: '#' }}" aria-label="Off the bike">
+            {%- if section.settings.battery_image != blank -%}
+              {{ section.settings.battery_image | image_url: width: 1400 | image_tag: class: 'heatingP-power-modes__image heatingP-power-modes__image--battery', loading: 'lazy', widths: '350, 670, 900, 1200, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: '' }}
+            {%- endif -%}
+          </a>
         </div>
         <div class="heatingP-power-modes__body">
-          <h3 class="heatingP-power-modes__card-title">OFF THE BIKE</h3>
+          <a class="heatingP-power-modes__card-link" href="{{ battery_product.url | default: '#' }}">
+            <h3 class="heatingP-power-modes__card-title">OFF THE BIKE</h3>
+          </a>
           <div class="heatingP-power-modes__copy">
             <div class="heatingP-power-modes__label">
               {%- if battery_product != blank -%}
@@ -377,7 +397,8 @@
   "settings": [
     { "type": "image_picker", "id": "bike_image", "label": "Left card image" },
     { "type": "image_picker", "id": "battery_image", "label": "Right card image" },
-    { "type": "product", "id": "battery_product", "label": "Battery product" }
+    { "type": "product", "id": "battery_product", "label": "Battery product" },
+    { "type": "url", "id": "bike_link", "label": "Left card link" }
   ],
   "presets": [
     { "name": "HeatingP Power Modes" }
