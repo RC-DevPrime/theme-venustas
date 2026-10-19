@@ -1,3 +1,5 @@
+{%- assign battery_product = section.settings.battery_product -%}
+
 {% style %}
   #shopify-section-{{ section.id }} .heatingP-power-modes {
     background: #fff;
@@ -113,11 +115,6 @@
     position: relative;
     width: 14px;
     height: 14px;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid currentColor;
-    border-radius: 50%;
-    font-size: 9px;
     line-height: 1;
     cursor: help;
   }
@@ -324,8 +321,20 @@
           <h3 class="heatingP-power-modes__card-title">OFF THE BIKE</h3>
           <div class="heatingP-power-modes__copy">
             <div class="heatingP-power-modes__label">
-              <span>Venustas 7.5K battery • $79.99</span>
-              <span class="heatingP-power-modes__info" tabindex="0" aria-label="Battery runtime comparison">i
+              {%- if battery_product != blank -%}
+                <span>{{ battery_product.title }} • {{ battery_product.price | money }}</span>
+              {%- endif -%}
+              <span class="heatingP-power-modes__info" tabindex="0" aria-label="Battery runtime comparison">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_3886_1991)">
+                  <path d="M6.99982 9.33358V7.00006M6.99982 4.66654H7.00565M12.8336 7.00006C12.8336 10.222 10.2217 12.8339 6.99982 12.8339C3.7779 12.8339 1.16602 10.222 1.16602 7.00006C1.16602 3.77814 3.7779 1.16626 6.99982 1.16626C10.2217 1.16626 12.8336 3.77814 12.8336 7.00006Z" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
+                  </g>
+                  <defs>
+                  <clipPath id="clip0_3886_1991">
+                  <rect width="14" height="14" fill="white"/>
+                  </clipPath>
+                  </defs>
+                </svg>
                 <span class="heatingP-power-modes__runtime" role="table" aria-label="Runtime comparison">
                   <span class="heatingP-power-modes__runtime-row heatingP-power-modes__runtime-row--head" role="row">
                     <span class="heatingP-power-modes__runtime-cell" role="columnheader">Type/Runtime</span>
@@ -367,7 +376,8 @@
   "class": "heatingP-power-modes-section",
   "settings": [
     { "type": "image_picker", "id": "bike_image", "label": "Left card image" },
-    { "type": "image_picker", "id": "battery_image", "label": "Right card image" }
+    { "type": "image_picker", "id": "battery_image", "label": "Right card image" },
+    { "type": "product", "id": "battery_product", "label": "Battery product" }
   ],
   "presets": [
     { "name": "HeatingP Power Modes" }

@@ -7,7 +7,7 @@
   }
 
   #shopify-section-{{ section.id }} .heatingP-system-cards__inner {
-    width: min(calc(100% - 40px), 1340px);
+    width: min(calc(100% - 40px), 1200px);
     margin: 0 auto;
   }
 
@@ -60,6 +60,7 @@
   }
 
   #shopify-section-{{ section.id }} .heatingP-system-cards__media {
+    position: relative;
     height: 516px;
     overflow: hidden;
     border-radius: 12px 12px 0 0;
@@ -70,6 +71,17 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-system-cards__image--hover {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity .25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-system-cards__card:hover .heatingP-system-cards__image--hover {
+    opacity: 1;
   }
 
   #shopify-section-{{ section.id }} .heatingP-system-cards__badge {
@@ -213,10 +225,15 @@
 
     <div class="heatingP-system-cards__grid">
       {%- for block in section.blocks -%}
+        {%- assign card_product = block.settings.product -%}
+        {%- assign hover_image = card_product.images[1] -%}
         <article class="heatingP-system-cards__card{% if block.settings.badge != blank %} heatingP-system-cards__card--featured{% endif %}" {{ block.shopify_attributes }}>
           <div class="heatingP-system-cards__media">
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 900 | image_tag: class: 'heatingP-system-cards__image', loading: 'lazy', widths: '350, 430, 650, 900', sizes: '(max-width: 767px) calc(100vw - 40px), 430px', alt: block.settings.title }}
+            {%- endif -%}
+            {%- if hover_image != blank -%}
+              {{ hover_image | image_url: width: 900 | image_tag: class: 'heatingP-system-cards__image heatingP-system-cards__image--hover', loading: 'lazy', widths: '350, 430, 650, 900', sizes: '(max-width: 767px) calc(100vw - 40px), 430px', alt: block.settings.title }}
             {%- endif -%}
           </div>
           {%- if block.settings.badge != blank -%}
@@ -228,10 +245,10 @@
               {%- if block.settings.title != blank -%}
                 <h3 class="heatingP-system-cards__card-title">{{ block.settings.title }}</h3>
               {%- endif -%}
-              {%- if block.settings.price != blank or block.settings.discount != blank -%}
+              {%- if card_product != blank or block.settings.discount != blank -%}
                 <div class="heatingP-system-cards__price-row">
-                  {%- if block.settings.price != blank -%}
-                    <p class="heatingP-system-cards__price">{{ block.settings.price }}</p>
+                  {%- if card_product != blank -%}
+                    <p class="heatingP-system-cards__price">{{ card_product.price | money }}</p>
                   {%- endif -%}
                   {%- if block.settings.discount != blank -%}
                     <span class="heatingP-system-cards__discount">{{ block.settings.discount }}</span>
@@ -276,9 +293,9 @@
       "name": "Product card",
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "product", "id": "product", "label": "Product" },
         { "type": "text", "id": "badge", "label": "Badge" },
         { "type": "text", "id": "title", "label": "Title", "default": "Apex™ Jacket Liner" },
-        { "type": "text", "id": "price", "label": "Price", "default": "$239.99" },
         { "type": "text", "id": "discount", "label": "Discount badge" },
         { "type": "text", "id": "description", "label": "Description", "default": "Core warmth, chest to collar" },
         { "type": "text", "id": "spec_label", "label": "Spec label", "default": "6 heat zones" },
@@ -297,7 +314,6 @@
           "type": "card",
           "settings": {
             "title": "Apex™ Jacket Liner",
-            "price": "$239.99",
             "description": "Core warmth, chest to collar",
             "spec_label": "6 heat zones",
             "spec_value": "42W • 3.5A",
@@ -310,7 +326,6 @@
           "settings": {
             "badge": "Best Choice",
             "title": "Apex™ Jacket Liner + Pants Liner + 3-Way Cable",
-            "price": "$457.97",
             "discount": "15% off in cart",
             "description": "Full-body heat on one lead",
             "spec_label": "8 heat zones",
@@ -323,7 +338,6 @@
           "type": "card",
           "settings": {
             "title": "Apex™ Jacket Liner",
-            "price": "$239.99",
             "description": "Core warmth, chest to collar",
             "spec_label": "6 heat zones",
             "spec_value": "42W • 3.5A",

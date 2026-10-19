@@ -6,7 +6,6 @@
 {% style %}
   #shopify-section-{{ section.id }} .heatingP-hero {
     position: relative;
-    min-height: 769px;
     overflow: hidden;
     background: #14161a;
     color: #fff;
@@ -15,13 +14,16 @@
 
   #shopify-section-{{ section.id }} .heatingP-hero__media,
   #shopify-section-{{ section.id }} .heatingP-hero__image {
-    position: absolute;
-    inset: 0;
     width: 100%;
-    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__media {
+    position: relative;
   }
 
   #shopify-section-{{ section.id }} .heatingP-hero__image {
+    display: block;
+    height: auto;
     object-fit: cover;
     object-position: center;
   }
@@ -31,10 +33,10 @@
   }
 
   #shopify-section-{{ section.id }} .heatingP-hero__inner {
-    position: relative;
+    position: absolute;
     z-index: 1;
+    inset: 0;
     display: flex;
-    min-height: 769px;
     align-items: center;
     width: min(calc(100% - 40px), 1340px);
     margin: 0 auto;
@@ -115,17 +117,22 @@
     font-weight: 400;
     line-height: 1.25;
   }
+  @media only screen and (max-width: 1200px) {
+    #shopify-section-{{ section.id }}  .heatingP-hero__title{
+      font-size: 32px;
+    }
+    #shopify-section-{{ section.id }}  .heatingP-hero__description{
+      font-size: 14px;
+    }
+  }
 
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .heatingP-hero {
-      min-height: 0;
       background: var(--venustas-black, #1a1a1a);
     }
 
     #shopify-section-{{ section.id }} .heatingP-hero__media {
       position: relative;
-      inset: auto;
-      height: 390px;
       overflow: hidden;
     }
 
@@ -135,13 +142,16 @@
 
     #shopify-section-{{ section.id }} .heatingP-hero__image--mobile {
       display: block;
+      height: auto;
       object-position: center top;
     }
 
     #shopify-section-{{ section.id }} .heatingP-hero__inner {
-      display: block;
-      min-height: 0;
+      position: relative;
+      inset: auto;
+      display: flex;
       width: 100%;
+      margin: 0;
       padding: 32px 20px 31px;
       box-sizing: border-box;
     }
@@ -218,36 +228,35 @@
 {% endstyle %}
 
 <section class="heatingP-hero">
-  <div class="heatingP-hero__media" aria-hidden="true">
+  <div class="heatingP-hero__media">
     {%- if desktop_image != blank -%}
       {{ desktop_image | image_url: width: 2400 | image_tag: class: 'heatingP-hero__image heatingP-hero__image--desktop', loading: 'eager', widths: '960, 1340, 1600, 1920, 2400', sizes: '100vw', alt: '' }}
     {%- endif -%}
     {%- if mobile_image != blank -%}
       {{ mobile_image | image_url: width: 900 | image_tag: class: 'heatingP-hero__image heatingP-hero__image--mobile', loading: 'eager', widths: '390, 600, 750, 900', sizes: '100vw', alt: '' }}
     {%- endif -%}
-  </div>
-
-  <div class="heatingP-hero__inner">
-    <div class="heatingP-hero__content">
-      {%- if section.settings.eyebrow != blank -%}
-        <p class="heatingP-hero__eyebrow">{{ section.settings.eyebrow }}</p>
-      {%- endif -%}
-      {%- if section.settings.title != blank -%}
-        <h2 class="heatingP-hero__title">{{ section.settings.title }}</h2>
-      {%- endif -%}
-      {%- if section.settings.description != blank -%}
-        <div class="heatingP-hero__description">{{ section.settings.description }}</div>
-      {%- endif -%}
-      {%- if section.settings.primary_label != blank or section.settings.secondary_label != blank -%}
-        <div class="heatingP-hero__actions">
-          {%- if section.settings.primary_label != blank -%}
-            {%- render 'heatingP-button', label: section.settings.primary_label, url: section.settings.primary_link, variant: 'primary', class: 'heatingP-hero__button' -%}
-          {%- endif -%}
-          {%- if section.settings.secondary_label != blank -%}
-            {%- render 'heatingP-button', label: section.settings.secondary_label, url: section.settings.secondary_link, variant: 'secondary', class: 'heatingP-hero__button' -%}
-          {%- endif -%}
-        </div>
-      {%- endif -%}
+    <div class="heatingP-hero__inner">
+      <div class="heatingP-hero__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="heatingP-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="heatingP-hero__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="heatingP-hero__description">{{ section.settings.description }}</div>
+        {%- endif -%}
+        {%- if section.settings.primary_label != blank or section.settings.secondary_label != blank -%}
+          <div class="heatingP-hero__actions">
+            {%- if section.settings.primary_label != blank -%}
+              {%- render 'heatingP-button', label: section.settings.primary_label, url: section.settings.primary_link, variant: 'primary', class: 'heatingP-hero__button' -%}
+            {%- endif -%}
+            {%- if section.settings.secondary_label != blank -%}
+              {%- render 'heatingP-button', label: section.settings.secondary_label, url: section.settings.secondary_link, variant: 'secondary', class: 'heatingP-hero__button' -%}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 
