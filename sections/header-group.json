@@ -7,13 +7,21 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "type": "header",
   "name": "Header",
   "sections": {
     "header": {
       "type": "header",
       "blocks": {
+        "announcement_bar_YhAQmA": {
+          "type": "announcement_bar",
+          "settings": {
+            "announcement_content": "<p><em><strong>Shop Weekly Deals</strong></em>: Up to 45% OFF</p>",
+            "btn_label": "Learn More",
+            "link": "shopify://collections/deal-of-the-week"
+          }
+        },
         "announcement_countdown_yPBEej": {
           "type": "announcement_countdown",
           "disabled": true,
@@ -24,6 +32,7 @@
         },
         "announcement_bar_GbrkMQ": {
           "type": "announcement_bar",
+          "disabled": true,
           "settings": {
             "announcement_content": "<p><em><strong>Limited Time Offer</strong></em><strong>:</strong>&nbsp;Enjoy an extra&nbsp;<em><strong>$10 OFF</strong></em>&nbsp;when your order reaches&nbsp;<em><strong>$200+</strong></em>!</p>",
             "btn_label": "Shop now",
@@ -197,9 +206,35 @@
             "link_5": "https://venustas.zendesk.com/hc/en-us/categories/38122906510477-User-Manual",
             "menu_list_5": ""
           }
+        },
+        "dislay_6_yaYK6A": {
+          "type": "dislay_6",
+          "settings": {
+            "menu_tag": "Bundle",
+            "main_link": "shopify://collections/bundle-deal",
+            "main_link_label": "Shop All Bundles",
+            "view_all_label": "View All",
+            "category_label_1": "Clothing + Battery",
+            "category_title_1": "More Power, Longer Warmth",
+            "category_subtitle_1": "",
+            "category_collection_1": "clothing-extra-battery",
+            "category_label_2": "Clothing + Gloves",
+            "category_title_2": "Warm Hands, Stay Warm",
+            "category_subtitle_2": "",
+            "category_collection_2": "complete-your-warmth",
+            "category_label_3": "Couple & Family",
+            "category_title_3": "Stay Warm Together",
+            "category_subtitle_3": "",
+            "category_collection_3": "couple-family",
+            "category_label_4": "Clothing + Socks",
+            "category_title_4": "Warm from Head to Toe",
+            "category_subtitle_4": "",
+            "category_collection_4": "clothing-extra-socks"
+          }
         }
       },
       "block_order": [
+        "announcement_bar_YhAQmA",
         "announcement_countdown_yPBEej",
         "announcement_bar_GbrkMQ",
         "announcement_bar_zf9Qbr",
@@ -209,7 +244,8 @@
         "dislay_1_7yPgVj",
         "dislay_2_dqw3NK",
         "dislay_3_8k3X4c",
-        "dislay_4_PQnEwY"
+        "dislay_4_PQnEwY",
+        "dislay_6_yaYK6A"
       ],
       "settings": {
         "announcement_bar": true,

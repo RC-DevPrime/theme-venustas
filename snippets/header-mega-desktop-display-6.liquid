@@ -3,24 +3,43 @@
   assign bundle_tab_id_2 = 'bundle-category-2-' | append: block.id
   assign bundle_tab_id_3 = 'bundle-category-3-' | append: block.id
   assign bundle_tab_id_4 = 'bundle-category-4-' | append: block.id
+
+  assign first_category_index = 0
+  if block.settings.category_label_1 != blank
+    assign first_category_index = 1
+  elsif block.settings.category_label_2 != blank
+    assign first_category_index = 2
+  elsif block.settings.category_label_3 != blank
+    assign first_category_index = 3
+  elsif block.settings.category_label_4 != blank
+    assign first_category_index = 4
+  endif
 %}
 
 <div class="display-6 mega-menu-tab-list">
   <aside class="display-6__sidebar">
     <p class="display-6__menu-title pp-semibold">{{ clean_title | escape }}</p>
     <ul class="menu-list-tab" aria-label="{{ clean_title | escape }}">
-      <li class="active" data-tab="bundle-category-1-{{ block.id }}">
-        <button type="button" class="pp-regular" id="bundle-tab-1-{{ block.id }}" aria-expanded="true" aria-controls="bundle-category-1-{{ block.id }}">{{ block.settings.category_label_1 | default: block.settings.category_title_1 | default: 'Bundle Category 1' | escape }}</button>
-      </li>
-      <li data-tab="bundle-category-2-{{ block.id }}">
-        <button type="button" class="pp-regular" id="bundle-tab-2-{{ block.id }}" aria-expanded="false" aria-controls="bundle-category-2-{{ block.id }}">{{ block.settings.category_label_2 | default: block.settings.category_title_2 | default: 'Bundle Category 2' | escape }}</button>
-      </li>
-      <li data-tab="bundle-category-3-{{ block.id }}">
-        <button type="button" class="pp-regular" id="bundle-tab-3-{{ block.id }}" aria-expanded="false" aria-controls="bundle-category-3-{{ block.id }}">{{ block.settings.category_label_3 | default: block.settings.category_title_3 | default: 'Bundle Category 3' | escape }}</button>
-      </li>
-      <li data-tab="bundle-category-4-{{ block.id }}">
-        <button type="button" class="pp-regular" id="bundle-tab-4-{{ block.id }}" aria-expanded="false" aria-controls="bundle-category-4-{{ block.id }}">{{ block.settings.category_label_4 | default: block.settings.category_title_4 | default: 'Bundle Category 4' | escape }}</button>
-      </li>
+      {% if block.settings.category_label_1 != blank %}
+        <li class="{% if first_category_index == 1 %}active{% endif %}" data-tab="bundle-category-1-{{ block.id }}">
+          <button type="button" class="pp-regular" id="bundle-tab-1-{{ block.id }}" aria-expanded="{% if first_category_index == 1 %}true{% else %}false{% endif %}" aria-controls="bundle-category-1-{{ block.id }}">{{ block.settings.category_label_1 | escape }}</button>
+        </li>
+      {% endif %}
+      {% if block.settings.category_label_2 != blank %}
+        <li class="{% if first_category_index == 2 %}active{% endif %}" data-tab="bundle-category-2-{{ block.id }}">
+          <button type="button" class="pp-regular" id="bundle-tab-2-{{ block.id }}" aria-expanded="{% if first_category_index == 2 %}true{% else %}false{% endif %}" aria-controls="bundle-category-2-{{ block.id }}">{{ block.settings.category_label_2 | escape }}</button>
+        </li>
+      {% endif %}
+      {% if block.settings.category_label_3 != blank %}
+        <li class="{% if first_category_index == 3 %}active{% endif %}" data-tab="bundle-category-3-{{ block.id }}">
+          <button type="button" class="pp-regular" id="bundle-tab-3-{{ block.id }}" aria-expanded="{% if first_category_index == 3 %}true{% else %}false{% endif %}" aria-controls="bundle-category-3-{{ block.id }}">{{ block.settings.category_label_3 | escape }}</button>
+        </li>
+      {% endif %}
+      {% if block.settings.category_label_4 != blank %}
+        <li class="{% if first_category_index == 4 %}active{% endif %}" data-tab="bundle-category-4-{{ block.id }}">
+          <button type="button" class="pp-regular" id="bundle-tab-4-{{ block.id }}" aria-expanded="{% if first_category_index == 4 %}true{% else %}false{% endif %}" aria-controls="bundle-category-4-{{ block.id }}">{{ block.settings.category_label_4 | escape }}</button>
+        </li>
+      {% endif %}
     </ul>
     {% if block.settings.main_link != blank %}
       <a class="display-6__shop-all pp-semibold" href="{{ block.settings.main_link }}">
@@ -31,9 +50,33 @@
   </aside>
 
   <div class="display-6__content">
-    {% render 'header-mega-bundle-panel', collection: block.settings.category_collection_1, title: block.settings.category_title_1, subtitle: block.settings.category_subtitle_1, tab_id: bundle_tab_id_1, view_all_label: block.settings.view_all_label, active: true %}
-    {% render 'header-mega-bundle-panel', collection: block.settings.category_collection_2, title: block.settings.category_title_2, subtitle: block.settings.category_subtitle_2, tab_id: bundle_tab_id_2, view_all_label: block.settings.view_all_label %}
-    {% render 'header-mega-bundle-panel', collection: block.settings.category_collection_3, title: block.settings.category_title_3, subtitle: block.settings.category_subtitle_3, tab_id: bundle_tab_id_3, view_all_label: block.settings.view_all_label %}
-    {% render 'header-mega-bundle-panel', collection: block.settings.category_collection_4, title: block.settings.category_title_4, subtitle: block.settings.category_subtitle_4, tab_id: bundle_tab_id_4, view_all_label: block.settings.view_all_label %}
+    {% if block.settings.category_label_1 != blank %}
+      {% if first_category_index == 1 %}
+        {% render 'header-mega-bundle-panel', collection: block.settings.category_collection_1, title: block.settings.category_title_1, subtitle: block.settings.category_subtitle_1, tab_id: bundle_tab_id_1, view_all_label: block.settings.view_all_label, active: true %}
+      {% else %}
+        {% render 'header-mega-bundle-panel', collection: block.settings.category_collection_1, title: block.settings.category_title_1, subtitle: block.settings.category_subtitle_1, tab_id: bundle_tab_id_1, view_all_label: block.settings.view_all_label %}
+      {% endif %}
+    {% endif %}
+    {% if block.settings.category_label_2 != blank %}
+      {% if first_category_index == 2 %}
+        {% render 'header-mega-bundle-panel', collection: block.settings.category_collection_2, title: block.settings.category_title_2, subtitle: block.settings.category_subtitle_2, tab_id: bundle_tab_id_2, view_all_label: block.settings.view_all_label, active: true %}
+      {% else %}
+        {% render 'header-mega-bundle-panel', collection: block.settings.category_collection_2, title: block.settings.category_title_2, subtitle: block.settings.category_subtitle_2, tab_id: bundle_tab_id_2, view_all_label: block.settings.view_all_label %}
+      {% endif %}
+    {% endif %}
+    {% if block.settings.category_label_3 != blank %}
+      {% if first_category_index == 3 %}
+        {% render 'header-mega-bundle-panel', collection: block.settings.category_collection_3, title: block.settings.category_title_3, subtitle: block.settings.category_subtitle_3, tab_id: bundle_tab_id_3, view_all_label: block.settings.view_all_label, active: true %}
+      {% else %}
+        {% render 'header-mega-bundle-panel', collection: block.settings.category_collection_3, title: block.settings.category_title_3, subtitle: block.settings.category_subtitle_3, tab_id: bundle_tab_id_3, view_all_label: block.settings.view_all_label %}
+      {% endif %}
+    {% endif %}
+    {% if block.settings.category_label_4 != blank %}
+      {% if first_category_index == 4 %}
+        {% render 'header-mega-bundle-panel', collection: block.settings.category_collection_4, title: block.settings.category_title_4, subtitle: block.settings.category_subtitle_4, tab_id: bundle_tab_id_4, view_all_label: block.settings.view_all_label, active: true %}
+      {% else %}
+        {% render 'header-mega-bundle-panel', collection: block.settings.category_collection_4, title: block.settings.category_title_4, subtitle: block.settings.category_subtitle_4, tab_id: bundle_tab_id_4, view_all_label: block.settings.view_all_label %}
+      {% endif %}
+    {% endif %}
   </div>
 </div>
