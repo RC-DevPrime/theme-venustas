@@ -1,6 +1,14 @@
 {%- liquid
   assign desktop_image = section.settings.desktop_image
   assign mobile_image = section.settings.mobile_image | default: desktop_image
+  assign stats_count = 0
+  for index in (1..4)
+    assign value_key = 'stat_' | append: index | append: '_value'
+    assign text_key = 'stat_' | append: index | append: '_text'
+    if section.settings[value_key] != blank or section.settings[text_key] != blank
+      assign stats_count = stats_count | plus: 1
+    endif
+  endfor
 -%}
 
 {% style %}
@@ -92,6 +100,10 @@
     padding: 20px max(20px, calc((100% - 1340px) / 2));
     background: var(--venustas-black, #1a1a1a);
     box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__stats--four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   #shopify-section-{{ section.id }} .heatingP-hero__stat {
@@ -200,6 +212,38 @@
       box-sizing: border-box;
     }
 
+    #shopify-section-{{ section.id }} .heatingP-hero__stats--four {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stats--four .heatingP-hero__stat {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      text-align: left;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stats--four .heatingP-hero__stat:last-child {
+      border-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stats--four .heatingP-hero__stat-text {
+      order: 1;
+      margin-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stats--four .heatingP-hero__stat-value {
+      order: 2;
+      flex: 0 0 auto;
+      text-align: right;
+    }
+
     #shopify-section-{{ section.id }} .heatingP-hero__stat {
       min-width: 0;
       text-align: center;
@@ -223,6 +267,14 @@
       font-size: 13px;
       font-weight: 400;
       line-height: 1.25;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .heatingP-hero__stats--four {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 40px;
+      row-gap: 24px;
     }
   }
 {% endstyle %}
@@ -260,8 +312,8 @@
     </div>
   </div>
 
-  <div class="heatingP-hero__stats">
-    {%- for index in (1..3) -%}
+  <div class="heatingP-hero__stats{% if stats_count == 4 %} heatingP-hero__stats--four{% endif %}">
+    {%- for index in (1..4) -%}
       {%- assign value_key = 'stat_' | append: index | append: '_value' -%}
       {%- assign text_key = 'stat_' | append: index | append: '_text' -%}
       {%- if section.settings[value_key] != blank or section.settings[text_key] != blank -%}
@@ -299,7 +351,9 @@
     { "type": "text", "id": "stat_2_value", "label": "Stat 2 value", "default": "8" },
     { "type": "text", "id": "stat_2_text", "label": "Stat 2 text", "default": "Heat zones across jacket and pants" },
     { "type": "text", "id": "stat_3_value", "label": "Stat 3 value", "default": "$0" },
-    { "type": "text", "id": "stat_3_text", "label": "Stat 3 text", "default": "Extra parts needed — cable and fuse in the box" }
+    { "type": "text", "id": "stat_3_text", "label": "Stat 3 text", "default": "Extra parts needed — cable and fuse in the box" },
+    { "type": "text", "id": "stat_4_value", "label": "Stat 4 value" },
+    { "type": "text", "id": "stat_4_text", "label": "Stat 4 text" }
   ],
   "presets": [
     { "name": "HeatingP Hero" }
