@@ -19,21 +19,85 @@
       "type": "heatingP-hero",
       "name": "HeatingP Hero",
       "settings": {
-        "eyebrow": "NEW •  Apex™ RIDING SYSTEM",
-        "title": "Heated riding gear that runs on your bike.",
-        "description": "<p>No battery to charge. No controller to buy. Just the Apex jacket liner and pant liner, wired into your 12V power.</p>",
-        "primary_label": "Shop the system",
+        "desktop_image": "shopify://shop_images/heatingW-banner.webp",
+        "eyebrow": "NEW • VOLCANO™ FLAGSHIP VEST",
+        "title": "The Warmest Vest We've Ever Made",
+        "description": "<p>4X the power of our everyday heated gear — built for −40°F cold. Two 54Wh batteries included</p>",
+        "primary_label": "Shop Volcano™ Series",
         "primary_link": "",
-        "secondary_label": "See how it powers",
+        "secondary_label": "",
         "secondary_link": "",
-        "stat_1_value": "144°F",
-        "stat_1_text": "Max heating temperature · 12V powered",
-        "stat_2_value": "8",
-        "stat_2_text": "Heat zones across jacket and pants",
-        "stat_3_value": "$0",
-        "stat_3_text": "Extra parts needed — cable and fuse in the box",
-        "stat_4_value": "$2",
-        "stat_4_text": "Extra parts needed — cable and fuse in the box"
+        "stat_1_value": "−40°F to 41°F",
+        "stat_1_text": "Idea for",
+        "stat_2_value": "41W",
+        "stat_2_text": "4x a standard heated vest",
+        "stat_3_value": "108Wh",
+        "stat_3_text": "Two 54W batteries included",
+        "stat_4_value": "Unlimited",
+        "stat_4_text": "Runtime on 12V vehicle power"
+      }
+    },
+    "heating_v_anchor_nav_qYEyAH": {
+      "type": "heatingV-anchor-nav",
+      "blocks": {
+        "link_hEjYxy": {
+          "type": "link",
+          "settings": {
+            "label": "Why Heated Gear",
+            "target_id": "why-heated-gear"
+          }
+        },
+        "link_dtYGhn": {
+          "type": "link",
+          "settings": {
+            "label": "Venustas Riding System",
+            "target_id": "venustas-riding-system"
+          }
+        },
+        "link_8QDwzH": {
+          "type": "link",
+          "settings": {
+            "label": "Setup Options",
+            "target_id": "setup-options"
+          }
+        },
+        "link_EDXDGM": {
+          "type": "link",
+          "settings": {
+            "label": "How It Works",
+            "target_id": "how-it-works"
+          }
+        },
+        "link_wUWP8t": {
+          "type": "link",
+          "settings": {
+            "label": "Riding Guild",
+            "target_id": "riding-guild"
+          }
+        },
+        "link_BdwYM8": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "faq"
+          }
+        }
+      },
+      "block_order": [
+        "link_hEjYxy",
+        "link_dtYGhn",
+        "link_8QDwzH",
+        "link_EDXDGM",
+        "link_wUWP8t",
+        "link_BdwYM8"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#F5F5F5",
+        "nav_background": "#FFFFFF",
+        "text_color": "#1F1F1F",
+        "aria_label": "Page navigation",
+        "mobile_button_label": "Open page navigation"
       }
     },
     "heating_v_power_kKbLGC": {
@@ -42,13 +106,17 @@
       "settings": {
         "eyebrow": "How Volcano™ Started",
         "title": "You Asked More Heat. So We Built Volcano™",
-        "description": "<p>Year after year, the riders, anglers and crews who stayed out longest told us the same two things: more heat when it really gets cold, and more time before the battery gives out. Volcano is our answer.</p>"
+        "description": "<p>Year after year, the riders, anglers and crews who stayed out longest told us the same two things: more heat when it really gets cold, and more time before the battery gives out. Volcano is our answer.</p>",
+        "video": "shopify://files/videos/heatingW-video.mp4"
       }
     },
     "heating_v_4x_gear_fWGtfr": {
       "type": "heatingV-4x-gear",
       "name": "HeatingV 4X Gear",
-      "settings": {}
+      "settings": {
+        "first_desktop_image": "shopify://shop_images/heatingV-black-gear.webp",
+        "second_desktop_image": "shopify://shop_images/heatingV-red-gear.webp"
+      }
     },
     "heating_v_volcano_chart_fUGFQk": {
       "type": "heatingV-volcano-chart",
@@ -61,6 +129,12 @@
       "settings": {
         "title": "The First Venustas Vest That Runs Both Batteries at Once",
         "description": "<p>Both 7.5K cells work on their own or together. Carry one when you want the vest light, both when you're out all day — and when they're both in, they run at the same time instead of one waiting its turn. It can heat up up to 11 hours, which covers a dawn-to-dark day on the ice, a full shift outside, or a long ride — without rationing the heat or hunting for an outlet.</p>",
+        "image_1": "shopify://shop_images/heatingV-vest.webp",
+        "image_1_mobile": "shopify://shop_images/heatingV-vest-mobile.webp",
+        "image_2": "shopify://shop_images/heatingV-vest2.webp",
+        "image_2_mobile": "shopify://shop_images/heatingV-vest2-mobile.webp",
+        "image_3": "shopify://shop_images/heatingV-vest3.webp",
+        "image_3_mobile": "shopify://shop_images/heatingV-vest3-mobile.webp",
         "step_delay": 1,
         "high_temp": "144℉",
         "high_label": "4 hours continuous heat",
@@ -78,7 +152,9 @@
       "name": "HeatingV Heat Zones",
       "settings": {
         "title": "The Largest Heating Area We've Ever Built Into a Vest",
-        "description": "<p>85% of Your Upper-Body Core, Front and Back. Heat runs from the collar, down both sides of the chest, across the upper back on both sides, and all the way over the lower back — the areas that go cold first once you stop moving, and the areas a smaller panel layout leaves out.</p>"
+        "description": "<p>85% of Your Upper-Body Core, Front and Back. Heat runs from the collar, down both sides of the chest, across the upper back on both sides, and all the way over the lower back — the areas that go cold first once you stop moving, and the areas a smaller panel layout leaves out.</p>",
+        "jacket_image": "shopify://shop_images/heatingV-detail-men.webp",
+        "pants_image": "shopify://shop_images/heatingV-detail-women.webp"
       }
     },
     "heating_v_battery_sides_mKxARD": {
@@ -87,68 +163,39 @@
       "settings": {
         "item_1_title": "Batteries on Your Sides, Never Your Back",
         "item_1_description": "<p>One Battery Left. One Right. Balanced Across the Body. Sitting on a sled, riding a lift, leaning against a truck seat — the two places a battery pack usually digs in. Volcano™ keeps both off your back and off your spine.</p>",
+        "item_1_desktop_image": "shopify://shop_images/heatingV-vest.webp",
         "item_2_title": "Near a 12v Outlet, It Never Runs Down",
-        "item_2_description": "<p>The DC lead is already built into the left hand pocket. Add the Y cable set (sold separately, reserve for free) and Volcano™ series runs straight off a snowmobile, a motorcycle or an ATV's 12V power — no battery to watch, no ceiling on the day.</p>"
+        "item_2_description": "<p>The DC lead is already built into the left hand pocket. Add the Y cable set (sold separately, reserve for free) and Volcano™ series runs straight off a snowmobile, a motorcycle or an ATV's 12V power — no battery to watch, no ceiling on the day.</p>",
+        "item_2_desktop_image": "shopify://shop_images/heatingV-12v-outlet.webp"
       }
     },
-    "heating_p_system_cards_AAEYBX": {
-      "type": "heatingP-system-cards",
+    "heating_n_add_to_setup_TJz8a3": {
+      "type": "heatingN-add-to-setup",
       "blocks": {
-        "card_GxeKtH": {
-          "type": "card",
+        "product_card_FGzdgK": {
+          "type": "product_card",
           "settings": {
-            "product": "apex-12v-heated-motorcycle-jacket-liner",
-            "badge": "",
-            "title": "Apex™ Jacket Liner",
-            "discount": "",
-            "description": "Core warmth, chest to collar",
-            "spec_label": "6 heat zones",
-            "spec_value": "42W • 3.5A",
-            "note": "Y cable and fuse included",
-            "button_label": "Shop Now",
-            "button_link": ""
+            "product": "high-power-7-5k-battery",
+            "title": "",
+            "description": "For shifts that run past eleven hours, or to keep one charging while two are out with you."
           }
         },
-        "card_NyGpLV": {
-          "type": "card",
+        "product_card_JnUwVg": {
+          "type": "product_card",
           "settings": {
-            "product": "apex-jacket-liner-pants-liner-3-way-cable",
-            "badge": "Best Choice",
-            "title": "Apex™ Jacket Liner + Pants Liner + 3-Way Cable",
-            "discount": "15% off in cart",
-            "description": "Full-body heat on one lead",
-            "spec_label": "8 heat zones",
-            "spec_value": "80W • 6.67A",
-            "note": "3-Way cable needed",
-            "button_label": "Shop Now",
-            "button_link": ""
-          }
-        },
-        "card_qXf63U": {
-          "type": "card",
-          "settings": {
-            "product": "apex-12v-heated-motorcycle-pants-liner",
-            "badge": "",
-            "title": "Apex™ Jacket Liner",
-            "discount": "",
-            "description": "Core warmth, chest to collar",
-            "spec_label": "6 heat zones",
-            "spec_value": "42W • 3.5A",
-            "note": "Y cable and fuse included",
-            "button_label": "Shop Now",
-            "button_link": ""
+            "product": "10-venustas-gift-card",
+            "title": "",
+            "description": "Connects the built-in DC lead to a snowmobile, motorcycle or ATV's 12V supply. Not needed if you run on the batteries."
           }
         }
       },
       "block_order": [
-        "card_GxeKtH",
-        "card_NyGpLV",
-        "card_qXf63U"
+        "product_card_FGzdgK",
+        "product_card_JnUwVg"
       ],
-      "name": "HeatingP System Cards",
+      "name": "HeatingN Add to Setup",
       "settings": {
-        "title": "Engineered for Him. Engineered for Her.",
-        "intro": "Same Flagship System, Two Purpose-Built Fits. Both carry 6 heating zones, two 54Wh batteries and a 12V lead. Each is shaped to sit close without pulling."
+        "title": "Add to Your Setup"
       }
     },
     "heating_v_panel_details_zUjpt9": {
@@ -156,8 +203,58 @@
       "name": "HeatingV Panel Details",
       "settings": {
         "title": "Every panel is there for a reason",
-        "description": "<p>A windproof, waterproof three-layer shell over a graphene lining. Pockets sized for what you actually carry. A power button where a gloved hand can find it.</p>"
+        "description": "<p>A windproof, waterproof three-layer shell over a graphene lining. Pockets sized for what you actually carry. A power button where a gloved hand can find it.</p>",
+        "image_1": "shopify://shop_images/heatingV-detail1.webp",
+        "image_2": "shopify://shop_images/heatingV-detail2.webp",
+        "image_3": "shopify://shop_images/heatingV-detail3.webp",
+        "image_4": "shopify://shop_images/heatingV-detail4.webp",
+        "image_5": "shopify://shop_images/heatingV-detail5.webp",
+        "image_5_mobile": "shopify://shop_images/heatingV-detail-mobile.webp"
       }
+    },
+    "heating_v_brand_story_xhnacb": {
+      "type": "heatingV-brand-story",
+      "name": "HeatingV Brand Story",
+      "settings": {
+        "heading": "VOLCANOTM",
+        "heading_accent": ""
+      }
+    },
+    "heating_p_video_YRKLAX": {
+      "type": "heatingP-video",
+      "blocks": {
+        "video_card_GiCfqP": {
+          "type": "video_card",
+          "settings": {
+            "video": "shopify://files/videos/heatingW-pocket.mp4",
+            "title": "Put to the Test by Riders Who Know Their Gear",
+            "description": "An experienced rider wires the Apex™ system into his bike and takes it out on a cold ride: the Y cable install, how the heat holds up at speed, and how the liners fit under full riding gear."
+          }
+        },
+        "video_card_QBUDgK": {
+          "type": "video_card",
+          "settings": {
+            "video": "shopify://files/videos/heatingW-pant-feet.mp4",
+            "title": "How to Set Up Your Apex™ System",
+            "description": "Connect the Y cable to your bike’s battery once, plug in the liner and press the button. This walkthrough covers the jacket, the pants, and running both on a single lead with the 3-Way cable."
+          }
+        },
+        "video_card_p4hUDx": {
+          "type": "video_card",
+          "settings": {
+            "video": "shopify://files/videos/heatingW-apex-adjust.mp4",
+            "title": "What Riders Are Saying",
+            "description": "Real riders, real cold mornings. Hear from riders about their first rides with Apex™: what they noticed, what surprised them, and what they’d tell a friend."
+          }
+        }
+      },
+      "block_order": [
+        "video_card_GiCfqP",
+        "video_card_QBUDgK",
+        "video_card_p4hUDx"
+      ],
+      "name": "HeatingP Video",
+      "settings": {}
     },
     "heating_prelaunch_faq_m8YFwP": {
       "type": "heating-prelaunch-faq",
@@ -252,14 +349,17 @@
   "order": [
     "main_page_3cKYFc",
     "heating_p_hero_6Tt8En",
+    "heating_v_anchor_nav_qYEyAH",
     "heating_v_power_kKbLGC",
     "heating_v_4x_gear_fWGtfr",
     "heating_v_volcano_chart_fUGFQk",
     "heating_v_dual_battery_QKk7e4",
     "heating_v_heat_zones_RDceHQ",
     "heating_v_battery_sides_mKxARD",
-    "heating_p_system_cards_AAEYBX",
+    "heating_n_add_to_setup_TJz8a3",
     "heating_v_panel_details_zUjpt9",
+    "heating_v_brand_story_xhnacb",
+    "heating_p_video_YRKLAX",
     "heating_prelaunch_faq_m8YFwP",
     "heating_p_season_cta_9fEfBQ",
     "heating_founder_terms_7j7gcB"
