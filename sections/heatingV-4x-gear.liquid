@@ -439,7 +439,9 @@
     sectionRoot.dataset.heatingVPowerReady = 'true';
 
     const NO_TRANSITION = 'heatingV-4x-gear--no-transition';
+    const FIRST_FRAME_DELAY = {{ section.settings.first_frame_duration | default: 3 | times: 1000 }};
     let playing = false;
+    let frameTimer;
 
     const rewind = () => {
       target.classList.add(NO_TRANSITION);
@@ -452,12 +454,15 @@
       if (playing) return;
       playing = true;
       rewind();
-      target.classList.add('is-inview');
+      frameTimer = window.setTimeout(() => {
+        if (playing) target.classList.add('is-inview');
+      }, FIRST_FRAME_DELAY);
     };
 
     const reset = () => {
       if (!playing) return;
       playing = false;
+      window.clearTimeout(frameTimer);
       rewind();
     };
 
@@ -514,6 +519,16 @@
       "type": "image_picker",
       "id": "first_mobile_image",
       "label": "Mobile image"
+    },
+    {
+      "type": "range",
+      "id": "first_frame_duration",
+      "label": "First image display time",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 3
     },
     {
       "type": "header",
