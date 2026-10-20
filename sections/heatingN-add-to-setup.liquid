@@ -1,0 +1,339 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup {
+    background: #fff;
+    color: #14161a;
+    padding: 128px 0 80px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__inner {
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__title {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -.95px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 56px;
+    margin-top: 44px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__card {
+    display: flex;
+    min-width: 0;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 0;
+    border-radius: 12px;
+    background: #fff;
+    cursor: pointer;
+    transition: background-color .2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__card:hover,
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__card:focus-visible {
+    background: #f0f0f0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__media {
+    display: flex;
+    width: 192px;
+    height: 192px;
+    flex: 0 0 192px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #f5f5f5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__image--contain {
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__content {
+    display: flex;
+    min-width: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 16px;
+    padding: 28px 20px 0 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__card-title,
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__description,
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__price {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__card-title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__description {
+    color: #565b63;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__price {
+    color: #1a1a1a;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__form {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__add {
+    display: inline-flex;
+    min-width: 78px;
+    min-height: 38px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 6px;
+    background: var(--color-brand, #b93205);
+    color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__add:hover {
+    background: #8f2403;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__cart-icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-add-to-setup__add-label--mobile {
+    display: none;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup {
+      padding: 20px;
+      background: #f0f0f0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup__inner {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup__title {
+      font-size: 26px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup__card {
+      gap: 16px;
+      padding: 16px 8px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup__media {
+      width: 100px;
+      height: 100px;
+      flex-basis: 100px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup__content {
+      gap: 12px;
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup__card-title {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup__description {
+      font-size: 13px;
+      line-height: 1.62;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup__action {
+      padding-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup__add {
+      min-width: 42px;
+      min-height: 38px;
+      padding: 10px 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup__add-label--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-add-to-setup__add-label--mobile {
+      display: none;
+    }
+  }
+{% endstyle %}
+
+<section class="heatingN-add-to-setup" id="heatingN-add-to-setup-{{ section.id }}">
+  <div class="heatingN-add-to-setup__inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="heatingN-add-to-setup__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    <div class="heatingN-add-to-setup__grid">
+      {%- for block in section.blocks -%}
+        {%- assign card_product = block.settings.product -%}
+        {%- if card_product != blank -%}
+          {%- assign card_variant = card_product.selected_or_first_available_variant -%}
+          {%- assign card_image = block.settings.image | default: card_product.featured_image -%}
+          {%- assign card_title = block.settings.title | default: card_product.title -%}
+          {%- assign product_form_id = 'heatingN-add-to-setup-form-' | append: section.id | append: '-' | append: block.id -%}
+
+          <article
+            class="heatingN-add-to-setup__card"
+            data-heatingn-product-card
+            data-product-url="{{ card_product.url }}"
+            tabindex="0"
+            role="link"
+            aria-label="View {{ card_title | escape }}"
+            {{ block.shopify_attributes }}
+          >
+            <a class="heatingN-add-to-setup__media" href="{{ card_product.url }}" aria-label="View {{ card_title | escape }}">
+              {%- if card_image != blank -%}
+                {{ card_image | image_url: width: 500 | image_tag: class: 'heatingN-add-to-setup__image', loading: 'lazy', widths: '200, 300, 500', sizes: '(max-width: 767px) 100px, 192px', alt: card_title }}
+              {%- endif -%}
+            </a>
+
+            <div class="heatingN-add-to-setup__content">
+              <a href="{{ card_product.url }}" class="heatingN-add-to-setup__card-title">{{ card_title }}</a>
+              {%- if block.settings.description != blank -%}
+                <p class="heatingN-add-to-setup__description">{{ block.settings.description }}</p>
+              {%- endif -%}
+
+              <div class="heatingN-add-to-setup__action">
+                <p class="heatingN-add-to-setup__price">{{ card_product.price | money }}</p>
+                {%- if card_variant.available -%}
+                  {%- form 'product', card_product, id: product_form_id, class: 'atc-form form heatingN-add-to-setup__form', novalidate: 'novalidate', data-type: 'add-to-cart-form', action: 'javascript:void(0)' -%}
+                    <input type="hidden" name="id" value="{{ card_variant.id }}">
+                    <button class="btn-atc heatingN-add-to-setup__add" type="submit" name="add" aria-label="Add {{ card_title | escape }} to cart">
+                      <img class="heatingN-add-to-setup__cart-icon" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/76274_2x_d16fe5a8-ac81-452f-b21a-cba27f596eb7.png?v=1758116435" alt="" width="18" height="18">
+                      <span class="heatingN-add-to-setup__add-label--desktop">Add</span>
+                    </button>
+                  {%- endform -%}
+                {%- endif -%}
+              </div>
+            </div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const section = document.getElementById('heatingN-add-to-setup-{{ section.id }}');
+    if (!section || section.dataset.initialized === 'true') return;
+    section.dataset.initialized = 'true';
+
+    section.querySelectorAll('[data-heatingn-product-card]').forEach((card) => {
+      const goToProduct = (event) => {
+        if (event.target.closest('a, button, form')) return;
+        const url = card.dataset.productUrl;
+        if (url) window.location.href = url;
+      };
+
+      card.addEventListener('click', goToProduct);
+      card.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        if (event.target.closest('a, button, form')) return;
+        event.preventDefault();
+        const url = card.dataset.productUrl;
+        if (url) window.location.href = url;
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "HeatingN Add to Setup",
+  "tag": "section",
+  "class": "heatingN-add-to-setup-section",
+  "max_blocks": 2,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Section title", "default": "Add to Your Setup" }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product card",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "image_picker", "id": "image", "label": "Override product image" },
+        { "type": "text", "id": "title", "label": "Override title" },
+        { "type": "textarea", "id": "description", "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HeatingN Add to Setup",
+      "blocks": [
+        {
+          "type": "product_card",
+          "settings": {
+            "description": "For shifts that run past eleven hours, or to keep one charging while two are out with you."
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "description": "Connects the built-in DC lead to a snowmobile, motorcycle or ATV's 12V supply. Not needed if you run on the batteries."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
