@@ -768,7 +768,11 @@ class VariantSelects extends HTMLElement {
     onVariantChange() {
         this.updateOptions();
         this.updateMasterId();
-        this.toggleAddButton(true, '', false);
+        this.toggleAddButton(
+            !this.currentVariant || !this.currentVariant.available,
+            this.currentVariant && !this.currentVariant.available ? 'Out Of Stock' : '',
+            false
+        );
         this.updatePickupAvailability();
         this.updateVariantStatuses();
 
