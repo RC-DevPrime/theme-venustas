@@ -427,7 +427,7 @@ body.product-media-lightbox-open {
 }
 
 .product .product-details {
-    padding: 0 0 10px;
+    padding: 10px 0 0;
 }
 .product-details .border-top{
     border-top:1px solid #000;
@@ -544,6 +544,9 @@ body.product-media-lightbox-open {
 }
 .product .variants fieldset{
     margin-bottom:15px;
+}
+.product .variants fieldset.variant-size{
+    margin-bottom:0;
 }
 .product .variants .variant .variant-name {
    font-family: var(--font-primary);
