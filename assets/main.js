@@ -757,10 +757,73 @@ $(document).on('click', '.product-item .variant-option-block .variant-colors li'
 
 
 $(document).on('click', '.product-item .product-image', function () {
+    // A horizontal swipe changes the image and must not also open the product.
+    if (this.dataset.swipeNavigation === 'true') {
+        delete this.dataset.swipeNavigation;
+        return;
+    }
+
     let link = $(this).data('link');
     if (link) {
         window.location.href = link;
     }
+});
+
+// PRODUCT CARD MOBILE IMAGE SWIPE
+// Keep the existing click-to-product behavior while allowing a short horizontal
+// swipe to toggle between the primary and secondary card images.
+document.addEventListener('DOMContentLoaded', function () {
+    const mobileQuery = window.matchMedia('(max-width: 767px)');
+    const SWIPE_THRESHOLD = 24;
+    let activeImage = null;
+    let startX = 0;
+    let startY = 0;
+    let hasHorizontalSwipe = false;
+
+    function setSecondaryImage(image, showSecondary) {
+        image.classList.toggle('is-mobile-secondary', showSecondary);
+        image.dataset.swipeNavigation = 'true';
+    }
+
+    // Delegate from document so cards appended by collection filters work too.
+    document.addEventListener('pointerdown', function (event) {
+        const image = event.target.closest ? event.target.closest('.product-item .product-image') : null;
+        if (!image || !image.querySelector('.hover-image') || !mobileQuery.matches ||
+            (event.pointerType !== 'touch' && event.pointerType !== 'pen')) return;
+
+        activeImage = image;
+        startX = event.clientX;
+        startY = event.clientY;
+        hasHorizontalSwipe = false;
+    });
+
+    document.addEventListener('pointermove', function (event) {
+        if (!activeImage || !mobileQuery.matches) return;
+
+        const deltaX = event.clientX - startX;
+        const deltaY = event.clientY - startY;
+        if (Math.abs(deltaX) < 8 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+
+        hasHorizontalSwipe = true;
+        event.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('pointerup', function (event) {
+        if (!activeImage) return;
+
+        const image = activeImage;
+        const deltaX = event.clientX - startX;
+        activeImage = null;
+
+        if (!hasHorizontalSwipe || Math.abs(deltaX) < SWIPE_THRESHOLD) return;
+
+        setSecondaryImage(image, deltaX < 0);
+    });
+
+    document.addEventListener('pointercancel', function () {
+        activeImage = null;
+        hasHorizontalSwipe = false;
+    });
 });
 
 document.addEventListener("DOMContentLoaded", function () {

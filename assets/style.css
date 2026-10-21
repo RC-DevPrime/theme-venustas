@@ -2131,6 +2131,16 @@ a.f-white:hover{
 .product-item .product-image:hover .hover-image {
     opacity: 1;
 }
+/* On touch layouts, the second image is controlled by the card swipe handler. */
+@media (max-width: 767px) {
+    .product-item .product-image {
+        touch-action: pan-y;
+    }
+
+    .product-item .product-image.is-mobile-secondary .hover-image {
+        opacity: 1;
+    }
+}
 .product-item .product-details .prorw_preview_badge_setup .prorw-preview-badge .prorw-icon{
     color: #B93205 !important;
     font-size:16px;
