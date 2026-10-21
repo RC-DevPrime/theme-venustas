@@ -156,7 +156,7 @@
 
   #shopify-section-{{ section.id }} .heatingN-system-cards__size-guide {
     flex: 0 0 auto;
-    margin-top: 2px;
+    margin-left: auto;
   }
 
   #shopify-section-{{ section.id }} .heatingN-system-cards__size-guide .size-chart-component__button {
@@ -352,16 +352,6 @@
                     <h3 class="heatingN-system-cards__card-title">{{ block.settings.title }}</h3>
                   {%- endif -%}
                 {%- endif -%}
-                {%- if card_size_chart != blank -%}
-                  <div class="heatingN-system-cards__size-guide">
-                    {%- render 'size-chart-component',
-                      size_chart: card_size_chart,
-                      product: card_product,
-                      product_title: card_product.title,
-                      id: size_chart_id
-                    -%}
-                  </div>
-                {%- endif -%}
               </div>
 
               {%- if card_product != blank or block.settings.discount != blank -%}
@@ -371,6 +361,16 @@
                   {%- endif -%}
                   {%- if block.settings.discount != blank -%}
                     <span class="heatingN-system-cards__discount">{{ block.settings.discount }}</span>
+                  {%- endif -%}
+                  {%- if card_size_chart != blank -%}
+                    <div class="heatingN-system-cards__size-guide">
+                      {%- render 'size-chart-component',
+                        size_chart: card_size_chart,
+                        product: card_product,
+                        product_title: card_product.title,
+                        id: size_chart_id
+                      -%}
+                    </div>
                   {%- endif -%}
                 </div>
               {%- endif -%}
