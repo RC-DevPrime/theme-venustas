@@ -33,7 +33,9 @@
         "stat_2_value": "8",
         "stat_2_text": "Heat zones across jacket and pants",
         "stat_3_value": "$0",
-        "stat_3_text": "Extra parts needed — cable and fuse in the box"
+        "stat_3_text": "Extra parts needed — cable and fuse in the box",
+        "stat_4_value": "",
+        "stat_4_text": ""
       }
     },
     "heating_v_anchor_nav_xjRk7P": {
@@ -119,9 +121,10 @@
       "type": "heatingP-power-modes",
       "name": "HeatingP Power Modes",
       "settings": {
-        "bike_image": "shopify://shop_images/heatingP-bike.webp",
+        "bike_image": "shopify://shop_images/heatingP-bike-new.webp",
         "battery_image": "shopify://shop_images/heatingP-battery.webp",
-        "battery_product": "high-power-7-5k-battery"
+        "battery_product": "high-power-7-5k-battery",
+        "bike_link": ""
       }
     },
     "heating_bike_power_RCkq86": {
@@ -218,7 +221,7 @@
         "card_nqepgN": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/heatingP-product-one.webp",
+            "image": "shopify://shop_images/heatingP-product-one-new.webp",
             "product": "apex-12v-heated-motorcycle-jacket-liner",
             "badge": "",
             "title": "Apex™ Jacket Liner",
@@ -354,21 +357,49 @@
         "fade_seconds": 3
       }
     },
-    "heating_p_brand_video_story_MDabyn": {
-      "type": "heatingP-brand-video-story",
-      "name": "HeatingP Story Videos",
+    "heating_brand_story_p48mPR": {
+      "type": "heating-brand-story",
+      "name": "Heating Brand Story",
       "settings": {
         "heading": "The Expert In",
-        "heading_accent": "Heated Apparel",
-        "stat_1_value": "2M+",
-        "stat_1_label": "Happy Customers",
-        "stat_2_value": "3M+",
-        "stat_2_label": "Products Sold",
-        "stat_3_value": "8+",
-        "stat_3_label": "Years Innovation",
-        "stat_4_value": "30+",
-        "stat_4_label": "Countries"
+        "heading_accent": "Heated Apparel"
       }
+    },
+    "heating_p_video_ULVYCt": {
+      "type": "heatingP-video",
+      "blocks": {
+        "video_card_FMqYmL": {
+          "type": "video_card",
+          "settings": {
+            "video": "shopify://files/videos/heatingW-pocket.mp4",
+            "title": "Put to the Test by Riders Who Know Their Gear",
+            "description": "An experienced rider wires the Apex™ system into his bike and takes it out on a cold ride: the Y cable install, how the heat holds up at speed, and how the liners fit under full riding gear."
+          }
+        },
+        "video_card_ADKzxC": {
+          "type": "video_card",
+          "settings": {
+            "video": "shopify://files/videos/heatingW-apex-adjust.mp4",
+            "title": "How to Set Up Your Apex™ System",
+            "description": "Connect the Y cable to your bike’s battery once, plug in the liner and press the button. This walkthrough covers the jacket, the pants, and running both on a single lead with the 3-Way cable."
+          }
+        },
+        "video_card_kXjW4L": {
+          "type": "video_card",
+          "settings": {
+            "video": "shopify://files/videos/heatingW-apex-connect.mp4",
+            "title": "What Riders Are Saying",
+            "description": "Real riders, real cold mornings. Hear from riders about their first rides with Apex™: what they noticed, what surprised them, and what they’d tell a friend."
+          }
+        }
+      },
+      "block_order": [
+        "video_card_FMqYmL",
+        "video_card_ADKzxC",
+        "video_card_kXjW4L"
+      ],
+      "name": "HeatingP Video",
+      "settings": {}
     },
     "heating_prelaunch_faq_Hay6C3": {
       "type": "heating-prelaunch-faq",
@@ -477,7 +508,8 @@
     "heating_p_layering_k8tNFq",
     "heating_p_system_cards_8fHXC4",
     "heating_12v_carousel_jHVK6J",
-    "heating_p_brand_video_story_MDabyn",
+    "heating_brand_story_p48mPR",
+    "heating_p_video_ULVYCt",
     "heating_prelaunch_faq_Hay6C3",
     "heating_p_season_cta_49Rzp6",
     "heating_founder_terms_qta9Lp"
