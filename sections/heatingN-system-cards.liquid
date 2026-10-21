@@ -55,6 +55,10 @@
     background: #fff;
   }
 
+  #shopify-section-{{ section.id }} .heatingN-system-cards__card--linked {
+    cursor: pointer;
+  }
+
   #shopify-section-{{ section.id }} .heatingN-system-cards__card:hover {
     box-shadow: 0 4px 12.05px rgba(0, 0, 0, .12);
   }
@@ -80,7 +84,32 @@
     transition: opacity .25s ease;
   }
 
-  #shopify-section-{{ section.id }} .heatingN-system-cards__card:hover .heatingN-system-cards__image--hover {
+  #shopify-section-{{ section.id }} .heatingN-system-cards__product-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__product-link:hover .heatingN-system-cards__card-title,
+  #shopify-section-{{ section.id }} .heatingN-system-cards__product-link:focus-visible .heatingN-system-cards__card-title {
+    color: var(--color-brand, #b93205);
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__product-link:focus-visible {
+    outline: 2px solid var(--color-brand, #b93205);
+    outline-offset: 4px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    #shopify-section-{{ section.id }} .heatingN-system-cards__card:hover .heatingN-system-cards__image--hover {
+      opacity: 1;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__media {
+    touch-action: pan-y;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__card.is-touch-hover .heatingN-system-cards__image--hover {
     opacity: 1;
   }
 
@@ -181,6 +210,30 @@
     line-height: 1;
   }
 
+  #shopify-section-{{ section.id }} .heatingN-system-cards__spec--product-fit {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__spec-item {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__spec-item::before {
+    width: 4px;
+    height: 4px;
+    flex: 0 0 4px;
+    border-radius: 50%;
+    background: #d4d7dc;
+    content: '';
+  }
+
   #shopify-section-{{ section.id }} .heatingN-system-cards__spec strong {
     font-weight: 600;
   }
@@ -269,7 +322,11 @@
           {%- endpaginate -%}
         {%- endif -%}
 
-        <article class="heatingN-system-cards__card{% if block.settings.badge != blank %} heatingN-system-cards__card--featured{% endif %}" {{ block.shopify_attributes }}>
+        <article
+          class="heatingN-system-cards__card{% if block.settings.badge != blank %} heatingN-system-cards__card--featured{% endif %}{% if card_product != blank %} heatingN-system-cards__card--linked{% endif %}"
+          {% if card_product != blank %}data-product-url="{{ card_product.url }}"{% endif %}
+          {{ block.shopify_attributes }}
+        >
           <div class="heatingN-system-cards__media">
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 900 | image_tag: class: 'heatingN-system-cards__image', loading: 'lazy', widths: '350, 430, 650, 900', sizes: '(max-width: 767px) calc(100vw - 40px), 430px', alt: block.settings.title }}
@@ -287,7 +344,13 @@
             <div class="heatingN-system-cards__heading">
               <div class="heatingN-system-cards__title-row">
                 {%- if block.settings.title != blank -%}
-                  <h3 class="heatingN-system-cards__card-title">{{ block.settings.title }}</h3>
+                  {%- if card_product != blank -%}
+                    <a class="heatingN-system-cards__product-link" href="{{ card_product.url }}">
+                      <h3 class="heatingN-system-cards__card-title">{{ block.settings.title }}</h3>
+                    </a>
+                  {%- else -%}
+                    <h3 class="heatingN-system-cards__card-title">{{ block.settings.title }}</h3>
+                  {%- endif -%}
                 {%- endif -%}
                 {%- if card_size_chart != blank -%}
                   <div class="heatingN-system-cards__size-guide">
@@ -317,10 +380,19 @@
               <p class="heatingN-system-cards__text">{{ block.settings.description }}</p>
             {%- endif -%}
             {%- if block.settings.spec_label != blank or block.settings.spec_value != blank -%}
-              <p class="heatingN-system-cards__spec">
-                {%- if block.settings.spec_label != blank -%}<strong>{{ block.settings.spec_label }}</strong>{%- endif -%}
-                {%- if block.settings.spec_label != blank and block.settings.spec_value != blank -%}<span class="heatingN-system-cards__dot"></span>{%- endif -%}
-                {%- if block.settings.spec_value != blank -%}<span>{{ block.settings.spec_value }}</span>{%- endif -%}
+              {%- assign is_product_fit_spec = false -%}
+              {%- if block.settings.spec_label contains 'Volcano™ Pro Heated For' and block.settings.spec_value contains 'Volcano™ Pro Heated For' -%}
+                {%- assign is_product_fit_spec = true -%}
+              {%- endif -%}
+              <p class="heatingN-system-cards__spec{% if is_product_fit_spec %} heatingN-system-cards__spec--product-fit{% endif %}">
+                {%- if is_product_fit_spec -%}
+                  <span class="heatingN-system-cards__spec-item">{{ block.settings.spec_label }}</span>
+                  <span class="heatingN-system-cards__spec-item">{{ block.settings.spec_value }}</span>
+                {%- else -%}
+                  {%- if block.settings.spec_label != blank -%}<strong>{{ block.settings.spec_label }}</strong>{%- endif -%}
+                  {%- if block.settings.spec_label != blank and block.settings.spec_value != blank -%}<span class="heatingN-system-cards__dot"></span>{%- endif -%}
+                  {%- if block.settings.spec_value != blank -%}<span>{{ block.settings.spec_value }}</span>{%- endif -%}
+                {%- endif -%}
               </p>
             {%- endif -%}
             {%- if block.settings.note != blank -%}
@@ -333,6 +405,75 @@
     </div>
   </div>
 </section>
+
+<script>
+  (() => {
+    const sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot || sectionRoot.dataset.heatingSystemCardsReady === 'true') return;
+
+    sectionRoot.dataset.heatingSystemCardsReady = 'true';
+    const cards = sectionRoot.querySelectorAll('.heatingN-system-cards__card[data-product-url]');
+
+    cards.forEach((card) => {
+      const media = card.querySelector('.heatingN-system-cards__media');
+      let startX = 0;
+      let startY = 0;
+      let isSwiping = false;
+
+      card.addEventListener('click', (event) => {
+        if (card.dataset.ignoreCardClick === 'true') {
+          delete card.dataset.ignoreCardClick;
+          return;
+        }
+
+        if (event.target.closest('a, button, input, select, textarea, [role="button"]')) return;
+        window.location.href = card.dataset.productUrl;
+      });
+
+      if (!media || !('PointerEvent' in window)) return;
+
+      media.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse') return;
+        startX = event.clientX;
+        startY = event.clientY;
+        isSwiping = false;
+      });
+
+      media.addEventListener('pointermove', (event) => {
+        if (event.pointerType === 'mouse') return;
+        const deltaX = event.clientX - startX;
+        const deltaY = event.clientY - startY;
+
+        if (Math.abs(deltaX) > 10 && Math.abs(deltaX) > Math.abs(deltaY)) {
+          isSwiping = true;
+          event.preventDefault();
+        }
+      });
+
+      const finishSwipe = (event) => {
+        if (event.pointerType === 'mouse') return;
+        const deltaX = event.clientX - startX;
+
+        if (isSwiping && Math.abs(deltaX) >= 24) {
+          card.classList.toggle('is-touch-hover');
+          card.dataset.ignoreCardClick = 'true';
+        }
+
+        isSwiping = false;
+      };
+
+      media.addEventListener('pointerup', finishSwipe);
+      media.addEventListener('pointercancel', () => {
+        isSwiping = false;
+      });
+    });
+
+    document.addEventListener('shopify:section:unload', function unload(event) {
+      if (event.detail.sectionId !== '{{ section.id }}') return;
+      document.removeEventListener('shopify:section:unload', unload);
+    });
+  })();
+</script>
 
 {% schema %}
 {
