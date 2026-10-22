@@ -15,7 +15,7 @@
     display: flex;
     width: 100%;
     height: 100svh;
-    min-height: 600px;
+    min-height: 100svh;
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -28,9 +28,34 @@
     margin: 0 auto;
   }
 
+  #shopify-section-{{ section.id }} .heatingv-brand-story__content {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    display: flex;
+    width: min(100%, 1120px);
+    height: 70%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateX(-50%);
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-brand-story__copy {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+    top: var(--story-heading-y, 50%);
+    will-change: top, opacity;
+  }
+
   #shopify-section-{{ section.id }} .heatingv-brand-story__heading {
     position: absolute;
-    top: 50%;
+    top: calc(50% + var(--story-heading-y, 0px));
     left: 50%;
     width: min(100%, 1020px);
     margin: 0;
@@ -40,8 +65,6 @@
     line-height: 1.35;
     text-align: center;
     opacity: var(--story-heading-opacity, 0);
-    /* Pinned to the exact centre for the whole scroll — only the colour and
-       opacity animate. */
     transform: translate(-50%, -50%);
     will-change: transform, opacity;
   }
@@ -91,24 +114,77 @@
   }
 
   #shopify-section-{{ section.id }} .heatingv-brand-story__stats {
-    font-size: 24px;
-    position: absolute;
-    top: 50%;
-    left: 0;
+    position: relative;
     display: flex;
-    width: 100%;
+    width: min(100%, 1120px);
     flex-direction: column;
     align-items: center;
+    gap: 0;
     text-align: center;
+    margin-top: auto;
     opacity: var(--story-stats-opacity, 0);
-    /* The heading never moves, so the copy is a fixed drop below the centre
-       line: it keeps its distance no matter how tall the viewport is.
-       --story-stats-y only drives the slide-in as it fades up. */
-    transform: translateY(calc(-50% + var(--story-stats-y, 118px)));
+    transform: translateY(var(--story-stats-y, 24px));
     will-change: transform, opacity;
   }
 
-  
+  #shopify-section-{{ section.id }} .heatingv-brand-story__content .heatingv-brand-story__heading {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: min(100vw, 1020px);
+    transform: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-brand-story__tagline {
+    margin: 0;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.45;
+    opacity: var(--story-stats-opacity, 0);
+    transform: translateY(var(--story-stats-y, 24px));
+    transition: opacity .2s ease, transform .2s ease;
+    will-change: opacity, transform;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-brand-story__metrics {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 120px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-brand-story__metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-brand-story__metric-value,
+  #shopify-section-{{ section.id }} .heatingv-brand-story__metric-label {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-brand-story__metric-value {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-brand-story__metric-label {
+    color: rgba(255, 255, 255, .82);
+    font-size: 8px;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  /* Keep the second-act copy grouped together while it fades in. */
+  #shopify-section-{{ section.id }} .heatingv-brand-story__stats > * {
+    flex: 0 0 auto;
+  }
 
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .heatingv-brand-story {
@@ -129,9 +205,24 @@
       width: 100%;
       height: auto;
       flex-direction: column;
-      gap: 24px;
-      padding: 80px 20px;
+      gap: 0;
+      padding: 120px 20px 80px;
       box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-brand-story__content {
+      position: static;
+      display: flex;
+      width: 100%;
+      height: auto;
+      transform: none;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-brand-story__copy {
+      position: static;
+      width: 100%;
+      gap: 24px;
+      transform: none;
     }
 
     #shopify-section-{{ section.id }} .heatingv-brand-story__heading {
@@ -170,10 +261,35 @@
       width: 100%;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 0;
       text-align: center;
       opacity: 1;
+      margin-top: 0;
       transform: none;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-brand-story__tagline {
+      max-width: 320px;
+      font-size: 16px;
+      line-height: 1.4;
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-brand-story__metrics {
+      width: 100%;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 48px 24px;
+      margin-top: 138px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-brand-story__metric-value {
+      font-size: 28px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingv-brand-story__metric-label {
+      font-size: 12px;
     }
    
   }
@@ -186,37 +302,59 @@
 >
   <div class="heatingv-brand-story__stage">
     <div class="heatingv-brand-story__inner">
-      {%- if section.settings.heading != blank or section.settings.heading_accent != blank -%}
-        <h2 class="heatingv-brand-story__heading" aria-label="{{ section.settings.heading | append: ' ' | append: section.settings.heading_accent | strip | escape }}">
-          <span class="heatingv-brand-story__heading-layer heatingv-brand-story__heading-layer--base">
-            {%- if section.settings.heading != blank -%}
-              <span class="heatingv-brand-story__heading-line">{{ section.settings.heading }}</span>
-            {%- endif -%}
-            {%- if section.settings.heading_accent != blank -%}
-              <span class="heatingv-brand-story__heading-line">{{ section.settings.heading_accent }}</span>
-            {%- endif -%}
-          </span>
-          <span class="heatingv-brand-story__heading-layer heatingv-brand-story__heading-layer--gradient" aria-hidden="true">
-            {%- if section.settings.heading != blank -%}
-              <span class="heatingv-brand-story__heading-line">{{ section.settings.heading }}</span>
-            {%- endif -%}
-            {%- if section.settings.heading_accent != blank -%}
-              <span class="heatingv-brand-story__heading-line">{{ section.settings.heading_accent }}</span>
-            {%- endif -%}
-          </span>
-          <span class="heatingv-brand-story__heading-layer heatingv-brand-story__heading-layer--final" aria-hidden="true">
-            {%- if section.settings.heading != blank -%}
-              <span class="heatingv-brand-story__heading-line">{{ section.settings.heading }}</span>
-            {%- endif -%}
-            {%- if section.settings.heading_accent != blank -%}
-              <span class="heatingv-brand-story__heading-line">{{ section.settings.heading_accent }}</span>
-            {%- endif -%}
-          </span>
-        </h2>
-      {%- endif -%}
+      <div class="heatingv-brand-story__content">
+        <div class="heatingv-brand-story__copy">
+          {%- if section.settings.heading != blank or section.settings.heading_accent != blank -%}
+            <h2 class="heatingv-brand-story__heading" aria-label="{{ section.settings.heading | append: ' ' | append: section.settings.heading_accent | strip | escape }}">
+              <span class="heatingv-brand-story__heading-layer heatingv-brand-story__heading-layer--base">
+                {%- if section.settings.heading != blank -%}
+                  <span class="heatingv-brand-story__heading-line">{{ section.settings.heading }}</span>
+                {%- endif -%}
+                {%- if section.settings.heading_accent != blank -%}
+                  <span class="heatingv-brand-story__heading-line">{{ section.settings.heading_accent }}</span>
+                {%- endif -%}
+              </span>
+              <span class="heatingv-brand-story__heading-layer heatingv-brand-story__heading-layer--gradient" aria-hidden="true">
+                {%- if section.settings.heading != blank -%}
+                  <span class="heatingv-brand-story__heading-line">{{ section.settings.heading }}</span>
+                {%- endif -%}
+                {%- if section.settings.heading_accent != blank -%}
+                  <span class="heatingv-brand-story__heading-line">{{ section.settings.heading_accent }}</span>
+                {%- endif -%}
+              </span>
+              <span class="heatingv-brand-story__heading-layer heatingv-brand-story__heading-layer--final" aria-hidden="true">
+                {%- if section.settings.heading != blank -%}
+                  <span class="heatingv-brand-story__heading-line">{{ section.settings.heading }}</span>
+                {%- endif -%}
+                {%- if section.settings.heading_accent != blank -%}
+                  <span class="heatingv-brand-story__heading-line">{{ section.settings.heading_accent }}</span>
+                {%- endif -%}
+              </span>
+            </h2>
+          {%- endif -%}
+          <p class="heatingv-brand-story__tagline">Engineered from the ground up for extreme cold.</p>
+        </div>
 
-      <div class="heatingv-brand-story__stats" aria-label="Venustas achievements">
-        Engineered from the ground up for extreme cold.
+        <div class="heatingv-brand-story__stats" aria-label="Venustas achievements">
+          <div class="heatingv-brand-story__metrics">
+            <div class="heatingv-brand-story__metric">
+              <p class="heatingv-brand-story__metric-value">2M+</p>
+              <p class="heatingv-brand-story__metric-label">Happy Customers</p>
+            </div>
+            <div class="heatingv-brand-story__metric">
+              <p class="heatingv-brand-story__metric-value">3M+</p>
+              <p class="heatingv-brand-story__metric-label">Products Sold</p>
+            </div>
+            <div class="heatingv-brand-story__metric">
+              <p class="heatingv-brand-story__metric-value">8+</p>
+              <p class="heatingv-brand-story__metric-label">Years Innovation</p>
+            </div>
+            <div class="heatingv-brand-story__metric">
+              <p class="heatingv-brand-story__metric-value">30+</p>
+              <p class="heatingv-brand-story__metric-label">Countries</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -245,6 +383,7 @@
 
       if (media.matches) {
         section.style.removeProperty('--story-heading-opacity');
+        section.style.removeProperty('--story-heading-y');
         section.style.removeProperty('--story-base-opacity');
         section.style.removeProperty('--story-gradient-opacity');
         section.style.removeProperty('--story-final-gradient-opacity');
@@ -258,6 +397,7 @@
 
       if (reducedMotion.matches) {
         section.style.setProperty('--story-heading-opacity', '1');
+        section.style.setProperty('--story-heading-y', '21.43%');
         section.style.setProperty('--story-base-opacity', '0');
         section.style.setProperty('--story-gradient-opacity', '1');
         section.style.setProperty('--story-final-gradient-opacity', '1');
@@ -265,7 +405,7 @@
         section.style.setProperty('--story-grad-mid', 'rgb(255, 132, 92)');
         section.style.setProperty('--story-grad-end', 'rgb(255, 193, 170)');
         section.style.setProperty('--story-stats-opacity', '1');
-        section.style.setProperty('--story-stats-y', '118px');
+        section.style.setProperty('--story-stats-y', '0px');
         return;
       }
 
@@ -276,13 +416,15 @@
       const gradientEnter = range(progress, 0.25, 0.5);
       const gradientDepth = range(progress, 0.38, 0.72);
       const finalGradient = range(progress, 0.58, 0.78);
-      const statsEnter = range(progress, 0.7, 0.86);
-      const statsY = mix(146, 118, statsEnter);
+      const statsEnter = range(progress, 0.2, 0.36);
+      const headingY = mix(50, 21.43, intro);
+      const statsY = mix(24, 0, statsEnter);
       const gradStart = mixColor([255, 163, 135], [255, 79, 39], gradientDepth);
       const gradMid = mixColor([255, 191, 170], [255, 132, 92], gradientDepth);
       const gradEnd = mixColor([255, 224, 214], [255, 193, 170], gradientDepth);
 
       section.style.setProperty('--story-heading-opacity', intro.toFixed(3));
+      section.style.setProperty('--story-heading-y', `${headingY.toFixed(2)}%`);
       section.style.setProperty('--story-base-opacity', (1 - gradientEnter).toFixed(3));
       section.style.setProperty('--story-gradient-opacity', (gradientEnter * (1 - finalGradient)).toFixed(3));
       section.style.setProperty('--story-final-gradient-opacity', finalGradient.toFixed(3));

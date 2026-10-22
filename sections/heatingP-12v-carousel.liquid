@@ -158,6 +158,16 @@
     transform: translateX(-50%);
   }
 
+  #shopify-section-{{ section.id }} .heatingP-12v-carousel__pagination-track {
+    height: 26px;
+    padding: 0 16px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-radius: 16777200px;
+    background: rgba(16, 17, 19, 0.60);
+  }
+
   #shopify-section-{{ section.id }} .heatingP-12v-carousel__dot {
     width: 7px;
     height: 7px;
@@ -207,7 +217,7 @@
       gap: 12px;
       overflow-x: auto;
       overflow-y: hidden;
-      padding: 0 max(0px, calc((100vw - 350px) / 2));
+      /* padding: 0 max(0px, calc((100vw - 350px) / 2)); */
       scrollbar-width: none;
       scroll-snap-type: x mandatory;
     }
@@ -220,7 +230,7 @@
       width: 300px;
       height: 380px;
       flex: 0 0 300px;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       overflow: hidden;
       padding: 20px;
@@ -285,20 +295,26 @@
 
   @media only screen and (min-width: 501px) and (max-width: 1279px) {
     #shopify-section-{{ section.id }} .heatingP-12v-carousel__mobile-track {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      display: flex;
+      gap: 12px;
       max-width: 940px;
       margin: 0 auto;
       padding: 0;
-      overflow: visible;
+      overflow-x: auto;
+      overflow-y: hidden;
+      justify-content: flex-start;
+      scrollbar-width: none;
+      scroll-snap-type: x proximity;
     }
 
+    #shopify-section-{{ section.id }} .heatingP-12v-carousel__mobile-track::-webkit-scrollbar { display: none; }
+
     #shopify-section-{{ section.id }} .heatingP-12v-carousel__card {
-      width: 100%;
+      width: min(300px, calc((100vw - 52px) / 2));
       height: auto;
       min-height: 280px;
       aspect-ratio: 300 / 380;
-      flex-basis: auto;
+      flex: 0 0 min(300px, calc((100vw - 52px) / 2));
     }
 
     #shopify-section-{{ section.id }} .heatingP-12v-carousel__mobile-pagination { display: none; }
@@ -306,7 +322,6 @@
 
   @media only screen and (max-width: 500px) {
     #shopify-section-{{ section.id }} .heatingP-12v-carousel__mobile-track {
-      max-width: 350px;
       margin: 0 auto;
     }
 
@@ -326,8 +341,8 @@
 
 <section class="heatingP-12v-carousel" data-heatingp-12v-carousel id="heatingP-12v-carousel-{{ section.id }}">
   <div class="heatingP-12v-carousel__intro">
-    <h2 class="heatingP-12v-carousel__title">Ready For Every Cold-Weather Ride</h2>
-    <p class="heatingP-12v-carousel__description">Apex™ heated jacket delivers reliable, sustained warmth through 12V vehicle power so you can focus on the ride, not the cold.</p>
+    <h2 class="heatingP-12v-carousel__title">If it has a 12V circuit, it works</h2>
+    <p class="heatingP-12v-carousel__description">Built for motorcycles first, but the power source is the only requirement. Anything running a 12V DC circuit drives the same liners.</p>
   </div>
 
   <div class="heatingP-12v-carousel__desktop" data-heatingp-12v-desktop>
@@ -343,7 +358,9 @@
     </div>
     <p class="heatingP-12v-carousel__note">*Please ensure your vehicle has a stable 12V DC power source. Check the connection port for compatibility.</p>
     <div class="heatingP-12v-carousel__pagination" aria-label="12V use cases">
-      {%- for block in section.blocks -%}<button class="heatingP-12v-carousel__dot{% if forloop.first %} is-active{% endif %}" type="button" data-heatingp-12v-dot data-index="{{ forloop.index0 }}" aria-label="Show {{ block.settings.title }}"></button>{%- endfor -%}
+      <div class="heatingP-12v-carousel__pagination-track">
+        {%- for block in section.blocks -%}<button class="heatingP-12v-carousel__dot{% if forloop.first %} is-active{% endif %}" type="button" data-heatingp-12v-dot data-index="{{ forloop.index0 }}" aria-label="Show {{ block.settings.title }}"></button>{%- endfor -%}
+      </div>
     </div>
   </div>
 

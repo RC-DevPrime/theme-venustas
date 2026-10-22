@@ -70,7 +70,7 @@
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   #shopify-section-{{ section.id }} .heatingP-system-cards__image--hover {
@@ -112,10 +112,37 @@
     gap: 8px;
   }
 
+  #shopify-section-{{ section.id }} .heatingP-system-cards__title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
   #shopify-section-{{ section.id }} .heatingP-system-cards__card-title {
     font-size: 20px;
     font-weight: 700;
     line-height: 1.15;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-system-cards__size-guide {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-system-cards__size-guide .size-chart-component__button {
+    padding: 0;
+    border: 0;
+    color: var(--venustas-gray, #565b63);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-system-cards__size-guide .size-chart-component__button-icon {
+    width: 16px;
+    height: 16px;
   }
 
   #shopify-section-{{ section.id }} .heatingP-system-cards__price-row {
@@ -227,6 +254,20 @@
       {%- for block in section.blocks -%}
         {%- assign card_product = block.settings.product -%}
         {%- assign hover_image = card_product.images[1] -%}
+        {%- assign card_size_chart = blank -%}
+        {%- assign size_chart_id = 'heatingP-size-chart-' | append: section.id | append: '-' | append: block.id -%}
+
+        {%- if card_product != blank -%}
+          {%- paginate shop.metaobjects.size_chart.values by 250 -%}
+            {%- for chart in shop.metaobjects.size_chart.values -%}
+              {%- assign target_product_ids = chart.target_products.value | map: 'id' -%}
+              {%- if target_product_ids contains card_product.id -%}
+                {%- assign card_size_chart = chart -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endpaginate -%}
+        {%- endif -%}
         <article class="heatingP-system-cards__card{% if block.settings.badge != blank %} heatingP-system-cards__card--featured{% endif %}" {{ block.shopify_attributes }}>
           <div class="heatingP-system-cards__media">
             {%- if block.settings.image != blank -%}
@@ -242,9 +283,21 @@
 
           <div class="heatingP-system-cards__body">
             <div class="heatingP-system-cards__heading">
-              {%- if block.settings.title != blank -%}
-                <h3 class="heatingP-system-cards__card-title">{{ block.settings.title }}</h3>
-              {%- endif -%}
+              <div class="heatingP-system-cards__title-row">
+                {%- if block.settings.title != blank -%}
+                  <h3 class="heatingP-system-cards__card-title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if card_size_chart != blank -%}
+                  <div class="heatingP-system-cards__size-guide">
+                    {%- render 'size-chart-component',
+                      size_chart: card_size_chart,
+                      product: card_product,
+                      product_title: card_product.title,
+                      id: size_chart_id
+                    -%}
+                  </div>
+                {%- endif -%}
+              </div>
               {%- if card_product != blank or block.settings.discount != blank -%}
                 <div class="heatingP-system-cards__price-row">
                   {%- if card_product != blank -%}
