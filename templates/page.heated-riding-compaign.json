@@ -365,6 +365,67 @@
         "fade_seconds": 3
       }
     },
+    "heating_p_12v_carousel_FL3Up4": {
+      "type": "heatingP-12v-carousel",
+      "blocks": {
+        "scene_fBfWVX": {
+          "type": "scene",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner1.webp",
+            "icon_name": "motorcycle",
+            "title": "Motorcycle",
+            "text": "Touring, commuting, ADV"
+          }
+        },
+        "scene_jztcbE": {
+          "type": "scene",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner2.webp",
+            "icon_name": "atv",
+            "title": "ATV / UTV",
+            "text": "Open cab, cold trails"
+          }
+        },
+        "scene_HmA7dC": {
+          "type": "scene",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner3.webp",
+            "icon_name": "snowmobile",
+            "title": "Snowmobile",
+            "text": "Sustained sub-freezing"
+          }
+        },
+        "scene_MnWB8N": {
+          "type": "scene",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner4.webp",
+            "icon_name": "boat",
+            "title": "Boat",
+            "text": "Wind chill on the water"
+          }
+        },
+        "scene_y8Twmy": {
+          "type": "scene",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner5.webp",
+            "icon_name": "aircraft",
+            "title": "Light aircraft",
+            "text": "Unheated cabins"
+          }
+        }
+      },
+      "block_order": [
+        "scene_fBfWVX",
+        "scene_jztcbE",
+        "scene_HmA7dC",
+        "scene_MnWB8N",
+        "scene_y8Twmy"
+      ],
+      "name": "HeatingP 12V Carousel",
+      "settings": {
+        "autoplay_seconds": 4
+      }
+    },
     "heating_brand_story_p48mPR": {
       "type": "heating-brand-story",
       "name": "Heating Brand Story",
@@ -516,6 +577,7 @@
     "heating_p_layering_k8tNFq",
     "heating_p_system_cards_8fHXC4",
     "heating_12v_carousel_jHVK6J",
+    "heating_p_12v_carousel_FL3Up4",
     "heating_brand_story_p48mPR",
     "heating_p_video_ULVYCt",
     "heating_prelaunch_faq_Hay6C3",
