@@ -19,6 +19,7 @@
   }
 
   #shopify-section-{{ section.id }} .heatingP-video__media {
+    position: relative;
     height: 258px;
     overflow: hidden;
     background: #f1f1f1;
@@ -34,6 +35,91 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__autoplay-toggle {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    z-index: 1;
+    padding: 7px 10px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(20, 22, 26, .78);
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__autoplay-toggle:hover,
+  #shopify-section-{{ section.id }} .heatingP-video__autoplay-toggle:focus-visible {
+    background: var(--color-brand, #b93205);
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__modal[hidden] {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, .9);
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__modal-content {
+    position: relative;
+    display: flex;
+    width: min(100%, 1280px);
+    height: min(100%, 900px);
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__modal-video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__modal-close {
+    position: fixed;
+    top: calc(16px + env(safe-area-inset-top));
+    right: calc(16px + env(safe-area-inset-right));
+    z-index: 1;
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: #14161a;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__modal-close:hover,
+  #shopify-section-{{ section.id }} .heatingP-video__modal-close:focus-visible {
+    background: var(--color-brand, #b93205);
+    color: #fff;
+  }
+
+  body.heatingP-video-modal-open {
+    overflow: hidden;
   }
 
   #shopify-section-{{ section.id }} .heatingP-video__copy {
@@ -148,7 +234,10 @@
       <article class="heatingP-video__card" {{ block.shopify_attributes }}>
         <div class="heatingP-video__media">
           {%- if block.settings.video != blank -%}
-            {{ block.settings.video | video_tag: class: 'heatingP-video__video', autoplay: true, loop: true, muted: true, controls: false, playsinline: true, preload: 'metadata' }}
+            {{ block.settings.video | video_tag: class: 'heatingP-video__video', autoplay: false, loop: true, muted: true, controls: false, playsinline: true, preload: 'metadata' }}
+            <button class="heatingP-video__autoplay-toggle" type="button" data-autoplay-toggle data-autoplay-index="{{ forloop.index0 }}" aria-pressed="false">
+              <span data-autoplay-label>自动播放：关</span>
+            </button>
           {%- endif -%}
         </div>
         <div class="heatingP-video__copy">
@@ -162,7 +251,151 @@
       </article>
     {%- endfor -%}
   </div>
+
+  <div class="heatingP-video__modal" data-video-modal hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="heatingP-video__modal-content">
+      <button class="heatingP-video__modal-close" type="button" data-video-close aria-label="Close video">&times;</button>
+      <video class="heatingP-video__modal-video" data-modal-video controls playsinline preload="metadata"></video>
+    </div>
+  </div>
 </section>
+
+<script>
+  (() => {
+    const section = document.getElementById('heatingp-videos');
+    if (!section || section.dataset.initialized === 'true') return;
+    section.dataset.initialized = 'true';
+
+    const videos = [...section.querySelectorAll('.heatingP-video__video')];
+    const autoplayToggles = [...section.querySelectorAll('[data-autoplay-toggle]')];
+    const modal = section.querySelector('[data-video-modal]');
+    const modalContent = section.querySelector('.heatingP-video__modal-content');
+    const modalVideo = section.querySelector('[data-modal-video]');
+    const closeButton = section.querySelector('[data-video-close]');
+    const autoplayStorageKey = 'heatingPVideoAutoplay-{{ section.id }}';
+    const videoEntries = videos.map((video, index) => ({
+      video,
+      toggle: autoplayToggles[index],
+      enabled: false
+    }));
+
+    try {
+      const storedAutoplay = JSON.parse(window.localStorage.getItem(autoplayStorageKey) || '{}');
+      videoEntries.forEach((entry, index) => {
+        if (typeof storedAutoplay[index] === 'boolean') entry.enabled = storedAutoplay[index];
+      });
+    } catch (error) {
+      // Local storage can be unavailable in private browsing contexts.
+    }
+
+    const saveAutoplayStates = () => {
+      try {
+        window.localStorage.setItem(
+          autoplayStorageKey,
+          JSON.stringify(videoEntries.map((entry) => entry.enabled))
+        );
+      } catch (error) {
+        // Local storage can be unavailable in private browsing contexts.
+      }
+    };
+
+    const updateAutoplayState = (entry, shouldAutoplay, persist = true) => {
+      entry.enabled = shouldAutoplay;
+      const { video, toggle } = entry;
+      video.autoplay = entry.enabled;
+      video.muted = true;
+      if (entry.enabled) {
+        video.setAttribute('autoplay', '');
+        video.play().catch(() => {});
+      } else {
+        video.removeAttribute('autoplay');
+        video.pause();
+      }
+
+      if (toggle) {
+        toggle.setAttribute('aria-pressed', String(entry.enabled));
+        const label = toggle.querySelector('[data-autoplay-label]');
+        if (label) label.textContent = entry.enabled ? '自动播放：开' : '自动播放：关';
+      }
+
+      if (persist) saveAutoplayStates();
+    };
+
+    const closeModal = () => {
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
+      modalVideo.pause();
+      modalVideo.removeAttribute('src');
+      modalVideo.replaceChildren();
+      modal.hidden = true;
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('heatingP-video-modal-open');
+      videoEntries.forEach((entry) => {
+        if (entry.enabled) entry.video.play().catch(() => {});
+      });
+    };
+
+    const openModal = (video) => {
+      modalVideo.replaceChildren(...[...video.children].map((source) => source.cloneNode(true)));
+      modalVideo.poster = video.poster || '';
+      const startTime = video.currentTime || 0;
+      modal.hidden = false;
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('heatingP-video-modal-open');
+      video.pause();
+      modalVideo.load();
+      modalVideo.addEventListener('loadedmetadata', () => {
+        modalVideo.currentTime = startTime;
+        modalVideo.play().catch(() => {});
+      }, { once: true });
+
+      if (modalContent.requestFullscreen) {
+        modalContent.requestFullscreen().catch(() => {});
+      }
+    };
+
+    videoEntries.forEach((entry) => updateAutoplayState(entry, entry.enabled, false));
+    saveAutoplayStates();
+
+    autoplayToggles.forEach((toggle, index) => {
+      toggle.dataset.autoplayIndex = String(index);
+      toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const entry = videoEntries[Number(toggle.dataset.autoplayIndex)];
+        if (entry) updateAutoplayState(entry, !entry.enabled);
+      });
+    });
+
+    videos.forEach((video) => {
+      const media = video.closest('.heatingP-video__media');
+      if (!media) return;
+
+      media.addEventListener('click', (event) => {
+        if (event.target.closest('[data-autoplay-toggle]')) return;
+        openModal(video);
+      });
+
+      media.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        if (event.target.closest('[data-autoplay-toggle]')) return;
+        event.preventDefault();
+        openModal(video);
+      });
+      media.setAttribute('tabindex', '0');
+      media.setAttribute('role', 'button');
+      media.setAttribute('aria-label', 'Open video player');
+    });
+
+    closeButton.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !modal.hidden) closeModal();
+    });
+  })();
+</script>
 
 {% schema %}
 {
