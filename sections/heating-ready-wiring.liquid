@@ -1,6 +1,37 @@
 {%- render 'heating-ready-wiring-styles', section_id: section.id -%}
 
 {% style %}
+  #shopify-section-{{ section.id }} .heating-ready-wiring__media { position: relative; }
+  #shopify-section-{{ section.id }} .heating-ready-wiring__fullscreen-button {
+    position: absolute;
+    z-index: 2;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .72);
+    color: #fff;
+    cursor: pointer;
+    font-size: 26px;
+    line-height: 1;
+  }
+  #shopify-section-{{ section.id }} .heating-ready-wiring__media.is-video-fullscreen {
+    position: fixed;
+    z-index: 2147483647;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    border-radius: 0;
+    background: #000;
+  }
+
   @media only screen and (min-width: 1340px) {
     #shopify-section-{{ section.id }} .heating-ready-wiring__media {
       height: 408px !important;
@@ -40,6 +71,7 @@
                 preload: 'none',
                 image_size: '1400x'
             }}
+            <button type="button" class="heating-ready-wiring__fullscreen-button" data-video-fullscreen-toggle aria-label="Open video fullscreen">⛶</button>
           {%- elsif section.settings.venustas_media != blank -%}
             {{
               section.settings.venustas_media
@@ -101,6 +133,7 @@
                 preload: 'none',
                 image_size: '1400x'
             }}
+            <button type="button" class="heating-ready-wiring__fullscreen-button" data-video-fullscreen-toggle aria-label="Open video fullscreen">⛶</button>
           {%- elsif section.settings.other_media != blank -%}
             {{
               section.settings.other_media
@@ -142,6 +175,52 @@
     const videos = sectionRoot.querySelectorAll('.js-autoplay-in-view');
     if (!videos.length) return;
     sectionRoot.dataset.inViewVideoReady = 'true';
+
+    const fullscreenMedia = (video) => video.closest('.heating-ready-wiring__media');
+    const setMuted = (video) => {
+      video.defaultMuted = true;
+      video.muted = true;
+      video.volume = 0;
+      video.setAttribute('muted', '');
+      video.setAttribute('controlslist', 'nofullscreen noremoteplayback');
+      video.setAttribute('disablepictureinpicture', '');
+    };
+
+    const closeFullscreen = (media) => {
+      if (document.fullscreenElement === media && document.exitFullscreen) document.exitFullscreen().catch(() => {});
+      media.classList.remove('is-video-fullscreen');
+      const button = media.querySelector('[data-video-fullscreen-toggle]');
+      if (button) {
+        button.textContent = '⛶';
+        button.setAttribute('aria-label', 'Open video fullscreen');
+      }
+    };
+
+    const openFullscreen = (media) => {
+      media.classList.add('is-video-fullscreen');
+      const button = media.querySelector('[data-video-fullscreen-toggle]');
+      if (button) {
+        button.textContent = '×';
+        button.setAttribute('aria-label', 'Close video fullscreen');
+      }
+      if (media.requestFullscreen) media.requestFullscreen().catch(() => {});
+    };
+
+    videos.forEach((video) => {
+      setMuted(video);
+      video.addEventListener('volumechange', () => {
+        if (!video.muted || video.volume !== 0) setMuted(video);
+      });
+      const media = fullscreenMedia(video);
+      const button = media && media.querySelector('[data-video-fullscreen-toggle]');
+      if (button) button.addEventListener('click', () => media.classList.contains('is-video-fullscreen') ? closeFullscreen(media) : openFullscreen(media));
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      sectionRoot.querySelectorAll('.heating-ready-wiring__media.is-video-fullscreen').forEach((media) => {
+        if (document.fullscreenElement !== media) closeFullscreen(media);
+      });
+    });
 
     const playVideo = (video) => {
       const playPromise = video.play();
