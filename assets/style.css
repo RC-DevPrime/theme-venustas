@@ -2935,6 +2935,9 @@ a.f-white:hover{
 }
 
 @media only screen and (max-width: 767px) {
+    button.smile-improved-mobile-launcher{
+        display: none !important;
+    }
     .announcement-swiper .swiper-wrapper {
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
