@@ -60,6 +60,14 @@
           "type": "divider",
           "settings": {}
         },
+        "selleasy_lb_upsell_widget_pal_UW8EbH": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
         "hightlights_4aek9f": {
           "type": "hightlights",
           "settings": {
@@ -73,14 +81,6 @@
         },
         "availability_VXL6mU": {
           "type": "availability",
-          "settings": {}
-        },
-        "selleasy_lb_upsell_widget_pal_UW8EbH": {
-          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
-          "settings": {}
-        },
-        "quantity_atc_nEzPi6": {
-          "type": "quantity_atc",
           "settings": {}
         },
         "support_product_RGhgRP": {
@@ -219,7 +219,9 @@
         "nav_title": "Features",
         "background_image": "shopify://shop_images/40058_2x_7bb103e6-0745-4dcb-ad16-a87e7616bb66.png",
         "element": "shopify://shop_images/W62_black_heating.png",
-        "heading": "Elevating Warmth, Professional Comfort"
+        "heading": "Elevating Warmth, Professional Comfort",
+        "switch_to": true,
+        "popup_trigger": "click"
       }
     },
     "product_image_content_g3c3AM": {
@@ -432,7 +434,7 @@
         "enabled_section_child_scroll": true,
         "section_scroll_nav": "Features",
         "nav_title": "",
-        "image": "shopify://shop_images/W62_material.jpg",
+        "image": "shopify://shop_images/W24L_material.jpg",
         "heading": "Graphene-Enhanced Fabric",
         "description": "<p>Infused with graphene fibers, this fabric helps distribute heat evenly and improves thermal efficiency. Paired with the heating system, it delivers more consistent warmth while staying lightweight and breathable.</p>",
         "col_1_label": "Shell",
@@ -640,7 +642,6 @@
     },
     "product_compare_tab_tEUPPC": {
       "type": "product-compare-tab",
-      "disabled": true,
       "blocks": {
         "compare_item_3Wz694": {
           "type": "compare_item",
@@ -735,6 +736,7 @@
         "compare_item_AVMqBp",
         "compare_item_VtVi3P"
       ],
+      "disabled": true,
       "name": "Compare Tab Section",
       "settings": {
         "enabled_section_child_scroll": false,
