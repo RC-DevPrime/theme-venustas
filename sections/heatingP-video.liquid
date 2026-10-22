@@ -234,7 +234,7 @@
       <article class="heatingP-video__card" {{ block.shopify_attributes }}>
         <div class="heatingP-video__media">
           {%- if block.settings.video != blank -%}
-            {{ block.settings.video | video_tag: class: 'heatingP-video__video', autoplay: false, loop: true, muted: true, controls: false, playsinline: true, preload: 'metadata' }}
+            {{ block.settings.video | video_tag: class: 'heatingP-video__video', autoplay: false, loop: true, muted: true, controls: false, playsinline: true, preload: 'metadata', image_size: '1200x' }}
             <button class="heatingP-video__autoplay-toggle" type="button" data-autoplay-toggle data-autoplay-index="{{ forloop.index0 }}" aria-pressed="false">
               <span data-autoplay-label>自动播放：关</span>
             </button>

@@ -112,13 +112,6 @@
     gap: 8px;
   }
 
-  #shopify-section-{{ section.id }} .heatingP-system-cards__title-row {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
   #shopify-section-{{ section.id }} .heatingP-system-cards__card-title {
     font-size: 20px;
     font-weight: 700;
@@ -283,21 +276,9 @@
 
           <div class="heatingP-system-cards__body">
             <div class="heatingP-system-cards__heading">
-              <div class="heatingP-system-cards__title-row">
-                {%- if block.settings.title != blank -%}
-                  <h3 class="heatingP-system-cards__card-title">{{ block.settings.title }}</h3>
-                {%- endif -%}
-                {%- if card_size_chart != blank -%}
-                  <div class="heatingP-system-cards__size-guide">
-                    {%- render 'size-chart-component',
-                      size_chart: card_size_chart,
-                      product: card_product,
-                      product_title: card_product.title,
-                      id: size_chart_id
-                    -%}
-                  </div>
-                {%- endif -%}
-              </div>
+              {%- if block.settings.title != blank -%}
+                <h3 class="heatingP-system-cards__card-title">{{ block.settings.title }}</h3>
+              {%- endif -%}
               {%- if card_product != blank or block.settings.discount != blank -%}
                 <div class="heatingP-system-cards__price-row">
                   {%- if card_product != blank -%}
@@ -305,6 +286,16 @@
                   {%- endif -%}
                   {%- if block.settings.discount != blank -%}
                     <span class="heatingP-system-cards__discount">{{ block.settings.discount }}</span>
+                  {%- endif -%}
+                  {%- if card_size_chart != blank -%}
+                    <div class="heatingP-system-cards__size-guide">
+                      {%- render 'size-chart-component',
+                        size_chart: card_size_chart,
+                        product: card_product,
+                        product_title: card_product.title,
+                        id: size_chart_id
+                      -%}
+                    </div>
                   {%- endif -%}
                 </div>
               {%- endif -%}

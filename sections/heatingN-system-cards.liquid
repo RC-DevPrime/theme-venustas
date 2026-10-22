@@ -77,6 +77,10 @@
     object-fit: contain;
   }
 
+  #shopify-section-{{ section.id }} .heatingN-system-cards__image--base {
+    transition: opacity .25s ease;
+  }
+
   #shopify-section-{{ section.id }} .heatingN-system-cards__image--hover {
     position: absolute;
     inset: 0;
@@ -100,7 +104,11 @@
   }
 
   @media (hover: hover) and (pointer: fine) {
-    #shopify-section-{{ section.id }} .heatingN-system-cards__card:hover .heatingN-system-cards__image--hover {
+    #shopify-section-{{ section.id }} .heatingN-system-cards__card--has-hover-image:hover .heatingN-system-cards__image--base {
+      opacity: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-system-cards__card--has-hover-image:hover .heatingN-system-cards__image--hover {
       opacity: 1;
     }
   }
@@ -111,6 +119,10 @@
 
   #shopify-section-{{ section.id }} .heatingN-system-cards__card.is-touch-hover .heatingN-system-cards__image--hover {
     opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__card--has-hover-image.is-touch-hover .heatingN-system-cards__image--base {
+    opacity: 0;
   }
 
   #shopify-section-{{ section.id }} .heatingN-system-cards__badge {
@@ -326,13 +338,13 @@
         {%- endif -%}
 
         <article
-          class="heatingN-system-cards__card{% if block.settings.badge != blank %} heatingN-system-cards__card--featured{% endif %}{% if card_product != blank %} heatingN-system-cards__card--linked{% endif %}"
+          class="heatingN-system-cards__card{% if block.settings.badge != blank %} heatingN-system-cards__card--featured{% endif %}{% if card_product != blank %} heatingN-system-cards__card--linked{% endif %}{% if hover_image != blank %} heatingN-system-cards__card--has-hover-image{% endif %}"
           {% if card_product != blank %}data-product-url="{{ card_product.url }}"{% endif %}
           {{ block.shopify_attributes }}
         >
           <div class="heatingN-system-cards__media">
             {%- if block.settings.image != blank -%}
-              {{ block.settings.image | image_url: width: 900 | image_tag: class: 'heatingN-system-cards__image', loading: 'lazy', widths: '350, 430, 650, 900', sizes: '(max-width: 767px) calc(100vw - 40px), 430px', alt: block.settings.title }}
+              {{ block.settings.image | image_url: width: 900 | image_tag: class: 'heatingN-system-cards__image heatingN-system-cards__image--base', loading: 'lazy', widths: '350, 430, 650, 900', sizes: '(max-width: 767px) calc(100vw - 40px), 430px', alt: block.settings.title }}
             {%- endif -%}
             {%- if hover_image != blank -%}
               {{ hover_image | image_url: width: 900 | image_tag: class: 'heatingN-system-cards__image heatingN-system-cards__image--hover', loading: 'lazy', widths: '350, 430, 650, 900', sizes: '(max-width: 767px) calc(100vw - 40px), 430px', alt: block.settings.title }}
