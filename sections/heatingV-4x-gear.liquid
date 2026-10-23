@@ -50,11 +50,11 @@
     opacity: 1;
   }
 
-  #shopify-section-{{ section.id }} .heatingV-4x-gear.is-inview .heatingV-4x-gear__figure--first {
+  #shopify-section-{{ section.id }} .heatingV-4x-gear.is-image-inview .heatingV-4x-gear__figure--first {
     opacity: 0;
   }
 
-  #shopify-section-{{ section.id }} .heatingV-4x-gear.is-inview .heatingV-4x-gear__figure--second {
+  #shopify-section-{{ section.id }} .heatingV-4x-gear.is-image-inview .heatingV-4x-gear__figure--second {
     opacity: 1;
   }
 
@@ -197,7 +197,7 @@
     align-items: center;
     overflow: hidden;
     background: linear-gradient(90deg, #da642a 0%, #b63004 59.615%, #952500 100%);
-    transition: width 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s;
+    transition: width 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
   #shopify-section-{{ section.id }} .heatingV-4x-gear__fill-label {
@@ -213,14 +213,14 @@
     flex: none;
     width: 0;
     background: #6c757d;
-    transition: width 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s;
+    transition: width 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
-  #shopify-section-{{ section.id }} .heatingV-4x-gear.is-inview .heatingV-4x-gear__fill--volcano {
+  #shopify-section-{{ section.id }} .heatingV-4x-gear.is-bars-inview .heatingV-4x-gear__fill--volcano {
     width: 100%;
   }
 
-  #shopify-section-{{ section.id }} .heatingV-4x-gear.is-inview .heatingV-4x-gear__fill--standard {
+  #shopify-section-{{ section.id }} .heatingV-4x-gear.is-bars-inview .heatingV-4x-gear__fill--standard {
     width: 132px;
   }
 
@@ -305,19 +305,19 @@
     /* Hold the first frame long enough to read it before the crossfade starts,
        then dissolve and grow the bars more slowly than on desktop. */
     #shopify-section-{{ section.id }} .heatingV-4x-gear__figure {
-      transition: opacity 1.8s ease 1.2s;
+      transition: opacity 1.8s ease;
     }
 
     #shopify-section-{{ section.id }} .heatingV-4x-gear__fill--volcano,
     #shopify-section-{{ section.id }} .heatingV-4x-gear__fill--standard {
-      transition: width 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s;
+      transition: width 2.4s cubic-bezier(0.22, 0.61, 0.36, 1);
     }
 
     #shopify-section-{{ section.id }} .heatingV-4x-gear__row {
       gap: 16px;
     }
 
-    #shopify-section-{{ section.id }} .heatingV-4x-gear.is-inview .heatingV-4x-gear__fill--standard {
+    #shopify-section-{{ section.id }} .heatingV-4x-gear.is-bars-inview .heatingV-4x-gear__fill--standard {
       width: 70px;
     }
   }
@@ -439,13 +439,13 @@
     sectionRoot.dataset.heatingVPowerReady = 'true';
 
     const NO_TRANSITION = 'heatingV-4x-gear--no-transition';
-    const FIRST_FRAME_DELAY = {{ section.settings.first_frame_duration | default: 3 | times: 1000 }};
+    const FIRST_FRAME_DELAY = {{ section.settings.first_frame_duration | default: 1 | times: 1000 }};
     let playing = false;
     let frameTimer;
 
     const rewind = () => {
       target.classList.add(NO_TRANSITION);
-      target.classList.remove('is-inview');
+      target.classList.remove('is-image-inview', 'is-bars-inview');
       void target.offsetWidth;
       target.classList.remove(NO_TRANSITION);
     };
@@ -454,8 +454,9 @@
       if (playing) return;
       playing = true;
       rewind();
+      target.classList.add('is-bars-inview');
       frameTimer = window.setTimeout(() => {
-        if (playing) target.classList.add('is-inview');
+        if (playing) target.classList.add('is-image-inview');
       }, FIRST_FRAME_DELAY);
     };
 
@@ -471,22 +472,16 @@
       return;
     }
 
-    // Play once ~20% of the section is on screen; rewind as soon as it's nearly
-    // gone, with a small band between the two so a slow scroll can't flicker.
+    // Start at ~20% visibility; rewind as soon as the section is nearly gone,
+    // with a small band between the two so a slow scroll can't flicker.
     const PLAY_AT = 0.2;
     const RESET_BELOW = 0.08;
-    const isMobile = window.matchMedia('(max-width: 767px)');
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.intersectionRatio >= PLAY_AT) {
-          const firstPlay = !playing;
           play();
-          // On phones the section is taller than the viewport, so any rewind
-          // would land while part of it is still on screen. Play it through
-          // once and stop watching, leaving the finished state in place.
-          if (firstPlay && isMobile.matches) observer.unobserve(entry.target);
-        } else if (!isMobile.matches && entry.intersectionRatio < RESET_BELOW) {
+        } else if (entry.intersectionRatio < RESET_BELOW) {
           reset();
         }
       });
@@ -528,7 +523,7 @@
       "max": 10,
       "step": 1,
       "unit": "s",
-      "default": 3
+      "default": 1
     },
     {
       "type": "header",

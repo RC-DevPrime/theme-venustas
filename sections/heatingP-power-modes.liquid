@@ -316,7 +316,9 @@
             <h3 class="heatingP-power-modes__card-title">ON THE BIKE</h3>
           </a>
           <div class="heatingP-power-modes__copy">
-            <p class="heatingP-power-modes__label">Motorcycle 12V</p>
+            <p class="heatingP-power-modes__label">
+              <a class="heatingP-power-modes__card-link" href="{{ section.settings.bike_link | default: '#' }}">Motorcycle 12V</a>
+            </p>
             <p class="heatingP-power-modes__text">Wire the Y cable to your battery once. After that it's one click on the way out of the garage, and the heat doesn't stop until you do.</p>
           </div>
           <ul class="heatingP-power-modes__list">
@@ -342,7 +344,10 @@
           <div class="heatingP-power-modes__copy">
             <div class="heatingP-power-modes__label">
               {%- if battery_product != blank -%}
-                <span>{{ battery_product.title }} • {{ battery_product.price | money }}</span>
+                <span class='d-flex'>
+                  <a class="heatingP-power-modes__card-link" href="{{ battery_product.url | default: '#' }}">{{ battery_product.title }}</a>
+                  • {{ battery_product.price | money }}
+                </span>
               {%- endif -%}
               <span class="heatingP-power-modes__info" tabindex="0" aria-label="Battery runtime comparison">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
