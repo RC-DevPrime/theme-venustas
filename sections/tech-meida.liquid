@@ -304,6 +304,14 @@
 
     #{{ section_anchor | escape }} .venustas-tech-media-reco__arrow--prev { left: 6px; }
     #{{ section_anchor | escape }} .venustas-tech-media-reco__arrow--next { right: 6px; }
+
+    #{{ section_anchor | escape }} .venustas-tech-media-reco__viewport {
+      touch-action: pan-y;
+    }
+
+    #{{ section_anchor | escape }} .venustas-tech-media-reco__arrow {
+      display: none !important;
+    }
   }
 </style>
 
@@ -323,6 +331,12 @@
     var INTERVAL = {{ section.settings.autoplay_interval }} * 1000;
     var cloned = false;
     var transitioning = false;
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touchActive = false;
+    var touchMoved = false;
+    var suppressClick = false;
+    var SWIPE_THRESHOLD = 40;
 
     function cards() {
       return Array.prototype.slice.call(track.querySelectorAll('.venustas-tech-media-reco__card'));
@@ -413,6 +427,13 @@
       setPosition(index, false);
     }
 
+    function prevSlide() {
+      if (transitioning || realCards().length <= 1) return;
+      transitioning = true;
+      index -= 1;
+      setPosition(index, false);
+    }
+
     function stopAuto() {
       if (timer) {
         clearInterval(timer);
@@ -427,10 +448,7 @@
     }
 
     prev.addEventListener('click', function () {
-      if (transitioning || realCards().length <= 1) return;
-      transitioning = true;
-      index -= 1;
-      setPosition(index, false);
+      prevSlide();
       startAuto();
     });
 
@@ -438,6 +456,59 @@
       nextSlide();
       startAuto();
     });
+
+    viewport.addEventListener('touchstart', function (event) {
+      if (event.touches.length !== 1 || realCards().length <= 1) return;
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+      touchActive = true;
+      touchMoved = false;
+      suppressClick = false;
+      stopAuto();
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', function (event) {
+      if (event.touches.length !== 1 || !touchActive) return;
+      var deltaX = event.touches[0].clientX - touchStartX;
+      var deltaY = event.touches[0].clientY - touchStartY;
+      if (Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      if (Math.abs(deltaX) >= 10) touchMoved = true;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', function (event) {
+      if (!touchActive) return;
+      var deltaX = event.changedTouches[0].clientX - touchStartX;
+      var deltaY = event.changedTouches[0].clientY - touchStartY;
+      var isHorizontalSwipe = touchMoved && Math.abs(deltaX) >= SWIPE_THRESHOLD && Math.abs(deltaX) > Math.abs(deltaY);
+
+      if (isHorizontalSwipe) {
+        suppressClick = true;
+        if (deltaX < 0) nextSlide();
+        else prevSlide();
+      }
+
+      touchStartX = 0;
+      touchStartY = 0;
+      touchActive = false;
+      touchMoved = false;
+      startAuto();
+    }, { passive: true });
+
+    viewport.addEventListener('touchcancel', function () {
+      if (!touchActive) return;
+      touchStartX = 0;
+      touchStartY = 0;
+      touchActive = false;
+      touchMoved = false;
+      startAuto();
+    }, { passive: true });
+
+    viewport.addEventListener('click', function (event) {
+      if (!suppressClick) return;
+      event.preventDefault();
+      event.stopPropagation();
+      suppressClick = false;
+    }, true);
 
     track.addEventListener('transitionend', function () {
       if (!cloned) {
