@@ -38,25 +38,51 @@
     cursor: pointer;
   }
 
-  #shopify-section-{{ section.id }} .heatingP-video__autoplay-toggle {
+  #shopify-section-{{ section.id }} .heatingP-video__play-button {
     position: absolute;
-    right: 12px;
-    bottom: 12px;
+    top: 50%;
+    left: 50%;
     z-index: 1;
-    padding: 7px 10px;
+    display: inline-flex;
+    width: 64px;
+    height: 64px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
     border: 0;
-    border-radius: 999px;
+    border-radius: 50%;
     background: rgba(20, 22, 26, .78);
     color: #fff;
     cursor: pointer;
-    font: inherit;
-    font-size: 12px;
-    line-height: 1.2;
+    transform: translate(-50%, -50%);
+    transition: background .2s ease, transform .2s ease;
   }
 
-  #shopify-section-{{ section.id }} .heatingP-video__autoplay-toggle:hover,
-  #shopify-section-{{ section.id }} .heatingP-video__autoplay-toggle:focus-visible {
+  #shopify-section-{{ section.id }} .heatingP-video__play-button::before {
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 15px solid currentColor;
+    content: '';
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__play-button:hover,
+  #shopify-section-{{ section.id }} .heatingP-video__play-button:focus-visible {
     background: var(--color-brand, #b93205);
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__play-button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+  }
+
+  /* Keep the video paused until the viewer chooses to play it. */
+  #shopify-section-{{ section.id }} .heatingP-video__video {
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   #shopify-section-{{ section.id }} .heatingP-video__modal[hidden] {
@@ -235,8 +261,7 @@
         <div class="heatingP-video__media">
           {%- if block.settings.video != blank -%}
             {{ block.settings.video | video_tag: class: 'heatingP-video__video', autoplay: false, loop: true, muted: true, controls: false, playsinline: true, preload: 'metadata', image_size: '1200x' }}
-            <button class="heatingP-video__autoplay-toggle" type="button" data-autoplay-toggle data-autoplay-index="{{ forloop.index0 }}" aria-pressed="false">
-              <span data-autoplay-label>自动播放：关</span>
+            <button class="heatingP-video__play-button" type="button" data-video-play aria-label="Play video full screen">
             </button>
           {%- endif -%}
         </div>
@@ -267,60 +292,11 @@
     section.dataset.initialized = 'true';
 
     const videos = [...section.querySelectorAll('.heatingP-video__video')];
-    const autoplayToggles = [...section.querySelectorAll('[data-autoplay-toggle]')];
+    const playButtons = [...section.querySelectorAll('[data-video-play]')];
     const modal = section.querySelector('[data-video-modal]');
     const modalContent = section.querySelector('.heatingP-video__modal-content');
     const modalVideo = section.querySelector('[data-modal-video]');
     const closeButton = section.querySelector('[data-video-close]');
-    const autoplayStorageKey = 'heatingPVideoAutoplay-{{ section.id }}';
-    const videoEntries = videos.map((video, index) => ({
-      video,
-      toggle: autoplayToggles[index],
-      enabled: false
-    }));
-
-    try {
-      const storedAutoplay = JSON.parse(window.localStorage.getItem(autoplayStorageKey) || '{}');
-      videoEntries.forEach((entry, index) => {
-        if (typeof storedAutoplay[index] === 'boolean') entry.enabled = storedAutoplay[index];
-      });
-    } catch (error) {
-      // Local storage can be unavailable in private browsing contexts.
-    }
-
-    const saveAutoplayStates = () => {
-      try {
-        window.localStorage.setItem(
-          autoplayStorageKey,
-          JSON.stringify(videoEntries.map((entry) => entry.enabled))
-        );
-      } catch (error) {
-        // Local storage can be unavailable in private browsing contexts.
-      }
-    };
-
-    const updateAutoplayState = (entry, shouldAutoplay, persist = true) => {
-      entry.enabled = shouldAutoplay;
-      const { video, toggle } = entry;
-      video.autoplay = entry.enabled;
-      video.muted = true;
-      if (entry.enabled) {
-        video.setAttribute('autoplay', '');
-        video.play().catch(() => {});
-      } else {
-        video.removeAttribute('autoplay');
-        video.pause();
-      }
-
-      if (toggle) {
-        toggle.setAttribute('aria-pressed', String(entry.enabled));
-        const label = toggle.querySelector('[data-autoplay-label]');
-        if (label) label.textContent = entry.enabled ? '自动播放：开' : '自动播放：关';
-      }
-
-      if (persist) saveAutoplayStates();
-    };
-
     const closeModal = () => {
       if (document.fullscreenElement && document.exitFullscreen) {
         document.exitFullscreen().catch(() => {});
@@ -331,9 +307,6 @@
       modal.hidden = true;
       modal.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('heatingP-video-modal-open');
-      videoEntries.forEach((entry) => {
-        if (entry.enabled) entry.video.play().catch(() => {});
-      });
     };
 
     const openModal = (video) => {
@@ -355,30 +328,22 @@
       }
     };
 
-    videoEntries.forEach((entry) => updateAutoplayState(entry, entry.enabled, false));
-    saveAutoplayStates();
-
-    autoplayToggles.forEach((toggle, index) => {
-      toggle.dataset.autoplayIndex = String(index);
-      toggle.addEventListener('click', (event) => {
-        event.stopPropagation();
-        const entry = videoEntries[Number(toggle.dataset.autoplayIndex)];
-        if (entry) updateAutoplayState(entry, !entry.enabled);
-      });
-    });
-
-    videos.forEach((video) => {
+    videos.forEach((video, index) => {
       const media = video.closest('.heatingP-video__media');
       if (!media) return;
 
+      const playButton = playButtons[index];
+      playButton?.addEventListener('click', (event) => {
+        event.stopPropagation();
+        openModal(video);
+      });
+
       media.addEventListener('click', (event) => {
-        if (event.target.closest('[data-autoplay-toggle]')) return;
         openModal(video);
       });
 
       media.addEventListener('keydown', (event) => {
         if (event.key !== 'Enter' && event.key !== ' ') return;
-        if (event.target.closest('[data-autoplay-toggle]')) return;
         event.preventDefault();
         openModal(video);
       });
