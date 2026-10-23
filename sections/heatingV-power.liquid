@@ -88,9 +88,33 @@
     object-fit: cover;
   }
 
-  #shopify-section-{{ section.id }} .heatingv-power__fullscreen-button { position: absolute; z-index: 2; top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 999px; background: rgba(0, 0, 0, .72); color: #fff; cursor: pointer; font-size: 26px; line-height: 1; }
-  #shopify-section-{{ section.id }} .heatingv-power__media.is-video-fullscreen .heatingv-power__fullscreen-button { display: inline-flex; align-items: center; justify-content: center; }
-  #shopify-section-{{ section.id }} .heatingv-power__media.is-video-fullscreen { position: fixed; z-index: 2147483647; inset: 0; width: 100vw; height: 100dvh; max-width: none; border-radius: 0; background: #000; }
+  #shopify-section-{{ section.id }} .heatingv-power__close-button {
+    position: absolute;
+    z-index: 2;
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, .72);
+    color: #fff;
+    cursor: pointer;
+    font-size: 28px;
+    line-height: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingv-power__media.is-video-fullscreen {
+    position: fixed;
+    z-index: 2147483647;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    border-radius: 0;
+    background: #000;
+  }
 
   #shopify-section-{{ section.id }} .heatingv-power__placeholder {
     width: 100%;
@@ -175,7 +199,7 @@
             preload: 'none',
             image_size: '1400x'
         }}
-        <button type="button" class="heatingv-power__fullscreen-button" data-video-fullscreen-toggle aria-label="Open video fullscreen">⛶</button>
+        <button type="button" class="heatingv-power__close-button" data-video-fullscreen-toggle aria-label="Open video fullscreen">⛶</button>
       {%- else -%}
         <div class="heatingv-power__placeholder"></div>
       {%- endif -%}
@@ -192,14 +216,40 @@
     if (!videos.length) return;
     sectionRoot.dataset.inViewVideoReady = 'true';
 
-    const setMuted = (video) => { video.defaultMuted = true; video.muted = true; video.volume = 0; video.setAttribute('muted', ''); video.setAttribute('controlslist', 'nofullscreen noremoteplayback'); video.setAttribute('disablepictureinpicture', ''); };
-    const media = sectionRoot.querySelector('.heatingv-power__media');
-    const button = media && media.querySelector('[data-video-fullscreen-toggle]');
-    const closeFullscreen = () => { if (document.fullscreenElement === media && document.exitFullscreen) document.exitFullscreen().catch(() => {}); media.classList.remove('is-video-fullscreen'); button.textContent = '⛶'; button.setAttribute('aria-label', 'Open video fullscreen'); };
-    const openFullscreen = () => { media.classList.add('is-video-fullscreen'); button.textContent = '×'; button.setAttribute('aria-label', 'Close video fullscreen'); if (media.requestFullscreen) media.requestFullscreen().catch(() => {}); };
-    videos.forEach((video) => { setMuted(video); video.addEventListener('volumechange', () => { if (!video.muted || video.volume !== 0) setMuted(video); }); });
-    if (button) button.addEventListener('click', () => media.classList.contains('is-video-fullscreen') ? closeFullscreen() : openFullscreen());
-    document.addEventListener('fullscreenchange', () => { if (media && media.classList.contains('is-video-fullscreen') && document.fullscreenElement !== media) closeFullscreen(); });
+    videos.forEach((video) => {
+      video.setAttribute('controlslist', 'nofullscreen noremoteplayback');
+      video.setAttribute('disablepictureinpicture', '');
+      const media = video.closest('.heatingv-power__media');
+      const button = media?.querySelector('[data-video-fullscreen-toggle]');
+      if (!media || !button) return;
+
+      button.addEventListener('click', () => {
+        if (media.classList.contains('is-video-fullscreen')) {
+          if (document.fullscreenElement === media && document.exitFullscreen) document.exitFullscreen().catch(() => {});
+          media.classList.remove('is-video-fullscreen');
+          button.textContent = '⛶';
+          button.setAttribute('aria-label', 'Open video fullscreen');
+          return;
+        }
+
+        media.classList.add('is-video-fullscreen');
+        button.textContent = '×';
+        button.setAttribute('aria-label', 'Close video fullscreen');
+        if (media.requestFullscreen) media.requestFullscreen().catch(() => {});
+      });
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      sectionRoot.querySelectorAll('.heatingv-power__media.is-video-fullscreen').forEach((media) => {
+        if (document.fullscreenElement === media) return;
+        media.classList.remove('is-video-fullscreen');
+        const button = media.querySelector('[data-video-fullscreen-toggle]');
+        if (button) {
+          button.textContent = '⛶';
+          button.setAttribute('aria-label', 'Open video fullscreen');
+        }
+      });
+    });
 
     const playVideo = (video) => {
       const playPromise = video.play();
