@@ -56,6 +56,14 @@
           "type": "divider",
           "settings": {}
         },
+        "selleasy_lb_upsell_widget_pal_UW8EbH": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
         "hightlights_4aek9f": {
           "type": "hightlights",
           "settings": {
@@ -69,14 +77,6 @@
         },
         "availability_VXL6mU": {
           "type": "availability",
-          "settings": {}
-        },
-        "selleasy_lb_upsell_widget_pal_UW8EbH": {
-          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
-          "settings": {}
-        },
-        "quantity_atc_nEzPi6": {
-          "type": "quantity_atc",
           "settings": {}
         },
         "support_product_RGhgRP": {
@@ -173,10 +173,10 @@
           "settings": {
             "x_position": 21,
             "y_position": 70,
-            "heading": "12-Hour Long-Lasting Runtime",
-            "description": "<p>Stay warm all day with up to 12 hours of heat and 3 adjustable heating levels: High (144°F, 3 hrs), Medium (130°F, 8 hrs), and Low (112°F, 12 hrs). Whether you need a quick burst of heat or steady warmth for extended wear, this heated coat delivers reliable performance for any activity.</p>",
+            "heading": "10-Hour Long-Lasting Runtime",
+            "description": "<p>Stay warm all day with up to 10 hours of heat and 3 adjustable heating levels: High (144°F, 3 hrs), Medium (130°F, 8 hrs), and Low (112°F, 12 hrs). Whether you need a quick burst of heat or steady warmth for extended wear, this heated coat delivers reliable performance for any activity.</p>",
             "video_or_image": "image",
-            "image": "shopify://shop_images/long-lasting-hours-7.5K-12.jpg"
+            "image": "shopify://shop_images/long-lasting-hours-5K-10.jpg"
           }
         },
         "hotspot_video_8PGkgd": {
@@ -250,9 +250,9 @@
           "settings": {
             "heading": "7.5K",
             "low_range_temperature": 112,
-            "low_range_heating_duration": 12,
+            "low_range_heating_duration": 8,
             "medium_range_temperature": 130,
-            "medium_range_heating_duration": 8,
+            "medium_range_heating_duration": 6,
             "high_range_temperature": 144,
             "high_range_heating_duration": 3
           }
@@ -624,7 +624,6 @@
     },
     "product_compare_tab_tEUPPC": {
       "type": "product-compare-tab",
-      "disabled": true,
       "blocks": {
         "compare_item_3Wz694": {
           "type": "compare_item",
@@ -719,6 +718,7 @@
         "compare_item_FCHLcf",
         "compare_item_VtVi3P"
       ],
+      "disabled": true,
       "name": "Compare Tab Section",
       "settings": {
         "enabled_section_child_scroll": false,
