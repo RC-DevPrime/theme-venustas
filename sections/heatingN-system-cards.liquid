@@ -5,7 +5,9 @@
     font-family: var(--font-primary, 'Montserrat', sans-serif);
     padding: 100px 0;
   }
-
+  #shopify-section-{{ section.id }} .swym-wishlist-collections-v2-container{
+    display: none;
+  }
   #shopify-section-{{ section.id }} .heatingN-system-cards__inner {
     width: min(calc(100% - 40px), 1200px);
     margin: 0 auto;
@@ -104,11 +106,11 @@
   }
 
   @media (hover: hover) and (pointer: fine) {
-    #shopify-section-{{ section.id }} .heatingN-system-cards__card--has-hover-image:hover .heatingN-system-cards__image--base {
+    #shopify-section-{{ section.id }} .heatingN-system-cards__card--has-hover-image .heatingN-system-cards__media:hover .heatingN-system-cards__image--base {
       opacity: 0;
     }
 
-    #shopify-section-{{ section.id }} .heatingN-system-cards__card--has-hover-image:hover .heatingN-system-cards__image--hover {
+    #shopify-section-{{ section.id }} .heatingN-system-cards__card--has-hover-image .heatingN-system-cards__media:hover .heatingN-system-cards__image--hover {
       opacity: 1;
     }
   }
