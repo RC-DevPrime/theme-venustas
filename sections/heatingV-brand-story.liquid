@@ -64,7 +64,7 @@
     font-weight: 800;
     line-height: 1.35;
     text-align: center;
-    opacity: var(--story-heading-opacity, 0);
+    opacity: var(--story-heading-opacity, 1);
     transform: translate(-50%, -50%);
     will-change: transform, opacity;
   }
@@ -426,7 +426,7 @@
       const gradMid = mixColor([255, 191, 170], [255, 132, 92], gradientDepth);
       const gradEnd = mixColor([255, 224, 214], [255, 193, 170], gradientDepth);
 
-      section.style.setProperty('--story-heading-opacity', intro.toFixed(3));
+      section.style.setProperty('--story-heading-opacity', '1');
       section.style.setProperty('--story-heading-y', `${headingY.toFixed(2)}%`);
       section.style.setProperty('--story-base-opacity', (1 - gradientEnter).toFixed(3));
       section.style.setProperty('--story-gradient-opacity', (gradientEnter * (1 - finalGradient)).toFixed(3));

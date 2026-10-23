@@ -39,7 +39,7 @@
     font-weight: 800;
     line-height: 1.35;
     text-align: center;
-    opacity: var(--story-heading-opacity, 0);
+    opacity: var(--story-heading-opacity, 1);
     transform: translate(-50%, calc(-50% + var(--story-heading-y, 0px)));
     will-change: transform, opacity;
   }
@@ -287,7 +287,6 @@
       const rect = section.getBoundingClientRect();
       const distance = Math.max(section.offsetHeight - window.innerHeight, 1);
       const progress = clamp(-rect.top / distance);
-      const intro = range(progress, 0.03, 0.18);
       const gradientEnter = range(progress, 0.25, 0.5);
       const gradientDepth = range(progress, 0.38, 0.72);
       const finale = range(progress, 0.66, 0.84);
@@ -298,7 +297,7 @@
       const gradMid = mixColor([255, 191, 170], [255, 132, 92], gradientDepth);
       const gradEnd = mixColor([255, 224, 214], [255, 193, 170], gradientDepth);
 
-      section.style.setProperty('--story-heading-opacity', intro.toFixed(3));
+      section.style.setProperty('--story-heading-opacity', '1');
       section.style.setProperty('--story-heading-y', `${headingY.toFixed(2)}px`);
       section.style.setProperty('--story-base-opacity', (1 - gradientEnter).toFixed(3));
       section.style.setProperty('--story-gradient-opacity', gradientEnter.toFixed(3));
