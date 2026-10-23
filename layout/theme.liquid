@@ -332,13 +332,39 @@
       </script>
       <!-- End Microsoft Clarity -->
       
-    <style>
-      @media only screen and (max-width: 767px) {
-        button.smile-improved-mobile-launcher {
-          display: none !important;
+   
+    <script>
+      (function () {
+        var launcherSelector = 'button.smile-improved-mobile-launcher';
+        var mobileQuery = window.matchMedia('(max-width: 767px)');
+
+        function updateSmileLauncherVisibility() {
+          document.querySelectorAll(launcherSelector).forEach(function (launcher) {
+            if (mobileQuery.matches) {
+              if (launcher.style.getPropertyValue('display') !== 'none' || launcher.style.getPropertyPriority('display') !== 'important') {
+                launcher.style.setProperty('display', 'none', 'important');
+              }
+            } else {
+              launcher.style.removeProperty('display');
+            }
+          });
         }
-      }
-    </style>
+
+        updateSmileLauncherVisibility();
+        new MutationObserver(updateSmileLauncherVisibility).observe(document.documentElement, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['class', 'style']
+        });
+
+        if (mobileQuery.addEventListener) {
+          mobileQuery.addEventListener('change', updateSmileLauncherVisibility);
+        } else {
+          mobileQuery.addListener(updateSmileLauncherVisibility);
+        }
+      })();
+    </script>
     {% include 'pagefly-app-header' %}</head>
 
     <body>
