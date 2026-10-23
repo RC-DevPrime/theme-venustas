@@ -1055,6 +1055,49 @@ a.f-white:hover{
     font-size: 11px;
     font-weight:400;
 }
+.header .announcement-countdown-line{
+    display:flex;
+    width:max-content;
+    margin:0 auto;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:nowrap;
+    gap:16px;
+    white-space:nowrap;
+}
+.header .announcement-countdown-copy{
+    display:inline-block;
+    flex:0 0 auto;
+    white-space:nowrap;
+}
+.header .announcement-countdown-copy p{
+    display:inline;
+    margin:0;
+}
+.header .announcement-countdown-timer{
+    display:flex;
+    flex:0 0 auto;
+    align-items:center;
+    gap:4px;
+    white-space:nowrap;
+}
+.header .announcement-countdown-timer .date-time-container{
+    display:flex;
+    flex:0 0 auto;
+    align-items:center;
+    white-space:nowrap;
+}
+.header .countdown-bar .announcement-content{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.header .countdown-bar .announcement-marquee-viewport{
+    display:block;
+    width:fit-content;
+    max-width:100%;
+    overflow:hidden;
+}
 .header .announcement-content .date-time-container .data-day,
 .header .announcement-content .date-time-container .data-hours,
 .header .announcement-content .date-time-container .data-minutes,
@@ -2972,6 +3015,12 @@ a.f-white:hover{
         display:block;
         flex:0 0 auto;
         white-space:nowrap;
+    }
+    .header .announcement-countdown-line{
+        gap:8px;
+    }
+    .header .announcement-countdown-timer{
+        gap:3px;
     }
     .header .announcement-marquee-viewport.is-marquee .announcement-marquee-track{
         gap:32px;

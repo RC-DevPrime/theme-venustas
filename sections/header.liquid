@@ -102,24 +102,34 @@
                                       <div class="swiper-slide countdown-bar" data-set-date="{{ block.settings.date_time }}">
                                           <div class="announcement-content" style="color:{{ section.settings.text_color }};">
 
-                                              <div class="d-flex align-items-center justify-content-center flex-lg-row flex-md-row flex-sm-column gap-lg-4 gap-md-2 gap-sm-2">
-                                                  {{ block.settings.announcement_content }}
-
-                                                  <div class="d-flex gap-1">
-                                                      <div class="date-time-container d-flex flex-lg-column flex-md-column flex-sm-row gap-lg-0 gap-md-0 gap-sm-1 align-items-center">
+                                              <span class="announcement-marquee-viewport">
+                                                <span class="announcement-marquee-track">
+                                                  <span class="announcement-marquee-item">
+                                                    <span class="announcement-countdown-line">
+                                                      <span class="announcement-countdown-copy">
+                                                        {{ block.settings.announcement_content
+                                                          | replace: '<p>', ''
+                                                          | replace: '</p>', ''
+                                                        }}
+                                                      </span>
+                                                      <span class="announcement-countdown-timer">
+                                                        <span class="date-time-container">
                                                           <span class="data-day">00</span> Days
-                                                      </div>
-                                                      <div class="date-time-container d-flex flex-lg-column flex-md-column flex-sm-row gap-lg-0 gap-md-0 gap-sm-1 align-items-center">
+                                                        </span>
+                                                        <span class="date-time-container">
                                                           <span class="data-hours">00</span> Hrs
-                                                      </div>
-                                                      <div class="date-time-container d-flex flex-lg-column flex-md-column flex-sm-row gap-lg-0 gap-md-0 gap-sm-1 align-items-center">
+                                                        </span>
+                                                        <span class="date-time-container">
                                                           <span class="data-minutes">00</span> Mins
-                                                      </div>
-                                                      <div class="date-time-container d-flex flex-lg-column flex-md-column flex-sm-row gap-lg-0 gap-md-0 gap-sm-1 align-items-center">
+                                                        </span>
+                                                        <span class="date-time-container">
                                                           <span class="data-seconds">00</span> Secs
-                                                      </div>
-                                                  </div>
-                                              </div>
+                                                        </span>
+                                                      </span>
+                                                    </span>
+                                                  </span>
+                                                </span>
+                                              </span>
 
                                           </div>
                                       </div>
