@@ -1,0 +1,151 @@
+{%- liquid
+  assign promotion_type = blank
+
+  if product.tags contains 'promo_weekly'
+    assign promotion_type = 'weekly'
+  elsif product.tags contains 'promo_monthly'
+    assign promotion_type = 'monthly'
+  endif
+
+  assign promotion_link = blank
+  assign promotion_title = blank
+  assign promotion_background = blank
+  assign promotion_background_mobile = blank
+  assign promotion_show_countdown = false
+  assign promotion_end_at = blank
+
+  if promotion_type == 'weekly'
+    assign promotion_link = settings.promo_weekly_link
+    assign promotion_title = settings.promo_weekly_title | default: 'Weekly Deals• Extra savings, auto-applied'
+    if settings.promo_weekly_background != blank
+      assign promotion_background = settings.promo_weekly_background | image_url: width: 1600
+    endif
+    if settings.promo_weekly_background_mobile != blank
+      assign promotion_background_mobile = settings.promo_weekly_background_mobile | image_url: width: 800
+    endif
+    assign promotion_show_countdown = settings.promo_weekly_show_countdown
+    assign promotion_end_at = settings.promo_weekly_end_at | strip
+  elsif promotion_type == 'monthly'
+    assign promotion_link = settings.promo_monthly_link
+    assign promotion_title = settings.promo_monthly_title | default: 'Fall Mega Sale • Up to [45%] off'
+    if settings.promo_monthly_background != blank
+      assign promotion_background = settings.promo_monthly_background | image_url: width: 1600
+    endif
+    if settings.promo_monthly_background_mobile != blank
+      assign promotion_background_mobile = settings.promo_monthly_background_mobile | image_url: width: 800
+    endif
+    assign promotion_show_countdown = settings.promo_monthly_show_countdown
+    assign promotion_end_at = settings.promo_monthly_end_at | strip
+  endif
+
+  if promotion_background == blank
+    assign promotion_background = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/heatingP-banner.webp?v=1792035932'
+  endif
+
+  if promotion_background_mobile == blank
+    assign promotion_background_mobile = promotion_background
+  endif
+-%}
+
+{%- if promotion_type != blank and promotion_link != blank -%}
+  {%- if promotion_type == 'weekly' and promotion_show_countdown and promotion_end_at == blank -%}
+    {%- comment -%}
+      A weekly promotion with countdown enabled must have an end time.
+      This prevents an accidentally permanent promotion banner.
+    {%- endcomment -%}
+  {%- else -%}
+    <div
+      class="product-promotion product-promotion--{{ promotion_type }}"
+      data-product-promotion
+      data-promotion-type="{{ promotion_type }}"
+      style="--product-promotion-background-image: url('{{ promotion_background }}'); --product-promotion-background-image-mobile: url('{{ promotion_background_mobile }}');"
+      {% if promotion_show_countdown and promotion_end_at != blank %}data-promotion-end-at="{{ promotion_end_at | escape }}"{% endif %}
+    >
+      <a
+        class="product-promotion__link"
+        href="{{ promotion_link | escape }}"
+        aria-label="{{ promotion_title | escape }}"
+      >
+        <span class="product-promotion__icon" aria-hidden="true">
+            {% if promotion_type == 'weekly' %}
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 5.49998V11L14.6666 12.8333M20.1666 11C20.1666 16.0626 16.0626 20.1666 11 20.1666C5.93737 20.1666 1.83331 16.0626 1.83331 11C1.83331 5.93737 5.93737 1.83331 11 1.83331C16.0626 1.83331 20.1666 5.93737 20.1666 11Z" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" stroke="white"/>
+              </svg>
+            {% else %}
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.66667 6.41669H18.3333C18.8396 6.41669 19.25 6.82709 19.25 7.33335V17.4167C19.25 17.9229 18.8396 18.3334 18.3333 18.3334H3.66667C3.16041 18.3334 2.75 17.9229 2.75 17.4167V7.33335C2.75 6.82709 3.16041 6.41669 3.66667 6.41669Z" stroke-width="1.65" stroke="white"/>
+                <path d="M2.75 10.0833H11M11 10.0833H19.25M11 10.0833V6.41667M11 10.0833V18.3333M11 6.41667C9.16667 2.75001 5.5 2.75001 5.5 5.04167C5.5 7.33334 9.16667 6.41667 11 6.41667ZM11 6.41667C12.8333 2.75001 16.5 2.75001 16.5 5.04167C16.5 7.33334 12.8333 6.41667 11 6.41667Z" stroke-width="1.65" stroke="white"/>
+              </svg>
+            {% endif %}
+        </span>
+
+        <span class="product-promotion__content">
+          <span class="product-promotion__title">{{ promotion_title }}</span>
+          {%- if promotion_show_countdown and promotion_end_at != blank -%}
+            <span class="product-promotion__subtitle" data-promotion-countdown-wrapper>
+                Ends in <span data-promotion-countdown  class='product-promotion__countdown' aria-live="polite"></span>
+            </span>
+          {%- endif -%}
+        </span>
+
+        <span class="product-promotion__arrow" aria-hidden="true">›</span>
+      </a>
+    </div>
+
+    {%- if promotion_show_countdown and promotion_end_at != blank -%}
+      <script>
+        (function () {
+          var banner = document.querySelector('[data-product-promotion][data-promotion-end-at]');
+          if (!banner || banner.dataset.promotionCountdownInitialized === 'true') return;
+
+          var countdown = banner.querySelector('[data-promotion-countdown]');
+          var countdownWrapper = banner.querySelector('[data-promotion-countdown-wrapper]');
+          var promotionType = banner.dataset.promotionType;
+          var endAt = Date.parse(banner.dataset.promotionEndAt);
+          if (!countdown || Number.isNaN(endAt)) {
+            if (promotionType === 'weekly') {
+              banner.remove();
+            } else if (countdownWrapper) {
+              countdownWrapper.remove();
+            }
+            return;
+          }
+
+          banner.dataset.promotionCountdownInitialized = 'true';
+
+          function formatRemaining(milliseconds) {
+            var totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+            var days = Math.floor(totalSeconds / 86400);
+            var hours = Math.floor((totalSeconds % 86400) / 3600);
+            var minutes = Math.floor((totalSeconds % 3600) / 60);
+            var seconds = totalSeconds % 60;
+
+            return days + 'd ' + [hours, minutes, seconds].map(function (value) {
+              return String(value).padStart(2, '0');
+            }).join(':');
+          }
+
+          var timer = null;
+
+          function updateCountdown() {
+            var remaining = endAt - Date.now();
+            if (remaining <= 0) {
+              if (timer) window.clearInterval(timer);
+              if (promotionType === 'weekly') {
+                banner.remove();
+              } else if (countdownWrapper) {
+                countdownWrapper.remove();
+              }
+              return;
+            }
+
+            countdown.textContent = formatRemaining(remaining);
+          }
+
+          updateCountdown();
+          if (banner.isConnected) timer = window.setInterval(updateCountdown, 1000);
+        }());
+      </script>
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
