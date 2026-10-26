@@ -1889,7 +1889,6 @@ and (max-device-width : 1024px){
 /* PRODUCT PROMOTION BANNER ------------------------------------ */
 .product .product-promotion {
     width: 100%;
-    margin-top: 8px;
     overflow: hidden;
     background-color: #4a2415;
     background-image: var(--product-promotion-background-image);
@@ -1900,7 +1899,7 @@ and (max-device-width : 1024px){
 
 .product .product-promotion__link {
     display: flex;
-    min-height: 76px;
+    min-height: 74px;
     align-items: center;
     gap: 14px;
     padding: 12px 18px;
@@ -1957,10 +1956,14 @@ and (max-device-width : 1024px){
 }
 
 .product .product-promotion__subtitle {
-    color: #f3c17a;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     line-height: 1.25;
+}
+
+.product .product-promotion__subtitle .product-promotion__countdown {
+    font-size:13px;
+    color:#29EF95;
 }
 
 .product .product-promotion__arrow {

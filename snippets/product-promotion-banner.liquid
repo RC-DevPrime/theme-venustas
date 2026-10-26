@@ -27,6 +27,8 @@
     if settings.promo_monthly_background != blank
       assign promotion_background = settings.promo_monthly_background | image_url: width: 1600
     endif
+    assign promotion_show_countdown = settings.promo_monthly_show_countdown
+    assign promotion_end_at = settings.promo_monthly_end_at | strip
   endif
 
   if promotion_background == blank
@@ -44,8 +46,9 @@
     <div
       class="product-promotion product-promotion--{{ promotion_type }}"
       data-product-promotion
+      data-promotion-type="{{ promotion_type }}"
       style="--product-promotion-background-image: url('{{ promotion_background }}');"
-      {% if promotion_type == 'weekly' and promotion_show_countdown %}data-promotion-end-at="{{ promotion_end_at | escape }}"{% endif %}
+      {% if promotion_show_countdown and promotion_end_at != blank %}data-promotion-end-at="{{ promotion_end_at | escape }}"{% endif %}
     >
       <a
         class="product-promotion__link"
@@ -53,19 +56,23 @@
         aria-label="{{ promotion_title | escape }}"
       >
         <span class="product-promotion__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" focusable="false" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 12v8.25A1.75 1.75 0 0 1 18.25 22H5.75A1.75 1.75 0 0 1 4 20.25V12m-1.5 0h19V8.75A1.75 1.75 0 0 0 19.75 7H4.25A1.75 1.75 0 0 0 2.5 8.75V12Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-            <path d="M12 7v15M2.5 12h19M12 7H8.75a2.25 2.25 0 1 1 2.25-2.25V7Zm0 0h3.25a2.25 2.25 0 1 0-2.25-2.25V7Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
+            {% if promotion_type == 'weekly' %}
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 5.49998V11L14.6666 12.8333M20.1666 11C20.1666 16.0626 16.0626 20.1666 11 20.1666C5.93737 20.1666 1.83331 16.0626 1.83331 11C1.83331 5.93737 5.93737 1.83331 11 1.83331C16.0626 1.83331 20.1666 5.93737 20.1666 11Z" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" stroke="white"/>
+              </svg>
+            {% else %}
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.66667 6.41669H18.3333C18.8396 6.41669 19.25 6.82709 19.25 7.33335V17.4167C19.25 17.9229 18.8396 18.3334 18.3333 18.3334H3.66667C3.16041 18.3334 2.75 17.9229 2.75 17.4167V7.33335C2.75 6.82709 3.16041 6.41669 3.66667 6.41669Z" stroke-width="1.65" stroke="white"/>
+                <path d="M2.75 10.0833H11M11 10.0833H19.25M11 10.0833V6.41667M11 10.0833V18.3333M11 6.41667C9.16667 2.75001 5.5 2.75001 5.5 5.04167C5.5 7.33334 9.16667 6.41667 11 6.41667ZM11 6.41667C12.8333 2.75001 16.5 2.75001 16.5 5.04167C16.5 7.33334 12.8333 6.41667 11 6.41667Z" stroke-width="1.65" stroke="white"/>
+              </svg>
+            {% endif %}
         </span>
 
         <span class="product-promotion__content">
           <span class="product-promotion__title">{{ promotion_title }}</span>
-          {%- if promotion_type == 'weekly' -%}
-            <span class="product-promotion__subtitle">
-              {%- if promotion_show_countdown -%}
-                Ends in <span data-promotion-countdown aria-live="polite"></span>
-              {%- endif -%}
+          {%- if promotion_show_countdown and promotion_end_at != blank -%}
+            <span class="product-promotion__subtitle" data-promotion-countdown-wrapper>
+                Ends in <span data-promotion-countdown  class='product-promotion__countdown' aria-live="polite"></span>
             </span>
           {%- endif -%}
         </span>
@@ -74,16 +81,22 @@
       </a>
     </div>
 
-    {%- if promotion_type == 'weekly' and promotion_show_countdown -%}
+    {%- if promotion_show_countdown and promotion_end_at != blank -%}
       <script>
         (function () {
           var banner = document.querySelector('[data-product-promotion][data-promotion-end-at]');
           if (!banner || banner.dataset.promotionCountdownInitialized === 'true') return;
 
           var countdown = banner.querySelector('[data-promotion-countdown]');
+          var countdownWrapper = banner.querySelector('[data-promotion-countdown-wrapper]');
+          var promotionType = banner.dataset.promotionType;
           var endAt = Date.parse(banner.dataset.promotionEndAt);
           if (!countdown || Number.isNaN(endAt)) {
-            banner.remove();
+            if (promotionType === 'weekly') {
+              banner.remove();
+            } else if (countdownWrapper) {
+              countdownWrapper.remove();
+            }
             return;
           }
 
@@ -107,7 +120,11 @@
             var remaining = endAt - Date.now();
             if (remaining <= 0) {
               if (timer) window.clearInterval(timer);
-              banner.remove();
+              if (promotionType === 'weekly') {
+                banner.remove();
+              } else if (countdownWrapper) {
+                countdownWrapper.remove();
+              }
               return;
             }
 
