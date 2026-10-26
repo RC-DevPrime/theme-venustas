@@ -14,9 +14,16 @@
     "header": {
       "type": "header",
       "blocks": {
+        "announcement_bar_aTTGGr": {
+          "type": "announcement_bar",
+          "settings": {
+            "announcement_content": "<p>Free <em><strong>$10 Gift Card</strong></em> on Order <em><strong>$200+</strong></em></p>",
+            "btn_label": "Learn More",
+            "link": "shopify://collections/campaign"
+          }
+        },
         "announcement_bar_YhAQmA": {
           "type": "announcement_bar",
-          "disabled": true,
           "settings": {
             "announcement_content": "<p><em><strong>Shop Weekly Deals</strong></em>: Up to 45% OFF</p>",
             "btn_label": "Learn More",
@@ -25,6 +32,7 @@
         },
         "announcement_countdown_yPBEej": {
           "type": "announcement_countdown",
+          "disabled": true,
           "settings": {
             "announcement_content": "<p><a href=\"/collections/deal-of-the-week\" title=\"Deal Of The Week\"><em><strong>Shop Weekly Deals</strong></em></a> | Up to <em>40%</em> Off</p>",
             "date_time": "Nov 3, 2026 16:00:00"
@@ -234,6 +242,7 @@
         }
       },
       "block_order": [
+        "announcement_bar_aTTGGr",
         "announcement_bar_YhAQmA",
         "announcement_countdown_yPBEej",
         "announcement_bar_GbrkMQ",
