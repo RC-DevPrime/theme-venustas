@@ -23,7 +23,7 @@
     assign promotion_end_at = settings.promo_weekly_end_at | strip
   elsif promotion_type == 'monthly'
     assign promotion_link = settings.promo_monthly_link
-    assign promotion_title = settings.promo_monthly_title | default: 'Fall Mega Sale • Up to $[45%] off'
+    assign promotion_title = settings.promo_monthly_title | default: 'Fall Mega Sale • Up to [45%] off'
     if settings.promo_monthly_background != blank
       assign promotion_background = settings.promo_monthly_background | image_url: width: 1600
     endif

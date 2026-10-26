@@ -881,9 +881,10 @@ body.product-media-lightbox-open {
     margin-bottom: 0px;
 }
 .product .member-points-banner {
+    margin-top:-10px;
     display: flex;
     width: 100%;
-    min-height: 48px;
+    min-height: 42px;
     box-sizing: border-box;
     align-items: center;
     gap: 10px;
@@ -942,10 +943,10 @@ body.product-media-lightbox-open {
 
 @media (max-width: 767.98px) {
     .product .member-points-banner {
-        min-height: 44px;
+        min-height: 40px;
         gap: 8px;
-        padding: 9px 10px;
-        font-size: 11px;
+        padding: 5px 10px;
+        font-size: 13px;
     }
 
     .product .member-points-banner__icon,
@@ -1966,6 +1967,9 @@ and (max-device-width : 1024px){
 }
 
 @media (max-width: 767.98px) {
+    .product .product-promotion{
+        margin-top:10px;
+    }
     .product .product-promotion__link {
         min-height: 68px;
         gap: 10px;
