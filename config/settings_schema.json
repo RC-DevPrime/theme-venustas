@@ -99,6 +99,12 @@
         "content": "Weekly Promotion"
       },
       {
+        "type": "collection",
+        "id": "promo_weekly_collection",
+        "label": "Weekly promotion collection",
+        "info": "Products in this collection use the weekly promotion."
+      },
+      {
         "type": "text",
         "id": "promo_weekly_title",
         "label": "Weekly promotion title",
@@ -134,6 +140,12 @@
       {
         "type": "header",
         "content": "Monthly Promotion"
+      },
+      {
+        "type": "collection",
+        "id": "promo_monthly_collection",
+        "label": "Monthly promotion collection",
+        "info": "Products in this collection use the monthly promotion. Weekly promotion takes priority if a product is in both collections."
       },
       {
         "type": "text",

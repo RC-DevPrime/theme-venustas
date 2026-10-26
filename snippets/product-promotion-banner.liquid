@@ -1,9 +1,12 @@
 {%- liquid
   assign promotion_type = blank
+  assign product_collection_handles = product.collections | map: 'handle'
+  assign weekly_collection_handle = settings.promo_weekly_collection.handle
+  assign monthly_collection_handle = settings.promo_monthly_collection.handle
 
-  if product.tags contains 'promo_weekly'
+  if weekly_collection_handle != blank and product_collection_handles contains weekly_collection_handle
     assign promotion_type = 'weekly'
-  elsif product.tags contains 'promo_monthly'
+  elsif monthly_collection_handle != blank and product_collection_handles contains monthly_collection_handle
     assign promotion_type = 'monthly'
   endif
 
