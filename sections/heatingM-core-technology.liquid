@@ -1,0 +1,221 @@
+{%- liquid
+  assign heatingM_core_front = section.settings.front_image
+  assign heatingM_core_back = section.settings.back_image
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingM-core {
+    overflow: hidden;
+    color: #fff;
+    background: linear-gradient(180deg, #1a1a1a 64.247%, #531602 100%);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__inner {
+    display: flex;
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__intro {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__eyebrow,
+  #shopify-section-{{ section.id }} .heatingM-core__title,
+  #shopify-section-{{ section.id }} .heatingM-core__description { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-core__eyebrow {
+    color: var(--color-brand, #b93205);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__title {
+    color: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__description {
+    width: 100%;
+    color: rgba(255, 255, 255, .9);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__description p { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-core__stats {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__value {
+    margin: 0;
+    background: linear-gradient(90deg, #b93205 33.84%, #ef711d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__label {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__divider {
+    display: block;
+    width: 1px;
+    height: 50px;
+    transform: rotate(90deg);
+    flex: 0 0 1px;
+    background: rgba(255, 255, 255, .48);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__product {
+    position: relative;
+    width: 616px;
+    height: 500px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__product-layer {
+    position: absolute;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__product-layer--back {
+    top: 9.49%;
+    left: 51.14%;
+    width: 50.84%;
+    height: 81.34%;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__product-layer--front {
+    top: 3.61%;
+    left: -2.43%;
+    width: 57.95%;
+    height: 92.78%;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-core__product-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingM-core__inner {
+      width: 100%;
+      padding: 48px 20px;
+      gap: 80px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM-core__intro { gap: 12px; }
+    #shopify-section-{{ section.id }} .heatingM-core__eyebrow { font-size: 16px; line-height: 1.5; }
+    #shopify-section-{{ section.id }} .heatingM-core__title { font-size: 28px; line-height: 1.2; }
+    #shopify-section-{{ section.id }} .heatingM-core__description { font-size: 16px; line-height: 1.5; }
+    #shopify-section-{{ section.id }} .heatingM-core__stats { width: 100%; gap: 12px; align-items: flex-start; }
+    #shopify-section-{{ section.id }} .heatingM-core__stat { min-width: 0; flex: 1 1 0; gap: 4px; overflow: hidden; }
+    #shopify-section-{{ section.id }} .heatingM-core__value { font-size: 32px; }
+    #shopify-section-{{ section.id }} .heatingM-core__label { font-size: 13px; line-height: 1.5; }
+    #shopify-section-{{ section.id }} .heatingM-core__divider { height: 82px; }
+    #shopify-section-{{ section.id }} .heatingM-core__product { width: 100%; max-width: 350px; height: auto; aspect-ratio: 350 / 284.1; }
+  }
+{%- endstyle -%}
+
+<section class="heatingM-core" aria-label="{{ section.settings.title | escape }}">
+  <div class="heatingM-core__inner">
+    <div class="heatingM-core__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="heatingM-core__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="heatingM-core__title">{{ section.settings.title | newline_to_br }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heatingM-core__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="heatingM-core__stats" aria-label="Heating performance">
+      <div class="heatingM-core__stat">
+        <p class="heatingM-core__value">{{ section.settings.metric_1_value }}</p>
+        <p class="heatingM-core__label">{{ section.settings.metric_1_label }}</p>
+      </div>
+      <span class="heatingM-core__divider" aria-hidden="true"></span>
+      <div class="heatingM-core__stat">
+        <p class="heatingM-core__value">{{ section.settings.metric_2_value }}</p>
+        <p class="heatingM-core__label">{{ section.settings.metric_2_label }}</p>
+      </div>
+      <span class="heatingM-core__divider" aria-hidden="true"></span>
+      <div class="heatingM-core__stat">
+        <p class="heatingM-core__value">{{ section.settings.metric_3_value }}</p>
+        <p class="heatingM-core__label">{{ section.settings.metric_3_label }}</p>
+      </div>
+    </div>
+
+    <div class="heatingM-core__product" aria-label="Heating zones illustration">
+      <div class="heatingM-core__product-layer heatingM-core__product-layer--back">
+        {%- if heatingM_core_back != blank -%}
+          {{ heatingM_core_back | image_url: width: 1000 | image_tag: class: 'heatingM-core__product-image', widths: '300, 500, 800, 1000', sizes: '(max-width: 767px) 180px, 313px', loading: 'lazy', alt: '' }}
+        {%- endif -%}
+      </div>
+      <div class="heatingM-core__product-layer heatingM-core__product-layer--front">
+        {%- if heatingM_core_front != blank -%}
+          {{ heatingM_core_front | image_url: width: 1000 | image_tag: class: 'heatingM-core__product-image', widths: '300, 500, 800, 1000', sizes: '(max-width: 767px) 203px, 357px', loading: 'lazy', alt: '' }}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HeatingM core tech",
+  "settings": [
+    { "type": "image_picker", "id": "front_image", "label": "Front heating zones image" },
+    { "type": "image_picker", "id": "back_image", "label": "Back heating zones image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Core Technology" },
+    { "type": "textarea", "id": "title", "label": "Title", "default": "Targeted Heat Where Riders Need It Most" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>42W high-output heating system with 6 heating zones delivers even, powerful warmth across your core and arms.</p>" },
+    { "type": "text", "id": "metric_1_value", "label": "Metric 1 value", "default": "42W" },
+    { "type": "text", "id": "metric_1_label", "label": "Metric 1 label", "default": "High Power Heating" },
+    { "type": "text", "id": "metric_2_value", "label": "Metric 2 value", "default": "6" },
+    { "type": "text", "id": "metric_2_label", "label": "Metric 2 label", "default": "Heating Zones" },
+    { "type": "text", "id": "metric_3_value", "label": "Metric 3 value", "default": "85%" },
+    { "type": "text", "id": "metric_3_label", "label": "Metric 3 label", "default": "Torso Heating Coverage" }
+  ],
+  "presets": [
+    { "name": "HeatingM core tech" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,262 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingM-power {
+    overflow: hidden;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__inner {
+    display: flex;
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    flex-direction: column;
+    gap: 64px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__intro {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__title,
+  #shopify-section-{{ section.id }} .heatingM-power__description,
+  #shopify-section-{{ section.id }} .heatingM-power__example,
+  #shopify-section-{{ section.id }} .heatingM-power__full-label,
+  #shopify-section-{{ section.id }} .heatingM-power__stator-note,
+  #shopify-section-{{ section.id }} .heatingM-power__caution { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-power__title {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__description {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__description p { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-power__budget {
+    display: grid;
+    grid-template-columns: minmax(0, 965px) minmax(0, 1fr);
+    gap: 64px;
+    align-items: end;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__budget-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__example {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__bar {
+    display: flex;
+    width: 100%;
+    height: 56px;
+    overflow: hidden;
+    border-radius: 57px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__bar-segment {
+    display: flex;
+    min-width: 0;
+    height: 100%;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__bar-segment--bike { width: 46.63%; padding: 0 28px; background: #f0f0f0; color: #565b63; }
+  #shopify-section-{{ section.id }} .heatingM-power__bar-segment--jacket { width: 14%; padding: 0 18px; background: #b93205; color: #fff; }
+  #shopify-section-{{ section.id }} .heatingM-power__bar-segment--pants { width: 12.75%; padding: 0 18px; background: #1a1a1a; color: #fff; }
+  #shopify-section-{{ section.id }} .heatingM-power__bar-segment--left { width: 26.62%; padding: 0 18px; background: rgba(0, 0, 0, .5); color: #1a1a1a; }
+
+  #shopify-section-{{ section.id }} .heatingM-power__stator-note {
+    padding-left: 21px;
+    color: #565b63;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__stator-note::before,
+  #shopify-section-{{ section.id }} .heatingM-power__caution::before {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    margin-top: 8px;
+    margin-left: -17px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__amp {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__full-value {
+    margin: 0;
+    background: linear-gradient(180deg, #1a1a1a, #da0000);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 96px;
+    font-weight: 600;
+    line-height: 1.09;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__full-label { font-size: 16px; line-height: 1.4; }
+
+  #shopify-section-{{ section.id }} .heatingM-power__cautions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__caution-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-power__divider { width: 100%; height: 1px; background: #e5e7eb; }
+  #shopify-section-{{ section.id }} .heatingM-power__caution { position: relative; padding-left: 21px; color: #565b63; font-size: 14px; line-height: 1.65; }
+  #shopify-section-{{ section.id }} .heatingM-power__caution strong { color: #1a1a1a; font-weight: 600; }
+
+  #shopify-section-{{ section.id }} .heatingM-power__mobile-legend { display: none; }
+
+  @media only screen and (max-width: 1023px) {
+    #shopify-section-{{ section.id }} .heatingM-power__inner { padding: 72px 0; }
+    #shopify-section-{{ section.id }} .heatingM-power__budget { grid-template-columns: minmax(0, 1fr) 220px; gap: 32px; }
+    #shopify-section-{{ section.id }} .heatingM-power__bar-segment { padding-right: 12px; padding-left: 12px; font-size: 14px; }
+    #shopify-section-{{ section.id }} .heatingM-power__full-value { font-size: 72px; }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingM-power__inner {
+      width: 100%;
+      padding: 48px 20px;
+      gap: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM-power__intro { gap: 16px; }
+    #shopify-section-{{ section.id }} .heatingM-power__title { font-size: 28px; line-height: 1.22; letter-spacing: 0; }
+    #shopify-section-{{ section.id }} .heatingM-power__description { font-size: 15px; line-height: 1.67; }
+    #shopify-section-{{ section.id }} .heatingM-power__budget { display: flex; flex-direction: column; gap: 32px; align-items: stretch; }
+    #shopify-section-{{ section.id }} .heatingM-power__amp { order: -1; gap: 8px; }
+    #shopify-section-{{ section.id }} .heatingM-power__full-value { font-size: 80px; line-height: 1.1; }
+    #shopify-section-{{ section.id }} .heatingM-power__full-label { font-size: 16px; }
+    #shopify-section-{{ section.id }} .heatingM-power__budget-main { gap: 16px; }
+    #shopify-section-{{ section.id }} .heatingM-power__example { font-size: 16px; }
+    #shopify-section-{{ section.id }} .heatingM-power__bar { height: 28px; }
+    #shopify-section-{{ section.id }} .heatingM-power__bar-segment { padding: 0; font-size: 0; }
+    #shopify-section-{{ section.id }} .heatingM-power__stator-note { padding-left: 0; font-size: 14px; line-height: 1.65; }
+    #shopify-section-{{ section.id }} .heatingM-power__stator-note::before { display: none; }
+    #shopify-section-{{ section.id }} .heatingM-power__mobile-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; }
+    #shopify-section-{{ section.id }} .heatingM-power__legend-item { display: grid; grid-template-columns: 8px minmax(0, 1fr); gap: 10px; }
+    #shopify-section-{{ section.id }} .heatingM-power__legend-marker { width: 8px; height: 8px; margin-top: 5px; }
+    #shopify-section-{{ section.id }} .heatingM-power__legend-marker--bike { background: #f0f0f0; }
+    #shopify-section-{{ section.id }} .heatingM-power__legend-marker--jacket { background: #b93205; }
+    #shopify-section-{{ section.id }} .heatingM-power__legend-marker--pants { background: #1a1a1a; }
+    #shopify-section-{{ section.id }} .heatingM-power__legend-marker--left { background: rgba(0, 0, 0, .5); }
+    #shopify-section-{{ section.id }} .heatingM-power__legend-label { color: #565b63; font-size: 13px; line-height: 1.45; }
+    #shopify-section-{{ section.id }} .heatingM-power__legend-value { margin-top: 6px; color: #1a1a1a; font-size: 16px; font-weight: 600; line-height: 1.35; }
+    #shopify-section-{{ section.id }} .heatingM-power__cautions { display: flex; flex-direction: column; gap: 24px; }
+    #shopify-section-{{ section.id }} .heatingM-power__caution { padding-left: 0; font-size: 14px; line-height: 1.65; }
+    #shopify-section-{{ section.id }} .heatingM-power__caution::before { display: none; }
+  }
+{%- endstyle -%}
+
+<section class="heatingM-power" aria-label="{{ section.settings.title | escape }}">
+  <div class="heatingM-power__inner">
+    <header class="heatingM-power__intro">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heatingM-power__title">{{ section.settings.title | newline_to_br }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heatingM-power__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="heatingM-power__budget">
+      <div class="heatingM-power__budget-main">
+        <p class="heatingM-power__example">{{ section.settings.example_title }}</p>
+        <div class="heatingM-power__bar" aria-label="{{ section.settings.example_title | escape }}">
+          <div class="heatingM-power__bar-segment heatingM-power__bar-segment--bike">{{ section.settings.bike_load_label }} • {{ section.settings.bike_load_value }}</div>
+          <div class="heatingM-power__bar-segment heatingM-power__bar-segment--jacket">{{ section.settings.jacket_load_label }} {{ section.settings.jacket_load_value }}</div>
+          <div class="heatingM-power__bar-segment heatingM-power__bar-segment--pants">{{ section.settings.pants_load_label }} {{ section.settings.pants_load_value }}</div>
+          <div class="heatingM-power__bar-segment heatingM-power__bar-segment--left">{{ section.settings.leftover_label }} • {{ section.settings.leftover_value }}</div>
+        </div>
+        <p class="heatingM-power__stator-note">Your stator output needs to cover what the bike already uses, plus the heated gear. Check your bike's spec sheet.</p>
+
+        <div class="heatingM-power__mobile-legend">
+          <div class="heatingM-power__legend-item"><span class="heatingM-power__legend-marker heatingM-power__legend-marker--bike"></span><div><div class="heatingM-power__legend-label">{{ section.settings.bike_load_label }}</div><div class="heatingM-power__legend-value">{{ section.settings.bike_load_value }}</div></div></div>
+          <div class="heatingM-power__legend-item"><span class="heatingM-power__legend-marker heatingM-power__legend-marker--jacket"></span><div><div class="heatingM-power__legend-label">{{ section.settings.jacket_load_label }}</div><div class="heatingM-power__legend-value">{{ section.settings.jacket_load_value }}</div></div></div>
+          <div class="heatingM-power__legend-item"><span class="heatingM-power__legend-marker heatingM-power__legend-marker--pants"></span><div><div class="heatingM-power__legend-label">{{ section.settings.pants_load_label }}</div><div class="heatingM-power__legend-value">{{ section.settings.pants_load_value }}</div></div></div>
+          <div class="heatingM-power__legend-item"><span class="heatingM-power__legend-marker heatingM-power__legend-marker--left"></span><div><div class="heatingM-power__legend-label">{{ section.settings.leftover_label }}</div><div class="heatingM-power__legend-value">{{ section.settings.leftover_value }}</div></div></div>
+        </div>
+      </div>
+
+      <div class="heatingM-power__amp">
+        <p class="heatingM-power__full-value">{{ section.settings.full_power_value }}</p>
+        <p class="heatingM-power__full-label">{{ section.settings.full_power_label }}</p>
+      </div>
+    </div>
+
+    <div class="heatingM-power__cautions">
+      <div class="heatingM-power__caution-wrap">
+        <div class="heatingM-power__divider"></div>
+        <p class="heatingM-power__caution"><strong>Idling a lot?</strong> On smaller or older bikes, long stretches at idle can still run the battery down. Drop a level or run one piece.</p>
+      </div>
+      <div class="heatingM-power__caution-wrap">
+        <div class="heatingM-power__divider"></div>
+        <p class="heatingM-power__caution"><strong>Engine off, heat off.</strong> With nothing charging, a heated liner will drain the battery fast.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating M power draw",
+  "settings": [
+    { "type": "textarea", "id": "title", "label": "Title", "default": "Easy on Your Bike's Charging System" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>The jacket draws 3.5A at full power. With the engine running, your charging system covers the liner and keeps topping up the battery at the same time.</p>" },
+    { "type": "text", "id": "full_power_value", "label": "Full power value", "default": "3.5A" },
+    { "type": "text", "id": "full_power_label", "label": "Full power label", "default": "Jacket liner at full power (42W at 12V)" },
+    { "type": "text", "id": "example_title", "label": "Example title", "default": "Example: a bike with a 300W stator" },
+    { "type": "text", "id": "bike_load_label", "label": "Bike load label", "default": "Bike's own load" },
+    { "type": "text", "id": "bike_load_value", "label": "Bike load value", "default": "140W" },
+    { "type": "text", "id": "jacket_load_label", "label": "Jacket label", "default": "Jacket" },
+    { "type": "text", "id": "jacket_load_value", "label": "Jacket value", "default": "42W" },
+    { "type": "text", "id": "pants_load_label", "label": "Pants label", "default": "Pants" },
+    { "type": "text", "id": "pants_load_value", "label": "Pants value", "default": "38W" },
+    { "type": "text", "id": "leftover_label", "label": "Leftover label", "default": "Left over" },
+    { "type": "text", "id": "leftover_value", "label": "Leftover value", "default": "80W" }
+  ],
+  "presets": [
+    { "name": "Heating M power draw" }
+  ]
+}
+{% endschema %}

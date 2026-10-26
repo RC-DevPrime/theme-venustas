@@ -1,0 +1,315 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingM-levels {
+    overflow: hidden;
+    background: #f0f0f0;
+    color: var(--venustas-black, #1a1a1a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__inner {
+    display: flex;
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    flex-direction: column;
+    gap: 64px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__intro {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__title,
+  #shopify-section-{{ section.id }} .heatingM-levels__description { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__title {
+    color: #1a1a1a;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__description {
+    color: #1a1a1a;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__description p { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__showcase {
+    display: grid;
+    grid-template-columns: minmax(0, 853px) minmax(0, 455px);
+    gap: 32px;
+    align-items: start;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 853 / 515;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #d9d9d9;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__image.is-active { opacity: 1; }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__placeholder {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: #565b63;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__card {
+    display: flex;
+    min-height: 134px;
+    width: 100%;
+    padding: 28px;
+    flex-direction: column;
+    align-items: stretch;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    box-sizing: border-box;
+    color: #1a1a1a;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    transition: background-color .2s ease, border-color .2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__card:hover,
+  #shopify-section-{{ section.id }} .heatingM-levels__card.is-active { background-color: var(--heatingM-card-active-bg); }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__card--high {
+    --heatingM-card-border: #b93205;
+    --heatingM-card-active-bg: rgba(185, 50, 5, .2);
+    border-color: var(--heatingM-card-border);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__card--medium {
+    --heatingM-card-border: #fff;
+    --heatingM-card-active-bg: rgba(255, 255, 255, .6);
+    border-color: var(--heatingM-card-border);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__card--low {
+    --heatingM-card-border: #0d6efd;
+    --heatingM-card-active-bg: rgba(13, 110, 253, .14);
+    border-color: var(--heatingM-card-border);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__card-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__card-copy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__value,
+  #shopify-section-{{ section.id }} .heatingM-levels__label,
+  #shopify-section-{{ section.id }} .heatingM-levels__note { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__value {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__label {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__badge {
+    display: inline-flex;
+    flex: 0 0 auto;
+    padding: 6px 12px;
+    border-radius: 999px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .2);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__card--high .heatingM-levels__badge {
+    background: #b93205;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__card--medium .heatingM-levels__badge {
+    background: #fff;
+    color: #1a1a1a;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__card--low .heatingM-levels__badge {
+    background: #0d6efd;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-levels__note {
+    margin-top: auto;
+    padding-top: 24px;
+    color: #565b63;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  @media only screen and (max-width: 1023px) {
+    #shopify-section-{{ section.id }} .heatingM-levels__showcase { grid-template-columns: minmax(0, 1fr) minmax(260px, 455px); }
+    #shopify-section-{{ section.id }} .heatingM-levels__inner { padding: 72px 0; }
+    #shopify-section-{{ section.id }} .heatingM-levels__card { padding: 22px; }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingM-levels__inner {
+      width: 100%;
+      padding: 48px 20px;
+      gap: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM-levels__intro { gap: 14px; }
+    #shopify-section-{{ section.id }} .heatingM-levels__title { font-size: 30px; line-height: 1.2; letter-spacing: 0; }
+    #shopify-section-{{ section.id }} .heatingM-levels__description { font-size: 14px; line-height: 1.6; }
+    #shopify-section-{{ section.id }} .heatingM-levels__showcase { display: flex; flex-direction: column; gap: 24px; }
+    #shopify-section-{{ section.id }} .heatingM-levels__visual { aspect-ratio: 853 / 515; }
+    #shopify-section-{{ section.id }} .heatingM-levels__cards { width: 100%; gap: 16px; }
+    #shopify-section-{{ section.id }} .heatingM-levels__card { min-height: 134px; padding: 28px; }
+  }
+{%- endstyle -%}
+
+<section class="heatingM-levels" aria-label="{{ section.settings.title | escape }}">
+  <div class="heatingM-levels__inner">
+    <header class="heatingM-levels__intro">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heatingM-levels__title">{{ section.settings.title | newline_to_br }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heatingM-levels__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="heatingM-levels__showcase" data-heatingM-levels>
+      <div class="heatingM-levels__visual" aria-live="polite">
+        {%- if section.settings.level_1_image != blank -%}
+          {{ section.settings.level_1_image | image_url: width: 1600 | image_tag: class: 'heatingM-levels__image is-active', widths: '600, 900, 1200, 1600', sizes: '(max-width: 767px) calc(100vw - 40px), 853px', loading: 'lazy', alt: '' }}
+        {%- else -%}
+          <div class="heatingM-levels__image is-active" aria-hidden="true"></div>
+        {%- endif -%}
+        {%- if section.settings.level_2_image != blank -%}
+          {{ section.settings.level_2_image | image_url: width: 1600 | image_tag: class: 'heatingM-levels__image', widths: '600, 900, 1200, 1600', sizes: '(max-width: 767px) calc(100vw - 40px), 853px', loading: 'lazy', alt: '' }}
+        {%- else -%}
+          <div class="heatingM-levels__image" aria-hidden="true"></div>
+        {%- endif -%}
+        {%- if section.settings.level_3_image != blank -%}
+          {{ section.settings.level_3_image | image_url: width: 1600 | image_tag: class: 'heatingM-levels__image', widths: '600, 900, 1200, 1600', sizes: '(max-width: 767px) calc(100vw - 40px), 853px', loading: 'lazy', alt: '' }}
+        {%- else -%}
+          <div class="heatingM-levels__image" aria-hidden="true"></div>
+        {%- endif -%}
+      </div>
+
+      <div class="heatingM-levels__cards">
+        <button type="button" class="heatingM-levels__card heatingM-levels__card--high is-active" data-heatingM-level="0" aria-pressed="true">
+          <span class="heatingM-levels__card-content">
+            <span class="heatingM-levels__card-copy"><span class="heatingM-levels__value">144℉</span><span class="heatingM-levels__label">For The first cold hour</span></span>
+            <span class="heatingM-levels__badge">HIGH</span>
+          </span>
+        </button>
+        <button type="button" class="heatingM-levels__card heatingM-levels__card--medium" data-heatingM-level="1" aria-pressed="false">
+          <span class="heatingM-levels__card-content">
+            <span class="heatingM-levels__card-copy"><span class="heatingM-levels__value">130℉</span><span class="heatingM-levels__label">For The long middle</span></span>
+            <span class="heatingM-levels__badge">MEDIUM</span>
+          </span>
+        </button>
+        <button type="button" class="heatingM-levels__card heatingM-levels__card--low" data-heatingM-level="2" aria-pressed="false">
+          <span class="heatingM-levels__card-content">
+            <span class="heatingM-levels__card-copy"><span class="heatingM-levels__value">112℉</span><span class="heatingM-levels__label">When the sun shows up</span></span>
+            <span class="heatingM-levels__badge">LOW</span>
+          </span>
+        </button>
+        <p class="heatingM-levels__note">Heat levels measured at the inner lining under controlled conditions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById('shopify-section-{{ section.id }}');
+    if (!root || root.dataset.heatingMLevelsReady === 'true') return;
+    const showcase = root.querySelector('[data-heatingM-levels]');
+    if (!showcase) return;
+    root.dataset.heatingMLevelsReady = 'true';
+
+    const cards = [...showcase.querySelectorAll('[data-heatingM-level]')];
+    const images = [...showcase.querySelectorAll('.heatingM-levels__image')];
+
+    const selectLevel = (index) => {
+      cards.forEach((card, cardIndex) => {
+        const active = cardIndex === index;
+        card.classList.toggle('is-active', active);
+        card.setAttribute('aria-pressed', String(active));
+      });
+      images.forEach((image, imageIndex) => image.classList.toggle('is-active', imageIndex === index));
+    };
+
+    cards.forEach((card) => card.addEventListener('click', () => selectLevel(Number(card.dataset.heatingMLevel))));
+
+    document.addEventListener('shopify:section:unload', (event) => {
+      if (event.detail.sectionId === '{{ section.id }}') root.dataset.heatingMLevelsReady = 'false';
+    }, { once: true });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Heating M levels",
+  "settings": [
+    { "type": "image_picker", "id": "level_1_image", "label": "Level 1 image" },
+    { "type": "image_picker", "id": "level_2_image", "label": "Level 2 image" },
+    { "type": "image_picker", "id": "level_3_image", "label": "Level 3 image" },
+    { "type": "textarea", "id": "title", "label": "Title", "default": "One Button. Three Levels. Gloves On." },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>The control is built into the liner. Nothing on your bars, nothing running down your sleeve, nothing to leave behind in a tank bag.</p>" }
+  ],
+  "presets": [
+    { "name": "Heating M levels" }
+  ]
+}
+{% endschema %}

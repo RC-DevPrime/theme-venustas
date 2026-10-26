@@ -1,0 +1,256 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingM-mid {
+    overflow: hidden;
+    background: #f0f0f0;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__inner {
+    width: min(calc(100% - 100px), 1440px);
+    margin: 0 auto;
+    padding: 80px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__header {
+    display: flex;
+    margin-bottom: 60px;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__title,
+  #shopify-section-{{ section.id }} .heatingM-mid__description,
+  #shopify-section-{{ section.id }} .heatingM-mid__layer-title,
+  #shopify-section-{{ section.id }} .heatingM-mid__layer-copy,
+  #shopify-section-{{ section.id }} .heatingM-mid__feature-title,
+  #shopify-section-{{ section.id }} .heatingM-mid__feature-copy { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__title {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__description {
+    color: #565b63;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__content {
+    display: grid;
+    grid-template-columns: minmax(0, 818px) minmax(320px, 420px);
+    gap: 32px;
+    align-items: start;
+    justify-content: space-between;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__layers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: end;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__layer {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__layer-media {
+    display: flex;
+    width: 100%;
+    height: 456px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__layer-image {
+    display: block;
+    width: 220px;
+    height: 456px;
+    object-fit: cover;
+    opacity: .6;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__layer:nth-child(2) .heatingM-mid__layer-image { opacity: 1; }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__layer-placeholder {
+    display: grid;
+    width: 220px;
+    height: 456px;
+    place-items: center;
+    background: #e5e7eb;
+    color: #565b63;
+    font-size: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__layer-copy-wrap {
+    display: flex;
+    min-height: 54px;
+    padding-top: 30px;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__layer-title {
+    color: #b93205;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__layer-copy { font-size: 13px; line-height: 1.4; }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__features {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__feature-heading {
+    margin: 0;
+    color: #b93205;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__feature-list { display: flex; flex-direction: column; gap: 24px; }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__feature {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__check {
+    display: grid;
+    width: 24px;
+    height: 24px;
+    place-items: center;
+    border-radius: 50%;
+    background: #fee2e2;
+    color: #b93205;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__feature-copy-wrap { display: flex; flex-direction: column; gap: 6px; }
+  #shopify-section-{{ section.id }} .heatingM-mid__feature-title { font-size: 16px; font-weight: 700; line-height: 1.25; }
+  #shopify-section-{{ section.id }} .heatingM-mid__feature-copy { font-size: 14px; line-height: 1.4; }
+
+  @media only screen and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .heatingM-mid__inner { width: min(calc(100% - 40px), 1000px); }
+    #shopify-section-{{ section.id }} .heatingM-mid__content { grid-template-columns: minmax(0, 1fr); }
+    #shopify-section-{{ section.id }} .heatingM-mid__features { max-width: 700px; }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingM-mid__inner { width: 100%; padding: 48px 20px; }
+    #shopify-section-{{ section.id }} .heatingM-mid__header { margin-bottom: 40px; }
+    #shopify-section-{{ section.id }} .heatingM-mid__title { font-size: 28px; line-height: 1.22; letter-spacing: 0; }
+    #shopify-section-{{ section.id }} .heatingM-mid__description { font-size: 15px; line-height: 1.6; }
+    #shopify-section-{{ section.id }} .heatingM-mid__content { display: flex; flex-direction: column; gap: 48px; }
+    #shopify-section-{{ section.id }} .heatingM-mid__layers { display: flex; width: 100%; flex-direction: column; gap: 32px; }
+    #shopify-section-{{ section.id }} .heatingM-mid__layer { width: 100%; }
+    #shopify-section-{{ section.id }} .heatingM-mid__layer-media { height: auto; min-height: 360px; }
+    #shopify-section-{{ section.id }} .heatingM-mid__layer-image,
+    #shopify-section-{{ section.id }} .heatingM-mid__layer-placeholder { width: min(100%, 260px); height: 360px; }
+    #shopify-section-{{ section.id }} .heatingM-mid__layer-copy-wrap { padding-top: 16px; }
+    #shopify-section-{{ section.id }} .heatingM-mid__features { width: 100%; gap: 24px; }
+    #shopify-section-{{ section.id }} .heatingM-mid__feature-heading { font-size: 22px; }
+  }
+{%- endstyle -%}
+
+<section class="heatingM-mid" aria-label="{{ section.settings.title | escape }}">
+  <div class="heatingM-mid__inner">
+    <header class="heatingM-mid__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heatingM-mid__title">{{ section.settings.title | newline_to_br }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heatingM-mid__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="heatingM-mid__content">
+      <div class="heatingM-mid__layers">
+        {%- for index in (1..3) -%}
+          {%- assign image_key = 'layer_' | append: index | append: '_image' -%}
+          {%- assign title_key = 'layer_' | append: index | append: '_title' -%}
+          {%- assign copy_key = 'layer_' | append: index | append: '_copy' -%}
+          <article class="heatingM-mid__layer">
+            <div class="heatingM-mid__layer-media">
+              {%- if section.settings[image_key] != blank -%}
+                {{ section.settings[image_key] | image_url: width: 900 | image_tag: class: 'heatingM-mid__layer-image', widths: '320, 500, 700, 900', sizes: '(max-width: 767px) 260px, 220px', loading: 'lazy', alt: section.settings[title_key] }}
+              {%- else -%}
+                <div class="heatingM-mid__layer-placeholder">请上传对应图片</div>
+              {%- endif -%}
+            </div>
+            <div class="heatingM-mid__layer-copy-wrap">
+              <h3 class="heatingM-mid__layer-title">{{ section.settings[title_key] }}</h3>
+              <p class="heatingM-mid__layer-copy">{{ section.settings[copy_key] | newline_to_br }}</p>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+
+      <div class="heatingM-mid__features">
+        <h3 class="heatingM-mid__feature-heading">{{ section.settings.feature_heading | newline_to_br }}</h3>
+        <div class="heatingM-mid__feature-list">
+          {%- for index in (1..3) -%}
+            {%- assign feature_title_key = 'feature_' | append: index | append: '_title' -%}
+            {%- assign feature_copy_key = 'feature_' | append: index | append: '_copy' -%}
+            <div class="heatingM-mid__feature">
+              <span class="heatingM-mid__check" aria-hidden="true">✓</span>
+              <div class="heatingM-mid__feature-copy-wrap">
+                <h4 class="heatingM-mid__feature-title">{{ section.settings[feature_title_key] }}</h4>
+                <p class="heatingM-mid__feature-copy">{{ section.settings[feature_copy_key] }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating M mid layer",
+  "settings": [
+    { "type": "image_picker", "id": "layer_1_image", "label": "Layer 1 image" },
+    { "type": "image_picker", "id": "layer_2_image", "label": "Layer 2 image" },
+    { "type": "image_picker", "id": "layer_3_image", "label": "Layer 3 image" },
+    { "type": "textarea", "id": "title", "label": "Title", "default": "Designed to Fit Under Riding Gear" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>38W high-output heating system with 2 large heating zones delivers powerful warmth without adding unnecessary bulk. Stay warm, stay agile, and ride with confidence.</p>" },
+    { "type": "text", "id": "layer_1_title", "label": "Layer 1 title", "default": "BASE LAYER" },
+    { "type": "textarea", "id": "layer_1_copy", "label": "Layer 1 copy", "default": "Moisture-Wicking Base Layer (Comfort & Sweat Management)" },
+    { "type": "text", "id": "layer_2_title", "label": "Layer 2 title", "default": "MID LAYER" },
+    { "type": "textarea", "id": "layer_2_copy", "label": "Layer 2 copy", "default": "MMP03 Heated Pants Liner (Active Heating)" },
+    { "type": "text", "id": "layer_3_title", "label": "Layer 3 title", "default": "OUTER LAYER" },
+    { "type": "textarea", "id": "layer_3_copy", "label": "Layer 3 copy", "default": "Protective Riding Pants (Armor & Abrasion Protection)" },
+    { "type": "textarea", "id": "feature_heading", "label": "Feature heading", "default": "Slim. Lightweight. Easy To Layer." },
+    { "type": "text", "id": "feature_1_title", "label": "Feature 1 title", "default": "Slim Mid-layer Fit" },
+    { "type": "textarea", "id": "feature_1_copy", "label": "Feature 1 copy", "default": "Designed to slide easily under protective riding pants without adding bulk, keeping your silhouette clean and comfortable." },
+    { "type": "text", "id": "feature_2_title", "label": "Feature 2 title", "default": "Freedom To Move" },
+    { "type": "textarea", "id": "feature_2_copy", "label": "Feature 2 copy", "default": "Ergonomic cut follows your body and allows natural movement in riding position." },
+    { "type": "text", "id": "feature_3_title", "label": "Feature 3 title", "default": "Layering Optimized" },
+    { "type": "textarea", "id": "feature_3_copy", "label": "Feature 3 copy", "default": "Perfectly engineered as a mid-layer for professional motorcycle gear." }
+  ],
+  "presets": [
+    { "name": "Heating M mid layer" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,271 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingM-video {
+    overflow: hidden;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__inner {
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+    padding: 16px 0 12px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__header {
+    display: grid;
+    max-width: 900px;
+    margin: 0 auto 60px;
+    gap: 14px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__title,
+  #shopify-section-{{ section.id }} .heatingM-video__description { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-video__title {
+    color: #1a1a1a;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__description {
+    color: #4b4b4b;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__description p { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-video__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #12f04d;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__player {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__autoplay,
+  #shopify-section-{{ section.id }} .heatingM-video__fullscreen,
+  #shopify-section-{{ section.id }} .heatingM-video__close {
+    position: absolute;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    color: #fff;
+    background: rgba(0, 0, 0, .68);
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__autoplay {
+    bottom: 16px;
+    left: 16px;
+    min-height: 36px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__fullscreen {
+    right: 16px;
+    bottom: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__close {
+    top: max(16px, env(safe-area-inset-top));
+    right: max(16px, env(safe-area-inset-right));
+    display: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 30px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__media.is-fullscreen {
+    position: fixed;
+    z-index: 2147483647;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    aspect-ratio: auto;
+    background: #000;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__media.is-fullscreen .heatingM-video__player {
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__media.is-fullscreen .heatingM-video__close {
+    display: inline-flex;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingM-video__inner {
+      width: 100%;
+      padding: 16px 20px 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM-video__header {
+      margin-bottom: 40px;
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM-video__title { font-size: 15px; }
+    #shopify-section-{{ section.id }} .heatingM-video__description { font-size: 12px; }
+    #shopify-section-{{ section.id }} .heatingM-video__autoplay { bottom: 12px; left: 12px; }
+    #shopify-section-{{ section.id }} .heatingM-video__fullscreen { right: 12px; bottom: 12px; }
+  }
+{%- endstyle -%}
+
+<section class="heatingM-video" aria-label="{{ section.settings.title | escape }}">
+  <div class="heatingM-video__inner">
+    <header class="heatingM-video__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heatingM-video__title">{{ section.settings.title | newline_to_br }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heatingM-video__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="heatingM-video__media" data-heatingM-video-media>
+      {%- if section.settings.video != blank -%}
+        {{
+          section.settings.video
+          | video_tag:
+            class: 'heatingM-video__player',
+            autoplay: true,
+            loop: true,
+            muted: true,
+            playsinline: true,
+            controls: true,
+            preload: 'metadata'
+        }}
+        <button type="button" class="heatingM-video__autoplay" data-heatingM-autoplay aria-pressed="true">自动播放：开</button>
+        <button type="button" class="heatingM-video__fullscreen" data-heatingM-fullscreen aria-label="全屏观看">⛶</button>
+        <button type="button" class="heatingM-video__close" data-heatingM-close aria-label="关闭全屏" aria-hidden="true">×</button>
+      {%- else -%}
+        <div role="img" aria-label="请在主题编辑器中上传 MP4 视频" style="width:100%;height:100%;background:#12f04d;"></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- if section.settings.video != blank -%}
+  <script>
+    (() => {
+      const root = document.getElementById('shopify-section-{{ section.id }}');
+      if (!root || root.dataset.heatingMVideoReady === 'true') return;
+
+      const media = root.querySelector('[data-heatingM-video-media]');
+      const video = media && media.querySelector('video');
+      const autoplayButton = root.querySelector('[data-heatingM-autoplay]');
+      const fullscreenButton = root.querySelector('[data-heatingM-fullscreen]');
+      const closeButton = root.querySelector('[data-heatingM-close]');
+      if (!media || !video) return;
+      root.dataset.heatingMVideoReady = 'true';
+
+      const setMuted = () => {
+        video.defaultMuted = true;
+        video.muted = true;
+        video.volume = 0;
+        video.setAttribute('muted', '');
+      };
+
+      const closeFullscreen = () => {
+        if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
+        media.classList.remove('is-fullscreen');
+        if (closeButton) closeButton.setAttribute('aria-hidden', 'true');
+      };
+
+      const openFullscreen = () => {
+        media.classList.add('is-fullscreen');
+        if (closeButton) closeButton.setAttribute('aria-hidden', 'false');
+        if (media.requestFullscreen) media.requestFullscreen().catch(() => {});
+      };
+
+      const tryPlay = () => {
+        setMuted();
+        const promise = video.play();
+        if (promise) promise.catch(() => {});
+      };
+
+      setMuted();
+      tryPlay();
+
+      autoplayButton?.addEventListener('click', () => {
+        const enabled = autoplayButton.getAttribute('aria-pressed') !== 'true';
+        autoplayButton.setAttribute('aria-pressed', String(enabled));
+        autoplayButton.textContent = enabled ? '自动播放：开' : '自动播放：关';
+        video.autoplay = enabled;
+        if (enabled) tryPlay();
+        else video.pause();
+      });
+
+      video.addEventListener('click', (event) => {
+        if (event.offsetY < video.clientHeight - 48) openFullscreen();
+      });
+      fullscreenButton?.addEventListener('click', openFullscreen);
+      closeButton?.addEventListener('click', closeFullscreen);
+      document.addEventListener('fullscreenchange', () => {
+        if (document.fullscreenElement !== media && media.classList.contains('is-fullscreen')) closeFullscreen();
+      });
+
+      document.addEventListener('shopify:section:unload', (event) => {
+        if (event.detail.sectionId === '{{ section.id }}') closeFullscreen();
+      }, { once: true });
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "HeatingM video",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title",
+      "default": "A typical 12V heated system needs a battery harness, a fuse you size yourself and a controller on the bars. Some do let the pants plug straight into the jacket. Ours joins them with the 3-Way cable instead: one extra piece, but no controller anywhere in the line."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Comparison reflects setup steps common to 12V heated systems, not any one brand.</p>"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "MP4 video"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HeatingM video"
+    }
+  ]
+}
+{% endschema %}

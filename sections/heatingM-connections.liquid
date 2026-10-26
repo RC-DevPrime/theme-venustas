@@ -1,0 +1,285 @@
+{%- liquid
+  assign heatingM_is_pants = false
+-%}
+{%- if section.settings.product_type == 'pants' -%}
+  {%- assign heatingM_is_pants = true -%}
+{%- endif -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingM-connections {
+    overflow: hidden;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__inner {
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__title,
+  #shopify-section-{{ section.id }} .heatingM-connections__subtitle,
+  #shopify-section-{{ section.id }} .heatingM-connections__flow-label,
+  #shopify-section-{{ section.id }} .heatingM-connections__connection-count,
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-label,
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-note { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__title {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__subtitle {
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__cards {
+    display: grid;
+    margin-top: 56px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__card {
+    display: flex;
+    min-width: 0;
+    overflow: hidden;
+    flex-direction: column;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .1);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__flow {
+    display: flex;
+    min-height: 408px;
+    padding: 32px;
+    flex-direction: column;
+    justify-content: center;
+    background: #f6f9ff;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__flow-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr) 40px minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__flow-node {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__flow-image-wrap {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__flow-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__flow-image--cable { object-fit: contain; }
+  #shopify-section-{{ section.id }} .heatingM-connections__flow-label { width: 100%; font-size: 12px; line-height: 1.4; text-align: center; }
+  #shopify-section-{{ section.id }} .heatingM-connections__arrow { color: #565b63; font-size: 30px; text-align: center; }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__apex-details,
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-details {
+    display: flex;
+    padding: 32px;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__apex-details { min-height: 421px; justify-content: space-between; }
+  #shopify-section-{{ section.id }} .heatingM-connections__apex-heading,
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+  #shopify-section-{{ section.id }} .heatingM-connections__apex-count,
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-count { font-size: 20px; line-height: 1.2; }
+  #shopify-section-{{ section.id }} .heatingM-connections__apex-count strong,
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-count strong { font-size: 40px; }
+  #shopify-section-{{ section.id }} .heatingM-connections__apex-brand { font-size: 16px; }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__apex-list,
+  #shopify-section-{{ section.id }} .heatingM-connections__connection-list { display: flex; flex-direction: column; align-items: stretch; }
+  #shopify-section-{{ section.id }} .heatingM-connections__apex-step,
+  #shopify-section-{{ section.id }} .heatingM-connections__connection-step { display: flex; flex-direction: column; align-items: stretch; }
+  #shopify-section-{{ section.id }} .heatingM-connections__apex-box,
+  #shopify-section-{{ section.id }} .heatingM-connections__connection-box {
+    padding: 10px 12px;
+    border: 1.4px solid #e5e7eb;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} .heatingM-connections__apex-box--dark { color: #fff; border-color: #1a1a1a; background: #1a1a1a; }
+  #shopify-section-{{ section.id }} .heatingM-connections__connection-box--dashed { border-style: dashed; }
+  #shopify-section-{{ section.id }} .heatingM-connections__connector { width: 1px; height: 16px; margin: 0 auto; background: #e5e7eb; }
+  #shopify-section-{{ section.id }} .heatingM-connections__connection-line { width: 1px; height: 16px; margin: 0 auto; background: #e5e7eb; }
+  #shopify-section-{{ section.id }} .heatingM-connections__apex-note,
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-note { font-size: 13px; line-height: 1.45; text-align: center; }
+
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-media { height: 408px; background: #f5f7fa; }
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-image { display: block; width: 100%; height: 100%; object-fit: cover; }
+  #shopify-section-{{ section.id }} .heatingM-connections__placeholder { display: grid; width: 100%; height: 100%; place-items: center; color: #565b63; font-size: 13px; }
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-details { min-height: 421px; gap: 24px; }
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-label { color: #565b63; font-size: 16px; }
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-list { display: flex; flex-direction: column; }
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-note { color: #1a1a1a; }
+
+  @media only screen and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .heatingM-connections__inner { padding: 72px 0; }
+    #shopify-section-{{ section.id }} .heatingM-connections__cards { gap: 20px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__flow,
+    #shopify-section-{{ section.id }} .heatingM-connections__apex-details,
+    #shopify-section-{{ section.id }} .heatingM-connections__comparison-details { padding: 24px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__flow-row { grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr) 24px minmax(0, 1fr); gap: 8px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__flow-image-wrap,
+    #shopify-section-{{ section.id }} .heatingM-connections__comparison-media { height: 300px; }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingM-connections__inner { width: 100%; padding: 48px 20px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__intro { gap: 14px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__title { font-size: 28px; line-height: 1.22; letter-spacing: 0; }
+    #shopify-section-{{ section.id }} .heatingM-connections__subtitle { font-size: 16px; line-height: 1.72; }
+    #shopify-section-{{ section.id }} .heatingM-connections__cards { display: flex; margin-top: 32px; flex-direction: column; gap: 24px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__flow { min-height: 0; padding: 24px 20px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__flow-row { display: flex; flex-direction: column; gap: 0; }
+    #shopify-section-{{ section.id }} .heatingM-connections__flow-node { width: 100%; flex-direction: row; gap: 24px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__flow-image-wrap { width: 106px; height: 138px; flex: 0 0 106px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__flow-label { flex: 1; text-align: left; }
+    #shopify-section-{{ section.id }} .heatingM-connections__arrow { height: 24px; transform: rotate(90deg); font-size: 24px; line-height: 24px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__apex-details,
+    #shopify-section-{{ section.id }} .heatingM-connections__comparison-details { min-height: 0; padding: 20px; gap: 24px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__apex-heading,
+    #shopify-section-{{ section.id }} .heatingM-connections__comparison-heading { align-items: flex-start; flex-direction: column-reverse; gap: 6px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__apex-count,
+    #shopify-section-{{ section.id }} .heatingM-connections__comparison-count { align-self: flex-start; }
+    #shopify-section-{{ section.id }} .heatingM-connections__comparison-media { height: 219px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__comparison-label { font-size: 16px; }
+  }
+{%- endstyle -%}
+
+<section class="heatingM-connections" aria-label="{{ section.settings.title | escape }}">
+  <div class="heatingM-connections__inner">
+    <header class="heatingM-connections__intro">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heatingM-connections__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <div class="heatingM-connections__subtitle">{{ section.settings.subtitle }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="heatingM-connections__cards">
+      <article class="heatingM-connections__card">
+        <div class="heatingM-connections__flow">
+          <div class="heatingM-connections__flow-row">
+            <div class="heatingM-connections__flow-node">
+              <div class="heatingM-connections__flow-image-wrap">
+                {%- if section.settings.image_1 != blank -%}
+                  {{ section.settings.image_1 | image_url: width: 900 | image_tag: class: 'heatingM-connections__flow-image', widths: '300, 600, 900', sizes: '(max-width: 767px) 106px, 28vw', loading: 'lazy', alt: 'Heated liner' }}
+                {%- else -%}<div class="heatingM-connections__placeholder">请上传图片</div>{%- endif -%}
+              </div>
+              <p class="heatingM-connections__flow-label">{% if heatingM_is_pants %}MMP03 Heated Pants Liner{% else %}MMJ01 Heated Jacket Liner{% endif %}</p>
+            </div>
+            <span class="heatingM-connections__arrow" aria-hidden="true">→</span>
+            <div class="heatingM-connections__flow-node">
+              <div class="heatingM-connections__flow-image-wrap">
+                {%- if section.settings.image_2 != blank -%}
+                  {{ section.settings.image_2 | image_url: width: 900 | image_tag: class: 'heatingM-connections__flow-image heatingM-connections__flow-image--cable', widths: '300, 600, 900', sizes: '(max-width: 767px) 106px, 28vw', loading: 'lazy', alt: 'Y cable set' }}
+                {%- else -%}<div class="heatingM-connections__placeholder">请上传图片</div>{%- endif -%}
+              </div>
+              <p class="heatingM-connections__flow-label">Y Cable Set (Included)</p>
+            </div>
+            <span class="heatingM-connections__arrow" aria-hidden="true">→</span>
+            <div class="heatingM-connections__flow-node">
+              <div class="heatingM-connections__flow-image-wrap">
+                {%- if section.settings.image_3 != blank -%}
+                  {{ section.settings.image_3 | image_url: width: 900 | image_tag: class: 'heatingM-connections__flow-image', widths: '300, 600, 900', sizes: '(max-width: 767px) 106px, 28vw', loading: 'lazy', alt: 'Motorcycle 12V power' }}
+                {%- else -%}<div class="heatingM-connections__placeholder">请上传图片</div>{%- endif -%}
+              </div>
+              <p class="heatingM-connections__flow-label">Motorcycle 12V Power</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="heatingM-connections__apex-details">
+          <div class="heatingM-connections__apex-heading">
+            <p class="heatingM-connections__apex-count"><strong>3</strong> connections</p>
+            <p class="heatingM-connections__apex-brand">Apex™</p>
+          </div>
+          <div class="heatingM-connections__apex-list">
+            <div class="heatingM-connections__apex-step"><div class="heatingM-connections__apex-box">Your bike’s 12V battery</div><span class="heatingM-connections__connector"></span></div>
+            <div class="heatingM-connections__apex-step"><div class="heatingM-connections__apex-box"><strong>Y cable</strong> * fuse already inside * in the box</div><span class="heatingM-connections__connector"></span></div>
+            <div class="heatingM-connections__apex-step"><div class="heatingM-connections__apex-box heatingM-connections__apex-box--dark">{% if heatingM_is_pants %}Apex pant liner{% else %}Apex jack liner{% endif %} * control button built in</div></div>
+          </div>
+          <p class="heatingM-connections__apex-note">Nothing extra to buy</p>
+        </div>
+      </article>
+
+      {%- for block in section.blocks -%}
+        {%- render 'heatingM-comparison-card', block: block -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating M connections",
+  "settings": [
+    { "type": "textarea", "id": "title", "label": "Section title", "default": "Nothing to Assemble. Nothing to Mount." },
+    { "type": "richtext", "id": "subtitle", "label": "Section subtitle", "default": "<p>Three connections from your bike to your jacket. A typical 12V heated system takes five, plus a controller to buy and a fuse you size yourself.</p>" },
+    { "type": "select", "id": "product_type", "label": "Product type", "options": [{ "value": "jacket", "label": "Jacket" }, { "value": "pants", "label": "Pants" }], "default": "jacket" },
+    { "type": "image_picker", "id": "image_1", "label": "Flow image 1" },
+    { "type": "image_picker", "id": "image_2", "label": "Flow image 2" },
+    { "type": "image_picker", "id": "image_3", "label": "Flow image 3" }
+  ],
+  "blocks": [
+    {
+      "type": "comparison",
+      "name": "Comparison block",
+      "limit": 1,
+      "settings": [
+        { "type": "select", "id": "variant", "label": "Comparison type", "options": [{ "value": "typical", "label": "Typical system" }, { "value": "third", "label": "Third block" }], "default": "typical" },
+        { "type": "image_picker", "id": "image", "label": "Comparison image" }
+      ]
+    }
+  ],
+  "max_blocks": 1,
+  "presets": [
+    {
+      "name": "Heating M connections",
+      "blocks": [
+        { "type": "comparison" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,329 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingM-layering {
+    overflow: hidden;
+    background: #f0f0f0;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__inner {
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__title,
+  #shopify-section-{{ section.id }} .heatingM-layering__description,
+  #shopify-section-{{ section.id }} .heatingM-layering__product-title,
+  #shopify-section-{{ section.id }} .heatingM-layering__price,
+  #shopify-section-{{ section.id }} .heatingM-layering__detail,
+  #shopify-section-{{ section.id }} .heatingM-layering__option,
+  #shopify-section-{{ section.id }} .heatingM-layering__option-description { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__title {
+    color: #14161a;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__description {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__description p { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__products {
+    display: grid;
+    margin-top: 44px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__card {
+    display: flex;
+    min-width: 0;
+    height: 735px;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__image-link,
+  #shopify-section-{{ section.id }} .heatingM-layering__image-wrap {
+    display: block;
+    width: 100%;
+    height: 516px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__image-wrap {
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__image--battery {
+    width: 141.34%;
+    height: 88.4%;
+    margin-top: 5.88%;
+    margin-left: -18.85%;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__placeholder {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    color: #565b63;
+    font-size: 13px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__details {
+    display: flex;
+    min-height: 219px;
+    padding: 24px;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__product-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__product-title {
+    display: block;
+    color: #1a1a1a;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__product-title:hover { text-decoration: underline; }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__price {
+    color: #1a1a1a;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__detail {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.57;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__option {
+    color: #b93205;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__option-description {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__button.heatingP-button {
+    display: flex;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 20px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1.4px solid #1a1a1a;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__button.heatingP-button--filled {
+    border-color: #b93205;
+    color: #fff;
+    background: #b93205;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__button.heatingP-button--outline {
+    color: #1a1a1a;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__button.heatingP-button:hover {
+    color: #fff;
+    border-color: #1a1a1a;
+    background: #1a1a1a;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__arrow {
+    font-size: 17px;
+    line-height: 1;
+  }
+
+  @media only screen and (max-width: 1023px) {
+    #shopify-section-{{ section.id }} .heatingM-layering__inner { padding: 72px 0; }
+    #shopify-section-{{ section.id }} .heatingM-layering__products { gap: 16px; }
+    #shopify-section-{{ section.id }} .heatingM-layering__card { height: 650px; }
+    #shopify-section-{{ section.id }} .heatingM-layering__image-link,
+    #shopify-section-{{ section.id }} .heatingM-layering__image-wrap { height: 420px; }
+    #shopify-section-{{ section.id }} .heatingM-layering__details { padding: 20px; }
+    #shopify-section-{{ section.id }} .heatingM-layering__product-title { font-size: 18px; }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingM-layering__inner {
+      width: 100%;
+      padding: 48px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM-layering__header { gap: 14px; }
+    #shopify-section-{{ section.id }} .heatingM-layering__title { font-size: 28px; line-height: 1.16; letter-spacing: 0; }
+    #shopify-section-{{ section.id }} .heatingM-layering__description { font-size: 16px; line-height: 1.72; }
+    #shopify-section-{{ section.id }} .heatingM-layering__products { display: flex; margin-top: 32px; flex-direction: column; gap: 24px; }
+    #shopify-section-{{ section.id }} .heatingM-layering__card { height: auto; min-height: 0; }
+    #shopify-section-{{ section.id }} .heatingM-layering__image-link,
+    #shopify-section-{{ section.id }} .heatingM-layering__image-wrap { height: 420px; }
+    #shopify-section-{{ section.id }} .heatingM-layering__details { min-height: 0; padding: 24px; gap: 16px; }
+    #shopify-section-{{ section.id }} .heatingM-layering__product-heading { gap: 8px; }
+    #shopify-section-{{ section.id }} .heatingM-layering__detail { line-height: 1.57; }
+  }
+{%- endstyle -%}
+
+<section class="heatingM-layering" aria-label="{{ section.settings.title | escape }}">
+  <div class="heatingM-layering__inner">
+    <header class="heatingM-layering__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heatingM-layering__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heatingM-layering__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="heatingM-layering__products">
+      <article class="heatingM-layering__card">
+        <a class="heatingM-layering__image-link" href="{{ section.settings.product_1_link }}" aria-label="{{ section.settings.product_1_title | escape }}">
+          <div class="heatingM-layering__image-wrap">
+            {%- if section.settings.product_1_image != blank -%}
+              {{ section.settings.product_1_image | image_url: width: 1400 | image_tag: class: 'heatingM-layering__image', widths: '500, 800, 1100, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 33vw', loading: 'lazy', alt: section.settings.product_1_title }}
+            {%- else -%}
+              <div class="heatingM-layering__placeholder">请上传产品图片</div>
+            {%- endif -%}
+          </div>
+        </a>
+        <div class="heatingM-layering__details">
+          <div class="heatingM-layering__product-heading">
+            <a class="heatingM-layering__product-title" href="{{ section.settings.product_1_link }}">{{ section.settings.product_1_title }}</a>
+            <p class="heatingM-layering__price">$239.99</p>
+          </div>
+          {%- if section.settings.product_1_type == 'jacket' -%}
+            <p class="heatingM-layering__detail">Six zones • 42W • Y cable included</p>
+            <a class="heatingM-layering__button heatingP-button heatingM-layering__button--outline" href="{{ section.settings.product_1_link }}"><span>View Heated Jacket Liner</span><span class="heatingM-layering__arrow" aria-hidden="true">→</span></a>
+          {%- else -%}
+            <p class="heatingM-layering__detail">Two full-leg zones • 38W . Y cable included</p>
+            <a class="heatingM-layering__button heatingP-button heatingM-layering__button--outline" href="{{ section.settings.product_1_link }}"><span>View Heated Pants Liner</span><span class="heatingM-layering__arrow" aria-hidden="true">→</span></a>
+          {%- endif -%}
+        </div>
+      </article>
+
+      <article class="heatingM-layering__card">
+        <a class="heatingM-layering__image-link" href="{{ section.settings.product_2_link }}" aria-label="{{ section.settings.product_2_title | escape }}">
+          <div class="heatingM-layering__image-wrap">
+            {%- if section.settings.product_2_image != blank -%}
+              {{ section.settings.product_2_image | image_url: width: 1400 | image_tag: class: 'heatingM-layering__image', widths: '500, 800, 1100, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 33vw', loading: 'lazy', alt: section.settings.product_2_title }}
+            {%- else -%}
+              <div class="heatingM-layering__placeholder">请上传产品图片</div>
+            {%- endif -%}
+          </div>
+        </a>
+        <div class="heatingM-layering__details">
+          <div class="heatingM-layering__product-heading">
+            <a class="heatingM-layering__product-title" href="{{ section.settings.product_2_link }}">{{ section.settings.product_2_title }}</a>
+            <p class="heatingM-layering__price">$499.99</p>
+          </div>
+          <p class="heatingM-layering__detail">Eight zones • 80W • one lead with the 3-Way cable</p>
+          <a class="heatingM-layering__button heatingP-button heatingM-layering__button--filled" href="{{ section.settings.product_2_link }}"><span>Shop the Set &amp; Save</span><span class="heatingM-layering__arrow" aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="heatingM-layering__card">
+        <a class="heatingM-layering__image-link" href="{{ section.settings.product_3_link }}" aria-label="{{ section.settings.product_3_title | escape }}">
+          <div class="heatingM-layering__image-wrap">
+            {%- if section.settings.product_3_image != blank -%}
+              {{ section.settings.product_3_image | image_url: width: 1400 | image_tag: class: 'heatingM-layering__image heatingM-layering__image--battery', widths: '500, 800, 1100, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 33vw', loading: 'lazy', alt: section.settings.product_3_title }}
+            {%- else -%}
+              <div class="heatingM-layering__placeholder">请上传产品图片</div>
+            {%- endif -%}
+          </div>
+        </a>
+        <div class="heatingM-layering__details">
+          <div class="heatingM-layering__product-heading">
+            <a class="heatingM-layering__product-title" href="{{ section.settings.product_3_link }}">{{ section.settings.product_3_title }}</a>
+          </div>
+          <div class="heatingM-layering__detail">
+            <p class="heatingM-layering__option">High Power 7.5K Battery</p>
+            <p class="heatingM-layering__option-description">Extended runtime for portable warmth anywhere.</p>
+          </div>
+          <a class="heatingM-layering__button heatingP-button heatingM-layering__button--filled" href="{{ section.settings.product_3_link }}"><span>Add To Cart</span><span class="heatingM-layering__arrow" aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating M layering",
+  "settings": [
+    { "type": "textarea", "id": "title", "label": "Section title", "default": "Expand Your Heating System" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Apex™ heated jacket liner is the core of a modular system. Add compatible gear and power options for ultimate warmth and unlimited ride time.</p>" },
+    { "type": "header", "content": "Product 1" },
+    { "type": "image_picker", "id": "product_1_image", "label": "Product 1 image" },
+    { "type": "text", "id": "product_1_title", "label": "Product 1 title", "default": "Apex™ Heated Pants Liner" },
+    { "type": "select", "id": "product_1_type", "label": "Product 1 type", "options": [{ "value": "pants", "label": "Pants" }, { "value": "jacket", "label": "Jacket" }], "default": "pants" },
+    { "type": "url", "id": "product_1_link", "label": "Product 1 link" },
+    { "type": "header", "content": "Product 2" },
+    { "type": "image_picker", "id": "product_2_image", "label": "Product 2 image" },
+    { "type": "text", "id": "product_2_title", "label": "Product 2 title", "default": "Apex™ Jacket & Pants Liner Set" },
+    { "type": "url", "id": "product_2_link", "label": "Product 2 link" },
+    { "type": "header", "content": "Product 3" },
+    { "type": "image_picker", "id": "product_3_image", "label": "Product 3 image" },
+    { "type": "text", "id": "product_3_title", "label": "Product 3 title", "default": "OFF Bike Battery" },
+    { "type": "url", "id": "product_3_link", "label": "Product 3 link" }
+  ],
+  "presets": [
+    { "name": "Heating M layering" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,286 @@
+{%- liquid
+  assign heatingM_desktop_image = section.settings.desktop_image
+  assign heatingM_mobile_image = section.settings.mobile_image | default: section.settings.desktop_image
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingM {
+    --heatingM-white: #fff;
+    --heatingM-dark: #1a1a1a;
+    position: relative;
+    overflow: hidden;
+    color: var(--heatingM-white);
+    background: linear-gradient(180deg, #531602 23.228%, var(--heatingM-dark) 88.554%);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__mobile-image { display: none; }
+
+  #shopify-section-{{ section.id }} .heatingM__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, .16), rgba(0, 0, 0, .08) 50%, transparent);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: clamp(560px, 40vw, 768px);
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__content {
+    width: 510px;
+    margin-left: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__subtitle,
+  #shopify-section-{{ section.id }} .heatingM__title,
+  #shopify-section-{{ section.id }} .heatingM__description { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM__subtitle {
+    padding-bottom: 8px;
+    color: var(--heatingM-white);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.155;
+    letter-spacing: 1.21px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__title {
+    max-width: 510px;
+    padding-bottom: 16px;
+    color: var(--heatingM-white);
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -1.5px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__description {
+    max-width: 420px;
+    padding-bottom: 24px;
+    color: var(--heatingM-white);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__description p { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM__stats {
+    display: flex;
+    align-items: flex-end;
+    gap: 48px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__stat {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__stat--runtime { width: 193px; gap: 4px; }
+  #shopify-section-{{ section.id }} .heatingM__stat--controllers { width: 125px; }
+  #shopify-section-{{ section.id }} .heatingM__stat--heat { width: 98px; }
+
+  #shopify-section-{{ section.id }} .heatingM__icon {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    color: #fff;
+    font-size: 48px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__value {
+    margin: 0;
+    background: linear-gradient(180deg, #fff, #999);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 33px;
+    letter-spacing: -.9px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM__label {
+    margin: 0;
+    color: var(--heatingM-white);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  @media only screen and (max-width: 1023px) {
+    #shopify-section-{{ section.id }} .heatingM__inner {
+      min-height: 620px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM__content { width: min(46%, 510px); }
+    #shopify-section-{{ section.id }} .heatingM__stats { gap: 24px; }
+    #shopify-section-{{ section.id }} .heatingM__stat--runtime { width: 150px; }
+    #shopify-section-{{ section.id }} .heatingM__stat--controllers,
+    #shopify-section-{{ section.id }} .heatingM__stat--heat { width: 96px; }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingM__media {
+      position: relative;
+      height: auto;
+      aspect-ratio: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM__desktop-image { display: none; }
+    #shopify-section-{{ section.id }} .heatingM__mobile-image { display: block; }
+    #shopify-section-{{ section.id }} .heatingM__overlay { display: none; }
+
+    #shopify-section-{{ section.id }} .heatingM__inner {
+      display: block;
+      min-height: 0;
+      width: 100%;
+      padding: 40px 20px 32px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM__content { width: 100%; }
+    #shopify-section-{{ section.id }} .heatingM__subtitle { padding-bottom: 8px; font-size: 16px; }
+    #shopify-section-{{ section.id }} .heatingM__title {
+      max-width: none;
+      padding-bottom: 16px;
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: -.3px;
+    }
+    #shopify-section-{{ section.id }} .heatingM__description {
+      max-width: none;
+      padding-bottom: 40px;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+    #shopify-section-{{ section.id }} .heatingM__stats {
+      justify-content: space-between;
+      gap: 12px;
+      padding: 0 8px;
+    }
+    #shopify-section-{{ section.id }} .heatingM__stat,
+    #shopify-section-{{ section.id }} .heatingM__stat--runtime,
+    #shopify-section-{{ section.id }} .heatingM__stat--controllers,
+    #shopify-section-{{ section.id }} .heatingM__stat--heat {
+      width: 85px;
+      align-items: center;
+      text-align: center;
+    }
+    #shopify-section-{{ section.id }} .heatingM__stat--runtime { gap: 4px; }
+    #shopify-section-{{ section.id }} .heatingM__icon { width: 46px; height: 46px; }
+    #shopify-section-{{ section.id }} .heatingM__value { font-size: 32px; }
+    #shopify-section-{{ section.id }} .heatingM__label { line-height: 1.2; }
+  }
+{%- endstyle -%}
+
+<section class="heatingM" aria-label="{{ section.settings.title | escape }}">
+  <div class="heatingM__media">
+    {%- if heatingM_desktop_image != blank -%}
+      {{ heatingM_desktop_image | image_url: width: 2400 | image_tag: class: 'heatingM__image heatingM__desktop-image', widths: '960, 1340, 1920, 2400', sizes: '100vw', loading: 'eager', alt: '' }}
+    {%- else -%}
+      <div class="heatingM__image heatingM__desktop-image" aria-hidden="true"></div>
+    {%- endif -%}
+    {%- if heatingM_mobile_image != blank -%}
+      {{ heatingM_mobile_image | image_url: width: 1600 | image_tag: class: 'heatingM__image heatingM__mobile-image', widths: '390, 780, 1200, 1600', sizes: '100vw', loading: 'eager', alt: '' }}
+    {%- else -%}
+      <div class="heatingM__image heatingM__mobile-image" aria-hidden="true"></div>
+    {%- endif -%}
+    <span class="heatingM__overlay" aria-hidden="true"></span>
+  </div>
+
+  <div class="heatingM__inner">
+    <div class="heatingM__content">
+      {%- if section.settings.subtitle != blank -%}
+        <p class="heatingM__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="heatingM__title">{{ section.settings.title | newline_to_br }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heatingM__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+
+      <div class="heatingM__stats" aria-label="Heating system benefits">
+        <div class="heatingM__stat heatingM__stat--runtime">
+          <span class="heatingM__icon" aria-hidden="true">∞</span>
+          <p class="heatingM__label">Runtime on your bike's 12V</p>
+        </div>
+        <div class="heatingM__stat heatingM__stat--controllers">
+          <p class="heatingM__value">0</p>
+          <p class="heatingM__label">Controllers to buy</p>
+        </div>
+        <div class="heatingM__stat heatingM__stat--heat">
+          <p class="heatingM__value">144°F</p>
+          <p class="heatingM__label">Top heat level</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating M hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop banner image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile banner image"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Small title",
+      "default": "Apex™ HEATED RIDING SYSTEM"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Main title",
+      "default": "Heated Riding Gear That Runs on Your Bike"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>No battery to charge. No controller to buy. Plug the liner into your 12V motorcycle power and ride at up to 144°F for as long as the engine runs.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HeatingM hero"
+    }
+  ]
+}
+{% endschema %}

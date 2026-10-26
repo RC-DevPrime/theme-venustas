@@ -1,0 +1,40 @@
+<article class="heatingM-connections__card heatingM-connections__comparison-card{% if block.settings.variant == 'third' %} heatingM-connections__comparison-card--third{% endif %}" {{ block.shopify_attributes }}>
+  <div class="heatingM-connections__comparison-media">
+    {%- if block.settings.image != blank -%}
+      {{ block.settings.image | image_url: width: 1600 | image_tag: class: 'heatingM-connections__comparison-image', widths: '600, 900, 1200, 1600', sizes: '(max-width: 767px) calc(100vw - 40px), 50vw', loading: 'lazy', alt: '12V heated system comparison' }}
+    {%- else -%}
+      <div class="heatingM-connections__placeholder">请上传对比图片</div>
+    {%- endif -%}
+  </div>
+
+  <div class="heatingM-connections__comparison-details">
+    <div class="heatingM-connections__comparison-heading">
+      <p class="heatingM-connections__comparison-label">A typical 12V system</p>
+      <p class="heatingM-connections__comparison-count"><strong>5</strong> connections</p>
+    </div>
+
+    <div class="heatingM-connections__connection-list">
+      <div class="heatingM-connections__connection-step">
+        <div class="heatingM-connections__connection-box">12V battery</div>
+      </div>
+      <div class="heatingM-connections__connection-step">
+        <span class="heatingM-connections__connection-line" aria-hidden="true"></span>
+        <div class="heatingM-connections__connection-box heatingM-connections__connection-box--dashed"><strong>Battery harness</strong> * bought separately</div>
+      </div>
+      <div class="heatingM-connections__connection-step">
+        <span class="heatingM-connections__connection-line" aria-hidden="true"></span>
+        <div class="heatingM-connections__connection-box heatingM-connections__connection-box--dashed"><strong>Fuse</strong> * you choose the rating</div>
+      </div>
+      <div class="heatingM-connections__connection-step">
+        <span class="heatingM-connections__connection-line" aria-hidden="true"></span>
+        <div class="heatingM-connections__connection-box heatingM-connections__connection-box--dashed"><strong>Controller</strong> * bought separately, mounted on the bars</div>
+      </div>
+      <div class="heatingM-connections__connection-step">
+        <span class="heatingM-connections__connection-line" aria-hidden="true"></span>
+        <div class="heatingM-connections__connection-box">Heated jacket</div>
+      </div>
+    </div>
+
+    <p class="heatingM-connections__comparison-note">Two extra purchases and a fuse decision</p>
+  </div>
+</article>

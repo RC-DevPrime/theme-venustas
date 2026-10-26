@@ -1,0 +1,263 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingM-off-bike {
+    overflow: hidden;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__inner {
+    display: grid;
+    width: min(calc(100% - 40px), 1340px);
+    min-height: 552px;
+    margin: 0 auto;
+    padding: 80px 0;
+    grid-template-columns: minmax(0, 1fr) 654px;
+    align-items: center;
+    gap: 64px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__story {
+    display: flex;
+    min-width: 0;
+    height: 392px;
+    padding: 24px 0;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__intro,
+  #shopify-section-{{ section.id }} .heatingM-off-bike__title,
+  #shopify-section-{{ section.id }} .heatingM-off-bike__description,
+  #shopify-section-{{ section.id }} .heatingM-off-bike__note,
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric,
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric-value,
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric-level { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__title {
+    color: #14161a;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__description {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__description p { margin: 0; }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric {
+    display: flex;
+    height: 88px;
+    padding: 24px 16px;
+    flex-direction: column;
+    justify-content: center;
+    border: 1.4px solid #383c42;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric--high {
+    border-color: #b93205;
+    background: rgba(185, 50, 5, .12);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric--low {
+    border-color: #0d6efd;
+    background: rgba(5, 92, 185, .12);
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric-value {
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric-unit {
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric--high .heatingM-off-bike__metric-value { color: #b93205; }
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric--low .heatingM-off-bike__metric-value { color: #0d6efd; }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric-level {
+    padding: 6px 12px;
+    border-radius: 100px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric--high .heatingM-off-bike__metric-level { background: #b93205; }
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric--medium .heatingM-off-bike__metric-level { background: #1a1a1a; }
+  #shopify-section-{{ section.id }} .heatingM-off-bike__metric--low .heatingM-off-bike__metric-level { background: #0d6efd; }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__note {
+    color: #565b63;
+    font-size: 12px;
+    line-height: 1.68;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__media {
+    position: relative;
+    width: 100%;
+    height: 392px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #f5f5f5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-off-bike__placeholder {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    color: #565b63;
+    font-size: 13px;
+  }
+
+  @media only screen and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .heatingM-off-bike__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(400px, 48%);
+      gap: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM-off-bike__title { font-size: 30px; }
+    #shopify-section-{{ section.id }} .heatingM-off-bike__metric { padding-right: 12px; padding-left: 12px; }
+    #shopify-section-{{ section.id }} .heatingM-off-bike__metric-value { font-size: 32px; }
+    #shopify-section-{{ section.id }} .heatingM-off-bike__metric-level { padding-right: 8px; padding-left: 8px; font-size: 11px; }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingM-off-bike__inner {
+      display: flex;
+      width: 100%;
+      min-height: 0;
+      padding: 48px 20px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM-off-bike__story {
+      display: contents;
+      height: auto;
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM-off-bike__intro { gap: 14px; }
+    #shopify-section-{{ section.id }} .heatingM-off-bike__title { font-size: 28px; line-height: 1.16; letter-spacing: 0; }
+    #shopify-section-{{ section.id }} .heatingM-off-bike__description { font-size: 16px; line-height: 1.72; }
+
+    #shopify-section-{{ section.id }} .heatingM-off-bike__media {
+      height: auto;
+      aspect-ratio: 335 / 210;
+      order: 2;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM-off-bike__metrics { order: 3; gap: 10px; }
+    #shopify-section-{{ section.id }} .heatingM-off-bike__metric { height: 100px; padding: 16px 8px; align-items: center; }
+    #shopify-section-{{ section.id }} .heatingM-off-bike__metric-row { flex-direction: column; gap: 16px; }
+    #shopify-section-{{ section.id }} .heatingM-off-bike__metric-value { font-size: 32px; }
+    #shopify-section-{{ section.id }} .heatingM-off-bike__metric-unit { font-size: 18px; }
+    #shopify-section-{{ section.id }} .heatingM-off-bike__metric-level { width: 100%; padding: 6px 4px; text-align: center; }
+    #shopify-section-{{ section.id }} .heatingM-off-bike__note { order: 4; text-align: left; }
+  }
+{%- endstyle -%}
+
+<section class="heatingM-off-bike" aria-label="{{ section.settings.title | escape }}">
+  <div class="heatingM-off-bike__inner">
+    <div class="heatingM-off-bike__story">
+      <div class="heatingM-off-bike__intro">
+        {%- if section.settings.title != blank -%}
+          <h2 class="heatingM-off-bike__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="heatingM-off-bike__description">{{ section.settings.description }}</div>
+        {%- endif -%}
+      </div>
+
+      <div class="heatingM-off-bike__metrics" aria-label="Battery runtimes">
+        <div class="heatingM-off-bike__metric heatingM-off-bike__metric--high">
+          <div class="heatingM-off-bike__metric-row">
+            <p class="heatingM-off-bike__metric-value">1.5<span class="heatingM-off-bike__metric-unit">h</span></p>
+            <p class="heatingM-off-bike__metric-level">HIGH</p>
+          </div>
+        </div>
+        <div class="heatingM-off-bike__metric heatingM-off-bike__metric--medium">
+          <div class="heatingM-off-bike__metric-row">
+            <p class="heatingM-off-bike__metric-value">2<span class="heatingM-off-bike__metric-unit">h</span></p>
+            <p class="heatingM-off-bike__metric-level">MEDIUM</p>
+          </div>
+        </div>
+        <div class="heatingM-off-bike__metric heatingM-off-bike__metric--low">
+          <div class="heatingM-off-bike__metric-row">
+            <p class="heatingM-off-bike__metric-value">3<span class="heatingM-off-bike__metric-unit">h</span></p>
+            <p class="heatingM-off-bike__metric-level">LOW</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="heatingM-off-bike__note">High Power 7.5K battery $79.99, sold separately. Not needed for riding.</p>
+    </div>
+
+    <div class="heatingM-off-bike__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1600 | image_tag: class: 'heatingM-off-bike__image', widths: '600, 900, 1200, 1600', sizes: '(max-width: 767px) calc(100vw - 40px), (max-width: 1199px) 48vw, 654px', loading: 'lazy', alt: 'Off-bike warmth at camp' }}
+      {%- else -%}
+        <div class="heatingM-off-bike__placeholder">请上传图片</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heating M off bike",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Shared image" },
+    { "type": "textarea", "id": "title", "label": "Title", "default": "Built for the Bike.\nStill Works Off It." },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Walking the paddock or standing around camp: unplug, drop a Venustas high power 7.5K battery in the pocket and keep the heat.</p>" }
+  ],
+  "presets": [
+    { "name": "Heating M off bike" }
+  ]
+}
+{% endschema %}
