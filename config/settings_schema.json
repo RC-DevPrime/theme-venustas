@@ -92,6 +92,63 @@
     ]
   },
   {
+    "name": "Product Promotion Banner",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Weekly Promotion"
+      },
+      {
+        "type": "text",
+        "id": "promo_weekly_title",
+        "label": "Weekly promotion title",
+        "default": "Weekly Deals• Extra savings, auto-applied"
+      },
+      {
+        "type": "image_picker",
+        "id": "promo_weekly_background",
+        "label": "Weekly promotion background"
+      },
+      {
+        "type": "url",
+        "id": "promo_weekly_link",
+        "label": "Weekly promotion link"
+      },
+      {
+        "type": "text",
+        "id": "promo_weekly_end_at",
+        "label": "Weekly promotion end time",
+        "info": "Use ISO 8601 with timezone, for example 2026-10-30T23:59:59+08:00. The banner is hidden after this time."
+      },
+      {
+        "type": "checkbox",
+        "id": "promo_weekly_show_countdown",
+        "label": "Show weekly countdown",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Monthly Promotion"
+      },
+      {
+        "type": "text",
+        "id": "promo_monthly_title",
+        "label": "Monthly promotion title",
+        "default": "Fall Mega Sale • Up to $[45%] off"
+      },
+      {
+        "type": "image_picker",
+        "id": "promo_monthly_background",
+        "label": "Monthly promotion background"
+      },
+      {
+        "type": "url",
+        "id": "promo_monthly_link",
+        "label": "Monthly promotion link"
+      }
+    ]
+  },
+  {
     "name": "Calculator Free Shipping Message",
     "settings": [
       {

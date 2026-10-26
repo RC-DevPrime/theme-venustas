@@ -1,0 +1,123 @@
+{%- liquid
+  assign promotion_type = blank
+
+  if product.tags contains 'promo_weekly'
+    assign promotion_type = 'weekly'
+  elsif product.tags contains 'promo_monthly'
+    assign promotion_type = 'monthly'
+  endif
+
+  assign promotion_link = blank
+  assign promotion_title = blank
+  assign promotion_background = blank
+  assign promotion_show_countdown = false
+  assign promotion_end_at = blank
+
+  if promotion_type == 'weekly'
+    assign promotion_link = settings.promo_weekly_link
+    assign promotion_title = settings.promo_weekly_title | default: 'Weekly Deals• Extra savings, auto-applied'
+    if settings.promo_weekly_background != blank
+      assign promotion_background = settings.promo_weekly_background | image_url: width: 1600
+    endif
+    assign promotion_show_countdown = settings.promo_weekly_show_countdown
+    assign promotion_end_at = settings.promo_weekly_end_at | strip
+  elsif promotion_type == 'monthly'
+    assign promotion_link = settings.promo_monthly_link
+    assign promotion_title = settings.promo_monthly_title | default: 'Fall Mega Sale • Up to $[45%] off'
+    if settings.promo_monthly_background != blank
+      assign promotion_background = settings.promo_monthly_background | image_url: width: 1600
+    endif
+  endif
+
+  if promotion_background == blank
+    assign promotion_background = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/heatingP-banner.webp?v=1792035932'
+  endif
+-%}
+
+{%- if promotion_type != blank and promotion_link != blank -%}
+  {%- if promotion_type == 'weekly' and promotion_show_countdown and promotion_end_at == blank -%}
+    {%- comment -%}
+      A weekly promotion with countdown enabled must have an end time.
+      This prevents an accidentally permanent promotion banner.
+    {%- endcomment -%}
+  {%- else -%}
+    <div
+      class="product-promotion product-promotion--{{ promotion_type }}"
+      data-product-promotion
+      style="--product-promotion-background-image: url('{{ promotion_background }}');"
+      {% if promotion_type == 'weekly' and promotion_show_countdown %}data-promotion-end-at="{{ promotion_end_at | escape }}"{% endif %}
+    >
+      <a
+        class="product-promotion__link"
+        href="{{ promotion_link | escape }}"
+        aria-label="{{ promotion_title | escape }}"
+      >
+        <span class="product-promotion__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 12v8.25A1.75 1.75 0 0 1 18.25 22H5.75A1.75 1.75 0 0 1 4 20.25V12m-1.5 0h19V8.75A1.75 1.75 0 0 0 19.75 7H4.25A1.75 1.75 0 0 0 2.5 8.75V12Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M12 7v15M2.5 12h19M12 7H8.75a2.25 2.25 0 1 1 2.25-2.25V7Zm0 0h3.25a2.25 2.25 0 1 0-2.25-2.25V7Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </span>
+
+        <span class="product-promotion__content">
+          <span class="product-promotion__title">{{ promotion_title }}</span>
+          {%- if promotion_type == 'weekly' -%}
+            <span class="product-promotion__subtitle">
+              {%- if promotion_show_countdown -%}
+                Ends in <span data-promotion-countdown aria-live="polite"></span>
+              {%- endif -%}
+            </span>
+          {%- endif -%}
+        </span>
+
+        <span class="product-promotion__arrow" aria-hidden="true">›</span>
+      </a>
+    </div>
+
+    {%- if promotion_type == 'weekly' and promotion_show_countdown -%}
+      <script>
+        (function () {
+          var banner = document.querySelector('[data-product-promotion][data-promotion-end-at]');
+          if (!banner || banner.dataset.promotionCountdownInitialized === 'true') return;
+
+          var countdown = banner.querySelector('[data-promotion-countdown]');
+          var endAt = Date.parse(banner.dataset.promotionEndAt);
+          if (!countdown || Number.isNaN(endAt)) {
+            banner.remove();
+            return;
+          }
+
+          banner.dataset.promotionCountdownInitialized = 'true';
+
+          function formatRemaining(milliseconds) {
+            var totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+            var days = Math.floor(totalSeconds / 86400);
+            var hours = Math.floor((totalSeconds % 86400) / 3600);
+            var minutes = Math.floor((totalSeconds % 3600) / 60);
+            var seconds = totalSeconds % 60;
+
+            return days + 'd ' + [hours, minutes, seconds].map(function (value) {
+              return String(value).padStart(2, '0');
+            }).join(':');
+          }
+
+          var timer = null;
+
+          function updateCountdown() {
+            var remaining = endAt - Date.now();
+            if (remaining <= 0) {
+              if (timer) window.clearInterval(timer);
+              banner.remove();
+              return;
+            }
+
+            countdown.textContent = formatRemaining(remaining);
+          }
+
+          updateCountdown();
+          if (banner.isConnected) timer = window.setInterval(updateCountdown, 1000);
+        }());
+      </script>
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}

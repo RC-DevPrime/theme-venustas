@@ -1885,3 +1885,103 @@ and (max-device-width : 1024px){
         --bs-gutter-x: 30px;
     }
 }
+
+/* PRODUCT PROMOTION BANNER ------------------------------------ */
+.product .product-promotion {
+    width: 100%;
+    margin-top: 8px;
+    overflow: hidden;
+    background-color: #4a2415;
+    background-image: var(--product-promotion-background-image);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.product .product-promotion__link {
+    display: flex;
+    min-height: 76px;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.product .product-promotion__link:hover,
+.product .product-promotion__link:focus-visible {
+    color: #fff;
+    text-decoration: none;
+}
+
+.product .product-promotion__link:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: -4px;
+}
+
+.product .product-promotion__icon {
+    display: inline-flex;
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+}
+
+.product .product-promotion__icon svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+.product .product-promotion__content {
+    display: flex;
+    min-width: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.product .product-promotion__title,
+.product .product-promotion__subtitle {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.product .product-promotion__title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.product .product-promotion__subtitle {
+    color: #f3c17a;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.product .product-promotion__arrow {
+    flex: 0 0 auto;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1;
+}
+
+@media (max-width: 767.98px) {
+    .product .product-promotion__link {
+        min-height: 68px;
+        gap: 10px;
+        padding: 10px 12px;
+    }
+
+    .product .product-promotion__title {
+        font-size: 13px;
+    }
+
+    .product .product-promotion__subtitle {
+        font-size: 11px;
+    }
+}
