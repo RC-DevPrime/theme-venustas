@@ -880,78 +880,82 @@ body.product-media-lightbox-open {
 .product .product-description p{
     margin-bottom: 0px;
 }
-.product {
-    .discount-banner{
-        position: relative;
-        overflow: hidden;
+.product .member-points-banner {
+    display: flex;
+    width: 100%;
+    min-height: 48px;
+    box-sizing: border-box;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #F2EEE9;
+    color: #141414;
+    font-family: var(--font-primary);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+    text-decoration: none;
+}
+
+.product a.member-points-banner:hover,
+.product a.member-points-banner:focus-visible {
+    color: #1b1b1b;
+    text-decoration: none;
+}
+
+.product a.member-points-banner:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -3px;
+}
+
+.product .member-points-banner__icon {
+    display: inline-flex;
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    align-items: center;
+    justify-content: center;
+}
+
+.product .member-points-banner__icon svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+}
+
+.product .member-points-banner__text {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.product .member-points-banner__text strong {
+    font-weight: 800;
+}
+
+.product .member-points-banner__arrow {
+    flex: 0 0 auto;
+    margin-left: auto;
+    font-size: 25px;
+    font-weight: 300;
+    line-height: 1;
+}
+
+@media (max-width: 767.98px) {
+    .product .member-points-banner {
+        min-height: 44px;
+        gap: 8px;
+        padding: 9px 10px;
+        font-size: 11px;
     }
-    .discount-banner img{
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
+
+    .product .member-points-banner__icon,
+    .product .member-points-banner__icon svg {
+        width: 17px;
+        height: 17px;
     }
-    .discount-banner-content{
-        position: relative;
-        display: grid;
-        grid-template-columns: minmax(120px, 24%) 1fr;
-        width: 100%;
-        align-items: stretch;
-        column-gap: 0;
-        z-index: 1;
-    }
-    .discount-banner-content .discount-percentage{
-        font-size: clamp(18px, 1.15vw, 24px);
-       font-family: var(--font-primary);
-        line-height:1.15;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        white-space: normal;
-    }
-    .discount-banner-content .discount-percentage span{
-        line-height:16px;
-    }
-    .discount-banner-content .f-column{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #C7370F;
-        padding: 12px 10px;
-        min-height: 100%;
-    }
-    .discount-banner-content .s-column{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 4px;
-        background: #F1E8E8;
-        padding: 10px 14px;
-        min-height: 100%;
-    }
-    .discount-banner-content .s-column > *{
-        margin: 0 !important;
-    }
-    .discount-banner-content .s-column-code{
-        padding: 0 25px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .discount-banner-content .discount-content{
-        width:fit-content;
-    }
-    .discount-banner-content .copy-code-btn{
-        padding: 6px 15px;
-        background: #B93205;
-        border-radius: 50px;
-        color: #fff;
-        font-weight: 500;
-        cursor: pointer;
+
+    .product .member-points-banner__arrow {
+        font-size: 22px;
     }
 }
 
@@ -1790,25 +1794,6 @@ body.product-media-lightbox-open {
     .product .product-price .promotion.rte p:last-child {
         margin-bottom: 0;
     }
-    .product .discount-banner-content{
-        grid-template-columns: minmax(92px, 32%) 1fr;
-        column-gap: 0;
-    }
-    .product .discount-banner-content .discount-percentage{
-        font-size: clamp(14px, 6.2vw, 22px);
-        line-height: 1.1;
-    }
-    .product .discount-banner-content .discount-percentage span{
-        line-height:14px;
-        font-size:12px;
-    }
-    .product .discount-banner-content .f-column{
-        padding: 10px 6px;
-    }
-    .product .discount-banner-content .s-column{
-        gap: 2px;
-        padding: 8px 10px;
-    }
     .product div.variants{
         background: #F9F9F9;
         padding:25px 12px 15px;
@@ -1963,7 +1948,14 @@ and (max-device-width : 1024px){
 
 .product .product-promotion__subtitle .product-promotion__countdown {
     font-size:13px;
-    color:#29EF95;
+}
+
+.product .product-promotion--weekly .product-promotion__countdown {
+    color: #29EF95;
+}
+
+.product .product-promotion--monthly .product-promotion__countdown {
+    color: #FFB61C;
 }
 
 .product .product-promotion__arrow {

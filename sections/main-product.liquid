@@ -161,100 +161,44 @@ assign sale_badge_type = 'discount'
                             </div>
                             {% render 'product-promotion-banner', product: product %}
                         {%- when 'discount_banner' %}
-                            <div class="product-details">
-                                    {% assign banner_discount_amount = block.settings.discount_amount %}
-                                    {% assign banner_description = block.settings.description %}
-                                    {% assign banner_description_2 = block.settings.description_2 %}
-                                    {% assign banner_link = block.settings.link %}
+                            {%- liquid
+                                assign cart_discount_text = product.metafields.promo.cart_discount_text.value | default: product.metafields.promo.cart_discount_text | strip
+                                assign discount_percent = 0
+                                assign member_points = 0
+                                assign has_valid_member_points = false
 
-                                    {% assign custom_banner_headings = product.metafields.custom.discount_banner_headings.value | default: custom.discount_banner_headings %}
-                                    {% comment %}
-                                    discount_banner_link (URL): store e.g. https://venustas.com/#smile-home — href uses only the hash (#smile-home) so it jumps on the current page.
-                                    {% endcomment %}
-                                    {% assign custom_banner_link = product.metafields.custom.discount_banner_link.value | default: custom.discount_banner_link | strip %}
+                                assign discount_prefix = cart_discount_text | slice: 0, 5
 
-                                    {% if custom_banner_headings != blank %}
-                                    {% assign normalized_banner_headings = custom_banner_headings | strip | newline_to_br | split: '<br />' %}
+                                if cart_discount_text != blank and discount_prefix == 'Extra'
+                                    assign discount_value = cart_discount_text | remove_first: 'Extra' | strip | split: '%' | first | strip
+                                    assign discount_percent = discount_value | plus: 0
 
-                                    {% if normalized_banner_headings.size > 0 %}
-                                        {% assign line_1 = normalized_banner_headings[0] | strip %}
-                                        {% if line_1 != blank %}
-                                        {% assign banner_discount_amount = line_1 %}
-                                        {% endif %}
-                                    {% endif %}
+                                    if discount_percent > 0 and discount_percent < 100
+                                        assign current_price_cents = product.selected_or_first_available_variant.price
+                                        assign discount_multiplier = 100 | minus: discount_percent
+                                        assign discounted_price_cents = current_price_cents | times: discount_multiplier | divided_by: 100
+                                        assign member_points = discounted_price_cents | divided_by: 100
+                                        assign has_valid_member_points = true
+                                    endif
+                                endif
+                            -%}
 
-                                    {% if normalized_banner_headings.size > 1 %}
-                                        {% assign line_2 = normalized_banner_headings[1] | strip %}
-                                        {% if line_2 != blank %}
-                                        {% assign banner_description = line_2 %}
-                                        {% endif %}
-                                    {% endif %}
-
-                                    {% if normalized_banner_headings.size > 2 %}
-                                        {% assign line_3 = normalized_banner_headings[2] | strip %}
-                                        {% if line_3 != blank %}
-                                        {% assign banner_description_2 = line_3 %}
-                                        {% endif %}
-                                    {% endif %}
-                                    {% endif %}
-
-                                    {% if custom_banner_link != blank %}
-                                    {% assign banner_link = custom_banner_link %}
-                                    {% endif %}
-                                    {% assign banner_link = banner_link | strip %}
-                                    {% if banner_link contains '#' %}
-                                    {% assign _hash_suffix = banner_link | split: '#' | last %}
-                                    {% assign banner_link = '#' | append: _hash_suffix %}
-                                    {% endif %}
-
-                                    <div class="product-block discount-banner">
-                                    <img
-                                        src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/42442_2x_b705720d-eac0-481b-81bf-63ec15e3639d.png?v=1758607571"
-                                        class="d-lg-block d-md-block d-sm-none"
-                                        alt="discount-banner-bg-desktop"
-                                        style="width:100%; height:auto; display:block; max-width:100%;"
-                                    >
-
-                                    <img
-                                        src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/42442_2x_1.png?v=1762359219"
-                                        class="d-lg-none d-md-none d-sm-block"
-                                        alt="discount-banner-bg-mobile"
-                                        style="width:100%; height:auto; display:block; max-width:100%;"
-                                    >
-
-                                    <div class="discount-banner-content">
-                                        <div class="f-column ps-lg-2 ps-md-2 ps-sm-2">
-                                        <div class="discount-percentage f-white d-lg-flex d-md-flex d-sm-flex gap-1">
-                                            {{ banner_discount_amount }}
-                                            {% if block.settings.show_percent_off %}
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <span class="body pp-bold">%</span>
-                                                <span class="body-xl off">OFF</span>
-                                            </div>
-                                            {% endif %}
-                                        </div>
-                                        </div>
-
-                                        <div class="s-column ps-lg-4 ps-md-4 ps-sm-3">
-                                        <div class="body pp-semibold d-lg-block d-md-block d-sm-none f-black">
-                                            {{ banner_description }}
-                                        </div>
-
-                                        <div class="body-sm pp-semibold d-lg-none d-md-none d-sm-block f-black">
-                                            {{ banner_description }}
-                                        </div>
-
-                                        <a class="body pp-regular text-underline f-gray l-h-normal d-lg-block d-md-block d-sm-none" href="{{ banner_link }}">
-                                            {{ banner_description_2 }}
-                                        </a>
-
-                                        <a class="body-xs pp-regular text-underline f-gray l-h-normal d-lg-none d-md-none d-sm-block" href="{{ banner_link }}">
-                                            {{ banner_description_2 }}
-                                        </a>
-                                        </div>
-                                    </div>
-                                    </div>
-                            </div>
+                            {%- if has_valid_member_points -%}
+                                <div class="product-details">
+                                    <a class="member-points-banner" href="#smile-home" aria-label="Log in for member prices and earn {{ member_points }} points on this order">
+                                        <span class="member-points-banner__icon" aria-hidden="true">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M15 4.5C15 5.74264 12.3137 6.75 9 6.75C5.68629 6.75 3 5.74264 3 4.5C3 3.25736 5.68629 2.25 9 2.25C12.3137 2.25 15 3.25736 15 4.5Z" stroke-width="1.35" stroke="#141414"/>
+                                                <path d="M3 4.5V9M3 9C3 10.275 5.7 11.25 9 11.25C12.3 11.25 15 10.275 15 9M3 9V13.5C3 14.775 5.7 15.75 9 15.75C12.3 15.75 15 14.775 15 13.5V9M15 9V4.5" stroke-width="1.35" stroke="#141414"/>
+                                            </svg>
+                                        </span>
+                                        <span class="member-points-banner__text">
+                                            Log in for member prices <span aria-hidden="true">·</span> earn <strong>{{ member_points }}</strong> points on this order
+                                        </span>
+                                        <span class="member-points-banner__arrow" aria-hidden="true">›</span>
+                                    </a>
+                                </div>
+                            {%- endif -%}
                         {%- when 'choose_runtime' %}
                             {% render 'choose-runtime', block: block, section: section, product: product %}
                         {%- when 'variant_option' %}
@@ -1281,37 +1225,7 @@ assign sale_badge_type = 'discount'
                 "type": "discount_banner",
                 "name": "Discount Banner",
                 "limit": 1,
-                "settings": [
-                  {
-                    "type": "text",
-                    "id": "discount_amount",
-                    "label": "Discount Amount",
-                    "default": "60"
-                  },
-                  {
-                    "type": "checkbox",
-                    "id": "show_percent_off",
-                    "label": "Show % OFF suffix",
-                    "default": false
-                  },
-                  {
-                    "type": "text",
-                    "id": "description",
-                    "label": "Description",
-                    "default": "Join now for an extra 5% member discount!"
-                  },
-                  {
-                    "type": "textarea",
-                    "id": "description_2",
-                    "label": "Description",
-                    "default": "Become a member >"
-                  },
-                  {
-                    "type": "url",
-                    "id": "link",
-                    "label": "Link",
-                  }
-                ]
+                "settings": []
             },
             {
                 "type": "choose_runtime",
