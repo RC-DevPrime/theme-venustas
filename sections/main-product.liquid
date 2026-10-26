@@ -122,6 +122,23 @@ assign sale_badge_type = 'discount'
                                     {%- liquid
                                         assign saved_amount = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price
                                         assign promotion_mf = product.metafields.promo.cart_discount_text
+                                        assign promotion_text = promotion_mf.value | default: promotion_mf | strip_html | strip
+                                        assign promotion_discount_price = blank
+                                        assign promotion_is_extra = false
+                                        assign promotion_prefix = promotion_text | slice: 0, 5
+
+                                        if promotion_text != blank and promotion_prefix == 'Extra'
+                                            assign promotion_discount_value = promotion_text | remove_first: 'Extra' | strip | split: '%' | first | strip
+                                            assign promotion_discount_percent = promotion_discount_value | plus: 0
+
+                                            if promotion_discount_percent > 0 and promotion_discount_percent < 100
+                                                assign promotion_current_price_cents = product.selected_or_first_available_variant.price
+                                                assign promotion_discount_multiplier = 100 | minus: promotion_discount_percent
+                                                assign promotion_discounted_price_cents = promotion_current_price_cents | times: promotion_discount_multiplier | divided_by: 100
+                                                assign promotion_discount_price = promotion_discounted_price_cents | money | prepend: curSym
+                                                assign promotion_is_extra = true
+                                            endif
+                                        endif
                                     -%}
 
                                     {% if product.selected_or_first_available_variant.compare_at_price != blank and promotion_mf == blank %}
@@ -134,10 +151,10 @@ assign sale_badge_type = 'discount'
 
                                     {% if promotion_mf != blank %}
                                         <div class="promotion rte">
-                                            {% if promotion_mf.type contains 'rich_text' %}
+                                            {% if promotion_mf.type contains 'rich_text' and promotion_is_extra == false %}
                                                 {{ promotion_mf | metafield_tag }}
                                             {% else %}
-                                                {{ promotion_mf.value | default: promotion_mf }}
+                                                {{ promotion_text }}{% if promotion_discount_price != blank %} {{ promotion_discount_price }}{% endif %}
                                             {% endif %}
                                         </div>
                                     {% endif %}

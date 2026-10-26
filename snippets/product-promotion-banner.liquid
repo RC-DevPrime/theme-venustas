@@ -10,6 +10,7 @@
   assign promotion_link = blank
   assign promotion_title = blank
   assign promotion_background = blank
+  assign promotion_background_mobile = blank
   assign promotion_show_countdown = false
   assign promotion_end_at = blank
 
@@ -19,6 +20,9 @@
     if settings.promo_weekly_background != blank
       assign promotion_background = settings.promo_weekly_background | image_url: width: 1600
     endif
+    if settings.promo_weekly_background_mobile != blank
+      assign promotion_background_mobile = settings.promo_weekly_background_mobile | image_url: width: 800
+    endif
     assign promotion_show_countdown = settings.promo_weekly_show_countdown
     assign promotion_end_at = settings.promo_weekly_end_at | strip
   elsif promotion_type == 'monthly'
@@ -27,12 +31,19 @@
     if settings.promo_monthly_background != blank
       assign promotion_background = settings.promo_monthly_background | image_url: width: 1600
     endif
+    if settings.promo_monthly_background_mobile != blank
+      assign promotion_background_mobile = settings.promo_monthly_background_mobile | image_url: width: 800
+    endif
     assign promotion_show_countdown = settings.promo_monthly_show_countdown
     assign promotion_end_at = settings.promo_monthly_end_at | strip
   endif
 
   if promotion_background == blank
     assign promotion_background = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/heatingP-banner.webp?v=1792035932'
+  endif
+
+  if promotion_background_mobile == blank
+    assign promotion_background_mobile = promotion_background
   endif
 -%}
 
@@ -47,7 +58,7 @@
       class="product-promotion product-promotion--{{ promotion_type }}"
       data-product-promotion
       data-promotion-type="{{ promotion_type }}"
-      style="--product-promotion-background-image: url('{{ promotion_background }}');"
+      style="--product-promotion-background-image: url('{{ promotion_background }}'); --product-promotion-background-image-mobile: url('{{ promotion_background_mobile }}');"
       {% if promotion_show_countdown and promotion_end_at != blank %}data-promotion-end-at="{{ promotion_end_at | escape }}"{% endif %}
     >
       <a
