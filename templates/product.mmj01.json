@@ -46,6 +46,10 @@
           "type": "variant_option",
           "settings": {}
         },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
         "hightlights_4aek9f": {
           "type": "hightlights",
           "settings": {
@@ -59,10 +63,6 @@
         },
         "availability_VXL6mU": {
           "type": "availability",
-          "settings": {}
-        },
-        "quantity_atc_nEzPi6": {
-          "type": "quantity_atc",
           "settings": {}
         },
         "support_product_RGhgRP": {
@@ -96,6 +96,87 @@
         "selleasy_lb_upsell_widget_cpal_dmDRQj"
       ],
       "settings": {}
+    },
+    "heating_v_anchor_nav_E6JNwG": {
+      "type": "heatingV-anchor-nav",
+      "blocks": {
+        "link_HmPrkn": {
+          "type": "link",
+          "settings": {
+            "label": "Why Heated Gear",
+            "target_id": "why-heated-gear"
+          }
+        },
+        "link_LEiBk3": {
+          "type": "link",
+          "settings": {
+            "label": "Venustas Riding System",
+            "target_id": "venustas-riding-system"
+          }
+        },
+        "link_zBNtDy": {
+          "type": "link",
+          "settings": {
+            "label": "Setup Options",
+            "target_id": "setup-options"
+          }
+        },
+        "link_wiCJMN": {
+          "type": "link",
+          "settings": {
+            "label": "How It Works",
+            "target_id": "how-it-works"
+          }
+        },
+        "link_JUFmnG": {
+          "type": "link",
+          "settings": {
+            "label": "Riding Guild",
+            "target_id": "riding-guild"
+          }
+        },
+        "link_ejpwNc": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "faq"
+          }
+        }
+      },
+      "block_order": [
+        "link_HmPrkn",
+        "link_LEiBk3",
+        "link_zBNtDy",
+        "link_wiCJMN",
+        "link_JUFmnG",
+        "link_ejpwNc"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#F5F5F5",
+        "nav_background": "#FFFFFF",
+        "text_color": "#1F1F1F",
+        "aria_label": "Page navigation",
+        "mobile_button_label": "Open page navigation"
+      }
+    },
+    "heating_v_dual_battery_YMr9Ac": {
+      "type": "heatingV-dual-battery",
+      "name": "HeatingV Dual Battery",
+      "settings": {
+        "title": "One Button. Three Levels. Gloves On.",
+        "description": "<p>The control is built into the liner. Nothing on your bars, nothing running down your sleeve, nothing to leave behind in a tank bag.</p>",
+        "step_delay": 1,
+        "high_temp": "144℉",
+        "high_label": "4 hours continuous heat",
+        "high_pill": "HIGH",
+        "medium_temp": "130℉",
+        "medium_label": "6 hours continuous heat",
+        "medium_pill": "MEDIUM",
+        "low_temp": "112℉",
+        "low_label": "11 hours continuous heat",
+        "low_pill": "LOW"
+      }
     },
     "product_review_section_VnyXRe": {
       "type": "product-review-section",
@@ -137,6 +218,8 @@
   },
   "order": [
     "main-product",
+    "heating_v_anchor_nav_E6JNwG",
+    "heating_v_dual_battery_YMr9Ac",
     "product_review_section_VnyXRe",
     "product_featured_banner_mazp9M"
   ]
