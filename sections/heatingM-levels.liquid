@@ -107,7 +107,10 @@
   }
 
   #shopify-section-{{ section.id }} .heatingM-levels__card:hover,
-  #shopify-section-{{ section.id }} .heatingM-levels__card.is-active { background-color: var(--heatingM-card-active-bg); }
+  #shopify-section-{{ section.id }} .heatingM-levels__card.is-active,
+  #shopify-section-{{ section.id }} .heatingM-levels__card[aria-pressed="true"] {
+    background-color: var(--heatingM-card-active-bg) !important;
+  }
 
   #shopify-section-{{ section.id }} .heatingM-levels__card--high {
     --heatingM-card-border: #b93205;
@@ -226,7 +229,7 @@
       {%- endif -%}
     </header>
 
-    <div class="heatingM-levels__showcase" data-heatingM-levels>
+    <div class="heatingM-levels__showcase" data-heatingm-levels>
       <div class="heatingM-levels__visual" aria-live="polite">
         {%- if section.settings.level_1_image != blank -%}
           {{ section.settings.level_1_image | image_url: width: 1600 | image_tag: class: 'heatingM-levels__image is-active', widths: '600, 900, 1200, 1600', sizes: '(max-width: 767px) calc(100vw - 40px), 853px', loading: 'lazy', alt: '' }}
@@ -246,19 +249,19 @@
       </div>
 
       <div class="heatingM-levels__cards">
-        <button type="button" class="heatingM-levels__card heatingM-levels__card--high is-active" data-heatingM-level="0" aria-pressed="true">
+        <button type="button" class="heatingM-levels__card heatingM-levels__card--high is-active" data-heatingm-level="0" aria-pressed="true">
           <span class="heatingM-levels__card-content">
             <span class="heatingM-levels__card-copy"><span class="heatingM-levels__value">144℉</span><span class="heatingM-levels__label">For The first cold hour</span></span>
             <span class="heatingM-levels__badge">HIGH</span>
           </span>
         </button>
-        <button type="button" class="heatingM-levels__card heatingM-levels__card--medium" data-heatingM-level="1" aria-pressed="false">
+        <button type="button" class="heatingM-levels__card heatingM-levels__card--medium" data-heatingm-level="1" aria-pressed="false">
           <span class="heatingM-levels__card-content">
             <span class="heatingM-levels__card-copy"><span class="heatingM-levels__value">130℉</span><span class="heatingM-levels__label">For The long middle</span></span>
             <span class="heatingM-levels__badge">MEDIUM</span>
           </span>
         </button>
-        <button type="button" class="heatingM-levels__card heatingM-levels__card--low" data-heatingM-level="2" aria-pressed="false">
+        <button type="button" class="heatingM-levels__card heatingM-levels__card--low" data-heatingm-level="2" aria-pressed="false">
           <span class="heatingM-levels__card-content">
             <span class="heatingM-levels__card-copy"><span class="heatingM-levels__value">112℉</span><span class="heatingM-levels__label">When the sun shows up</span></span>
             <span class="heatingM-levels__badge">LOW</span>
@@ -273,12 +276,12 @@
 <script>
   (() => {
     const root = document.getElementById('shopify-section-{{ section.id }}');
-    if (!root || root.dataset.heatingMLevelsReady === 'true') return;
-    const showcase = root.querySelector('[data-heatingM-levels]');
+    if (!root || root.dataset.heatingmLevelsReady === 'true') return;
+    const showcase = root.querySelector('[data-heatingm-levels]');
     if (!showcase) return;
-    root.dataset.heatingMLevelsReady = 'true';
+    root.dataset.heatingmLevelsReady = 'true';
 
-    const cards = [...showcase.querySelectorAll('[data-heatingM-level]')];
+    const cards = [...showcase.querySelectorAll('[data-heatingm-level]')];
     const images = [...showcase.querySelectorAll('.heatingM-levels__image')];
 
     const selectLevel = (index) => {
@@ -286,14 +289,16 @@
         const active = cardIndex === index;
         card.classList.toggle('is-active', active);
         card.setAttribute('aria-pressed', String(active));
+        card.dataset.active = String(active);
       });
       images.forEach((image, imageIndex) => image.classList.toggle('is-active', imageIndex === index));
     };
 
-    cards.forEach((card) => card.addEventListener('click', () => selectLevel(Number(card.dataset.heatingMLevel))));
+    cards.forEach((card) => card.addEventListener('click', () => selectLevel(Number(card.dataset.heatingmLevel))));
+    selectLevel(0);
 
     document.addEventListener('shopify:section:unload', (event) => {
-      if (event.detail.sectionId === '{{ section.id }}') root.dataset.heatingMLevelsReady = 'false';
+      if (event.detail.sectionId === '{{ section.id }}') root.dataset.heatingmLevelsReady = 'false';
     }, { once: true });
   })();
 </script>
