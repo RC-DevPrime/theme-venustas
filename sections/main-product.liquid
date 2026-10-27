@@ -6,6 +6,42 @@
 {%- liquid
 assign current_variant = product.selected_or_first_available_variant
 assign sale_badge_type = 'discount'
+
+assign promotion_mf = product.metafields.promo.cart_discount_text
+assign promotion_text = promotion_mf.value | default: promotion_mf | strip_html | strip
+assign promotion_discount_price = blank
+assign promotion_discounted_price_cents = blank
+assign promotion_is_extra = false
+assign promotion_discount_type = blank
+assign promotion_discount_value = blank
+assign promotion_prefix = promotion_text | slice: 0, 5
+
+if promotion_text != blank and promotion_prefix == 'Extra'
+  assign promotion_extra_text = promotion_text | remove_first: 'Extra' | strip
+  if promotion_extra_text contains '%'
+    assign promotion_discount_value = promotion_extra_text | split: '%' | first | strip | plus: 0
+    assign promotion_discount_type = 'percent'
+  elsif promotion_extra_text contains '$'
+    assign promotion_discount_value = promotion_extra_text | remove_first: '$' | strip | split: ' ' | first | plus: 0 | times: 100 | round
+    assign promotion_discount_type = 'amount'
+  endif
+
+  if promotion_discount_type == 'percent' and promotion_discount_value > 0 and promotion_discount_value < 100
+    assign promotion_current_price_cents = current_variant.price
+    assign promotion_discount_multiplier = 100 | minus: promotion_discount_value
+    assign promotion_discounted_price_cents = promotion_current_price_cents | times: promotion_discount_multiplier | divided_by: 100
+    assign promotion_discount_price = promotion_discounted_price_cents | money | prepend: curSym
+    assign promotion_is_extra = true
+  elsif promotion_discount_type == 'amount' and promotion_discount_value > 0
+    assign promotion_current_price_cents = current_variant.price
+    assign promotion_discounted_price_cents = promotion_current_price_cents | minus: promotion_discount_value
+    if promotion_discounted_price_cents < 0
+      assign promotion_discounted_price_cents = 0
+    endif
+    assign promotion_discount_price = promotion_discounted_price_cents | money | prepend: curSym
+    assign promotion_is_extra = true
+  endif
+endif
  
   assign matched_size_chart = blank
 
@@ -121,24 +157,6 @@ assign sale_badge_type = 'discount'
                                 
                                     {%- liquid
                                         assign saved_amount = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price
-                                        assign promotion_mf = product.metafields.promo.cart_discount_text
-                                        assign promotion_text = promotion_mf.value | default: promotion_mf | strip_html | strip
-                                        assign promotion_discount_price = blank
-                                        assign promotion_is_extra = false
-                                        assign promotion_prefix = promotion_text | slice: 0, 5
-
-                                        if promotion_text != blank and promotion_prefix == 'Extra'
-                                            assign promotion_discount_value = promotion_text | remove_first: 'Extra' | strip | split: '%' | first | strip
-                                            assign promotion_discount_percent = promotion_discount_value | plus: 0
-
-                                            if promotion_discount_percent > 0 and promotion_discount_percent < 100
-                                                assign promotion_current_price_cents = product.selected_or_first_available_variant.price
-                                                assign promotion_discount_multiplier = 100 | minus: promotion_discount_percent
-                                                assign promotion_discounted_price_cents = promotion_current_price_cents | times: promotion_discount_multiplier | divided_by: 100
-                                                assign promotion_discount_price = promotion_discounted_price_cents | money | prepend: curSym
-                                                assign promotion_is_extra = true
-                                            endif
-                                        endif
                                     -%}
 
                                     {% if product.selected_or_first_available_variant.compare_at_price != blank and promotion_mf == blank %}
@@ -150,14 +168,15 @@ assign sale_badge_type = 'discount'
                                     {% endif %}
 
                                     {% if promotion_mf != blank %}
-                                        <div class="promotion rte">
+                                        <div class="promotion rte"{% if promotion_is_extra %} data-promotion-discount-type="{{ promotion_discount_type }}" data-promotion-discount-value="{{ promotion_discount_value }}"{% endif %}>
                                             {% if promotion_mf.type contains 'rich_text' and promotion_is_extra == false %}
                                                 {{ promotion_mf | metafield_tag }}
                                             {% else %}
-                                                {{ promotion_text }}{% if promotion_discount_price != blank %} {{ promotion_discount_price }}{% endif %}
+                                                {{ promotion_text }}{% if promotion_discount_price != blank %} <span data-promotion-discount-price>{{ promotion_discount_price }}</span>{% endif %}
                                             {% endif %}
                                         </div>
                                     {% endif %}
+
                                 </div>
                             </div>
                         {%- when 'payment_installment' %}
@@ -179,25 +198,8 @@ assign sale_badge_type = 'discount'
                             {% render 'product-promotion-banner', product: product %}
                         {%- when 'discount_banner' %}
                             {%- liquid
-                                assign cart_discount_text = product.metafields.promo.cart_discount_text.value | default: product.metafields.promo.cart_discount_text | strip
-                                assign discount_percent = 0
-                                assign member_points = 0
-                                assign has_valid_member_points = false
-
-                                assign discount_prefix = cart_discount_text | slice: 0, 5
-
-                                if cart_discount_text != blank and discount_prefix == 'Extra'
-                                    assign discount_value = cart_discount_text | remove_first: 'Extra' | strip | split: '%' | first | strip
-                                    assign discount_percent = discount_value | plus: 0
-
-                                    if discount_percent > 0 and discount_percent < 100
-                                        assign current_price_cents = product.selected_or_first_available_variant.price
-                                        assign discount_multiplier = 100 | minus: discount_percent
-                                        assign discounted_price_cents = current_price_cents | times: discount_multiplier | divided_by: 100
-                                        assign member_points = discounted_price_cents | divided_by: 100
-                                        assign has_valid_member_points = true
-                                    endif
-                                endif
+                                assign member_points = promotion_discounted_price_cents | divided_by: 100
+                                assign has_valid_member_points = promotion_is_extra
                             -%}
 
                             {%- if has_valid_member_points -%}
@@ -210,7 +212,7 @@ assign sale_badge_type = 'discount'
                                             </svg>
                                         </span>
                                         <span class="member-points-banner__text">
-                                            <span class="member-points-banner__login">Log in</span> for member prices <span aria-hidden="true">·</span> earn <strong>{{ member_points }} points</strong> on this order
+                                            <span class="member-points-banner__login">Log in</span> for member prices <span aria-hidden="true">·</span> earn <strong data-member-points>{{ member_points }} points</strong> on this order
                                         </span>
                                         <span class="member-points-banner__arrow" aria-hidden="true">›</span>
                                     </a>
