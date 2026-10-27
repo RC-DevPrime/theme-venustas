@@ -153,29 +153,202 @@
       ],
       "name": "Heating Anchor Nav",
       "settings": {
-        "section_background": "#F5F5F5",
-        "nav_background": "#FFFFFF",
-        "text_color": "#1F1F1F",
+        "section_background": "#f5f5f5",
+        "nav_background": "#ffffff",
+        "text_color": "#1f1f1f",
         "aria_label": "Page navigation",
         "mobile_button_label": "Open page navigation"
       }
     },
-    "heating_v_dual_battery_YMr9Ac": {
-      "type": "heatingV-dual-battery",
-      "name": "HeatingV Dual Battery",
+    "heating_m_hero_yNrdjD": {
+      "type": "heatingM-hero",
+      "name": "HeatingM hero",
+      "settings": {
+        "subtitle": "Apex™ HEATED RIDING SYSTEM",
+        "title": "Heated Riding Gear That Runs on Your Bike",
+        "description": "<p>No battery to charge. No controller to buy. Plug the liner into your 12V motorcycle power and ride at up to 144°F for as long as the engine runs.</p>"
+      }
+    },
+    "heating_m_video_comparison_azwWDC": {
+      "type": "heatingM-video-comparison",
+      "name": "HeatingM video",
+      "settings": {
+        "title": "A typical 12V heated system needs a battery harness, a fuse you size yourself and a controller on the bars. Some do let the pants plug straight into the jacket. Ours joins them with the 3-Way cable instead: one extra piece, but no controller anywhere in the line.",
+        "description": "<p>Comparison reflects setup steps common to 12V heated systems, not any one brand.</p>"
+      }
+    },
+    "heating_m_off_bike_GXrGiC": {
+      "type": "heatingM-off-bike",
+      "name": "HeatingM off bike",
+      "settings": {
+        "title": "Built for the Bike.\nStill Works Off It.",
+        "description": "<p>Walking the paddock or standing around camp: unplug, drop a Venustas high power 7.5K battery in the pocket and keep the heat.</p>"
+      }
+    },
+    "heating_m_mid_layer_jUC67V": {
+      "type": "heatingM-mid-layer",
+      "name": "HeatingM mid layer",
+      "settings": {
+        "title": "Designed to Fit Under Riding Gear",
+        "description": "<p>38W high-output heating system with 2 large heating zones delivers powerful warmth without adding unnecessary bulk. Stay warm, stay agile, and ride with confidence.</p>",
+        "layer_1_title": "BASE LAYER",
+        "layer_1_copy": "Moisture-Wicking Base Layer (Comfort & Sweat Management)",
+        "layer_2_title": "MID LAYER",
+        "layer_2_copy": "MMP03 Heated Pants Liner (Active Heating)",
+        "layer_3_title": "OUTER LAYER",
+        "layer_3_copy": "Protective Riding Pants (Armor & Abrasion Protection)",
+        "feature_heading": "Slim. Lightweight. Easy To Layer.",
+        "feature_1_title": "Slim Mid-layer Fit",
+        "feature_1_copy": "Designed to slide easily under protective riding pants without adding bulk, keeping your silhouette clean and comfortable.",
+        "feature_2_title": "Freedom To Move",
+        "feature_2_copy": "Ergonomic cut follows your body and allows natural movement in riding position.",
+        "feature_3_title": "Layering Optimized",
+        "feature_3_copy": "Perfectly engineered as a mid-layer for professional motorcycle gear."
+      }
+    },
+    "heating_m_power_draw_W6aeUP": {
+      "type": "heatingM-power-draw",
+      "name": "HeatingM power draw",
+      "settings": {
+        "title": "Easy on Your Bike's Charging System",
+        "description": "<p>The jacket draws 3.5A at full power. With the engine running, your charging system covers the liner and keeps topping up the battery at the same time.</p>",
+        "full_power_value": "3.5A",
+        "full_power_label": "Jacket liner at full power (42W at 12V)",
+        "example_title": "Example: a bike with a 300W stator",
+        "bike_load_label": "Bike's own load",
+        "bike_load_value": "140W",
+        "jacket_load_label": "Jacket",
+        "jacket_load_value": "42W",
+        "pants_load_label": "Pants",
+        "pants_load_value": "38W",
+        "leftover_label": "Left over",
+        "leftover_value": "80W"
+      }
+    },
+    "heating_m_connections_8w3a4H": {
+      "type": "heatingM-connections",
+      "blocks": {
+        "comparison_awyQED": {
+          "type": "comparison",
+          "settings": {
+            "variant": "typical"
+          }
+        }
+      },
+      "block_order": [
+        "comparison_awyQED"
+      ],
+      "name": "HeatingM connections",
+      "settings": {
+        "title": "Nothing to Assemble. Nothing to Mount.",
+        "subtitle": "<p>Three connections from your bike to your jacket. A typical 12V heated system takes five, plus a controller to buy and a fuse you size yourself.</p>",
+        "product_type": "jacket"
+      }
+    },
+    "heating_m_layering_iGLVt7": {
+      "type": "heatingM-layering",
+      "name": "HeatingM layering",
+      "settings": {
+        "title": "Expand Your Heating System",
+        "description": "<p>Apex™ heated jacket liner is the core of a modular system. Add compatible gear and power options for ultimate warmth and unlimited ride time.</p>",
+        "product_1_title": "Apex™ Heated Pants Liner",
+        "product_1_type": "pants",
+        "product_1_link": "",
+        "product_2_title": "Apex™ Jacket & Pants Liner Set",
+        "product_2_link": "",
+        "product_3_title": "OFF Bike Battery",
+        "product_3_link": ""
+      }
+    },
+    "heating_m_core_technology_kFVEfE": {
+      "type": "heatingM-core-technology",
+      "name": "HeatingM core tech",
+      "settings": {
+        "eyebrow": "Core Technology",
+        "title": "Targeted Heat Where Riders Need It Most",
+        "description": "<p>42W high-output heating system with 6 heating zones delivers even, powerful warmth across your core and arms.</p>",
+        "metric_1_value": "42W",
+        "metric_1_label": "High Power Heating",
+        "metric_2_value": "6",
+        "metric_2_label": "Heating Zones",
+        "metric_3_value": "85%",
+        "metric_3_label": "Torso Heating Coverage"
+      }
+    },
+    "heating_m_levels_w9rGgf": {
+      "type": "heatingM-levels",
+      "name": "HeatingM levels",
       "settings": {
         "title": "One Button. Three Levels. Gloves On.",
-        "description": "<p>The control is built into the liner. Nothing on your bars, nothing running down your sleeve, nothing to leave behind in a tank bag.</p>",
-        "step_delay": 1,
-        "high_temp": "144℉",
-        "high_label": "4 hours continuous heat",
-        "high_pill": "HIGH",
-        "medium_temp": "130℉",
-        "medium_label": "6 hours continuous heat",
-        "medium_pill": "MEDIUM",
-        "low_temp": "112℉",
-        "low_label": "11 hours continuous heat",
-        "low_pill": "LOW"
+        "description": "<p>The control is built into the liner. Nothing on your bars, nothing running down your sleeve, nothing to leave behind in a tank bag.</p>"
+      }
+    },
+    "heating_m_specs_Kp6DNN": {
+      "type": "heatingM-specs",
+      "name": "HeatingM specs",
+      "settings": {
+        "eyebrow": "Technical Specifications",
+        "title": "Everything You Need to Know About Apex™ Heated Jacket.",
+        "product_type": "jacket"
+      }
+    },
+    "heating_prelaunch_faq_TrM6Pt": {
+      "type": "heating-prelaunch-faq",
+      "blocks": {
+        "faq_m9jT7J": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get my $10 back?",
+            "answer": "<p>Yes. Any time before launch, email us and we'll refund it in full. After launch it becomes a $50 coupon — and if you don't use it and ask for refund, we'll still refund the original $10.</p>"
+          }
+        },
+        "faq_VKrGgx": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I get $100 off if I buy both?",
+            "answer": "<p>No. It's $50 off your order, one time, whether you buy one piece or both. If you intend to buy both, please reserve twice.</p>"
+          }
+        },
+        "faq_6bmdpX": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need to buy anything else?",
+            "answer": "<p>No. Both liners ship with the Y cable set and inline fuse. Heat control is built into the garment.</p>"
+          }
+        },
+        "faq_jbXMc6": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I wear these on their own?",
+            "answer": "<p>They're mid-layers. They go under your riding jacket and pants, over a thin base layer.</p>"
+          }
+        },
+        "faq_wHNnxY": {
+          "type": "faq",
+          "settings": {
+            "question": "Will it drain my battery?",
+            "answer": "<p>待补具体数据</p>"
+          }
+        },
+        "faq_y4MV7z": {
+          "type": "faq",
+          "settings": {
+            "question": "When does it ship?",
+            "answer": "<p>October 2026. If anything slips, we'll email you and you can take a full refund on the spot.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_m9jT7J",
+        "faq_VKrGgx",
+        "faq_6bmdpX",
+        "faq_jbXMc6",
+        "faq_wHNnxY",
+        "faq_y4MV7z"
+      ],
+      "name": "Heating FAQ",
+      "settings": {
+        "eyebrow": "FAQ"
       }
     },
     "product_review_section_VnyXRe": {
@@ -219,7 +392,17 @@
   "order": [
     "main-product",
     "heating_v_anchor_nav_E6JNwG",
-    "heating_v_dual_battery_YMr9Ac",
+    "heating_m_hero_yNrdjD",
+    "heating_m_core_technology_kFVEfE",
+    "heating_m_connections_8w3a4H",
+    "heating_m_video_comparison_azwWDC",
+    "heating_m_levels_w9rGgf",
+    "heating_m_power_draw_W6aeUP",
+    "heating_m_mid_layer_jUC67V",
+    "heating_m_off_bike_GXrGiC",
+    "heating_m_layering_iGLVt7",
+    "heating_m_specs_Kp6DNN",
+    "heating_prelaunch_faq_TrM6Pt",
     "product_review_section_VnyXRe",
     "product_featured_banner_mazp9M"
   ]
