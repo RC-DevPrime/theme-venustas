@@ -37,6 +37,8 @@
     line-height: 1.72;
   }
 
+  #shopify-section-{{ section.id }} .heatingP-12v-carousel__description p { margin: 0; }
+
   #shopify-section-{{ section.id }} .heatingP-12v-carousel__desktop {
     position: relative;
     height: 600px;
@@ -341,8 +343,12 @@
 
 <section class="heatingP-12v-carousel" data-heatingp-12v-carousel id="heatingP-12v-carousel">
   <div class="heatingP-12v-carousel__intro">
-    <h2 class="heatingP-12v-carousel__title">If it has a 12V circuit, it works</h2>
-    <p class="heatingP-12v-carousel__description">Built for motorcycles first, but the power source is the only requirement. Anything running a 12V DC circuit drives the same liners.</p>
+    {%- if section.settings.title != blank -%}
+      <h2 class="heatingP-12v-carousel__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+    {%- endif -%}
+    {%- if section.settings.description != blank -%}
+      <div class="heatingP-12v-carousel__description">{{ section.settings.description }}</div>
+    {%- endif -%}
   </div>
 
   <div class="heatingP-12v-carousel__desktop" data-heatingp-12v-desktop>
@@ -457,6 +463,18 @@
 {
   "name": "HeatingP 12V Carousel",
   "settings": [
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Section title",
+      "default": "If it has a 12V circuit, it works"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Built for motorcycles first, but the power source is the only requirement. Anything running a 12V DC circuit drives the same liners.</p>"
+    },
     {
       "type": "range",
       "id": "autoplay_seconds",
