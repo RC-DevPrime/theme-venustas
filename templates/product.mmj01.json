@@ -164,6 +164,7 @@
       "type": "heatingM-hero",
       "name": "HeatingM hero",
       "settings": {
+        "desktop_image": "shopify://shop_images/heatingW-banner.jpg",
         "subtitle": "Apex™ HEATED RIDING SYSTEM",
         "title": "Heated Riding Gear That Runs on Your Bike",
         "description": "<p>No battery to charge. No controller to buy. Plug the liner into your 12V motorcycle power and ride at up to 144°F for as long as the engine runs.</p>"
@@ -173,6 +174,7 @@
       "type": "heatingM-core-technology",
       "name": "HeatingM core tech",
       "settings": {
+        "front_image": "shopify://shop_images/heatingW-jacket.webp",
         "eyebrow": "Core Technology",
         "title": "Targeted Heat Where Riders Need It Most",
         "description": "<p>42W high-output heating system with 6 heating zones delivers even, powerful warmth across your core and arms.</p>",
@@ -190,7 +192,8 @@
         "comparison_awyQED": {
           "type": "comparison",
           "settings": {
-            "variant": "typical"
+            "variant": "typical",
+            "image": "shopify://shop_images/heatingW-button.webp"
           }
         }
       },
@@ -201,21 +204,26 @@
       "settings": {
         "title": "Nothing to Assemble. Nothing to Mount.",
         "subtitle": "<p>Three connections from your bike to your jacket. A typical 12V heated system takes five, plus a controller to buy and a fuse you size yourself.</p>",
-        "product_type": "jacket"
+        "product_type": "jacket",
+        "image_1": "shopify://shop_images/heatingN-kit-two.webp",
+        "image_2": "shopify://shop_images/heatingP-product-cable.webp",
+        "image_3": "shopify://shop_images/Container88.png"
       }
     },
     "heating_m_video_comparison_azwWDC": {
       "type": "heatingM-video-comparison",
       "name": "HeatingM video",
       "settings": {
-        "title": "A typical 12V heated system needs a battery harness, a fuse you size yourself and a controller on the bars. Some do let the pants plug straight into the jacket. Ours joins them with the 3-Way cable instead: one extra piece, but no controller anywhere in the line.",
-        "description": "<p>Comparison reflects setup steps common to 12V heated systems, not any one brand.</p>"
+        "title": "Adding the pant liner? Each piece runs on its own Y cable. To run both from a single lead, add the 3-Way cable (sold separately). Some systems plug the pants straight into the jacket, so ours needs one more cable.",
+        "description": "<p>Comparison reflects setup steps common to 12V heated systems, not any one brand.</p>",
+        "video": "shopify://files/videos/heatingW-video.mp4"
       }
     },
     "heating_m_levels_w9rGgf": {
       "type": "heatingM-levels",
       "name": "HeatingM levels",
       "settings": {
+        "level_1_image": "shopify://shop_images/heatingW-apex-detail2.webp",
         "title": "One Button. Three Levels. Gloves On.",
         "description": "<p>The control is built into the liner. Nothing on your bars, nothing running down your sleeve, nothing to leave behind in a tank bag.</p>"
       }
@@ -307,6 +315,20 @@
     "heating_m_riding_features_BCderc": {
       "type": "heatingM-riding-features",
       "blocks": {
+        "feature_8MCLrL": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_9yJdTD": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
         "feature_73URJ9": {
           "type": "feature",
           "settings": {
@@ -330,6 +352,8 @@
         }
       },
       "block_order": [
+        "feature_8MCLrL",
+        "feature_9yJdTD",
         "feature_73URJ9",
         "feature_ctnzMw",
         "feature_Nh7me7"
@@ -346,6 +370,8 @@
         "scene_3WDzBP": {
           "type": "scene",
           "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner1.webp",
+            "mobile_image": "shopify://shop_images/heatingP-banner-motorcycle.webp",
             "icon_name": "motorcycle",
             "title": "Motorcycle",
             "text": "Touring, commuting, ADV"
@@ -354,6 +380,8 @@
         "scene_fNPyfY": {
           "type": "scene",
           "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner2.webp",
+            "mobile_image": "shopify://shop_images/heatingP-banner-atv.webp",
             "icon_name": "atv",
             "title": "ATV / UTV",
             "text": "Open cab, cold trails"
@@ -362,6 +390,8 @@
         "scene_6J9jXi": {
           "type": "scene",
           "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner3.webp",
+            "mobile_image": "shopify://shop_images/heatingP-banner-snow.webp",
             "icon_name": "snowmobile",
             "title": "Snowmobile",
             "text": "Sustained sub-freezing"
@@ -370,6 +400,8 @@
         "scene_xmt8de": {
           "type": "scene",
           "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner4.webp",
+            "mobile_image": "shopify://shop_images/heatingP-banner-boat.webp",
             "icon_name": "boat",
             "title": "Boat",
             "text": "Wind chill on the water"
@@ -393,6 +425,8 @@
       ],
       "name": "HeatingP 12V Carousel",
       "settings": {
+        "title": "Ready For Every Cold-Weather Ride",
+        "description": "<p>Apex™ heated jacket delivers reliable, sustained warmth through 12V vehicle powerso you can focus on the ride, not the cold.</p>",
         "autoplay_seconds": 4
       }
     },
@@ -400,6 +434,7 @@
       "type": "heatingM-off-bike",
       "name": "HeatingM off bike",
       "settings": {
+        "image": "shopify://shop_images/Heated-Motorcycle-Jacket-MMJ01-17.png",
         "title": "Built for the Bike.\nStill Works Off It.",
         "description": "<p>Walking the paddock or standing around camp: unplug, drop a Venustas high power 7.5K battery in the pocket and keep the heat.</p>"
       }
@@ -410,11 +445,14 @@
       "settings": {
         "title": "Expand Your Heating System",
         "description": "<p>Apex™ heated jacket liner is the core of a modular system. Add compatible gear and power options for ultimate warmth and unlimited ride time.</p>",
+        "product_1_image": "shopify://shop_images/heatingP-product-three.webp",
         "product_1_title": "Apex™ Heated Pants Liner",
         "product_1_type": "pants",
-        "product_1_link": "",
+        "product_1_link": "shopify://products/apex-12v-heated-motorcycle-jacket-liner",
+        "product_2_image": "shopify://shop_images/heatingP-product-two.webp",
         "product_2_title": "Apex™ Jacket & Pants Liner Set",
-        "product_2_link": "",
+        "product_2_link": "shopify://products/apex-heated-jacket-liner-heated-pants-liner-set",
+        "product_3_image": "shopify://shop_images/Container88.png",
         "product_3_title": "OFF Bike Battery",
         "product_3_link": ""
       }
@@ -425,7 +463,9 @@
       "settings": {
         "eyebrow": "Technical Specifications",
         "title": "Everything You Need to Know About Apex™ Heated Jacket.",
-        "product_type": "jacket"
+        "product_type": "jacket",
+        "image_1": "shopify://shop_images/heatingP-product-one.webp",
+        "image_2": "shopify://shop_images/heatingP-product-cable.webp"
       }
     },
     "heating_prelaunch_faq_TrM6Pt": {
