@@ -1,0 +1,588 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "tags_VbTTx6": {
+          "type": "tags",
+          "settings": {}
+        },
+        "title_kNgEjj": {
+          "type": "title",
+          "settings": {}
+        },
+        "okendo_star_rating_rNbVqw": {
+          "type": "shopify://apps/okendo/blocks/star-rating/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "discount_banner_ja6qra": {
+          "type": "discount_banner",
+          "settings": {}
+        },
+        "price_efrDnx": {
+          "type": "price",
+          "settings": {}
+        },
+        "payment_installment_8PywPB": {
+          "type": "payment_installment",
+          "settings": {}
+        },
+        "divider_FmYRAm": {
+          "type": "divider",
+          "settings": {}
+        },
+        "variant_option_Gm9UTe": {
+          "type": "variant_option",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
+        "hightlights_4aek9f": {
+          "type": "hightlights",
+          "settings": {
+            "heading": "HIGHLIGHTS",
+            "description": "<p>{{ product.metafields.c_f.highlights | metafield_tag }}</p>"
+          }
+        },
+        "divider_PUdp4i": {
+          "type": "divider",
+          "settings": {}
+        },
+        "availability_VXL6mU": {
+          "type": "availability",
+          "settings": {}
+        },
+        "support_product_RGhgRP": {
+          "type": "support_product",
+          "settings": {
+            "heading_1": "",
+            "heading_2": "",
+            "heading_3": "",
+            "heading_4": ""
+          }
+        },
+        "selleasy_lb_upsell_widget_cpal_dmDRQj": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-cpal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "tags_VbTTx6",
+        "title_kNgEjj",
+        "okendo_star_rating_rNbVqw",
+        "discount_banner_ja6qra",
+        "price_efrDnx",
+        "payment_installment_8PywPB",
+        "divider_FmYRAm",
+        "variant_option_Gm9UTe",
+        "quantity_atc_nEzPi6",
+        "hightlights_4aek9f",
+        "divider_PUdp4i",
+        "availability_VXL6mU",
+        "support_product_RGhgRP",
+        "selleasy_lb_upsell_widget_cpal_dmDRQj"
+      ],
+      "settings": {}
+    },
+    "heating_v_anchor_nav_E6JNwG": {
+      "type": "heatingV-anchor-nav",
+      "blocks": {
+        "link_HmPrkn": {
+          "type": "link",
+          "settings": {
+            "label": "Why Heated Gear",
+            "target_id": "why-heated-gear"
+          }
+        },
+        "link_LEiBk3": {
+          "type": "link",
+          "settings": {
+            "label": "Venustas Riding System",
+            "target_id": "venustas-riding-system"
+          }
+        },
+        "link_zBNtDy": {
+          "type": "link",
+          "settings": {
+            "label": "Setup Options",
+            "target_id": "setup-options"
+          }
+        },
+        "link_wiCJMN": {
+          "type": "link",
+          "settings": {
+            "label": "How It Works",
+            "target_id": "how-it-works"
+          }
+        },
+        "link_JUFmnG": {
+          "type": "link",
+          "settings": {
+            "label": "Riding Guild",
+            "target_id": "riding-guild"
+          }
+        },
+        "link_ejpwNc": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "faq"
+          }
+        }
+      },
+      "block_order": [
+        "link_HmPrkn",
+        "link_LEiBk3",
+        "link_zBNtDy",
+        "link_wiCJMN",
+        "link_JUFmnG",
+        "link_ejpwNc"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#f5f5f5",
+        "nav_background": "#ffffff",
+        "text_color": "#1f1f1f",
+        "aria_label": "Page navigation",
+        "mobile_button_label": "Open page navigation"
+      }
+    },
+    "heating_m_hero_yNrdjD": {
+      "type": "heatingM-hero",
+      "name": "HeatingM hero",
+      "settings": {
+        "desktop_image": "shopify://shop_images/heatingW-banner.jpg",
+        "subtitle": "Apex™ HEATED RIDING SYSTEM",
+        "title": "Heated Riding Gear That Runs on Your Bike",
+        "description": "<p>No battery to charge. No controller to buy. Plug the liner into your 12V motorcycle power and ride at up to 144°F for as long as the engine runs.</p>"
+      }
+    },
+    "heating_m_core_technology_kFVEfE": {
+      "type": "heatingM-core-technology",
+      "name": "HeatingM core tech",
+      "settings": {
+        "front_image": "shopify://shop_images/heatingW-jacket.webp",
+        "eyebrow": "Core Technology",
+        "title": "Targeted Heat Where Riders Need It Most",
+        "description": "<p>42W high-output heating system with 6 heating zones delivers even, powerful warmth across your core and arms.</p>",
+        "metric_1_value": "42W",
+        "metric_1_label": "High Power Heating",
+        "metric_2_value": "6",
+        "metric_2_label": "Heating Zones",
+        "metric_3_value": "85%",
+        "metric_3_label": "Torso Heating Coverage"
+      }
+    },
+    "heating_m_connections_8w3a4H": {
+      "type": "heatingM-connections",
+      "blocks": {
+        "comparison_awyQED": {
+          "type": "comparison",
+          "settings": {
+            "variant": "typical",
+            "image": "shopify://shop_images/heatingW-button.webp"
+          }
+        }
+      },
+      "block_order": [
+        "comparison_awyQED"
+      ],
+      "name": "HeatingM connections",
+      "settings": {
+        "title": "Nothing to Assemble. Nothing to Mount.",
+        "subtitle": "<p>Three connections from your bike to your jacket. A typical 12V heated system takes five, plus a controller to buy and a fuse you size yourself.</p>",
+        "product_type": "jacket",
+        "image_1": "shopify://shop_images/heatingN-kit-two.webp",
+        "image_2": "shopify://shop_images/heatingP-product-cable.webp",
+        "image_3": "shopify://shop_images/Container88.png"
+      }
+    },
+    "heating_m_video_comparison_azwWDC": {
+      "type": "heatingM-video-comparison",
+      "name": "HeatingM video",
+      "settings": {
+        "title": "Adding the pant liner? Each piece runs on its own Y cable. To run both from a single lead, add the 3-Way cable (sold separately). Some systems plug the pants straight into the jacket, so ours needs one more cable.",
+        "description": "<p>Comparison reflects setup steps common to 12V heated systems, not any one brand.</p>",
+        "video": "shopify://files/videos/heatingW-video.mp4"
+      }
+    },
+    "heating_m_levels_w9rGgf": {
+      "type": "heatingM-levels",
+      "name": "HeatingM levels",
+      "settings": {
+        "level_1_image": "shopify://shop_images/heatingW-apex-detail2.webp",
+        "title": "One Button. Three Levels. Gloves On.",
+        "description": "<p>The control is built into the liner. Nothing on your bars, nothing running down your sleeve, nothing to leave behind in a tank bag.</p>"
+      }
+    },
+    "heating_m_power_draw_W6aeUP": {
+      "type": "heatingM-power-draw",
+      "name": "HeatingM power draw",
+      "settings": {
+        "title": "Easy on Your Bike's Charging System",
+        "description": "<p>The jacket draws 3.5A at full power. With the engine running, your charging system covers the liner and keeps topping up the battery at the same time.</p>",
+        "full_power_value": "3.5A",
+        "full_power_label": "Jacket liner at full power (42W at 12V)",
+        "example_title": "Example: a bike with a 300W stator",
+        "bike_load_label": "Bike's own load",
+        "bike_load_value": "140W",
+        "jacket_load_label": "Jacket",
+        "jacket_load_value": "42W",
+        "pants_load_label": "Pants",
+        "pants_load_value": "38W",
+        "leftover_label": "Left over",
+        "leftover_value": "80W"
+      }
+    },
+    "heating_m_mid_layer_jUC67V": {
+      "type": "heatingM-mid-layer",
+      "name": "HeatingM mid layer",
+      "settings": {
+        "title": "Designed to Fit Under Riding Gear",
+        "description": "<p>38W high-output heating system with 2 large heating zones delivers powerful warmth without adding unnecessary bulk. Stay warm, stay agile, and ride with confidence.</p>",
+        "layer_1_title": "BASE LAYER",
+        "layer_1_copy": "Moisture-Wicking Base Layer (Comfort & Sweat Management)",
+        "layer_2_title": "MID LAYER",
+        "layer_2_copy": "MMP03 Heated Pants Liner (Active Heating)",
+        "layer_3_title": "OUTER LAYER",
+        "layer_3_copy": "Protective Riding Pants (Armor & Abrasion Protection)",
+        "feature_heading": "Slim. Lightweight. Easy To Layer.",
+        "feature_1_title": "Slim Mid-layer Fit",
+        "feature_1_copy": "Designed to slide easily under protective riding pants without adding bulk, keeping your silhouette clean and comfortable.",
+        "feature_2_title": "Freedom To Move",
+        "feature_2_copy": "Ergonomic cut follows your body and allows natural movement in riding position.",
+        "feature_3_title": "Layering Optimized",
+        "feature_3_copy": "Perfectly engineered as a mid-layer for professional motorcycle gear."
+      }
+    },
+    "heating_m_riding_features_C7dLYj": {
+      "type": "heatingM-riding-features",
+      "blocks": {
+        "feature_bwUBff": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_XBfbt3": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_GMYqpj": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_4eX7TB": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        }
+      },
+      "block_order": [
+        "feature_bwUBff",
+        "feature_XBfbt3",
+        "feature_GMYqpj",
+        "feature_4eX7TB"
+      ],
+      "name": "HeatingM riding",
+      "settings": {
+        "card_height": 504,
+        "title": "Built Around the Riding Position"
+      }
+    },
+    "heating_m_riding_features_BCderc": {
+      "type": "heatingM-riding-features",
+      "blocks": {
+        "feature_8MCLrL": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_9yJdTD": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_73URJ9": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_ctnzMw": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_Nh7me7": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        }
+      },
+      "block_order": [
+        "feature_8MCLrL",
+        "feature_9yJdTD",
+        "feature_73URJ9",
+        "feature_ctnzMw",
+        "feature_Nh7me7"
+      ],
+      "name": "HeatingM riding",
+      "settings": {
+        "card_height": 504,
+        "title": "Built Around the Riding Position"
+      }
+    },
+    "heating_p_12v_carousel_DKDLBJ": {
+      "type": "heatingP-12v-carousel",
+      "blocks": {
+        "scene_3WDzBP": {
+          "type": "scene",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner1.webp",
+            "mobile_image": "shopify://shop_images/heatingP-banner-motorcycle.webp",
+            "icon_name": "motorcycle",
+            "title": "Motorcycle",
+            "text": "Touring, commuting, ADV"
+          }
+        },
+        "scene_fNPyfY": {
+          "type": "scene",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner2.webp",
+            "mobile_image": "shopify://shop_images/heatingP-banner-atv.webp",
+            "icon_name": "atv",
+            "title": "ATV / UTV",
+            "text": "Open cab, cold trails"
+          }
+        },
+        "scene_6J9jXi": {
+          "type": "scene",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner3.webp",
+            "mobile_image": "shopify://shop_images/heatingP-banner-snow.webp",
+            "icon_name": "snowmobile",
+            "title": "Snowmobile",
+            "text": "Sustained sub-freezing"
+          }
+        },
+        "scene_xmt8de": {
+          "type": "scene",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingW-banner4.webp",
+            "mobile_image": "shopify://shop_images/heatingP-banner-boat.webp",
+            "icon_name": "boat",
+            "title": "Boat",
+            "text": "Wind chill on the water"
+          }
+        },
+        "scene_t4FTUH": {
+          "type": "scene",
+          "settings": {
+            "icon_name": "aircraft",
+            "title": "Light aircraft",
+            "text": "Unheated cabins"
+          }
+        }
+      },
+      "block_order": [
+        "scene_3WDzBP",
+        "scene_fNPyfY",
+        "scene_6J9jXi",
+        "scene_xmt8de",
+        "scene_t4FTUH"
+      ],
+      "name": "HeatingP 12V Carousel",
+      "settings": {
+        "title": "Ready For Every Cold-Weather Ride",
+        "description": "<p>Apex™ heated jacket delivers reliable, sustained warmth through 12V vehicle powerso you can focus on the ride, not the cold.</p>",
+        "autoplay_seconds": 4
+      }
+    },
+    "heating_m_off_bike_GXrGiC": {
+      "type": "heatingM-off-bike",
+      "name": "HeatingM off bike",
+      "settings": {
+        "image": "shopify://shop_images/Heated-Motorcycle-Jacket-MMJ01-17.png",
+        "title": "Built for the Bike.\nStill Works Off It.",
+        "description": "<p>Walking the paddock or standing around camp: unplug, drop a Venustas high power 7.5K battery in the pocket and keep the heat.</p>"
+      }
+    },
+    "heating_m_layering_iGLVt7": {
+      "type": "heatingM-layering",
+      "name": "HeatingM layering",
+      "settings": {
+        "title": "Expand Your Heating System",
+        "description": "<p>Apex™ heated jacket liner is the core of a modular system. Add compatible gear and power options for ultimate warmth and unlimited ride time.</p>",
+        "product_1_image": "shopify://shop_images/heatingP-product-three.webp",
+        "product_1_title": "Apex™ Heated Pants Liner",
+        "product_1_type": "pants",
+        "product_1_link": "shopify://products/apex-12v-heated-motorcycle-jacket-liner",
+        "product_2_image": "shopify://shop_images/heatingP-product-two.webp",
+        "product_2_title": "Apex™ Jacket & Pants Liner Set",
+        "product_2_link": "shopify://products/apex-heated-jacket-liner-heated-pants-liner-set",
+        "product_3_image": "shopify://shop_images/Container88.png",
+        "product_3_title": "OFF Bike Battery",
+        "product_3_link": ""
+      }
+    },
+    "heating_m_specs_Kp6DNN": {
+      "type": "heatingM-specs",
+      "name": "HeatingM specs",
+      "settings": {
+        "eyebrow": "Technical Specifications",
+        "title": "Everything You Need to Know About Apex™ Heated Jacket.",
+        "product_type": "jacket",
+        "image_1": "shopify://shop_images/heatingP-product-one.webp",
+        "image_2": "shopify://shop_images/heatingP-product-cable.webp"
+      }
+    },
+    "heating_prelaunch_faq_TrM6Pt": {
+      "type": "heating-prelaunch-faq",
+      "blocks": {
+        "faq_m9jT7J": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get my $10 back?",
+            "answer": "<p>Yes. Any time before launch, email us and we'll refund it in full. After launch it becomes a $50 coupon — and if you don't use it and ask for refund, we'll still refund the original $10.</p>"
+          }
+        },
+        "faq_VKrGgx": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I get $100 off if I buy both?",
+            "answer": "<p>No. It's $50 off your order, one time, whether you buy one piece or both. If you intend to buy both, please reserve twice.</p>"
+          }
+        },
+        "faq_6bmdpX": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need to buy anything else?",
+            "answer": "<p>No. Both liners ship with the Y cable set and inline fuse. Heat control is built into the garment.</p>"
+          }
+        },
+        "faq_jbXMc6": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I wear these on their own?",
+            "answer": "<p>They're mid-layers. They go under your riding jacket and pants, over a thin base layer.</p>"
+          }
+        },
+        "faq_wHNnxY": {
+          "type": "faq",
+          "settings": {
+            "question": "Will it drain my battery?",
+            "answer": "<p>待补具体数据</p>"
+          }
+        },
+        "faq_y4MV7z": {
+          "type": "faq",
+          "settings": {
+            "question": "When does it ship?",
+            "answer": "<p>October 2026. If anything slips, we'll email you and you can take a full refund on the spot.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_m9jT7J",
+        "faq_VKrGgx",
+        "faq_6bmdpX",
+        "faq_jbXMc6",
+        "faq_wHNnxY",
+        "faq_y4MV7z"
+      ],
+      "name": "Heating FAQ",
+      "settings": {
+        "eyebrow": "FAQ"
+      }
+    },
+    "product_review_section_VnyXRe": {
+      "type": "product-review-section",
+      "blocks": {
+        "okendo_reviews_widget_yKAV8J": {
+          "type": "shopify://apps/okendo/blocks/reviews-widget/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{product}}",
+            "widget_type": "combined_widget"
+          }
+        }
+      },
+      "block_order": [
+        "okendo_reviews_widget_yKAV8J"
+      ],
+      "name": "Review Section",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "",
+        "heading": "Reviews"
+      }
+    },
+    "product_featured_banner_mazp9M": {
+      "type": "product-featured-banner",
+      "name": "Featured Banner",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "",
+        "background_image": "shopify://shop_images/50850_2x_ee444194-7f34-4148-838c-a264624fb59e.png",
+        "background_image_mobile": "shopify://shop_images/50850_2x_1.png",
+        "sub_heading": "VENUSTAS",
+        "heading": "Driving technology with an inclination on adventure!",
+        "btn_label": "TECHNOLOGY",
+        "btn_url": "shopify://pages/technology"
+      }
+    }
+  },
+  "order": [
+    "main-product",
+    "heating_v_anchor_nav_E6JNwG",
+    "heating_m_hero_yNrdjD",
+    "heating_m_core_technology_kFVEfE",
+    "heating_m_connections_8w3a4H",
+    "heating_m_video_comparison_azwWDC",
+    "heating_m_levels_w9rGgf",
+    "heating_m_power_draw_W6aeUP",
+    "heating_m_mid_layer_jUC67V",
+    "heating_m_riding_features_C7dLYj",
+    "heating_m_riding_features_BCderc",
+    "heating_p_12v_carousel_DKDLBJ",
+    "heating_m_off_bike_GXrGiC",
+    "heating_m_layering_iGLVt7",
+    "heating_m_specs_Kp6DNN",
+    "heating_prelaunch_faq_TrM6Pt",
+    "product_review_section_VnyXRe",
+    "product_featured_banner_mazp9M"
+  ]
+}
