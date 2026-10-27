@@ -1,8 +1,3 @@
-{%- liquid
-  assign heatingM_core_front = section.settings.front_image
-  assign heatingM_core_back = section.settings.back_image
--%}
-
 {%- style -%}
   #shopify-section-{{ section.id }} .heatingM-core {
     overflow: hidden;
@@ -106,25 +101,6 @@
     height: 500px;
   }
 
-  #shopify-section-{{ section.id }} .heatingM-core__product-layer {
-    position: absolute;
-    overflow: hidden;
-  }
-
-  #shopify-section-{{ section.id }} .heatingM-core__product-layer--back {
-    top: 9.49%;
-    left: 51.14%;
-    width: 50.84%;
-    height: 81.34%;
-  }
-
-  #shopify-section-{{ section.id }} .heatingM-core__product-layer--front {
-    top: 3.61%;
-    left: -2.43%;
-    width: 57.95%;
-    height: 92.78%;
-  }
-
   #shopify-section-{{ section.id }} .heatingM-core__product-image {
     display: block;
     width: 100%;
@@ -148,7 +124,7 @@
     #shopify-section-{{ section.id }} .heatingM-core__value { font-size: 32px; }
     #shopify-section-{{ section.id }} .heatingM-core__label { font-size: 13px; line-height: 1.5; }
     #shopify-section-{{ section.id }} .heatingM-core__divider { height: 82px; }
-    #shopify-section-{{ section.id }} .heatingM-core__product { width: 100%; max-width: 350px; height: auto; aspect-ratio: 350 / 284.1; }
+    #shopify-section-{{ section.id }} .heatingM-core__product { width: 100%; max-width: 616px; height: auto; aspect-ratio: 616 / 500; }
   }
 {%- endstyle -%}
 
@@ -184,16 +160,9 @@
     </div>
 
     <div class="heatingM-core__product" aria-label="Heating zones illustration">
-      <div class="heatingM-core__product-layer heatingM-core__product-layer--back">
-        {%- if heatingM_core_back != blank -%}
-          {{ heatingM_core_back | image_url: width: 1000 | image_tag: class: 'heatingM-core__product-image', widths: '300, 500, 800, 1000', sizes: '(max-width: 767px) 180px, 313px', loading: 'lazy', alt: '' }}
-        {%- endif -%}
-      </div>
-      <div class="heatingM-core__product-layer heatingM-core__product-layer--front">
-        {%- if heatingM_core_front != blank -%}
-          {{ heatingM_core_front | image_url: width: 1000 | image_tag: class: 'heatingM-core__product-image', widths: '300, 500, 800, 1000', sizes: '(max-width: 767px) 203px, 357px', loading: 'lazy', alt: '' }}
-        {%- endif -%}
-      </div>
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag: class: 'heatingM-core__product-image', widths: '616, 800, 1000, 1200', sizes: '(max-width: 767px) calc(100vw - 40px), 616px', loading: 'lazy', alt: 'Heating zones illustration' }}
+      {%- endif -%}
     </div>
   </div>
 </section>
@@ -202,8 +171,7 @@
 {
   "name": "HeatingM core tech",
   "settings": [
-    { "type": "image_picker", "id": "front_image", "label": "Front heating zones image" },
-    { "type": "image_picker", "id": "back_image", "label": "Back heating zones image" },
+    { "type": "image_picker", "id": "image", "label": "Heating zones image" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Core Technology" },
     { "type": "textarea", "id": "title", "label": "Title", "default": "Targeted Heat Where Riders Need It Most" },
     { "type": "richtext", "id": "description", "label": "Description", "default": "<p>42W high-output heating system with 6 heating zones delivers even, powerful warmth across your core and arms.</p>" },

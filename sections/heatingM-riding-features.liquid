@@ -30,7 +30,7 @@
   #shopify-section-{{ section.id }} .heatingM-riding__card {
     display: flex;
     min-width: 0;
-    height: var(--heatingM-riding-card-height);
+    height: auto;
     flex-direction: column;
     overflow: hidden;
     border-radius: 12px;
@@ -40,7 +40,7 @@
 
   #shopify-section-{{ section.id }} .heatingM-riding__media {
     position: relative;
-    height: calc(var(--heatingM-riding-card-height) - 184px);
+    height: var(--heatingM-riding-image-height);
     min-height: 0;
     overflow: hidden;
     background: #f9f9f8;
@@ -117,7 +117,7 @@
       scroll-snap-align: start;
     }
 
-    #shopify-section-{{ section.id }} .heatingM-riding__media { height: calc(var(--heatingM-riding-card-height) - 184px); }
+    #shopify-section-{{ section.id }} .heatingM-riding__media { height: var(--heatingM-riding-image-height); }
     #shopify-section-{{ section.id }} .heatingM-riding__desktop-image { display: none; }
     #shopify-section-{{ section.id }} .heatingM-riding__mobile-image { display: block; }
   }
@@ -135,7 +135,7 @@
   }
 {%- endstyle -%}
 
-<section class="heatingM-riding" style="--heatingM-riding-card-height: {{ section.settings.card_height }}px;" aria-label="{{ section.settings.title | escape }}">
+<section class="heatingM-riding" style="--heatingM-riding-image-height: {{ section.settings.image_height }}px;" aria-label="{{ section.settings.title | escape }}">
   <div class="heatingM-riding__inner">
     {%- if section.settings.title != blank -%}
       <h2 class="heatingM-riding__title">{{ section.settings.title | newline_to_br }}</h2>
@@ -176,13 +176,13 @@
     },
     {
       "type": "range",
-      "id": "card_height",
-      "label": "Card height",
-      "min": 360,
-      "max": 720,
-      "step": 6,
+      "id": "image_height",
+      "label": "Image height",
+      "min": 320,
+      "max": 360,
+      "step": 1,
       "unit": "px",
-      "default": 504
+      "default": 340
     },
     {
       "type": "text",
