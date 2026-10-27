@@ -984,6 +984,23 @@ class VariantSelects extends HTMLElement {
                 } else if (savePriceDestination && !savePriceSource) {
                     savePriceDestination.remove();
                 }
+
+                // Update cart promotion price and member points for the selected variant
+                const promotionDestination = document.querySelector('.product-price .promotion');
+                const promotionSource = html.querySelector('.product-price .promotion');
+                if (promotionDestination && promotionSource) {
+                    promotionDestination.outerHTML = promotionSource.outerHTML;
+                } else if (promotionDestination && !promotionSource) {
+                    promotionDestination.remove();
+                }
+
+                const memberPointsDestination = document.querySelector('.member-points-banner');
+                const memberPointsSource = html.querySelector('.member-points-banner');
+                if (memberPointsDestination && memberPointsSource) {
+                    memberPointsDestination.outerHTML = memberPointsSource.outerHTML;
+                } else if (memberPointsDestination && !memberPointsSource) {
+                    memberPointsDestination.remove();
+                }
               
                 if (comparePriceDestination && comparePriceSource) comparePriceDestination.innerHTML = comparePriceSource.innerHTML
 
