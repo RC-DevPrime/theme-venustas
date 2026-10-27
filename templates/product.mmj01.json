@@ -169,6 +169,41 @@
         "description": "<p>No battery to charge. No controller to buy. Plug the liner into your 12V motorcycle power and ride at up to 144°F for as long as the engine runs.</p>"
       }
     },
+    "heating_m_core_technology_kFVEfE": {
+      "type": "heatingM-core-technology",
+      "name": "HeatingM core tech",
+      "settings": {
+        "eyebrow": "Core Technology",
+        "title": "Targeted Heat Where Riders Need It Most",
+        "description": "<p>42W high-output heating system with 6 heating zones delivers even, powerful warmth across your core and arms.</p>",
+        "metric_1_value": "42W",
+        "metric_1_label": "High Power Heating",
+        "metric_2_value": "6",
+        "metric_2_label": "Heating Zones",
+        "metric_3_value": "85%",
+        "metric_3_label": "Torso Heating Coverage"
+      }
+    },
+    "heating_m_connections_8w3a4H": {
+      "type": "heatingM-connections",
+      "blocks": {
+        "comparison_awyQED": {
+          "type": "comparison",
+          "settings": {
+            "variant": "typical"
+          }
+        }
+      },
+      "block_order": [
+        "comparison_awyQED"
+      ],
+      "name": "HeatingM connections",
+      "settings": {
+        "title": "Nothing to Assemble. Nothing to Mount.",
+        "subtitle": "<p>Three connections from your bike to your jacket. A typical 12V heated system takes five, plus a controller to buy and a fuse you size yourself.</p>",
+        "product_type": "jacket"
+      }
+    },
     "heating_m_video_comparison_azwWDC": {
       "type": "heatingM-video-comparison",
       "name": "HeatingM video",
@@ -177,12 +212,31 @@
         "description": "<p>Comparison reflects setup steps common to 12V heated systems, not any one brand.</p>"
       }
     },
-    "heating_m_off_bike_GXrGiC": {
-      "type": "heatingM-off-bike",
-      "name": "HeatingM off bike",
+    "heating_m_levels_w9rGgf": {
+      "type": "heatingM-levels",
+      "name": "HeatingM levels",
       "settings": {
-        "title": "Built for the Bike.\nStill Works Off It.",
-        "description": "<p>Walking the paddock or standing around camp: unplug, drop a Venustas high power 7.5K battery in the pocket and keep the heat.</p>"
+        "title": "One Button. Three Levels. Gloves On.",
+        "description": "<p>The control is built into the liner. Nothing on your bars, nothing running down your sleeve, nothing to leave behind in a tank bag.</p>"
+      }
+    },
+    "heating_m_power_draw_W6aeUP": {
+      "type": "heatingM-power-draw",
+      "name": "HeatingM power draw",
+      "settings": {
+        "title": "Easy on Your Bike's Charging System",
+        "description": "<p>The jacket draws 3.5A at full power. With the engine running, your charging system covers the liner and keeps topping up the battery at the same time.</p>",
+        "full_power_value": "3.5A",
+        "full_power_label": "Jacket liner at full power (42W at 12V)",
+        "example_title": "Example: a bike with a 300W stator",
+        "bike_load_label": "Bike's own load",
+        "bike_load_value": "140W",
+        "jacket_load_label": "Jacket",
+        "jacket_load_value": "42W",
+        "pants_load_label": "Pants",
+        "pants_load_value": "38W",
+        "leftover_label": "Left over",
+        "leftover_value": "80W"
       }
     },
     "heating_m_mid_layer_jUC67V": {
@@ -206,43 +260,92 @@
         "feature_3_copy": "Perfectly engineered as a mid-layer for professional motorcycle gear."
       }
     },
-    "heating_m_power_draw_W6aeUP": {
-      "type": "heatingM-power-draw",
-      "name": "HeatingM power draw",
-      "settings": {
-        "title": "Easy on Your Bike's Charging System",
-        "description": "<p>The jacket draws 3.5A at full power. With the engine running, your charging system covers the liner and keeps topping up the battery at the same time.</p>",
-        "full_power_value": "3.5A",
-        "full_power_label": "Jacket liner at full power (42W at 12V)",
-        "example_title": "Example: a bike with a 300W stator",
-        "bike_load_label": "Bike's own load",
-        "bike_load_value": "140W",
-        "jacket_load_label": "Jacket",
-        "jacket_load_value": "42W",
-        "pants_load_label": "Pants",
-        "pants_load_value": "38W",
-        "leftover_label": "Left over",
-        "leftover_value": "80W"
-      }
-    },
-    "heating_m_connections_8w3a4H": {
-      "type": "heatingM-connections",
+    "heating_m_riding_features_C7dLYj": {
+      "type": "heatingM-riding-features",
       "blocks": {
-        "comparison_awyQED": {
-          "type": "comparison",
+        "feature_bwUBff": {
+          "type": "feature",
           "settings": {
-            "variant": "typical"
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_XBfbt3": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_GMYqpj": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_4eX7TB": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
           }
         }
       },
       "block_order": [
-        "comparison_awyQED"
+        "feature_bwUBff",
+        "feature_XBfbt3",
+        "feature_GMYqpj",
+        "feature_4eX7TB"
       ],
-      "name": "HeatingM connections",
+      "name": "HeatingM riding",
       "settings": {
-        "title": "Nothing to Assemble. Nothing to Mount.",
-        "subtitle": "<p>Three connections from your bike to your jacket. A typical 12V heated system takes five, plus a controller to buy and a fuse you size yourself.</p>",
-        "product_type": "jacket"
+        "card_height": 504,
+        "title": "Built Around the Riding Position"
+      }
+    },
+    "heating_m_riding_features_BCderc": {
+      "type": "heatingM-riding-features",
+      "blocks": {
+        "feature_73URJ9": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_ctnzMw": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        },
+        "feature_Nh7me7": {
+          "type": "feature",
+          "settings": {
+            "title": "Packs into its own pocket",
+            "description": "Stuff it in the tail bag when the afternoon warms up."
+          }
+        }
+      },
+      "block_order": [
+        "feature_73URJ9",
+        "feature_ctnzMw",
+        "feature_Nh7me7"
+      ],
+      "name": "HeatingM riding",
+      "settings": {
+        "card_height": 504,
+        "title": "Built Around the Riding Position"
+      }
+    },
+    "heating_m_off_bike_GXrGiC": {
+      "type": "heatingM-off-bike",
+      "name": "HeatingM off bike",
+      "settings": {
+        "title": "Built for the Bike.\nStill Works Off It.",
+        "description": "<p>Walking the paddock or standing around camp: unplug, drop a Venustas high power 7.5K battery in the pocket and keep the heat.</p>"
       }
     },
     "heating_m_layering_iGLVt7": {
@@ -258,29 +361,6 @@
         "product_2_link": "",
         "product_3_title": "OFF Bike Battery",
         "product_3_link": ""
-      }
-    },
-    "heating_m_core_technology_kFVEfE": {
-      "type": "heatingM-core-technology",
-      "name": "HeatingM core tech",
-      "settings": {
-        "eyebrow": "Core Technology",
-        "title": "Targeted Heat Where Riders Need It Most",
-        "description": "<p>42W high-output heating system with 6 heating zones delivers even, powerful warmth across your core and arms.</p>",
-        "metric_1_value": "42W",
-        "metric_1_label": "High Power Heating",
-        "metric_2_value": "6",
-        "metric_2_label": "Heating Zones",
-        "metric_3_value": "85%",
-        "metric_3_label": "Torso Heating Coverage"
-      }
-    },
-    "heating_m_levels_w9rGgf": {
-      "type": "heatingM-levels",
-      "name": "HeatingM levels",
-      "settings": {
-        "title": "One Button. Three Levels. Gloves On.",
-        "description": "<p>The control is built into the liner. Nothing on your bars, nothing running down your sleeve, nothing to leave behind in a tank bag.</p>"
       }
     },
     "heating_m_specs_Kp6DNN": {
@@ -399,6 +479,8 @@
     "heating_m_levels_w9rGgf",
     "heating_m_power_draw_W6aeUP",
     "heating_m_mid_layer_jUC67V",
+    "heating_m_riding_features_C7dLYj",
+    "heating_m_riding_features_BCderc",
     "heating_m_off_bike_GXrGiC",
     "heating_m_layering_iGLVt7",
     "heating_m_specs_Kp6DNN",
