@@ -340,6 +340,62 @@
         "title": "Built Around the Riding Position"
       }
     },
+    "heating_p_12v_carousel_DKDLBJ": {
+      "type": "heatingP-12v-carousel",
+      "blocks": {
+        "scene_3WDzBP": {
+          "type": "scene",
+          "settings": {
+            "icon_name": "motorcycle",
+            "title": "Motorcycle",
+            "text": "Touring, commuting, ADV"
+          }
+        },
+        "scene_fNPyfY": {
+          "type": "scene",
+          "settings": {
+            "icon_name": "atv",
+            "title": "ATV / UTV",
+            "text": "Open cab, cold trails"
+          }
+        },
+        "scene_6J9jXi": {
+          "type": "scene",
+          "settings": {
+            "icon_name": "snowmobile",
+            "title": "Snowmobile",
+            "text": "Sustained sub-freezing"
+          }
+        },
+        "scene_xmt8de": {
+          "type": "scene",
+          "settings": {
+            "icon_name": "boat",
+            "title": "Boat",
+            "text": "Wind chill on the water"
+          }
+        },
+        "scene_t4FTUH": {
+          "type": "scene",
+          "settings": {
+            "icon_name": "aircraft",
+            "title": "Light aircraft",
+            "text": "Unheated cabins"
+          }
+        }
+      },
+      "block_order": [
+        "scene_3WDzBP",
+        "scene_fNPyfY",
+        "scene_6J9jXi",
+        "scene_xmt8de",
+        "scene_t4FTUH"
+      ],
+      "name": "HeatingP 12V Carousel",
+      "settings": {
+        "autoplay_seconds": 4
+      }
+    },
     "heating_m_off_bike_GXrGiC": {
       "type": "heatingM-off-bike",
       "name": "HeatingM off bike",
@@ -481,6 +537,7 @@
     "heating_m_mid_layer_jUC67V",
     "heating_m_riding_features_C7dLYj",
     "heating_m_riding_features_BCderc",
+    "heating_p_12v_carousel_DKDLBJ",
     "heating_m_off_bike_GXrGiC",
     "heating_m_layering_iGLVt7",
     "heating_m_specs_Kp6DNN",
