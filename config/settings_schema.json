@@ -96,6 +96,82 @@
     "settings": [
       {
         "type": "header",
+        "content": "Clearance Promotion"
+      },
+      {
+        "type": "collection",
+        "id": "promo_clearance_collection",
+        "label": "Clearance promotion collection",
+        "info": "Products in this collection use the clearance promotion. This takes priority over all other promotion collections."
+      },
+      {
+        "type": "richtext",
+        "id": "promo_clearance_title",
+        "label": "Clearance promotion title",
+        "default": "<p>Clearance Sale</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "promo_clearance_subtitle",
+        "label": "Clearance promotion subtitle",
+        "default": "<p><em>Limited-time prices</em></p>"
+      },
+      {
+        "type": "image_picker",
+        "id": "promo_clearance_background",
+        "label": "Clearance promotion background (desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "promo_clearance_background_mobile",
+        "label": "Clearance promotion background (mobile)"
+      },
+      {
+        "type": "color",
+        "id": "promo_clearance_highlight_color",
+        "label": "Clearance promotion emphasis color",
+        "default": "#FF6A00"
+      },
+      {
+        "type": "header",
+        "content": "Bundle Sale Promotion"
+      },
+      {
+        "type": "collection",
+        "id": "promo_bundle_collection",
+        "label": "Bundle sale promotion collection",
+        "info": "Products in this collection use the bundle sale promotion."
+      },
+      {
+        "type": "richtext",
+        "id": "promo_bundle_title",
+        "label": "Bundle sale promotion title",
+        "default": "<p>Bundle &amp; Save</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "promo_bundle_subtitle",
+        "label": "Bundle sale promotion subtitle",
+        "default": "<p><em>Save more when you bundle</em></p>"
+      },
+      {
+        "type": "image_picker",
+        "id": "promo_bundle_background",
+        "label": "Bundle sale promotion background (desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "promo_bundle_background_mobile",
+        "label": "Bundle sale promotion background (mobile)"
+      },
+      {
+        "type": "color",
+        "id": "promo_bundle_highlight_color",
+        "label": "Bundle sale promotion emphasis color",
+        "default": "#FF6A00"
+      },
+      {
+        "type": "header",
         "content": "Weekly Promotion"
       },
       {
