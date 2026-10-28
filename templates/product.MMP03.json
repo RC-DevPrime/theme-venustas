@@ -103,43 +103,78 @@
         "link_HmPrkn": {
           "type": "link",
           "settings": {
-            "label": "Why Heated Gear",
-            "target_id": "why-heated-gear"
+            "label": "Apex™ Riding System",
+            "target_id": "heatingM-system"
           }
         },
         "link_LEiBk3": {
           "type": "link",
           "settings": {
-            "label": "Venustas Riding System",
-            "target_id": "venustas-riding-system"
+            "label": "38W Heating",
+            "target_id": "heatingM-heating"
           }
         },
         "link_zBNtDy": {
           "type": "link",
           "settings": {
-            "label": "Setup Options",
-            "target_id": "setup-options"
+            "label": "Setup",
+            "target_id": "heatingM-setup"
           }
         },
         "link_wiCJMN": {
           "type": "link",
           "settings": {
-            "label": "How It Works",
-            "target_id": "how-it-works"
+            "label": "Temp Control",
+            "target_id": "heatingM-temp-control"
           }
         },
         "link_JUFmnG": {
           "type": "link",
           "settings": {
-            "label": "Riding Guild",
-            "target_id": "riding-guild"
+            "label": "Design Features",
+            "target_id": "heatingM-design-features"
           }
         },
         "link_ejpwNc": {
           "type": "link",
           "settings": {
             "label": "FAQ",
-            "target_id": "faq"
+            "target_id": "heatingM-faq"
+          }
+        },
+        "link_heatingM_materials": {
+          "type": "link",
+          "settings": {
+            "label": "Materials",
+            "target_id": "heatingM-materials"
+          }
+        },
+        "link_heatingM_use_case": {
+          "type": "link",
+          "settings": {
+            "label": "Use Case",
+            "target_id": "heatingM-use-case"
+          }
+        },
+        "link_heatingM_expand": {
+          "type": "link",
+          "settings": {
+            "label": "Expand your System",
+            "target_id": "heatingM-expand-system"
+          }
+        },
+        "link_heatingM_specs": {
+          "type": "link",
+          "settings": {
+            "label": "Specs",
+            "target_id": "heatingM-specs"
+          }
+        },
+        "link_heatingM_review": {
+          "type": "link",
+          "settings": {
+            "label": "Review",
+            "target_id": "heatingM-review"
           }
         }
       },
@@ -149,7 +184,12 @@
         "link_zBNtDy",
         "link_wiCJMN",
         "link_JUFmnG",
-        "link_ejpwNc"
+        "link_heatingM_materials",
+        "link_heatingM_use_case",
+        "link_heatingM_expand",
+        "link_heatingM_specs",
+        "link_ejpwNc",
+        "link_heatingM_review"
       ],
       "name": "Heating Anchor Nav",
       "settings": {
@@ -322,6 +362,7 @@
       ],
       "name": "HeatingM riding",
       "settings": {
+        "anchor_id": "heatingM-design-features",
         "image_height": 320,
         "title": "Built Around the Riding Position"
       }
@@ -364,6 +405,7 @@
       ],
       "name": "HeatingM riding",
       "settings": {
+        "anchor_id": "heatingM-materials",
         "image_height": 360,
         "title": "Built Around the Riding Position"
       }

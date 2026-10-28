@@ -94,6 +94,22 @@
     line-height: 1.6;
   }
 
+  @media only screen and (min-width: 1200px) {
+    #shopify-section-{{ section.id }} .heatingM-riding__track {
+      display: grid;
+      grid-template-columns: repeat({{ section.blocks.size }}, minmax(0, 1fr));
+      overflow: visible;
+      padding-bottom: 0;
+      scroll-snap-type: none;
+    }
+
+    #shopify-section-{{ section.id }} .heatingM-riding__card {
+      flex: none;
+      width: 100%;
+      scroll-snap-align: none;
+    }
+  }
+
   @media only screen and (max-width: 1199px) {
     #shopify-section-{{ section.id }} .heatingM-riding__inner {
       width: 100%;

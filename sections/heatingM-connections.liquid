@@ -120,6 +120,7 @@
   }
 
   #shopify-section-{{ section.id }} .heatingM-connections__apex-details { min-height: 444px; justify-content: space-between; }
+  #shopify-section-{{ section.id }} .heatingM-connections__apex-details--pants { min-height: 352px; }
   #shopify-section-{{ section.id }} .heatingM-connections__apex-heading,
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
   #shopify-section-{{ section.id }} .heatingM-connections__apex-count,
@@ -153,7 +154,7 @@
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-image { display: block; width: 100%; height: 100%; object-fit: cover; }
   #shopify-section-{{ section.id }} .heatingM-connections__placeholder { display: grid; width: 100%; height: 100%; place-items: center; color: #565b63; font-size: 13px; }
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-details { min-height: 421px; gap: 24px; }
-  #shopify-section-{{ section.id }} .heatingM-connections__comparison-details--third { gap: 16px; }
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-details--third { gap: 16px;min-height: 352px; }
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-title { font-size: 20px; font-weight: 700; line-height: 1.2; }
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-details--third .heatingM-connections__comparison-heading { align-items: center; }
   #shopify-section-{{ section.id }} .heatingM-connections__connection-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -250,7 +251,7 @@
           </div>
         </div>
 
-        <div class="heatingM-connections__apex-details">
+        <div class="heatingM-connections__apex-details {% if heatingM_is_pants %}heatingM-connections__apex-details--pants{% endif %}">
           <div class="heatingM-connections__apex-heading">
             <p class="heatingM-connections__apex-count">{% if heatingM_is_pants %}Pants only{% else %}<strong>3</strong> connections{% endif %}</p>
             <p class="heatingM-connections__apex-brand">Apex™</p>
