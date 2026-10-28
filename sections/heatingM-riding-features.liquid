@@ -138,7 +138,11 @@
   }
 {%- endstyle -%}
 
-<section class="heatingM-riding" style="--heatingM-riding-image-height: {{ section.settings.image_height }}px;" aria-label="{{ section.settings.title | escape }}">
+{%- assign section_anchor = section.settings.anchor_id | strip -%}
+{%- if section_anchor == blank -%}
+  {%- assign section_anchor = 'heatingM-' | append: section.id -%}
+{%- endif -%}
+<section id="{{ section_anchor | escape }}" class="heatingM-riding" style="--heatingM-riding-image-height: {{ section.settings.image_height }}px;" aria-label="{{ section.settings.title | escape }}">
   <div class="heatingM-riding__inner">
     {%- if section.settings.title != blank -%}
       <h2 class="heatingM-riding__title">{{ section.settings.title | newline_to_br }}</h2>
@@ -173,6 +177,7 @@
 {
   "name": "HeatingM riding",
   "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Section anchor ID" },
     {
       "type": "paragraph",
       "content": "请至少保留 3 个卡片；默认 4 个，最多 5 个。"

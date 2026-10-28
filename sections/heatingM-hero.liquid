@@ -208,7 +208,7 @@
   }
 {%- endstyle -%}
 
-<section class="heatingM" aria-label="{{ section.settings.title | escape }}">
+<section id="heatingM-system" class="heatingM" aria-label="{{ section.settings.title | escape }}">
   <div class="heatingM__media">
     {%- if heatingM_desktop_image != blank -%}
       {{ heatingM_desktop_image | image_url: width: 2400 | image_tag: class: 'heatingM__image heatingM__desktop-image', widths: '960, 1340, 1920, 2400', sizes: '100vw', loading: 'eager', alt: '' }}

@@ -131,6 +131,27 @@
     line-height: 1.25;
   }
 
+  #shopify-section-{{ section.id }} .heatingM-layering__price-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-layering__discount-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #fff;
+    background: linear-gradient(90deg, #b93205, #531602);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: normal;
+    white-space: nowrap;
+  }
+
   #shopify-section-{{ section.id }} .heatingM-layering__detail {
     font-size: 14px;
     font-weight: 400;
@@ -179,7 +200,7 @@
   }
 {%- endstyle -%}
 
-<section class="heatingM-layering" aria-label="{{ section.settings.title | escape }}">
+<section id="heatingM-expand-system" class="heatingM-layering" aria-label="{{ section.settings.title | escape }}">
   <div class="heatingM-layering__inner">
     <header class="heatingM-layering__header">
       {%- if section.settings.title != blank -%}
@@ -229,7 +250,10 @@
         <div class="heatingM-layering__details">
           <div class="heatingM-layering__product-heading">
             <a class="heatingM-layering__product-title" href="{{ section.settings.product_2_link }}">{{ section.settings.product_2_title }}</a>
-            <p class="heatingM-layering__price">$499.99</p>
+            <div class="heatingM-layering__price-row">
+              <p class="heatingM-layering__price">$499.99</p>
+              <span class="heatingM-layering__discount-badge">15% off in cart</span>
+            </div>
           </div>
           <p class="heatingM-layering__detail">Eight zones • 80W • one lead with the 3-Way cable</p>
           {%- render 'heatingP-button', label: 'Shop the Set & Save', url: section.settings.product_2_link, variant: 'primary', class: 'heatingP-button--full heatingP-button--card' -%}
