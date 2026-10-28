@@ -1,10 +1,16 @@
 {%- liquid
   assign promotion_type = blank
   assign product_collection_handles = product.collections | map: 'handle'
+  assign clearance_collection_handle = settings.promo_clearance_collection.handle
+  assign bundle_collection_handle = settings.promo_bundle_collection.handle
   assign weekly_collection_handle = settings.promo_weekly_collection.handle
   assign monthly_collection_handle = settings.promo_monthly_collection.handle
 
-  if weekly_collection_handle != blank and product_collection_handles contains weekly_collection_handle
+  if clearance_collection_handle != blank and product_collection_handles contains clearance_collection_handle
+    assign promotion_type = 'clearance'
+  elsif bundle_collection_handle != blank and product_collection_handles contains bundle_collection_handle
+    assign promotion_type = 'bundle'
+  elsif weekly_collection_handle != blank and product_collection_handles contains weekly_collection_handle
     assign promotion_type = 'weekly'
   elsif monthly_collection_handle != blank and product_collection_handles contains monthly_collection_handle
     assign promotion_type = 'monthly'
@@ -12,12 +18,42 @@
 
   assign promotion_link = blank
   assign promotion_title = blank
+  assign promotion_subtitle = blank
   assign promotion_background = blank
   assign promotion_background_mobile = blank
   assign promotion_show_countdown = false
   assign promotion_end_at = blank
+  assign promotion_highlight_color = '#FF6A00'
+  assign promotion_is_rich_text = false
+  assign promotion_can_render = false
 
-  if promotion_type == 'weekly'
+  if promotion_type == 'clearance'
+    assign promotion_link = settings.promo_clearance_link
+    assign promotion_title = settings.promo_clearance_title
+    assign promotion_subtitle = settings.promo_clearance_subtitle
+    assign promotion_highlight_color = settings.promo_clearance_highlight_color | default: '#FF6A00'
+    assign promotion_is_rich_text = true
+    assign promotion_can_render = true
+    if settings.promo_clearance_background != blank
+      assign promotion_background = settings.promo_clearance_background | image_url: width: 1600
+    endif
+    if settings.promo_clearance_background_mobile != blank
+      assign promotion_background_mobile = settings.promo_clearance_background_mobile | image_url: width: 800
+    endif
+  elsif promotion_type == 'bundle'
+    assign promotion_link = settings.promo_bundle_link
+    assign promotion_title = settings.promo_bundle_title
+    assign promotion_subtitle = settings.promo_bundle_subtitle
+    assign promotion_highlight_color = settings.promo_bundle_highlight_color | default: '#FF6A00'
+    assign promotion_is_rich_text = true
+    assign promotion_can_render = true
+    if settings.promo_bundle_background != blank
+      assign promotion_background = settings.promo_bundle_background | image_url: width: 1600
+    endif
+    if settings.promo_bundle_background_mobile != blank
+      assign promotion_background_mobile = settings.promo_bundle_background_mobile | image_url: width: 800
+    endif
+  elsif promotion_type == 'weekly'
     assign promotion_link = settings.promo_weekly_link
     assign promotion_title = settings.promo_weekly_title | default: 'Weekly Deals• Extra savings, auto-applied'
     if settings.promo_weekly_background != blank
@@ -28,6 +64,9 @@
     endif
     assign promotion_show_countdown = settings.promo_weekly_show_countdown
     assign promotion_end_at = settings.promo_weekly_end_at | strip
+    if promotion_link != blank
+      assign promotion_can_render = true
+    endif
   elsif promotion_type == 'monthly'
     assign promotion_link = settings.promo_monthly_link
     assign promotion_title = settings.promo_monthly_title | default: 'Fall Mega Sale • Up to [45%] off'
@@ -39,6 +78,9 @@
     endif
     assign promotion_show_countdown = settings.promo_monthly_show_countdown
     assign promotion_end_at = settings.promo_monthly_end_at | strip
+    if promotion_link != blank
+      assign promotion_can_render = true
+    endif
   endif
 
   if promotion_background == blank
@@ -50,7 +92,7 @@
   endif
 -%}
 
-{%- if promotion_type != blank and promotion_link != blank -%}
+{%- if promotion_type != blank and promotion_can_render -%}
   {%- if promotion_type == 'weekly' and promotion_show_countdown and promotion_end_at == blank -%}
     {%- comment -%}
       A weekly promotion with countdown enabled must have an end time.
@@ -61,19 +103,34 @@
       class="product-promotion product-promotion--{{ promotion_type }}"
       data-product-promotion
       data-promotion-type="{{ promotion_type }}"
-      style="--product-promotion-background-image: url('{{ promotion_background }}'); --product-promotion-background-image-mobile: url('{{ promotion_background_mobile }}');"
+      style="--product-promotion-background-image: url('{{ promotion_background }}'); --product-promotion-background-image-mobile: url('{{ promotion_background_mobile }}'); --product-promotion-highlight-color: {{ promotion_highlight_color | escape }};"
       {% if promotion_show_countdown and promotion_end_at != blank %}data-promotion-end-at="{{ promotion_end_at | escape }}"{% endif %}
     >
-      <a
-        class="product-promotion__link"
-        href="{{ promotion_link | escape }}"
-        aria-label="{{ promotion_title | escape }}"
-      >
+      {%- if promotion_link != blank -%}
+        <a
+          class="product-promotion__link"
+          href="{{ promotion_link | escape }}"
+          aria-label="{{ promotion_title | escape }}"
+        >
+      {%- else -%}
+        <div class="product-promotion__link" role="group">
+      {%- endif -%}
         <span class="product-promotion__icon" aria-hidden="true">
             {% if promotion_type == 'weekly' %}
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M11 5.49998V11L14.6666 12.8333M20.1666 11C20.1666 16.0626 16.0626 20.1666 11 20.1666C5.93737 20.1666 1.83331 16.0626 1.83331 11C1.83331 5.93737 5.93737 1.83331 11 1.83331C16.0626 1.83331 20.1666 5.93737 20.1666 11Z" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" stroke="white"/>
               </svg>
+            {% elsif promotion_type == 'clearance' %}
+              <svg viewBox="-0.5 0 25 25" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier"> 
+                  <path d="M18 3.91992H6C3.79086 3.91992 2 5.71078 2 7.91992V17.9199C2 20.1291 3.79086 21.9199 6 21.9199H18C20.2091 21.9199 22 20.1291 22 17.9199V7.91992C22 5.71078 20.2091 3.91992 18 3.91992Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> 
+                  <path d="M7 17.9199L17 7.91992" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8 11.9199C9.10457 11.9199 10 11.0245 10 9.91992C10 8.81535 9.10457 7.91992 8 7.91992C6.89543 7.91992 6 8.81535 6 9.91992C6 11.0245 6.89543 11.9199 8 11.9199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> 
+                  <path d="M16 17.9199C17.1046 17.9199 18 17.0245 18 15.9199C18 14.8154 17.1046 13.9199 16 13.9199C14.8954 13.9199 14 14.8154 14 15.9199C14 17.0245 14.8954 17.9199 16 17.9199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                </path> 
+                </g>
+                </svg>
             {% else %}
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3.66667 6.41669H18.3333C18.8396 6.41669 19.25 6.82709 19.25 7.33335V17.4167C19.25 17.9229 18.8396 18.3334 18.3333 18.3334H3.66667C3.16041 18.3334 2.75 17.9229 2.75 17.4167V7.33335C2.75 6.82709 3.16041 6.41669 3.66667 6.41669Z" stroke-width="1.65" stroke="white"/>
@@ -83,16 +140,35 @@
         </span>
 
         <span class="product-promotion__content">
-          <span class="product-promotion__title">{{ promotion_title }}</span>
-          {%- if promotion_show_countdown and promotion_end_at != blank -%}
-            <span class="product-promotion__subtitle" data-promotion-countdown-wrapper>
-                Ends in <span data-promotion-countdown  class='product-promotion__countdown' aria-live="polite"></span>
-            </span>
+          {%- if promotion_is_rich_text -%}
+            <div
+              class="product-promotion__title product-promotion__richtext"
+            >
+              {{ promotion_title }}
+            </div>
+            {%- if promotion_subtitle != blank -%}
+              <div class="product-promotion__subtitle product-promotion__richtext product-promotion__subtitle--richtext">
+                {{ promotion_subtitle }}
+              </div>
+            {%- endif -%}
+          {%- else -%}
+            <span class="product-promotion__title">{{ promotion_title }}</span>
+            {%- if promotion_show_countdown and promotion_end_at != blank -%}
+              <span class="product-promotion__subtitle" data-promotion-countdown-wrapper>
+                  Ends in <span data-promotion-countdown class="product-promotion__countdown" aria-live="polite"></span>
+              </span>
+            {%- endif -%}
           {%- endif -%}
         </span>
 
-        <span class="product-promotion__arrow" aria-hidden="true">›</span>
-      </a>
+        {%- if promotion_link != blank -%}
+          <span class="product-promotion__arrow" aria-hidden="true">›</span>
+        {%- endif -%}
+      {%- if promotion_link != blank -%}
+        </a>
+      {%- else -%}
+        </div>
+      {%- endif -%}
     </div>
 
     {%- if promotion_show_countdown and promotion_end_at != blank -%}
