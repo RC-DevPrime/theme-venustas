@@ -217,7 +217,7 @@
     #shopify-section-{{ section.id }} .heatingM-specs__row-value { font-size: 12px; }
   }
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 899px) {
     #shopify-section-{{ section.id }} .heatingM-specs__inner { width: 100%; padding: 48px 20px; }
     #shopify-section-{{ section.id }} .heatingM-specs__header { align-items: flex-start; gap: 12px; text-align: left; }
     #shopify-section-{{ section.id }} .heatingM-specs__eyebrow { font-size: 16px; }
@@ -230,7 +230,7 @@
     #shopify-section-{{ section.id }} .heatingM-specs__row-label,
     #shopify-section-{{ section.id }} .heatingM-specs__row-value { font-size: 13px; }
     #shopify-section-{{ section.id }} .heatingM-specs__row-label { flex-basis: 38%; }
-    #shopify-section-{{ section.id }} .heatingM-specs__kit-visual { height: 160px; margin-top: 20px; padding: 8px; gap: 8px; }
+    #shopify-section-{{ section.id }} .heatingM-specs__kit-visual { min-height: 160px;height: auto; margin-top: 20px; padding: 8px; gap: 8px; }
     #shopify-section-{{ section.id }} .heatingM-specs__included-list { margin-top: 20px; gap: 12px; }
     #shopify-section-{{ section.id }} .heatingM-specs__included-item span:last-child { font-size: 14px; }
     #shopify-section-{{ section.id }} .heatingM-specs__care-list { margin-top: 24px; gap: 24px; }
@@ -279,9 +279,28 @@
           {%- else -%}<div class="heatingM-specs__kit-placeholder">请上传图片</div>{%- endif -%}
         </div>
         <div class="heatingM-specs__included-list">
-          <div class="heatingM-specs__included-item"><span class="heatingM-specs__check" aria-hidden="true">✓</span><span>{% if heatingM_is_pants %}Apex™ pants liner{% else %}Apex™ jacket liner{% endif %}</span></div>
-          <div class="heatingM-specs__included-item"><span class="heatingM-specs__check" aria-hidden="true">✓</span><span>Y cable set (fuse already inside)</span></div>
-          <div class="heatingM-specs__included-item"><span class="heatingM-specs__check" aria-hidden="true">✓</span><span>User Manual</span></div>
+          <div class="heatingM-specs__included-item">
+            <span class="heatingM-specs__check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.6664 3.5L5.25036 9.9162L2.33398 6.99975" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
+              </svg>
+            </span>
+            <span>{% if heatingM_is_pants %}Apex™ pants liner{% else %}Apex™ jacket liner{% endif %}</span>
+          </div>
+          <div class="heatingM-specs__included-item">
+            <span class="heatingM-specs__check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.6664 3.5L5.25036 9.9162L2.33398 6.99975" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
+              </svg>
+            </span>
+            <span>Y cable set (fuse already inside)</span>
+          </div>
+          <div class="heatingM-specs__included-item">
+            <span class="heatingM-specs__check" aria-hidden="true"> 
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.6664 3.5L5.25036 9.9162L2.33398 6.99975" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
+              </svg>
+            </span><span>User Manual</span></div>
         </div>
         <div class="heatingM-specs__card-divider"></div>
         <p class="heatingM-specs__card-note">* High Power 7.5K batteries sold separately</p>

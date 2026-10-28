@@ -3239,3 +3239,90 @@ a.f-white:hover{
 .product .product-details .swym-wishlist-collections-v2-container, .product-item .swym-wishlist-collections-v2-container{
     display:none;
 }
+
+.heatingP-button {
+    position: relative;
+    display: inline-flex;
+    min-height: 41px;
+    min-width: 198px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 12px 20px 14px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .28s ease, border-color .28s ease, color .28s ease, gap .38s cubic-bezier(.22, 1, .36, 1);
+  }
+  
+  .heatingP-button:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .heatingP-button--primary {
+    background: var(--color-brand, #b93205);
+  }
+  
+  .heatingP-button--primary:hover {
+    background: #8f2403;
+  }
+  
+  .heatingP-button--secondary {
+    border-color: currentColor;
+    color: #1a1a1a;
+    background: transparent;
+  }
+  
+  .heatingP-button--secondary:hover {
+    border-color: var(--color-brand, #b93205);
+    background: rgba(185, 50, 5, .2);
+  }
+  
+  .heatingP-button__label {
+    transform: translateX(-8px);
+    transition: transform .42s cubic-bezier(.22, 1, .36, 1);
+  }
+  
+  .heatingP-button__icon {
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+    opacity: 1;
+    transition: width .38s cubic-bezier(.22, 1, .36, 1), flex-basis .38s cubic-bezier(.22, 1, .36, 1), opacity .2s ease;
+  }
+  
+  .heatingP-button:hover {
+    gap: 0;
+  }
+  
+  .heatingP-button:hover .heatingP-button__label {
+    transform: translateX(0);
+  }
+  
+  .heatingP-button:hover .heatingP-button__icon {
+    width: 0;
+    flex-basis: 0;
+    opacity: 0;
+  }
+  
+  .heatingP-button--full {
+    width: 100%;
+  }
+  
+  .heatingP-button--card {
+    min-height: 48px;
+    padding: 12px 20px 14px;
+  }
+  
+  @media only screen and (max-width: 767px) {
+    .heatingP-button {
+      min-width: 0;
+    }
+  }
+  

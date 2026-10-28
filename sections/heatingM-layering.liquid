@@ -150,47 +150,6 @@
     line-height: 1.4;
   }
 
-  #shopify-section-{{ section.id }} .heatingM-layering__button.heatingP-button {
-    display: flex;
-    width: 100%;
-    min-height: 48px;
-    padding: 12px 20px;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border: 1.4px solid #1a1a1a;
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.35;
-    text-align: center;
-    text-decoration: none;
-  }
-
-  #shopify-section-{{ section.id }} .heatingM-layering__button.heatingP-button--filled {
-    border-color: #b93205;
-    color: #fff;
-    background: #b93205;
-  }
-
-  #shopify-section-{{ section.id }} .heatingM-layering__button.heatingP-button--outline {
-    color: #1a1a1a;
-    background: #fff;
-  }
-
-  #shopify-section-{{ section.id }} .heatingM-layering__button.heatingP-button:hover {
-    color: #fff;
-    border-color: #1a1a1a;
-    background: #1a1a1a;
-  }
-
-  #shopify-section-{{ section.id }} .heatingM-layering__arrow {
-    font-size: 17px;
-    line-height: 1;
-  }
-
   @media only screen and (max-width: 1023px) {
     #shopify-section-{{ section.id }} .heatingM-layering__inner { padding: 72px 0; }
     #shopify-section-{{ section.id }} .heatingM-layering__products { gap: 16px; }
@@ -201,7 +160,7 @@
     #shopify-section-{{ section.id }} .heatingM-layering__product-title { font-size: 18px; }
   }
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 899px) {
     #shopify-section-{{ section.id }} .heatingM-layering__inner {
       width: 100%;
       padding: 48px 20px;
@@ -249,10 +208,10 @@
           </div>
           {%- if section.settings.product_1_type == 'jacket' -%}
             <p class="heatingM-layering__detail">Six zones • 42W • Y cable included</p>
-            <a class="heatingM-layering__button heatingP-button heatingM-layering__button--outline" href="{{ section.settings.product_1_link }}"><span>View Heated Jacket Liner</span><span class="heatingM-layering__arrow" aria-hidden="true">→</span></a>
+            {%- render 'heatingP-button', label: 'View Heated Jacket Liner', url: section.settings.product_1_link, variant: 'secondary', class: 'heatingP-button--full heatingP-button--card' -%}
           {%- else -%}
             <p class="heatingM-layering__detail">Two full-leg zones • 38W . Y cable included</p>
-            <a class="heatingM-layering__button heatingP-button heatingM-layering__button--outline" href="{{ section.settings.product_1_link }}"><span>View Heated Pants Liner</span><span class="heatingM-layering__arrow" aria-hidden="true">→</span></a>
+            {%- render 'heatingP-button', label: 'View Heated Pants Liner', url: section.settings.product_1_link, variant: 'secondary', class: 'heatingP-button--full heatingP-button--card' -%}
           {%- endif -%}
         </div>
       </article>
@@ -273,7 +232,7 @@
             <p class="heatingM-layering__price">$499.99</p>
           </div>
           <p class="heatingM-layering__detail">Eight zones • 80W • one lead with the 3-Way cable</p>
-          <a class="heatingM-layering__button heatingP-button heatingM-layering__button--filled" href="{{ section.settings.product_2_link }}"><span>Shop the Set &amp; Save</span><span class="heatingM-layering__arrow" aria-hidden="true">→</span></a>
+          {%- render 'heatingP-button', label: 'Shop the Set & Save', url: section.settings.product_2_link, variant: 'primary', class: 'heatingP-button--full heatingP-button--card' -%}
         </div>
       </article>
 
@@ -295,7 +254,7 @@
             <p class="heatingM-layering__option">High Power 7.5K Battery</p>
             <p class="heatingM-layering__option-description">Extended runtime for portable warmth anywhere.</p>
           </div>
-          <a class="heatingM-layering__button heatingP-button heatingM-layering__button--filled" href="{{ section.settings.product_3_link }}"><span>Add To Cart</span><span class="heatingM-layering__arrow" aria-hidden="true">→</span></a>
+          {%- render 'heatingP-button', label: 'Add To Cart', url: section.settings.product_3_link, variant: 'primary', class: 'heatingP-button--full heatingP-button--card' -%}
         </div>
       </article>
     </div>

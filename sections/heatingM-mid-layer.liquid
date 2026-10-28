@@ -43,9 +43,9 @@
 
   #shopify-section-{{ section.id }} .heatingM-mid__content {
     display: grid;
-    grid-template-columns: minmax(0, 818px) minmax(320px, 420px);
+    grid-template-columns: minmax(0, 1000px) minmax(320px, 420px);
     gap: 32px;
-    align-items: start;
+    align-items: center;
     justify-content: space-between;
   }
 
@@ -67,7 +67,6 @@
   #shopify-section-{{ section.id }} .heatingM-mid__layer-media {
     display: flex;
     width: 100%;
-    height: 456px;
     align-items: center;
     justify-content: center;
     background: transparent;
@@ -75,9 +74,9 @@
 
   #shopify-section-{{ section.id }} .heatingM-mid__layer-image {
     display: block;
-    width: 220px;
-    height: 456px;
-    object-fit: cover;
+    width: var(--heatingM-layer-image-width);
+    max-width: 100%;
+    height: auto;
     opacity: .6;
   }
 
@@ -85,8 +84,8 @@
 
   #shopify-section-{{ section.id }} .heatingM-mid__layer-placeholder {
     display: grid;
-    width: 220px;
-    height: 456px;
+    width: 100%;
+    min-height: 220px;
     place-items: center;
     background: #e5e7eb;
     color: #565b63;
@@ -112,9 +111,16 @@
 
   #shopify-section-{{ section.id }} .heatingM-mid__features {
     display: flex;
+    width: 100%;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 32px;
   }
+
+  #shopify-section-{{ section.id }} .heatingM-mid__feature-heading,
+  #shopify-section-{{ section.id }} .heatingM-mid__feature-list { width: 100%; }
+  #shopify-section-{{ section.id }} .heatingM-mid__feature-heading { text-align: center; }
 
   #shopify-section-{{ section.id }} .heatingM-mid__feature-heading {
     margin: 0;
@@ -164,9 +170,8 @@
     #shopify-section-{{ section.id }} .heatingM-mid__content { display: flex; flex-direction: column; gap: 48px; }
     #shopify-section-{{ section.id }} .heatingM-mid__layers { display: grid; width: 100%; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; align-items: start; }
     #shopify-section-{{ section.id }} .heatingM-mid__layer { width: auto; }
-    #shopify-section-{{ section.id }} .heatingM-mid__layer-media { height: clamp(180px, 48vw, 230px); min-height: 0; }
-    #shopify-section-{{ section.id }} .heatingM-mid__layer-image,
-    #shopify-section-{{ section.id }} .heatingM-mid__layer-placeholder { width: 100%; height: 100%; object-fit: contain; }
+    #shopify-section-{{ section.id }} .heatingM-mid__layer-media { min-height: 0; }
+    #shopify-section-{{ section.id }} .heatingM-mid__layer-placeholder { min-height: 180px; }
     #shopify-section-{{ section.id }} .heatingM-mid__layer-copy-wrap { padding-top: 16px; }
     #shopify-section-{{ section.id }} .heatingM-mid__layer-title { font-size: 12px; }
     #shopify-section-{{ section.id }} .heatingM-mid__layer-copy { font-size: 11px; line-height: 1.35; }
@@ -192,10 +197,13 @@
           {%- assign image_key = 'layer_' | append: index | append: '_image' -%}
           {%- assign title_key = 'layer_' | append: index | append: '_title' -%}
           {%- assign copy_key = 'layer_' | append: index | append: '_copy' -%}
+          {%- assign image_width = section.settings[image_key].width | divided_by: 2 -%}
           <article class="heatingM-mid__layer">
             <div class="heatingM-mid__layer-media">
               {%- if section.settings[image_key] != blank -%}
-                {{ section.settings[image_key] | image_url: width: 900 | image_tag: class: 'heatingM-mid__layer-image', widths: '320, 500, 700, 900', sizes: '(max-width: 767px) 260px, 220px', loading: 'lazy', alt: section.settings[title_key] }}
+                <div style="--heatingM-layer-image-width: {{ image_width }}px;">
+                  {{ section.settings[image_key] | image_url: width: 900 | image_tag: class: 'heatingM-mid__layer-image', widths: '220, 290, 500, 700, 900', sizes: '(max-width: 767px) 50vw, 220px', loading: 'lazy', alt: section.settings[title_key] }}
+                </div>
               {%- else -%}
                 <div class="heatingM-mid__layer-placeholder">请上传对应图片</div>
               {%- endif -%}
