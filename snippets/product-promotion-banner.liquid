@@ -11,7 +11,7 @@
   elsif bundle_collection_handle != blank and product_collection_handles contains bundle_collection_handle
     assign promotion_type = 'bundle'
   elsif weekly_collection_handle != blank and product_collection_handles contains weekly_collection_handle
-    assign promotion_type = 'bundle'
+    assign promotion_type = 'weekly'
   elsif monthly_collection_handle != blank and product_collection_handles contains monthly_collection_handle
     assign promotion_type = 'monthly'
   endif
