@@ -25,11 +25,15 @@
     flex-direction: column;
     gap: 14px;
   }
+  #shopify-section-{{ section.id }} .heatingM-connections__flow{
+    max-height: 408px;
+  }
 
   #shopify-section-{{ section.id }} .heatingM-connections__title,
   #shopify-section-{{ section.id }} .heatingM-connections__subtitle,
   #shopify-section-{{ section.id }} .heatingM-connections__flow-label,
   #shopify-section-{{ section.id }} .heatingM-connections__connection-count,
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-title,
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-label,
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-note { margin: 0; }
 
@@ -92,7 +96,6 @@
     height: 220px;
     overflow: hidden;
     border-radius: 12px;
-    background: #fff;
   }
 
   #shopify-section-{{ section.id }} .heatingM-connections__flow-image {
@@ -104,7 +107,7 @@
 
   #shopify-section-{{ section.id }} .heatingM-connections__flow-image--cable { object-fit: contain; }
   #shopify-section-{{ section.id }} .heatingM-connections__flow-label { width: 100%; font-size: 12px; line-height: 1.4; text-align: center; }
-  #shopify-section-{{ section.id }} .heatingM-connections__arrow { color: #565b63; font-size: 30px; text-align: center; }
+  #shopify-section-{{ section.id }} .heatingM-connections__arrow { color: #565b63; font-size: 30px; transform: rotate(90deg);text-align: center; }
 
   #shopify-section-{{ section.id }} .heatingM-connections__apex-details,
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-details {
@@ -118,7 +121,7 @@
   #shopify-section-{{ section.id }} .heatingM-connections__apex-heading,
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
   #shopify-section-{{ section.id }} .heatingM-connections__apex-count,
-  #shopify-section-{{ section.id }} .heatingM-connections__comparison-count { font-size: 20px; line-height: 1.2; }
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-count { font-weight:700;font-size: 20px; line-height: 1.2; }
   #shopify-section-{{ section.id }} .heatingM-connections__apex-count strong,
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-count strong { font-size: 40px; }
   #shopify-section-{{ section.id }} .heatingM-connections__apex-brand { font-size: 16px; }
@@ -138,15 +141,20 @@
   }
   #shopify-section-{{ section.id }} .heatingM-connections__apex-box--dark { color: #fff; border-color: #1a1a1a; background: #1a1a1a; }
   #shopify-section-{{ section.id }} .heatingM-connections__connection-box--dashed { border-style: dashed; }
+  #shopify-section-{{ section.id }} .heatingM-connections__connection-box--dark { color: #fff; border-color: #1a1a1a; background: #1a1a1a; }
   #shopify-section-{{ section.id }} .heatingM-connections__connector { width: 1px; height: 16px; margin: 0 auto; background: #e5e7eb; }
   #shopify-section-{{ section.id }} .heatingM-connections__connection-line { width: 1px; height: 16px; margin: 0 auto; background: #e5e7eb; }
   #shopify-section-{{ section.id }} .heatingM-connections__apex-note,
-  #shopify-section-{{ section.id }} .heatingM-connections__comparison-note { font-size: 13px; line-height: 1.45; text-align: center; }
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-note { font-size: 13px; line-height: 1.45; }
 
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-media { height: 408px; background: #f5f7fa; }
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-image { display: block; width: 100%; height: 100%; object-fit: cover; }
   #shopify-section-{{ section.id }} .heatingM-connections__placeholder { display: grid; width: 100%; height: 100%; place-items: center; color: #565b63; font-size: 13px; }
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-details { min-height: 421px; gap: 24px; }
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-details--third { gap: 16px; }
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-title { font-size: 20px; font-weight: 700; line-height: 1.2; }
+  #shopify-section-{{ section.id }} .heatingM-connections__comparison-details--third .heatingM-connections__comparison-heading { align-items: center; }
+  #shopify-section-{{ section.id }} .heatingM-connections__connection-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-label { color: #565b63; font-size: 16px; }
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-list { display: flex; flex-direction: column; }
   #shopify-section-{{ section.id }} .heatingM-connections__comparison-note { color: #1a1a1a; }
@@ -168,12 +176,12 @@
     #shopify-section-{{ section.id }} .heatingM-connections__title { font-size: 28px; line-height: 1.22; letter-spacing: 0; }
     #shopify-section-{{ section.id }} .heatingM-connections__subtitle { font-size: 16px; line-height: 1.72; }
     #shopify-section-{{ section.id }} .heatingM-connections__cards { display: flex; margin-top: 32px; flex-direction: column; gap: 24px; }
-    #shopify-section-{{ section.id }} .heatingM-connections__flow { min-height: 0; padding: 24px 20px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__flow { min-height: 542px; padding: 24px 20px; }
     #shopify-section-{{ section.id }} .heatingM-connections__flow-row { display: flex; flex-direction: column; gap: 0; }
     #shopify-section-{{ section.id }} .heatingM-connections__flow-node { width: 100%; flex-direction: row; gap: 24px; }
     #shopify-section-{{ section.id }} .heatingM-connections__flow-image-wrap { width: 106px; height: 138px; flex: 0 0 106px; }
     #shopify-section-{{ section.id }} .heatingM-connections__flow-label { flex: 1; text-align: left; }
-    #shopify-section-{{ section.id }} .heatingM-connections__arrow { height: 24px; transform: rotate(90deg); font-size: 24px; line-height: 24px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__arrow { height: 24px; transform: rotate(0deg); font-size: 24px; line-height: 24px; }
     #shopify-section-{{ section.id }} .heatingM-connections__apex-details,
     #shopify-section-{{ section.id }} .heatingM-connections__comparison-details { min-height: 0; padding: 20px; gap: 24px; }
     #shopify-section-{{ section.id }} .heatingM-connections__apex-heading,
@@ -182,6 +190,7 @@
     #shopify-section-{{ section.id }} .heatingM-connections__comparison-count { align-self: flex-start; }
     #shopify-section-{{ section.id }} .heatingM-connections__comparison-media { height: 219px; }
     #shopify-section-{{ section.id }} .heatingM-connections__comparison-label { font-size: 16px; }
+    #shopify-section-{{ section.id }} .heatingM-connections__comparison-details--third .heatingM-connections__comparison-heading { align-items: flex-start; }
   }
 {%- endstyle -%}
 
@@ -208,7 +217,11 @@
               </div>
               <p class="heatingM-connections__flow-label">{% if heatingM_is_pants %}MMP03 Heated Pants Liner{% else %}MMJ01 Heated Jacket Liner{% endif %}</p>
             </div>
-            <span class="heatingM-connections__arrow" aria-hidden="true">→</span>
+            <span class="heatingM-connections__arrow" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5V19M5 12L12 19L19 12" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
+              </svg>
+            </span>
             <div class="heatingM-connections__flow-node">
               <div class="heatingM-connections__flow-image-wrap">
                 {%- if section.settings.image_2 != blank -%}
@@ -217,7 +230,11 @@
               </div>
               <p class="heatingM-connections__flow-label">Y Cable Set (Included)</p>
             </div>
-            <span class="heatingM-connections__arrow" aria-hidden="true">→</span>
+            <span class="heatingM-connections__arrow" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5V19M5 12L12 19L19 12" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
+              </svg>
+            </span>
             <div class="heatingM-connections__flow-node">
               <div class="heatingM-connections__flow-image-wrap">
                 {%- if section.settings.image_3 != blank -%}
@@ -235,9 +252,9 @@
             <p class="heatingM-connections__apex-brand">Apex™</p>
           </div>
           <div class="heatingM-connections__apex-list">
-            <div class="heatingM-connections__apex-step"><div class="heatingM-connections__apex-box">Your bike’s 12V battery</div><span class="heatingM-connections__connector"></span></div>
+            <div class="heatingM-connections__apex-step"><div class="heatingM-connections__apex-box"><strong>Your bike’s 12V battery</strong></div><span class="heatingM-connections__connector"></span></div>
             <div class="heatingM-connections__apex-step"><div class="heatingM-connections__apex-box"><strong>Y cable</strong> * fuse already inside * in the box</div><span class="heatingM-connections__connector"></span></div>
-            <div class="heatingM-connections__apex-step"><div class="heatingM-connections__apex-box heatingM-connections__apex-box--dark">{% if heatingM_is_pants %}Apex pant liner{% else %}Apex jack liner{% endif %} * control button built in</div></div>
+            <div class="heatingM-connections__apex-step"><div class="heatingM-connections__apex-box heatingM-connections__apex-box--dark">{% if heatingM_is_pants %}Apex™ pant liner{% else %}Apex™ jacket liner{% endif %} * control button built in</div></div>
           </div>
           <p class="heatingM-connections__apex-note">Nothing extra to buy</p>
         </div>

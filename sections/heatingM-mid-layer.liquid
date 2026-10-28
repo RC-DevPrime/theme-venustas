@@ -171,7 +171,7 @@
     #shopify-section-{{ section.id }} .heatingM-mid__layer-title { font-size: 12px; }
     #shopify-section-{{ section.id }} .heatingM-mid__layer-copy { font-size: 11px; line-height: 1.35; }
     #shopify-section-{{ section.id }} .heatingM-mid__features { width: 100%; gap: 24px; }
-    #shopify-section-{{ section.id }} .heatingM-mid__feature-heading { font-size: 22px; }
+    #shopify-section-{{ section.id }} .heatingM-mid__feature-heading { max-width: 250px;font-size: 22px; }
   }
 {%- endstyle -%}
 
@@ -215,7 +215,11 @@
             {%- assign feature_title_key = 'feature_' | append: index | append: '_title' -%}
             {%- assign feature_copy_key = 'feature_' | append: index | append: '_copy' -%}
             <div class="heatingM-mid__feature">
-              <span class="heatingM-mid__check" aria-hidden="true">✓</span>
+              <span class="heatingM-mid__check" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.3336 4L6.00097 11.3328L2.66797 7.99971" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
+                </svg>
+              </span>
               <div class="heatingM-mid__feature-copy-wrap">
                 <h4 class="heatingM-mid__feature-title">{{ section.settings[feature_title_key] }}</h4>
                 <p class="heatingM-mid__feature-copy">{{ section.settings[feature_copy_key] }}</p>

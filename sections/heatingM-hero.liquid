@@ -86,34 +86,43 @@
   #shopify-section-{{ section.id }} .heatingM__description p { margin: 0; }
 
   #shopify-section-{{ section.id }} .heatingM__stats {
-    display: flex;
-    align-items: flex-end;
-    gap: 48px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
   }
 
   #shopify-section-{{ section.id }} .heatingM__stat {
-    display: flex;
+    display: grid;
     min-width: 0;
-    flex-direction: column;
-    justify-content: flex-end;
+    grid-template-rows: 50px minmax(34px, auto);
     gap: 12px;
+    align-items: start;
+    justify-items: center;
+    align-content: start;
+    text-align: center;
   }
 
-  #shopify-section-{{ section.id }} .heatingM__stat--runtime { width: 193px; gap: 4px; }
-  #shopify-section-{{ section.id }} .heatingM__stat--controllers { width: 125px; }
-  #shopify-section-{{ section.id }} .heatingM__stat--heat { width: 98px; }
+  #shopify-section-{{ section.id }} .heatingM__stat--runtime,
+  #shopify-section-{{ section.id }} .heatingM__stat--controllers,
+  #shopify-section-{{ section.id }} .heatingM__stat--heat { width: auto; }
 
   #shopify-section-{{ section.id }} .heatingM__icon {
     display: flex;
-    width: 50px;
+    width: 100%;
     height: 50px;
     align-items: center;
+    justify-content: center;
     color: #fff;
     font-size: 48px;
     line-height: 1;
   }
 
   #shopify-section-{{ section.id }} .heatingM__value {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
     margin: 0;
     background: linear-gradient(180deg, #fff, #999);
     -webkit-background-clip: text;
@@ -126,6 +135,8 @@
   }
 
   #shopify-section-{{ section.id }} .heatingM__label {
+    width: 100%;
+    align-self: start;
     margin: 0;
     color: var(--heatingM-white);
     font-size: 14px;
@@ -139,10 +150,7 @@
     }
 
     #shopify-section-{{ section.id }} .heatingM__content { width: min(46%, 510px); }
-    #shopify-section-{{ section.id }} .heatingM__stats { gap: 24px; }
-    #shopify-section-{{ section.id }} .heatingM__stat--runtime { width: 150px; }
-    #shopify-section-{{ section.id }} .heatingM__stat--controllers,
-    #shopify-section-{{ section.id }} .heatingM__stat--heat { width: 96px; }
+    #shopify-section-{{ section.id }} .heatingM__stats { gap: 16px; }
   }
 
   @media only screen and (max-width: 767px) {
@@ -159,8 +167,9 @@
     #shopify-section-{{ section.id }} .heatingM__inner {
       display: block;
       min-height: 0;
-      width: 100%;
-      padding: 40px 20px 32px;
+      width: calc(100% - 40px);
+      margin: 0 20px;
+      padding: 40px 0 32px;
       box-sizing: border-box;
     }
 
@@ -180,21 +189,21 @@
       line-height: 1.25;
     }
     #shopify-section-{{ section.id }} .heatingM__stats {
-      justify-content: space-between;
-      gap: 12px;
+      width: 100%;
+      box-sizing: border-box;
+      gap: 26px;
       padding: 0 8px;
     }
     #shopify-section-{{ section.id }} .heatingM__stat,
     #shopify-section-{{ section.id }} .heatingM__stat--runtime,
     #shopify-section-{{ section.id }} .heatingM__stat--controllers,
     #shopify-section-{{ section.id }} .heatingM__stat--heat {
-      width: 85px;
+      width: auto;
       align-items: center;
       text-align: center;
     }
-    #shopify-section-{{ section.id }} .heatingM__stat--runtime { gap: 4px; }
     #shopify-section-{{ section.id }} .heatingM__icon { width: 46px; height: 46px; }
-    #shopify-section-{{ section.id }} .heatingM__value { font-size: 32px; }
+    #shopify-section-{{ section.id }} .heatingM__value { height: 46px; font-size: 32px; }
     #shopify-section-{{ section.id }} .heatingM__label { line-height: 1.2; }
   }
 {%- endstyle -%}
@@ -228,7 +237,22 @@
 
       <div class="heatingM__stats" aria-label="Heating system benefits">
         <div class="heatingM__stat heatingM__stat--runtime">
-          <span class="heatingM__icon" aria-hidden="true">∞</span>
+          <span class="heatingM__icon" aria-hidden="true">
+            <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_6108_309)">
+              <path d="M10.5417 33.5418C7.60278 33.5418 5.11111 32.5196 3.06667 30.4752C1.02222 28.4307 0 25.939 0 23.0002C0 20.0613 1.02222 17.5696 3.06667 15.5252C5.11111 13.4807 7.60278 12.4585 10.5417 12.4585C11.7236 12.4585 12.8576 12.6661 13.9437 13.0814C15.0299 13.4967 16.0042 14.0877 16.8667 14.8543L20.125 17.8252L17.25 20.4127L14.2792 17.7293C13.7681 17.2821 13.1931 16.9307 12.5542 16.6752C11.9153 16.4196 11.2444 16.2918 10.5417 16.2918C8.68889 16.2918 7.10764 16.9467 5.79792 18.2564C4.48819 19.5661 3.83333 21.1474 3.83333 23.0002C3.83333 24.8529 4.48819 26.4342 5.79792 27.7439C7.10764 29.0536 8.68889 29.7085 10.5417 29.7085C11.2444 29.7085 11.9153 29.5807 12.5542 29.3252C13.1931 29.0696 13.7681 28.7182 14.2792 28.271L29.1333 14.8543C29.9958 14.0877 30.9701 13.4967 32.0562 13.0814C33.1424 12.6661 34.2764 12.4585 35.4583 12.4585C38.3972 12.4585 40.8889 13.4807 42.9333 15.5252C44.9778 17.5696 46 20.0613 46 23.0002C46 25.939 44.9778 28.4307 42.9333 30.4752C40.8889 32.5196 38.3972 33.5418 35.4583 33.5418C34.2764 33.5418 33.1424 33.3342 32.0562 32.9189C30.9701 32.5036 29.9958 31.9127 29.1333 31.146L25.875 28.1752L28.75 25.5877L31.7208 28.271C32.2319 28.7182 32.8069 29.0696 33.4458 29.3252C34.0847 29.5807 34.7556 29.7085 35.4583 29.7085C37.3111 29.7085 38.8924 29.0536 40.2021 27.7439C41.5118 26.4342 42.1667 24.8529 42.1667 23.0002C42.1667 21.1474 41.5118 19.5661 40.2021 18.2564C38.8924 16.9467 37.3111 16.2918 35.4583 16.2918C34.7556 16.2918 34.0847 16.4196 33.4458 16.6752C32.8069 16.9307 32.2319 17.2821 31.7208 17.7293L16.8667 31.146C16.0042 31.9127 15.0299 32.5036 13.9437 32.9189C12.8576 33.3342 11.7236 33.5418 10.5417 33.5418Z" fill="url(#paint0_linear_6108_309)"/>
+              </g>
+              <defs>
+              <linearGradient id="paint0_linear_6108_309" x1="23" y1="12.4585" x2="23" y2="33.5418" gradientUnits="userSpaceOnUse">
+              <stop stop-color="white"/>
+              <stop offset="1" stop-color="#999999"/>
+              </linearGradient>
+              <clipPath id="clip0_6108_309">
+              <rect width="46" height="46" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+          </span>
           <p class="heatingM__label">Runtime on your bike's 12V</p>
         </div>
         <div class="heatingM__stat heatingM__stat--controllers">
