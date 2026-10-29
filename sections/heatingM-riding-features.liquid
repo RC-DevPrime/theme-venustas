@@ -154,7 +154,7 @@
   }
 {%- endstyle -%}
 
-{%- assign section_anchor = section.settings.anchor_id | strip -%}
+{%- assign section_anchor = section.settings.anchor_id | strip | handleize -%}
 {%- if section_anchor == blank -%}
   {%- assign section_anchor = 'heatingM-' | append: section.id -%}
 {%- endif -%}
@@ -193,7 +193,12 @@
 {
   "name": "HeatingM riding",
   "settings": [
-    { "type": "text", "id": "anchor_id", "label": "Section anchor ID" },
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Section anchor ID",
+      "info": "用于页面导航定位；仅填写字母、数字和短横线，留空时自动使用唯一 ID。"
+    },
     {
       "type": "paragraph",
       "content": "请至少保留 3 个卡片；默认 4 个，最多 5 个。"
