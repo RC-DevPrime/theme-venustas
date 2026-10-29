@@ -200,12 +200,26 @@
       const track = panel.querySelector('.index-product-tabs__track');
       return slide ? slide.getBoundingClientRect().width + (track ? parseFloat(getComputedStyle(track).gap) || 20 : 20) : 0;
     };
+    const updateArrowPosition = (panel) => {
+      const image = panel.querySelector('.product-image');
+      if (!image || panel.hidden) return;
+      const panelRect = panel.getBoundingClientRect();
+      const imageRect = image.getBoundingClientRect();
+      const imageCenter = imageRect.top - panelRect.top + imageRect.height / 2;
+      panel.querySelectorAll('.index-product-tabs__arrow').forEach(arrow => {
+        arrow.style.top = `${imageCenter}px`;
+      });
+    };
     const updatePanel = (panel) => {
       const viewport = panel.querySelector('[data-viewport]');
       const step = getStep(panel);
       if (!viewport || !step) return;
       const maxScroll = viewport.scrollWidth - viewport.clientWidth;
-      const page = Math.round(viewport.scrollLeft / (step * 2));
+      const visibleCount = getVisibleCount();
+      const page = Math.min(
+        Math.max(0, Math.round(viewport.scrollLeft / (step * visibleCount))),
+        Math.max(0, panel.querySelectorAll('.index-product-tabs__dot').length - 1)
+      );
       const dots = panel.querySelectorAll('.index-product-tabs__dot');
       dots.forEach((dot, index) => {
         const active = index === page;
@@ -214,23 +228,42 @@
       });
       panel.querySelector('[data-direction="-1"]').disabled = viewport.scrollLeft <= 1;
       panel.querySelector('[data-direction="1"]').disabled = viewport.scrollLeft >= maxScroll - 1;
+      updateArrowPosition(panel);
     };
-    const scrollByCards = (panel, count) => {
+    const scrollToGroup = (panel, groupIndex) => {
       const viewport = panel.querySelector('[data-viewport]');
       const step = getStep(panel);
-      if (viewport && step) viewport.scrollBy({ left: step * count, behavior: 'smooth' });
+      if (!viewport || !step) return;
+      const groupSize = step * getVisibleCount();
+      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+      viewport.scrollTo({ left: Math.max(0, Math.min(groupIndex * groupSize, maxScroll)), behavior: 'smooth' });
+    };
+    const snapToGroup = (panel) => {
+      const viewport = panel.querySelector('[data-viewport]');
+      const step = getStep(panel);
+      if (!viewport || !step) return;
+      const groupSize = step * getVisibleCount();
+      scrollToGroup(panel, Math.round(viewport.scrollLeft / groupSize));
     };
 
     root.querySelectorAll('.index-product-tabs__panel').forEach(panel => {
       const viewport = panel.querySelector('[data-viewport]');
       panel.querySelectorAll('.index-product-tabs__arrow').forEach(button => button.addEventListener('click', () => {
-        scrollByCards(panel, getVisibleCount() * Number(button.dataset.direction));
+        const step = getStep(panel);
+        if (viewport && step) {
+          const groupSize = step * getVisibleCount();
+          scrollToGroup(panel, Math.round(viewport.scrollLeft / groupSize) + Number(button.dataset.direction));
+        }
       }));
       panel.querySelectorAll('.index-product-tabs__dot').forEach((dot, index) => dot.addEventListener('click', () => {
-        const step = getStep(panel);
-        if (viewport && step) viewport.scrollTo({ left: Math.min(index * step * 2, viewport.scrollWidth - viewport.clientWidth), behavior: 'smooth' });
+        scrollToGroup(panel, index);
       }));
-      viewport?.addEventListener('scroll', () => updatePanel(panel), { passive: true });
+      let snapTimer;
+      viewport?.addEventListener('scroll', () => {
+        updatePanel(panel);
+        clearTimeout(snapTimer);
+        snapTimer = setTimeout(() => snapToGroup(panel), 140);
+      }, { passive: true });
       updatePanel(panel);
     });
 
@@ -266,6 +299,14 @@
     }));
 
     window.addEventListener('resize', () => root.querySelectorAll('.index-product-tabs__panel').forEach(updatePanel), { passive: true });
+
+    if ('ResizeObserver' in window) {
+      const resizeObserver = new ResizeObserver(() => {
+        const activePanel = root.querySelector('.index-product-tabs__panel.is-active');
+        if (activePanel) updatePanel(activePanel);
+      });
+      root.querySelectorAll('.index-product-tabs__panel .product-image').forEach(image => resizeObserver.observe(image));
+    }
   })();
 {% endjavascript %}
 
