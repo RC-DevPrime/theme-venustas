@@ -120,7 +120,12 @@
   #shopify-section-{{ section.id }} .heatingM-video__media.is-fullscreen .heatingM-video__close {
     display: inline-flex;
   }
-
+  @media only screen and (max-width: 1600px) {
+    #shopify-section-{{ section.id }} .heatingM-video__media{
+      margin: 0 auto;
+      max-width: 1000px;
+    }
+  }
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .heatingM-video__inner {
       width: 100%;
