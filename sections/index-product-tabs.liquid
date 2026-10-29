@@ -1,0 +1,301 @@
+{%- liquid
+  assign section_id = 'index-product-tabs-' | append: section.id
+-%}
+
+<section id="{{ section_id }}" class="index-product-tabs" aria-label="{{ section.settings.heading | escape }}">
+  {%- if section.settings.heading != blank -%}
+    <h2 class="index-product-tabs__heading">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+
+  <div class="index-product-tabs__tabs" role="tablist" aria-label="{{ 'general.navigation.tabs' | t | default: 'Product collections' }}">
+    {%- for block in section.blocks -%}
+      <button
+        id="{{ section_id }}-tab-{{ forloop.index }}"
+        class="index-product-tabs__tab{% if forloop.first %} is-active{% endif %}"
+        type="button"
+        role="tab"
+        aria-controls="{{ section_id }}-panel-{{ forloop.index }}"
+        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+        tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+        data-tab-index="{{ forloop.index0 }}"
+        {{ block.shopify_attributes }}
+      >{{ block.settings.tab_label | escape }}</button>
+    {%- endfor -%}
+  </div>
+
+  <div class="index-product-tabs__panels">
+    {%- for block in section.blocks -%}
+      {%- assign collection = block.settings.collection -%}
+      {%- assign product_limit = block.settings.maximum_number_product_display | default: 20 -%}
+      {%- assign product_count = collection.products_count | at_most: product_limit -%}
+      {%- assign dot_count = product_count | plus: 1 | divided_by: 2 -%}
+
+      <div
+        id="{{ section_id }}-panel-{{ forloop.index }}"
+        class="index-product-tabs__panel{% if forloop.first %} is-active{% endif %}"
+        role="tabpanel"
+        aria-labelledby="{{ section_id }}-tab-{{ forloop.index }}"
+        {% unless forloop.first %}hidden{% endunless %}
+        data-panel-index="{{ forloop.index0 }}"
+      >
+        <div class="index-product-tabs__viewport" data-viewport>
+          <div class="index-product-tabs__track">
+            {%- for product in collection.products limit: product_limit -%}
+              {%- assign image_loading = 'lazy' -%}
+              {%- assign image_fetchpriority = 'auto' -%}
+              {%- if forloop.index <= 4 and forloop.parentloop.first -%}
+                {%- assign image_loading = 'eager' -%}
+                {%- assign image_fetchpriority = 'high' -%}
+              {%- endif -%}
+              <div class="index-product-tabs__slide">
+                {% render 'product-item',
+                  product: product,
+                  sale_badge_type: section.settings.sale_badge_type,
+                  badge_detail: true,
+                  section: section,
+                  image_loading: image_loading,
+                  image_fetchpriority: image_fetchpriority
+                %}
+              </div>
+            {%- else -%}
+              <p class="index-product-tabs__empty">{{ 'collections.general.no_matches' | t | default: 'No products found.' }}</p>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <button class="index-product-tabs__arrow index-product-tabs__arrow--prev" type="button" aria-label="Previous products" data-direction="-1" disabled>
+          <span aria-hidden="true">&#10094;</span>
+        </button>
+        <button class="index-product-tabs__arrow index-product-tabs__arrow--next" type="button" aria-label="Next products" data-direction="1">
+          <span aria-hidden="true">&#10095;</span>
+        </button>
+
+        {%- if dot_count > 0 -%}
+          <div class="index-product-tabs__dots" role="tablist" aria-label="{{ 'general.pagination.page' | t | default: 'Product pages' }}">
+            {%- for dot in (1..dot_count) -%}
+              <button
+                class="index-product-tabs__dot{% if forloop.first %} is-active{% endif %}"
+                type="button"
+                aria-label="Page {{ forloop.index }}"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                data-dot-index="{{ forloop.index0 }}"
+              ></button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% style %}
+  #{{ section_id }} {
+    --index-tabs-gap: 20px;
+    --index-tabs-side-space: 50px;
+    position: relative;
+    padding: 40px 0 48px;
+    overflow: hidden;
+  }
+  #{{ section_id }} .index-product-tabs__heading {
+    margin: 0 auto 24px;
+    padding: 0 var(--index-tabs-side-space);
+    text-align: center;
+  }
+  #{{ section_id }} .index-product-tabs__tabs {
+    display: flex;
+    gap: 8px;
+    max-width: 100%;
+    margin: 0 auto 34px;
+    padding: 0 var(--index-tabs-side-space);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  #{{ section_id }} .index-product-tabs__tabs::-webkit-scrollbar { display: none; }
+  #{{ section_id }} .index-product-tabs__tab {
+    flex: 0 0 auto;
+    min-width: 110px;
+    padding: 10px 24px;
+    border: 2px solid #b93205;
+    border-radius: 999px;
+    background: #fff;
+    color: #b93205;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    line-height: 1.2;
+    transition: color .2s ease, background-color .2s ease;
+  }
+  #{{ section_id }} .index-product-tabs__tab.is-active,
+  #{{ section_id }} .index-product-tabs__tab:hover {
+    background: #b93205;
+    color: #fff;
+  }
+  #{{ section_id }} .index-product-tabs__panel { position: relative; }
+  #{{ section_id }} .index-product-tabs__viewport {
+    margin: 0 var(--index-tabs-side-space);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  #{{ section_id }} .index-product-tabs__viewport::-webkit-scrollbar { display: none; }
+  #{{ section_id }} .index-product-tabs__track {
+    display: flex;
+    gap: var(--index-tabs-gap);
+    align-items: flex-start;
+  }
+  #{{ section_id }} .index-product-tabs__slide {
+    flex: 0 0 calc((100% - (3 * var(--index-tabs-gap))) / 4);
+    min-width: 0;
+  }
+  #{{ section_id }} .index-product-tabs__slide .product-item { width: 100%; }
+  #{{ section_id }} .index-product-tabs__slide .product-image { aspect-ratio: 3 / 4; }
+  #{{ section_id }} .index-product-tabs__slide .product-image img { height: 100%; object-fit: cover; }
+  #{{ section_id }} .index-product-tabs__arrow {
+    position: absolute;
+    z-index: 2;
+    top: 40%;
+    display: grid;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    background: #f1eadd;
+    color: #b93205;
+    cursor: pointer;
+    place-items: center;
+    transform: translateY(-50%);
+  }
+  #{{ section_id }} .index-product-tabs__arrow:disabled { opacity: .35; cursor: default; }
+  #{{ section_id }} .index-product-tabs__arrow--prev { left: 31px; }
+  #{{ section_id }} .index-product-tabs__arrow--next { right: 31px; }
+  #{{ section_id }} .index-product-tabs__dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
+  #{{ section_id }} .index-product-tabs__dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: #d7d7d7; cursor: pointer; }
+  #{{ section_id }} .index-product-tabs__dot.is-active { background: #b93205; }
+  #{{ section_id }} .index-product-tabs__empty { padding: 32px 0; }
+
+  @media (max-width: 1199px) {
+    #{{ section_id }} { --index-tabs-side-space: 36px; }
+    #{{ section_id }} .index-product-tabs__slide { flex-basis: calc((100% - (2 * var(--index-tabs-gap))) / 3); }
+  }
+  @media (max-width: 699px) {
+    #{{ section_id }} { --index-tabs-side-space: 20px; padding-top: 24px; }
+    #{{ section_id }} .index-product-tabs__heading { margin-bottom: 18px; }
+    #{{ section_id }} .index-product-tabs__tabs { margin-bottom: 24px; }
+    #{{ section_id }} .index-product-tabs__tab { min-width: 0; padding: 8px 18px; }
+    #{{ section_id }} .index-product-tabs__slide { flex-basis: calc((100% - var(--index-tabs-gap)) / 2); }
+    #{{ section_id }} .index-product-tabs__arrow { display: none; }
+  }
+{% endstyle %}
+
+{% javascript %}
+  (() => {
+    const root = document.getElementById('{{ section_id }}');
+    if (!root || root.dataset.initialized === 'true') return;
+    root.dataset.initialized = 'true';
+
+    const getVisibleCount = () => window.innerWidth >= 1200 ? 4 : window.innerWidth >= 700 ? 3 : 2;
+    const getStep = (panel) => {
+      const slide = panel.querySelector('.index-product-tabs__slide');
+      const track = panel.querySelector('.index-product-tabs__track');
+      return slide ? slide.getBoundingClientRect().width + (track ? parseFloat(getComputedStyle(track).gap) || 20 : 20) : 0;
+    };
+    const updatePanel = (panel) => {
+      const viewport = panel.querySelector('[data-viewport]');
+      const step = getStep(panel);
+      if (!viewport || !step) return;
+      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+      const page = Math.round(viewport.scrollLeft / (step * 2));
+      const dots = panel.querySelectorAll('.index-product-tabs__dot');
+      dots.forEach((dot, index) => {
+        const active = index === page;
+        dot.classList.toggle('is-active', active);
+        dot.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      panel.querySelector('[data-direction="-1"]').disabled = viewport.scrollLeft <= 1;
+      panel.querySelector('[data-direction="1"]').disabled = viewport.scrollLeft >= maxScroll - 1;
+    };
+    const scrollByCards = (panel, count) => {
+      const viewport = panel.querySelector('[data-viewport]');
+      const step = getStep(panel);
+      if (viewport && step) viewport.scrollBy({ left: step * count, behavior: 'smooth' });
+    };
+
+    root.querySelectorAll('.index-product-tabs__panel').forEach(panel => {
+      const viewport = panel.querySelector('[data-viewport]');
+      panel.querySelectorAll('.index-product-tabs__arrow').forEach(button => button.addEventListener('click', () => {
+        scrollByCards(panel, getVisibleCount() * Number(button.dataset.direction));
+      }));
+      panel.querySelectorAll('.index-product-tabs__dot').forEach((dot, index) => dot.addEventListener('click', () => {
+        const step = getStep(panel);
+        if (viewport && step) viewport.scrollTo({ left: Math.min(index * step * 2, viewport.scrollWidth - viewport.clientWidth), behavior: 'smooth' });
+      }));
+      viewport?.addEventListener('scroll', () => updatePanel(panel), { passive: true });
+      updatePanel(panel);
+    });
+
+    const tabsNav = root.querySelector('.index-product-tabs__tabs');
+    const tabs = root.querySelectorAll('.index-product-tabs__tab');
+    const scrollFirstTabLeft = () => {
+      if (window.innerWidth >= 700 || !tabsNav || tabsNav.scrollWidth <= tabsNav.clientWidth + 1) return;
+      const firstTab = tabs[0];
+      if (!firstTab) return;
+      const gap = parseFloat(getComputedStyle(tabsNav).gap) || 0;
+      const step = firstTab.getBoundingClientRect().width + gap;
+      tabsNav.scrollTo({ left: Math.max(0, tabsNav.scrollLeft - step), behavior: 'smooth' });
+    };
+
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      const index = tab.dataset.tabIndex;
+      if (index === '0') scrollFirstTabLeft();
+      root.querySelectorAll('.index-product-tabs__tab').forEach(item => {
+        const active = item === tab;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-selected', active ? 'true' : 'false');
+        item.tabIndex = active ? 0 : -1;
+      });
+      root.querySelectorAll('.index-product-tabs__panel').forEach(panel => {
+        const active = panel.dataset.panelIndex === index;
+        panel.hidden = !active;
+        panel.classList.toggle('is-active', active);
+        if (active) {
+          panel.querySelector('[data-viewport]').scrollLeft = 0;
+          updatePanel(panel);
+        }
+      });
+    }));
+
+    window.addEventListener('resize', () => root.querySelectorAll('.index-product-tabs__panel').forEach(updatePanel), { passive: true });
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Index product tabs",
+  "class": "index-product-tabs-section",
+  "limit": 1,
+  "templates": ["index"],
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop our best sellers" },
+    { "type": "select", "id": "sale_badge_type", "label": "Sale badge type", "options": [
+      { "label": "Percentage", "value": "discount" },
+      { "label": "Text discount", "value": "text_discount" }
+    ], "default": "discount" }
+  ],
+  "max_blocks": 5,
+  "blocks": [
+    { "type": "tab", "name": "Collection tab", "settings": [
+      { "type": "text", "id": "tab_label", "label": "Tab label", "default": "Collection" },
+      { "type": "collection", "id": "collection", "label": "Collection" },
+      { "type": "number", "id": "maximum_number_product_display", "label": "Maximum products", "default": 12 }
+    ] }
+  ],
+  "presets": [{ "name": "Index product tabs", "blocks": [
+    { "type": "tab", "settings": { "tab_label": "Deal of the Week" } },
+    { "type": "tab", "settings": { "tab_label": "Best Sellers" } },
+    { "type": "tab", "settings": { "tab_label": "Men" } },
+    { "type": "tab", "settings": { "tab_label": "Women" } },
+    { "type": "tab", "settings": { "tab_label": "Kids" } }
+  ]}]
+}
+{% endschema %}
