@@ -3,6 +3,7 @@ assign current_variant = product.selected_or_first_available_variant
 assign sale_badge_type = 'discount'
 assign product_image_loading = image_loading | default: 'lazy'
 assign product_image_fetchpriority = image_fetchpriority | default: 'auto'
+assign product_image_sizes = image_sizes | default: '(max-width: 768px) 100vw, 50vw'
  
 -%}
 <div class="product-item" data-product-id="{{ product.id }}">
@@ -64,11 +65,13 @@ assign product_image_fetchpriority = image_fetchpriority | default: 'auto'
                 data-variant="{{ variant_with_image.id }}"
                 src="{{ img_small }}"
                 srcset="{{ img_small }} 400w, {{ img_large }} 800w"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes="{{ product_image_sizes }}"
+                width="400"
+                height="533"
                 alt="{{ product.title | escape }} - {{ color_value | escape }}"
-                loading="{{ product_image_loading }}"
-                fetchpriority="{{ product_image_fetchpriority }}"
-                {% comment %} decoding="async" {% endcomment %}
+                loading="{% if color_value == active_color_value %}{{ product_image_loading }}{% else %}lazy{% endif %}"
+                fetchpriority="{% if color_value == active_color_value %}{{ product_image_fetchpriority }}{% else %}auto{% endif %}"
+                decoding="async"
             >
         {% endif %}
         {% endfor %}
@@ -80,11 +83,13 @@ assign product_image_fetchpriority = image_fetchpriority | default: 'auto'
             class="active"
             src="{{ img_small }}"
             srcset="{{ img_small }} 400w, {{ img_large }} 800w"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="{{ product_image_sizes }}"
+            width="400"
+            height="533"
             alt="{{ product.title | escape }}"
             loading="{{ product_image_loading }}"
             fetchpriority="{{ product_image_fetchpriority }}"
-            {% comment %} decoding="async" {% endcomment %}
+            decoding="async"
         >
         {% endif %}
     {% endif %}
@@ -99,10 +104,12 @@ assign product_image_fetchpriority = image_fetchpriority | default: 'auto'
         class="hover-image"
         src="{{ img_small }}"
         srcset="{{ img_small }} 300w, {{ img_large }} 600w"
-        sizes="(max-width: 768px) 100vw, 50vw"
+        sizes="{{ product_image_sizes }}"
+        width="300"
+        height="400"
         alt="{{ product.title | escape }} hover"
         loading="lazy"
-        {% comment %} decoding="async" {% endcomment %}
+        decoding="async"
         >
     {% endif %}
 
