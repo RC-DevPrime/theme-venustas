@@ -1,0 +1,274 @@
+{%- liquid
+  assign section_id = 'index-product-tabs-' | append: section.id
+-%}
+
+<section id="{{ section_id }}" class="index-product-tabs" aria-label="{{ section.settings.heading | escape }}">
+  {%- if section.settings.heading != blank -%}
+    <h2 class="index-product-tabs__heading">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+
+  <div class="index-product-tabs__tabs" role="tablist" aria-label="Product collections">
+    {%- for block in section.blocks -%}
+      <button
+        id="{{ section_id }}-tab-{{ forloop.index }}"
+        class="index-product-tabs__tab{% if forloop.first %} is-active{% endif %}"
+        type="button"
+        role="tab"
+        aria-controls="{{ section_id }}-panel-{{ forloop.index }}"
+        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+        tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+        data-tab-index="{{ forloop.index0 }}"
+        {{ block.shopify_attributes }}
+      >{{ block.settings.tab_label | escape }}</button>
+    {%- endfor -%}
+  </div>
+
+  <div class="index-product-tabs__panels">
+    {%- for block in section.blocks -%}
+      {%- assign collection = block.settings.collection -%}
+      {%- assign product_limit = block.settings.maximum_number_product_display | default: 20 -%}
+      {%- assign product_count = collection.products_count | at_most: product_limit -%}
+      {%- assign dot_count = product_count | plus: 1 | divided_by: 2 -%}
+
+      <div
+        id="{{ section_id }}-panel-{{ forloop.index }}"
+        class="index-product-tabs__panel{% if forloop.first %} is-active{% endif %}"
+        role="tabpanel"
+        aria-labelledby="{{ section_id }}-tab-{{ forloop.index }}"
+        {% unless forloop.first %}hidden{% endunless %}
+        data-panel-index="{{ forloop.index0 }}"
+      >
+        <div class="index-product-tabs__viewport swiper" data-viewport>
+          <div class="index-product-tabs__track swiper-wrapper">
+            {%- for product in collection.products limit: product_limit -%}
+              {%- assign image_loading = 'lazy' -%}
+              {%- assign image_fetchpriority = 'auto' -%}
+              {%- if forloop.first and forloop.parentloop.first -%}
+                {%- assign image_loading = 'eager' -%}
+                {%- assign image_fetchpriority = 'high' -%}
+              {%- endif -%}
+              <div class="index-product-tabs__slide swiper-slide">
+                {% render 'product-item',
+                  product: product,
+                  sale_badge_type: section.settings.sale_badge_type,
+                  badge_detail: true,
+                  section: section,
+                  image_loading: image_loading,
+                  image_fetchpriority: image_fetchpriority,
+                  image_sizes: '(max-width: 699px) 50vw, (max-width: 1199px) 33.333vw, 25vw'
+                %}
+              </div>
+            {%- else -%}
+              <p class="index-product-tabs__empty">No products found.</p>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <button class="index-product-tabs__arrow index-product-tabs__arrow--prev" type="button" aria-label="Previous products" data-direction="-1">
+          <span aria-hidden="true">&#10094;</span>
+        </button>
+        <button class="index-product-tabs__arrow index-product-tabs__arrow--next" type="button" aria-label="Next products" data-direction="1">
+          <span aria-hidden="true">&#10095;</span>
+        </button>
+
+        {%- if dot_count > 0 -%}
+          <div class="index-product-tabs__dots" role="tablist" aria-label="Product pages">
+            {%- for dot in (1..dot_count) -%}
+              <button
+                class="index-product-tabs__dot{% if forloop.first %} is-active{% endif %}"
+                type="button"
+                aria-label="Page {{ forloop.index }}"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                data-dot-index="{{ forloop.index0 }}"
+              ></button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% javascript %}
+  (() => {
+    const root = document.querySelector('.index-product-tabs');
+    if (!root || root.dataset.initialized === 'true') return;
+    root.dataset.initialized = 'true';
+    const swipers = new Map();
+    const updateArrowPosition = (panel) => {
+      const image = panel.querySelector('.product-image');
+      if (!image || panel.hidden) return;
+      const panelRect = panel.getBoundingClientRect();
+      const imageRect = image.getBoundingClientRect();
+      const imageCenter = imageRect.top - panelRect.top + imageRect.height / 2;
+      panel.querySelectorAll('.index-product-tabs__arrow').forEach(arrow => {
+        arrow.style.top = `${imageCenter}px`;
+      });
+    };
+    const updateDots = (panel, swiper) => {
+      const dots = panel.querySelectorAll('.index-product-tabs__dot');
+      const productCount = Number(panel.dataset.productCount);
+      if (!productCount) return;
+      const activeIndex = Math.floor((swiper.realIndex % productCount) / 2);
+      dots.forEach((dot, index) => {
+        const active = index === activeIndex;
+        dot.classList.toggle('is-active', active);
+        dot.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+    };
+    const visibleCount = () => window.innerWidth >= 1200 ? 4 : window.innerWidth >= 700 ? 3 : 2;
+    const initPanel = panel => {
+      if (swipers.has(panel)) return swipers.get(panel).swiper;
+      if (!window.Swiper) {
+        window.addEventListener('load', () => initPanel(panel), { once: true });
+        return;
+      }
+      const track = panel.querySelector('.index-product-tabs__track');
+      const originals = [...track.querySelectorAll('.index-product-tabs__slide')];
+      const productCount = originals.length;
+      panel.dataset.productCount = productCount;
+      const group = visibleCount();
+      const shouldLoop = productCount > group;
+
+      // Swiper needs at least two complete groups. Repeat only the cards needed
+      // for this breakpoint so the last group flows into the first without gaps.
+      if (shouldLoop) {
+        const total = Math.max(group * 2, Math.ceil(productCount / group) * group);
+        for (let index = productCount; index < total; index++) {
+          const copy = originals[index % productCount].cloneNode(true);
+          copy.dataset.carouselCopy = 'true';
+          const ids = new Map();
+          copy.querySelectorAll('[id]').forEach(element => {
+            const uniqueId = `${element.id}-carousel-${panel.dataset.panelIndex}-${index}`;
+            ids.set(element.id, uniqueId);
+            element.id = uniqueId;
+          });
+          copy.querySelectorAll('[for], [form], [aria-labelledby], [aria-describedby]').forEach(element => {
+            for (const attribute of ['for', 'form', 'aria-labelledby', 'aria-describedby']) {
+              const value = element.getAttribute(attribute);
+              if (value) element.setAttribute(attribute, value.split(' ').map(id => ids.get(id) || id).join(' '));
+            }
+          });
+          copy.querySelectorAll('img').forEach(image => {
+            image.loading = 'lazy';
+            image.fetchPriority = 'auto';
+          });
+          track.append(copy);
+        }
+      }
+      const swiper = new Swiper(panel.querySelector('[data-viewport]'), {
+        slidesPerView: group,
+        slidesPerGroup: group,
+        spaceBetween: 20,
+        loop: shouldLoop,
+        watchOverflow: true,
+        on: {
+          init() { updateDots(panel, this); updateArrowPosition(panel); },
+          slideChange() { updateDots(panel, this); },
+          resize() { updateArrowPosition(panel); }
+        }
+      });
+      panel.querySelectorAll('.index-product-tabs__arrow').forEach(button => { button.disabled = !shouldLoop; });
+      swipers.set(panel, { swiper, group });
+      return swiper;
+    };
+
+    root.addEventListener('click', event => {
+      const control = event.target.closest('.index-product-tabs__arrow, .index-product-tabs__dot');
+      if (!control) return;
+      const panel = control.closest('.index-product-tabs__panel');
+      const swiper = swipers.get(panel)?.swiper;
+      if (!swiper) return;
+      if (control.classList.contains('index-product-tabs__arrow')) {
+        if (Number(control.dataset.direction) > 0) swiper.slideNext();
+        else swiper.slidePrev();
+      } else {
+        const target = Math.min(Number(control.dataset.dotIndex) * 2, Number(panel.dataset.productCount) - 1);
+        swiper.slideToLoop(target);
+      }
+    });
+
+    const tabsNav = root.querySelector('.index-product-tabs__tabs');
+    const tabs = root.querySelectorAll('.index-product-tabs__tab');
+    const scrollTabIntoView = (tab, index) => {
+      if (window.innerWidth >= 700 || !tabsNav || tabsNav.scrollWidth <= tabsNav.clientWidth + 1) return;
+      const gap = parseFloat(getComputedStyle(tabsNav).gap) || 0;
+      const step = tabs[0].getBoundingClientRect().width + gap;
+      const target = index === 0
+        ? Math.max(0, tabsNav.scrollLeft - step)
+        : Math.max(0, tab.offsetLeft - (tabsNav.clientWidth - tab.offsetWidth) / 2);
+      tabsNav.scrollTo({ left: target, behavior: 'smooth' });
+    };
+
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      const index = tab.dataset.tabIndex;
+      scrollTabIntoView(tab, Number(index));
+      root.querySelectorAll('.index-product-tabs__tab').forEach(item => {
+        const active = item === tab;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-selected', active ? 'true' : 'false');
+        item.tabIndex = active ? 0 : -1;
+      });
+      root.querySelectorAll('.index-product-tabs__panel').forEach(panel => {
+        const active = panel.dataset.panelIndex === index;
+        panel.hidden = !active;
+        panel.classList.toggle('is-active', active);
+        if (active) initPanel(panel);
+      });
+    }));
+
+    initPanel(root.querySelector('.index-product-tabs__panel.is-active'));
+
+    window.addEventListener('resize', () => {
+      [...swipers].forEach(([panel, { swiper, group }]) => {
+        if (group === visibleCount()) return;
+        swiper.destroy(true, true);
+        panel.querySelectorAll('[data-carousel-copy]').forEach(copy => copy.remove());
+        swipers.delete(panel);
+        if (!panel.hidden) initPanel(panel);
+      });
+    }, { passive: true });
+
+    if ('ResizeObserver' in window) {
+      const resizeObserver = new ResizeObserver(() => {
+        const activePanel = root.querySelector('.index-product-tabs__panel.is-active');
+        if (activePanel) updateArrowPosition(activePanel);
+      });
+      root.querySelectorAll('.index-product-tabs__panel').forEach(panel => {
+        const image = panel.querySelector('.product-image');
+        if (image) resizeObserver.observe(image);
+      });
+    }
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Index product tabs",
+  "class": "index-product-tabs-section",
+  "limit": 1,
+  "templates": ["index"],
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop our best sellers" },
+    { "type": "select", "id": "sale_badge_type", "label": "Sale badge type", "options": [
+      { "label": "Percentage", "value": "discount" },
+      { "label": "Text discount", "value": "text_discount" }
+    ], "default": "discount" }
+  ],
+  "max_blocks": 5,
+  "blocks": [
+    { "type": "tab", "name": "Collection tab", "settings": [
+      { "type": "text", "id": "tab_label", "label": "Tab label", "default": "Collection" },
+      { "type": "collection", "id": "collection", "label": "Collection" },
+      { "type": "number", "id": "maximum_number_product_display", "label": "Maximum products", "default": 12 }
+    ] }
+  ],
+  "presets": [{ "name": "Index product tabs", "blocks": [
+    { "type": "tab", "settings": { "tab_label": "Deal of the Week" } },
+    { "type": "tab", "settings": { "tab_label": "Best Sellers" } },
+    { "type": "tab", "settings": { "tab_label": "Men" } },
+    { "type": "tab", "settings": { "tab_label": "Women" } },
+    { "type": "tab", "settings": { "tab_label": "Kids" } }
+  ]}]
+}
+{% endschema %}
