@@ -86,6 +86,10 @@
     line-height: 1.5;
   }
 
+  #shopify-section-{{ section.id }} .heatingM-core__suffix{
+    font-size:12px;
+  }
+
   #shopify-section-{{ section.id }} .heatingM-core__divider {
     display: block;
     width: 1px;
@@ -167,7 +171,7 @@
           <p class="heatingM-core__value">
             {{- section.settings.metric_3_value -}}
             {%- if section.settings.metric_3_suffix != blank -%}
-              {{ section.settings.metric_3_suffix }}
+              <span class="heatingM-core__suffix>{{ section.settings.metric_3_suffix }}</span>
             {%- endif -%}
           </p>
           <p class="heatingM-core__label">{{ section.settings.metric_3_label }}</p>
