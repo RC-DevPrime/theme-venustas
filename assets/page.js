@@ -566,140 +566,32 @@ $(document).ready(function () {
     }
 
     if ($('.campaign-tab-product-list-section').length) {
-        const itemsDefault = 8;
-        const itemsPerClick = 4;
-
-        const desktopMQ = window.matchMedia('(min-width: 768px)'); // md+
-
-        // -------- DESKTOP: Load more logic only --------
-        function initDesktopLoadMore() {
-            if (!desktopMQ.matches) return;
-
-            $('.campaign-tab-product-list-section .tab-content-item .desktop-content').each(function () {
-            const $desktop = $(this);
-            const $items = $desktop.find('.tab-product-container');
-            const $btn = $desktop.find('.btn-load-more');
-
-            // reset state
-            $items.hide().slice(0, itemsDefault).show();
-
-            if ($items.length <= itemsDefault) $btn.hide();
-            else $btn.show();
-
-            // prevent double binding
-            $btn.off('click.desktopLoadMore').on('click.desktopLoadMore', function () {
-                loadMoreDesktop($desktop, $items, $btn);
-            });
-            });
-
-            // Auto load more on scroll (DESKTOP ONLY)
-            $(window)
-            .off('scroll.desktopLoadMore')
-            .on('scroll.desktopLoadMore', function () {
-                if (!desktopMQ.matches) return;
-
-                const $activeTab = $('.campaign-tab-product-list-section .tab-content-item.open');
-                if (!$activeTab.length) return;
-
-                const $desktop = $activeTab.find('.desktop-content');
-                if (!$desktop.length) return;
-
-                const $items = $desktop.find('.tab-product-container');
-                const $btn = $desktop.find('.btn-load-more');
-
-                const windowBottom = $(window).scrollTop() + $(window).height();
-                const tabBottom = $activeTab.offset().top + $activeTab.outerHeight();
-
-                if (windowBottom >= tabBottom - 100 && $btn.is(':visible')) {
-                loadMoreDesktop($desktop, $items, $btn);
-                }
-            });
-        }
-
-        function loadMoreDesktop($desktop, $items, $btn) {
-            const visibleCount = $desktop.find('.tab-product-container:visible').length;
-            $items.slice(visibleCount, visibleCount + itemsPerClick).fadeIn();
-
-            if ($items.length <= visibleCount + itemsPerClick) {
-            $btn.fadeOut();
+        $('.campaign-tab-product-list-section').on('click', '.tab-list-container button', function () {
+            const $section = $(this).closest('.campaign-tab-product-list-section');
+            const blockId = $(this).data('block-id');
+            const tabsNav = this.parentElement;
+            if (window.innerWidth < 768 && tabsNav.scrollWidth > tabsNav.clientWidth + 1) {
+                const tabs = [...tabsNav.querySelectorAll('button')];
+                const tabRect = this.getBoundingClientRect();
+                const target = tabs[0] === this
+                    ? tabsNav.scrollLeft - tabRect.width - (parseFloat(getComputedStyle(tabsNav).gap) || 0)
+                    : tabsNav.scrollLeft + tabRect.left - tabsNav.getBoundingClientRect().left - (tabsNav.clientWidth - tabRect.width) / 2;
+                tabsNav.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
             }
-        }
-
-        // -------- MOBILE: Swiper only --------
-        function initMobileSwipers() {
-            if (desktopMQ.matches) return; // only init on mobile
-
-            $('.campaign-tab-product-list-section .tab-content-item .mobile-content .tab-mobile-swiper').each(function () {
-            const el = this;
-            const $swiper = $(el);
-            const $tab = $swiper.closest('.tab-content-item');
-
-            // prevent double init
-            if ($swiper.hasClass('swiper-initialized')) return;
-
-            const swiperInstance = new Swiper(el, {
-                slidesPerView: 2,
-                spaceBetween: 10,
-                allowTouchMove: true,
-                loop: false,
-                watchOverflow: true,
-
-                navigation: {
-                nextEl: $tab.find('.float-nav .owl-next')[0],
-                prevEl: $tab.find('.float-nav .owl-prev')[0],
-                },
-
-                breakpoints: {
-                0:   { slidesPerView: 2, spaceBetween: 10 },
-                768: { slidesPerView: 2, spaceBetween: 10 }, // still ok if someone rotates
-                1024:{ slidesPerView: 3, spaceBetween: 15 },
-                },
+            $section.find('.tab-list-container button').each(function () {
+                const active = $(this).data('block-id') === blockId;
+                $(this).toggleClass('active', active).attr('aria-selected', active).attr('tabindex', active ? 0 : -1);
             });
-
-            // store instance for later update
-            $swiper.data('swiperInstance', swiperInstance);
+            $section.find('.tab-content-item').each(function () {
+                const active = $(this).data('block-id') === blockId;
+                $(this).toggleClass('open', active).prop('hidden', !active);
             });
-        }
-
-        // -------- TAB switching --------
-        $('.campaign-tab-product-list-section .tab-list-container span').off('click.tabSwitch').on('click.tabSwitch', function () {
-            const tabId = $(this).attr('tab-id');
-
-            $('.campaign-tab-product-list-section .tab-list-container span').removeClass('active');
-            $(this).addClass('active');
-
-            $('.campaign-tab-product-list-section .tab-content-item').removeClass('open').hide();
-            const $target = $(`.campaign-tab-product-list-section .tab-content-item[tab-id="${tabId}"]`);
-            $target.addClass('open').fadeIn();
-
-            // Desktop: reset pagination ONLY inside desktop-content
-            if (desktopMQ.matches) {
-            const $desktop = $target.find('.desktop-content');
-            const $items = $desktop.find('.tab-product-container');
-            const $btn = $desktop.find('.btn-load-more');
-
-            $items.hide().slice(0, itemsDefault).show();
-            if ($items.length > itemsDefault) $btn.show();
-            else $btn.hide();
-            } else {
-            // Mobile: update swiper ONLY
-            const $swiper = $target.find('.tab-mobile-swiper');
-            const inst = $swiper.data('swiperInstance');
-            if (inst) {
-                inst.update();
-                inst.slideTo(0, 0); // optional: reset to start
-            }
-            }
         });
-
-        // Initial run
-        initDesktopLoadMore();
-        initMobileSwipers();
-
-        // Re-run when resizing across breakpoints
-        $(window).on('resize', function () {
-            initDesktopLoadMore();
-            initMobileSwipers();
+        $(document).on('shopify:block:select', function (event) {
+            const $section = $(event.target).closest('.campaign-tab-product-list-section');
+            $section.find('.tab-list-container button').filter(function () {
+                return $(this).data('block-id') === event.originalEvent.detail.blockId;
+            }).trigger('click');
         });
     }
 
