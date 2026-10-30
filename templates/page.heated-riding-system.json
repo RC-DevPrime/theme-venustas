@@ -43,6 +43,56 @@
         "dynamic_inventory": 100
       }
     },
+    "campaign_tab_product_list_WMgD8W": {
+      "type": "campaign-tab-product-list",
+      "blocks": {
+        "tab_Cp97Dc": {
+          "type": "tab",
+          "settings": {
+            "tab": "All",
+            "collection": "battery-charger",
+            "maximum_number_product_display": 8
+          }
+        },
+        "tab_XQHyMj": {
+          "type": "tab",
+          "settings": {
+            "tab": "Battery & Charger",
+            "collection": "",
+            "maximum_number_product_display": 8
+          }
+        },
+        "tab_8NFLwp": {
+          "type": "tab",
+          "settings": {
+            "tab": "Heated Gloves",
+            "collection": "",
+            "maximum_number_product_display": 8
+          }
+        },
+        "tab_kGyMV6": {
+          "type": "tab",
+          "settings": {
+            "tab": "Other",
+            "collection": "",
+            "maximum_number_product_display": 8
+          }
+        }
+      },
+      "block_order": [
+        "tab_Cp97Dc",
+        "tab_XQHyMj",
+        "tab_8NFLwp",
+        "tab_kGyMV6"
+      ],
+      "name": "Campaign Tab Product List",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "",
+        "heading": "Add-Ons & Accessories"
+      }
+    },
     "heating_anchor_nav_ajJzDW": {
       "type": "heating-anchor-nav",
       "blocks": {
@@ -406,6 +456,7 @@
   "order": [
     "main_page_3cKYFc",
     "heating_prelaunch_hero_8KzyUT",
+    "campaign_tab_product_list_WMgD8W",
     "heating_anchor_nav_ajJzDW",
     "heating_liner_system_hpakDV",
     "heating_heat_zones_EDQ8nR",
