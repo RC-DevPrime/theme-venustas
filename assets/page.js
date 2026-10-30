@@ -569,6 +569,15 @@ $(document).ready(function () {
         $('.campaign-tab-product-list-section').on('click', '.tab-list-container button', function () {
             const $section = $(this).closest('.campaign-tab-product-list-section');
             const blockId = $(this).data('block-id');
+            const tabsNav = this.parentElement;
+            if (window.innerWidth < 768 && tabsNav.scrollWidth > tabsNav.clientWidth + 1) {
+                const tabs = [...tabsNav.querySelectorAll('button')];
+                const tabRect = this.getBoundingClientRect();
+                const target = tabs[0] === this
+                    ? tabsNav.scrollLeft - tabRect.width - (parseFloat(getComputedStyle(tabsNav).gap) || 0)
+                    : tabsNav.scrollLeft + tabRect.left - tabsNav.getBoundingClientRect().left - (tabsNav.clientWidth - tabRect.width) / 2;
+                tabsNav.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+            }
             $section.find('.tab-list-container button').each(function () {
                 const active = $(this).data('block-id') === blockId;
                 $(this).toggleClass('active', active).attr('aria-selected', active).attr('tabindex', active ? 0 : -1);

@@ -64,6 +64,10 @@
         --bs-gutter-x: 15px;
         --bs-gutter-y: 25px;;
     }
+    .campaign-tab-product-list-section .campaign-product-column{
+        flex:0 0 auto;
+        width:25%;
+    }
 
     .campaign-tab-product-list-section .tab-content-list-container .btn-load-more{
         background: #B93205;
@@ -165,6 +169,13 @@
     }
     .campaign-tab-product-list-section .float-nav button:hover i {
         color:#FFF !important;
+    }
+
+    @media (min-width: 768px) and (max-width: 1199px) {
+        .campaign-tab-product-list-section .campaign-product-column{ width:33.333333%; }
+    }
+    @media (max-width: 767px) {
+        .campaign-tab-product-list-section .campaign-product-column{ width:50%; }
     }
 
     /* FOR MOBILE PHONE */
@@ -270,7 +281,7 @@
                 <div class="row">
                     {% assign product_limit = block.settings.maximum_number_product_display | default: 8 %}
                     {% for product in block.settings.collection.products limit: product_limit %}
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+                        <div class="campaign-product-column">
                             {% render 'product-item', product: product %}
                         </div>
                     {% else %}
