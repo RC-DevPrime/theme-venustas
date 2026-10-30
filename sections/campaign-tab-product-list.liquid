@@ -2,13 +2,6 @@
     .campaign-tab-product-list-section{
         background-color:#000;
     }
-    .campaign-tab-product-list-section .section-heading{
-    }
-    .campaign-tab-product-list-section .heading-element{
-        height:40px;
-        width:fit-content;
-        object-fit:contain;
-    }
     .campaign-tab-product-list-section .tab-list-container{
         display:flex;
         justify-content:center;
@@ -34,116 +27,32 @@
     .campaign-tab-product-list-section .tab-list-container button.active{
         background: #B93205;
     }
-    .campaign-tab-product-list-section .tab-content-item{
-        display:none;
-    }
-    .campaign-tab-product-list-section .tab-content-item.open{
-        display:block;
-    }
     .campaign-tab-product-list-section .tab-content-list-container{
         margin-top:30px;
     }
     .campaign-tab-product-list-section .tab-content-list-container .product-item{
         background: #FFFFFF;
         border-radius: 16px;
-        padding:20px 30px;
-        display:flex;
-        flex-direction:column;
-    }
-    
-    .campaign-tab-product-list-section .tab-content-list-container .product-item .product-image{
-        height:250px !important;
-        aspect-ratio: 10 / 13;
-    }
-    .campaign-tab-product-list-section .tab-content-list-container .product-item .product-image img{
-        width: 100%;
-        height: 100%;
-        object-fit:contain;
     }
     .campaign-tab-product-list-section .tab-content-list-container .row{
         --bs-gutter-x: 15px;
-        --bs-gutter-y: 25px;;
+        --bs-gutter-y: 25px;
     }
     .campaign-tab-product-list-section .campaign-product-column{
         flex:0 0 auto;
         width:25%;
     }
 
-    .campaign-tab-product-list-section .tab-content-list-container .btn-load-more{
-        background: #B93205;
-        padding:10px 30px;
-        border-radius:10px;
-    }
-
-    .campaign-tab-product-list-section .tab-content-list-container .price-container{
-        display:flex;
-        gap:8px;
-        align-items:center;
-    }
-
-    
-    .campaign-tab-product-list-section .buy-now-and-add{
-        display:flex;
-        height:45px;
-    }
-    .campaign-tab-product-list-section .buy-now-and-add .btn-buy-now{
-        background: #B93205;
-        border-radius: 16px 0px 0px 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .campaign-tab-product-list-section .buy-now-and-add .btn-add{
-        background: #B93205;
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap:10px;
-        width:100%;
-        transition: all .5s ease;
-    }
-    .campaign-tab-product-list-section .buy-now-and-add .btn-add:hover{
-        background:#161616;
-    }
-    .campaign-tab-product-list-section .buy-now-and-add .btn-add button{
-        background:unset !important;
-        border:unset !important;
-        width: 100%;
-        align-items: center;
-        justify-content: center;
-    }
-    .campaign-tab-product-list-section .buy-now-and-add .btn-add img{
-        width:23px;
-        object-fit:contain;
-    }
-    .campaign-tab-product-list-section .learn-more-button{
-        height:45px;
-        border: 1px solid #B93205;
-        border-radius: 16px 16px 16px 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap:10px;
-    }
-    .campaign-tab-product-list-section .learn-more-button:hover{
-        background-color:#B93205;
-    }
-    .campaign-tab-product-list-section .learn-more-button:hover span{
-        color:#FFF;
-    }
     .campaign-tab-product-list-section .product-details{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        flex:1;
+        padding:0 10px 10px;
+    }
+    .campaign-tab-product-list-section .product-details .wishlist-button{
+        right:10px;
     }
 
 
-    .campaign-tab-product-list-section .section-heading{
-        margin-left:-30px;
-    }
     .campaign-tab-product-list-section .section-heading {
+        margin-left:-30px;
         position:relative;
     }
     .campaign-tab-product-list-section .section-heading:before{
@@ -157,30 +66,15 @@
         background-size:contain;
         background-repeat:no-repeat;
     }
-    .campaign-tab-product-list-section .float-nav button{
-        background: #F1EADD;
-        opacity: 1 !important;
-    }
-    .campaign-tab-product-list-section .float-nav button i{
-        color:#B93205 !important;
-    }
-    .campaign-tab-product-list-section .float-nav button:hover{
-        background: #B93205;
-    }
-    .campaign-tab-product-list-section .float-nav button:hover i {
-        color:#FFF !important;
-    }
 
     @media (min-width: 768px) and (max-width: 1199px) {
         .campaign-tab-product-list-section .campaign-product-column{ width:33.333333%; }
     }
-    @media (max-width: 767px) {
-        .campaign-tab-product-list-section .campaign-product-column{ width:50%; }
-    }
-
     /* FOR MOBILE PHONE */
-    @media only screen and (max-width: 768px) {
-            
+    @media only screen and (max-width: 767px) {
+        
+        .campaign-tab-product-list-section .campaign-product-column{ width:50%; }
+                
         .campaign-tab-product-list-section .section-heading{
             margin-left:-25px;
         }
@@ -189,33 +83,7 @@
             width:30px;
         }
         .campaign-tab-product-list-section .tab-content-list-container .product-item{
-            padding:0px 10px 15px;
             border-radius:8px;
-        }
-        .campaign-tab-product-list-section .buy-now-and-add .btn-add img{
-            width:14px;
-            object-fit:contain;
-        }
-        .campaign-tab-product-list-section .learn-more-button{
-            height:30px;
-            border-radius:6px;
-        }
-        .campaign-tab-product-list-section .learn-more-button span{
-            font-size:10px;
-        }
-        .campaign-tab-product-list-section .buy-now-and-add{
-            height:30px;
-        }
-        
-        .campaign-tab-product-list-section .buy-now-and-add .btn-buy-now{
-        }
-        .campaign-tab-product-list-section .buy-now-and-add .btn-buy-now span,
-        .campaign-tab-product-list-section .buy-now-and-add .btn-add span{
-            font-size:10px;
-        }
-        .campaign-tab-product-list-section .buy-now-and-add .btn-add{
-            gap:6px;
-            border-radius:6px;
         }
         .campaign-tab-product-list-section .tab-content-list-container .row{
             --bs-gutter-x: 10px;
@@ -237,15 +105,11 @@
             border-radius: 8px 8px 8px 8px;
             padding: 5px 20px;
         }
-        .campaign-tab-product-list-section .tab-content-list-container .product-item .product-image {
-            height: auto !important;
-        }
     }
-
-    /* ipad Air */
-    @media only screen 
-    and (min-device-width : 768px) 
-    and (max-device-width : 1024px){
+    @media only screen and (max-width: 410px) {
+        .campaign-tab-product-list-section .product-details .wishlist-button{
+            right:2px;
+        }
     }
 
 {% endstyle %}
