@@ -11,10 +11,15 @@
     }
     .campaign-tab-product-list-section .tab-list-container{
         display:flex;
+        justify-content:center;
         gap:1.2rem;
     }
-    .campaign-tab-product-list-section .tab-list-container span{
-        flex:1;
+    .campaign-tab-product-list-section .tab-list-container button{
+        flex:0 1 auto;
+        min-width:150px;
+        padding:0 24px;
+        border:0;
+        color:#fff;
         background: #353231;
         border-radius: 16px 16px 16px 16px;
         height:55px;
@@ -24,9 +29,9 @@
         transition: all 0.3s ease;
         cursor:pointer;
     }
-    .campaign-tab-product-list-section .tab-list-container span:hover,
+    .campaign-tab-product-list-section .tab-list-container button:hover,
     
-    .campaign-tab-product-list-section .tab-list-container span.active{
+    .campaign-tab-product-list-section .tab-list-container button.active{
         background: #B93205;
     }
     .campaign-tab-product-list-section .tab-content-item{
@@ -38,7 +43,7 @@
     .campaign-tab-product-list-section .tab-content-list-container{
         margin-top:30px;
     }
-    .campaign-tab-product-list-section .tab-content-list-container .tab-product-item{
+    .campaign-tab-product-list-section .tab-content-list-container .product-item{
         background: #FFFFFF;
         border-radius: 16px;
         padding:20px 30px;
@@ -46,11 +51,11 @@
         flex-direction:column;
     }
     
-    .campaign-tab-product-list-section .tab-content-list-container .tab-product-item .product-image{
-        height:250px;
+    .campaign-tab-product-list-section .tab-content-list-container .product-item .product-image{
+        height:250px !important;
         aspect-ratio: 10 / 13;
     }
-    .campaign-tab-product-list-section .tab-content-list-container .tab-product-item .product-image img{
+    .campaign-tab-product-list-section .tab-content-list-container .product-item .product-image img{
         width: 100%;
         height: 100%;
         object-fit:contain;
@@ -172,7 +177,7 @@
             height:30px;
             width:30px;
         }
-        .campaign-tab-product-list-section .tab-content-list-container .tab-product-item{
+        .campaign-tab-product-list-section .tab-content-list-container .product-item{
             padding:0px 10px 15px;
             border-radius:8px;
         }
@@ -213,7 +218,7 @@
             scrollbar-width: none;
             gap:8px;
         }
-        .campaign-tab-product-list-section .tab-list-container span{
+        .campaign-tab-product-list-section .tab-list-container button{
             flex: 0 0 auto;
             white-space: nowrap;
             min-width: 150px;
@@ -221,7 +226,7 @@
             border-radius: 8px 8px 8px 8px;
             padding: 5px 20px;
         }
-        .campaign-tab-product-list-section .tab-content-list-container .tab-product-item .product-image {
+        .campaign-tab-product-list-section .tab-content-list-container .product-item .product-image {
             height: auto !important;
         }
     }
@@ -252,55 +257,26 @@
             {{ section.settings.heading }}
         </h2>
     </div>
-    <div class="tab-list-container col-lg-10 col-md-11 col-sm-12 mx-auto">
+    <div class="tab-list-container col-lg-10 col-md-11 col-sm-12 mx-auto" role="tablist">
         {% for block in section.blocks %}
-            <span class="pp-semibold f-white body-xl {% if forloop.index == 1 %}active{% endif %}" tab-id="{{ block.settings.tab | handleize }}">
-                {{ block.settings.tab }}
-            </span>
+            <button type="button" id="campaign-tab-{{ section.id }}-{{ block.id }}" class="pp-semibold f-white body-xl {% if forloop.first %}active{% endif %}" role="tab" aria-controls="campaign-panel-{{ section.id }}-{{ block.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
+                {{ block.settings.tab | default: block.settings.collection.title | escape }}
+            </button>
         {% endfor %}
     </div>
     <div class="tab-content-list-container">
         {% for block in section.blocks %}
-            <div class="tab-content-item {% if forloop.index == 1 %}open{% endif %}" tab-id="{{ block.settings.tab | handleize }}">
-                <div class="desktop-content d-lg-block d-md-block d-sm-none">
-                    <div class="row">
-
-                        {% for product in block.settings.product_list %}
-                            {% render 'tab-product-item', product: product %}
-                        {% endfor %}
-
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center mt-lg-5 mt-md-5 mt-sm-3">
-                        <div class="btn-load-more">
-                            <span class="pp-regular body-lg f-white">Load More</span>
+            <div id="campaign-panel-{{ section.id }}-{{ block.id }}" class="tab-content-item {% if forloop.first %}open{% endif %}" role="tabpanel" aria-labelledby="campaign-tab-{{ section.id }}-{{ block.id }}" data-block-id="{{ block.id }}" {% unless forloop.first %}hidden{% endunless %}>
+                <div class="row">
+                    {% assign product_limit = block.settings.maximum_number_product_display | default: 8 %}
+                    {% for product in block.settings.collection.products limit: product_limit %}
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+                            {% render 'product-item', product: product %}
                         </div>
-                    </div>
+                    {% else %}
+                        <p class="f-white">No products found.</p>
+                    {% endfor %}
                 </div>
-                <div class="mobile-content d-lg-none d-md-none d-sm-block">
-
-                    <div class="tab-mobile-swiper overflow-hidden">
-                        <div class="swiper-wrapper">
-
-                            {% for product in block.settings.product_list %}
-                                <div class="swiper-slide">
-                                    {% render 'tab-product-item', product: product %}
-                                </div>
-                            {% endfor %}
-
-                        </div>
-
-                        <div class="float-nav">
-                            <button type="button" class="owl-prev">
-                                <i class="fa-solid fa-chevron-left f-white"></i>
-                            </button>
-                            <button type="button" class="owl-next">
-                                <i class="fa-solid fa-chevron-right f-white"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
         {% endfor %}
     </div>
@@ -312,6 +288,7 @@
         "name": "Campaign Tab Product List",
         "templates": ["page"],
         "limit": 1, 
+        "max_blocks": 5,
         "settings": [
             {
                 "type": "checkbox",
@@ -349,18 +326,22 @@
                     {
                         "type": "text",
                         "id": "tab",
-                        "label": "Tab"
+                        "label": "Tab",
+                        "default": "Collection"
                     },
-                    {
-                        "type": "product_list",
-                        "id": "product_list",
-                        "label": "Product List"
-                    }
+                    { "type": "collection", "id": "collection", "label": "Collection" },
+                    { "type": "range", "id": "maximum_number_product_display", "label": "Maximum products", "min": 1, "max": 50, "step": 1, "default": 8 }
                 ]
             }
         ],
         "presets" :[{
-            "name" : "Campaign Tab Product List"
+            "name" : "Campaign Tab Product List",
+            "blocks": [
+                { "type": "tab", "settings": { "tab": "All" } },
+                { "type": "tab", "settings": { "tab": "Battery & Charger" } },
+                { "type": "tab", "settings": { "tab": "Heated Gloves" } },
+                { "type": "tab", "settings": { "tab": "Other" } }
+            ]
         }]
     }
   {% endschema %} 
