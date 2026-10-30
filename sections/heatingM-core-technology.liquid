@@ -128,7 +128,7 @@
   }
 {%- endstyle -%}
 
-<section id="heatingM-heating" class="heatingM-core" aria-label="{{ section.settings.title | escape }}">
+<section id="heatingM-core" class="heatingM-core" aria-label="{{ section.settings.title | escape }}">
   <div class="heatingM-core__inner">
     <div class="heatingM-core__intro">
       {%- if section.settings.eyebrow != blank -%}
@@ -147,16 +147,32 @@
         <p class="heatingM-core__value">{{ section.settings.metric_1_value }}</p>
         <p class="heatingM-core__label">{{ section.settings.metric_1_label }}</p>
       </div>
-      <span class="heatingM-core__divider" aria-hidden="true"></span>
-      <div class="heatingM-core__stat">
-        <p class="heatingM-core__value">{{ section.settings.metric_2_value }}</p>
-        <p class="heatingM-core__label">{{ section.settings.metric_2_label }}</p>
-      </div>
-      <span class="heatingM-core__divider" aria-hidden="true"></span>
-      <div class="heatingM-core__stat">
-        <p class="heatingM-core__value">{{ section.settings.metric_3_value }}</p>
-        <p class="heatingM-core__label">{{ section.settings.metric_3_label }}</p>
-      </div>
+
+      {%- assign metric_2_available = false -%}
+      {%- if section.settings.metric_2_value != blank or section.settings.metric_2_label != blank -%}
+        {%- assign metric_2_available = true -%}
+      {%- endif -%}
+
+      {%- if metric_2_available -%}
+        <span class="heatingM-core__divider" aria-hidden="true"></span>
+        <div class="heatingM-core__stat">
+          <p class="heatingM-core__value">{{ section.settings.metric_2_value }}</p>
+          <p class="heatingM-core__label">{{ section.settings.metric_2_label }}</p>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.metric_3_value != blank or section.settings.metric_3_label != blank -%}
+        <span class="heatingM-core__divider" aria-hidden="true"></span>
+        <div class="heatingM-core__stat">
+          <p class="heatingM-core__value">
+            {{- section.settings.metric_3_value -}}
+            {%- if section.settings.metric_3_suffix != blank -%}
+              {{ section.settings.metric_3_suffix }}
+            {%- endif -%}
+          </p>
+          <p class="heatingM-core__label">{{ section.settings.metric_3_label }}</p>
+        </div>
+      {%- endif -%}
     </div>
 
     <div class="heatingM-core__product" aria-label="Heating zones illustration">
@@ -180,6 +196,7 @@
     { "type": "text", "id": "metric_2_value", "label": "Metric 2 value", "default": "6" },
     { "type": "text", "id": "metric_2_label", "label": "Metric 2 label", "default": "Heating Zones" },
     { "type": "text", "id": "metric_3_value", "label": "Metric 3 value", "default": "85%" },
+    { "type": "text", "id": "metric_3_suffix", "label": "Metric 3 suffix", "info": "Optional text displayed immediately after Metric 3 value, for example *2.", "default": "" },
     { "type": "text", "id": "metric_3_label", "label": "Metric 3 label", "default": "Torso Heating Coverage" }
   ],
   "presets": [
