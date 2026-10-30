@@ -171,7 +171,7 @@
           <p class="heatingM-core__value">
             {{- section.settings.metric_3_value -}}
             {%- if section.settings.metric_3_suffix != blank -%}
-             {{ section.settings.metric_3_suffix }}
+             <span class="heatingM-core__suffix">{{ section.settings.metric_3_suffix }}</span>
             {%- endif -%}
           </p>
           <p class="heatingM-core__label">{{ section.settings.metric_3_label }}</p>
