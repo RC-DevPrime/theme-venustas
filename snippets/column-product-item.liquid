@@ -31,14 +31,17 @@
 
                     </div>
                 </div>
-                <div class="custom-label pb-1">
-                    <span class="pp-semibold body-xl d-lg-block d-md-block d-sm-none pe-4">
-                        INSTANT HEAT | INFINITE
-                    </span>
-                    <span class="pp-semibold body-xs d-lg-none d-md-none d-sm-block pe-4">
-                        INSTANT HEAT | INFINITE
-                    </span>
-                </div>
+                {% assign custom_tag = block.settings.product.metafields.custom.custom_tag.value %}
+                {% if custom_tag != blank %}
+                    <div class="custom-label pb-1">
+                        <span class="pp-semibold body-xl d-lg-block d-md-block d-sm-none pe-4">
+                            {{ custom_tag | escape }}
+                        </span>
+                        <span class="pp-semibold body-xs d-lg-none d-md-none d-sm-block pe-4">
+                            {{ custom_tag | escape }}
+                        </span>
+                    </div>
+                {% endif %}
                 <a href="{{ block.settings.product.url }}" class="product-title d-block title-xs f-black pp-semibold pb-2 d-lg-block d-md-block d-sm-none">
                     {{ block.settings.product.title }}
                 </a>
