@@ -1,7 +1,7 @@
 {% style %}
     
 {% endstyle %}
-<div class="container section-content id="current-review" 
+<div class="container section-content" 
     {% if section.settings.nav_title != blank %} section-scroll
     {% else %}
       {% if section.settings.enabled_section_child_scroll %} section-scroll
@@ -13,7 +13,7 @@
     {% endif %} 
     {% if section.settings.enabled_section_child_scroll %}
         data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
-    {% endif %}>
+    {% endif %} id="current-review">
 
     <h2 class="pp-bold title-sm text-center pb-lg-4 pb-md-4 pb-sm-3">
         {{ section.settings.heading }}
