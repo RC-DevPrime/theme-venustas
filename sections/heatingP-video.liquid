@@ -1,0 +1,411 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heatingP-video {
+    background: #fff;
+    color: var(--venustas-black, #1a1a1a);
+    padding: 120px 0 80px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__list {
+    display: flex;
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__card {
+    min-width: 0;
+    flex: 1 1 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__media {
+    position: relative;
+    height: 258px;
+    overflow: hidden;
+    background: #f1f1f1;
+    transition: height .28s ease;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__card:hover .heatingP-video__media {
+    height: 300px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    display: inline-flex;
+    width: 64px;
+    height: 64px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(20, 22, 26, .78);
+    color: #fff;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: background .2s ease, transform .2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__play-button::before {
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 15px solid currentColor;
+    content: '';
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__play-button:hover,
+  #shopify-section-{{ section.id }} .heatingP-video__play-button:focus-visible {
+    background: var(--color-brand, #b93205);
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__play-button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+  }
+
+  /* Keep the video paused until the viewer chooses to play it. */
+  #shopify-section-{{ section.id }} .heatingP-video__video {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__modal[hidden] {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, .9);
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__modal-content {
+    position: relative;
+    display: flex;
+    width: min(100%, 1280px);
+    height: min(100%, 900px);
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__modal-video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__modal-close {
+    position: fixed;
+    top: calc(16px + env(safe-area-inset-top));
+    right: calc(16px + env(safe-area-inset-right));
+    z-index: 1;
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: #14161a;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__modal-close:hover,
+  #shopify-section-{{ section.id }} .heatingP-video__modal-close:focus-visible {
+    background: var(--color-brand, #b93205);
+    color: #fff;
+  }
+
+  body.heatingP-video-modal-open {
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__title,
+  #shopify-section-{{ section.id }} .heatingP-video__description {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-video__description {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingP-video {
+      padding: 40px 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-video__list {
+      width: calc(100% - 40px);
+      margin-left: 20px;
+      margin-right: 0;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-video__list::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-video__card {
+      width: calc((100vw - 48px) / 1.2);
+      flex: 0 0 calc((100vw - 48px) / 1.2);
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-video__media {
+      height: auto;
+      aspect-ratio: 4 / 3;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-video__card:hover .heatingP-video__media {
+      height: auto;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-video__copy {
+      min-height: 121px;
+      gap: 4px;
+      padding-top: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-video__title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.68;
+      letter-spacing: -.15px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-video__description {
+      font-size: 13.5px;
+      line-height: 1.68;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1280px) {
+    #shopify-section-{{ section.id }} .heatingP-video {
+      padding-top: 80px;
+      padding-bottom: 60px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-video__list {
+      width: calc(100% - 40px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-video__list::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-video__card {
+      width: calc(2.479vw + 371px);
+      flex: 0 0 calc(2.479vw + 371px);
+    }
+  }
+
+  @media only screen and (min-width: 500px) and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingP-video__card {
+      width: calc(2.479vw + 371px);
+      flex-basis: calc(2.479vw + 371px);
+    }
+  }
+{% endstyle %}
+
+<section class="heatingP-video" id="heatingp-videos">
+  <div class="heatingP-video__list">
+    {%- for block in section.blocks -%}
+      <article class="heatingP-video__card" {{ block.shopify_attributes }}>
+        <div class="heatingP-video__media">
+          {%- if block.settings.video != blank -%}
+            {{ block.settings.video | video_tag: class: 'heatingP-video__video', autoplay: false, loop: true, muted: true, controls: false, playsinline: true, preload: 'metadata', image_size: '1200x' }}
+            <button class="heatingP-video__play-button" type="button" data-video-play aria-label="Play video full screen">
+            </button>
+          {%- endif -%}
+        </div>
+        <div class="heatingP-video__copy">
+          {%- if block.settings.title != blank -%}
+            <h3 class="heatingP-video__title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+          {%- if block.settings.description != blank -%}
+            <p class="heatingP-video__description">{{ block.settings.description }}</p>
+          {%- endif -%}
+        </div>
+      </article>
+    {%- endfor -%}
+  </div>
+
+  <div class="heatingP-video__modal" data-video-modal hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="heatingP-video__modal-content">
+      <button class="heatingP-video__modal-close" type="button" data-video-close aria-label="Close video">&times;</button>
+      <video class="heatingP-video__modal-video" data-modal-video controls playsinline preload="metadata"></video>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const section = document.getElementById('heatingp-videos');
+    if (!section || section.dataset.initialized === 'true') return;
+    section.dataset.initialized = 'true';
+
+    const videos = [...section.querySelectorAll('.heatingP-video__video')];
+    const playButtons = [...section.querySelectorAll('[data-video-play]')];
+    const modal = section.querySelector('[data-video-modal]');
+    const modalContent = section.querySelector('.heatingP-video__modal-content');
+    const modalVideo = section.querySelector('[data-modal-video]');
+    const closeButton = section.querySelector('[data-video-close]');
+    const closeModal = () => {
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
+      modalVideo.pause();
+      modalVideo.removeAttribute('src');
+      modalVideo.replaceChildren();
+      modal.hidden = true;
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('heatingP-video-modal-open');
+    };
+
+    const openModal = (video) => {
+      modalVideo.replaceChildren(...[...video.children].map((source) => source.cloneNode(true)));
+      modalVideo.poster = video.poster || '';
+      const startTime = video.currentTime || 0;
+      modal.hidden = false;
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('heatingP-video-modal-open');
+      video.pause();
+      modalVideo.load();
+      modalVideo.addEventListener('loadedmetadata', () => {
+        modalVideo.currentTime = startTime;
+        modalVideo.play().catch(() => {});
+      }, { once: true });
+
+      if (modalContent.requestFullscreen) {
+        modalContent.requestFullscreen().catch(() => {});
+      }
+    };
+
+    videos.forEach((video, index) => {
+      const media = video.closest('.heatingP-video__media');
+      if (!media) return;
+
+      const playButton = playButtons[index];
+      playButton?.addEventListener('click', (event) => {
+        event.stopPropagation();
+        openModal(video);
+      });
+
+      media.addEventListener('click', (event) => {
+        openModal(video);
+      });
+
+      media.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        openModal(video);
+      });
+      media.setAttribute('tabindex', '0');
+      media.setAttribute('role', 'button');
+      media.setAttribute('aria-label', 'Open video player');
+    });
+
+    closeButton.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !modal.hidden) closeModal();
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "HeatingP Video",
+  "tag": "section",
+  "class": "heatingP-video-section",
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "video_card",
+      "name": "Video card",
+      "settings": [
+        { "type": "video", "id": "video", "label": "MP4 video" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "description", "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HeatingP Video",
+      "blocks": [
+        {
+          "type": "video_card",
+          "settings": {
+            "title": "Put to the Test by Riders Who Know Their Gear",
+            "description": "An experienced rider wires the Apex™ system into his bike and takes it out on a cold ride: the Y cable install, how the heat holds up at speed, and how the liners fit under full riding gear."
+          }
+        },
+        {
+          "type": "video_card",
+          "settings": {
+            "title": "How to Set Up Your Apex™ System",
+            "description": "Connect the Y cable to your bike’s battery once, plug in the liner and press the button. This walkthrough covers the jacket, the pants, and running both on a single lead with the 3-Way cable."
+          }
+        },
+        {
+          "type": "video_card",
+          "settings": {
+            "title": "What Riders Are Saying",
+            "description": "Real riders, real cold mornings. Hear from riders about their first rides with Apex™: what they noticed, what surprised them, and what they’d tell a friend."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

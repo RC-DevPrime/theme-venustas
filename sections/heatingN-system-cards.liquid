@@ -1,0 +1,567 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heatingN-system-cards {
+    background: #f0f0f0;
+    color: var(--venustas-black, #1a1a1a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    padding: 100px 0;
+  }
+  #shopify-section-{{ section.id }} .swym-wishlist-collections-v2-container{
+    display: none;
+  }
+  #shopify-section-{{ section.id }} .heatingN-system-cards__inner {
+    width: min(calc(100% - 40px), 1200px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 44px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__title,
+  #shopify-section-{{ section.id }} .heatingN-system-cards__intro,
+  #shopify-section-{{ section.id }} .heatingN-system-cards__card-title,
+  #shopify-section-{{ section.id }} .heatingN-system-cards__price,
+  #shopify-section-{{ section.id }} .heatingN-system-cards__text,
+  #shopify-section-{{ section.id }} .heatingN-system-cards__spec,
+  #shopify-section-{{ section.id }} .heatingN-system-cards__note {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__title {
+    color: #14161a;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -.95px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__intro {
+    color: var(--venustas-gray, #565b63);
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__card--linked {
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__card:hover {
+    box-shadow: 0 4px 12.05px rgba(0, 0, 0, .12);
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__media {
+    position: relative;
+    height: 516px;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__image--base {
+    transition: opacity .25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__image--hover {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity .25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__product-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__product-link:hover .heatingN-system-cards__card-title,
+  #shopify-section-{{ section.id }} .heatingN-system-cards__product-link:focus-visible .heatingN-system-cards__card-title {
+    color: var(--color-brand, #b93205);
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__product-link:focus-visible {
+    outline: 2px solid var(--color-brand, #b93205);
+    outline-offset: 4px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    #shopify-section-{{ section.id }} .heatingN-system-cards__card--has-hover-image .heatingN-system-cards__media:hover .heatingN-system-cards__image--base {
+      opacity: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-system-cards__card--has-hover-image .heatingN-system-cards__media:hover .heatingN-system-cards__image--hover {
+      opacity: 1;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__media {
+    touch-action: pan-y;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__card.is-touch-hover .heatingN-system-cards__image--hover {
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__card--has-hover-image.is-touch-hover .heatingN-system-cards__image--base {
+    opacity: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 6px 12px;
+    border-radius: 0 12px 0 4px;
+    background: var(--color-brand, #b93205);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__body {
+    display: flex;
+    min-height: 307px;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__heading {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__card-title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__size-guide {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__size-guide .size-chart-component__button {
+    padding: 0;
+    border: 0;
+    color: var(--venustas-gray, #565b63);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__size-guide .size-chart-component__button-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__price-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__price {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__discount {
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--color-brand, #b93205), #531602);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__text {
+    font-size: 14px;
+    line-height: 1.57;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__spec {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__spec--product-fit {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__spec-item {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__spec-item::before {
+    width: 4px;
+    height: 4px;
+    flex: 0 0 4px;
+    border-radius: 50%;
+    background: #d4d7dc;
+    content: '';
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__spec strong {
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .heatingN-system-cards__note {
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  @media only screen and (max-width: 1100px) {
+    #shopify-section-{{ section.id }} .heatingN-system-cards {
+      padding: 48px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-system-cards__inner {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-system-cards__header {
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-system-cards__title {
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-system-cards__intro {
+      color: var(--venustas-black, #1a1a1a);
+      line-height: 1.35;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-system-cards__grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-system-cards__media {
+      height: 420px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingN-system-cards__body {
+      min-height: 0;
+      justify-content: flex-start;
+      gap: 16px;
+    }
+  }
+{% endstyle %}
+
+<section class="heatingN-system-cards" id="heatingN-system-cards">
+  <div class="heatingN-system-cards__inner">
+    <div class="heatingN-system-cards__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heatingN-system-cards__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <p class="heatingN-system-cards__intro">{{ section.settings.intro }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="heatingN-system-cards__grid">
+      {%- for block in section.blocks -%}
+        {%- assign card_product = block.settings.product -%}
+        {%- assign hover_image = block.settings.hover_image -%}
+        {%- if hover_image == blank and card_product != blank -%}
+          {%- assign hover_image = card_product.images[1] -%}
+        {%- endif -%}
+        {%- assign card_size_chart = blank -%}
+        {%- assign size_chart_id = 'heatingN-size-chart-' | append: section.id | append: '-' | append: block.id -%}
+
+        {%- if card_product != blank -%}
+          {%- paginate shop.metaobjects.size_chart.values by 250 -%}
+            {%- for chart in shop.metaobjects.size_chart.values -%}
+              {%- assign target_product_ids = chart.target_products.value | map: 'id' -%}
+              {%- if target_product_ids contains card_product.id -%}
+                {%- assign card_size_chart = chart -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endpaginate -%}
+        {%- endif -%}
+
+        <article
+          class="heatingN-system-cards__card{% if block.settings.badge != blank %} heatingN-system-cards__card--featured{% endif %}{% if card_product != blank %} heatingN-system-cards__card--linked{% endif %}{% if hover_image != blank %} heatingN-system-cards__card--has-hover-image{% endif %}"
+          {% if card_product != blank %}data-product-url="{{ card_product.url }}"{% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <div class="heatingN-system-cards__media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 900 | image_tag: class: 'heatingN-system-cards__image heatingN-system-cards__image--base', loading: 'lazy', widths: '350, 430, 650, 900', sizes: '(max-width: 767px) calc(100vw - 40px), 430px', alt: block.settings.title }}
+            {%- endif -%}
+            {%- if hover_image != blank -%}
+              {{ hover_image | image_url: width: 900 | image_tag: class: 'heatingN-system-cards__image heatingN-system-cards__image--hover', loading: 'lazy', widths: '350, 430, 650, 900', sizes: '(max-width: 767px) calc(100vw - 40px), 430px', alt: block.settings.title }}
+            {%- endif -%}
+          </div>
+
+          {%- if block.settings.badge != blank -%}
+            <span class="heatingN-system-cards__badge">{{ block.settings.badge }}</span>
+          {%- endif -%}
+
+          <div class="heatingN-system-cards__body">
+            <div class="heatingN-system-cards__heading">
+              <div class="heatingN-system-cards__title-row">
+                {%- if block.settings.title != blank -%}
+                  {%- if card_product != blank -%}
+                    <a class="heatingN-system-cards__product-link" href="{{ card_product.url }}">
+                      <h3 class="heatingN-system-cards__card-title">{{ block.settings.title }}</h3>
+                    </a>
+                  {%- else -%}
+                    <h3 class="heatingN-system-cards__card-title">{{ block.settings.title }}</h3>
+                  {%- endif -%}
+                {%- endif -%}
+              </div>
+
+              {%- if card_product != blank or block.settings.discount != blank -%}
+                <div class="heatingN-system-cards__price-row">
+                  {%- if card_product != blank -%}
+                    <p class="heatingN-system-cards__price">{{ card_product.price | money }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.discount != blank -%}
+                    <span class="heatingN-system-cards__discount">{{ block.settings.discount }}</span>
+                  {%- endif -%}
+                  {%- if card_size_chart != blank -%}
+                    <div class="heatingN-system-cards__size-guide">
+                      {%- render 'size-chart-component',
+                        size_chart: card_size_chart,
+                        product: card_product,
+                        product_title: card_product.title,
+                        id: size_chart_id
+                      -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.description != blank -%}
+              <p class="heatingN-system-cards__text">{{ block.settings.description }}</p>
+            {%- endif -%}
+            {%- if block.settings.spec_label != blank or block.settings.spec_value != blank -%}
+              {%- assign is_product_fit_spec = false -%}
+              {%- if block.settings.spec_label contains '1 * Volcano™ Pro Heated ' -%}
+                {%- assign is_product_fit_spec = true -%}
+              {%- endif -%}
+              <p class="heatingN-system-cards__spec{% if is_product_fit_spec %} heatingN-system-cards__spec--product-fit{% endif %}">
+                {%- if is_product_fit_spec -%}
+                  <span class="heatingN-system-cards__spec-item">{{ block.settings.spec_label }}</span>
+                  <span class="heatingN-system-cards__spec-item">{{ block.settings.spec_value }}</span>
+                {%- else -%}
+                  {%- if block.settings.spec_label != blank -%}<strong>{{ block.settings.spec_label }}</strong>{%- endif -%}
+                  {%- if block.settings.spec_label != blank and block.settings.spec_value != blank -%}<span class="heatingN-system-cards__dot"></span>{%- endif -%}
+                  {%- if block.settings.spec_value != blank -%}<span>{{ block.settings.spec_value }}</span>{%- endif -%}
+                {%- endif -%}
+              </p>
+            {%- endif -%}
+            {%- if block.settings.note != blank -%}
+              <p class="heatingN-system-cards__note">{{ block.settings.note }}</p>
+            {%- endif -%}
+            {%- render 'heatingP-button', label: block.settings.button_label, url: block.settings.button_link, class: 'heatingP-button--full heatingP-button--card' -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot || sectionRoot.dataset.heatingSystemCardsReady === 'true') return;
+
+    sectionRoot.dataset.heatingSystemCardsReady = 'true';
+    const cards = sectionRoot.querySelectorAll('.heatingN-system-cards__card[data-product-url]');
+
+    cards.forEach((card) => {
+      const media = card.querySelector('.heatingN-system-cards__media');
+      let startX = 0;
+      let startY = 0;
+      let isSwiping = false;
+
+      card.addEventListener('click', (event) => {
+        if (card.dataset.ignoreCardClick === 'true') {
+          delete card.dataset.ignoreCardClick;
+          return;
+        }
+
+        if (event.target.closest('a, button, input, select, textarea, [role="button"]')) return;
+        window.location.href = card.dataset.productUrl;
+      });
+
+      if (!media || !('PointerEvent' in window)) return;
+
+      media.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse') return;
+        startX = event.clientX;
+        startY = event.clientY;
+        isSwiping = false;
+      });
+
+      media.addEventListener('pointermove', (event) => {
+        if (event.pointerType === 'mouse') return;
+        const deltaX = event.clientX - startX;
+        const deltaY = event.clientY - startY;
+
+        if (Math.abs(deltaX) > 10 && Math.abs(deltaX) > Math.abs(deltaY)) {
+          isSwiping = true;
+          event.preventDefault();
+        }
+      });
+
+      const finishSwipe = (event) => {
+        if (event.pointerType === 'mouse') return;
+        const deltaX = event.clientX - startX;
+
+        if (isSwiping && Math.abs(deltaX) >= 24) {
+          card.classList.toggle('is-touch-hover');
+          card.dataset.ignoreCardClick = 'true';
+        }
+
+        isSwiping = false;
+      };
+
+      media.addEventListener('pointerup', finishSwipe);
+      media.addEventListener('pointercancel', () => {
+        isSwiping = false;
+      });
+    });
+
+    document.addEventListener('shopify:section:unload', function unload(event) {
+      if (event.detail.sectionId !== '{{ section.id }}') return;
+      document.removeEventListener('shopify:section:unload', unload);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "HeatingN System Cards",
+  "tag": "section",
+  "class": "heatingN-system-cards-section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Engineered for Him. Engineered for Her." },
+    { "type": "text", "id": "intro", "label": "Intro", "default": "Same Flagship System, Two Purpose-Built Fits. Both carry 6 heating zones, two 54Wh batteries and a 12V lead. Each is shaped to sit close without pulling." }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Product card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "image_picker", "id": "hover_image", "label": "Hover image (optional; defaults to the product's second image)" },
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "badge", "label": "Badge" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Apex™ Jacket Liner" },
+        { "type": "text", "id": "discount", "label": "Discount badge" },
+        { "type": "text", "id": "description", "label": "Description", "default": "Core warmth, chest to collar" },
+        { "type": "text", "id": "spec_label", "label": "Spec label", "default": "6 heat zones" },
+        { "type": "text", "id": "spec_value", "label": "Spec value", "default": "42W • 3.5A" },
+        { "type": "text", "id": "note", "label": "Note", "default": "Y cable and fuse included" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop Now" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HeatingN System Cards",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Volcano™ Pro Dual-Battery Heated Vest",
+            "description": "41W Power — Across six heating zones",
+            "spec_label": "3 Heat Settings",
+            "spec_value": "144°F / 130°F / 112°F",
+            "note": "Dual Batteries Included — 108Wh total, 12V-ready with built-in DC lead",
+            "button_label": "Shop Now"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "badge": "Best Choice",
+            "title": "Apex™ Jacket Liner + Pants Liner + 3-Way Cable",
+            "discount": "15% off in cart",
+            "description": "41W + 38W across 6 zones",
+            "spec_label": "Volcano™ Pro Heated Vest For Men",
+            "spec_value": "Volcano™ Pro Heated Vest For Women",
+            "note": "",
+            "button_label": "Shop Now"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Volcano™ Pro Dual-Battery Heated Vest",
+            "description": "38W Power — Across six heating zones",
+            "spec_label": "3 Heat Settings",
+            "spec_value": "144°F / 130°F / 112°F",
+            "note": "Dual Batteries Included — 108Wh total, 12V-ready with built-in DC lead",
+            "button_label": "Shop Now"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

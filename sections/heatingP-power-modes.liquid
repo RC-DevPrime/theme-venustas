@@ -1,0 +1,412 @@
+{%- assign battery_product = section.settings.battery_product -%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .heatingP-power-modes {
+    background: #fff;
+    color: var(--venustas-black, #1a1a1a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    padding: 100px 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__inner {
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 56px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__title,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__intro,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__card-title,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__label,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__text,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__list {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__title {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -.95px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__intro {
+    color: var(--venustas-gray, #565b63);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__card {
+    position: relative;
+    overflow: visible;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .1);
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__media {
+    height: 408px;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+    background: #ebf2fb;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__card-link:hover,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__card-link:focus-visible {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__image--bike {
+    object-position: left center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__image--battery {
+    object-position: right center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__body {
+    display: flex;
+    min-height: 339px;
+    flex-direction: column;
+    gap: 24px;
+    padding: 32px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__card-title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.33;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__info {
+    display: inline-flex;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    line-height: 1;
+    cursor: help;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__runtime {
+    position: absolute;
+    z-index: 3;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 488px;
+    max-width: calc(100vw - 40px);
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--venustas-black, #1a1a1a);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity .18s ease, transform .18s ease;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__info:hover .heatingP-power-modes__runtime,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__info:focus .heatingP-power-modes__runtime,
+  #shopify-section-{{ section.id }} .heatingP-power-modes__info:focus-within .heatingP-power-modes__runtime {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__runtime-row {
+    display: grid;
+    min-height: 44px;
+    grid-template-columns: minmax(190px, 1fr) repeat(3, 80px);
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__runtime-row:last-child {
+    border-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__runtime-row--head {
+    background: #f9fafb;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__runtime-cell {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__runtime-cell:first-child {
+    justify-content: flex-start;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: left;
+  }
+  #shopify-section-{{ section.id }} .heatingP-power-modes__runtime-cell.head-content{
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__runtime-row--head .heatingP-power-modes__runtime-cell {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__text {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-power-modes__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 22px;
+    color: var(--venustas-gray, #565b63);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  @media only screen and (max-width: 1000px) {
+    #shopify-section-{{ section.id }} .heatingP-power-modes {
+      padding: 56px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__inner {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__header {
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__title {
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__intro {
+      color: var(--venustas-black, #1a1a1a);
+      line-height: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__media {
+      height: 218px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__body {
+      min-height: 0;
+      gap: 24px;
+      padding: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__card-title {
+      font-size: 22px;
+      line-height: 1.36;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__label {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__runtime {
+      left: 50%;
+      width: 350px;
+      transform: translate(-95%, 0);
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__info:hover .heatingP-power-modes__runtime,
+    #shopify-section-{{ section.id }} .heatingP-power-modes__info:focus .heatingP-power-modes__runtime,
+    #shopify-section-{{ section.id }} .heatingP-power-modes__info:focus-within .heatingP-power-modes__runtime {
+      transform: translate(-95%, 0);
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__runtime-row {
+      grid-template-columns: 131px repeat(3, 73px);
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__runtime-cell:first-child {
+      justify-content: center;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-power-modes__text {
+      font-size: 16px;
+      line-height: 1;
+    }
+  }
+{% endstyle %}
+
+<section class="heatingP-power-modes" id="heatingP-power-modes">
+  <div class="heatingP-power-modes__inner">
+    <div class="heatingP-power-modes__header">
+      <h2 class="heatingP-power-modes__title">Built for the bike. Still works off it.</h2>
+      <p class="heatingP-power-modes__intro">The Apex™ system is designed around your motorcycle's 12V supply — that's where the runtime story lives. The battery is for what happens after you park.</p>
+    </div>
+
+    <div class="heatingP-power-modes__grid">
+      <article class="heatingP-power-modes__card">
+        <div class="heatingP-power-modes__media">
+          <a class="heatingP-power-modes__card-link" href="{{ section.settings.bike_link | default: '#' }}" aria-label="On the bike">
+            {%- if section.settings.bike_image != blank -%}
+              {{ section.settings.bike_image | image_url: width: 1400 | image_tag: class: 'heatingP-power-modes__image heatingP-power-modes__image--bike', loading: 'lazy', widths: '350, 670, 900, 1200, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: '' }}
+            {%- endif -%}
+          </a>
+        </div>
+        <div class="heatingP-power-modes__body">
+          <a class="heatingP-power-modes__card-link" href="{{ section.settings.bike_link | default: '#' }}">
+            <h3 class="heatingP-power-modes__card-title">ON THE BIKE</h3>
+          </a>
+          <div class="heatingP-power-modes__copy">
+            <p class="heatingP-power-modes__label">
+              <a class="heatingP-power-modes__card-link" href="{{ section.settings.bike_link | default: '#' }}">Motorcycle 12V</a>
+            </p>
+            <p class="heatingP-power-modes__text">Wire the Y cable to your battery once. After that it's one click on the way out of the garage, and the heat doesn't stop until you do.</p>
+          </div>
+          <ul class="heatingP-power-modes__list">
+            <li>Unlimited runtime — heat for as long as the engine turns</li>
+            <li>Nothing extra to buy — Y cable and pre-sized fuse</li>
+            <li>6.67A for both liners at full power</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="heatingP-power-modes__card">
+        <div class="heatingP-power-modes__media">
+          <a class="heatingP-power-modes__card-link" href="{{ battery_product.url | default: '#' }}" aria-label="Off the bike">
+            {%- if section.settings.battery_image != blank -%}
+              {{ section.settings.battery_image | image_url: width: 1400 | image_tag: class: 'heatingP-power-modes__image heatingP-power-modes__image--battery', loading: 'lazy', widths: '350, 670, 900, 1200, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: '' }}
+            {%- endif -%}
+          </a>
+        </div>
+        <div class="heatingP-power-modes__body">
+          <a class="heatingP-power-modes__card-link" href="{{ battery_product.url | default: '#' }}">
+            <h3 class="heatingP-power-modes__card-title">OFF THE BIKE</h3>
+          </a>
+          <div class="heatingP-power-modes__copy">
+            <div class="heatingP-power-modes__label">
+              {%- if battery_product != blank -%}
+                <span class='d-flex'>
+                  <a class="heatingP-power-modes__card-link" href="{{ battery_product.url | default: '#' }}">{{ battery_product.title }}</a>
+                  • {{ battery_product.price | money }}
+                </span>
+              {%- endif -%}
+              <span class="heatingP-power-modes__info" tabindex="0" aria-label="Battery runtime comparison">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_3886_1991)">
+                  <path d="M6.99982 9.33358V7.00006M6.99982 4.66654H7.00565M12.8336 7.00006C12.8336 10.222 10.2217 12.8339 6.99982 12.8339C3.7779 12.8339 1.16602 10.222 1.16602 7.00006C1.16602 3.77814 3.7779 1.16626 6.99982 1.16626C10.2217 1.16626 12.8336 3.77814 12.8336 7.00006Z" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
+                  </g>
+                  <defs>
+                  <clipPath id="clip0_3886_1991">
+                  <rect width="14" height="14" fill="white"/>
+                  </clipPath>
+                  </defs>
+                </svg>
+                <span class="heatingP-power-modes__runtime" role="table" aria-label="Runtime comparison">
+                  <span class="heatingP-power-modes__runtime-row heatingP-power-modes__runtime-row--head" role="row">
+                    <span class="heatingP-power-modes__runtime-cell" role="columnheader">Type/Runtime</span>
+                    <span class="heatingP-power-modes__runtime-cell" role="columnheader">High</span>
+                    <span class="heatingP-power-modes__runtime-cell" role="columnheader">Medium</span>
+                    <span class="heatingP-power-modes__runtime-cell" role="columnheader">Low</span>
+                  </span>
+                  <span class="heatingP-power-modes__runtime-row" role="row">
+                    <span class="heatingP-power-modes__runtime-cell head-content" role="cell">For Heated Jacket Liner</span>
+                    <span class="heatingP-power-modes__runtime-cell" role="cell">3h</span>
+                    <span class="heatingP-power-modes__runtime-cell" role="cell">5h</span>
+                    <span class="heatingP-power-modes__runtime-cell" role="cell">8h</span>
+                  </span>
+                  <span class="heatingP-power-modes__runtime-row" role="row">
+                    <span class="heatingP-power-modes__runtime-cell head-content" role="cell">For Heated Pants Liner</span>
+                    <span class="heatingP-power-modes__runtime-cell" role="cell">2h</span>
+                    <span class="heatingP-power-modes__runtime-cell" role="cell">4h</span>
+                    <span class="heatingP-power-modes__runtime-cell" role="cell">6h</span>
+                  </span>
+                </span>
+              </span>
+            </div>
+            <p class="heatingP-power-modes__text">Walking the paddock, standing around a campsite, watching a race in the cold. Unplug from the bike, drop the battery in the pocket, keep the heat.</p>
+          </div>
+          <ul class="heatingP-power-modes__list">
+            <li>Sold separately — not required for riding</li>
+            <li>Same garment — no second liner to buy</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HeatingP Power Modes",
+  "tag": "section",
+  "class": "heatingP-power-modes-section",
+  "settings": [
+    { "type": "image_picker", "id": "bike_image", "label": "Left card image" },
+    { "type": "image_picker", "id": "battery_image", "label": "Right card image" },
+    { "type": "product", "id": "battery_product", "label": "Battery product" },
+    { "type": "url", "id": "bike_link", "label": "Left card link" }
+  ],
+  "presets": [
+    { "name": "HeatingP Power Modes" }
+  ]
+}
+{% endschema %}

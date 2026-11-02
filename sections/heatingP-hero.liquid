@@ -1,0 +1,362 @@
+{%- liquid
+  assign desktop_image = section.settings.desktop_image
+  assign mobile_image = section.settings.mobile_image | default: desktop_image
+  assign stats_count = 0
+  for index in (1..4)
+    assign value_key = 'stat_' | append: index | append: '_value'
+    assign text_key = 'stat_' | append: index | append: '_text'
+    if section.settings[value_key] != blank or section.settings[text_key] != blank
+      assign stats_count = stats_count | plus: 1
+    endif
+  endfor
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .heatingP-hero {
+    position: relative;
+    overflow: hidden;
+    background: #14161a;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__media,
+  #shopify-section-{{ section.id }} .heatingP-hero__image {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__media {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__image {
+    display: block;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__inner {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__content {
+    width: min(100%, 569px);
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__eyebrow {
+    margin: 0 0 12px;
+    color: var(--color-brand, #dd5426);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.155;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__title {
+    margin: 0;
+    color: inherit;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.083;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__description {
+    max-width: 524px;
+    margin: 24px 0 0;
+    color: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__description p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__stats {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+    padding: 20px max(20px, calc((100% - 1340px) / 2));
+    background: var(--venustas-black, #1a1a1a);
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__stats--four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__stat {
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__stat-value,
+  #shopify-section-{{ section.id }} .heatingP-hero__stat-text {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__stat-value {
+    color: var(--color-brand, #b93205);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heatingP-hero__stat-text {
+    margin-top: 4px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.25;
+  }
+  @media only screen and (max-width: 1200px) {
+    #shopify-section-{{ section.id }}  .heatingP-hero__title{
+      font-size: 32px;
+    }
+    #shopify-section-{{ section.id }}  .heatingP-hero__description{
+      font-size: 14px;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingP-hero {
+      background: var(--venustas-black, #1a1a1a);
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__media {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__image--mobile {
+      display: block;
+      height: auto;
+      object-position: center top;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__inner {
+      position: relative;
+      inset: auto;
+      display: flex;
+      width: 100%;
+      margin: 0;
+      padding: 32px 20px 31px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__content {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__eyebrow {
+      margin-bottom: 8px;
+      font-size: 11px;
+      line-height: 1;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__title {
+      font-size: 24px;
+      line-height: 1;
+      text-shadow: 0 4px 25.5px rgba(0, 0, 0, .25);
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__description {
+      max-width: none;
+      margin-top: 16px;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.15;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__actions {
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__button {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      padding: 20px;
+      border-top: 1px solid var(--color-brand, #b93205);
+      background: var(--venustas-black, #1a1a1a);
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stats--four {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stats--four .heatingP-hero__stat {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      text-align: left;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stats--four .heatingP-hero__stat:last-child {
+      border-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stats--four .heatingP-hero__stat-text {
+      order: 1;
+      margin-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stats--four .heatingP-hero__stat-value {
+      order: 2;
+      flex: 0 0 auto;
+      text-align: right;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stat {
+      min-width: 0;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stat-value,
+    #shopify-section-{{ section.id }} .heatingP-hero__stat-text {
+      margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stat-value {
+      color: var(--color-brand, #b93205);
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .heatingP-hero__stat-text {
+      margin-top: 4px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.25;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .heatingP-hero__stats--four {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 40px;
+      row-gap: 24px;
+    }
+  }
+{% endstyle %}
+
+<section class="heatingP-hero">
+  <div class="heatingP-hero__media">
+    {%- if desktop_image != blank -%}
+      {{ desktop_image | image_url: width: 2400 | image_tag: class: 'heatingP-hero__image heatingP-hero__image--desktop', loading: 'eager', widths: '960, 1340, 1600, 1920, 2400', sizes: '100vw', alt: '' }}
+    {%- endif -%}
+    {%- if mobile_image != blank -%}
+      {{ mobile_image | image_url: width: 900 | image_tag: class: 'heatingP-hero__image heatingP-hero__image--mobile', loading: 'eager', widths: '390, 600, 750, 900', sizes: '100vw', alt: '' }}
+    {%- endif -%}
+    <div class="heatingP-hero__inner">
+      <div class="heatingP-hero__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="heatingP-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="heatingP-hero__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="heatingP-hero__description">{{ section.settings.description }}</div>
+        {%- endif -%}
+        {%- if section.settings.primary_label != blank or section.settings.secondary_label != blank -%}
+          <div class="heatingP-hero__actions">
+            {%- if section.settings.primary_label != blank -%}
+              {%- render 'heatingP-button', label: section.settings.primary_label, url: section.settings.primary_link, variant: 'primary', class: 'heatingP-hero__button' -%}
+            {%- endif -%}
+            {%- if section.settings.secondary_label != blank -%}
+              {%- render 'heatingP-button', label: section.settings.secondary_label, url: section.settings.secondary_link, variant: 'secondary', class: 'heatingP-hero__button' -%}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="heatingP-hero__stats{% if stats_count == 4 %} heatingP-hero__stats--four{% endif %}">
+    {%- for index in (1..4) -%}
+      {%- assign value_key = 'stat_' | append: index | append: '_value' -%}
+      {%- assign text_key = 'stat_' | append: index | append: '_text' -%}
+      {%- if section.settings[value_key] != blank or section.settings[text_key] != blank -%}
+        <div class="heatingP-hero__stat">
+          {%- if section.settings[value_key] != blank -%}
+            <p class="heatingP-hero__stat-value">{{ section.settings[value_key] }}</p>
+          {%- endif -%}
+          {%- if section.settings[text_key] != blank -%}
+            <p class="heatingP-hero__stat-text">{{ section.settings[text_key] }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HeatingP Hero",
+  "tag": "section",
+  "class": "heatingP-hero-section",
+  "settings": [
+    { "type": "image_picker", "id": "desktop_image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "NEW •  Apex™ RIDING SYSTEM" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Heated riding gear that runs on your bike." },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>No battery to charge. No controller to buy. Just the Apex jacket liner and pant liner, wired into your 12V power.</p>" },
+    { "type": "text", "id": "primary_label", "label": "Primary label", "default": "Shop the system" },
+    { "type": "url", "id": "primary_link", "label": "Primary link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary label", "default": "See how it powers" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary link" },
+    { "type": "header", "content": "Stats" },
+    { "type": "text", "id": "stat_1_value", "label": "Stat 1 value", "default": "144°F" },
+    { "type": "text", "id": "stat_1_text", "label": "Stat 1 text", "default": "Max heating temperature · 12V powered" },
+    { "type": "text", "id": "stat_2_value", "label": "Stat 2 value", "default": "8" },
+    { "type": "text", "id": "stat_2_text", "label": "Stat 2 text", "default": "Heat zones across jacket and pants" },
+    { "type": "text", "id": "stat_3_value", "label": "Stat 3 value", "default": "$0" },
+    { "type": "text", "id": "stat_3_text", "label": "Stat 3 text", "default": "Extra parts needed — cable and fuse in the box" },
+    { "type": "text", "id": "stat_4_value", "label": "Stat 4 value" },
+    { "type": "text", "id": "stat_4_text", "label": "Stat 4 text" }
+  ],
+  "presets": [
+    { "name": "HeatingP Hero" }
+  ]
+}
+{% endschema %}
