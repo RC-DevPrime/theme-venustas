@@ -29,7 +29,11 @@
     overflow-y: hidden;
     padding-bottom: 12px;
     scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
+    scrollbar-width: none;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-riding__track::-webkit-scrollbar {
+    display: none;
   }
 
   #shopify-section-{{ section.id }} .heatingM-riding__card {
