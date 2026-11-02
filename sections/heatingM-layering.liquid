@@ -200,6 +200,19 @@
   }
 {%- endstyle -%}
 
+{%- liquid
+  assign layering_product_1 = nil
+  assign layering_product_2 = nil
+  if section.settings.product_1_link contains '/products/'
+    assign product_1_handle = section.settings.product_1_link | split: '/products/' | last | split: '?' | first | split: '#' | first | split: '/' | first
+    assign layering_product_1 = all_products[product_1_handle]
+  endif
+  if section.settings.product_2_link contains '/products/'
+    assign product_2_handle = section.settings.product_2_link | split: '/products/' | last | split: '?' | first | split: '#' | first | split: '/' | first
+    assign layering_product_2 = all_products[product_2_handle]
+  endif
+-%}
+
 <section id="heatingM-expand-system" class="heatingM-layering" aria-label="{{ section.settings.title | escape }}">
   <div class="heatingM-layering__inner">
     <header class="heatingM-layering__header">
@@ -225,7 +238,9 @@
         <div class="heatingM-layering__details">
           <div class="heatingM-layering__product-heading">
             <a class="heatingM-layering__product-title" href="{{ section.settings.product_1_link }}">{{ section.settings.product_1_title }}</a>
-            <p class="heatingM-layering__price">$239.99</p>
+            {%- if layering_product_1 != blank -%}
+              <p class="heatingM-layering__price">{{ layering_product_1.price | money }}</p>
+            {%- endif -%}
           </div>
           {%- if section.settings.product_1_type == 'jacket' -%}
             <p class="heatingM-layering__detail">Six zones • 42W • Y cable included</p>
@@ -251,7 +266,9 @@
           <div class="heatingM-layering__product-heading">
             <a class="heatingM-layering__product-title" href="{{ section.settings.product_2_link }}">{{ section.settings.product_2_title }}</a>
             <div class="heatingM-layering__price-row">
-              <p class="heatingM-layering__price">$499.99</p>
+              {%- if layering_product_2 != blank -%}
+                <p class="heatingM-layering__price">{{ layering_product_2.price | money }}</p>
+              {%- endif -%}
               <span class="heatingM-layering__discount-badge">15% off in cart</span>
             </div>
           </div>
