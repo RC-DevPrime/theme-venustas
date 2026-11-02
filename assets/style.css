@@ -3282,6 +3282,18 @@ a.f-white:hover{
   background: rgba(185, 50, 5, .2);
 }
 
+.heatingP-button--third {
+  border-color: currentColor;
+  color: #1a1a1a;
+  background: transparent;
+}
+
+.heatingP-button--third:hover {
+  border-color: var(--color-brand, #b93205);
+  color: #1a1a1a;
+  background: rgba(185, 50, 5, .2);
+}
+
 .heatingP-button__label {
   transform: translateX(-8px);
   transition: transform .42s cubic-bezier(.22, 1, .36, 1);
