@@ -57,6 +57,7 @@
   }
 
   #shopify-section-{{ section.id }} .heatingM-video__autoplay,
+  #shopify-section-{{ section.id }} .heatingM-video__sound,
   #shopify-section-{{ section.id }} .heatingM-video__fullscreen,
   #shopify-section-{{ section.id }} .heatingM-video__close {
     position: absolute;
@@ -75,6 +76,16 @@
     bottom: 16px;
     left: 16px;
     min-height: 36px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .heatingM-video__sound {
+    top: 16px;
+    left: 16px;
+    min-height: 44px;
     padding: 8px 14px;
     border-radius: 999px;
     font-size: 12px;
@@ -169,6 +180,7 @@
             preload: 'metadata'
         }}
         <button type="button" class="heatingM-video__autoplay" data-heatingM-autoplay aria-pressed="true">自动播放：开</button>
+        <button type="button" class="heatingM-video__sound" data-heatingM-sound aria-pressed="false" aria-label="开启视频声音">声音：关</button>
         <button type="button" class="heatingM-video__fullscreen" data-heatingM-fullscreen aria-label="全屏观看">⛶</button>
         <button type="button" class="heatingM-video__close" data-heatingM-close aria-label="关闭全屏" aria-hidden="true">×</button>
       {%- else -%}
@@ -187,16 +199,18 @@
       const media = root.querySelector('[data-heatingM-video-media]');
       const video = media && media.querySelector('video');
       const autoplayButton = root.querySelector('[data-heatingM-autoplay]');
+      const soundButton = root.querySelector('[data-heatingM-sound]');
       const fullscreenButton = root.querySelector('[data-heatingM-fullscreen]');
       const closeButton = root.querySelector('[data-heatingM-close]');
       if (!media || !video) return;
       root.dataset.heatingMVideoReady = 'true';
 
-      const setMuted = () => {
-        video.defaultMuted = true;
-        video.muted = true;
-        video.volume = 0;
-        video.setAttribute('muted', '');
+      const syncSoundButton = () => {
+        if (!soundButton) return;
+        const enabled = !video.muted && video.volume > 0;
+        soundButton.setAttribute('aria-pressed', String(enabled));
+        soundButton.setAttribute('aria-label', enabled ? '关闭视频声音' : '开启视频声音');
+        soundButton.textContent = enabled ? '声音：开' : '声音：关';
       };
 
       const closeFullscreen = () => {
@@ -212,13 +226,21 @@
       };
 
       const tryPlay = () => {
-        setMuted();
         const promise = video.play();
         if (promise) promise.catch(() => {});
       };
 
-      setMuted();
+      syncSoundButton();
       tryPlay();
+
+      video.addEventListener('volumechange', syncSoundButton);
+      soundButton?.addEventListener('click', () => {
+        const enabled = video.muted || video.volume === 0;
+        if (enabled && video.volume === 0) video.volume = 1;
+        video.muted = !enabled;
+        syncSoundButton();
+        if (enabled) tryPlay();
+      });
 
       autoplayButton?.addEventListener('click', () => {
         const enabled = autoplayButton.getAttribute('aria-pressed') !== 'true';
