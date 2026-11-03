@@ -1162,35 +1162,19 @@ $(document).ready(function () {
     }
     
 
-    if ($('.faqs-section').length) {
-        let $faqItems = $("#faqAccordion .accordion-item");
-        let $loadMoreBtn = $(".loadMoreFaqbtn");
+    $('.faqs-section, .campaign-faqs-section').each(function () {
+        const $section = $(this);
+        const $faqItems = $section.find('.accordion-item');
+        const $loadMoreBtn = $section.find('.loadMoreFaqbtn');
 
-        let visibleCount = 4; // default visible FAQs
+        $loadMoreBtn.on('click', function () {
+            $faqItems.filter('.d-none').slice(0, 4).removeClass('d-none');
 
-        if ($loadMoreBtn.length) {
-            $loadMoreBtn.on("click", function () {
-                console.log("Click detected");
-                let revealed = 0;
-
-                $faqItems.each(function (index) {
-                    if (index >= visibleCount && revealed < 4) {
-                        console.log("Revealing item:", index);
-                        $(this).removeClass("d-none").css("display", ""); // ✅ force show
-                        revealed++;
-                    }
-                });
-
-                visibleCount += revealed;
-
-                // Hide button when all FAQs are visible
-                if (visibleCount >= $faqItems.length) {
-                    console.log("All items revealed, hiding button");
-                    $loadMoreBtn.hide();
-                }
-            });
-        }
-    }
+            if (!$faqItems.filter('.d-none').length) {
+                $loadMoreBtn.hide();
+            }
+        });
+    });
 
         
     if ($('.product-quiz-section').length) {

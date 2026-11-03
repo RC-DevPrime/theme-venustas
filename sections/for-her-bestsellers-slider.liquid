@@ -110,7 +110,13 @@
   }
 {% endstyle %}
 
-<div class="for-her-bestsellers">
+<div class="for-her-bestsellers{% if section.settings.nav_title != blank or section.settings.section_scroll_nav != blank %} section-scroll{% endif %}"
+  {% if section.settings.nav_title != blank %}
+    data-scroll="{{ section.settings.nav_title | handleize }}"
+  {% endif %}
+  {% if section.settings.section_scroll_nav != blank %}
+    data-child-scroll="{{ section.settings.section_scroll_nav | handleize }}"
+  {% endif %}>
   <div class="container">
     {% if section.settings.heading != blank %}
       <h2 class="for-her-bestsellers__heading">{{ section.settings.heading }}</h2>
@@ -188,6 +194,16 @@
   "class": "for-her-bestsellers-slider-section",
   "templates": ["page"],
   "settings": [
+    {
+      "type": "text",
+      "id": "section_scroll_nav",
+      "label": "Section Scroll Nav"
+    },
+    {
+      "type": "text",
+      "id": "nav_title",
+      "label": "Navigation Title"
+    },
     {
       "type": "color",
       "id": "bg_color",
