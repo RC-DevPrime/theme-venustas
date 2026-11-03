@@ -1,0 +1,20 @@
+{%- comment -%}
+  Renders a menu link with an optional badge from its title: Title#Badge.
+  Accepts:
+  - link: menu link object.
+  - text_class: typography class (defaults to body-lg).
+{%- endcomment -%}
+{%- liquid
+  assign menu_title_parts = link.title | split: '#'
+  assign menu_clean_title = menu_title_parts.first | strip
+  assign menu_badge = menu_title_parts[1] | strip
+  assign menu_text_class = text_class | default: 'body-lg'
+-%}
+<a href="{{ link.url }}" class="mega-menu-link pp-regular {{ menu_text_class }}">
+  <span>{{ menu_clean_title }}</span>
+  {%- if menu_badge != blank %}
+    <span class="mega-menu-link__badge mega-menu-link__badge--{{ menu_badge | handleize }}">
+      {{- menu_badge | escape -}}
+    </span>
+  {%- endif %}
+</a>
