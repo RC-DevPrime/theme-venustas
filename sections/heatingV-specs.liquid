@@ -1,0 +1,95 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingV-specs { background: #f5f5f5; color: #1a1a1a; font-family: var(--font-primary, 'Montserrat', sans-serif); }
+  #shopify-section-{{ section.id }} .heatingV-specs__inner { width: min(calc(100% - 100px), 1340px); margin: 0 auto; padding: 80px 0; }
+  #shopify-section-{{ section.id }} .heatingV-specs__header { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 64px; text-align: center; }
+  #shopify-section-{{ section.id }} .heatingV-specs h2, #shopify-section-{{ section.id }} .heatingV-specs h3, #shopify-section-{{ section.id }} .heatingV-specs p { margin: 0; }
+  #shopify-section-{{ section.id }} .heatingV-specs__eyebrow { color: #b93205; font-size: 20px; font-weight: 600; letter-spacing: .2px; text-transform: uppercase; }
+  #shopify-section-{{ section.id }} .heatingV-specs__title { font-size: 28px; font-weight: 700; }
+  #shopify-section-{{ section.id }} .heatingV-specs__metrics { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 64px; padding: 0 32px; border-radius: 12px; background: #fff; box-shadow: 0 2px 20px rgba(0,0,0,.06); }
+  #shopify-section-{{ section.id }} .heatingV-specs__metric { display: flex; min-height: 126px; flex-direction: column; align-items: center; justify-content: center; padding: 28px 12px; text-align: center; }
+  #shopify-section-{{ section.id }} .heatingV-specs__metric-value { color: #111214; font-size: 26px; font-weight: 800; }
+  #shopify-section-{{ section.id }} .heatingV-specs__metric-label { padding-top: 6px; font-size: 14px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__card { display: flex; min-height: 556px; flex-direction: column; gap: 32px; padding: 32px; border-radius: 24px; background: #fff; box-shadow: 0 0 20px rgba(0,0,0,.06); }
+  #shopify-section-{{ section.id }} .heatingV-specs__card-title { font-size: 20px; font-weight: 600; text-transform: uppercase; }
+  #shopify-section-{{ section.id }} .heatingV-specs__list { display: flex; flex-direction: column; gap: 20px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__spec { display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb; font-size: 13px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__spec-line { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__spec-label { font-weight: 500; white-space: nowrap; }
+  #shopify-section-{{ section.id }} .heatingV-specs__spec-value { max-width: 62%; font-weight: 600; line-height: 1.35; text-align: right; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit { display: flex; height: 220px; align-items: center; justify-content: space-around; overflow: hidden; border-radius: 16px; background: #f9fafb; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit img { width: 30%; height: 78%; object-fit: contain; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit-empty { color: #9ca3af; font-size: 12px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__included { display: flex; flex-direction: column; gap: 16px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__included-item { display: flex; align-items: center; gap: 12px; font-size: 16px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__check { display: grid; width: 28px; height: 28px; flex: 0 0 28px; place-items: center; border-radius: 50%; color: #b93205; background: rgba(185,50,5,.1); font-weight: 700; }
+  #shopify-section-{{ section.id }} .heatingV-specs__care { display: flex; flex-direction: column; gap: 26px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__care-item { display: flex; align-items: flex-start; gap: 16px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__care-icon { display: grid; width: 48px; height: 48px; flex: 0 0 48px; place-items: center; border-radius: 50%; color: #b93205; background: rgba(185,50,5,.12); font-size: 20px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__care-title { margin-bottom: 4px !important; font-size: 14px; font-weight: 700; }
+  #shopify-section-{{ section.id }} .heatingV-specs__care-copy { color: #515151; font-size: 12px; line-height: 1.45; }
+  #shopify-section-{{ section.id }} .heatingV-specs__note { margin-top: auto !important; padding-top: 16px; border-top: 1px solid #e5e7eb; color: #515151; font-size: 12px; line-height: 1.45; }
+  @media (max-width: 1199px) { #shopify-section-{{ section.id }} .heatingV-specs__inner { width: min(calc(100% - 64px), 1340px); } #shopify-section-{{ section.id }} .heatingV-specs__card { padding: 24px; } }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingV-specs__inner { width: calc(100% - 40px); padding: 80px 0; }
+    #shopify-section-{{ section.id }} .heatingV-specs__header { margin-bottom: 64px; }
+    #shopify-section-{{ section.id }} .heatingV-specs__eyebrow { font-size: 20px; white-space: nowrap; }
+    #shopify-section-{{ section.id }} .heatingV-specs__title { font-size: 28px; line-height: 1.25; }
+    #shopify-section-{{ section.id }} .heatingV-specs__metrics { grid-template-columns: repeat(2, 1fr); margin-bottom: 24px; padding: 0; }
+    #shopify-section-{{ section.id }} .heatingV-specs__metric { min-height: 128px; }
+    #shopify-section-{{ section.id }} .heatingV-specs__cards { grid-template-columns: 1fr; gap: 24px; }
+    #shopify-section-{{ section.id }} .heatingV-specs__card { min-height: 556px; padding: 32px 12px; }
+    #shopify-section-{{ section.id }} .heatingV-specs__spec-value { max-width: 58%; }
+  }
+{%- endstyle -%}
+
+<section class="heatingV-specs">
+  <div class="heatingV-specs__inner">
+    <header class="heatingV-specs__header"><p class="heatingV-specs__eyebrow">Technical Specifications</p><h2 class="heatingV-specs__title">Everything You Need to Know About MMP03</h2></header>
+    <div class="heatingV-specs__metrics">
+      <div class="heatingV-specs__metric"><strong class="heatingV-specs__metric-value">30 days</strong><span class="heatingV-specs__metric-label">To return it</span></div>
+      <div class="heatingV-specs__metric"><strong class="heatingV-specs__metric-value">3 years</strong><span class="heatingV-specs__metric-label">On the heating elements</span></div>
+      <div class="heatingV-specs__metric"><strong class="heatingV-specs__metric-value">1 year</strong><span class="heatingV-specs__metric-label">On the batteries</span></div>
+      <div class="heatingV-specs__metric"><strong class="heatingV-specs__metric-value">Lifetime</strong><span class="heatingV-specs__metric-label">Heating elements, for Founder Pass holders</span></div>
+    </div>
+    <div class="heatingV-specs__cards">
+      <article class="heatingV-specs__card">
+        <h3 class="heatingV-specs__card-title">Specifications</h3>
+        <div class="heatingV-specs__list">
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Built for</span><strong class="heatingV-specs__spec-value">-40°F to 41°F (-40°C to 5°C)</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Heating Power</span><strong class="heatingV-specs__spec-value">41W，4x our everyday vests</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Zones</span><strong class="heatingV-specs__spec-value">Collar, chest L/R, upper back L/R, lower back</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Heat Levels</span><strong class="heatingV-specs__spec-value">144°F / 130ºF / 112°F</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Shell / lining</span><strong class="heatingV-specs__spec-value">75D polyester + TPU membrane + fleece / graphene</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Power</span><strong class="heatingV-specs__spec-value">Two 7.5K batteries(included) * Built-in 12V lead</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Runtime, both batteries</span><strong class="heatingV-specs__spec-value">About 4h high / 6h medium / 11h low</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Model</span><strong class="heatingV-specs__spec-value">MV11</strong></div></div>
+        </div>
+      </article>
+      <article class="heatingV-specs__card">
+        <h3 class="heatingV-specs__card-title">What's Included</h3>
+        <div class="heatingV-specs__kit">{%- for index in (1..3) -%}{%- assign image_key = 'included_image_' | append: index -%}{%- if section.settings[image_key] != blank -%}{{ section.settings[image_key] | image_url: width: 300 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}{%- if section.settings.included_image_1 == blank and section.settings.included_image_2 == blank and section.settings.included_image_3 == blank -%}<span class="heatingV-specs__kit-empty">Add included product images in the theme editor</span>{%- endif -%}</div>
+        <div class="heatingV-specs__included"><div class="heatingV-specs__included-item"><span class="heatingV-specs__check">✓</span><span>VOLCANO™ PRO VEST</span></div><div class="heatingV-specs__included-item"><span class="heatingV-specs__check">✓</span><span>High Power 7.5K Battery *2</span></div><div class="heatingV-specs__included-item"><span class="heatingV-specs__check">✓</span><span>Charging Cable *1</span></div><div class="heatingV-specs__included-item"><span class="heatingV-specs__check">✓</span><span>User Manual *1</span></div></div>
+        <p class="heatingV-specs__note">* High Power 7.5K batteries sold separately</p>
+      </article>
+      <article class="heatingV-specs__card">
+        <h3 class="heatingV-specs__card-title">Care Instructions</h3>
+        <div class="heatingV-specs__care"><div class="heatingV-specs__care-item"><span class="heatingV-specs__care-icon">♨</span><div><h4 class="heatingV-specs__care-title">Machine Washable</h4><p class="heatingV-specs__care-copy">Remove power connections before placing in washing machine.</p></div></div><div class="heatingV-specs__care-item"><span class="heatingV-specs__care-icon">×</span><div><h4 class="heatingV-specs__care-title">Remove Power Components</h4><p class="heatingV-specs__care-copy">Always disconnect cables and batteries before cleaning.</p></div></div><div class="heatingV-specs__care-item"><span class="heatingV-specs__care-icon">!</span><div><h4 class="heatingV-specs__care-title">Do Not Dry Clean</h4><p class="heatingV-specs__care-copy">Avoid harsh chemical cleaning methods to protect the elements.</p></div></div><div class="heatingV-specs__care-item"><span class="heatingV-specs__care-icon">♨</span><div><h4 class="heatingV-specs__care-title">Do Not Iron</h4><p class="heatingV-specs__care-copy">Avoid direct heat on the garment to protect interior wiring.</p></div></div></div>
+        <p class="heatingV-specs__note">Recommended: Hand wash for maximum longevity. Dry flat in shade.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HeatingV Specifications",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "included_image_1", "label": "Included image 1" },
+    { "type": "image_picker", "id": "included_image_2", "label": "Included image 2" },
+    { "type": "image_picker", "id": "included_image_3", "label": "Included image 3" }
+  ],
+  "presets": [{ "name": "HeatingV Specifications" }]
+}
+{% endschema %}

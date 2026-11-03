@@ -1,0 +1,64 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingV-video { background: #1a1a1a; }
+  #shopify-section-{{ section.id }} .heatingV-video__inner { width: min(calc(100% - 40px), 1340px); margin: 0 auto; padding: 80px 0; }
+  #shopify-section-{{ section.id }} .heatingV-video__media { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 12px; background: #000; }
+  #shopify-section-{{ section.id }} .heatingV-video__media--mobile { display: none; }
+  #shopify-section-{{ section.id }} .heatingV-video__video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  #shopify-section-{{ section.id }} .heatingV-video__play { position: absolute; z-index: 2; top: 50%; left: 50%; display: grid; width: 72px; height: 72px; place-items: center; padding: 0; border: 2px solid #fff; border-radius: 50%; background: rgba(0,0,0,.44); color: #fff; font-size: 26px; line-height: 1; transform: translate(-50%, -50%); cursor: pointer; }
+  #shopify-section-{{ section.id }} .heatingV-video__play:hover { background: rgba(185,50,5,.8); }
+  #shopify-section-{{ section.id }} .heatingV-video__close { position: absolute; z-index: 4; top: max(16px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right)); display: none; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: rgba(0,0,0,.64); color: #fff; font-size: 30px; line-height: 1; cursor: pointer; }
+  #shopify-section-{{ section.id }} .heatingV-video__media.is-fullscreen { position: fixed; z-index: 2147483647; inset: 0; width: 100vw; height: 100dvh; border-radius: 0; background: #000; }
+  #shopify-section-{{ section.id }} .heatingV-video__media.is-fullscreen .heatingV-video__close { display: block; }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingV-video__inner { width: calc(100% - 40px); padding: 40px 0; }
+    #shopify-section-{{ section.id }} .heatingV-video__media--desktop { display: none; }
+    #shopify-section-{{ section.id }} .heatingV-video__media--mobile { display: block; aspect-ratio: 350 / 438; border-radius: 6px; }
+    #shopify-section-{{ section.id }} .heatingV-video__play { width: 60px; height: 60px; font-size: 22px; }
+  }
+{%- endstyle -%}
+
+<section class="heatingV-video" data-heatingv-video>
+  <div class="heatingV-video__inner">
+    {%- assign video_devices = 'desktop,mobile' | split: ',' -%}
+    {%- for device in video_devices -%}
+      {%- assign video_key = device | append: '_video' -%}
+      <div class="heatingV-video__media heatingV-video__media--{{ device }}" data-video-media>
+        {%- if section.settings[video_key] != blank -%}
+          {{ section.settings[video_key] | video_tag: class: 'heatingV-video__video', controls: false, muted: false, playsinline: true, preload: 'metadata', image_size: '1600x' }}
+          <button type="button" class="heatingV-video__play" data-video-play aria-label="Play video">▶</button>
+          <button type="button" class="heatingV-video__close" data-video-close aria-label="Close fullscreen">×</button>
+        {%- else -%}<div style="display:grid;width:100%;height:100%;place-items:center;color:#aaa;">{{ device | capitalize }} video</div>{%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.querySelector('[data-heatingv-video]');
+    if (!root || root.dataset.ready === 'true') return;
+    root.dataset.ready = 'true';
+    const medias = [...root.querySelectorAll('[data-video-media]')];
+    const close = (media) => { if (document.fullscreenElement === media && document.exitFullscreen) document.exitFullscreen().catch(() => {}); media.classList.remove('is-fullscreen'); };
+    const open = (media) => { media.classList.add('is-fullscreen'); if (media.requestFullscreen) media.requestFullscreen().catch(() => {}); };
+    medias.forEach((media) => { const video = media.querySelector('video'); const play = media.querySelector('[data-video-play]'); const closeButton = media.querySelector('[data-video-close]'); if (!video || !play) return;
+      const sync = () => { play.textContent = video.paused ? '▶' : 'Ⅱ'; play.setAttribute('aria-label', video.paused ? 'Play video' : 'Pause video'); };
+      play.addEventListener('click', () => { if (video.paused) { video.play().catch(() => {}); open(media); } else video.pause(); sync(); });
+      video.addEventListener('click', () => open(media)); video.addEventListener('play', sync); video.addEventListener('pause', sync); closeButton?.addEventListener('click', () => close(media)); sync();
+    });
+    document.addEventListener('fullscreenchange', () => medias.forEach((media) => { if (document.fullscreenElement !== media) media.classList.remove('is-fullscreen'); }));
+    document.addEventListener('shopify:section:unload', (event) => { if (event.target.contains?.(root)) root.dataset.ready = 'false'; });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "HeatingV Video",
+  "tag": "section",
+  "settings": [
+    { "type": "video", "id": "desktop_video", "label": "Desktop MP4 video" },
+    { "type": "video", "id": "mobile_video", "label": "Mobile MP4 video" }
+  ],
+  "presets": [{ "name": "HeatingV Video" }]
+}
+{% endschema %}

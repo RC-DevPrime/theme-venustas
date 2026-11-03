@@ -1,0 +1,69 @@
+{%- liquid
+  assign desktop_image = section.settings.desktop_image | default: section.settings.mobile_image
+  assign mobile_image = section.settings.mobile_image | default: desktop_image
+  assign texture_url = ''
+  if desktop_image != blank
+    assign texture_url = desktop_image | image_url: width: 1920
+  endif
+-%}
+
+{{ 'heatingV-cold-performance.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'heatingV-cold-performance.js' | asset_url }}" defer="defer"></script>
+
+<heating-v-cold-performance class="heatingV-cold" style="--cold-texture: url('{{ texture_url | escape }}');">
+  <div class="heatingV-cold__banner">
+    <picture>
+      {%- if mobile_image != blank -%}
+        <source media="(max-width: 767px)" srcset="{{ mobile_image | image_url: width: 390 }} 390w, {{ mobile_image | image_url: width: 780 }} 780w" sizes="100vw">
+      {%- endif -%}
+      {%- if desktop_image != blank -%}
+        {{ desktop_image | image_url: width: 2400 | image_tag: class: 'heatingV-cold__image', loading: 'lazy', widths: '960, 1340, 1600, 1920, 2400', sizes: '100vw', alt: section.settings.image_alt }}
+      {%- endif -%}
+    </picture>
+  </div>
+
+  <div class="heatingV-cold__summary">
+    <div class="heatingV-cold__inner">
+      <div class="heatingV-cold__copy">
+        {%- if section.settings.heading != blank -%}<h2 class="heatingV-cold__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        {%- if section.settings.description != blank -%}<p class="heatingV-cold__description">{{ section.settings.description | escape }}</p>{%- endif -%}
+      </div>
+      <div class="heatingV-cold__stat">
+        <span class="heatingV-cold__value">{{ section.settings.temperature | escape }}</span>
+        <span class="heatingV-cold__label">{{ section.settings.label | escape }}</span>
+      </div>
+    </div>
+    <button class="heatingV-cold__toggle" type="button" aria-label="{{ section.settings.toggle_label | escape }}" aria-expanded="false" aria-controls="HeatingVColdOverlay-{{ section.id }}"></button>
+  </div>
+
+  <div class="heatingV-cold__overlay" id="HeatingVColdOverlay-{{ section.id }}" aria-hidden="true">
+    <div class="heatingV-cold__inner">
+      <div class="heatingV-cold__copy">
+        <p class="heatingV-cold__heading">{{ section.settings.heading | escape }}</p>
+        <p class="heatingV-cold__description">{{ section.settings.description | escape }}</p>
+      </div>
+      <div class="heatingV-cold__stat">
+        <span class="heatingV-cold__label">{{ section.settings.label | escape }}</span>
+        <span class="heatingV-cold__value">{{ section.settings.temperature | escape }}</span>
+      </div>
+    </div>
+  </div>
+</heating-v-cold-performance>
+
+{% schema %}
+{
+  "name": "HeatingV Cold Performance",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "desktop_image", "label": "Desktop banner" },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile banner", "info": "Use the full portrait image; the banner crops to a square on mobile." },
+    { "type": "text", "id": "image_alt", "label": "Image description", "default": "Ice fishing in heated vests on a frozen lake" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Warmest Vest We've Ever Made" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Built for the cold where an everyday heated vest gives up. 4 times the heating power, 6 zones front and back, sealed in a windproof three-layer shell." },
+    { "type": "text", "id": "temperature", "label": "Temperature", "default": "-40°F" },
+    { "type": "text", "id": "label", "label": "Temperature label", "default": "Ideal for" },
+    { "type": "text", "id": "toggle_label", "label": "Accessible animation control label", "default": "Toggle expanded cold performance details" }
+  ],
+  "presets": [{ "name": "HeatingV Cold Performance" }]
+}
+{% endschema %}

@@ -330,6 +330,38 @@
       transition-delay: 0s;
     }
   }
+
+  /* Dark Volcano treatment from the 4X power design. */
+  #shopify-section-{{ section.id }} .heatingV-4x-gear {
+    background: radial-gradient(circle at 74% 50%, #441313 0%, #2f1616 42%, #1a1a1a 100%);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__media,
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__image {
+    background: #1a1a1a;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__title,
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__callout-text {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__desc,
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__callout-eyebrow {
+    color: #f5f5f5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__callout-num {
+    background: linear-gradient(180deg, #da642a 0%, #b63004 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__label {
+    color: #d2d2d2;
+  }
 {% endstyle %}
 
 <section class="heatingV-4x-gear" id="heatingv-heating-system">
@@ -397,9 +429,9 @@
     <div class="heatingV-4x-gear__content">
       <div class="heatingV-4x-gear__header">
         <p class="heatingV-4x-gear__eyebrow">Built for &minus;40&deg;F to 41&deg;F</p>
-        <h2 class="heatingV-4x-gear__title">4X the Power of Everyday Heated Gear</h2>
+        <h2 class="heatingV-4x-gear__title">The Heating Power of Our Everyday Vests</h2>
         <p class="heatingV-4x-gear__desc">
-          Once the cold gets serious, heat leaves your body faster than a standard vest can put it back. Volcano&trade; drives four times the power into the same six zones &mdash; enough to stay ahead of it from a mild 41&deg;F morning all the way down to &minus;40&deg;F.
+          Every heated vest can reach a top temperature. The question is whether it can hold it while the cold pulls heat away. Volcano puts 38W behind the same 144&deg;F, four times what our everyday vests deliver.
         </p>
       </div>
 
@@ -413,10 +445,10 @@
           <div class="heatingV-4x-gear__row">
             <div class="heatingV-4x-gear__track">
               <div class="heatingV-4x-gear__fill heatingV-4x-gear__fill--volcano">
-                <span class="heatingV-4x-gear__fill-label">Volcano&trade; Heated Vest</span>
+                <span class="heatingV-4x-gear__fill-label">Volcano&trade; Heated Liner</span>
               </div>
             </div>
-            <p class="heatingV-4x-gear__value">41 Watts</p>
+            <p class="heatingV-4x-gear__value">38 Watts</p>
           </div>
 
           <div class="heatingV-4x-gear__row heatingV-4x-gear__row--standard">

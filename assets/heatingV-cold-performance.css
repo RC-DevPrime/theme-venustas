@@ -1,0 +1,54 @@
+.heatingV-cold {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  color: #fff;
+  background: #582018;
+  font-family: var(--font-primary, 'Montserrat', sans-serif);
+}
+.heatingV-cold *, .heatingV-cold *::before, .heatingV-cold *::after { box-sizing: border-box; }
+.heatingV-cold__banner { position: relative; height: clamp(500px, 33.8542vw, 650px); overflow: hidden; }
+.heatingV-cold__banner picture { display: block; width: 100%; height: 100%; }
+.heatingV-cold .heatingV-cold__image { display: block; width: 100%; height: 100%; object-fit: cover; }
+.heatingV-cold__summary, .heatingV-cold__overlay { background: linear-gradient(180deg, #582018 0%, #1a1a1a 170.25%); }
+.heatingV-cold__summary { position: relative; padding: 100px 0; min-height: 413px; }
+.heatingV-cold__inner { display: flex; align-items: flex-start; gap: 32px; width: min(100% - 40px, 1340px); margin: 0 auto; }
+.heatingV-cold__copy { flex: 1; min-width: 0; }
+.heatingV-cold .heatingV-cold__heading { margin: 0 0 16px; color: inherit; font-size: clamp(30px, 2.1875vw, 42px); font-weight: 700; line-height: 1.25; letter-spacing: -1.5px; }
+.heatingV-cold .heatingV-cold__description { margin: 0; color: inherit; font-size: 16px; font-weight: 400; line-height: 24px; }
+.heatingV-cold__summary .heatingV-cold__heading, .heatingV-cold__summary .heatingV-cold__description { max-width: 528px; }
+.heatingV-cold__stat { display: flex; flex: 1; min-width: 0; flex-direction: column; align-items: flex-start; gap: 20px; }
+.heatingV-cold__value { display: block; color: transparent; background: linear-gradient(90deg, #d83600 42.308%, #ff8e0c 100%); background-clip: text; -webkit-background-clip: text; font-size: clamp(100px, 10.4167vw, 200px); font-weight: 600; line-height: 1; letter-spacing: -.9px; white-space: nowrap; }
+@supports (text-box-trim: trim-both) {
+  .heatingV-cold__value { text-box-trim: trim-both; text-box-edge: cap alphabetic; }
+}
+.heatingV-cold__label { color: #fff; font-size: 24px; font-weight: 600; line-height: 1.25; }
+.heatingV-cold__toggle { display: none; }
+.heatingV-cold__overlay { position: absolute; z-index: 2; inset: 0; padding: 100px 0; transform: translateY(100%); transition: transform 1.4s cubic-bezier(.22, .61, .36, 1); pointer-events: none; }
+.heatingV-cold__overlay .heatingV-cold__inner { flex-direction: column; gap: clamp(100px, 13.4896vw, 259px); }
+.heatingV-cold__overlay .heatingV-cold__copy { width: 100%; flex: none; }
+.heatingV-cold__overlay .heatingV-cold__stat { flex: none; width: 100%; flex-direction: row; gap: 32px; }
+.heatingV-cold__overlay .heatingV-cold__label { flex: none; }
+.heatingV-cold__overlay .heatingV-cold__value { font-size: clamp(160px, 20.8333vw, 400px); background-image: var(--cold-texture), linear-gradient(90deg, #d83600 42.308%, #ff8e0c 100%); background-size: 284.24% 450.6%, auto; background-position: 9.64% 93.19%, top left; background-repeat: no-repeat, repeat; }
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  .heatingV-cold__toggle { position: absolute; z-index: 1; inset: 0; display: block; width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; color: inherit; cursor: pointer; }
+  .heatingV-cold__toggle:focus-visible { outline: 3px solid #ff8e0c; outline-offset: -6px; }
+  .heatingV-cold:focus-within::after { content: ''; position: absolute; z-index: 3; inset: 0; border: 3px solid #ff8e0c; pointer-events: none; }
+  .heatingV-cold.is-expanded .heatingV-cold__overlay { transform: translateY(0); }
+}
+@media (max-width: 767px) {
+  .heatingV-cold { background: linear-gradient(180deg, #531602 48.065%, #1a1a1a 100%); }
+  .heatingV-cold__banner { height: auto; aspect-ratio: 1; }
+  .heatingV-cold .heatingV-cold__image { position: absolute; top: -36.64%; height: 140.04%; object-fit: cover; }
+  .heatingV-cold__summary { min-height: 0; padding: 40px 20px 32px; background: none; }
+  .heatingV-cold__inner { width: 100%; flex-direction: column; gap: 40px; }
+  .heatingV-cold .heatingV-cold__heading { font-size: 28px; line-height: normal; letter-spacing: 0; text-shadow: 0 4px 25.5px #00000040; }
+  .heatingV-cold .heatingV-cold__description { font-weight: 300; line-height: normal; }
+  .heatingV-cold__stat { flex: none; width: 100%; min-height: 128px; justify-content: space-between; gap: 20px; }
+  .heatingV-cold__label { order: -1; font-size: 14px; font-weight: 500; line-height: normal; }
+  .heatingV-cold__value { font-size: clamp(80px, 32.3077vw, 160px); }
+  .heatingV-cold__overlay { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .heatingV-cold__overlay { transition: none; }
+}

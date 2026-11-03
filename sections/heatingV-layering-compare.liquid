@@ -1,0 +1,89 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heatingV-layering-compare { color: #fff; background: linear-gradient(180deg, #1a1a1a 0%, #420d0d 100%); font-family: var(--font-primary, 'Montserrat', sans-serif); }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__inner { width: min(calc(100% - 100px), 1440px); max-width: 1340px; margin: 0 auto; padding: 100px 0; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__intro { display: flex; flex-direction: column; gap: 14px; margin-bottom: 56px; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare h2,
+  #shopify-section-{{ section.id }} .heatingV-layering-compare p { margin: 0; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__title { font-size: 34px; font-weight: 700; line-height: 1.16; letter-spacing: -.952px; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__subtitle { font-size: 16px; line-height: 1.4; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__scroll { overflow-x: auto; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__table { min-width: 1046px; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__row { display: grid; grid-template-columns: 180px repeat(2, minmax(0, 1fr)); column-gap: 40px; align-items: center; min-height: 50px; padding: 16px 0; border-bottom: 1px solid #4e4e4e; font-size: 16px; line-height: 1.4; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__row--head { min-height: 52px; padding-block: 16px; border-bottom-width: 1.6px; color: #f5f5f5; font-size: 16px; font-weight: 600; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__label { font-weight: 500; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__value { font-weight: 700; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__logo { color: #f5f5f5; font-size: 16px; font-weight: 600; letter-spacing: .1px; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__logo sup { font-size: 10px; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__button { margin-top: 56px; }
+  #shopify-section-{{ section.id }} .heatingV-layering-compare__button .heatingP-button--secondary { min-height: 48px; border-color: #fff; color: #fff; }
+  @media (max-width: 1024px) {
+    #shopify-section-{{ section.id }} .heatingV-layering-compare__inner { width: min(calc(100% - 64px), 1340px); padding: 80px 0; }
+    #shopify-section-{{ section.id }} .heatingV-layering-compare__intro { margin-bottom: 40px; }
+  }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingV-layering-compare__inner { width: calc(100% - 40px); padding: 80px 0 56px; }
+    #shopify-section-{{ section.id }} .heatingV-layering-compare__intro { gap: 14px; margin-bottom: 56px; }
+    #shopify-section-{{ section.id }} .heatingV-layering-compare__title { font-size: 28px; line-height: normal; letter-spacing: 0; }
+    #shopify-section-{{ section.id }} .heatingV-layering-compare__subtitle { line-height: normal; }
+    #shopify-section-{{ section.id }} .heatingV-layering-compare__scroll { margin-right: -20px; padding-right: 20px; }
+    #shopify-section-{{ section.id }} .heatingV-layering-compare__table { min-width: 1046px; }
+    #shopify-section-{{ section.id }} .heatingV-layering-compare__row { grid-template-columns: 180px 433px 433px; column-gap: 0; }
+    #shopify-section-{{ section.id }} .heatingV-layering-compare__button { margin-top: 56px; }
+  }
+{% endstyle %}
+
+<section class="heatingV-layering-compare">
+  <div class="heatingV-layering-compare__inner">
+    <div class="heatingV-layering-compare__intro">
+      <h2 class="heatingV-layering-compare__title">{{ section.settings.title | escape }}</h2>
+      <p class="heatingV-layering-compare__subtitle">{{ section.settings.subtitle | escape }}</p>
+    </div>
+    <div class="heatingV-layering-compare__scroll">
+      <div class="heatingV-layering-compare__table" role="table" aria-label="Volcano and Classic vest comparison">
+        <div class="heatingV-layering-compare__row heatingV-layering-compare__row--head" role="row"><span></span><span>{{ section.settings.classic_heading | escape }}</span><span class="heatingV-layering-compare__logo">{{ section.settings.volcano_heading | escape }}</span></div>
+        {%- for block in section.blocks -%}
+          <div class="heatingV-layering-compare__row" role="row" {{ block.shopify_attributes }}><span class="heatingV-layering-compare__label">{{ block.settings.label | escape }}</span><span class="heatingV-layering-compare__value">{{ block.settings.classic_value | escape }}</span><span class="heatingV-layering-compare__value">{{ block.settings.volcano_value | escape }}</span></div>
+        {%- endfor -%}
+      </div>
+    </div>
+    <div class="heatingV-layering-compare__button">
+      {%- render 'heatingP-button', label: section.settings.button_label, url: section.settings.button_link, variant: 'secondary' -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HeatingV Layering Compare",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Volcano or Classic?" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "It depends on how cold your cold gets." },
+    { "type": "text", "id": "classic_heading", "label": "Classic heading", "default": "CLASSIC M2118" },
+    { "type": "text", "id": "volcano_heading", "label": "Volcano heading", "default": "VOLCANOM™ PRO MV11" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "See the Classic vest" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [{
+    "type": "comparison",
+    "name": "Comparison row",
+    "settings": [
+      { "type": "text", "id": "label", "label": "Row label", "default": "Built for" },
+      { "type": "text", "id": "classic_value", "label": "Classic value", "default": "Everyday cold, down to about 14°F" },
+      { "type": "text", "id": "volcano_value", "label": "Volcano value", "default": "Extreme cold, down to -40°F" }
+    ]
+  }],
+  "presets": [{
+    "name": "HeatingV Layering Compare",
+    "blocks": [
+      { "type": "comparison", "settings": { "label": "Built for", "classic_value": "Everyday cold, down to about 14°F", "volcano_value": "Extreme cold, down to -40°F" } },
+      { "type": "comparison", "settings": { "label": "Heating power", "classic_value": "10W", "volcano_value": "41W, 4x" } },
+      { "type": "comparison", "settings": { "label": "Heat zones", "classic_value": "6, front and back", "volcano_value": "6, front and back" } },
+      { "type": "comparison", "settings": { "label": "shell", "classic_value": "Nylon", "volcano_value": "Three-layer, windproof membrane" } },
+      { "type": "comparison", "settings": { "label": "Batteries in the box", "classic_value": "One", "volcano_value": "Two, plus a 12V lead" } },
+      { "type": "comparison", "settings": { "label": "Lighter and simpler", "classic_value": "Yes", "volcano_value": "Built heavier or the cold" } },
+      { "type": "comparison", "settings": { "label": "Choose it for", "classic_value": "Commutes, errands and cold mornings", "volcano_value": "Whole days below zero: riding, ice fishing, working outside" } }
+    ]
+  }]
+}
+{% endschema %}
