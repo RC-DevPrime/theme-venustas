@@ -57,61 +57,19 @@
         "heading": "Featured Events Overview"
       }
     },
-    "campaign_benefits_Chrfcp": {
-      "type": "campaign-benefits",
-      "blocks": {
-        "benefit_QniKkN": {
-          "type": "benefit",
-          "settings": {
-            "icon": "shopify://shop_images/45648_2x_ee12e830-5654-47b6-b533-c240d2586400.png",
-            "heading": "3 - Year Limited Warranty",
-            "description": "Heating Elements Are Backed By The Best Warranty In The Industry"
-          }
-        },
-        "benefit_RnKM7R": {
-          "type": "benefit",
-          "settings": {
-            "icon": "shopify://shop_images/2500_2x_995c22d0-a53c-40c1-a049-c51907549f93.png",
-            "heading": "1 - Year Limited Warranty",
-            "description": "Industry-Leading Warranty Coverage for Batteries"
-          }
-        },
-        "benefit_ehactk": {
-          "type": "benefit",
-          "settings": {
-            "icon": "shopify://shop_images/45650_2x_ce137065-61b6-4f04-87df-6afa0020a18a.png",
-            "heading": "Free Shipping in the U.S. & CA",
-            "description": "Fast & Reliable Shipping for Everyday Needs"
-          }
-        },
-        "benefit_FU8nF6": {
-          "type": "benefit",
-          "settings": {
-            "icon": "shopify://shop_images/45647_2x_7a96cfc4-a8eb-424f-9c75-97793e69961f.png",
-            "heading": "Free Return Shipping in the U.S",
-            "description": "Enjoy Extended Holiday Returns Until Jan 15, 2027"
-          }
-        }
-      },
-      "block_order": [
-        "benefit_QniKkN",
-        "benefit_RnKM7R",
-        "benefit_ehactk",
-        "benefit_FU8nF6"
-      ],
-      "name": "Campaign Benefits",
-      "settings": {
-        "heading_element": "shopify://shop_images/50629_2x_61bdc917-6d7a-4dc3-a590-b6fdacba1d15.png",
-        "heading": "Benefit Protection"
-      }
-    },
     "page_nav_header_MKJfL8": {
       "type": "page-nav-header",
       "blocks": {
+        "navigation_wfdVXN": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "Weekly Hot Deal"
+          }
+        },
         "navigation_mYtHPA": {
           "type": "Navigation",
           "settings": {
-            "nav_title": "Limited-Time Offer"
+            "nav_title": "Tiered Promotion"
           }
         },
         "navigation_DaHFAz": {
@@ -146,6 +104,7 @@
         }
       },
       "block_order": [
+        "navigation_wfdVXN",
         "navigation_mYtHPA",
         "navigation_DaHFAz",
         "navigation_HpaAHb",
@@ -177,6 +136,36 @@
           "womens-heated-vest-7-4v",
           "mens-waterproof-heated-lightweight-fellex-jacket"
         ]
+      }
+    },
+    "for_her_bestsellers_slider_8Rnnzj": {
+      "type": "for-her-bestsellers-slider",
+      "name": "For Her - Best Sellers",
+      "settings": {
+        "section_scroll_nav": "",
+        "nav_title": "Weekly Hot Deal",
+        "bg_color": "#ffffff",
+        "accent_color": "#b93205",
+        "heading": "Weekly Hot Deal",
+        "subheading": "Enjoy up to 45% off for a limited time. Black Friday Price Guarantee: If the price drops, we'll refund the difference.",
+        "collection": "deal-of-the-week",
+        "products_limit": 10,
+        "slides_per_view": 4
+      }
+    },
+    "for_her_bestsellers_slider_ixig9R": {
+      "type": "for-her-bestsellers-slider",
+      "name": "For Her - Best Sellers",
+      "settings": {
+        "section_scroll_nav": "",
+        "nav_title": "Tiered Promotion",
+        "bg_color": "#ffffff",
+        "accent_color": "#b93205",
+        "heading": "Tiered Promotion",
+        "subheading": "$25 off $150 | $70 off $300 | $120 off $500",
+        "collection": "campaign",
+        "products_limit": 10,
+        "slides_per_view": 4
       }
     },
     "for_her_bestsellers_slider_DtcfCr": {
@@ -537,6 +526,54 @@
         "nav_title": "FAQs",
         "heading": "Frequently asked questions"
       }
+    },
+    "campaign_benefits_Chrfcp": {
+      "type": "campaign-benefits",
+      "blocks": {
+        "benefit_QniKkN": {
+          "type": "benefit",
+          "settings": {
+            "icon": "shopify://shop_images/45648_2x_ee12e830-5654-47b6-b533-c240d2586400.png",
+            "heading": "3 - Year Limited Warranty",
+            "description": "Heating Elements Are Backed By The Best Warranty In The Industry"
+          }
+        },
+        "benefit_RnKM7R": {
+          "type": "benefit",
+          "settings": {
+            "icon": "shopify://shop_images/2500_2x_995c22d0-a53c-40c1-a049-c51907549f93.png",
+            "heading": "1 - Year Limited Warranty",
+            "description": "Industry-Leading Warranty Coverage for Batteries"
+          }
+        },
+        "benefit_ehactk": {
+          "type": "benefit",
+          "settings": {
+            "icon": "shopify://shop_images/45650_2x_ce137065-61b6-4f04-87df-6afa0020a18a.png",
+            "heading": "Free Shipping in the U.S. & CA",
+            "description": "Fast & Reliable Shipping for Everyday Needs"
+          }
+        },
+        "benefit_FU8nF6": {
+          "type": "benefit",
+          "settings": {
+            "icon": "shopify://shop_images/45647_2x_7a96cfc4-a8eb-424f-9c75-97793e69961f.png",
+            "heading": "Free Return Shipping in the U.S",
+            "description": "Enjoy Extended Holiday Returns Until Jan 15, 2027"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_QniKkN",
+        "benefit_RnKM7R",
+        "benefit_ehactk",
+        "benefit_FU8nF6"
+      ],
+      "name": "Campaign Benefits",
+      "settings": {
+        "heading_element": "shopify://shop_images/50629_2x_61bdc917-6d7a-4dc3-a590-b6fdacba1d15.png",
+        "heading": "Benefit Protection"
+      }
     }
   },
   "order": [
@@ -544,6 +581,8 @@
     "campaign_featured_events_PdAwHR",
     "page_nav_header_MKJfL8",
     "campaign_flash_sale_c6UcTp",
+    "for_her_bestsellers_slider_8Rnnzj",
+    "for_her_bestsellers_slider_ixig9R",
     "for_her_bestsellers_slider_DtcfCr",
     "campaign_large_scale_promotion_yAbiC4",
     "campaign_row_product_list_gB9t4M",
