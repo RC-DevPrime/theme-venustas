@@ -25,21 +25,24 @@
           "type": "event",
           "settings": {
             "icon": "shopify://shop_images/70647_2x_5ddb4804-7bd7-493e-a518-62b4b6c0f54a.png",
-            "heading": "<p><strong>Early Bird Specials</strong> - Up to 40% off & Free Shipping</p>"
+            "heading": "<p><strong>Early Bird Specials</strong> - Up to 40% off & Free Shipping</p>",
+            "link": "shopify://collections/campaign"
           }
         },
         "event_A68Kf6": {
           "type": "event",
           "settings": {
             "icon": "shopify://shop_images/campaign-icon.png",
-            "heading": "<p><strong>Bundle Deal</strong> - More Items, More Savings</p>"
+            "heading": "<p><strong>Bundle Deal</strong> - More Items, More Savings</p>",
+            "link": "shopify://collections/bundle-deal"
           }
         },
         "event_P7Wdff": {
           "type": "event",
           "settings": {
             "icon": "shopify://shop_images/45717_2x_b35a408f-eabb-49fd-98a9-9dc585fc0ce8.png",
-            "heading": "<p><strong>VIP Exclusive</strong> - Join Now & Get 100 Points + More Member Perks</p>"
+            "heading": "<p><strong>VIP Exclusive</strong> - Join Now & Get 100 Points + More Member Perks</p>",
+            "link": "shopify://pages/reward"
           }
         }
       },
@@ -179,8 +182,10 @@
       "type": "for-her-bestsellers-slider",
       "name": "For Her - Best Sellers",
       "settings": {
-        "bg_color": "#FFFFFF",
-        "accent_color": "#B93205",
+        "section_scroll_nav": "",
+        "nav_title": "Bundle Deal",
+        "bg_color": "#ffffff",
+        "accent_color": "#b93205",
         "heading": "Explore Our Bundle Deals",
         "subheading": "The Perfect Pairings, Better Value",
         "collection": "bundle-deal",
