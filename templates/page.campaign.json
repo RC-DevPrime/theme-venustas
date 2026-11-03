@@ -114,7 +114,19 @@
         "navigation_DaHFAz": {
           "type": "Navigation",
           "settings": {
-            "nav_title": "Promotion Event"
+            "nav_title": "Bundle Deal"
+          }
+        },
+        "navigation_HpaAHb": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "New Arrivals"
+          }
+        },
+        "navigation_kJQm8j": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "Recommended"
           }
         },
         "navigation_JBAUVD": {
@@ -133,6 +145,8 @@
       "block_order": [
         "navigation_mYtHPA",
         "navigation_DaHFAz",
+        "navigation_HpaAHb",
+        "navigation_kJQm8j",
         "navigation_JBAUVD",
         "navigation_bDg4Nx"
       ],
@@ -159,6 +173,19 @@
           "womens-heated-vest-7-4v",
           "mens-waterproof-heated-lightweight-fellex-jacket"
         ]
+      }
+    },
+    "for_her_bestsellers_slider_DtcfCr": {
+      "type": "for-her-bestsellers-slider",
+      "name": "For Her - Best Sellers",
+      "settings": {
+        "bg_color": "#FFFFFF",
+        "accent_color": "#B93205",
+        "heading": "Explore Our Bundle Deals",
+        "subheading": "Because you deserve the very best",
+        "collection": "bundle-deal",
+        "products_limit": 10,
+        "slides_per_view": 4
       }
     },
     "campaign_large_scale_promotion_yAbiC4": {
@@ -233,10 +260,10 @@
       "name": "Campaign Row Product List",
       "settings": {
         "enabled_section_child_scroll": true,
-        "section_scroll_nav": "Promotion Event",
-        "nav_title": "",
+        "section_scroll_nav": "New Arrivals",
+        "nav_title": "New Arrivals",
         "heading_element": "shopify://shop_images/45704_2x_79fd30ab-5e86-430a-87da-7919045570e0.png",
-        "heading": "Add-Ons & Accessories"
+        "heading": "New Arrivals"
       }
     },
     "campaign_column_product_list_j3EMHg": {
@@ -261,6 +288,7 @@
         "product_XwU8i4",
         "product_37WVqC"
       ],
+      "disabled": true,
       "name": "Campaign Column Prod List",
       "settings": {
         "enabled_section_child_scroll": true,
@@ -316,10 +344,10 @@
       "name": "Campaign Tab Product List",
       "settings": {
         "enabled_section_child_scroll": true,
-        "section_scroll_nav": "Promotion Event",
-        "nav_title": "",
+        "section_scroll_nav": "Recommended",
+        "nav_title": "Recommended",
         "heading_element": "shopify://shop_images/70401_2x_4340d9f6-2dd2-4062-91db-94ab3a881f35.png",
-        "heading": "Add-Ons & Accessories"
+        "heading": "Recommended for You"
       }
     },
     "campaign_sale_steps_gGFixL": {
@@ -503,19 +531,6 @@
         "nav_title": "FAQs",
         "heading": "Frequently asked questions"
       }
-    },
-    "for_her_bestsellers_slider_DtcfCr": {
-      "type": "for-her-bestsellers-slider",
-      "name": "For Her - Best Sellers",
-      "settings": {
-        "bg_color": "#FFFFFF",
-        "accent_color": "#B93205",
-        "heading": "Explore Our Best-sellers",
-        "subheading": "Because you deserve the very best",
-        "collection": "bundle-deal",
-        "products_limit": 10,
-        "slides_per_view": 4
-      }
     }
   },
   "order": [
@@ -524,6 +539,7 @@
     "campaign_benefits_Chrfcp",
     "page_nav_header_MKJfL8",
     "campaign_flash_sale_c6UcTp",
+    "for_her_bestsellers_slider_DtcfCr",
     "campaign_large_scale_promotion_yAbiC4",
     "campaign_row_product_list_gB9t4M",
     "campaign_column_product_list_j3EMHg",
@@ -532,7 +548,6 @@
     "campaign_gift_list_slider_NnRgWD",
     "campaign_community_banner_pEeY6j",
     "campaign_event_subscribe_L9D7WE",
-    "campaign_faqs_VxGRFN",
-    "for_her_bestsellers_slider_DtcfCr"
+    "campaign_faqs_VxGRFN"
   ]
 }
