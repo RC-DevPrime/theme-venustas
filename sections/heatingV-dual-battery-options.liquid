@@ -1,0 +1,234 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options {
+    overflow: hidden;
+    background: linear-gradient(180deg, #1a1a1a 0%, #2f0808 54.76%, #1a1a1a 100%);
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__inner {
+    display: flex;
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    flex-direction: column;
+    gap: 100px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__intro {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__title,
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__description,
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__card-title,
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__card-description {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__title {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.952px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__description {
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__cards {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__card {
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__media {
+    position: relative;
+    width: 100%;
+    height: 340px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #171717;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__picture,
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__image {
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__placeholder {
+    display: grid;
+    height: 100%;
+    place-items: center;
+    color: #888;
+    font-size: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__card-title {
+    padding-top: 22px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: -0.4px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-dual-battery-options__card-description {
+    padding-top: 6px;
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingV-dual-battery-options__inner {
+      width: 100%;
+      padding: 56px 20px;
+      gap: 56px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-dual-battery-options__title {
+      font-size: 26px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-dual-battery-options__description {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-dual-battery-options__cards {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-dual-battery-options__media {
+      height: auto;
+      aspect-ratio: 350 / 182;
+      border-radius: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-dual-battery-options__card-title {
+      padding-top: 16px;
+      font-size: 18px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="heatingV-dual-battery-options" id="heatingv-dual-battery-options">
+  <div class="heatingV-dual-battery-options__inner">
+    <header class="heatingV-dual-battery-options__intro">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heatingV-dual-battery-options__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="heatingV-dual-battery-options__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="heatingV-dual-battery-options__cards">
+      {%- for block in section.blocks -%}
+        {%- assign desktop_image = block.settings.image | default: block.settings.mobile_image -%}
+        {%- assign mobile_image = block.settings.mobile_image | default: desktop_image -%}
+        <article class="heatingV-dual-battery-options__card" {{ block.shopify_attributes }}>
+          <div class="heatingV-dual-battery-options__media">
+            {%- if desktop_image != blank -%}
+              <picture class="heatingV-dual-battery-options__picture">
+                <source
+                  media="(max-width: 767px)"
+                  srcset="{{ mobile_image | image_url: width: 700 }} 700w"
+                  sizes="calc(100vw - 40px)"
+                >
+                {{ desktop_image | image_url: width: 1400 | image_tag: class: 'heatingV-dual-battery-options__image', loading: 'lazy', widths: '350, 700, 1000, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), 654px', alt: block.settings.title }}
+              </picture>
+            {%- else -%}
+              <div class="heatingV-dual-battery-options__placeholder">{{ 'image' | placeholder_svg_tag }}</div>
+            {%- endif -%}
+          </div>
+          {%- if block.settings.title != blank -%}
+            <h3 class="heatingV-dual-battery-options__card-title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+          {%- if block.settings.description != blank -%}
+            <div class="heatingV-dual-battery-options__card-description">{{ block.settings.description }}</div>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HeatingV Battery Options",
+  "tag": "section",
+  "class": "heatingv-dual-battery-options-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Two 54Wh Batteries. Run Both, or Just One."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Four times the heat needs power to match. Both batteries come in the box and can run the vest at the same time, one at each side. On a shorter day, take one and leave the other charging.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "battery_option",
+      "name": "Battery option",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Desktop image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Both at once"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>The longest day. One battery in the pocket inside the left hand warmer, one in the right side seam, so the weight is split evenly and never sits on your back.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HeatingV Battery Options",
+      "blocks": [
+        { "type": "battery_option" },
+        { "type": "battery_option" }
+      ]
+    }
+  ]
+}
+{% endschema %}
