@@ -97,18 +97,11 @@
       ],
       "settings": {}
     },
-    "heating_v_volcano_chart_zzDa64": {
-      "type": "heatingV-volcano-chart",
-      "name": "HeatingV Volcano Chart",
-      "settings": {
-        "title": "In Mild Cold, Most Vests Keep Up. In Extreme Cold, They Fall Behind",
-        "subtitle": "Two scenarios, six hours outside. The gap opens when the temperature drops, the wind picks up and you stop moving."
-      }
-    },
     "heating_v_cold_performance_8jf6W4": {
       "type": "heatingV-cold-performance",
       "name": "HeatingV Cold Performance",
       "settings": {
+        "desktop_image": "shopify://shop_images/heatingW-banner.webp",
         "image_alt": "Ice fishing in heated vests on a frozen lake",
         "heading": "The Warmest Vest We've Ever Made",
         "description": "Built for the cold where an everyday heated vest gives up. 4 times the heating power, 6 zones front and back, sealed in a windproof three-layer shell.",
@@ -117,40 +110,20 @@
         "toggle_label": "Toggle expanded cold performance details"
       }
     },
+    "heating_v_volcano_chart_zzDa64": {
+      "type": "heatingV-volcano-chart",
+      "name": "HeatingV Volcano Chart",
+      "settings": {
+        "title": "In Mild Cold, Most Vests Keep Up. In Extreme Cold, They Fall Behind",
+        "subtitle": "Two scenarios, six hours outside. The gap opens when the temperature drops, the wind picks up and you stop moving."
+      }
+    },
     "heating_v_4x_gear_JArhe4": {
       "type": "heatingV-4x-gear",
       "name": "HeatingV 4X Gear",
       "settings": {
         "first_desktop_image": "shopify://shop_images/heatingV-black-gear.webp",
         "first_frame_duration": 1
-      }
-    },
-    "heating_v_dual_battery_options_QxEkYM": {
-      "type": "heatingV-dual-battery-options",
-      "blocks": {
-        "battery_option_pAEhf8": {
-          "type": "battery_option",
-          "settings": {
-            "title": "Both at once",
-            "description": "<p>The longest day. One battery in the pocket inside the left hand warmer, one in the right side seam, so the weight is split evenly and never sits on your back.</p>"
-          }
-        },
-        "battery_option_T9VHzr": {
-          "type": "battery_option",
-          "settings": {
-            "title": "Both at once",
-            "description": "<p>The longest day. One battery in the pocket inside the left hand warmer, one in the right side seam, so the weight is split evenly and never sits on your back.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "battery_option_pAEhf8",
-        "battery_option_T9VHzr"
-      ],
-      "name": "HeatingV Battery Options",
-      "settings": {
-        "title": "Two 54Wh Batteries. Run Both, or Just One.",
-        "description": "<p>Four times the heat needs power to match. Both batteries come in the box and can run the vest at the same time, one at each side. On a shorter day, take one and leave the other charging.</p>"
       }
     },
     "heating_v_off_bike_runtime_6zKDyh": {
@@ -185,6 +158,34 @@
       "settings": {
         "desktop_image": "shopify://shop_images/heatingM-battery-new.webp",
         "image_alt": "Four clothing layers protecting against wind and cold"
+      }
+    },
+    "heating_v_dual_battery_options_QxEkYM": {
+      "type": "heatingV-dual-battery-options",
+      "blocks": {
+        "battery_option_pAEhf8": {
+          "type": "battery_option",
+          "settings": {
+            "title": "Both at once",
+            "description": "<p>The longest day. One battery in the pocket inside the left hand warmer, one in the right side seam, so the weight is split evenly and never sits on your back.</p>"
+          }
+        },
+        "battery_option_T9VHzr": {
+          "type": "battery_option",
+          "settings": {
+            "title": "Both at once",
+            "description": "<p>The longest day. One battery in the pocket inside the left hand warmer, one in the right side seam, so the weight is split evenly and never sits on your back.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "battery_option_pAEhf8",
+        "battery_option_T9VHzr"
+      ],
+      "name": "HeatingV Battery Options",
+      "settings": {
+        "title": "Two 54Wh Batteries. Run Both, or Just One.",
+        "description": "<p>Four times the heat needs power to match. Both batteries come in the box and can run the vest at the same time, one at each side. On a shorter day, take one and leave the other charging.</p>"
       }
     },
     "heating_v_runtime_gyitbe": {
@@ -497,8 +498,8 @@
   },
   "order": [
     "main-product",
-    "heating_v_volcano_chart_zzDa64",
     "heating_v_cold_performance_8jf6W4",
+    "heating_v_volcano_chart_zzDa64",
     "heating_v_4x_gear_JArhe4",
     "heating_v_off_bike_runtime_6zKDyh",
     "heating_v_four_layers_AFteKD",
