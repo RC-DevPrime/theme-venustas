@@ -1,3 +1,13 @@
+{%- if section.settings.gender == 'female' -%}
+  {%- assign classic_heading = 'CLASSIC W2118' -%}
+  {%- assign volcano_heading = 'VOLCANOM™ PRO WV2' -%}
+  {%- assign volcano_power = '38W, 4x' -%}
+{%- else -%}
+  {%- assign classic_heading = 'CLASSIC M2118' -%}
+  {%- assign volcano_heading = 'VOLCANOM™ PRO MV11' -%}
+  {%- assign volcano_power = '41W, 4x' -%}
+{%- endif -%}
+
 {% style %}
   #shopify-section-{{ section.id }} .heatingV-layering-compare { color: #fff; background: linear-gradient(180deg, #1a1a1a 0%, #420d0d 100%); font-family: var(--font-primary, 'Montserrat', sans-serif); }
   #shopify-section-{{ section.id }} .heatingV-layering-compare__inner { width: min(calc(100% - 100px), 1440px); max-width: 1340px; margin: 0 auto; padding: 100px 0; }
@@ -40,9 +50,15 @@
     </div>
     <div class="heatingV-layering-compare__scroll">
       <div class="heatingV-layering-compare__table" role="table" aria-label="Volcano and Classic vest comparison">
-        <div class="heatingV-layering-compare__row heatingV-layering-compare__row--head" role="row"><span></span><span>{{ section.settings.classic_heading | escape }}</span><span class="heatingV-layering-compare__logo">{{ section.settings.volcano_heading | escape }}</span></div>
+        <div class="heatingV-layering-compare__row heatingV-layering-compare__row--head" role="row"><span></span><span>{{ classic_heading }}</span><span class="heatingV-layering-compare__logo">{{ volcano_heading }}</span></div>
         {%- for block in section.blocks -%}
-          <div class="heatingV-layering-compare__row" role="row" {{ block.shopify_attributes }}><span class="heatingV-layering-compare__label">{{ block.settings.label | escape }}</span><span class="heatingV-layering-compare__value">{{ block.settings.classic_value | escape }}</span><span class="heatingV-layering-compare__value">{{ block.settings.volcano_value | escape }}</span></div>
+          <div class="heatingV-layering-compare__row" role="row" {{ block.shopify_attributes }}>
+            <span class="heatingV-layering-compare__label">{{ block.settings.label | escape }}</span>
+            <span class="heatingV-layering-compare__value">{{ block.settings.classic_value | escape }}</span>
+            <span class="heatingV-layering-compare__value">
+              {%- if block.settings.label == 'Heating power' -%}{{ volcano_power }}{%- else -%}{{ block.settings.volcano_value | escape }}{%- endif -%}
+            </span>
+          </div>
         {%- endfor -%}
       </div>
     </div>
@@ -59,8 +75,16 @@
   "settings": [
     { "type": "text", "id": "title", "label": "Title", "default": "Volcano or Classic?" },
     { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "It depends on how cold your cold gets." },
-    { "type": "text", "id": "classic_heading", "label": "Classic heading", "default": "CLASSIC M2118" },
-    { "type": "text", "id": "volcano_heading", "label": "Volcano heading", "default": "VOLCANOM™ PRO MV11" },
+    {
+      "type": "select",
+      "id": "gender",
+      "label": "Product version",
+      "options": [
+        { "value": "male", "label": "Men's" },
+        { "value": "female", "label": "Women's" }
+      ],
+      "default": "male"
+    },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "See the Classic vest" },
     { "type": "url", "id": "button_link", "label": "Button link" }
   ],

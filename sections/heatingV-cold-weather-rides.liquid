@@ -33,7 +33,8 @@
     #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__card,
     #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__card.is-active,
     #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__card:hover { width: 300px; flex-basis: 300px; height: 380px; scroll-snap-align: center; cursor: default; }
-    #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__copy { padding: 20px; }
+    #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__copy { padding: 20px;top:0; }
+    #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__accent { display: none; }
     #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__card-title { padding: 12px; border-radius: 6px; background: rgba(255,255,255,.64); color: #1a1a1a; font-size: 14px; line-height: 1.3; text-align: center; white-space: normal; }
     #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__card-description { margin-top: 0 !important; padding: 0 12px 12px; border-radius: 0 0 6px 6px; background: rgba(255,255,255,.64); color: #1a1a1a; font-size: 14px; font-style: normal; line-height: 1.4; text-align: center; opacity: 1; }
     #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__mobile-controls { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
@@ -73,9 +74,49 @@
       const viewport = root.querySelector('.heatingV-cold-weather-rides__viewport');
       const dots = [...root.querySelectorAll('.heatingV-cold-weather-rides__dot')];
       if (!cards.length || !viewport) return;
+      let replayTimer;
+      let sectionInView = false;
+
+      const stopReplay = () => {
+        window.clearTimeout(replayTimer);
+        cards.forEach((card) => card.classList.remove('is-active'));
+        cards[0]?.classList.add('is-active');
+      };
+
+      const replayDesktopAnimation = () => {
+        if (!window.matchMedia('(min-width: 768px)').matches) return;
+        window.clearTimeout(replayTimer);
+        cards.forEach((card) => card.classList.remove('is-active'));
+        let index = 0;
+        const step = () => {
+          cards.forEach((card, cardIndex) => card.classList.toggle('is-active', cardIndex === index));
+          index += 1;
+          if (index < cards.length) replayTimer = window.setTimeout(step, 720);
+          else replayTimer = window.setTimeout(() => cards[0]?.classList.add('is-active'), 720);
+        };
+        window.requestAnimationFrame(step);
+      };
+
       cards.forEach((card, index) => card.addEventListener('mouseenter', () => { if (window.matchMedia('(min-width: 768px)').matches) { cards.forEach((item) => item.classList.remove('is-active')); card.classList.add('is-active'); } }));
       dots.forEach((dot, index) => dot.addEventListener('click', () => { cards[index]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }));
       viewport.addEventListener('scroll', () => { if (window.matchMedia('(max-width: 767px)').matches) { const center = viewport.scrollLeft + viewport.clientWidth / 2; let active = 0; cards.forEach((card, index) => { if (Math.abs(card.offsetLeft + card.offsetWidth / 2 - center) < Math.abs(cards[active].offsetLeft + cards[active].offsetWidth / 2 - center)) active = index; }); dots.forEach((dot, index) => dot.classList.toggle('is-active', index === active)); } }, { passive: true });
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.intersectionRatio >= 0.35 && !sectionInView) {
+              sectionInView = true;
+              replayDesktopAnimation();
+            } else if (entry.intersectionRatio < 0.1 && sectionInView) {
+              sectionInView = false;
+              stopReplay();
+            }
+          });
+        }, { threshold: [0, 0.1, 0.35] });
+        observer.observe(viewport);
+      } else {
+        replayDesktopAnimation();
+      }
     };
     document.querySelectorAll('[data-heatingv-rides]').forEach(init);
     document.addEventListener('shopify:section:load', (event) => { const root = event.target.querySelector?.('[data-heatingv-rides]'); if (root) init(root); });

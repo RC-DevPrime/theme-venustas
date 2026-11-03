@@ -2,6 +2,11 @@
 {%- assign first_mobile = section.settings.first_mobile_image | default: first_desktop -%}
 {%- assign second_desktop = section.settings.second_desktop_image | default: section.settings.second_mobile_image -%}
 {%- assign second_mobile = section.settings.second_mobile_image | default: second_desktop -%}
+{%- if section.settings.gender == 'female' -%}
+  {%- assign wattage = '38' -%}
+{%- else -%}
+  {%- assign wattage = '41' -%}
+{%- endif -%}
 
 {% style %}
   #shopify-section-{{ section.id }} .heatingV-4x-gear {
@@ -25,7 +30,11 @@
     padding: 100px 0;
     align-items: center;
     gap: 40px;
+    background-color:#1A1A1A;
   }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__media { order: 2; }
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__content { order: 1; }
 
   /* ---------- Media ---------- */
   #shopify-section-{{ section.id }} .heatingV-4x-gear__media {
@@ -100,6 +109,7 @@
   }
 
   #shopify-section-{{ section.id }} .heatingV-4x-gear__eyebrow {
+    display: none;
     margin: 0;
     color: #b93205;
     font-size: 16px;
@@ -431,7 +441,7 @@
         <p class="heatingV-4x-gear__eyebrow">Built for &minus;40&deg;F to 41&deg;F</p>
         <h2 class="heatingV-4x-gear__title">The Heating Power of Our Everyday Vests</h2>
         <p class="heatingV-4x-gear__desc">
-          Every heated vest can reach a top temperature. The question is whether it can hold it while the cold pulls heat away. Volcano puts 38W behind the same 144&deg;F, four times what our everyday vests deliver.
+          Every heated vest can reach a top temperature. The question is whether it can hold it while the cold pulls heat away. Volcano puts {{ wattage }}W behind the same 144&deg;F, four times what our everyday vests deliver.
         </p>
       </div>
 
@@ -448,7 +458,7 @@
                 <span class="heatingV-4x-gear__fill-label">Volcano&trade; Heated Liner</span>
               </div>
             </div>
-            <p class="heatingV-4x-gear__value">38 Watts</p>
+            <p class="heatingV-4x-gear__value">{{ wattage }} Watts</p>
           </div>
 
           <div class="heatingV-4x-gear__row heatingV-4x-gear__row--standard">
@@ -556,6 +566,16 @@
       "step": 1,
       "unit": "s",
       "default": 1
+    },
+    {
+      "type": "select",
+      "id": "gender",
+      "label": "Product version",
+      "options": [
+        { "value": "male", "label": "Men's" },
+        { "value": "female", "label": "Women's" }
+      ],
+      "default": "male"
     },
     {
       "type": "header",

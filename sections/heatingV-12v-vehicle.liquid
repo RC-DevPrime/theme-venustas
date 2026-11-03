@@ -15,8 +15,8 @@
   #shopify-section-{{ section.id }} .heatingV-12v-vehicle__description { font-size: 16px; line-height: 1.72; }
   @media (max-width: 1024px) { #shopify-section-{{ section.id }} .heatingV-12v-vehicle__inner { width: min(calc(100% - 64px), 1340px); padding: 80px 0; } #shopify-section-{{ section.id }} .heatingV-12v-vehicle__title { font-size: 30px; } }
   @media (max-width: 767px) {
-    #shopify-section-{{ section.id }} .heatingV-12v-vehicle__inner { display: flex; width: 350px; min-height: 0; flex-direction: column; align-items: stretch; gap: 40px; padding: 80px 0; }
-    #shopify-section-{{ section.id }} .heatingV-12v-vehicle__media { width: 351px; height: 340px; flex-basis: 340px; }
+    #shopify-section-{{ section.id }} .heatingV-12v-vehicle__inner { display: flex; width: calc(100% - 40px); min-height: 0; flex-direction: column; align-items: stretch; gap: 40px; padding: 80px 0; }
+    #shopify-section-{{ section.id }} .heatingV-12v-vehicle__media { width: 100%; aspect-ratio: 350 / 340; flex-basis: 340px; }
     #shopify-section-{{ section.id }} .heatingV-12v-vehicle__copy { gap: 16px; }
     #shopify-section-{{ section.id }} .heatingV-12v-vehicle__heading { gap: 16px; }
     #shopify-section-{{ section.id }} .heatingV-12v-vehicle__eyebrow { font-size: 16px; letter-spacing: .64px; }
