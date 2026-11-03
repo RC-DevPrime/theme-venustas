@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "sections": {
     "campaign_banner_countdown_xUfc3i": {
       "type": "campaign-banner-countdown",
@@ -31,7 +31,7 @@
         "event_A68Kf6": {
           "type": "event",
           "settings": {
-            "icon": "shopify://shop_images/45716_2x_ddce70be-3672-42b5-92d6-6f52ac741f35.png",
+            "icon": "shopify://shop_images/campaign-icon.png",
             "heading": "<p><strong>Bundle Deal</strong> - More Items, More Savings</p>"
           }
         },
@@ -86,7 +86,7 @@
           "settings": {
             "icon": "shopify://shop_images/45647_2x_7a96cfc4-a8eb-424f-9c75-97793e69961f.png",
             "heading": "Free Return Shipping in the U.S",
-            "description": "Hassle - Free Returns for Customer Satisfaction"
+            "description": "Enjoy Extended Holiday Returns Until Jan 15, 2027"
           }
         }
       },
@@ -114,7 +114,19 @@
         "navigation_DaHFAz": {
           "type": "Navigation",
           "settings": {
-            "nav_title": "Promotion Event"
+            "nav_title": "Bundle Deal"
+          }
+        },
+        "navigation_HpaAHb": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "New Arrivals"
+          }
+        },
+        "navigation_kJQm8j": {
+          "type": "Navigation",
+          "settings": {
+            "nav_title": "Recommended"
           }
         },
         "navigation_JBAUVD": {
@@ -133,6 +145,8 @@
       "block_order": [
         "navigation_mYtHPA",
         "navigation_DaHFAz",
+        "navigation_HpaAHb",
+        "navigation_kJQm8j",
         "navigation_JBAUVD",
         "navigation_bDg4Nx"
       ],
@@ -159,6 +173,19 @@
           "womens-heated-vest-7-4v",
           "mens-waterproof-heated-lightweight-fellex-jacket"
         ]
+      }
+    },
+    "for_her_bestsellers_slider_DtcfCr": {
+      "type": "for-her-bestsellers-slider",
+      "name": "For Her - Best Sellers",
+      "settings": {
+        "bg_color": "#FFFFFF",
+        "accent_color": "#B93205",
+        "heading": "Explore Our Bundle Deals",
+        "subheading": "The Perfect Pairings, Better Value",
+        "collection": "bundle-deal",
+        "products_limit": 10,
+        "slides_per_view": 4
       }
     },
     "campaign_large_scale_promotion_yAbiC4": {
@@ -194,6 +221,7 @@
         "gift_xKXEhV",
         "gift_KFbXKQ"
       ],
+      "disabled": true,
       "name": "Campaign Large Promo",
       "settings": {
         "enabled_section_child_scroll": false,
@@ -214,14 +242,14 @@
           "type": "product",
           "settings": {
             "featured_image": "shopify://shop_images/40375_2x_7c3c98ec-6bf1-4696-9b67-fbeade5ff4f1.png",
-            "product": "womens-recycled-heated-lightweight-down-vest-7-4v"
+            "product": "apex-12v-heated-motorcycle-jacket-liner"
           }
         },
         "product_XTYUJz": {
           "type": "product",
           "settings": {
             "featured_image": "shopify://shop_images/40375_2x_1.png",
-            "product": "mens-3-in-1-heated-jacket-7-4v"
+            "product": "apex-12v-heated-motorcycle-pants-liner"
           }
         }
       },
@@ -233,10 +261,10 @@
       "name": "Campaign Row Product List",
       "settings": {
         "enabled_section_child_scroll": true,
-        "section_scroll_nav": "Promotion Event",
-        "nav_title": "",
+        "section_scroll_nav": "New Arrivals",
+        "nav_title": "New Arrivals",
         "heading_element": "shopify://shop_images/45704_2x_79fd30ab-5e86-430a-87da-7919045570e0.png",
-        "heading": "Add-Ons & Accessories"
+        "heading": "New Arrivals"
       }
     },
     "campaign_column_product_list_j3EMHg": {
@@ -245,15 +273,15 @@
         "product_XwU8i4": {
           "type": "product",
           "settings": {
-            "featured_image": "shopify://shop_images/40377_2x_0268a4f9-b11c-49f5-a1a7-048913b83d2d.png",
-            "product": "womens-dual-heated-classic-vest-12v"
+            "featured_image": "shopify://shop_images/MMJ.png",
+            "product": "apex-12v-heated-motorcycle-jacket-liner"
           }
         },
         "product_37WVqC": {
           "type": "product",
           "settings": {
-            "featured_image": "shopify://shop_images/40377_2x_1.png",
-            "product": "mens-classic-heated-vest-venustas"
+            "featured_image": "shopify://shop_images/MMP.png",
+            "product": "apex-12v-heated-motorcycle-pants-liner"
           }
         }
       },
@@ -264,11 +292,11 @@
       "name": "Campaign Column Prod List",
       "settings": {
         "enabled_section_child_scroll": true,
-        "section_scroll_nav": "Promotion Event",
-        "nav_title": "",
+        "section_scroll_nav": "",
+        "nav_title": "New Arrivals",
         "heading_element": "shopify://shop_images/45695_2x_3aa542c4-91a2-4d89-aac2-540f50080553.png",
         "heading": "New Arrivals",
-        "link": "shopify://collections"
+        "link": "shopify://collections/new-arrivals"
       }
     },
     "campaign_tab_product_list_Qf6PEC": {
@@ -316,10 +344,10 @@
       "name": "Campaign Tab Product List",
       "settings": {
         "enabled_section_child_scroll": true,
-        "section_scroll_nav": "Promotion Event",
-        "nav_title": "",
+        "section_scroll_nav": "",
+        "nav_title": "Recommended",
         "heading_element": "shopify://shop_images/70401_2x_4340d9f6-2dd2-4062-91db-94ab3a881f35.png",
-        "heading": "Add-Ons & Accessories"
+        "heading": "Recommended for You"
       }
     },
     "campaign_sale_steps_gGFixL": {
@@ -430,11 +458,12 @@
         "heading": "Join the Venustas Heatwave Club",
         "description": "<p>Become a member today and unlock exclusive access to discounts, news, and special events.<br/>Earn more Heatwave Points with every purchase and activity—redeem them for rewards and enjoy the warmth of being part of the Venustas family.</p>",
         "btn_label": "Join now",
-        "btn_link": ""
+        "btn_link": "#smile-home"
       }
     },
     "campaign_event_subscribe_L9D7WE": {
       "type": "campaign-event-subscribe",
+      "disabled": true,
       "name": "Campaign Event Subscribe",
       "settings": {
         "enabled_section_child_scroll": false,
@@ -442,7 +471,7 @@
         "nav_title": "",
         "background_image": "shopify://shop_images/40888_2x_6b196a88-79a6-4580-b8b0-d4e2a736787f.png",
         "sub_heading": "Be The First To Feel The Heat Of",
-        "heading": "Black Friday Sale",
+        "heading": "Early Black Friday Sale",
         "col_1_text": "27.",
         "col_2_text": "11.",
         "col_3_text": "18:00",
@@ -455,36 +484,36 @@
         "faq_TQWcGq": {
           "type": "FAQ",
           "settings": {
-            "heading": "How long does shipping take and how can l track my package?",
-            "body": "<p>Usually deliverina within 5-7 business davs, You can track vour packaae here : <a href=\"https://venustas.aftership.com/\" target=\"_blank\" title=\"https://venustas.aftership.com/\">https://venustas.aftership.com/</a></p>"
+            "heading": "When does the Early Black Friday Sale end?",
+            "body": "<p>Our Early Black Friday Sale ends on November 16, 2026, at 11:59 PM (PST). Shop now to enjoy exclusive deals before the sale ends!</p>"
           }
         },
         "faq_rLzrGb": {
           "type": "FAQ",
           "settings": {
-            "heading": "Are heated vests safe?",
-            "body": "<p>Sample 1</p>"
+            "heading": "Can I combine multiple discounts or promo codes?",
+            "body": "<p>Discount codes and promotional offers cannot be combined unless otherwise stated. Please check the promotion details before placing your order.</p>"
           }
         },
         "faq_UnKerq": {
           "type": "FAQ",
           "settings": {
-            "heading": "Can I wash the heated vest?",
-            "body": "<p>Sample 1</p>"
+            "heading": "How do I apply a discount code?",
+            "body": "<p>Enter your promo code in the discount code field at checkout and click Apply. The discount will be reflected in your order total if eligible.</p>"
           }
         },
         "faq_KJf4tg": {
           "type": "FAQ",
           "settings": {
-            "heading": "Can l take a heated vest on a plane?",
-            "body": "<p>Sample 1</p>"
+            "heading": "How long does shipping take during the Black Friday Sale?",
+            "body": "<p>Orders are processed as quickly as possible. During peak shopping periods, processing and delivery may take slightly longer than usual. You'll receive a shipping confirmation email with tracking information once your order ships.</p>"
           }
         },
         "faq_RqJg9h": {
           "type": "FAQ",
           "settings": {
-            "heading": "How long does shipping take and how can l track my package?",
-            "body": "<p>Sample 2</p>"
+            "heading": "What is your return policy for Black Friday purchases?",
+            "body": "<p>We've extended our holiday return window through January 15, 2027, to make holiday shopping worry-free! Orders of brand-new items placed from October 27, 2026, are eligible for extended returns, provided customers are VENUSTAS Heatwave Club Members at the time of purchase. Items must be brand-new, unworn, and have tags attached. Outlet and Final Sale items are not eligible for returns or exchanges.</p><p>For full details, please visit our <a href=\"https://venustas.com/pages/return-and-exchange-policy\">Return & Exchange Policy</a>.</p>"
           }
         }
       },
@@ -510,6 +539,7 @@
     "campaign_benefits_Chrfcp",
     "page_nav_header_MKJfL8",
     "campaign_flash_sale_c6UcTp",
+    "for_her_bestsellers_slider_DtcfCr",
     "campaign_large_scale_promotion_yAbiC4",
     "campaign_row_product_list_gB9t4M",
     "campaign_column_product_list_j3EMHg",

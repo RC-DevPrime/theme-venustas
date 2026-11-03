@@ -29,6 +29,19 @@
     .campaign-featured-events-section .swiper-slide{
         position:relative;
     }
+    .campaign-featured-events-section .event-link{
+        position:absolute;
+        inset:0;
+        z-index:1;
+    }
+    .campaign-featured-events-section .event-link:focus-visible{
+        outline:2px solid #fff;
+        outline-offset:-4px;
+    }
+    .campaign-featured-events-section .content-container a{
+        position:relative;
+        z-index:2;
+    }
     .campaign-featured-events-section .swiper-slide img{
         width:100%;
         height:100%;
@@ -133,7 +146,7 @@
         <div class="event-list-container-slider position-relative">
             <div class="swiper-wrapper">
                 {% for block in section.blocks %}
-                    <div class="swiper-slide">
+                    <div class="swiper-slide" {{ block.shopify_attributes }}>
                         {% assign odd_check = forloop.index | modulo: 2 %}
                         {% if odd_check == 1 %}
                             <img class="bg-image" src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/50851_2x_1.png?v=1761046815" alt="">
@@ -155,6 +168,9 @@
                                 </div>
                             </div>
                         </div>
+                        {% if block.settings.link != blank %}
+                            <a class="event-link" href="{{ block.settings.link | escape }}" aria-label="{{ block.settings.heading | strip_html | strip | default: section.settings.heading | default: block.type | escape }}"></a>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>
@@ -205,6 +221,11 @@
                         "type": "richtext",
                         "id": "heading",
                         "label": "Heading"
+                    },
+                    {
+                        "type": "url",
+                        "id": "link",
+                        "label": "Link"
                     }
                 ]
             }
@@ -213,4 +234,4 @@
             "name" : "Campaign Featured Events"
         }]
     }
-  {% endschema %} 
+  {% endschema %}
