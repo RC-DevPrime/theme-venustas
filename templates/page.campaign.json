@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "campaign_banner_countdown_xUfc3i": {
       "type": "campaign-banner-countdown",
@@ -25,21 +25,24 @@
           "type": "event",
           "settings": {
             "icon": "shopify://shop_images/70647_2x_5ddb4804-7bd7-493e-a518-62b4b6c0f54a.png",
-            "heading": "<p><strong>Early Bird Specials</strong> - Up to 40% off & Free Shipping</p>"
+            "heading": "<p><strong>Early Bird Specials</strong> - Up to 40% off & Free Shipping</p>",
+            "link": ""
           }
         },
         "event_A68Kf6": {
           "type": "event",
           "settings": {
             "icon": "shopify://shop_images/campaign-icon.png",
-            "heading": "<p><strong>Bundle Deal</strong> - More Items, More Savings</p>"
+            "heading": "<p><strong>Bundle Deal</strong> - More Items, More Savings</p>",
+            "link": ""
           }
         },
         "event_P7Wdff": {
           "type": "event",
           "settings": {
             "icon": "shopify://shop_images/45717_2x_b35a408f-eabb-49fd-98a9-9dc585fc0ce8.png",
-            "heading": "<p><strong>VIP Exclusive</strong> - Join Now & Get 100 Points + More Member Perks</p>"
+            "heading": "<p><strong>VIP Exclusive</strong> - Join Now & Get 100 Points + More Member Perks</p>",
+            "link": ""
           }
         }
       },
@@ -160,6 +163,7 @@
     },
     "campaign_flash_sale_c6UcTp": {
       "type": "campaign-flash-sale",
+      "disabled": true,
       "name": "Campaign Flash Sale",
       "settings": {
         "enabled_section_child_scroll": false,
@@ -179,8 +183,10 @@
       "type": "for-her-bestsellers-slider",
       "name": "For Her - Best Sellers",
       "settings": {
-        "bg_color": "#FFFFFF",
-        "accent_color": "#B93205",
+        "section_scroll_nav": "",
+        "nav_title": "",
+        "bg_color": "#ffffff",
+        "accent_color": "#b93205",
         "heading": "Explore Our Bundle Deals",
         "subheading": "The Perfect Pairings, Better Value",
         "collection": "bundle-deal",
@@ -536,7 +542,6 @@
   "order": [
     "campaign_banner_countdown_xUfc3i",
     "campaign_featured_events_PdAwHR",
-    "campaign_benefits_Chrfcp",
     "page_nav_header_MKJfL8",
     "campaign_flash_sale_c6UcTp",
     "for_her_bestsellers_slider_DtcfCr",
@@ -548,6 +553,7 @@
     "campaign_gift_list_slider_NnRgWD",
     "campaign_community_banner_pEeY6j",
     "campaign_event_subscribe_L9D7WE",
-    "campaign_faqs_VxGRFN"
+    "campaign_faqs_VxGRFN",
+    "campaign_benefits_Chrfcp"
   ]
 }
