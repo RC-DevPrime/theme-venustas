@@ -28,6 +28,8 @@
     }
     .campaign-featured-events-section .swiper-slide{
         position:relative;
+        width:calc((100% - 70px) / 3);
+        margin-right:35px;
     }
     .campaign-featured-events-section .event-link{
         position:absolute;
@@ -126,6 +128,20 @@
         }
         .campaign-featured-events-section .event-list-container-slider .swiper-pagination span.swiper-pagination-bullet-active{
             width:35px;
+        }
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 1023px) {
+        .campaign-featured-events-section .swiper-slide{
+            width:calc((100% - 20px) / 2);
+            margin-right:20px;
+        }
+    }
+
+    @media only screen and (max-width: 767px) {
+        .campaign-featured-events-section .swiper-slide{
+            width:90.909%;
+            margin-right:15px;
         }
     }
 

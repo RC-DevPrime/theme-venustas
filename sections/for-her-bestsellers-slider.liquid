@@ -1,5 +1,7 @@
 {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
 
+{% assign bestsellers_desktop_gap = section.settings.slides_per_view | minus: 1 | times: 24 %}
+
 {% style %}
   #shopify-section-{{ section.id }} {
     background-color: {{ section.settings.bg_color }};
@@ -69,6 +71,8 @@
   }
   #shopify-section-{{ section.id }} .for-her-bestsellers-swiper .swiper-slide {
     height: auto;
+    width: calc((100% - {{ bestsellers_desktop_gap }}px) / {{ section.settings.slides_per_view }});
+    margin-right: 24px;
   }
   #shopify-section-{{ section.id }} .for-her-bestsellers__nav {
     position: absolute;
@@ -136,6 +140,16 @@
     #shopify-section-{{ section.id }} .for-her-bestsellers__nav button {
       width: 36px;
       height: 36px;
+    }
+    #shopify-section-{{ section.id }} .for-her-bestsellers-swiper .swiper-slide {
+      width: calc((100% - 16px) / 2);
+      margin-right: 16px;
+    }
+  }
+  @media (min-width: 769px) and (max-width: 1023px) {
+    #shopify-section-{{ section.id }} .for-her-bestsellers-swiper .swiper-slide {
+      width: calc((100% - 40px) / 3);
+      margin-right: 20px;
     }
   }
 {% endstyle %}
