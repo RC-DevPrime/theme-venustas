@@ -1,21 +1,22 @@
 {%- if section.settings.gender == 'female' -%}
   {%- assign heatingv_power = '38W' -%}
   {%- assign heatingv_model = 'WV12' -%}
+  {%- assign heatingv_title = 'Everything You Need to Know About VolcanoTM Pro WV12' -%}
 {%- else -%}
   {%- assign heatingv_power = '41W' -%}
   {%- assign heatingv_model = 'MV11' -%}
+  {%- assign heatingv_title = 'Everything You Need to Know About VolcanoTM Pro MV11' -%}
 {%- endif -%}
 
 {%- style -%}
   #shopify-section-{{ section.id }} .heatingV-specs { background: #f5f5f5; color: #1a1a1a; font-family: var(--font-primary, 'Montserrat', sans-serif); }
   #shopify-section-{{ section.id }} .heatingV-specs__inner { width: min(calc(100% - 100px), 1340px); margin: 0 auto; padding: 80px 0; }
   #shopify-section-{{ section.id }} .heatingV-specs__header { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 64px; text-align: center; }
-  #shopify-section-{{ section.id }} .heatingV-specs h2, #shopify-section-{{ section.id }} .heatingV-specs h3, #shopify-section-{{ section.id }} 
   #shopify-section-{{ section.id }} .heatingV-specs__eyebrow { color: #b93205; font-size: 20px; font-weight: 600; letter-spacing: .2px; text-transform: uppercase; }
-  #shopify-section-{{ section.id }} .heatingV-specs__title { font-size: 28px; font-weight: 700; }
+  #shopify-section-{{ section.id }} .heatingV-specs__title { font-size: 28px; font-weight: 700; color:#1A1A1A;}
   #shopify-section-{{ section.id }} .heatingV-specs__metrics { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 64px; padding: 0 32px; border-radius: 12px; background: #fff; box-shadow: 0 2px 20px rgba(0,0,0,.06); }
   #shopify-section-{{ section.id }} .heatingV-specs__metric { display: flex; min-height: 126px; flex-direction: column; align-items: center; justify-content: center; padding: 28px 12px; text-align: center; }
-  #shopify-section-{{ section.id }} .heatingV-specs__metric-value { color: #111214; font-size: 26px; font-weight: 800; }
+  #shopify-section-{{ section.id }} .heatingV-specs__metric-value { color: #111214; font-size: 26px; font-weight: 600; }
   #shopify-section-{{ section.id }} .heatingV-specs__metric-label { padding-top: 6px; font-size: 14px; }
   #shopify-section-{{ section.id }} .heatingV-specs__cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
   #shopify-section-{{ section.id }} .heatingV-specs__card { display: flex; min-height: 556px; flex-direction: column; gap: 32px; padding: 32px; border-radius: 24px; background: #fff; box-shadow: 0 0 20px rgba(0,0,0,.06); }
@@ -67,7 +68,10 @@
 
 <section class="heatingV-specs" id="heatingV-tech-specs">
   <div class="heatingV-specs__inner">
-    <header class="heatingV-specs__header"><p class="heatingV-specs__eyebrow">Technical Specifications</p><h2 class="heatingV-specs__title">Everything You Need to Know About MMP03</h2></header>
+    <header class="heatingV-specs__header">
+      <p class="heatingV-specs__eyebrow">Technical Specifications</p>
+      <h2 class="heatingV-specs__title">{{ heatingv_title }}</h2>
+    </header>
     <div class="heatingV-specs__metrics">
       <div class="heatingV-specs__metric"><strong class="heatingV-specs__metric-value">30 days</strong><span class="heatingV-specs__metric-label">To return it</span></div>
       <div class="heatingV-specs__metric"><strong class="heatingV-specs__metric-value">3 years</strong><span class="heatingV-specs__metric-label">On the heating elements</span></div>
