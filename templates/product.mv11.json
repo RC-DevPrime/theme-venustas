@@ -110,6 +110,109 @@
         "toggle_label": "Toggle expanded cold performance details"
       }
     },
+    "heating_v_anchor_nav_wnHyHW": {
+      "type": "heatingV-anchor-nav",
+      "blocks": {
+        "link_cjimci": {
+          "type": "link",
+          "settings": {
+            "label": "Overview",
+            "target_id": "heatingV-overview"
+          }
+        },
+        "link_AQkpmN": {
+          "type": "link",
+          "settings": {
+            "label": "Why Volcano™",
+            "target_id": "heatingV-why-volcano"
+          }
+        },
+        "link_BUzgUD": {
+          "type": "link",
+          "settings": {
+            "label": "41W Heating",
+            "target_id": "heatingv-heating-system"
+          }
+        },
+        "link_JH9jnE": {
+          "type": "link",
+          "settings": {
+            "label": "Heat Lock",
+            "target_id": "heatingV-heat-lock"
+          }
+        },
+        "link_A39FYG": {
+          "type": "link",
+          "settings": {
+            "label": "Dual-Battery",
+            "target_id": "heatingv-dual-battery-options"
+          }
+        },
+        "link_in_field": {
+          "type": "link",
+          "settings": {
+            "label": "In the Field",
+            "target_id": "heatingV-in-the-field"
+          }
+        },
+        "link_details": {
+          "type": "link",
+          "settings": {
+            "label": "Details",
+            "target_id": "heatingV-details"
+          }
+        },
+        "link_contrast": {
+          "type": "link",
+          "settings": {
+            "label": "Contrast",
+            "target_id": "heatingV-contrast"
+          }
+        },
+        "link_tech_specs": {
+          "type": "link",
+          "settings": {
+            "label": "Tech Specs",
+            "target_id": "heatingV-tech-specs"
+          }
+        },
+        "link_K3VUmT": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "heating-faq"
+          }
+        },
+        "link_review": {
+          "type": "link",
+          "settings": {
+            "label": "Review",
+            "target_id": "current-review"
+          }
+        }
+      },
+      "block_order": [
+        "link_cjimci",
+        "link_AQkpmN",
+        "link_BUzgUD",
+        "link_JH9jnE",
+        "link_A39FYG",
+        "link_in_field",
+        "link_details",
+        "link_contrast",
+        "link_tech_specs",
+        "link_K3VUmT",
+        "link_review"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#F5F5F5",
+        "nav_background": "#FFFFFF",
+        "text_color": "#1F1F1F",
+        "aria_label": "Page navigation",
+        "mobile_button_label": "Open page navigation"
+      }
+    },
     "heating_v_volcano_chart_zzDa64": {
       "type": "heatingV-volcano-chart",
       "name": "HeatingV Volcano Chart",
@@ -500,6 +603,7 @@
   },
   "order": [
     "main-product",
+    "heating_v_anchor_nav_wnHyHW",
     "heating_v_cold_performance_8jf6W4",
     "heating_v_volcano_chart_zzDa64",
     "heating_v_4x_gear_JArhe4",

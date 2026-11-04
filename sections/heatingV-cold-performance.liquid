@@ -10,7 +10,7 @@
 {{ 'heatingV-cold-performance.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'heatingV-cold-performance.js' | asset_url }}" defer="defer"></script>
 
-<heating-v-cold-performance class="heatingV-cold" style="--cold-texture: url('{{ texture_url | escape }}');">
+<heating-v-cold-performance class="heatingV-cold" id="heatingV-overview" style="--cold-texture: url('{{ texture_url | escape }}');">
   <div class="heatingV-cold__banner">
     <picture>
       {%- if mobile_image != blank -%}
