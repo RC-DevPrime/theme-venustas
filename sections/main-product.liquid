@@ -195,6 +195,9 @@ endif
                                     </p>
                                 </div>
                             </div>
+                            {%- if template.suffix == 'mv11' or template.suffix == 'wv12' -%}
+                                {% render 'product-heating-features', template_suffix: template.suffix %}
+                            {%- endif -%}
                             {% render 'product-promotion-banner', product: product %}
                         {%- when 'discount_banner' %}
                             {%- liquid

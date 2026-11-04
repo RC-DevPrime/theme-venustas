@@ -4,7 +4,6 @@ if (!customElements.get('heating-v-cold-performance')) {
       this.controller = new AbortController();
       const options = { signal: this.controller.signal };
       const desktop = window.matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)');
-      const summary = this.querySelector('.heatingV-cold__summary');
       const toggle = this.querySelector('.heatingV-cold__toggle');
       const setExpanded = (expanded) => {
         const active = expanded && desktop.matches;
@@ -12,30 +11,46 @@ if (!customElements.get('heating-v-cold-performance')) {
         toggle.setAttribute('aria-expanded', String(active));
       };
 
-      summary.addEventListener('pointerenter', (event) => {
-        if (event.pointerType === 'mouse') setExpanded(true);
-      }, options);
-      // The overlay never intercepts the pointer: entering it cannot undo the trigger.
-      // Keep it raised until the pointer travels above the original banner's top edge.
-      window.addEventListener('pointermove', (event) => {
-        if (this.classList.contains('is-expanded') && event.clientY < this.getBoundingClientRect().top) {
-          setExpanded(false);
-        }
-      }, options);
+      const reset = () => {
+        this.classList.add('heatingV-cold--no-transition');
+        setExpanded(false);
+        void this.offsetWidth;
+        this.classList.remove('heatingV-cold--no-transition');
+      };
       toggle.addEventListener('click', (event) => {
-        // Mouse hover already opens the panel; native keyboard clicks toggle it.
-        if (event.detail === 0) setExpanded(!this.classList.contains('is-expanded'));
+        setExpanded(!this.classList.contains('is-expanded'));
       }, options);
       this.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') setExpanded(false);
       }, options);
       toggle.addEventListener('blur', () => setExpanded(false), options);
-      desktop.addEventListener('change', () => setExpanded(false), options);
-      setExpanded(false);
+      desktop.addEventListener('change', () => {
+        reset();
+        setExpanded(this.inView);
+      }, options);
+      this.inView = false;
+      reset();
+
+      if ('IntersectionObserver' in window) {
+        this.observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            const visible = entry.isIntersecting;
+            if (visible === this.inView) return;
+            this.inView = visible;
+            if (visible) setExpanded(true);
+            else reset();
+          });
+        }, { threshold: 0 });
+        this.observer.observe(this);
+      } else {
+        this.inView = true;
+        setExpanded(true);
+      }
     }
 
     disconnectedCallback() {
       this.controller.abort();
+      this.observer?.disconnect();
     }
   });
 }

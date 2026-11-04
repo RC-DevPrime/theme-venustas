@@ -20,7 +20,6 @@
   #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__accent { width: 24px; height: 3px; margin-bottom: 12px; border-radius: 2px; background: #b93205; }
   #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__card-title { font-size: 16px; font-weight: 600; line-height: 1.3; white-space: nowrap; }
   #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__card-description { margin-top: 8px !important; font-size: 12px; font-style: italic; line-height: 1.45; opacity: .88; }
-  #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__mobile-controls { display: none; }
   @media (max-width: 1199px) { #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__inner { padding: 80px 0; } #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__intro { margin-bottom: 64px; } }
   @media (max-width: 767px) {
     #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__inner { width: 100%; padding: 40px 0; }
@@ -37,9 +36,6 @@
     #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__accent { display: none; }
     #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__card-title { padding: 12px; border-radius: 6px; background: rgba(255,255,255,.64); color: #1a1a1a; font-size: 14px; line-height: 1.3; text-align: center; white-space: normal; }
     #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__card-description { margin-top: 0 !important; padding: 0 12px 12px; border-radius: 0 0 6px 6px; background: rgba(255,255,255,.64); color: #1a1a1a; font-size: 14px; font-style: normal; line-height: 1.4; text-align: center; opacity: 1; }
-    #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__mobile-controls { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
-    #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__dot { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 50%; background: #7d7d7d; }
-    #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__dot.is-active { background: #b93205; }
   }
   @media (max-width: 500px) { #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__viewport { width: min(100%, 350px); margin: 0 auto; } }
   @media (min-width: 768px) and (max-width: 1390px) { #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__rail { height: 420px; } #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__card.is-active, #shopify-section-{{ section.id }} .heatingV-cold-weather-rides__card:hover { flex-basis: 60%; } }
@@ -61,9 +57,6 @@
         {%- endfor -%}
       </div>
     </div>
-    <div class="heatingV-cold-weather-rides__mobile-controls" aria-label="Ride stories pagination">
-      {%- for block in section.blocks -%}<button class="heatingV-cold-weather-rides__dot{% if forloop.first %} is-active{% endif %}" type="button" aria-label="Go to slide {{ forloop.index }}" data-slide="{{ forloop.index0 }}"></button>{%- endfor -%}
-    </div>
   </div>
 </section>
 
@@ -72,7 +65,6 @@
     const init = (root) => {
       const cards = [...root.querySelectorAll('.heatingV-cold-weather-rides__card')];
       const viewport = root.querySelector('.heatingV-cold-weather-rides__viewport');
-      const dots = [...root.querySelectorAll('.heatingV-cold-weather-rides__dot')];
       if (!cards.length || !viewport) return;
       let replayTimer;
       let sectionInView = false;
@@ -98,8 +90,6 @@
       };
 
       cards.forEach((card, index) => card.addEventListener('mouseenter', () => { if (window.matchMedia('(min-width: 768px)').matches) { cards.forEach((item) => item.classList.remove('is-active')); card.classList.add('is-active'); } }));
-      dots.forEach((dot, index) => dot.addEventListener('click', () => { cards[index]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }));
-      viewport.addEventListener('scroll', () => { if (window.matchMedia('(max-width: 767px)').matches) { const center = viewport.scrollLeft + viewport.clientWidth / 2; let active = 0; cards.forEach((card, index) => { if (Math.abs(card.offsetLeft + card.offsetWidth / 2 - center) < Math.abs(cards[active].offsetLeft + cards[active].offsetWidth / 2 - center)) active = index; }); dots.forEach((dot, index) => dot.classList.toggle('is-active', index === active)); } }, { passive: true });
 
       if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries) => {
