@@ -1,0 +1,156 @@
+{% include 'global-vars' %}
+
+{%- liquid
+  assign product_form_id = 'header-nav-product-form'
+  assign selected_variant = product.selected_or_first_available_variant
+  assign product_image = product.featured_image | default: product.images.first
+  assign product_summary = product.metafields.custom.short_description.value | default: product.description | strip_html | strip | truncate: 92
+  assign selected_size = blank
+  assign selected_color = blank
+  for option in product.options_with_values
+    if option.name == 'Color'
+      assign selected_color = selected_variant.options[forloop.index0]
+    else
+      assign selected_size = selected_variant.options[forloop.index0]
+    endif
+  endfor
+  assign savings = selected_variant.compare_at_price | minus: selected_variant.price
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-nav-new { position: fixed; right: 0; bottom: 0; left: 0; z-index: 1000; color: #1a1a1a; font-family: var(--font-primary, 'Montserrat', sans-serif); }
+  #shopify-section-{{ section.id }} .product-nav-new, #shopify-section-{{ section.id }} .product-nav-new * { box-sizing: border-box; }
+  #shopify-section-{{ section.id }} .product-nav-new__bar { display: flex; min-height: 84px; align-items: center; justify-content: space-between; gap: 24px; padding: 10px 50px; border-top: 1px solid rgba(0, 0, 0, .08); background: #fff; box-shadow: 0 -5px 8.85px rgba(0, 0, 0, .06); }
+  #shopify-section-{{ section.id }} .product-nav-new__product { display: flex; min-width: 0; align-items: center; gap: 16px; }
+  #shopify-section-{{ section.id }} .product-nav-new__image { display: block; width: 64px; height: 64px; flex: none; border-radius: 4px; object-fit: cover; }
+  #shopify-section-{{ section.id }} .product-nav-new__copy { display: flex; min-width: 0; flex-direction: column; gap: 2px; }
+  #shopify-section-{{ section.id }} .product-nav-new__title { margin: 0; overflow: hidden; font-size: 16px; font-weight: 700; line-height: 1.25; text-overflow: ellipsis; white-space: nowrap; }
+  #shopify-section-{{ section.id }} .product-nav-new__summary { margin: 0; overflow: hidden; color: #515151; font-size: 12px; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+  #shopify-section-{{ section.id }} .product-nav-new__actions { display: flex; flex: none; align-items: center; gap: 8px; }
+  #shopify-section-{{ section.id }} .product-nav-new__selector, #shopify-section-{{ section.id }} .product-nav-new__quantity { display: inline-flex; height: 40px; align-items: center; gap: 8px; padding: 0 14px; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff; color: #111827; font: 600 13px/1 var(--font-primary, 'Montserrat', sans-serif); white-space: nowrap; }
+  #shopify-section-{{ section.id }} .product-nav-new__selector { cursor: pointer; }
+  #shopify-section-{{ section.id }} .product-nav-new__selector::after { content: ''; width: 6px; height: 6px; margin-left: 2px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-2px); }
+  #shopify-section-{{ section.id }} .product-nav-new__swatch { width: 14px; height: 14px; border: 1px solid rgba(0, 0, 0, .25); border-radius: 50%; }
+  #shopify-section-{{ section.id }} .product-nav-new__quantity { gap: 16px; padding: 0 12px; }
+  #shopify-section-{{ section.id }} .product-nav-new__quantity button { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+  #shopify-section-{{ section.id }} .product-nav-new__quantity input { width: 18px; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: center; }
+  #shopify-section-{{ section.id }} .product-nav-new__price { display: flex; align-items: baseline; gap: 4px; white-space: nowrap; }
+  #shopify-section-{{ section.id }} .product-nav-new__price-current { color: #b93205; font-size: 22px; font-weight: 700; }
+  #shopify-section-{{ section.id }} .product-nav-new__price-compare { color: #515151; font-size: 12px; text-decoration: line-through; }
+  #shopify-section-{{ section.id }} .product-nav-new__submit { min-height: 40px; padding: 0 32px; border: 0; border-radius: 6px; background: #b93205; color: #fff; font: 600 13px/1 var(--font-primary, 'Montserrat', sans-serif); cursor: pointer; }
+  #shopify-section-{{ section.id }} .product-nav-new__submit:disabled { cursor: not-allowed; opacity: .5; }
+  #shopify-section-{{ section.id }} .product-nav-new__mobile-toggle, #shopify-section-{{ section.id }} .product-nav-new__panel { display: none; }
+  #shopify-section-{{ section.id }} .product-nav-new.is-open .product-nav-new__panel { display: block; position: absolute; right: 24px; bottom: calc(100% + 10px); width: 360px; max-height: 70vh; overflow: auto; padding: 20px; border: 1px solid #e2e5e8; border-radius: 10px; background: #fff; box-shadow: 0 8px 28px rgba(0, 0, 0, .14); }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants { width: 100%; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants .variant-name { margin: 0 0 10px; color: #161616; font-size: 14px; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants .variant { margin-bottom: 16px; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.default { min-width: 42px; padding: 9px 12px; border: 1px solid #dedede; border-radius: 6px; color: #1a1a1a; text-align: center; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.default.selected { border-color: #161616; background: #161616; color: #fff; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.color { width: 26px; height: 26px; padding: 2px; border: 1px solid #fff; border-radius: 50%; outline: 1px solid #dedede; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.color.selected { outline-color: #161616; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.color .color-swatch { width: 100%; height: 100%; border-radius: inherit; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-option { display: none; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .product-form { width: 100%; margin-top: 16px; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .product-form button { width: 100%; }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-nav-new__bar { display: none; }
+    #shopify-section-{{ section.id }} .product-nav-new__mobile-toggle { display: block; width: 100%; min-height: 58px; padding: 10px 20px; border: 0; border-radius: 12px 12px 0 0; background: #b93205; color: #fff; font: 600 14px/1 var(--font-primary, 'Montserrat', sans-serif); box-shadow: 0 -4px 8px rgba(0, 0, 0, .06); }
+    #shopify-section-{{ section.id }} .product-nav-new.is-open .product-nav-new__mobile-toggle { display: none; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel { position: absolute; right: 0; bottom: 0; left: 0; display: none; width: auto; max-height: min(90vh, 560px); overflow-y: auto; padding: 12px 20px 40px; border-radius: 12px 12px 0 0; background: #fff; box-shadow: 0 -4px 8px rgba(0, 0, 0, .06); }
+    #shopify-section-{{ section.id }} .product-nav-new.is-open .product-nav-new__panel { display: block; }
+    #shopify-section-{{ section.id }} .product-nav-new__close { display: block; margin: 0 0 12px auto; padding: 0; border: 0; background: transparent; color: #515151; font-size: 26px; line-height: 1; cursor: pointer; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-product { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-title { margin: 0; font-size: 18px; line-height: 1.25; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-summary { margin: 0; color: #515151; font-size: 12px; line-height: 1.35; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-price { display: flex; align-items: baseline; gap: 10px; margin: 12px 0; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-price .product-nav-new__price-current { font-size: 20px; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-save { padding: 5px 12px; border-radius: 4px; background: #fff5f5; color: #b93205; font-size: 12px; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel .product-nav-new__submit { width: 100%; min-height: 48px; }
+  }
+{% endstyle %}
+
+<section class="product-page-nav-header-section product-nav-new" data-product-nav-new data-section-id="{{ section.id }}">
+  <div class="product-nav-new__bar">
+    <div class="product-nav-new__product">
+      {%- if product_image != blank -%}{{ product_image | image_url: width: 128 | image_tag: class: 'product-nav-new__image', loading: 'lazy', alt: product.title }}{%- endif -%}
+      <div class="product-nav-new__copy"><p class="product-nav-new__title">{{ product.title | escape }}</p><p class="product-nav-new__summary">{{ product_summary | escape }}</p></div>
+    </div>
+    <div class="product-nav-new__actions">
+      <button class="product-nav-new__selector" type="button" data-open-panel>Size: {{ selected_size | default: 'Select' | escape }}</button>
+      <button class="product-nav-new__selector" type="button" data-open-panel aria-label="Select color"><span class="product-nav-new__swatch" style="background-color: {{ selected_color | default: '#111' | escape }};"></span></button>
+      <div class="product-nav-new__quantity" aria-label="Quantity"><button type="button" data-quantity-decrease aria-label="Decrease quantity">−</button><input type="number" value="1" min="1" data-quantity-input aria-label="Quantity"><button type="button" data-quantity-increase aria-label="Increase quantity">+</button></div>
+      <div class="product-nav-new__price"><span class="product-nav-new__price-current">{{ selected_variant.price | money | prepend: curSym }}</span>{%- if selected_variant.compare_at_price > selected_variant.price -%}<span class="product-nav-new__price-compare">{{ selected_variant.compare_at_price | money | prepend: curSym }}</span>{%- endif -%}</div>
+      <button class="product-nav-new__submit" type="submit" form="header-nav-product-form" data-nav-submit{% unless selected_variant.available %} disabled{% endunless %}>{% if selected_variant.available %}ADD TO CART{% else %}Out of Stock{% endif %}</button>
+    </div>
+  </div>
+
+  <button class="product-nav-new__mobile-toggle" type="button" data-mobile-toggle{% unless selected_variant.available %} disabled{% endunless %}>{% if selected_variant.available %}ADD TO CART{% else %}Out of Stock{% endif %}</button>
+  <div class="product-variant-selector popup-modal product-nav-new__panel" data-product-panel>
+    <button class="product-nav-new__close" type="button" data-mobile-close aria-label="Close">×</button>
+    <div class="product-nav-new__panel-product"><h2 class="product-nav-new__panel-title">{{ product.title | escape }}</h2><p class="product-nav-new__panel-summary">{{ product_summary | escape }}</p></div>
+    <div class="product-nav-new__panel-price"><span class="product-nav-new__price-current">{{ selected_variant.price | money | prepend: curSym }}</span>{%- if selected_variant.compare_at_price > selected_variant.price -%}<span class="product-nav-new__price-compare">{{ selected_variant.compare_at_price | money | prepend: curSym }}</span><span class="product-nav-new__panel-save">Save {{ savings | money }}</span>{%- endif -%}</div>
+    {% render 'nav-product-variant', product: product %}
+    <div class="product-nav-new__quantity" aria-label="Quantity"><button type="button" data-quantity-decrease aria-label="Decrease quantity">−</button><input type="number" value="1" min="1" data-quantity-input aria-label="Quantity"><button type="button" data-quantity-increase aria-label="Increase quantity">+</button></div>
+    <div class="product-form">
+      {% form 'product', product, id: 'header-nav-product-form', class: 'product-atc-form form', novalidate: 'novalidate', data-type: 'add-to-cart-form', action: 'javascript:void(0)' %}
+        <input type="hidden" name="id" id="main-product-id-nav" value="{{ selected_variant.id }}"><input type="hidden" name="quantity" value="1" data-form-quantity>
+        <button class="product-nav-new__submit" type="submit" name="add" data-nav-submit{% unless selected_variant.available %} disabled{% endunless %}>{% if selected_variant.available %}ADD TO CART{% else %}Out of Stock{% endif %}</button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.querySelector('[data-product-nav-new][data-section-id="{{ section.id }}"]');
+    if (!root || root.dataset.ready === 'true') return;
+    root.dataset.ready = 'true';
+    const panel = root.querySelector('[data-product-panel]');
+    const quantityInputs = root.querySelectorAll('[data-quantity-input]');
+    const formQuantity = root.querySelector('[data-form-quantity]');
+    const variantIdInput = root.querySelector('#main-product-id-nav');
+    const variantJson = panel?.querySelector('script[type="application/json"]')?.textContent || '[]';
+    let variants = [];
+    try { variants = JSON.parse(variantJson); } catch (error) { variants = []; }
+    const availabilityButtons = root.querySelectorAll('[data-nav-submit], [data-mobile-toggle]');
+    const syncAvailability = () => {
+      const selectedVariant = variants.find((variant) => String(variant.id) === String(variantIdInput?.value));
+      const available = Boolean(selectedVariant?.available);
+      availabilityButtons.forEach((button) => {
+        button.disabled = !available;
+        button.textContent = available ? 'ADD TO CART' : 'Out of Stock';
+      });
+    };
+    const togglePanel = (open) => root.classList.toggle('is-open', open);
+    root.querySelectorAll('[data-open-panel]').forEach((button) => button.addEventListener('click', () => togglePanel(!root.classList.contains('is-open'))));
+    root.querySelector('[data-mobile-toggle]')?.addEventListener('click', () => togglePanel(true));
+    root.querySelector('[data-mobile-close]')?.addEventListener('click', () => togglePanel(false));
+    const setQuantity = (value) => { const next = Math.max(1, Number(value || 1)); quantityInputs.forEach((input) => { input.value = next; }); if (formQuantity) formQuantity.value = next; };
+    root.querySelectorAll('[data-quantity-decrease]').forEach((button) => button.addEventListener('click', () => setQuantity(Number(quantityInputs[0].value) - 1)));
+    root.querySelectorAll('[data-quantity-increase]').forEach((button) => button.addEventListener('click', () => setQuantity(Number(quantityInputs[0].value) + 1)));
+    quantityInputs.forEach((input) => input.addEventListener('change', () => setQuantity(input.value)));
+    panel?.querySelectorAll('.nav-variants-selector').forEach((selector) => selector.addEventListener('click', () => window.setTimeout(() => { togglePanel(true); syncAvailability(); }, 0)));
+    panel?.querySelectorAll('.nav-variant-radio').forEach((input) => input.addEventListener('change', () => {
+      window.setTimeout(syncAvailability, 0);
+      window.setTimeout(syncAvailability, 120);
+    }));
+    document.addEventListener('change', (event) => {
+      if (event.target.matches('.nav-variant-radio, .variant-radio, #main-product-id-nav')) {
+        window.setTimeout(syncAvailability, 0);
+        window.setTimeout(syncAvailability, 120);
+      }
+    });
+    syncAvailability();
+    window.setTimeout(syncAvailability, 250);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product Navigation New",
+  "tag": "section",
+  "templates": ["product"],
+  "limit": 1,
+  "presets": [{ "name": "Product Navigation New" }]
+}
+{% endschema %}
