@@ -10,7 +10,7 @@
 {{ 'heatingV-cold-performance.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'heatingV-cold-performance.js' | asset_url }}" defer="defer"></script>
 
-<heating-v-cold-performance class="heatingV-cold" id="heatingV-overview" data-animation-delay="{{ section.settings.animation_delay | default: 1 | times: 1000 }}" style="--cold-texture: url('{{ texture_url | escape }}');">
+<heating-v-cold-performance class="heatingV-cold" id="heatingV-overview" style="--cold-texture: url('{{ texture_url | escape }}');">
   <div class="heatingV-cold__banner">
     <picture>
       {%- if mobile_image != blank -%}
@@ -62,7 +62,6 @@
     { "type": "textarea", "id": "description", "label": "Description", "default": "Built for the cold where an everyday heated vest gives up. 4 times the heating power, 6 zones front and back, sealed in a windproof three-layer shell." },
     { "type": "text", "id": "temperature", "label": "Temperature", "default": "-40°F" },
     { "type": "text", "id": "label", "label": "Temperature label", "default": "Ideal for" },
-    { "type": "range", "id": "animation_delay", "label": "Animation delay", "info": "Delay after entering the viewport, in seconds.", "min": 0, "max": 10, "step": 0.5, "unit": "s", "default": 1 },
     { "type": "text", "id": "toggle_label", "label": "Accessible animation control label", "default": "Toggle expanded cold performance details" }
   ],
   "presets": [{ "name": "HeatingV Cold Performance" }]
