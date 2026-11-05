@@ -2729,13 +2729,16 @@ function nav_header_scroll(){
 
 $(document).ready(function () {
 
-  $('.product-variant-selector').each(function () {
+  window.initNavProductVariants = function (scope) {
+  $(scope || document).find('.product-variant-selector').each(function () {
     const $container = $(this);
     const $variantsWrapper = $container.find('.nav-variants .no-js-hidden.variants');
     const $quantityInput = $container.find('input.qty.quantity__input');
     const $form = $container.find('#header-nav-product-form');
 
     if (!$variantsWrapper.length || !$form.length) return;
+    if ($container.data('navVariantsReady')) return;
+    $container.data('navVariantsReady', true);
 
     // ✅ IMPORTANT: if Liquid outputs disabled="", remove it so JS can control states
     $variantsWrapper.find('input[type="radio"]').prop('disabled', false).removeClass('disabled');
@@ -3105,13 +3108,22 @@ $(document).ready(function () {
 
     $variantsWrapper.on('change', 'input[type="radio"]', updateVariantInputs);
 
-    $(document).on('change.navInventorySync', '#main-product-id, .product .variant-radio', function () {
+    const onMainVariantChange = function () {
       window.setTimeout(mirrorMainStateToNav, 0);
-    });
+    };
+    $(document).on('change.navInventorySync', '#main-product-id, .product .variant-radio', onMainVariantChange);
+    const navRoot = $container.closest('[data-product-nav-new]')[0];
+    if (navRoot) navRoot.navVariantCleanup = function () {
+      $(document).off('change.navInventorySync', '#main-product-id, .product .variant-radio', onMainVariantChange);
+      $variantsWrapper.off('click', '.nav-variants-selector:not(.disabled)').off('change', 'input[type="radio"]');
+      $container.removeData('navVariantsReady');
+    };
 
     // Init
     updateVariantInputs();
   });
+  };
+  window.initNavProductVariants();
 
 });
 
