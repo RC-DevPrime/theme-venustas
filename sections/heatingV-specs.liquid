@@ -1,12 +1,16 @@
-{%- if section.settings.gender == 'female' -%}
-  {%- assign heatingv_power = '38W' -%}
-  {%- assign heatingv_model = 'WV12' -%}
-  {%- assign heatingv_title = 'Everything You Need to Know About VolcanoTM Pro WV12' -%}
-{%- else -%}
-  {%- assign heatingv_power = '41W' -%}
-  {%- assign heatingv_model = 'MV11' -%}
-  {%- assign heatingv_title = 'Everything You Need to Know About VolcanoTM Pro MV11' -%}
-{%- endif -%}
+{%- liquid
+  assign version = section.settings.gender
+  assign title_key = version | append: '_title'
+  assign power_key = version | append: '_power'
+  assign model_key = version | append: '_model'
+  assign included_title_key = version | append: '_included_title'
+  assign included_note_key = version | append: '_included_note'
+  assign heatingv_title = section.settings[title_key]
+  assign heatingv_power = section.settings[power_key]
+  assign heatingv_model = section.settings[model_key]
+  assign included_title = section.settings[included_title_key]
+  assign included_note = section.settings[included_note_key]
+-%}
 
 {%- style -%}
   #shopify-section-{{ section.id }} .heatingV-specs { background: #f5f5f5; color: #1a1a1a; font-family: var(--font-primary, 'Montserrat', sans-serif); }
@@ -70,7 +74,7 @@
   <div class="heatingV-specs__inner">
     <header class="heatingV-specs__header">
       <p class="heatingV-specs__eyebrow">Technical Specifications</p>
-      <h2 class="heatingV-specs__title">{{ heatingv_title }}</h2>
+      <h2 class="heatingV-specs__title">{{ heatingv_title | escape }}</h2>
     </header>
     <div class="heatingV-specs__metrics">
       <div class="heatingV-specs__metric"><strong class="heatingV-specs__metric-value">30 days</strong><span class="heatingV-specs__metric-label">To return it</span></div>
@@ -83,45 +87,36 @@
         <h3 class="heatingV-specs__card-title">Specifications</h3>
         <div class="heatingV-specs__list">
           <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Built for</span><strong class="heatingV-specs__spec-value">-40°F to 41°F (-40°C to 5°C)</strong></div></div>
-          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Heating Power</span><strong class="heatingV-specs__spec-value">{{ heatingv_power }}</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Heating Power</span><strong class="heatingV-specs__spec-value">{{ heatingv_power | escape }}</strong></div></div>
           <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Zones</span><strong class="heatingV-specs__spec-value">Collar, chest L/R, upper back L/R, lower back</strong></div></div>
           <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Heat Levels</span><strong class="heatingV-specs__spec-value">144°F / 130ºF / 112°F</strong></div></div>
           <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Shell / lining</span><strong class="heatingV-specs__spec-value">75D polyester + TPU membrane + fleece / graphene</strong></div></div>
           <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Power</span><strong class="heatingV-specs__spec-value">Two 7.5K batteries(included) * Built-in 12V lead</strong></div></div>
           <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Runtime, both batteries</span><strong class="heatingV-specs__spec-value">About 4h high / 6h medium / 11h low</strong></div></div>
-          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Model</span><strong class="heatingV-specs__spec-value">{{ heatingv_model }}</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Model</span><strong class="heatingV-specs__spec-value">{{ heatingv_model | escape }}</strong></div></div>
         </div>
       </article>
       <article class="heatingV-specs__card">
-        <h3 class="heatingV-specs__card-title">What's Included</h3>
+        <h3 class="heatingV-specs__card-title">{{ included_title | escape }}</h3>
         <div class="heatingV-specs__kit">{%- for index in (1..3) -%}{%- assign image_key = 'included_image_' | append: index -%}{%- if section.settings[image_key] != blank -%}{{ section.settings[image_key] | image_url: width: 300 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}{%- if section.settings.included_image_1 == blank and section.settings.included_image_2 == blank and section.settings.included_image_3 == blank -%}<span class="heatingV-specs__kit-empty">Add included product images in the theme editor</span>{%- endif -%}</div>
-        <div class="heatingV-specs__included"><div class="heatingV-specs__included-item">
-          <span class="heatingV-specs__check">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M11.6664 3.5L5.25036 9.9162L2.33398 6.99975" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
-            </svg>
-          </span><span>VOLCANO™ PRO VEST</span></div><div class="heatingV-specs__included-item"><span class="heatingV-specs__check">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11.6664 3.5L5.25036 9.9162L2.33398 6.99975" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
-            </svg>
-            </span><span>High Power 7.5K Battery *2</span></div><div class="heatingV-specs__included-item">
-            <span class="heatingV-specs__check">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11.6664 3.5L5.25036 9.9162L2.33398 6.99975" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
-              </svg>
-              </span>
-              <span>Charging Cable *1</span>
-            </div>
-            <div class="heatingV-specs__included-item">
-            <span class="heatingV-specs__check">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11.6664 3.5L5.25036 9.9162L2.33398 6.99975" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
-              </svg>
-            </span>
-              <span>User Manual *1</span>
-            </div>
-          </div>
-        <p class="heatingV-specs__note">* High Power 7.5K batteries sold separately</p>
+        <div class="heatingV-specs__included">
+          {%- for index in (1..4) -%}
+            {%- assign included_item_key = version | append: '_included_item_' | append: index -%}
+            {%- if section.settings[included_item_key] != blank -%}
+              <div class="heatingV-specs__included-item">
+                <span class="heatingV-specs__check">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M11.6664 3.5L5.25036 9.9162L2.33398 6.99975" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
+                  </svg>
+                </span>
+                <span>{{ section.settings[included_item_key] | escape }}</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- if included_note != blank -%}
+          <p class="heatingV-specs__note">{{ included_note | escape }}</p>
+        {%- endif -%}
       </article>
       {%- render 'heatingM-care-instructions' -%}
     </div>
@@ -139,10 +134,41 @@
       "label": "Product version",
       "options": [
         { "value": "male", "label": "Men's" },
-        { "value": "female", "label": "Women's" }
+        { "value": "female", "label": "Women's" },
+        { "value": "bundle", "label": "Bundle" }
       ],
       "default": "male"
     },
+    { "type": "header", "content": "Men's" },
+    { "type": "text", "id": "male_title", "label": "Main title", "default": "Everything You Need to Know About VolcanoTM Pro MV11" },
+    { "type": "text", "id": "male_power", "label": "Heating power", "default": "41W" },
+    { "type": "text", "id": "male_model", "label": "Model", "default": "MV11" },
+    { "type": "text", "id": "male_included_title", "label": "What's Included title", "default": "What's Included" },
+    { "type": "text", "id": "male_included_item_1", "label": "Included item 1", "default": "VOLCANO™ PRO VEST" },
+    { "type": "text", "id": "male_included_item_2", "label": "Included item 2", "default": "High Power 7.5K Battery *2" },
+    { "type": "text", "id": "male_included_item_3", "label": "Included item 3", "default": "Charging Cable *1" },
+    { "type": "text", "id": "male_included_item_4", "label": "Included item 4", "default": "User Manual *1" },
+    { "type": "text", "id": "male_included_note", "label": "What's Included note", "default": "* High Power 7.5K batteries sold separately" },
+    { "type": "header", "content": "Women's" },
+    { "type": "text", "id": "female_title", "label": "Main title", "default": "Everything You Need to Know About VolcanoTM Pro WV12" },
+    { "type": "text", "id": "female_power", "label": "Heating power", "default": "38W" },
+    { "type": "text", "id": "female_model", "label": "Model", "default": "WV12" },
+    { "type": "text", "id": "female_included_title", "label": "What's Included title", "default": "What's Included" },
+    { "type": "text", "id": "female_included_item_1", "label": "Included item 1", "default": "VOLCANO™ PRO VEST" },
+    { "type": "text", "id": "female_included_item_2", "label": "Included item 2", "default": "High Power 7.5K Battery *2" },
+    { "type": "text", "id": "female_included_item_3", "label": "Included item 3", "default": "Charging Cable *1" },
+    { "type": "text", "id": "female_included_item_4", "label": "Included item 4", "default": "User Manual *1" },
+    { "type": "text", "id": "female_included_note", "label": "What's Included note", "default": "* High Power 7.5K batteries sold separately" },
+    { "type": "header", "content": "Bundle" },
+    { "type": "text", "id": "bundle_title", "label": "Main title", "default": "Everything You Need to Know About VolcanoTM Pro MV11 + WV12" },
+    { "type": "text", "id": "bundle_power", "label": "Heating power", "default": "41W / 38W" },
+    { "type": "text", "id": "bundle_model", "label": "Model", "default": "MV11 + WV12" },
+    { "type": "text", "id": "bundle_included_title", "label": "What's Included title", "default": "What's Included" },
+    { "type": "text", "id": "bundle_included_item_1", "label": "Included item 1", "default": "VOLCANO™ PRO VEST" },
+    { "type": "text", "id": "bundle_included_item_2", "label": "Included item 2", "default": "High Power 7.5K Battery *2" },
+    { "type": "text", "id": "bundle_included_item_3", "label": "Included item 3", "default": "Charging Cable *1" },
+    { "type": "text", "id": "bundle_included_item_4", "label": "Included item 4", "default": "User Manual *1" },
+    { "type": "text", "id": "bundle_included_note", "label": "What's Included note", "default": "* High Power 7.5K batteries sold separately" },
     { "type": "image_picker", "id": "included_image_1", "label": "Included image 1" },
     { "type": "image_picker", "id": "included_image_2", "label": "Included image 2" },
     { "type": "image_picker", "id": "included_image_3", "label": "Included image 3" }
