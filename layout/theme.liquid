@@ -336,38 +336,13 @@
       <!-- End Microsoft Clarity -->
       
    
-    <script>
-      (function () {
-        var launcherSelector = '.smile-launcher-frame-container.smile-improved-mobile-launcher';
-        var mobileQuery = window.matchMedia('(max-width: 767px)');
-
-        function updateSmileLauncherVisibility() {
-          document.querySelectorAll(launcherSelector).forEach(function (launcher) {
-            if (mobileQuery.matches) {
-              if (launcher.style.getPropertyValue('display') !== 'none' || launcher.style.getPropertyPriority('display') !== 'important') {
-                launcher.style.setProperty('display', 'none', 'important');
-              }
-            } else {
-              launcher.style.removeProperty('display');
-            }
-          });
-        }
-
-        updateSmileLauncherVisibility();
-        new MutationObserver(updateSmileLauncherVisibility).observe(document.documentElement, {
-          childList: true,
-          subtree: true,
-          attributes: true,
-          attributeFilter: ['class', 'style']
-        });
-
-        if (mobileQuery.addEventListener) {
-          mobileQuery.addEventListener('change', updateSmileLauncherVisibility);
-        } else {
-          mobileQuery.addListener(updateSmileLauncherVisibility);
-        }
-      })();
-    </script>
+    <style>
+      .smile-launcher-frame-container,
+      #smile-lite-launcher-frame,
+      .smile-launcher-frame {
+        display: none !important;
+      }
+    </style>
     {% include 'pagefly-app-header' %}</head>
 
     <body>
