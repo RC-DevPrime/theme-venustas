@@ -10,7 +10,7 @@
 {{ 'heatingV-cold-performance.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'heatingV-cold-performance.js' | asset_url }}" defer="defer"></script>
 
-<heating-v-cold-performance class="heatingV-cold" id="heatingV-overview" data-animation-delay="{{ section.settings.animation_delay | default: 1 | times: 1000 }}" style="--cold-texture: url('{{ texture_url | escape }}');">
+<heating-v-cold-performance class="heatingV-cold" id="heatingV-overview" style="--cold-texture: url('{{ texture_url | escape }}');">
   <div class="heatingV-cold__banner">
     <picture>
       {%- if mobile_image != blank -%}
@@ -29,11 +29,10 @@
         {%- if section.settings.description != blank -%}<p class="heatingV-cold__description">{{ section.settings.description | escape }}</p>{%- endif -%}
       </div>
       <div class="heatingV-cold__stat">
-        <span class="heatingV-cold__value">{{ section.settings.temperature | escape }}</span>
+        <span class="heatingV-cold__value" data-cold-start>{{ section.settings.temperature | escape }}</span>
         <span class="heatingV-cold__label">{{ section.settings.label | escape }}</span>
       </div>
     </div>
-    <button class="heatingV-cold__toggle" type="button" aria-label="{{ section.settings.toggle_label | escape }}" aria-expanded="false" aria-controls="HeatingVColdOverlay-{{ section.id }}"></button>
   </div>
 
   <div class="heatingV-cold__overlay" id="HeatingVColdOverlay-{{ section.id }}" aria-hidden="true">
@@ -44,9 +43,13 @@
       </div>
       <div class="heatingV-cold__stat">
         <span class="heatingV-cold__label">{{ section.settings.label | escape }}</span>
-        <span class="heatingV-cold__value">{{ section.settings.temperature | escape }}</span>
+        <span class="heatingV-cold__value" data-cold-end>{{ section.settings.temperature | escape }}</span>
       </div>
     </div>
+  </div>
+  <div class="heatingV-cold__morph" aria-hidden="true">
+    <span class="heatingV-cold__value heatingV-cold__morph-orange">{{ section.settings.temperature | escape }}</span>
+    <span class="heatingV-cold__value heatingV-cold__morph-texture">{{ section.settings.temperature | escape }}</span>
   </div>
 </heating-v-cold-performance>
 
@@ -61,9 +64,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "The Warmest Vest We've Ever Made" },
     { "type": "textarea", "id": "description", "label": "Description", "default": "Built for the cold where an everyday heated vest gives up. 4 times the heating power, 6 zones front and back, sealed in a windproof three-layer shell." },
     { "type": "text", "id": "temperature", "label": "Temperature", "default": "-40°F" },
-    { "type": "text", "id": "label", "label": "Temperature label", "default": "Ideal for" },
-    { "type": "range", "id": "animation_delay", "label": "Animation delay", "info": "Delay after entering the viewport, in seconds.", "min": 0, "max": 10, "step": 0.5, "unit": "s", "default": 1 },
-    { "type": "text", "id": "toggle_label", "label": "Accessible animation control label", "default": "Toggle expanded cold performance details" }
+    { "type": "text", "id": "label", "label": "Temperature label", "default": "Ideal for" }
   ],
   "presets": [{ "name": "HeatingV Cold Performance" }]
 }
