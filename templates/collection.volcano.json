@@ -12,7 +12,7 @@
     "collection-featured-banner": {
       "type": "collection-featured-banner",
       "settings": {
-        "image": "shopify://shop_images/collection-heated-jacket.jpg",
+        "image": "{{ collection.image }}",
         "heading": "{{ collection.title }}",
         "description": "{{ collection.description }}"
       }
@@ -82,9 +82,9 @@
           "settings": {
             "background_image": "shopify://shop_images/new-arriveal.jpg",
             "heading": "New Arrivals",
-            "heading_color": "#FFFFFF",
+            "heading_color": "#ffffff",
             "description": "<p>Check Out Our New Arrivals For This Season!</p>",
-            "description_color": "#FFFFFF",
+            "description_color": "#ffffff",
             "btn_label": "Explore",
             "btn_link": "shopify://collections/new-arrivals",
             "grid_range_row": 2,
