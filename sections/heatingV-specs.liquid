@@ -30,8 +30,15 @@
   #shopify-section-{{ section.id }} .heatingV-specs__spec-line { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
   #shopify-section-{{ section.id }} .heatingV-specs__spec-label { font-weight: 500; white-space: nowrap; }
   #shopify-section-{{ section.id }} .heatingV-specs__spec-value { max-width: 62%; font-weight: 600; line-height: 1.35; text-align: right; }
-  #shopify-section-{{ section.id }} .heatingV-specs__kit { display: flex; height: 220px; align-items: center; justify-content: space-around; overflow: hidden; border-radius: 16px; background: #f9fafb; }
-  #shopify-section-{{ section.id }} .heatingV-specs__kit img { width: 30%; height: 78%; object-fit: contain; }
+  #shopify-section-{{ section.id }} .heatingV-specs__card--included { gap: 12px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit { display: flex; min-height: 278px; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit-main { width: min(100%, 166px); height: 154px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit-accessories { display: grid; width: 100%; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; gap: 12px; padding: 0 12px; box-sizing: border-box; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit-item { width: 100%; max-width: 89px; height: 112px; justify-self: center; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit-item:first-child { max-width: 80px; height: 107px; justify-self: start; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit-item:nth-child(2) { height: 97px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit-item:last-child { max-width: 75px; justify-self: end; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit img { display: block; width: 100%; height: 100%; object-fit: contain; }
   #shopify-section-{{ section.id }} .heatingV-specs__kit-empty { color: #9ca3af; font-size: 12px; }
   #shopify-section-{{ section.id }} .heatingV-specs__included { display: flex; flex-direction: column; gap: 16px; }
   #shopify-section-{{ section.id }} .heatingV-specs__included-item { display: flex; align-items: center; gap: 12px; font-size: 16px; }
@@ -96,9 +103,29 @@
           <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Model</span><strong class="heatingV-specs__spec-value">{{ heatingv_model | escape }}</strong></div></div>
         </div>
       </article>
-      <article class="heatingV-specs__card">
+      <article class="heatingV-specs__card heatingV-specs__card--included">
         <h3 class="heatingV-specs__card-title">{{ included_title | escape }}</h3>
-        <div class="heatingV-specs__kit">{%- for index in (1..3) -%}{%- assign image_key = 'included_image_' | append: index -%}{%- if section.settings[image_key] != blank -%}{{ section.settings[image_key] | image_url: width: 300 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}{%- if section.settings.included_image_1 == blank and section.settings.included_image_2 == blank and section.settings.included_image_3 == blank -%}<span class="heatingV-specs__kit-empty">Add included product images in the theme editor</span>{%- endif -%}</div>
+        <div class="heatingV-specs__kit">
+          {%- if section.settings.included_image_1 == blank and section.settings.included_image_2 == blank and section.settings.included_image_3 == blank and section.settings.included_image_4 == blank -%}
+            <span class="heatingV-specs__kit-empty">Add included product images in the theme editor</span>
+          {%- else -%}
+            <div class="heatingV-specs__kit-main">
+              {%- if section.settings.included_image_1 != blank -%}
+                {{ section.settings.included_image_1 | image_url: width: 500 | image_tag: widths: '166, 332, 500', sizes: '166px', loading: 'lazy', alt: '' }}
+              {%- endif -%}
+            </div>
+            <div class="heatingV-specs__kit-accessories">
+              {%- for index in (2..4) -%}
+                {%- assign image_key = 'included_image_' | append: index -%}
+                <div class="heatingV-specs__kit-item">
+                  {%- if section.settings[image_key] != blank -%}
+                    {{ section.settings[image_key] | image_url: width: 300 | image_tag: widths: '90, 180, 300', sizes: '89px', loading: 'lazy', alt: '' }}
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
         <div class="heatingV-specs__included">
           {%- for index in (1..4) -%}
             {%- assign included_item_key = version | append: '_included_item_' | append: index -%}
@@ -169,9 +196,10 @@
     { "type": "text", "id": "bundle_included_item_3", "label": "Included item 3", "default": "Charging Cable *1" },
     { "type": "text", "id": "bundle_included_item_4", "label": "Included item 4", "default": "User Manual *1" },
     { "type": "text", "id": "bundle_included_note", "label": "What's Included note", "default": "* High Power 7.5K batteries sold separately" },
-    { "type": "image_picker", "id": "included_image_1", "label": "Included image 1" },
-    { "type": "image_picker", "id": "included_image_2", "label": "Included image 2" },
-    { "type": "image_picker", "id": "included_image_3", "label": "Included image 3" }
+    { "type": "image_picker", "id": "included_image_1", "label": "Included image 1 (top)" },
+    { "type": "image_picker", "id": "included_image_2", "label": "Included image 2 (bottom left)" },
+    { "type": "image_picker", "id": "included_image_3", "label": "Included image 3 (bottom center)" },
+    { "type": "image_picker", "id": "included_image_4", "label": "Included image 4 (bottom right)" }
   ],
   "presets": [{ "name": "HeatingV Specifications" }]
 }
