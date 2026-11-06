@@ -787,7 +787,7 @@ class VariantSelects extends HTMLElement {
             this.updateShareUrl();
         }
 
-        $('[name=quantity]').val(1);
+        $('[name=quantity]:not([data-form-quantity])').val(1);
 
         this.updateData();
     }

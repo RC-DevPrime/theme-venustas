@@ -3,7 +3,10 @@
   if template_suffix == 'mv11'
     assign heating_power = '41W'
   endif
-  assign features = 'temperature|Ideal for|-40°F to 41°F|-40°C to 5°C;zones|Front and back|6 Heat zones|Up to 144°F;battery|In the box|2*54Wh batteries|+ built-in 12V lead;power|Heating power|4X • POWER|vs our standard vests;shell|Shell|3-layer, windproof|TPU membrane;warranty|Warranty|3 years|on heating elements' | split: ';'
+  if template_suffix == 'Volcano-Bundle'
+    assign heating_power = '41W/38W'    
+  endif
+  assign features = 'temperature|Ideal for|-40°F to 41°F|-40°C to 5°C;zones|Front and back|6 Heat zones|Up to 144°F;battery|In the box|2*54Wh batteries|+ built-in 12V lead;power|Heating power|~4X • POWER|vs our standard vests;shell|Shell|3-layer, windproof|TPU membrane;warranty|Warranty|3 years|on heating elements' | split: ';'
 -%}
 
 {{ 'product-heating-features.css' | asset_url | stylesheet_tag }}
