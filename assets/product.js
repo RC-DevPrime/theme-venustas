@@ -347,176 +347,119 @@ $(document).ready(function() {
                 }
             }
 
-            if (variantSize) {
-            const $toggle = $('.toggle-size-chart');
-            if ($toggle.length > 0) {
-                const $labels = $toggle.find('.unit-label');
-                const $left = $toggle.find('.unit-label.left');
-                const $right = $toggle.find('.unit-label.right');
-                const $box = $toggle.find('.toggle-box');
-                const $cells = $('.size-chart-table tbody td:not(:first-child)');
+            // Modal controls also apply to products with separately named size options.
+            document.querySelectorAll('.size-chart-modal').forEach((sizeModal) => {
+                const $toggle = $(sizeModal).find('.toggle-size-chart');
+                if ($toggle.length > 0) {
+                    const $labels = $toggle.find('.unit-label');
+                    const $box = $toggle.find('.toggle-box');
+                    const $cells = $(sizeModal).find('.size-chart-table tbody td:not(:first-child)');
+                    const originalValues = [];
 
-                let originalValues = [];
-
-                // Base table values are IN
-                $cells.each(function (i) {
-                    originalValues[i] = $(this).text().trim();
-                });
-
-                function inToCm(val) {
-                    let converted = (parseFloat(val) * 2.54).toFixed(1);
-                    converted = converted.replace(/\.0$/, '');
-                    return converted;
-                }
-
-                function convertValueToCm(text) {
-                    text = text.trim();
-
-                    if (text.includes('-')) {
-                        let [min, max] = text.split('-').map(n => n.trim());
-                        return inToCm(min) + ' - ' + inToCm(max);
-                    }
-
-                    return inToCm(text);
-                }
-
-                function getUnitFromLabel($el) {
-                    return $el.text().trim().toLowerCase() === 'cm' ? 'cm' : 'in';
-                }
-
-                function setUnit(unit) {
-                    unit = unit === 'cm' ? 'cm' : 'in';
-
-                    $toggle.attr('data-unit', unit);
-
-                    $labels.removeClass('active');
-
-                    $labels.each(function () {
-                        const $label = $(this);
-                        const labelUnit = getUnitFromLabel($label);
-
-                        if (labelUnit === unit) {
-                            $label.addClass('active');
-                        }
-                    });
-
-                    if (unit === 'in') {
-                        $box.removeClass('right');
-                    } else {
-                        $box.addClass('right');
-                    }
-
+                    // Base table values are IN; always restore the original strings.
                     $cells.each(function (i) {
-                        if (unit === 'in') {
-                            // IN is the original/base table data
-                            $(this).text(originalValues[i]);
+                        originalValues[i] = $(this).text();
+                    });
+
+                    function inToCm(value) {
+                        return (Number(value) * 2.54).toFixed(1).replace(/\.0$/, '');
+                    }
+
+                    function convertValueToCm(text) {
+                        const value = text.trim();
+                        const range = value.match(/^(\d+(?:\.\d+)?)\s*[-–—]\s*(\d+(?:\.\d+)?)$/);
+                        if (range) return inToCm(range[1]) + ' - ' + inToCm(range[2]);
+                        if (/^\d+(?:\.\d+)?$/.test(value)) return inToCm(value);
+                        return text;
+                    }
+
+                    function getUnitFromLabel($label) {
+                        return $label.text().trim().toLowerCase() === 'cm' ? 'cm' : 'in';
+                    }
+
+                    function setUnit(unit) {
+                        unit = unit === 'cm' ? 'cm' : 'in';
+                        $toggle.attr('data-unit', unit);
+                        $labels.each(function () {
+                            const $label = $(this);
+                            $label.toggleClass('active', getUnitFromLabel($label) === unit);
+                        });
+                        $box.toggleClass('right', unit === 'cm');
+                        $cells.each(function (i) {
+                            $(this).text(unit === 'in' ? originalValues[i] : convertValueToCm(originalValues[i]));
+                        });
+                    }
+
+                    $labels.on('click', function () {
+                        setUnit(getUnitFromLabel($(this)));
+                    });
+                    $box.on('click', function () {
+                        setUnit($toggle.attr('data-unit') === 'in' ? 'cm' : 'in');
+                    });
+                    setUnit($toggle.attr('data-unit') || 'in');
+                }
+
+                sizeModal.querySelectorAll('.size-chart-table').forEach((table) => {
+                    const cells = table.querySelectorAll('tbody td');
+                    const isMobile = window.matchMedia('(hover: none)').matches;
+
+                    function clearAll() {
+                        table.querySelectorAll('.grey, .red')
+                            .forEach(el => el.classList.remove('grey', 'red'));
+                    }
+
+                    function highlightCell(cell) {
+                        clearAll();
+                        const row = cell.parentElement;
+                        const colIndex = cell.cellIndex;
+                        const rowIndex = row.rowIndex;
+                        const headerCell = table.rows[0]?.cells[colIndex];
+                        if (headerCell) headerCell.classList.add('red');
+
+                        for (let i = 1; i < rowIndex; i++) {
+                            if (table.rows[i] && table.rows[i].cells[colIndex]) {
+                                table.rows[i].cells[colIndex].classList.add('grey');
+                            }
+                        }
+                        cell.classList.add('red');
+                        for (let i = 0; i < colIndex; i++) {
+                            const leftCell = row.cells[i];
+                            if (leftCell) leftCell.classList.add(i === 0 ? 'red' : 'grey');
+                        }
+                    }
+
+                    cells.forEach(cell => {
+                        if (!isMobile) {
+                            cell.addEventListener('mouseenter', function () {
+                                highlightCell(this);
+                            });
                         } else {
-                            // Convert IN → CM only when CM is selected
-                            $(this).text(convertValueToCm(originalValues[i]));
+                            cell.addEventListener('click', function (event) {
+                                event.stopPropagation();
+                                highlightCell(this);
+                            });
                         }
                     });
-                }
-
-                $labels.on('click', function () {
-                    const clickedUnit = getUnitFromLabel($(this));
-                    setUnit(clickedUnit);
+                    if (isMobile) document.body.addEventListener('click', clearAll);
+                    else table.addEventListener('mouseleave', clearAll);
                 });
 
-                $box.on('click', function () {
-                    const current = $toggle.attr('data-unit');
-                    setUnit(current === 'in' ? 'cm' : 'in');
-                });
-
-                // Initialize from theme setting
-                let defaultUnit = $toggle.attr('data-unit') || 'in';
-                setUnit(defaultUnit);
-            }
-
-            const table = document.querySelector('.size-chart-table');
-            if (table) {
-
-            const cells = table.querySelectorAll('tbody td');
-
-            function clearAll() {
-                table.querySelectorAll('.grey, .red')
-                    .forEach(el => el.classList.remove('grey', 'red'));
-            }
-
-            const isMobile = window.matchMedia('(hover: none)').matches;
-
-            cells.forEach(cell => {
-                if (!isMobile) {
-                    cell.addEventListener('mouseenter', function () {
-                        highlightCell(this);
+                // Instruction tabs must work even when the guide has no table.
+                const tabItems = sizeModal.querySelectorAll('.size-chart-tab-list .tab-item');
+                const tabContents = sizeModal.querySelectorAll('.size-chart-tab-content');
+                tabItems.forEach(item => {
+                    item.addEventListener('click', function () {
+                        const target = this.getAttribute('tab-data');
+                        const targetContent = Array.from(tabContents).find(content => content.getAttribute('tab-data') === target);
+                        if (!targetContent) return;
+                        tabItems.forEach(tab => tab.classList.remove('active'));
+                        this.classList.add('active');
+                        tabContents.forEach(content => {
+                            content.style.display = content === targetContent ? 'block' : 'none';
+                        });
                     });
-                } else {
-                    cell.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        highlightCell(this);
-                    });
-
-                    document.body.addEventListener('click', function () {
-                        clearAll();
-                    });
-                }
-            });
-
-            function highlightCell(cell) {
-                clearAll();
-
-                const row = cell.parentElement;
-                const colIndex = cell.cellIndex;
-                const rowIndex = row.rowIndex;
-
-                const headerCell = table.rows[0].cells[colIndex];
-                if (headerCell) headerCell.classList.add('red');
-
-                for (let i = 1; i < rowIndex; i++) {
-                    if (table.rows[i] && table.rows[i].cells[colIndex]) {
-                        table.rows[i].cells[colIndex].classList.add('grey');
-                    }
-                }
-
-                cell.classList.add('red');
-
-                for (let i = 0; i < colIndex; i++) {
-                    const leftCell = row.cells[i];
-                    if (!leftCell) continue;
-
-                    if (i === 0) {
-                        leftCell.classList.add('red');
-                    } else {
-                        leftCell.classList.add('grey');
-                    }
-                }
-            }
-
-            if (!isMobile) {
-                table.addEventListener('mouseleave', clearAll);
-            }
-
-            const tabItems = document.querySelectorAll('.size-chart-tab-list .tab-item');
-            const tabContents = document.querySelectorAll('.size-chart-tab-content');
-
-            tabItems.forEach(item => {
-                item.addEventListener('click', function () {
-                    let target = this.getAttribute('tab-data');
-
-                    tabItems.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-
-                    tabContents.forEach(content => {
-                        content.style.display = 'none';
-                    });
-
-                    const targetContent = document.querySelector(`.size-chart-tab-content[tab-data="${target}"]`);
-                    if (targetContent) {
-                        targetContent.style.display = 'block';
-                    }
                 });
             });
-            }
-            }
 
 
     }
