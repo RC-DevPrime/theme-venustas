@@ -46,6 +46,14 @@
           "type": "variant_option",
           "settings": {}
         },
+        "selleasy_lb_upsell_widget_pal_UW8EbH": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
         "hightlights_4aek9f": {
           "type": "hightlights",
           "settings": {
@@ -59,14 +67,6 @@
         },
         "availability_VXL6mU": {
           "type": "availability",
-          "settings": {}
-        },
-        "selleasy_lb_upsell_widget_pal_UW8EbH": {
-          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
-          "settings": {}
-        },
-        "quantity_atc_nEzPi6": {
-          "type": "quantity_atc",
           "settings": {}
         },
         "support_product_RGhgRP": {
@@ -96,6 +96,499 @@
         "support_product_RGhgRP"
       ],
       "settings": {}
+    },
+    "heating_v_anchor_nav_wnHyHW": {
+      "type": "heatingV-anchor-nav",
+      "blocks": {
+        "link_cjimci": {
+          "type": "link",
+          "settings": {
+            "label": "Overview",
+            "target_id": "heatingV-overview"
+          }
+        },
+        "link_AQkpmN": {
+          "type": "link",
+          "settings": {
+            "label": "Why Volcano™",
+            "target_id": "heatingV-why-volcano"
+          }
+        },
+        "link_BUzgUD": {
+          "type": "link",
+          "settings": {
+            "label": "38W Heating",
+            "target_id": "heatingv-heating-system"
+          }
+        },
+        "link_JH9jnE": {
+          "type": "link",
+          "settings": {
+            "label": "Heat Lock",
+            "target_id": "heatingV-heat-lock"
+          }
+        },
+        "link_A39FYG": {
+          "type": "link",
+          "settings": {
+            "label": "Dual-Battery",
+            "target_id": "heatingv-dual-battery-options"
+          }
+        },
+        "link_in_field": {
+          "type": "link",
+          "settings": {
+            "label": "In the Field",
+            "target_id": "heatingV-in-the-field"
+          }
+        },
+        "link_details": {
+          "type": "link",
+          "settings": {
+            "label": "Details",
+            "target_id": "heatingV-details"
+          }
+        },
+        "link_contrast": {
+          "type": "link",
+          "settings": {
+            "label": "Contrast",
+            "target_id": "heatingV-contrast"
+          }
+        },
+        "link_tech_specs": {
+          "type": "link",
+          "settings": {
+            "label": "Tech Specs",
+            "target_id": "heatingV-tech-specs"
+          }
+        },
+        "link_K3VUmT": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "heating-faq"
+          }
+        },
+        "link_review": {
+          "type": "link",
+          "settings": {
+            "label": "Review",
+            "target_id": "current-review"
+          }
+        }
+      },
+      "block_order": [
+        "link_cjimci",
+        "link_AQkpmN",
+        "link_BUzgUD",
+        "link_JH9jnE",
+        "link_A39FYG",
+        "link_in_field",
+        "link_details",
+        "link_contrast",
+        "link_tech_specs",
+        "link_K3VUmT",
+        "link_review"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#f5f5f5",
+        "nav_background": "#ffffff",
+        "text_color": "#1f1f1f",
+        "aria_label": "Page navigation",
+        "mobile_button_label": "Open page navigation"
+      }
+    },
+    "heating_v_cold_performance_8jf6W4": {
+      "type": "heatingV-cold-performance",
+      "name": "HeatingV Cold Performance",
+      "settings": {
+        "desktop_image": "shopify://shop_images/heatingW-banner.webp",
+        "mobile_image": "shopify://shop_images/heatingW-banner-mobile.webp",
+        "image_alt": "Ice fishing in heated vests on a frozen lake",
+        "heading": "The Warmest Vest We've Ever Made",
+        "description": "Built for the cold where an everyday heated vest gives up. 4 times the heating power, 6 zones front and back, sealed in a windproof three-layer shell.",
+        "temperature": "-40°F",
+        "label": "Ideal for",
+        "animation_delay": 1,
+        "toggle_label": "Toggle expanded cold performance details"
+      }
+    },
+    "heating_v_volcano_chart_zzDa64": {
+      "type": "heatingV-volcano-chart",
+      "name": "HeatingV Volcano Chart",
+      "settings": {
+        "title": "In Mild Cold, Most Vests Keep Up. In Extreme Cold, They Fall Behind",
+        "subtitle": "Two scenarios, six hours outside. The gap opens when the temperature drops, the wind picks up and you stop moving."
+      }
+    },
+    "heating_v_4x_gear_JArhe4": {
+      "type": "heatingV-4x-gear",
+      "name": "HeatingV 4X Gear",
+      "settings": {
+        "first_desktop_image": "shopify://shop_images/heatingV-4x-vest.webp",
+        "first_frame_duration": 1,
+        "gender": "female",
+        "second_desktop_image": "shopify://shop_images/heatingV-4x-hover-vest.webp"
+      }
+    },
+    "heating_v_off_bike_runtime_6zKDyh": {
+      "type": "heatingV-off-bike-runtime",
+      "name": "HeatingV Off-bike Runtime",
+      "settings": {
+        "title": "Six zones, where the cold gets in first",
+        "description": "Collar. Both sides of the chest. Both sides of the upper back. And all the way across the lower back. The largest heating area we've built into a vest.",
+        "card_1_color": "#b93205",
+        "card_1_background": "rgba(185, 50, 5, 0.12)",
+        "card_1_desktop_value": "144°F",
+        "card_1_mobile_value": "1.5h",
+        "card_1_pill": "HIGH",
+        "card_1_pill_text_color": "#ffffff",
+        "card_2_color": "#ffffff",
+        "card_2_background": "rgba(255, 255, 255, 0.12)",
+        "card_2_desktop_value": "130°F",
+        "card_2_mobile_value": "2.5h",
+        "card_2_pill": "MEDIUM",
+        "card_2_pill_text_color": "#1a1a1a",
+        "card_3_color": "#0d6efd",
+        "card_3_background": "rgba(0, 109, 255, 0.12)",
+        "card_3_desktop_value": "112°F",
+        "card_3_mobile_value": "4h",
+        "card_3_pill": "LOW",
+        "card_3_pill_text_color": "#ffffff"
+      }
+    },
+    "heating_v_four_layers_AFteKD": {
+      "type": "heatingV-four-layers",
+      "name": "HeatingV Four Layers",
+      "settings": {
+        "desktop_image": "shopify://shop_images/heatingV-four-layers.webp",
+        "mobile_image": "shopify://shop_images/heatingV-four-layers-mobile.webp",
+        "image_alt": "Four clothing layers protecting against wind and cold"
+      }
+    },
+    "heating_v_dual_battery_options_QxEkYM": {
+      "type": "heatingV-dual-battery-options",
+      "blocks": {
+        "battery_option_pAEhf8": {
+          "type": "battery_option",
+          "settings": {
+            "image": "shopify://shop_images/heatingV-w-two-barrtery.webp",
+            "mobile_image": "shopify://shop_images/heatingV-w-two-barrtery-mobile.webp",
+            "title": "Both at once",
+            "description": "<p>The longest day. One battery in the pocket inside the left hand warmer, one in the right side seam, so the weight is split evenly and never sits on your back.</p>"
+          }
+        },
+        "battery_option_T9VHzr": {
+          "type": "battery_option",
+          "settings": {
+            "image": "shopify://shop_images/heatingV-w-pocket.webp",
+            "mobile_image": "shopify://shop_images/heatingV-w-pocket-mobile.webp",
+            "title": "Just one",
+            "description": "<p>Lighter for a shorter outing. Plug a single battery into either side.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "battery_option_pAEhf8",
+        "battery_option_T9VHzr"
+      ],
+      "name": "HeatingV Battery Options",
+      "settings": {
+        "title": "Two 54Wh Batteries. Run Both, or Just One.",
+        "description": "<p>Four times the heat needs power to match. Both batteries come in the box and can run the vest at the same time, one at each side. On a shorter day, take one and leave the other charging.</p>"
+      }
+    },
+    "heating_v_runtime_gyitbe": {
+      "type": "heatingV-runtime",
+      "name": "HeatingV Runtime",
+      "settings": {}
+    },
+    "heating_v_12v_vehicle_meMhwX": {
+      "type": "heatingV-12v-vehicle",
+      "name": "HeatingV 12V Vehicle",
+      "settings": {
+        "desktop_image": "shopify://shop_images/heatingV-detail-connect-mobile.webp",
+        "mobile_image": "shopify://shop_images/heatingV-detail-conect.webp",
+        "image_alt": "Heated vest connected to a vehicle",
+        "eyebrow": "ALSO RUNS ON 12V",
+        "title": "Near a snowmobile, motorcycle or ATV? Plug in.",
+        "description": "The lead is built into the left pocket. Add the Y cable set and the vest runs off the vehicle, with no limit on the day. Y cable set sold separately."
+      }
+    },
+    "heating_v_cold_weather_rides_8k8CGz": {
+      "type": "heatingV-cold-weather-rides",
+      "blocks": {
+        "ride_JyVGkq": {
+          "type": "ride",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingV-slider-snow-new.webp",
+            "mobile_image": "shopify://shop_images/heatingV-slider-snow-mobile.jpg",
+            "title": "ICE FISHING · [-40]°F",
+            "description": "After hours on the ice, I could still feel the warmth."
+          }
+        },
+        "ride_6rRz3C": {
+          "type": "ride",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingV-slider-cold.webp",
+            "mobile_image": "shopify://shop_images/heatingV-slider-cold-mobile.jpg",
+            "title": "SNOWMOBILE · [-30]°F",
+            "description": "Even with the freezing wind, my core stayed warm."
+          }
+        },
+        "ride_CHj8b3": {
+          "type": "ride",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingV-slider-sunset.webp",
+            "mobile_image": "shopify://shop_images/heatingV-slider-sunset-mobile.jpg",
+            "title": "WORKING OUTSIDE · [-20]°F",
+            "description": "Cold mornings are part of my job. Staying warm makes all the difference."
+          }
+        },
+        "ride_itEPM6": {
+          "type": "ride",
+          "settings": {
+            "desktop_image": "shopify://shop_images/heatingV-slider-photo.webp",
+            "mobile_image": "shopify://shop_images/heatingV-slider-photo-mobile.jpg",
+            "title": "AURORA WATCH · AROUND -25°F AFTER MIDNIGHT",
+            "description": "Hours beside a tripod, waiting for the sky to light up. You can't leave, and you can't move around to stay warm."
+          }
+        }
+      },
+      "block_order": [
+        "ride_JyVGkq",
+        "ride_6rRz3C",
+        "ride_CHj8b3",
+        "ride_itEPM6"
+      ],
+      "name": "HeatingV Weather Rides",
+      "settings": {
+        "title": "Made for the People Who Stay Out Longest",
+        "subtitle": "Year after year, the riders, anglers and crews who stayed out longest told us the same thing: more heat when it really gets cold. Volcano™ is our answer."
+      }
+    },
+    "heating_v_video_kbpYzW": {
+      "type": "heatingV-video",
+      "name": "HeatingV Video",
+      "settings": {
+        "desktop_video": "shopify://files/videos/heatingW-video.mp4",
+        "mobile_video": "shopify://files/videos/heatingW-video.mp4"
+      }
+    },
+    "heating_v_riding_position_RK8fLw": {
+      "type": "heatingV-riding-position",
+      "blocks": {
+        "feature_xiw3tD": {
+          "type": "feature",
+          "settings": {
+            "title": "Button at the side hem",
+            "description": "Where a gloved hand finds it through a shell, with nothing lit up on your front.",
+            "desktop_image": "shopify://shop_images/heatingV-hand-one.webp",
+            "mobile_image": "shopify://shop_images/heatingV-hand-one-mobile.webp",
+            "featured": false
+          }
+        },
+        "feature_y9M8FU": {
+          "type": "feature",
+          "settings": {
+            "title": "Hand pockets that warm your hands",
+            "description": "Brushed fleece on the back of the hand, graphene lining on the palm side.",
+            "desktop_image": "shopify://shop_images/heatingV-hand-two.webp",
+            "mobile_image": "shopify://shop_images/heatingV-hand-two-mobile.webp",
+            "featured": false
+          }
+        },
+        "feature_GwKqmR": {
+          "type": "feature",
+          "settings": {
+            "title": "Water-resistant chest pocket",
+            "description": "Keeps your phone close to the heat, where its battery lasts longer.",
+            "desktop_image": "shopify://shop_images/heatingV-hand-three.webp",
+            "mobile_image": "shopify://shop_images/heatingV-hand-four-mobile.webp",
+            "featured": false
+          }
+        },
+        "feature_i6dmki": {
+          "type": "feature",
+          "settings": {
+            "title": "Fleece-lined stand collar",
+            "description": "Soft fleece and a chin guard where the cold reaches you first.",
+            "desktop_image": "shopify://shop_images/heatingV-hand-four.webp",
+            "mobile_image": "shopify://shop_images/heatingV-hand-five-mobile.webp",
+            "featured": false
+          }
+        },
+        "feature_gC4kpk": {
+          "type": "feature",
+          "settings": {
+            "title": "Twin-zip back pocket",
+            "description": "Wide enough for a spare pair of gloves, opening from either hand.",
+            "desktop_image": "shopify://shop_images/heatingV-hand-five.webp",
+            "mobile_image": "shopify://shop_images/heatingV-hand-three-mobile.webp",
+            "featured": true
+          }
+        }
+      },
+      "block_order": [
+        "feature_xiw3tD",
+        "feature_y9M8FU",
+        "feature_GwKqmR",
+        "feature_i6dmki",
+        "feature_gC4kpk"
+      ],
+      "name": "HeatingV Riding Position",
+      "settings": {
+        "title": "Designed for Gloved Hands"
+      }
+    },
+    "heating_v_layering_compare_h36NAG": {
+      "type": "heatingV-layering-compare",
+      "blocks": {
+        "comparison_KrA3FB": {
+          "type": "comparison",
+          "settings": {
+            "label": "Built for",
+            "classic_value": "Everyday cold, down to about 14°F",
+            "volcano_value": "Extreme cold, down to -40°F"
+          }
+        },
+        "comparison_gdMijd": {
+          "type": "comparison",
+          "settings": {
+            "label": "Heating power",
+            "classic_value": "10W",
+            "volcano_value": "38W, ~4x"
+          }
+        },
+        "comparison_JwLpCH": {
+          "type": "comparison",
+          "settings": {
+            "label": "Heat zones",
+            "classic_value": "6, front and back",
+            "volcano_value": "6, front and back"
+          }
+        },
+        "comparison_CPbi4Y": {
+          "type": "comparison",
+          "settings": {
+            "label": "shell",
+            "classic_value": "Nylon",
+            "volcano_value": "Three-layer, windproof membrane"
+          }
+        },
+        "comparison_VfNfpE": {
+          "type": "comparison",
+          "settings": {
+            "label": "Batteries in the box",
+            "classic_value": "1* 5K battery (36Wh)",
+            "volcano_value": "2* 7.5K battery （54Wh), plus a 12V lead"
+          }
+        },
+        "comparison_3V6FpE": {
+          "type": "comparison",
+          "settings": {
+            "label": "Lighter and simpler",
+            "classic_value": "Yes",
+            "volcano_value": "Built heavier or the cold"
+          }
+        },
+        "comparison_Cwqti8": {
+          "type": "comparison",
+          "settings": {
+            "label": "Choose it for",
+            "classic_value": "Commutes, errands and cold mornings",
+            "volcano_value": "Whole days below zero: riding, ice fishing, working outside"
+          }
+        }
+      },
+      "block_order": [
+        "comparison_KrA3FB",
+        "comparison_gdMijd",
+        "comparison_JwLpCH",
+        "comparison_CPbi4Y",
+        "comparison_VfNfpE",
+        "comparison_3V6FpE",
+        "comparison_Cwqti8"
+      ],
+      "name": "HeatingV Layering Compare",
+      "settings": {
+        "title": "Volcano or Classic?",
+        "subtitle": "It depends on how cold your cold gets.",
+        "gender": "female",
+        "button_label": "See the Classic vest",
+        "button_link": ""
+      }
+    },
+    "heating_v_specs_keX6Ea": {
+      "type": "heatingV-specs",
+      "name": "HeatingV Specifications",
+      "settings": {
+        "gender": "female",
+        "included_image_1": "shopify://shop_images/heatingV-spec-vest.webp",
+        "included_image_2": "shopify://shop_images/heatingV-spec-cable.webp",
+        "included_image_3": "shopify://shop_images/heatingV-spec-box.webp"
+      }
+    },
+    "heating_prelaunch_faq_PahXjC": {
+      "type": "heating-prelaunch-faq",
+      "blocks": {
+        "faq_3JBeNU": {
+          "type": "faq",
+          "settings": {
+            "question": "Which size should I choose?",
+            "answer": "<p>Volcano™ can work well as a mid-layer, so it should sit close over a base layer without pulling. Check the chart above against your chest measurement; if you're between sizes and plan to wear a thick base layer, take the larger one.&nbsp;</p>"
+          }
+        },
+        "faq_h44V7V": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does it actually run?",
+            "answer": "<p>On the two included batteries: about 4 hours on high, 6 on medium, 11 on low. Plugged into a 12V vehicle supply there's no limit.</p>"
+          }
+        },
+        "faq_Fng3CC": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I take the batteries on a plane?",
+            "answer": "<p>Yes. Each Volcano™ battery is rated at 54Wh, which is below the FAA’s 100Wh limit for lithium-ion batteries. Two batteries can be carried for personal use. Spare batteries must be packed in your carry-on baggage and protected against short circuits. Airline policies may vary, so we recommend checking with your airline before travel.</p>"
+          }
+        },
+        "faq_8D9wfE": {
+          "type": "faq",
+          "settings": {
+            "question": "What's covered by the warranty?",
+            "answer": "<p>Three years on the heating elements and one year on the batteries, from the date of purchase. Founder Pass holders who reserved before launch have lifetime coverage on the heating elements instead.</p>"
+          }
+        },
+        "faq_WgqpEh": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need the Y cable set?",
+            "answer": "<p>To check your own bike: your stator output needs to cover what the bike already uses plus the heated gear. For example, a 300W stator with 140W of stock load leaves 160W to spare — plenty for Volcano™'s 41W. A 154W heated set would fit too, but with almost nothing left over.</p>"
+          }
+        },
+        "faq_dfKUiz": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I wash it?",
+            "answer": "<p>Remove the batteries first. Gentle machine wash on low speed in cold water, then hang or tumble dry. No dry cleaning, bleaching, ironing or wringing.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_3JBeNU",
+        "faq_h44V7V",
+        "faq_Fng3CC",
+        "faq_8D9wfE",
+        "faq_WgqpEh",
+        "faq_dfKUiz"
+      ],
+      "name": "Heating FAQ",
+      "settings": {
+        "eyebrow": "FAQ"
+      }
     },
     "product_review_section_VnyXRe": {
       "type": "product-review-section",
@@ -133,11 +626,31 @@
         "btn_label": "TECHNOLOGY",
         "btn_url": "shopify://pages/technology"
       }
+    },
+    "product_nav_new": {
+      "type": "product-nav-new",
+      "settings": {}
     }
   },
   "order": [
     "main-product",
+    "heating_v_anchor_nav_wnHyHW",
+    "heating_v_cold_performance_8jf6W4",
+    "heating_v_volcano_chart_zzDa64",
+    "heating_v_4x_gear_JArhe4",
+    "heating_v_off_bike_runtime_6zKDyh",
+    "heating_v_four_layers_AFteKD",
+    "heating_v_dual_battery_options_QxEkYM",
+    "heating_v_runtime_gyitbe",
+    "heating_v_12v_vehicle_meMhwX",
+    "heating_v_cold_weather_rides_8k8CGz",
+    "heating_v_video_kbpYzW",
+    "heating_v_riding_position_RK8fLw",
+    "heating_v_layering_compare_h36NAG",
+    "heating_v_specs_keX6Ea",
+    "heating_prelaunch_faq_PahXjC",
     "product_review_section_VnyXRe",
-    "product_featured_banner_mazp9M"
+    "product_featured_banner_mazp9M",
+    "product_nav_new"
   ]
 }

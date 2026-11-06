@@ -1,0 +1,178 @@
+{%- liquid
+  assign version = section.settings.gender
+  assign title_key = version | append: '_title'
+  assign power_key = version | append: '_power'
+  assign model_key = version | append: '_model'
+  assign included_title_key = version | append: '_included_title'
+  assign included_note_key = version | append: '_included_note'
+  assign heatingv_title = section.settings[title_key]
+  assign heatingv_power = section.settings[power_key]
+  assign heatingv_model = section.settings[model_key]
+  assign included_title = section.settings[included_title_key]
+  assign included_note = section.settings[included_note_key]
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingV-specs { background: #f5f5f5; color: #1a1a1a; font-family: var(--font-primary, 'Montserrat', sans-serif); }
+  #shopify-section-{{ section.id }} .heatingV-specs__inner { width: min(calc(100% - 100px), 1340px); margin: 0 auto; padding: 80px 0; }
+  #shopify-section-{{ section.id }} .heatingV-specs__header { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 64px; text-align: center; }
+  #shopify-section-{{ section.id }} .heatingV-specs__eyebrow { color: #b93205; font-size: 20px; font-weight: 600; letter-spacing: .2px; text-transform: uppercase; }
+  #shopify-section-{{ section.id }} .heatingV-specs__title { font-size: 28px; font-weight: 700; color:#1A1A1A;}
+  #shopify-section-{{ section.id }} .heatingV-specs__metrics { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 64px; padding: 0 32px; border-radius: 12px; background: #fff; box-shadow: 0 2px 20px rgba(0,0,0,.06); }
+  #shopify-section-{{ section.id }} .heatingV-specs__metric { display: flex; min-height: 126px; flex-direction: column; align-items: center; justify-content: center; padding: 28px 12px; text-align: center; }
+  #shopify-section-{{ section.id }} .heatingV-specs__metric-value { color: #111214; font-size: 26px; font-weight: 600; }
+  #shopify-section-{{ section.id }} .heatingV-specs__metric-label { padding-top: 6px; font-size: 14px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__card { display: flex; min-height: 556px; flex-direction: column; gap: 32px; padding: 32px; border-radius: 24px; background: #fff; box-shadow: 0 0 20px rgba(0,0,0,.06); }
+  #shopify-section-{{ section.id }} .heatingV-specs__card-title { font-size: 20px; font-weight: 600; text-transform: uppercase; }
+  #shopify-section-{{ section.id }} .heatingV-specs__list { display: flex; flex-direction: column; gap: 20px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__spec { display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb; font-size: 13px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__spec-line { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__spec-label { font-weight: 500; white-space: nowrap; }
+  #shopify-section-{{ section.id }} .heatingV-specs__spec-value { max-width: 62%; font-weight: 600; line-height: 1.35; text-align: right; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit { display: flex; height: 220px; align-items: center; justify-content: space-around; overflow: hidden; border-radius: 16px; background: #f9fafb; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit img { width: 30%; height: 78%; object-fit: contain; }
+  #shopify-section-{{ section.id }} .heatingV-specs__kit-empty { color: #9ca3af; font-size: 12px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__included { display: flex; flex-direction: column; gap: 16px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__included-item { display: flex; align-items: center; gap: 12px; font-size: 16px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__check { display: grid; width: 28px; height: 28px; flex: 0 0 28px; place-items: center; border-radius: 50%; color: #b93205; background: rgba(185,50,5,.1); font-weight: 700; }
+  #shopify-section-{{ section.id }} .heatingV-specs__care { display: flex; flex-direction: column; gap: 26px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__care-item { display: flex; align-items: flex-start; gap: 16px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__care-icon { display: grid; width: 48px; height: 48px; flex: 0 0 48px; place-items: center; border-radius: 50%; color: #b93205; background: rgba(185,50,5,.12); font-size: 20px; }
+  #shopify-section-{{ section.id }} .heatingV-specs__care-title { margin-bottom: 4px !important; font-size: 14px; font-weight: 700; }
+  #shopify-section-{{ section.id }} .heatingV-specs__care-copy { color: #515151; font-size: 12px; line-height: 1.45; }
+  #shopify-section-{{ section.id }} .heatingV-specs__note { margin-top: auto !important; padding-top: 16px; border-top: 1px solid #e5e7eb; color: #515151; font-size: 12px; line-height: 1.45; }
+  /* Care card styling shared with heatingM-care-instructions. */
+  #shopify-section-{{ section.id }} .heatingM-specs__card { display: flex; min-height: 556px; flex-direction: column; gap: 0; padding: 32px; border-radius: 24px; background: #fff; box-shadow: 0 0 20px rgba(0,0,0,.06); box-sizing: border-box; }
+  #shopify-section-{{ section.id }} .heatingM-specs__card-title { margin: 0; color: #1a1a1a; font-size: 20px; font-weight: 600; line-height: 1.2; text-transform: uppercase; }
+  #shopify-section-{{ section.id }} .heatingM-specs__care-list { display: flex; margin-top: 32px; flex-direction: column; gap: 24px; }
+  #shopify-section-{{ section.id }} .heatingM-specs__care-item { display: flex; align-items: flex-start; gap: 12px; }
+  #shopify-section-{{ section.id }} .heatingM-specs__care-icon { display: grid; width: 48px; height: 48px; flex: 0 0 48px; place-items: center; border-radius: 50%; color: #b93205; background: rgba(185,50,5,.16); }
+  #shopify-section-{{ section.id }} .heatingM-specs__care-item h4 { margin: 0 0 4px; font-size: 13px; font-weight: 700; line-height: 1.3; }
+  #shopify-section-{{ section.id }} .heatingM-specs__care-item p { margin: 0; color: #515151; font-size: 12px; line-height: 1.45; }
+  #shopify-section-{{ section.id }} .heatingM-specs__card-divider { width: 100%; height: 1px; margin-top: auto; background: #e5e7eb; }
+  #shopify-section-{{ section.id }} .heatingM-specs__card-note { margin: 16px 0 0; color: #515151; font-size: 12px; line-height: 1.5; }
+  
+  @media (max-width: 1000px) {
+    #shopify-section-{{ section.id }} .heatingV-specs__inner { width: calc(100% - 40px); padding: 80px 0; }
+    #shopify-section-{{ section.id }} .heatingV-specs__header { margin-bottom: 64px; }
+    #shopify-section-{{ section.id }} .heatingV-specs__eyebrow { font-size: 20px; white-space: nowrap; }
+    #shopify-section-{{ section.id }} .heatingV-specs__title { font-size: 28px; line-height: 1.25; }
+    #shopify-section-{{ section.id }} .heatingV-specs__metrics { grid-template-columns: repeat(2, 1fr); margin-bottom: 24px; padding: 0; }
+    #shopify-section-{{ section.id }} .heatingV-specs__metric { min-height: 128px; }
+    #shopify-section-{{ section.id }} .heatingV-specs__cards { grid-template-columns: 1fr; gap: 24px; }
+    #shopify-section-{{ section.id }} .heatingV-specs__card { min-height: 556px; padding: 32px 12px; }
+    #shopify-section-{{ section.id }} .heatingM-specs__card { min-height: 0; padding: 32px 20px; border-radius: 20px; }
+    #shopify-section-{{ section.id }} .heatingM-specs__care-list { margin-top: 64px;margin-bottom:64px; gap: 24px; }
+    #shopify-section-{{ section.id }} .heatingM-specs__care-icon { width: 40px; height: 40px; flex-basis: 40px; }
+    #shopify-section-{{ section.id }} .heatingV-specs__spec-value { max-width: 58%; }
+    #shopify-section-{{ section.id }} .heatingM-specs__card-note { margin-top: 64px; }
+  }
+{%- endstyle -%}
+
+<section class="heatingV-specs" id="heatingV-tech-specs">
+  <div class="heatingV-specs__inner">
+    <header class="heatingV-specs__header">
+      <p class="heatingV-specs__eyebrow">Technical Specifications</p>
+      <h2 class="heatingV-specs__title">{{ heatingv_title | escape }}</h2>
+    </header>
+    <div class="heatingV-specs__metrics">
+      <div class="heatingV-specs__metric"><strong class="heatingV-specs__metric-value">30 days</strong><span class="heatingV-specs__metric-label">To return it</span></div>
+      <div class="heatingV-specs__metric"><strong class="heatingV-specs__metric-value">3 years</strong><span class="heatingV-specs__metric-label">On the heating elements</span></div>
+      <div class="heatingV-specs__metric"><strong class="heatingV-specs__metric-value">1 year</strong><span class="heatingV-specs__metric-label">On the batteries</span></div>
+      <div class="heatingV-specs__metric"><strong class="heatingV-specs__metric-value">Lifetime</strong><span class="heatingV-specs__metric-label">Heating elements, for Founder Pass holders</span></div>
+    </div>
+    <div class="heatingV-specs__cards">
+      <article class="heatingV-specs__card">
+        <h3 class="heatingV-specs__card-title">Specifications</h3>
+        <div class="heatingV-specs__list">
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Built for</span><strong class="heatingV-specs__spec-value">-40°F to 41°F (-40°C to 5°C)</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Heating Power</span><strong class="heatingV-specs__spec-value">{{ heatingv_power | escape }}</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Zones</span><strong class="heatingV-specs__spec-value">Collar, chest L/R, upper back L/R, lower back</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Heat Levels</span><strong class="heatingV-specs__spec-value">144°F / 130ºF / 112°F</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Shell / lining</span><strong class="heatingV-specs__spec-value">75D polyester + TPU membrane + fleece / graphene</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Power</span><strong class="heatingV-specs__spec-value">Two 7.5K batteries(included) * Built-in 12V lead</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Runtime, both batteries</span><strong class="heatingV-specs__spec-value">About 4h high / 6h medium / 11h low</strong></div></div>
+          <div class="heatingV-specs__spec"><div class="heatingV-specs__spec-line"><span class="heatingV-specs__spec-label">Model</span><strong class="heatingV-specs__spec-value">{{ heatingv_model | escape }}</strong></div></div>
+        </div>
+      </article>
+      <article class="heatingV-specs__card">
+        <h3 class="heatingV-specs__card-title">{{ included_title | escape }}</h3>
+        <div class="heatingV-specs__kit">{%- for index in (1..3) -%}{%- assign image_key = 'included_image_' | append: index -%}{%- if section.settings[image_key] != blank -%}{{ section.settings[image_key] | image_url: width: 300 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}{%- if section.settings.included_image_1 == blank and section.settings.included_image_2 == blank and section.settings.included_image_3 == blank -%}<span class="heatingV-specs__kit-empty">Add included product images in the theme editor</span>{%- endif -%}</div>
+        <div class="heatingV-specs__included">
+          {%- for index in (1..4) -%}
+            {%- assign included_item_key = version | append: '_included_item_' | append: index -%}
+            {%- if section.settings[included_item_key] != blank -%}
+              <div class="heatingV-specs__included-item">
+                <span class="heatingV-specs__check">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M11.6664 3.5L5.25036 9.9162L2.33398 6.99975" stroke-width="2" stroke-linecap="round" stroke="#B93205"/>
+                  </svg>
+                </span>
+                <span>{{ section.settings[included_item_key] | escape }}</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- if included_note != blank -%}
+          <p class="heatingV-specs__note">{{ included_note | escape }}</p>
+        {%- endif -%}
+      </article>
+      {%- render 'heatingM-care-instructions' -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HeatingV Specifications",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "gender",
+      "label": "Product version",
+      "options": [
+        { "value": "male", "label": "Men's" },
+        { "value": "female", "label": "Women's" },
+        { "value": "bundle", "label": "Bundle" }
+      ],
+      "default": "male"
+    },
+    { "type": "header", "content": "Men's" },
+    { "type": "text", "id": "male_title", "label": "Main title", "default": "Everything You Need to Know About VOLCANOM™  Pro MV11" },
+    { "type": "text", "id": "male_power", "label": "Heating power", "default": "41W" },
+    { "type": "text", "id": "male_model", "label": "Model", "default": "MV11" },
+    { "type": "text", "id": "male_included_title", "label": "What's Included title", "default": "What's Included" },
+    { "type": "text", "id": "male_included_item_1", "label": "Included item 1", "default": "VOLCANO™ PRO VEST" },
+    { "type": "text", "id": "male_included_item_2", "label": "Included item 2", "default": "High Power 7.5K Battery *2" },
+    { "type": "text", "id": "male_included_item_3", "label": "Included item 3", "default": "Charging Cable *1" },
+    { "type": "text", "id": "male_included_item_4", "label": "Included item 4", "default": "User Manual *1" },
+    { "type": "text", "id": "male_included_note", "label": "What's Included note", "default": "* High Power 7.5K batteries sold separately" },
+    { "type": "header", "content": "Women's" },
+    { "type": "text", "id": "female_title", "label": "Main title", "default": "Everything You Need to Know About VOLCANOM™ Pro WV12" },
+    { "type": "text", "id": "female_power", "label": "Heating power", "default": "38W" },
+    { "type": "text", "id": "female_model", "label": "Model", "default": "WV12" },
+    { "type": "text", "id": "female_included_title", "label": "What's Included title", "default": "What's Included" },
+    { "type": "text", "id": "female_included_item_1", "label": "Included item 1", "default": "VOLCANO™ PRO VEST" },
+    { "type": "text", "id": "female_included_item_2", "label": "Included item 2", "default": "High Power 7.5K Battery *2" },
+    { "type": "text", "id": "female_included_item_3", "label": "Included item 3", "default": "Charging Cable *1" },
+    { "type": "text", "id": "female_included_item_4", "label": "Included item 4", "default": "User Manual *1" },
+    { "type": "text", "id": "female_included_note", "label": "What's Included note", "default": "* High Power 7.5K batteries sold separately" },
+    { "type": "header", "content": "Bundle" },
+    { "type": "text", "id": "bundle_title", "label": "Main title", "default": "Everything You Need to Know About VOLCANOM™ Pro MV11 + WV12" },
+    { "type": "text", "id": "bundle_power", "label": "Heating power", "default": "41W / 38W" },
+    { "type": "text", "id": "bundle_model", "label": "Model", "default": "MV11 + WV12" },
+    { "type": "text", "id": "bundle_included_title", "label": "What's Included title", "default": "What's Included" },
+    { "type": "text", "id": "bundle_included_item_1", "label": "Included item 1", "default": "VOLCANO™ PRO VEST" },
+    { "type": "text", "id": "bundle_included_item_2", "label": "Included item 2", "default": "High Power 7.5K Battery *2" },
+    { "type": "text", "id": "bundle_included_item_3", "label": "Included item 3", "default": "Charging Cable *1" },
+    { "type": "text", "id": "bundle_included_item_4", "label": "Included item 4", "default": "User Manual *1" },
+    { "type": "text", "id": "bundle_included_note", "label": "What's Included note", "default": "* High Power 7.5K batteries sold separately" },
+    { "type": "image_picker", "id": "included_image_1", "label": "Included image 1" },
+    { "type": "image_picker", "id": "included_image_2", "label": "Included image 2" },
+    { "type": "image_picker", "id": "included_image_3", "label": "Included image 3" }
+  ],
+  "presets": [{ "name": "HeatingV Specifications" }]
+}
+{% endschema %}

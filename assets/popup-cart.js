@@ -212,10 +212,14 @@ $(document).off('submit.productAtc').on('submit.productAtc', '.product-atc-form.
         }
         $btnText.css('visibility', 'visible');
         form.data('loading', false);
+        if (form.closest('[data-product-nav-new]').length) {
+            form[0].dispatchEvent(new CustomEvent('nav:cart-settled', { bubbles: true }));
+        }
     }
 
     function handleProductAtcError(err) {
         console.error('ADD TO CART ERROR:', err);
+        form.data('loading', false);
 
         if (err && err.description) {
             errorMsg = err.description;
@@ -223,6 +227,9 @@ $(document).off('submit.productAtc').on('submit.productAtc', '.product-atc-form.
             errorMsg = err.message;
         } else if (typeof err === 'string') {
             errorMsg = err;
+        }
+        if (form.closest('[data-product-nav-new]').length) {
+            form.closest('[data-product-nav-new]').find('[data-purchase-error]').text(errorMsg).prop('hidden', false);
         }
 
         if ($errorBox.length) {
@@ -233,10 +240,16 @@ $(document).off('submit.productAtc').on('submit.productAtc', '.product-atc-form.
                 $errorBox.fadeOut();
             }, 60000);
         }
+        if (form.closest('[data-product-nav-new]').length) {
+            form[0].dispatchEvent(new CustomEvent('nav:cart-error', { bubbles: true }));
+        }
     }
 
     addItemsToCart(payload)
         .then(function (data) {
+            if (form.closest('[data-product-nav-new]').length) {
+                form[0].dispatchEvent(new CustomEvent('nav:cart-success', { bubbles: true }));
+            }
             console.log('SUCCESS:', data);
         })
         .catch(handleProductAtcError)

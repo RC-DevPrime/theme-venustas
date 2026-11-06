@@ -3,8 +3,8 @@
     --chat-font: 17px; /* SVG user units */
     width: 100%;
     overflow: hidden;
-    background: #f0f0f0;
-    color: #1a1a1a;
+    background: linear-gradient(180deg, #341c19 0%, #1a1a1a 82.212%);
+    color: #fff;
     font-family: var(--font-primary, 'Montserrat', sans-serif);
   }
 
@@ -20,8 +20,23 @@
     margin: 0 auto;
     padding: 0 0 100px;
     gap: 32px;
+    flex-wrap: wrap;
     align-items: flex-start;
   }
+
+  #shopify-section-{{ section.id }} .heatingV-volcano-chart__intro {
+    display: flex;
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 100px 0 56px;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-volcano-chart__intro-title,
+  #shopify-section-{{ section.id }} .heatingV-volcano-chart__intro-subtitle { margin: 0; color: #fff; }
+  #shopify-section-{{ section.id }} .heatingV-volcano-chart__intro-title { font-size: 34px; font-weight: 700; line-height: 1.16; letter-spacing: -.952px; }
+  #shopify-section-{{ section.id }} .heatingV-volcano-chart__intro-subtitle { font-size: 16px; line-height: 1.72; }
 
   /* ---------- Card ---------- */
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__card {
@@ -32,15 +47,24 @@
     gap: 16px;
     padding: 28px 40px 28px 24px;
     border-radius: 20px;
-    background: #fff;
+    background: rgba(13, 13, 13, .6);
+    box-shadow: inset 0 1px 0 rgba(255, 174, 174, .25);
   }
 
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__title {
     margin: 0 0 28px;
-    color: #1a1a1a;
+    color: #fff;
     font-size: 24px;
     font-weight: 500;
     line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-volcano-chart__card-subtitle {
+    margin: -40px 0 36px;
+    color: #f5f5f5;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
   }
 
   /* ---------- Chart frame ---------- */
@@ -61,7 +85,7 @@
   }
 
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__y-label {
-    color: #1a1a1a;
+    color: #fff;
     font-size: 12px;
     font-weight: 400;
     letter-spacing: 1.44px;
@@ -85,14 +109,14 @@
   }
 
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__svg-text {
-    fill: #1a1a1a;
+    fill: #fff;
     font-family: inherit;
     font-size: var(--chat-font);
     font-weight: 400;
   }
 
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__svg-text--band {
-    fill: #515151;
+    fill: #f5f5f5;
   }
 
   /* ---------- Animated lines ---------- */
@@ -155,23 +179,26 @@
 
   /* ---------- Legend ---------- */
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__legend {
-    display: flex;
-    padding-top: 12px;
-    gap: 32px;
+    display: grid;
+    flex: 0 0 100%;
+    grid-template-columns: auto auto;
+    width: 100%;
+    padding-top: 0;
+    gap: 10px 32px;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
   }
 
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__legend-item {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     align-items: center;
   }
 
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__legend-mark {
     flex: none;
-    width: 24px;
-    height: 4px;
+    width: 16px;
+    height: 2px;
     border-radius: 2px;
   }
 
@@ -180,16 +207,25 @@
   }
 
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__legend-mark--standard {
-    background: #6c757d;
+    background: #9298ba;
   }
 
   #shopify-section-{{ section.id }} .heatingV-volcano-chart__legend-text {
     margin: 0;
-    color: #1a1a1a;
-    font-size: 16px;
+    color: #fff;
+    font-size: 12px;
     font-weight: 500;
     line-height: 1.25;
     white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-volcano-chart__legend-note {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: #F5F5F5;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
   }
   /* ---------- Mobile ---------- */
   @media only screen and (min-width: 501px) and (max-width: 1060px) {
@@ -205,6 +241,7 @@
   @media only screen and (max-width: 1060px) {
     #shopify-section-{{ section.id }} .heatingV-volcano-chart {
       --chat-font: 26px;
+      background:#1A1A1A;
     }
     #shopify-section-{{ section.id }} .heatingV-volcano-chart__area{
       margin-left:-32px;
@@ -218,6 +255,9 @@
       align-items: stretch;
     }
 
+    #shopify-section-{{ section.id }} .heatingV-volcano-chart__intro { width: 100%; padding: 80px 20px 24px; }
+    #shopify-section-{{ section.id }} .heatingV-volcano-chart__intro-title { font-size: 28px; line-height: normal; letter-spacing: 0; }
+
     #shopify-section-{{ section.id }} .heatingV-volcano-chart__card {
       flex: none;
       width: 100%;
@@ -230,18 +270,27 @@
       font-size: 20px;
     }
 
+    #shopify-section-{{ section.id }} .heatingV-volcano-chart__card-subtitle {
+      margin-top: -12px;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
     #shopify-section-{{ section.id }} .heatingV-volcano-chart__plot {
       gap: 12px;
     }
 
     #shopify-section-{{ section.id }} .heatingV-volcano-chart__legend {
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: flex-start;
+      grid-template-columns: auto auto;
+      gap: 10px 20px;
     }
 
     #shopify-section-{{ section.id }} .heatingV-volcano-chart__legend-text {
       font-size: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .heatingV-volcano-chart__legend-note {
+      font-size: 14px;
     }
   }
 
@@ -258,12 +307,17 @@
   }
 {% endstyle %}
 
-<section class="heatingV-volcano-chart">
+<section class="heatingV-volcano-chart" id="heatingV-why-volcano">
+  <div class="heatingV-volcano-chart__intro">
+    <h2 class="heatingV-volcano-chart__intro-title">{{ section.settings.title | escape }}</h2>
+    <p class="heatingV-volcano-chart__intro-subtitle">{{ section.settings.subtitle | escape }}</p>
+  </div>
   <div class="heatingV-volcano-chart__inner">
 
     {%- comment -%} ---------- Card 1: Mild Cold ---------- {%- endcomment -%}
     <article class="heatingV-volcano-chart__card">
       <h3 class="heatingV-volcano-chart__title">Mild Cold</h3>
+      <p class="heatingV-volcano-chart__card-subtitle">Around 41°F (5°C), light wind, moving</p>
 
       <div class="heatingV-volcano-chart__plot">
         <div class="heatingV-volcano-chart__y-axis">
@@ -286,7 +340,7 @@
             </defs>
 
             {%- comment -%} Comfortable band {%- endcomment -%}
-            <rect x="80" y="60" width="680" height="125" fill="url(#chatBand1-{{ section.id }})" />
+            <rect x="80" y="60" width="680" height="125" fill="rgba(185, 50, 5, 0.30)" />
 
             {%- comment -%} Grid {%- endcomment -%}
             <line x1="306.67" y1="60" x2="306.67" y2="300" stroke="#ececec" stroke-width="1" />
@@ -323,22 +377,12 @@
           </svg>
         </div>
       </div>
-
-      <div class="heatingV-volcano-chart__legend">
-        <div class="heatingV-volcano-chart__legend-item">
-          <span class="heatingV-volcano-chart__legend-mark heatingV-volcano-chart__legend-mark--volcano"></span>
-          <p class="heatingV-volcano-chart__legend-text">Volcano&trade;</p>
-        </div>
-        <div class="heatingV-volcano-chart__legend-item">
-          <span class="heatingV-volcano-chart__legend-mark heatingV-volcano-chart__legend-mark--standard"></span>
-          <p class="heatingV-volcano-chart__legend-text">Standard Heated Vest</p>
-        </div>
-      </div>
     </article>
 
     {%- comment -%} ---------- Card 2: Extreme Cold ---------- {%- endcomment -%}
     <article class="heatingV-volcano-chart__card">
       <h3 class="heatingV-volcano-chart__title">Extreme Cold, Wind, No Movement</h3>
+      <p class="heatingV-volcano-chart__card-subtitle">Down to −40° ℉, on the ice, on a sled, on a job site</p>
 
       <div class="heatingV-volcano-chart__plot">
         <div class="heatingV-volcano-chart__y-axis">
@@ -361,7 +405,7 @@
             </defs>
 
             {%- comment -%} Comfortable band {%- endcomment -%}
-            <rect x="80" y="60" width="680" height="125" fill="url(#chatBand2-{{ section.id }})" />
+            <rect x="80" y="60" width="680" height="125" fill="rgba(185, 50, 5, 0.30)" />
 
             {%- comment -%} Grid {%- endcomment -%}
             <line x1="306.67" y1="60" x2="306.67" y2="300" stroke="#ececec" stroke-width="1" />
@@ -398,19 +442,18 @@
           </svg>
         </div>
       </div>
-
-      <div class="heatingV-volcano-chart__legend">
-        <div class="heatingV-volcano-chart__legend-item">
-          <span class="heatingV-volcano-chart__legend-mark heatingV-volcano-chart__legend-mark--volcano"></span>
-          <p class="heatingV-volcano-chart__legend-text">Volcano&trade;</p>
-        </div>
-        <div class="heatingV-volcano-chart__legend-item">
-          <span class="heatingV-volcano-chart__legend-mark heatingV-volcano-chart__legend-mark--standard"></span>
-          <p class="heatingV-volcano-chart__legend-text">Standard Heated Vest</p>
-        </div>
-      </div>
     </article>
-
+    <div class="heatingV-volcano-chart__legend">
+      <div class="heatingV-volcano-chart__legend-item">
+        <span class="heatingV-volcano-chart__legend-mark heatingV-volcano-chart__legend-mark--volcano"></span>
+        <p class="heatingV-volcano-chart__legend-text">Volcano&trade;</p>
+      </div>
+      <div class="heatingV-volcano-chart__legend-item">
+        <span class="heatingV-volcano-chart__legend-mark heatingV-volcano-chart__legend-mark--standard"></span>
+        <p class="heatingV-volcano-chart__legend-text">Standard Heated Vest</p>
+      </div>
+      <p class="heatingV-volcano-chart__legend-note">*Shows how warm it feels over time, not heating-element temperature.</p>
+    </div>
   </div>
 </section>
 
@@ -473,7 +516,10 @@
 {% schema %}
 {
   "name": "HeatingV Volcano Chart",
-  "settings": [],
+  "settings": [
+    { "type": "text", "id": "title", "label": "Main title", "default": "In Mild Cold, Most Vests Keep Up. In Extreme Cold, They Fall Behind" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Two scenarios, six hours outside. The gap opens when the temperature drops, the wind picks up and you stop moving." }
+  ],
   "presets": [
     {
       "name": "HeatingV Volcano Chart"

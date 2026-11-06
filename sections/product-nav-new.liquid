@@ -1,0 +1,209 @@
+{% include 'global-vars' %}
+
+{%- liquid
+  assign product_form_id = 'header-nav-product-form'
+  assign selected_variant = product.selected_or_first_available_variant
+  assign product_image = product.featured_image | default: product.images.first
+  assign product_summary = product.metafields.custom.short_description.value | default: product.description | strip_html | strip | truncate: 92
+  assign selected_size = blank
+  assign selected_color = blank
+  for option in product.options_with_values
+    if option.name == 'Color'
+      assign selected_color = selected_variant.options[forloop.index0]
+    else
+      assign selected_size = selected_variant.options[forloop.index0]
+    endif
+  endfor
+  assign savings = selected_variant.compare_at_price | minus: selected_variant.price
+  assign nav_size_chart = blank
+  paginate shop.metaobjects.size_chart.values by 250
+    for chart in shop.metaobjects.size_chart.values
+      assign target_product_ids = chart.target_products.value | map: 'id'
+      if target_product_ids contains product.id
+        assign nav_size_chart = chart
+        break
+      endif
+    endfor
+  endpaginate
+  assign nav_chart_id = 'product-nav-' | append: section.id
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-nav-new { position: fixed; right: 0; bottom: 0; left: 0; z-index: 1000; color: #1a1a1a; font-family: var(--font-primary, 'Montserrat', sans-serif); }
+  #shopify-section-{{ section.id }} .product-nav-new, #shopify-section-{{ section.id }} .product-nav-new * { box-sizing: border-box; }
+  #shopify-section-{{ section.id }} .product-nav-new__bar { display: flex; min-height: 84px; align-items: center; justify-content: space-between; gap: 24px; padding: 10px 50px; border-top: 1px solid rgba(0, 0, 0, .08); background: #fff; box-shadow: 0 -5px 8.85px rgba(0, 0, 0, .06); }
+  #shopify-section-{{ section.id }} .product-nav-new__product { display: flex; min-width: 0; align-items: center; gap: 16px; }
+  #shopify-section-{{ section.id }} .product-nav-new__image { display: block; width: 64px; height: 64px; flex: none; border-radius: 4px; object-fit: cover; }
+  #shopify-section-{{ section.id }} .product-nav-new__copy { display: flex; min-width: 0; flex-direction: column; gap: 2px; }
+  #shopify-section-{{ section.id }} .product-nav-new__title { margin: 0; overflow: hidden; font-size: 16px; font-weight: 700; line-height: 1.25; text-overflow: ellipsis; white-space: nowrap; }
+  #shopify-section-{{ section.id }} .product-nav-new__summary { margin: 0; overflow: hidden; color: #515151; font-size: 12px; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+  #shopify-section-{{ section.id }} .product-nav-new__actions { display: flex; flex: none; align-items: center; gap: 8px; }
+  #shopify-section-{{ section.id }} .product-nav-new__selector, #shopify-section-{{ section.id }} .product-nav-new__quantity { display: inline-flex; height: 40px; align-items: center; gap: 8px; padding: 0 14px; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff; color: #111827; font: 600 13px/1 var(--font-primary, 'Montserrat', sans-serif); white-space: nowrap; }
+  #shopify-section-{{ section.id }} .product-nav-new__selector { cursor: pointer; }
+  #shopify-section-{{ section.id }} .product-nav-new__selector[hidden] { display: none; }
+  #shopify-section-{{ section.id }} .product-nav-new__options { display: flex; align-items: center; gap: 8px; }
+  #shopify-section-{{ section.id }} [data-option-kind="heating-zones"] { order: 0; }
+  #shopify-section-{{ section.id }} [data-option-kind="color"] { order: 1; }
+  #shopify-section-{{ section.id }} [data-option-kind="size"] { order: 2; }
+  #shopify-section-{{ section.id }} [data-option-kind="other"] { order: 3; }
+  #shopify-section-{{ section.id }} [data-default-only="true"] .nav-variants { display: none; }
+  #shopify-section-{{ section.id }} .product-nav-new__selector::after { content: ''; width: 6px; height: 6px; margin-left: 2px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-2px); }
+  #shopify-section-{{ section.id }} .product-nav-new__swatch { width: 14px; height: 14px; border: 1px solid rgba(0, 0, 0, .25); border-radius: 50%; }
+  #shopify-section-{{ section.id }} .product-nav-new__quantity { min-width: 80px; flex-shrink: 0; gap: 4px; padding: 0 8px; }
+  #shopify-section-{{ section.id }} .product-nav-new__quantity button { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+  #shopify-section-{{ section.id }} .product-nav-new__quantity input { width: 32px; min-width: 28px; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: center; appearance: textfield; -moz-appearance: textfield; }
+  #shopify-section-{{ section.id }} .product-nav-new__quantity input::-webkit-inner-spin-button,
+  #shopify-section-{{ section.id }} .product-nav-new__quantity input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+  #shopify-section-{{ section.id }} .product-nav-new__price { width:170px;display: flex; align-items: baseline; gap: 4px; white-space: nowrap; }
+  #shopify-section-{{ section.id }} .product-nav-new__price-current { color: #b93205; font-size: 22px; font-weight: 700; }
+  #shopify-section-{{ section.id }} .product-nav-new__price-compare { color: #515151; font-size: 12px; text-decoration: line-through; }
+  #shopify-section-{{ section.id }} .product-nav-new__submit { width:165px;min-height: 40px; padding: 0 28   px; border: 0; border-radius: 6px; background: #b93205; color: #fff; font: 600 14px/1 var(--font-primary, 'Montserrat', sans-serif); cursor: pointer; }
+  #shopify-section-{{ section.id }} .product-nav-new__submit:disabled { cursor: not-allowed; opacity: .65; }
+  #shopify-section-{{ section.id }} .product-nav-new__submit,
+  #shopify-section-{{ section.id }} .product-nav-new__mobile-toggle { text-transform: uppercase; }
+  #shopify-section-{{ section.id }} .product-nav-new__mobile-toggle, #shopify-section-{{ section.id }} .product-nav-new__panel { display: none; }
+  #shopify-section-{{ section.id }} .product-nav-new__option-popover { position: fixed; bottom: 64px; min-width: 140px; max-height: min(360px, 65vh); overflow-y: auto; padding: 6px; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff; box-shadow: 0 4px 16px rgba(0, 0, 0, .12); }
+  #shopify-section-{{ section.id }} .product-nav-new__option-popover[hidden] { display: none; }
+  #shopify-section-{{ section.id }} .product-nav-new__option-choice { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px; border: 0; border-radius: 3px; background: #fff; color: #111827; font: 600 12px/1.4 var(--font-primary, 'Montserrat', sans-serif); text-align: left; cursor: pointer; }
+  #shopify-section-{{ section.id }} .product-nav-new__option-choice:hover, #shopify-section-{{ section.id }} .product-nav-new__option-choice[aria-pressed="true"] { background: #f3f4f6; }
+  #shopify-section-{{ section.id }} .product-nav-new__option-choice:disabled { opacity: .35; cursor: not-allowed; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants { width: 100%; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants .variant-name { margin: 0 0 10px; color: #161616; font-size: 14px;font-weight:700; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants .variant { margin-bottom: 16px; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.default { font-weight:700;min-width: 42px; padding: 9px 12px; border: 1px solid #dedede; border-radius: 6px; color: #1a1a1a; text-align: center; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.default.selected { border-color: #161616; background: #161616; color: #fff; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.color { width: 26px; height: 26px; padding: 2px; border: 1px solid #fff; border-radius: 50%; outline: 1px solid #dedede; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.color.selected { outline-color: #161616; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.color .color-swatch { width: 100%; height: 100%; border-radius: inherit; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-option { display: none; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .product-form { width: 100%; margin-top: 16px; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .product-form .product-nav-new__submit { width: 100%; }
+  #shopify-section-{{ section.id }} .product-nav-new__purchase-row { display: flex; align-items: stretch; gap: 8px; margin-top: 16px; }
+  #shopify-section-{{ section.id }} .product-nav-new__purchase-row .product-form { flex: 1; min-width: 0; margin-top: 0; }
+  #shopify-section-{{ section.id }} .product-nav-new__purchase-row .main-product-error { font-size: 12px; }
+  #shopify-section-{{ section.id }} .product-nav-new__price-compare[hidden], #shopify-section-{{ section.id }} .product-nav-new__panel-save[hidden] { display: none; }
+  #shopify-section-{{ section.id }} .product-nav-new__backdrop { display: none; }
+  #shopify-section-{{ section.id }} .product-nav-new__size-guide { float: right; margin-left: 12px; font-size: 12px; font-weight: 400; font-style: normal; }
+  #shopify-section-{{ section.id }} .product-nav-new > .size-chart-component .size-chart-component__modal { z-index: 3; }
+  #shopify-section-{{ section.id }} .product-nav-new__error { margin: 0; padding: 8px 20px; background: #fff0ed; color: #a32300; font-size: 13px; }
+  #shopify-section-{{ section.id }} .product-nav-new__error[hidden] { display: none; }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .product-nav-new__panel[data-option-filter] .nav-variants fieldset { display: none; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel[data-option-filter="size"] .nav-variants fieldset[data-option-kind="size"],
+    #shopify-section-{{ section.id }} .product-nav-new__panel[data-option-filter="color"] .nav-variants fieldset[data-option-kind="color"] { display: block; }
+  }
+  @media (min-width: 768px) and (max-width: 1200px) {
+    #shopify-section-{{ section.id }} .product-nav-new__bar { display: grid; grid-template-columns: minmax(80px, 1fr) minmax(0, 3fr); gap: 16px; padding: 10px 16px; }
+    #shopify-section-{{ section.id }} .product-nav-new__product { gap: 8px; }
+    #shopify-section-{{ section.id }} .product-nav-new__image { width: 40px; height: 40px; }
+    #shopify-section-{{ section.id }} .product-nav-new__title { font-size: 13px; }
+    #shopify-section-{{ section.id }} .product-nav-new__actions { display: grid; grid-template-columns: minmax(0, 1fr) 80px 95px 120px; min-width: 0; gap: 6px; }
+    #shopify-section-{{ section.id }} .product-nav-new__options { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); justify-self: end; justify-content: start; min-width: 0; max-width: 100%; gap: 6px; }
+    #shopify-section-{{ section.id }} .product-nav-new__options [data-option-kind="heating-zones"] { grid-column: 1 / -1; justify-self: start; max-width: 100%; }
+    #shopify-section-{{ section.id }} .product-nav-new__selector { min-width: 0; height: auto; min-height: 34px; justify-content: center; padding: 6px; gap: 4px; font-size: 12px; line-height: 1.3; white-space: normal; overflow-wrap: anywhere; }
+    #shopify-section-{{ section.id }} .product-nav-new__selector::after, #shopify-section-{{ section.id }} .product-nav-new__swatch { flex-shrink: 0; }
+    #shopify-section-{{ section.id }} .product-nav-new__actions > .product-nav-new__quantity { grid-column: 2; grid-row: 1; justify-content: space-between; }
+    #shopify-section-{{ section.id }} .product-nav-new__actions > .product-nav-new__price { grid-column: 3; grid-row: 1; width: auto; min-width: 0; flex-direction: column; gap: 2px; white-space: normal; overflow-wrap: anywhere; }
+    #shopify-section-{{ section.id }} .product-nav-new__price-current { font-size: 18px; }
+    #shopify-section-{{ section.id }} .product-nav-new__actions > .product-nav-new__submit { grid-column: 4; grid-row: 1; width: 100%; min-width: 0; padding: 10px 8px; font-size: 12px; }
+  }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-nav-new__option-popover { display: none; }
+    #shopify-section-{{ section.id }} .product-nav-new { padding: 12px 20px calc(12px + env(safe-area-inset-bottom, 0px)); background: #fff; }
+    #shopify-section-{{ section.id }} .product-nav-new.is-open { padding: 0; background: transparent; }
+    #shopify-section-{{ section.id }} .product-nav-new__bar { display: none; }
+    #shopify-section-{{ section.id }} .product-nav-new__mobile-toggle { display: block; width: 100%; min-height: 48px; padding: 12px 20px; border: 0; border-radius: 6px; background: #b93205; color: #fff; font: 700 14px/1.2 var(--font-primary, 'Montserrat', sans-serif); cursor: pointer; }
+    #shopify-section-{{ section.id }} .product-nav-new__mobile-toggle:disabled { background: #B93205; cursor: not-allowed; opacity:0.65}
+    #shopify-section-{{ section.id }} .product-nav-new.is-open .product-nav-new__mobile-toggle { display: none; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel { position: absolute; right: 0; bottom: 0; left: 0; display: none; width: auto; max-height: min(90vh, 560px); overflow-y: auto; padding: 12px 20px 40px; border-radius: 12px 12px 0 0; background: #fff; box-shadow: 0 -4px 8px rgba(0, 0, 0, .06); }
+    #shopify-section-{{ section.id }} .product-nav-new__panel[data-option-filter] .nav-variants fieldset { display: block; }
+    #shopify-section-{{ section.id }} .product-nav-new.is-open .product-nav-new__backdrop { display: block; position: fixed; inset: 0; border: 0; background: rgba(0, 0, 0, .45); }
+    #shopify-section-{{ section.id }} .product-nav-new.is-open .product-nav-new__panel { display: flex; flex-direction: column; position: fixed; top: auto; right: 0; bottom: 0; left: 0; width: auto; height: auto; max-height: 90vh; max-height: 90dvh; margin: 0; padding: 16px 0 0; overflow: hidden; border: 0; border-radius: 12px 12px 0 0; transform: none; z-index: 1; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-content { flex: 0 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; scrollbar-width: thin; scrollbar-color: #b8b8b8 #f4f4f4; padding: 0 20px 16px; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-content::-webkit-scrollbar { width: 5px; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-content::-webkit-scrollbar-track { background: #f4f4f4; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-content::-webkit-scrollbar-thumb { background: #b8b8b8; border-radius: 4px; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel > .product-nav-new__purchase-row { flex: 0 0 auto; margin-top: 0; padding: 12px 20px calc(16px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid #ececec; background: #fff; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants { padding: 16px; border-radius: 6px; background: #f5f5f5; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants > .no-js-hidden { display: flex; flex-direction: column; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel fieldset { min-width: 0; padding: 0; border: 0; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector { display: inline-flex; align-items: center; justify-content: center; margin: 0 6px 8px 0; vertical-align: middle; cursor: pointer; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.default { min-width: 40px; padding: 9px 10px; font-size: 12px; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.disabled { opacity: .35; cursor: not-allowed; }
+    #shopify-section-{{ section.id }} .product-nav-new__purchase-row > .product-nav-new__quantity { height: 48px; flex: 0 0 100px; justify-content: space-between; gap: 8px; }
+    #shopify-section-{{ section.id }} .product-nav-new__purchase-row { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 8px; }
+    #shopify-section-{{ section.id }} .product-nav-new__purchase-row .product-form { display: contents; }
+    #shopify-section-{{ section.id }} .product-nav-new__purchase-row > .product-nav-new__quantity { grid-column: 1; grid-row: 2; }
+    #shopify-section-{{ section.id }} .product-nav-new__purchase-row .product-atc-form { grid-column: 2; grid-row: 2; min-width: 0; margin: 0; }
+    #shopify-section-{{ section.id }} .product-nav-new__purchase-row .main-product-error { grid-column: 1 / -1; grid-row: 1; margin: 0; padding: 10px 12px; border: 1px solid #f3d7ad; border-radius: 6px; background: #fff8ed; color: #784b16; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; text-align: left; }
+    #shopify-section-{{ section.id }} .product-nav-new__purchase-row .main-product-error p { margin: 0; color: inherit; font-size: inherit; line-height: inherit; }
+    #shopify-section-{{ section.id }} .product-nav-new.is-open > [data-purchase-error] { display: none; }
+    #shopify-section-{{ section.id }} .product-nav-new__close { display: block; flex: 0 0 auto; margin: 0 20px 12px auto; padding: 0; border: 0; background: transparent; color: #515151; font-size: 26px; line-height: 1; cursor: pointer; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-product { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-title { margin: 0; font-size: 18px; line-height: 1.25; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-summary { margin: 0; color: #515151; font-size: 12px; line-height: 1.35; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-price { display: flex; align-items: baseline; gap: 10px; margin: 12px 0; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-price .product-nav-new__price-current { font-size: 20px; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel-save { padding: 5px 12px; border-radius: 4px; background: #fff5f5; color: #b93205; font-size: 12px; }
+    #shopify-section-{{ section.id }} .product-nav-new__panel .product-nav-new__submit { width: 100%; min-height: 48px; }
+  }
+{% endstyle %}
+
+<section class="product-page-nav-header-section product-nav-new" data-product-nav-new data-default-only="{{ product.has_only_default_variant }}" data-section-id="{{ section.id }}">
+  <p class="product-nav-new__error" data-purchase-error role="alert" hidden></p>
+  <div class="product-nav-new__bar">
+    <div class="product-nav-new__product">
+      {%- if product_image != blank -%}{{ product_image | image_url: width: 128 | image_tag: class: 'product-nav-new__image', loading: 'lazy', alt: product.title }}{%- endif -%}
+      <div class="product-nav-new__copy"><p class="product-nav-new__title">{{ product.title | escape }}</p><p class="product-nav-new__summary">{{ product_summary | escape }}</p></div>
+    </div>
+    <div class="product-nav-new__actions">
+      {% unless product.has_only_default_variant %}
+        <div class="product-nav-new__options">
+          {% for option in product.options_with_values %}
+            <button class="product-nav-new__selector" type="button" data-open-panel="{{ forloop.index0 }}" data-option-name="{{ option.name | escape }}">{{ option.name | escape }}: {{ selected_variant.options[forloop.index0] | escape }}</button>
+          {% endfor %}
+        </div>
+      {% endunless %}
+      <div class="product-nav-new__quantity" aria-label="Quantity"><button type="button" data-quantity-decrease aria-label="Decrease quantity">−</button><input type="number" value="1" min="1" data-quantity-input aria-label="Quantity"><button type="button" data-quantity-increase aria-label="Increase quantity">+</button></div>
+      <div class="product-nav-new__price"><span class="product-nav-new__price-current">{{ selected_variant.price | money | prepend: curSym }}</span><span class="product-nav-new__price-compare"{% unless selected_variant.compare_at_price > selected_variant.price %} hidden{% endunless %}>{{ selected_variant.compare_at_price | money | prepend: curSym }}</span></div>
+      <button class="product-nav-new__submit" type="submit" form="header-nav-product-form" data-nav-submit{% unless selected_variant.available %} disabled{% endunless %}>{% if selected_variant.available %}ADD TO CART{% else %}Out of Stock{% endif %}</button>
+    </div>
+  </div>
+
+  <div class="product-nav-new__option-popover" data-desktop-options hidden aria-label="Product options"></div>
+  <button class="product-nav-new__mobile-toggle" type="button" data-mobile-toggle{% unless selected_variant.available %} disabled{% endunless %}>{% if selected_variant.available %}ADD TO CART{% else %}Out of Stock{% endif %}</button>
+  <button class="product-nav-new__backdrop" type="button" data-mobile-backdrop aria-label="Close product options" tabindex="-1"></button>
+  <div class="product-variant-selector product-nav-new__panel" id="ProductNavPanel-{{ section.id }}" role="dialog" aria-label="Product options" aria-hidden="true" tabindex="-1" data-product-panel>
+    <button class="product-nav-new__close" type="button" data-mobile-close aria-label="Close">×</button>
+    <div class="product-nav-new__panel-content">
+    <div class="product-nav-new__panel-product"><h2 class="product-nav-new__panel-title">{{ product.title | escape }}</h2><p class="product-nav-new__panel-summary">{{ product_summary | escape }}</p></div>
+    <div class="product-nav-new__panel-price"><span class="product-nav-new__price-current">{{ selected_variant.price | money | prepend: curSym }}</span><span class="product-nav-new__price-compare"{% unless selected_variant.compare_at_price > selected_variant.price %} hidden{% endunless %}>{{ selected_variant.compare_at_price | money | prepend: curSym }}</span><span class="product-nav-new__panel-save"{% unless selected_variant.compare_at_price > selected_variant.price %} hidden{% endunless %}>Save {{ savings | money }}</span></div>
+    {% render 'nav-product-variant', product: product, product_form_id: product_form_id %}
+    </div>
+    <div class="product-nav-new__purchase-row">
+    <div class="product-nav-new__quantity" aria-label="Quantity"><button type="button" data-quantity-decrease aria-label="Decrease quantity">−</button><input class="qty quantity__input nav-quantity__input" type="number" value="1" min="1" step="1" data-quantity-input aria-label="Quantity"><button type="button" data-quantity-increase aria-label="Increase quantity">+</button></div>
+    <div class="product-form">
+      <div class="main-product-error" role="alert" style="display:none"><p></p></div>
+      {% form 'product', product, id: 'header-nav-product-form', class: 'product-atc-form form', novalidate: 'novalidate', data-type: 'add-to-cart-form', action: 'javascript:void(0)' %}
+        <input type="hidden" name="id" id="main-product-id-nav" value="{{ selected_variant.id }}"><input type="hidden" name="quantity" value="1" data-form-quantity>
+        <button class="product-nav-new__submit" type="submit" name="add" data-nav-submit{% unless selected_variant.available %} disabled{% endunless %}>{% if selected_variant.available %}ADD TO CART{% else %}Out of Stock{% endif %}</button>
+      {% endform %}
+    </div>
+    </div>
+  </div>
+  {% render 'size-chart-component', product: product, matched_size_chart: nav_size_chart, id: nav_chart_id, button_class: 'product-nav-new__size-guide' %}
+<script type="application/json" data-nav-prices>
+  {"currency": {{ cart.currency.iso_code | default: shop.currency | json }}, "locale": {{ request.locale.iso_code | json }}}
+</script>
+</section>
+<script src="{{ 'product-nav-new.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Product Navigation New",
+  "tag": "section",
+  "templates": ["product"],
+  "limit": 1,
+  "presets": [{ "name": "Product Navigation New" }]
+}
+{% endschema %}

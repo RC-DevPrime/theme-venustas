@@ -2,6 +2,11 @@
 {%- assign first_mobile = section.settings.first_mobile_image | default: first_desktop -%}
 {%- assign second_desktop = section.settings.second_desktop_image | default: section.settings.second_mobile_image -%}
 {%- assign second_mobile = section.settings.second_mobile_image | default: second_desktop -%}
+{%- if section.settings.gender == 'female' -%}
+  {%- assign wattage = '38' -%}
+{%- else -%}
+  {%- assign wattage = '41' -%}
+{%- endif -%}
 
 {% style %}
   #shopify-section-{{ section.id }} .heatingV-4x-gear {
@@ -25,7 +30,11 @@
     padding: 100px 0;
     align-items: center;
     gap: 40px;
+    background-color:#1A1A1A;
   }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__media { order: 2; }
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__content { order: 1; }
 
   /* ---------- Media ---------- */
   #shopify-section-{{ section.id }} .heatingV-4x-gear__media {
@@ -100,6 +109,7 @@
   }
 
   #shopify-section-{{ section.id }} .heatingV-4x-gear__eyebrow {
+    display: none;
     margin: 0;
     color: #b93205;
     font-size: 16px;
@@ -330,6 +340,38 @@
       transition-delay: 0s;
     }
   }
+
+  /* Dark Volcano treatment from the 4X power design. */
+  #shopify-section-{{ section.id }} .heatingV-4x-gear {
+    background: radial-gradient(circle at 74% 50%, #441313 0%, #2f1616 42%, #1a1a1a 100%);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__media,
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__image {
+    background: #1a1a1a;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__title,
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__callout-text {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__desc,
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__callout-eyebrow {
+    color: #f5f5f5;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__callout-num {
+    background: linear-gradient(180deg, #da642a 0%, #b63004 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  #shopify-section-{{ section.id }} .heatingV-4x-gear__label {
+    color: #d2d2d2;
+  }
 {% endstyle %}
 
 <section class="heatingV-4x-gear" id="heatingv-heating-system">
@@ -397,9 +439,9 @@
     <div class="heatingV-4x-gear__content">
       <div class="heatingV-4x-gear__header">
         <p class="heatingV-4x-gear__eyebrow">Built for &minus;40&deg;F to 41&deg;F</p>
-        <h2 class="heatingV-4x-gear__title">4X the Power of Everyday Heated Gear</h2>
+        <h2 class="heatingV-4x-gear__title">The Heating Power of Our Everyday Vests</h2>
         <p class="heatingV-4x-gear__desc">
-          Once the cold gets serious, heat leaves your body faster than a standard vest can put it back. Volcano&trade; drives four times the power into the same six zones &mdash; enough to stay ahead of it from a mild 41&deg;F morning all the way down to &minus;40&deg;F.
+          Every heated vest can reach a top temperature. The question is whether it can hold it while the cold pulls heat away. Volcano puts {{ wattage }}W behind the same 144&deg;F, four times what our everyday vests deliver.
         </p>
       </div>
 
@@ -413,10 +455,10 @@
           <div class="heatingV-4x-gear__row">
             <div class="heatingV-4x-gear__track">
               <div class="heatingV-4x-gear__fill heatingV-4x-gear__fill--volcano">
-                <span class="heatingV-4x-gear__fill-label">Volcano&trade; Heated Vest</span>
+                <span class="heatingV-4x-gear__fill-label">Volcano&trade; Pro Heated Vest</span>
               </div>
             </div>
-            <p class="heatingV-4x-gear__value">41 Watts</p>
+            <p class="heatingV-4x-gear__value">{{ wattage }} Watts</p>
           </div>
 
           <div class="heatingV-4x-gear__row heatingV-4x-gear__row--standard">
@@ -524,6 +566,16 @@
       "step": 1,
       "unit": "s",
       "default": 1
+    },
+    {
+      "type": "select",
+      "id": "gender",
+      "label": "Product version",
+      "options": [
+        { "value": "male", "label": "Men's" },
+        { "value": "female", "label": "Women's" }
+      ],
+      "default": "male"
     },
     {
       "type": "header",

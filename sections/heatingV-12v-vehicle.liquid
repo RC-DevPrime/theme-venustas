@@ -1,0 +1,59 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle { color: #fff; background: linear-gradient(180deg, #1a1a1a 0%, #2f0808 54.76%, #1a1a1a 100%); font-family: var(--font-primary, 'Montserrat', sans-serif); }
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle__inner { display: flex; width: min(calc(100% - 100px), 1340px); min-height: 340px; align-items: center; gap: 32px; margin: 0 auto; padding: 100px 0; }
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle__media { position: relative; width: 49%; height: 340px; flex: 0 0 49%; overflow: hidden; border-radius: 12px; background: #2a2a2a; }
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle__media picture,
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle__media img { display: block; width: 100%; height: 100%; }
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle__media img { object-fit: cover; object-position: center; }
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle__placeholder { display: grid; width: 100%; height: 100%; place-items: center; color: #aaa; font-size: 13px; }
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle__copy { display: flex; flex: 1; flex-direction: column; gap: 40px; min-width: 0; }
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle__heading { display: flex; flex-direction: column; gap: 16px; }
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle h2,
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle p { margin: 0; }
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle__eyebrow { color: #b93205; font-size: 20px; font-weight: 600; letter-spacing: .8px; }
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle__title { max-width: 516px; font-size: 34px; font-weight: 700; line-height: 1.16; letter-spacing: -.952px; }
+  #shopify-section-{{ section.id }} .heatingV-12v-vehicle__description { font-size: 16px; line-height: 1.72; }
+  @media (max-width: 1024px) { #shopify-section-{{ section.id }} .heatingV-12v-vehicle__inner { width: min(calc(100% - 64px), 1340px); padding: 80px 0; } #shopify-section-{{ section.id }} .heatingV-12v-vehicle__title { font-size: 30px; } }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingV-12v-vehicle__inner { display: flex; width: calc(100% - 40px); min-height: 0; flex-direction: column; align-items: stretch; gap: 40px; padding: 80px 0; }
+    #shopify-section-{{ section.id }} .heatingV-12v-vehicle__media { width: 100%; aspect-ratio: 350 / 340; flex-basis: 340px; }
+    #shopify-section-{{ section.id }} .heatingV-12v-vehicle__copy { gap: 16px; }
+    #shopify-section-{{ section.id }} .heatingV-12v-vehicle__heading { gap: 16px; }
+    #shopify-section-{{ section.id }} .heatingV-12v-vehicle__eyebrow { font-size: 16px; letter-spacing: .64px; }
+    #shopify-section-{{ section.id }} .heatingV-12v-vehicle__title { max-width: none; font-size: 28px; line-height: normal; letter-spacing: 0; }
+    #shopify-section-{{ section.id }} .heatingV-12v-vehicle__description { line-height: 1.72; }
+  }
+{%- endstyle -%}
+
+<section class="heatingV-12v-vehicle">
+  <div class="heatingV-12v-vehicle__inner">
+    <div class="heatingV-12v-vehicle__media">
+      {%- if section.settings.desktop_image != blank -%}
+        <picture>
+          {%- if section.settings.mobile_image != blank -%}<source media="(max-width: 767px)" srcset="{{ section.settings.mobile_image | image_url: width: 900 }}" sizes="100vw">{%- endif -%}
+          {{ section.settings.desktop_image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '700, 1000, 1400', sizes: '(max-width: 767px) 350px, 49vw', alt: section.settings.image_alt }}
+        </picture>
+      {%- else -%}<span class="heatingV-12v-vehicle__placeholder">{{ section.settings.image_alt | escape }}</span>{%- endif -%}
+    </div>
+    <div class="heatingV-12v-vehicle__copy">
+      <div class="heatingV-12v-vehicle__heading"><p class="heatingV-12v-vehicle__eyebrow">{{ section.settings.eyebrow | escape }}</p><h2 class="heatingV-12v-vehicle__title">{{ section.settings.title | escape }}</h2></div>
+      <p class="heatingV-12v-vehicle__description">{{ section.settings.description | escape }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HeatingV 12V Vehicle",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "desktop_image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" },
+    { "type": "text", "id": "image_alt", "label": "Image description", "default": "Heated vest connected to a vehicle" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "ALSO RUNS ON 12V" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Near a snowmobile, motorcycle or ATV? Plug in." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "The lead is built into the left pocket. Add the Y cable set and the vest runs off the vehicle, with no limit on the day. Y cable set sold separately." }
+  ],
+  "presets": [{ "name": "HeatingV 12V Vehicle" }]
+}
+{% endschema %}

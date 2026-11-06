@@ -1,0 +1,43 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heatingV-runtime { overflow: hidden; color: #fff; background: linear-gradient(180deg, #1a1a1a 0%, #2f0808 54.76%, #1a1a1a 100%); font-family: var(--font-primary, 'Montserrat', sans-serif); }
+  #shopify-section-{{ section.id }} .heatingV-runtime__inner { width: min(calc(100% - 100px), 1340px); margin: 80px auto; padding: 0; }
+  #shopify-section-{{ section.id }} .heatingV-runtime__title { margin: 0 0 6px; font-size: 20px; font-weight: 600; line-height: 1.68; letter-spacing: -.4px; }
+  #shopify-section-{{ section.id }} .heatingV-runtime__table { min-width: 1046px; }
+  #shopify-section-{{ section.id }} .heatingV-runtime__row { margin-bottom:6px;display: grid; grid-template-columns: repeat(4, 180px); justify-content: space-between; align-items: center; min-height: 50px; padding: 15px 10px; border-radius: 6px; font-size: 16px; line-height: 1.4; }
+  #shopify-section-{{ section.id }} .heatingV-runtime__row--head { min-height: 52px; padding-block: 16px; font-weight: 600; color: #f5f5f5; }
+  #shopify-section-{{ section.id }} .heatingV-runtime__row--high { background: rgba(255,64,0,.7); }
+  #shopify-section-{{ section.id }} .heatingV-runtime__row--medium { background: rgba(255,64,0,.4); }
+  #shopify-section-{{ section.id }} .heatingV-runtime__row--low { background: rgba(255,64,0,.16); }
+  #shopify-section-{{ section.id }} .heatingV-runtime__level { font-weight: 800; }
+  #shopify-section-{{ section.id }} .heatingV-runtime__value { font-weight: 500; }
+  #shopify-section-{{ section.id }} .heatingV-runtime__cable { font-size: 24px; line-height: 20px; }
+  @media (max-width: 1024px) { #shopify-section-{{ section.id }} .heatingV-runtime__inner { width: min(calc(100% - 64px), 1340px); padding: 80px 0; } }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .heatingV-runtime__inner { width: calc(100% - 40px); margin: 0 auto; padding: 60px 0; }
+    #shopify-section-{{ section.id }} .heatingV-runtime__table { width: 100%; min-width: 0; }
+    #shopify-section-{{ section.id }} .heatingV-runtime__row { grid-template-columns: repeat(2, minmax(0, 1fr)); justify-content: stretch; }
+    #shopify-section-{{ section.id }} .heatingV-runtime__row > :nth-child(n + 3) { display: none; }
+  }
+{% endstyle %}
+
+<section class="heatingV-runtime">
+  <div class="heatingV-runtime__inner">
+    <h2 class="heatingV-runtime__title">Runtime</h2>
+    <div class="heatingV-runtime__scroll">
+      <div class="heatingV-runtime__table" role="table" aria-label="Runtime by heat level">
+        <div class="heatingV-runtime__row heatingV-runtime__row--head" role="row"><span>HEAT LEVEL</span><span>ONE BATTERY</span><span>BOTH BATTERIES</span><span>Y CABLE TO 12V</span></div>
+        <div class="heatingV-runtime__row heatingV-runtime__row--high" role="row"><span class="heatingV-runtime__level">High <span class="heatingV-runtime__value">144°F</span></span><span class="heatingV-runtime__value">2h</span><span class="heatingV-runtime__value">4 h</span><span class="heatingV-runtime__cable" aria-label="Unlimited">∞</span></div>
+        <div class="heatingV-runtime__row heatingV-runtime__row--medium" role="row"><span class="heatingV-runtime__level">Medium <span class="heatingV-runtime__value">130°F</span></span><span class="heatingV-runtime__value">3.5h</span><span class="heatingV-runtime__value">6 h</span><span class="heatingV-runtime__cable" aria-label="Unlimited">∞</span></div>
+        <div class="heatingV-runtime__row heatingV-runtime__row--low" role="row"><span class="heatingV-runtime__level">Low <span class="heatingV-runtime__value">112°F</span></span><span class="heatingV-runtime__value">7h</span><span class="heatingV-runtime__value">11 h</span><span class="heatingV-runtime__cable" aria-label="Unlimited">∞</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HeatingV Runtime",
+  "tag": "section",
+  "presets": [{ "name": "HeatingV Runtime" }]
+}
+{% endschema %}
