@@ -56,6 +56,7 @@
         },
         "hightlights_4aek9f": {
           "type": "hightlights",
+          "disabled": true,
           "settings": {
             "heading": "HIGHLIGHTS",
             "description": "<p>{{ product.metafields.c_f.highlights | metafield_tag }}</p>"
@@ -210,9 +211,7 @@
         "heading": "The Warmest Vest We've Ever Made",
         "description": "Built for the cold where an everyday heated vest gives up. 4 times the heating power, 6 zones front and back, sealed in a windproof three-layer shell.",
         "temperature": "-40°F",
-        "label": "Ideal for",
-        "animation_delay": 1,
-        "toggle_label": "Toggle expanded cold performance details"
+        "label": "Ideal for"
       }
     },
     "heating_v_volcano_chart_zzDa64": {
@@ -609,6 +608,7 @@
         "video_card_QBUDgK",
         "video_card_p4hUDx"
       ],
+      "disabled": true,
       "name": "HeatingP Video",
       "settings": {}
     },
@@ -647,7 +647,14 @@
           "type": "faq",
           "settings": {
             "question": "Do I need the Y cable set?",
-            "answer": "<p>To check your own bike: your stator output needs to cover what the bike already uses plus the heated gear. For example, a 300W stator with 140W of stock load leaves 160W to spare — plenty for Volcano™'s 41W. A 154W heated set would fit too, but with almost nothing left over.</p>"
+            "answer": "<p><br/>Not to wear Volcano™. It runs on the two batteries in the box. The Y cable set ($17.99, sold separately) is only for running the vest off your motorcycle’s or snowmobile’s 12V power. It plugs into the lead in the left hand pocket.&nbsp;<br/><br/></p>"
+          }
+        },
+        "faq_VbFTrp": {
+          "type": "faq",
+          "settings": {
+            "question": "Will running it off 12V drain my battery?",
+            "answer": "<p>Not while you’re riding, as long as your charging system has room to spare. Volcano™ needs 41W (about 3.4A). To check, find your stator or charging output in the owner’s manual and subtract what the vehicle already uses. For example, a 300W stator with 140W of stock load leaves 160W, plenty for Volcano™. Turn the vest off when the engine is off, since it draws straight from the battery. Long idling on small or older bikes can also run the battery down.</p>"
           }
         },
         "faq_dfKUiz": {
@@ -664,6 +671,7 @@
         "faq_Fng3CC",
         "faq_8D9wfE",
         "faq_WgqpEh",
+        "faq_VbFTrp",
         "faq_dfKUiz"
       ],
       "name": "Heating FAQ",
