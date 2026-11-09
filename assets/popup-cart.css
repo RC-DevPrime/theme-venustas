@@ -198,6 +198,36 @@
     color: #000;
 }
 
+#popup-cart button.product-remove,
+.main-cart button.product-remove {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.product-remove.is-removing {
+    position: relative;
+}
+
+.product-remove.is-removing svg {
+    visibility: hidden;
+}
+
+.product-remove.is-removing::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 14px;
+    height: 14px;
+    box-sizing: border-box;
+    border: 2px solid #b4b4b4;
+    border-top-color: #B93205;
+    border-radius: 50%;
+    animation: spin .6s linear infinite;
+}
+
 .main-cart .variant-type-toggle,
 #popup-cart .variant-type-toggle,
 .popup-container .variant-type-toggle{
@@ -1294,4 +1324,81 @@
 
 
 
-    
+
+.cart-item-discount {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    max-width: 100%;
+    margin: 4px 0 4px 8px;
+    padding: 3px 7px;
+    border-radius: 3px;
+    background: #f2f2f2;
+    color: #222;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+.cart-item-discount .icon-discount {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+}
+
+#popup-cart .product-price,
+.main-cart .product-price {
+    flex-wrap: wrap;
+}
+
+#popup-cart .discount-code button.remove-discount,
+.main-cart .discount-code button.remove-discount {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+#popup-cart[aria-busy="true"] .cart-body,
+#popup-cart[aria-busy="true"] .discount-wrapper,
+#popup-cart[aria-busy="true"] .cart-checkout,
+.main-cart[aria-busy="true"] .main-cart-data {
+    pointer-events: none;
+}
+
+.cart-update-error {
+    padding: 8px;
+    color: #b42318;
+    font-size: 13px;
+}
+
+@media (max-width: 767px) {
+    .cart-item-discount {
+        margin-left: 0;
+        margin-right: 6px;
+    }
+}
+#popup-cart .cart-discount-summary-row,
+.main-cart .cart-discount-summary-row {
+    display: grid;
+    grid-template-columns: minmax(65px, 1fr) minmax(0, 2fr) auto;
+    gap: 8px;
+    align-items: start;
+    padding-bottom: 8px;
+}
+
+#popup-cart .cart-discount-summary-row > span:nth-child(2),
+.main-cart .cart-discount-summary-row > span:nth-child(2) {
+    overflow-wrap: anywhere;
+}
+
+#popup-cart .cart-discount-summary-row > span:last-child,
+.main-cart .cart-discount-summary-row > span:last-child {
+    text-align: right;
+    white-space: nowrap;
+}

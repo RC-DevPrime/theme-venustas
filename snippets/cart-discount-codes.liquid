@@ -1,0 +1,51 @@
+{%- liquid
+  assign applications = cart.cart_level_discount_applications
+  for cart_item in cart.items
+    assign line_applications = cart_item.line_level_discount_allocations | map: 'discount_application'
+    assign applications = applications | concat: line_applications
+  endfor
+  assign seen = ''
+  assign summary_label_shown = false
+-%}
+{%- for application in applications -%}
+  {%- assign identity = application.type | append: ':' | append: application.title | url_encode | prepend: '|' | append: '|' -%}
+  {%- unless seen contains identity -%}
+    {%- liquid
+      assign discount_amount = 0
+      for order_discount in cart.cart_level_discount_applications
+        if order_discount.type == application.type and order_discount.title == application.title
+          assign discount_amount = discount_amount | plus: order_discount.total_allocated_amount
+        endif
+      endfor
+      for cart_item in cart.items
+        for allocation in cart_item.line_level_discount_allocations
+          if allocation.discount_application.type == application.type and allocation.discount_application.title == application.title
+            assign discount_amount = discount_amount | plus: allocation.amount
+          endif
+        endfor
+      endfor
+    -%}
+    {% if display == 'summary' %}
+      {% if discount_amount > 0 %}
+        <div class="cart-discount-summary-row body pp-regular f-black">
+          <span>{% unless summary_label_shown %}Discounts{% endunless %}</span>
+          <span>{{ application.title | escape }}</span>
+          <span>−{{ discount_amount | money | prepend: currency_prefix }}</span>
+        </div>
+        {% assign summary_label_shown = true %}
+      {% endif %}
+    {% elsif discount_amount > 0 %}
+    <div class="discount-code">
+      <i class="fa-solid fa-tags" aria-hidden="true"></i>
+      {{ application.title | escape }}
+      <span class="discount-code-amount">(−{{ discount_amount | money | prepend: currency_prefix }})</span>
+      {%- if application.type == 'discount_code' -%}
+        <button type="button" class="remove-discount" data-code="{{ application.title | escape }}" aria-label="Remove {{ application.title | escape }}">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      {%- endif -%}
+    </div>
+    {% endif %}
+    {%- assign seen = seen | append: identity -%}
+  {%- endunless -%}
+{%- endfor -%}

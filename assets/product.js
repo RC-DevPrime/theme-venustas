@@ -1554,9 +1554,9 @@ $(document).ready(function() {
 
             success: function (response) {
                 // Your existing functions
+                if (typeof showAddedCartItems === 'function') showAddedCartItems(response);
                 if (typeof refreshCart === 'function') refreshCart();
-                if (typeof refreshMainCart === 'function') refreshMainCart();
-                if (typeof openCart === 'function') openCart();
+                if (typeof openCart === 'function') openCart(false);
 
                 // if you still have this overlay in your theme:
                 $item.find('.btn-atc span').css('visibility', 'visible');
