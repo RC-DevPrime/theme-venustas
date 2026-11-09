@@ -117,6 +117,8 @@
 
   <script>
     (function() {
+      if (window.venustasFreeShippingInitialized) return;
+      window.venustasFreeShippingInitialized = true;
       function formatMoneyCents(cents) {
         if (window.Shopify && typeof Shopify.formatMoney === "function") {
           var format = (window.theme && theme.moneyFormat) ? theme.moneyFormat : "{{ shop.money_format }}";
@@ -205,7 +207,13 @@
 
       // Theme events
       document.addEventListener("cart:build", fetchCartAndUpdate);
-      document.addEventListener("cart:updated", fetchCartAndUpdate);
+      document.addEventListener("cart:updated", function(event) {
+        if (event.detail && typeof event.detail.total_price === 'number') {
+          updateAllBarsFromCart(event.detail);
+        } else {
+          fetchCartAndUpdate();
+        }
+      });
       document.addEventListener("cart:refresh", fetchCartAndUpdate);
 
       // Fallback: quantity changes

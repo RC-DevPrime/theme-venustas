@@ -1541,7 +1541,10 @@ $(function () {
         return readErrorMessage(res, 'Failed to add to cart.');
       }
 
-      return res.json();
+      return res.json().then(function (item) {
+        if (typeof showAddedCartItems === 'function') showAddedCartItems(item);
+        return item;
+      });
     });
   }
 
@@ -1591,7 +1594,7 @@ $(function () {
 
   function triggerCartRefresh() {
     if (typeof refreshCart === 'function') refreshCart();
-    if (typeof openCart === 'function') openCart();
+    if (typeof openCart === 'function') openCart(false);
   }
 
   $(document).on('click', '.product-update.popup-modal .bottom-container .btn-main', function (e) {
@@ -2198,7 +2201,6 @@ $(function () {
               $popup.removeClass('open is-loading');
               $('body').removeClass('no-scroll');
               if (window.refreshCart) refreshCart();
-              if (window.refreshMainCart) refreshMainCart();
             },
             error() {
               $popup.removeClass('is-loading');
