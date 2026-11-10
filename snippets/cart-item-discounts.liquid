@@ -1,0 +1,8 @@
+{%- for allocation in item.line_level_discount_allocations -%}
+  {%- if allocation.amount > 0 -%}
+    <span class="cart-item-discount">
+      {% render 'icon-discount' %}
+      <span>{{ allocation.discount_application.title | escape }} (−{{ allocation.amount | money | prepend: currency_prefix }})</span>
+    </span>
+  {%- endif -%}
+{%- endfor -%}

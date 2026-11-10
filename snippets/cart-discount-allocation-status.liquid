@@ -1,0 +1,15 @@
+{%- comment -%}
+  Only use all allocations when the current cart reconciles to Shopify's total.
+  Otherwise keep order discounts in the summary and show line discounts only.
+{%- endcomment -%}
+{%- liquid
+  assign allocated_total = 0
+  for cart_item in cart.items
+    for allocation in cart_item.discount_allocations
+      assign allocated_total = allocated_total | plus: allocation.amount
+    endfor
+  endfor
+  if cart.total_discount > 0 and allocated_total == cart.total_discount
+    echo 'verified'
+  endif
+-%}

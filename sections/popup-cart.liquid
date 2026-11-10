@@ -5,7 +5,8 @@
 {% assign membership_points_text = section.settings.membership_points_text | default: 'and earn [points] points on this order now!' %}
 {% assign membership_points_rendered = membership_points_text | replace: '[points]', membership_points %}
 
-<div id="popup-cart">
+<div id="popup-cart" data-section-id="{{ section.id }}">
+    <script type="application/json" data-cart-snapshot>{{ cart | json | replace: '</', '<\/' }}</script>
 
     <div class="overlay"></div>
 
@@ -53,8 +54,6 @@
             
             <div class="cart-body" {% if cart.item_count == 0 %} style="display:none" {% endif %}>
 
-                {% assign totalLess = 0 %}
-                {% assign totalDiscount = 0 %}
 
                 {% if cart.item_count > 0 %}
                     {% for item in cart.items %}
@@ -171,63 +170,22 @@
                                         <div class="d-flex justify-content-between">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="product-price">
-                                                    {% if item.final_line_price > 0 %}
-                                                        {% assign final_compare = item.quantity | times: item.variant.compare_at_price  %}
-                                                        <span class="final pp-semibold f-main body-lg">
-                                                            {{ item.final_line_price | money | prepend: curSym }}
-                                                        </span>
-
-                                                        {% if final_compare > 0 %}
-                                                            <span class="original">
-                                                                {{ final_compare | money | prepend: curSym }}
-                                                            </span>
-
-                                                            {% assign totalLess = totalLess | plus: final_compare %}
-                                                        {% else %}
-                                                            {% assign totalLess = totalLess | plus: item.final_line_price %}
-                                                        {% endif %}
-                                                
-                                                            {% assign totalSavings = 0 %}
-                                        
-                                                            {% assign compare_price = item.variant.compare_at_price %}
-                                                            {% assign original_price = item.variant.price %}
-                                                            {% assign final_price = item.final_price %}
-                                                            {% assign quantity = item.quantity %}
-                                                            
-                                                            {% if compare_price > original_price %}
-                                                                {% assign price_saving = compare_price | minus: original_price %}
-                                                            {% else %}
-                                                                {% assign price_saving = 0 %}
-                                                            {% endif %}
-                                                            
-                                                            {% assign additional_discount = original_price | minus: final_price %}
-                                                            
-                                                            {% assign savings_per_item = price_saving | plus: additional_discount %}
-                                                            {% assign savings_total = savings_per_item | times: quantity %}
-                                                            {% assign totalSavings = totalSavings | plus: savings_total %}
-                                                            
-                                                            {% comment %} {% if totalSavings > 0 %}
-                                                            <span class="discounted">
-                                                                Save {{ totalSavings | money_without_trailing_zeros | prepend: curSym }}
-                                                            </span>
-                                                            {% endif %} {% endcomment %}
-
-                                                        {% if final_compare > 0 and discounted_price > 0 %}
-                                                            {% assign totalLess = totalLess | minus: discounted_price %}
-                                                        {% endif %}
-
-                                                    {% else %}
-                                                        <p class="body-sm pp-regular f-main">
-                                                            Free
-                                                        </p>
+                                                    {% if item.original_line_price > item.final_line_price %}
+                                                        <span class="original">{{ item.original_line_price | money | prepend: curSym }}</span>
                                                     {% endif %}
+                                                    {% if item.final_line_price > 0 %}
+                                                        <span class="final pp-semibold f-main body-lg">{{ item.final_line_price | money | prepend: curSym }}</span>
+                                                    {% else %}
+                                                        <p class="body-sm pp-regular f-main">Free</p>
+                                                    {% endif %}
+                                                    {% render 'cart-item-discounts', item: item, currency_prefix: curSym %}
                                                 </div>
                                             </div>
-                                            <a href="{{ item.url_to_remove }}" class="product-remove">
+                                            <button type="button" class="product-remove" aria-label="Remove {{ item.product.title | escape }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16.003" height="15.615" viewBox="0 0 16.003 15.615">
                                                     <path d="M12.49 26.265a.976.976 0 0 1-.975.975H4.488a.976.976 0 0 1-.975-.975V15.913h8.977Zm-7.026-12.1a.2.2 0 0 1 .2-.2h4.688a.2.2 0 0 1 .2.2v.588H5.463Zm9.952.588h-3.7v-.588a1.366 1.366 0 0 0-1.364-1.365H5.663A1.366 1.366 0 0 0 4.3 14.163v.588H.588a.588.588 0 0 0 0 1.175h1.75v10.339a2.15 2.15 0 0 0 2.15 2.15h7.026a2.15 2.15 0 0 0 2.15-2.15V15.913h1.75a.587.587 0 0 0 .586-.588.576.576 0 0 0-.585-.575ZM8 25.477a.587.587 0 0 0 .588-.588v-6.25a.588.588 0 1 0-1.175 0v6.251a.587.587 0 0 0 .587.587m-2.738 0a.587.587 0 0 0 .588-.588v-6.25a.588.588 0 1 0-1.175 0v6.251a.6.6 0 0 0 .588.588m5.476 0a.587.587 0 0 0 .588-.588v-6.251a.588.588 0 1 0-1.175 0v6.251a.587.587 0 0 0 .588.588" transform="translate(0 -12.8)"/>
                                                 </svg>
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
 
@@ -375,42 +333,10 @@
                         </button>
                     </div>
                     <div class="discount-code-wrapper">
-                        {% assign unique_discounts = "" %}
-                            {% for item in cart.items %}
-                                {% for discount in item.discounts %}
-                                    {% if unique_discounts contains discount.title %}
-                                        {% continue %}
-                                    {% else %}
-
-                                        <div class="discount-code">
-                                            <i class="fa-solid fa-tags"></i> 
-                                                {{ discount.title }} 
-                                            <i class="fa-solid fa-xmark remove-discount" data-code="{{ discount.title }}"></i>
-                                        </div>
-
-                                        {% assign unique_discounts = unique_discounts | append: discount.title | append: "," %}
-                                    {% endif %}
-                                {% endfor %}
-                            {% endfor %}
-
-                            {% assign unique_discounts_2 = "" %}
-                            {% for discount in cart.cart_level_discount_applications %}
-                                {% if unique_discounts_2 contains discount.title %}
-                                    {% continue %}
-                                {% else %}
-
-                                    <div class="discount-code">
-                                        <i class="fa-solid fa-tags"></i> 
-                                            {{ discount.title }} 
-                                        <i class="fa-solid fa-xmark remove-discount" data-code="{{ discount.title }}"></i>
-                                    </div>
-
-                                    {% assign unique_discounts_2 = unique_discounts_2 | append: discount.title | append: "," %}
-                                {% endif %}
-                            {% endfor %}
+                        {% render 'cart-discount-codes', cart: cart, currency_prefix: curSym %}
                     </div>
                     <p class="discount-message">
-                        Please enter a valid code.
+                        This code could not be applied. Check its requirements or try again.
                     </p>
                 </div>
                 <div class="d-flex justify-content-between align-items-center pb-lg-2 pb-md-2 pb-sm-1">
@@ -418,19 +344,12 @@
                         Subtotal
                     </p>
                     <p class="body-lg pp-medium f-gray cart-total-price">
-                        <span class="cart-total-less">
-                            {{ cart.items_subtotal_price  | money | prepend: curSym }}
+                        <span>
+                            {{ cart.original_total_price | money | prepend: curSym }}
                         </span>
                     </p>
                 </div>
-                <div class="d-flex justify-content-between align-items-center pb-lg-2 pb-md-2 pb-sm-1">
-                    <p class="body pp-medium f-gray">
-                        Discount
-                    </p>
-                    <p class="body pp-semibold f-gray discount-applied">
-                        -{{ cart.total_discount | money | prepend: curSym }}
-                    </p>
-                </div>
+                {% render 'cart-discount-codes', cart: cart, currency_prefix: curSym, display: 'summary' %}
                 <div class="d-flex justify-content-between align-items-center">
                     <p class="body pp-bold f-black">
                         TOTAL
@@ -441,10 +360,12 @@
                         </span>
                     </p>
                 </div>
+                {% if cart.total_discount > 0 %}
                 <p class="body-sm pp-medium f-black text-center mt-1 mb-1">
-                    {% assign saving = totalLess | minus: cart.total_price %}
+                    {% assign saving = cart.total_discount %}
                     You're Saving <span class="total-save f-main">{{ saving | money | prepend: curSym }}</span>
                 </p>
+                {% endif %}
                 <small class="text-center d-block pp-regular f-gray body-xs">
                     Shipping and Taxes calculated at checkout.
                 </small>
