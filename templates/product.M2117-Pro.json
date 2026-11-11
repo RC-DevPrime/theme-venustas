@@ -1034,19 +1034,47 @@
         "number_product": 8
       }
     },
-    "product_featured_banner_VrwNUT": {
-      "type": "product-featured-banner",
-      "name": "Featured Banner",
+     "product_promo_eB8Bck": {
+      "type": "product-promo",
+      "blocks": {
+        "stat_8zktcj": {
+          "type": "stat",
+          "settings": {
+            "label": "BUILT FOR",
+            "value": "-40°F"
+          }
+        },
+        "stat_R7PtYF": {
+          "type": "stat",
+          "settings": {
+            "label": "HEATING POWER",
+            "value": "4×"
+          }
+        },
+        "stat_r34NqE": {
+          "type": "stat",
+          "settings": {
+            "label": "BATTERIES",
+            "value": "2"
+          }
+        }
+      },
+      "block_order": [
+        "stat_8zktcj",
+        "stat_R7PtYF",
+        "stat_r34NqE"
+      ],
+      "name": "Product Promo",
       "settings": {
-        "enabled_section_child_scroll": false,
-        "section_scroll_nav": "",
-        "nav_title": "",
-        "background_image": "shopify://shop_images/50850_2x_ee444194-7f34-4148-838c-a264624fb59e.png",
-        "background_image_mobile": "shopify://shop_images/50850_2x_1.png",
-        "sub_heading": "VENUSTAS",
-        "heading": "Driving technology with an inclination on adventure!",
-        "btn_label": "TECHNOLOGY",
-        "btn_url": "shopify://pages/technology"
+        "desktop_image": "shopify://shop_images/product-promo-banner.webp",
+        "mobile_image": "shopify://shop_images/product-promo-banner-mobile.webp",
+        "eyebrow": "NEW · VOLCANO™ PRO",
+        "title": "Heading Somewhere Colder?",
+        "description": "Our warmest vest, with 4× the heating power of the Classic.",
+        "button_label": "Meet VOLCANO™",
+        "button_link": "https://venustas.com/collections/volcano-series",
+        "link_label": "How our heating works",
+        "link": "https://venustas.com/pages/volcano-series"
       }
     },
     "footer_support_icon_list_X6JKpa": {
@@ -1119,7 +1147,7 @@
     "product_review_blog_carousel_8Dayg3",
     "product_faqs_section_9y4Ffk",
     "product_recommendation_bgYVqc",
-    "product_featured_banner_VrwNUT",
+    "product_promo_eB8Bck",
     "footer_support_icon_list_X6JKpa"
   ]
 }
