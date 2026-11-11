@@ -74,6 +74,14 @@
           "type": "divider",
           "settings": {}
         },
+        "selleasy_lb_upsell_widget_pal_UW8EbH": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
         "hightlights_4aek9f": {
           "type": "hightlights",
           "settings": {
@@ -87,14 +95,6 @@
         },
         "availability_VXL6mU": {
           "type": "availability",
-          "settings": {}
-        },
-        "selleasy_lb_upsell_widget_pal_UW8EbH": {
-          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
-          "settings": {}
-        },
-        "quantity_atc_nEzPi6": {
-          "type": "quantity_atc",
           "settings": {}
         },
         "support_product_RGhgRP": {
@@ -669,7 +669,8 @@
             "value_5": "2.5 hours (20W input)",
             "value_6": "",
             "value_7": "",
-            "value_8": ""
+            "value_8": "",
+            "value_9": ""
           }
         },
         "product_iGW6BX": {
@@ -684,7 +685,8 @@
             "value_5": "2 hours (35W input)",
             "value_6": "",
             "value_7": "",
-            "value_8": ""
+            "value_8": "",
+            "value_9": ""
           }
         },
         "product_JcQwBL": {
@@ -699,7 +701,8 @@
             "value_5": "3 hours (35W input)",
             "value_6": "",
             "value_7": "",
-            "value_8": ""
+            "value_8": "",
+            "value_9": ""
           }
         }
       },
@@ -739,12 +742,14 @@
         "row_7_metafield": "",
         "row_8_label": "",
         "row_8_sub": "",
-        "row_8_metafield": ""
+        "row_8_metafield": "",
+        "row_9_label": "",
+        "row_9_sub": "",
+        "row_9_metafield": ""
       }
     },
     "product_compare_tab_tEUPPC": {
       "type": "product-compare-tab",
-      "disabled": true,
       "blocks": {
         "compare_item_3Wz694": {
           "type": "compare_item",
@@ -839,6 +844,7 @@
         "compare_item_FCHLcf",
         "compare_item_VtVi3P"
       ],
+      "disabled": true,
       "name": "Compare Tab Section",
       "settings": {
         "enabled_section_child_scroll": false,
@@ -1048,6 +1054,47 @@
         "btn_url": "shopify://pages/technology"
       }
     },
+    "product_promo_fqfaGF": {
+      "type": "product-promo",
+      "blocks": {
+        "stat_wJBaWw": {
+          "type": "stat",
+          "settings": {
+            "label": "BUILT FOR",
+            "value": "-40°F"
+          }
+        },
+        "stat_W9jMBj": {
+          "type": "stat",
+          "settings": {
+            "label": "HEATING POWER",
+            "value": "4×"
+          }
+        },
+        "stat_T7HRzW": {
+          "type": "stat",
+          "settings": {
+            "label": "BATTERIES",
+            "value": "2"
+          }
+        }
+      },
+      "block_order": [
+        "stat_wJBaWw",
+        "stat_W9jMBj",
+        "stat_T7HRzW"
+      ],
+      "name": "Product Promo",
+      "settings": {
+        "eyebrow": "NEW · VOLCANO™ PRO",
+        "title": "Heading Somewhere Colder?",
+        "description": "Our warmest vest, with 4× the heating power of the Classic.",
+        "button_label": "Meet VOLCANO™",
+        "button_link": "",
+        "link_label": "How our heating works",
+        "link": ""
+      }
+    },
     "footer_support_icon_list_X6JKpa": {
       "type": "footer-support-icon-list",
       "blocks": {
@@ -1119,6 +1166,7 @@
     "product_faqs_section_9y4Ffk",
     "product_recommendation_bgYVqc",
     "product_featured_banner_kziKNe",
+    "product_promo_fqfaGF",
     "footer_support_icon_list_X6JKpa"
   ]
 }
