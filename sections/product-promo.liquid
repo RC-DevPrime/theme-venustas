@@ -16,6 +16,23 @@
     color: #fff;
     font-family: var(--font-primary, 'Montserrat', sans-serif);
   }
+
+  #shopify-section-{{ section.id }} .product-promo__area-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__area-link:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -4px;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__button,
+  #shopify-section-{{ section.id }} .product-promo__link {
+    position: relative;
+    z-index: 2;
+  }
   #shopify-section-{{ section.id }} .product-promo__media,
   #shopify-section-{{ section.id }} .product-promo__inner {
     grid-area: 1 / 1;
@@ -35,7 +52,6 @@
 
   #shopify-section-{{ section.id }} .product-promo__inner {
     position: relative;
-    z-index: 1;
     display: flex;
     align-items: center;
     width: min(100% - 40px, 1340px);
@@ -231,6 +247,9 @@
 {% endstyle %}
 
 <section class="product-promo{% if mobile_image == blank %} product-promo--without-mobile-image{% endif %}">
+  {%- if section.settings.button_link != blank -%}
+    <a class="product-promo__area-link" href="{{ section.settings.button_link | escape }}" aria-label="{{ section.settings.button_label | default: section.settings.title | default: 'View product' | escape }}"></a>
+  {%- endif -%}
   <div class="product-promo__media" aria-hidden="true">
     {%- if desktop_image != blank -%}
       {{ desktop_image | image_url: width: 2400 | image_tag: class: 'product-promo__image product-promo__image--desktop', loading: 'lazy', widths: '960, 1340, 1600, 1920, 2400', sizes: '100vw', alt: '' }}
