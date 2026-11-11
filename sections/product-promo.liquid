@@ -1,0 +1,382 @@
+{%- liquid
+  assign desktop_image = section.settings.desktop_image
+  assign mobile_image = section.settings.mobile_image | default: desktop_image
+  assign stats_count = 0
+  for block in section.blocks
+    if block.settings.label != blank or block.settings.value != blank
+      assign stats_count = stats_count | plus: 1
+    endif
+  endfor
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-promo {
+    position: relative;
+    display: grid;
+    background: #1c3359;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .product-promo::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to left, rgba(102, 102, 102, 0) 41.633%, rgba(0, 34, 96, .62) 80.448%);
+    content: '';
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__media,
+  #shopify-section-{{ section.id }} .product-promo__inner {
+    grid-area: 1 / 1;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 48px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__content {
+    width: min(100%, 581px);
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__eyebrow,
+  #shopify-section-{{ section.id }} .product-promo__title,
+  #shopify-section-{{ section.id }} .product-promo__description,
+  #shopify-section-{{ section.id }} .product-promo__stat-label,
+  #shopify-section-{{ section.id }} .product-promo__stat-value {
+    margin: 0;
+    color: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__eyebrow {
+    margin-bottom: 8px;
+    color: #fff947;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.155;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__title {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__description {
+    max-width: 570px;
+    margin-top: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__stats {
+    display: grid;
+    grid-template-columns: repeat({{ stats_count | at_least: 1 }}, minmax(0, 125px));
+    gap: 40px;
+    margin-top: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__stat-label {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__stat-value {
+    margin-top: 12px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: .825;
+    letter-spacing: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 190px;
+    min-height: 41px;
+    max-width: 100%;
+    padding: 12px 20px 14px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background: var(--color-brand, #b93205);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.1;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__icon {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__link {
+    color: inherit;
+    font-size: 14px;
+    line-height: 1.44;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__button:hover {
+    background: #8f2403;
+  }
+
+  #shopify-section-{{ section.id }} .product-promo__button:focus-visible,
+  #shopify-section-{{ section.id }} .product-promo__link:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .product-promo__content {
+      width: min(100%, 500px);
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__title {
+      font-size: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__stats,
+    #shopify-section-{{ section.id }} .product-promo__actions {
+      margin-top: 24px;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-promo::after {
+      background: linear-gradient(to bottom, rgba(122, 209, 238, 0) 30.979%, #1c3359 61.826%);
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__image--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__image--mobile {
+      object-position: center top;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__inner {
+      align-items: flex-end;
+      padding: 56.3vw 0 32px;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo--without-mobile-image .product-promo__inner {
+      padding-top: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__content {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__eyebrow {
+      font-size: 9.33px;
+      line-height: 1.2;
+      letter-spacing: 1.33px;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__title {
+      max-width: 340px;
+      margin: 0 auto;
+      font-size: 21.33px;
+      line-height: 1.22;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__description {
+      max-width: 367px;
+      margin: 8px auto 0;
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__stats {
+      grid-template-columns: repeat({{ stats_count | at_least: 1 }}, minmax(0, 1fr));
+      gap: 13px;
+      max-width: 367px;
+      margin: 16px auto 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__stat-label {
+      font-size: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__stat-value {
+      margin-top: 4px;
+      font-size: 32px;
+      line-height: 1.2;
+      letter-spacing: .67px;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__actions {
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__button {
+      min-width: 0;
+      min-height: 28px;
+      padding: 4px 13.33px 4.67px 21.33px;
+      border-radius: 2px;
+      font-size: 9.33px;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__button::after {
+      position: absolute;
+      inset: -8px 0;
+      content: '';
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__icon {
+      width: 10.667px;
+      height: 10.667px;
+    }
+
+    #shopify-section-{{ section.id }} .product-promo__link {
+      font-size: 8px;
+    }
+  }
+{% endstyle %}
+
+<section class="product-promo{% if mobile_image == blank %} product-promo--without-mobile-image{% endif %}">
+  <div class="product-promo__media" aria-hidden="true">
+    {%- if desktop_image != blank -%}
+      {{ desktop_image | image_url: width: 2400 | image_tag: class: 'product-promo__image product-promo__image--desktop', loading: 'lazy', widths: '960, 1340, 1600, 1920, 2400', sizes: '100vw', alt: '' }}
+    {%- endif -%}
+    {%- if mobile_image != blank -%}
+      {{ mobile_image | image_url: width: 900 | image_tag: class: 'product-promo__image product-promo__image--mobile', loading: 'lazy', widths: '390, 600, 750, 900', sizes: '100vw', alt: '' }}
+    {%- endif -%}
+  </div>
+  <div class="product-promo__inner">
+    <div class="product-promo__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="product-promo__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="product-promo__title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p class="product-promo__description">{{ section.settings.description | escape }}</p>
+      {%- endif -%}
+      {%- if stats_count > 0 -%}
+        <div class="product-promo__stats">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.label != blank or block.settings.value != blank -%}
+              <div class="product-promo__stat" {{ block.shopify_attributes }}>
+                {%- if block.settings.label != blank -%}
+                  <p class="product-promo__stat-label">{{ block.settings.label | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.value != blank -%}
+                  <p class="product-promo__stat-value">{{ block.settings.value | escape }}</p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      {%- capture actions -%}
+        {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+          <a class="product-promo__button" href="{{ section.settings.button_link | escape }}">
+            <span>{{ section.settings.button_label | escape }}</span>
+            <span class="product-promo__icon">{% render 'heating-icons', icon: 'chevron-right' %}</span>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.link_label != blank and section.settings.link != blank -%}
+          <a class="product-promo__link" href="{{ section.settings.link | escape }}">{{ section.settings.link_label | escape }}</a>
+        {%- endif -%}
+      {%- endcapture -%}
+      {%- if actions != blank -%}
+        <div class="product-promo__actions">{{ actions }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Promo",
+  "tag": "section",
+  "class": "product-promo-section",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "image_picker", "id": "desktop_image", "label": "Desktop image", "info": "Use a 1920 × 680 background without text." },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image", "info": "Use a 1290 × 1500 background without text. Falls back to the desktop image." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "NEW · VOLCANO™ PRO" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Heading Somewhere Colder?" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Our warmest vest, with 4× the heating power of the Classic." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Meet VOLCANO™" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "text", "id": "link_label", "label": "Text link label", "default": "How our heating works" },
+    { "type": "url", "id": "link", "label": "Text link" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "value", "label": "Value" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Promo",
+      "blocks": [
+        { "type": "stat", "settings": { "label": "BUILT FOR", "value": "-40°F" } },
+        { "type": "stat", "settings": { "label": "HEATING POWER", "value": "4×" } },
+        { "type": "stat", "settings": { "label": "BATTERIES", "value": "2" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
