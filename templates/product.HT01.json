@@ -50,6 +50,14 @@
           "type": "divider",
           "settings": {}
         },
+        "selleasy_lb_upsell_widget_pal_UW8EbH": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
         "hightlights_4aek9f": {
           "type": "hightlights",
           "settings": {
@@ -63,14 +71,6 @@
         },
         "availability_VXL6mU": {
           "type": "availability",
-          "settings": {}
-        },
-        "selleasy_lb_upsell_widget_pal_UW8EbH": {
-          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
-          "settings": {}
-        },
-        "quantity_atc_nEzPi6": {
-          "type": "quantity_atc",
           "settings": {}
         },
         "support_product_RGhgRP": {
@@ -196,7 +196,7 @@
         "content_bM7YpB": {
           "type": "content",
           "settings": {
-            "image": "shopify://shop_images/SD01_heated_scarf_1.jpg",
+            "image": "shopify://shop_images/HT01-2.jpg",
             "heading": "Premium Down Insulation",
             "description": "<p>Filled with 90% white duck down and 10% feathers, this heated scarf provides feather-light warmth and breathability while effectively locking in heat. Enjoy natural insulation without bulk.</p>"
           }
@@ -204,7 +204,7 @@
         "content_mFja7k": {
           "type": "content",
           "settings": {
-            "image": "shopify://shop_images/SD01_heated_scarf_2.jpg",
+            "image": "shopify://shop_images/HT01-4.jpg",
             "heading": "Up to 20H Extended Warmth",
             "description": "<p>Stay cozy all day with the included rechargeable battery pack, delivering up to 20 hours of continuous warmth on the lowest setting. Perfect for commuting, outdoor walks, and winter travel.</p>"
           }
@@ -212,7 +212,7 @@
         "content_QraHdL": {
           "type": "content",
           "settings": {
-            "image": "shopify://shop_images/SP02_heated_scarf_3.jpg",
+            "image": "shopify://shop_images/HT01-3.jpg",
             "heading": "Adjustable Heating Comfort",
             "description": "<p>Features carbon fiber heating elements that target your neck area with 3 customizable heat settings (High/Medium/Low). Quickly preheats in seconds, giving you instant relief from the chill.</p>"
           }
@@ -237,7 +237,7 @@
           "type": "battery",
           "settings": {
             "heading": "",
-            "image": "shopify://shop_images/SD01_heated_scarf_6.jpg",
+            "image": "shopify://shop_images/HT01-1.jpg",
             "low_range_temperature": 100,
             "low_range_heating_duration": 20,
             "medium_range_temperature": 113,
@@ -269,7 +269,7 @@
         "right_content_y3aqyH": {
           "type": "right_content",
           "settings": {
-            "image": "shopify://shop_images/SD01_heated_scarf_4.jpg",
+            "image": "shopify://shop_images/HT01-5.jpg",
             "heading": "Portable & Reliable Battery",
             "description": "<ul><li>7.4V DC output provides strong, consistent heating power</li><li>Each battery weighs only 3.17 oz (90g) for comfortable all-day wear</li><li>Fully recharges in 2.5 hours with a Type-C 5V 2.1A charger (charger not included)</li><li>Certified safe by CE, UKCA, FCC, and ETL</li><li>High-quality cells support up to 1,000 recharge cycles</li></ul>"
           }
@@ -277,7 +277,7 @@
         "left_content_MXUGYE": {
           "type": "left_content",
           "settings": {
-            "image": "shopify://shop_images/SD01_heated_scarf_5.jpg",
+            "image": "shopify://shop_images/HT01-6.jpg",
             "heading": "Water-Resistant & Anti-Static",
             "description": "<p>Designed with a durable water-repellent fabric and anti-static finish, the scarf protects against light rain and snow while preventing static buildup—keeping you comfortable indoors and outdoors.</p>"
           }
@@ -427,7 +427,6 @@
     },
     "product_compare_tab_tEUPPC": {
       "type": "product-compare-tab",
-      "disabled": true,
       "blocks": {
         "compare_item_3Wz694": {
           "type": "compare_item",
