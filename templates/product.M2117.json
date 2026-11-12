@@ -137,43 +137,64 @@
         "link_p9KF8z": {
           "type": "link",
           "settings": {
-            "label": "Why Heated Gear",
-            "target_id": "why-heated-gear"
+            "label": "6-Zone Heating",
+            "target_id": "productN-heating"
           }
         },
         "link_844z9f": {
           "type": "link",
           "settings": {
-            "label": "Venustas Riding System",
-            "target_id": "venustas-riding-system"
+            "label": "Technology",
+            "target_id": "productN-technology"
           }
         },
         "link_J4DcWN": {
           "type": "link",
           "settings": {
-            "label": "Setup Options",
-            "target_id": "setup-options"
+            "label": "Temp Control",
+            "target_id": "productN-heat-control"
           }
         },
         "link_ytWcpb": {
           "type": "link",
           "settings": {
-            "label": "How It Works",
-            "target_id": "how-it-works"
+            "label": "Battery & Runtime",
+            "target_id": "productN-battery"
           }
         },
         "link_4cAbYN": {
           "type": "link",
           "settings": {
-            "label": "Riding Guild",
-            "target_id": "riding-guild"
+            "label": "Design Features",
+            "target_id": "productN-design-features"
           }
         },
         "link_PLaer3": {
           "type": "link",
           "settings": {
-            "label": "FAQ",
-            "target_id": "faq"
+            "label": "Tested & Worn",
+            "target_id": "productN-tested-worn"
+          }
+        },
+        "link_NInBox": {
+          "type": "link",
+          "settings": {
+            "label": "In the Box",
+            "target_id": "productN-in-box"
+          }
+        },
+        "link_NSpecs": {
+          "type": "link",
+          "settings": {
+            "label": "Specs",
+            "target_id": "productN-specifications"
+          }
+        },
+        "link_NCompare": {
+          "type": "link",
+          "settings": {
+            "label": "Compare",
+            "target_id": "productN-compare"
           }
         }
       },
@@ -183,7 +204,10 @@
         "link_J4DcWN",
         "link_ytWcpb",
         "link_4cAbYN",
-        "link_PLaer3"
+        "link_PLaer3",
+        "link_NInBox",
+        "link_NSpecs",
+        "link_NCompare"
       ],
       "name": "Heating Anchor Nav",
       "settings": {
@@ -198,6 +222,7 @@
       "type": "product-new-heating",
       "name": "productN Heating",
       "settings": {
+        "anchor_id": "productN-heating",
         "eyebrow": "6-Zone Heating",
         "title": "Warm in 3 seconds.\nSix zones of heat.",
         "image": "shopify://shop_images/KU19-Kids-heated-hoodie-8.png",
@@ -293,6 +318,7 @@
       ],
       "name": "productN Technology",
       "settings": {
+        "anchor_id": "productN-technology",
         "rotation_interval": 2,
         "eyebrow": "Technology",
         "brand": "Heatwave™",
@@ -361,6 +387,7 @@
       ],
       "name": "productN Heat Control",
       "settings": {
+        "anchor_id": "productN-heat-control",
         "eyebrow": "Temp Control",
         "heading": "One button. Three levels of heat.",
         "description": "Press to switch between High, Medium and Low. The light on the button shows the setting you're on.",
@@ -407,6 +434,7 @@
       ],
       "name": "productN Battery",
       "settings": {
+        "anchor_id": "productN-battery",
         "eyebrow": "PowerCore™ battery",
         "heading": "<p><strong>5K</strong> battery · <strong>36</strong>Wh</p>",
         "description": "Standard, Pro and Max share the same vest, six zones and temperatures. The battery is the only difference — and it decides the runtime.",
@@ -552,6 +580,7 @@
       ],
       "name": "productN Design Features",
       "settings": {
+        "anchor_id": "productN-design-features",
         "eyebrow": "Design Features",
         "heading": "A good puffer first. Heated second.",
         "description": "FELLEX® insulation with 100% recycled-polyester fill — it still works as a warm vest with the heat off."
@@ -640,6 +669,7 @@
       ],
       "name": "productN Tested Worn",
       "settings": {
+        "anchor_id": "productN-tested-worn",
         "eyebrow": "Tested & Worn",
         "heading": "Field-tested. Winter-worn.",
         "caption": "<p>Real customers wearing the Classic Heated Vest. Tag <strong>#VenustasExplorer</strong> for a chance to be featured.</p>"
@@ -698,6 +728,7 @@
       ],
       "name": "productN In the Box",
       "settings": {
+        "anchor_id": "productN-in-box",
         "heading": "In the Box"
       }
     },
@@ -766,6 +797,7 @@
       ],
       "name": "productN Specifications",
       "settings": {
+        "anchor_id": "productN-specifications",
         "eyebrow": "Specs",
         "heading": "Full specifications"
       }
@@ -826,6 +858,7 @@
       ],
       "name": "productN Compare",
       "settings": {
+        "anchor_id": "productN-compare",
         "eyebrow": "Compare",
         "heading": "Which heated vest is right for you?",
         "description": "Our heated vests side by side, so you can pick the one that fits how you'll wear it.",

@@ -1,11 +1,19 @@
 {%- capture certificate_icons -%}
   {%- for index in (1..7) -%}
     {%- assign setting_key = 'show_certificate_' | append: index -%}
-    {%- if section.settings[setting_key] -%}
-      {%- assign icon_name = 'certificate' | append: index -%}
-      {%- capture icon_markup -%}{%- render 'product-certified-icons', icon: icon_name -%}{%- endcapture -%}
-      {%- assign icon_markup = icon_markup | strip -%}
-      {%- if icon_markup != blank -%}<span class="product-new-battery__certificate" aria-hidden="true">{{ icon_markup }}</span>{%- endif -%}
+    {%- liquid
+      assign certificate_url = blank
+      case index
+        when 2
+          assign certificate_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/battery-cert-one.webp?v=1788163072'
+        when 4, 6
+          assign certificate_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/battery-cert-three.webp?v=1788163072'
+        when 7
+          assign certificate_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/battery-cert-four.webp?v=1788163072'
+      endcase
+    -%}
+    {%- if section.settings[setting_key] and certificate_url != blank -%}
+      <span class="product-new-battery__certificate" aria-hidden="true"><img class="product-new-battery__certificate-image" src="{{ certificate_url | escape }}" width="60" height="60" alt="" loading="lazy"></span>
     {%- endif -%}
   {%- endfor -%}
 {%- endcapture -%}
@@ -130,11 +138,16 @@
     flex: 0 0 60px;
     width: 60px;
     height: 60px;
-    color: #47d5fb;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery__certificate-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   #shopify-section-{{ section.id }} .product-new-battery__shield svg,
-  #shopify-section-{{ section.id }} .product-new-battery__certificate svg,
   #shopify-section-{{ section.id }} .product-new-battery__lightning svg {
     display: block;
     width: 100%;
@@ -305,7 +318,7 @@
   }
 {% endstyle %}
 
-<section class="product-new-battery">
+<section{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | strip | remove_first: '#' | escape }}"{% endif %} class="product-new-battery">
   <div class="product-new-battery__inner">
     <div class="product-new-battery__content">
       {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank -%}
@@ -355,6 +368,7 @@
   "class": "product-new-battery-section",
   "max_blocks": 4,
   "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "PowerCore™ battery" },
     { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p><strong>5K</strong> battery · <strong>36</strong>Wh</p>" },
     { "type": "textarea", "id": "description", "label": "Description", "default": "Standard, Pro and Max share the same vest, six zones and temperatures. The battery is the only difference — and it decides the runtime." },

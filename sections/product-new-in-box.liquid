@@ -121,7 +121,7 @@
 {% endstyle %}
 
 {%- if section.settings.heading != blank or item_count > 0 -%}
-  <section class="product-new-in-box">
+  <section{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | strip | remove_first: '#' | escape }}"{% endif %} class="product-new-in-box">
     <div class="product-new-in-box__inner">
       {%- if section.settings.heading != blank -%}<h2 class="product-new-in-box__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
       {%- if item_count > 0 -%}
@@ -152,6 +152,7 @@
   "class": "product-new-in-box-section",
   "max_blocks": 5,
   "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "In the Box" }
   ],
   "blocks": [

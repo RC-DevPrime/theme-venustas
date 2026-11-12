@@ -296,7 +296,7 @@
   }
 {% endstyle %}
 
-<product-new-technology class="product-new-technology" data-interval="{{ section.settings.rotation_interval | default: 2 | times: 1000 }}">
+<product-new-technology{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | strip | remove_first: '#' | escape }}"{% endif %} class="product-new-technology" data-interval="{{ section.settings.rotation_interval | default: 2 | times: 1000 }}">
   <div class="product-new-technology__inner">
     {%- if section.settings.eyebrow != blank or section.settings.brand != blank or section.settings.heading != blank or section.settings.description != blank -%}
       <div class="product-new-technology__header">
@@ -525,6 +525,7 @@
   "class": "product-new-technology-section",
   "max_blocks": 6,
   "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID" },
     { "type": "range", "id": "rotation_interval", "label": "Rotation interval", "min": 1, "max": 10, "step": 1, "unit": "s", "default": 2 },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Technology" },
     { "type": "text", "id": "brand", "label": "Highlighted heading", "default": "Heatwave™" },

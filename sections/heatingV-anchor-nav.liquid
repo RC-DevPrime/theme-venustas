@@ -255,6 +255,7 @@
 
 <script>
   (function() {
+    function initialize() {
     var root = document.querySelector('#shopify-section-{{ section.id }} [data-heating-anchor-nav]');
     if (!root) return;
 
@@ -386,6 +387,13 @@
       if (root.contains(event.target)) return;
       closeMobilePanel();
     });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initialize, { once: true });
+    } else {
+      initialize();
+    }
   })();
 </script>
 

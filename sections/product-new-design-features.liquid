@@ -137,7 +137,7 @@
 {% endstyle %}
 
 {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank or card_count > 0 -%}
-  <section class="product-new-design-features">
+  <section{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | strip | remove_first: '#' | escape }}"{% endif %} class="product-new-design-features">
     <div class="product-new-design-features__inner">
       {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank -%}
         <div class="product-new-design-features__header">
@@ -176,6 +176,7 @@
   "class": "product-new-design-features-section",
   "max_blocks": 8,
   "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Design Features" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "A good puffer first. Heated second." },
     { "type": "textarea", "id": "description", "label": "Description", "default": "FELLEX® insulation with 100% recycled-polyester fill — it still works as a warm vest with the heat off." }

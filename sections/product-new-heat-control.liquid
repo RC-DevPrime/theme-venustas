@@ -355,7 +355,7 @@
   }
 {% endstyle %}
 
-<product-new-heat-control class="product-new-heat-control">
+<product-new-heat-control{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | strip | remove_first: '#' | escape }}"{% endif %} class="product-new-heat-control">
   <div class="product-new-heat-control__inner">
     {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank -%}
       <div class="product-new-heat-control__header">
@@ -485,6 +485,7 @@
   "class": "product-new-heat-control-section",
   "max_blocks": 3,
   "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Temp Control" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "One button. Three levels of heat." },
     { "type": "textarea", "id": "description", "label": "Description", "default": "Press to switch between High, Medium and Low. The light on the button shows the setting you're on." },

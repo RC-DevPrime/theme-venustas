@@ -154,6 +154,19 @@
     display: none;
   }
 
+  @media only screen and (min-width: 768px) and (hover: hover) {
+    #shopify-section-{{ section.id }} .product-new-tested-worn__track {
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .product-new-tested-worn__track.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+  }
+
   #shopify-section-{{ section.id }} .product-new-tested-worn__image-item {
     flex: 0 0 260px;
     min-width: 0;
@@ -280,7 +293,7 @@
   }
 {% endstyle %}
 
-<product-new-tested-worn class="product-new-tested-worn">
+<product-new-tested-worn{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | strip | remove_first: '#' | escape }}"{% endif %} class="product-new-tested-worn">
   {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
     <div class="product-new-tested-worn__header product-new-tested-worn__inner">
       {%- if section.settings.eyebrow != blank -%}<p class="product-new-tested-worn__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
@@ -369,6 +382,27 @@
         document.addEventListener('visibilitychange', () => this.schedule(), options);
         this.track?.addEventListener('scroll', () => this.queueUpdate(), { ...options, passive: true });
         this.track?.addEventListener('load', () => this.queueUpdate(), { ...options, capture: true });
+        this.track?.addEventListener('dragstart', (event) => {
+          if (window.matchMedia('(min-width: 768px)').matches) event.preventDefault();
+        }, options);
+        this.track?.addEventListener('pointerdown', (event) => {
+          if (event.pointerType !== 'mouse' || event.button !== 0 || !window.matchMedia('(min-width: 768px)').matches || this.track.scrollWidth <= this.track.clientWidth) return;
+          this.drag = { pointer: event.pointerId, x: event.clientX, scroll: this.track.scrollLeft };
+          this.track.setPointerCapture(event.pointerId);
+        }, options);
+        this.track?.addEventListener('pointermove', (event) => {
+          if (!this.drag || event.pointerId !== this.drag.pointer) return;
+          const distance = event.clientX - this.drag.x;
+          if (Math.abs(distance) < 4 && !this.track.classList.contains('is-dragging')) return;
+          this.track.classList.add('is-dragging');
+          event.preventDefault();
+          this.track.scrollLeft = this.drag.scroll - distance;
+        }, options);
+        ['pointerup', 'pointercancel', 'lostpointercapture'].forEach((name) => {
+          this.track?.addEventListener(name, (event) => {
+            if (this.drag?.pointer === event.pointerId) this.finishDrag();
+          }, options);
+        });
         this.addEventListener('shopify:block:select', (event) => {
           const index = this.reviews.findIndex((review) => review.dataset.blockId === event.detail.blockId);
           if (index >= 0) { this.editorSelected = true; this.selectReview(index); }
@@ -385,6 +419,14 @@
 
       scrollBehavior() {
         return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      }
+
+      finishDrag() {
+        if (!this.drag) return;
+        const pointer = this.drag.pointer;
+        this.drag = null;
+        this.track.classList.remove('is-dragging');
+        if (this.track.hasPointerCapture(pointer)) this.track.releasePointerCapture(pointer);
       }
 
       selectReview(index) {
@@ -423,6 +465,7 @@
       }
 
       disconnectedCallback() {
+        this.finishDrag();
         clearTimeout(this.timer);
         cancelAnimationFrame(this.initFrame);
         cancelAnimationFrame(this.frame);
@@ -440,6 +483,7 @@
   "class": "product-new-tested-worn-section",
   "max_blocks": 15,
   "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Tested & Worn" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Field-tested. Winter-worn." },
     { "type": "richtext", "id": "caption", "label": "Gallery caption", "default": "<p>Real customers wearing the Classic Heated Vest. Tag <strong>#VenustasExplorer</strong> for a chance to be featured.</p>" }
