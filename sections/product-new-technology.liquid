@@ -1,0 +1,562 @@
+{%- liquid
+  assign feature_count = 0
+  for block in section.blocks
+    if block.settings.title != blank or block.settings.description != blank or block.settings.image != blank
+      assign feature_count = feature_count | plus: 1
+    endif
+  endfor
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-new-technology {
+    display: block;
+    padding: 80px 0;
+    background: radial-gradient(ellipse at 30% 24%, rgba(129, 16, 16, .2), rgba(77, 21, 21, .12) 50%, transparent), #1a1a1a;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__header {
+    display: grid;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__eyebrow,
+  #shopify-section-{{ section.id }} .product-new-technology__heading,
+  #shopify-section-{{ section.id }} .product-new-technology__description,
+  #shopify-section-{{ section.id }} .product-new-technology__title p,
+  #shopify-section-{{ section.id }} .product-new-technology__text,
+  #shopify-section-{{ section.id }} .product-new-technology__footer p {
+    margin: 0;
+    color: inherit;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__heading {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.22;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__brand {
+    color: #ff4000;
+    font-size: 48px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__description {
+    color: rgba(255, 255, 255, .8);
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__desktop {
+    display: grid;
+    grid-template-columns: minmax(0, 621fr) minmax(0, 639fr);
+    gap: 80px;
+    align-items: center;
+    margin-top: 80px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__feature {
+    position: relative;
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 14px;
+    padding: 20px 18px;
+    border-radius: 6px;
+    color: rgba(255, 255, 255, .8);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__feature.is-active {
+    background: rgba(255, 255, 255, .2);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__select {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: inherit;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    box-sizing: border-box;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__copy {
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__title {
+    color: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__title em {
+    border-top: 1px solid rgba(255, 255, 255, .8);
+    border-bottom: 1px solid rgba(255, 255, 255, .8);
+    color: #ff4000;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__text {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 639 / 433;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__panel[hidden],
+  #shopify-section-{{ section.id }} .product-new-technology__mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 24px;
+    margin-top: 24px;
+    color: rgba(212, 212, 212, .9);
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__footer a {
+    color: #fff;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__technology-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-technology button:focus-visible,
+  #shopify-section-{{ section.id }} .product-new-technology a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .product-new-technology__desktop {
+      gap: 40px;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-new-technology {
+      padding: 48px 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__heading {
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__brand {
+      display: block;
+      font-size: 34px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__mobile {
+      display: block;
+      margin-top: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__track {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__slide {
+      flex: 0 0 100%;
+      min-width: 0;
+      color: rgba(255, 255, 255, .8);
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__slide .product-new-technology__copy {
+      margin-top: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__title {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__image {
+      aspect-ratio: 350 / 238;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 56px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__dot {
+      position: relative;
+      width: 7px;
+      height: 7px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #d4d4d4;
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__dot::after {
+      position: absolute;
+      inset: -8px;
+      content: '';
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__dot[aria-current='true'] {
+      background: #b93205;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-technology__footer {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 64px;
+    }
+  }
+{% endstyle %}
+
+<product-new-technology class="product-new-technology" data-interval="{{ section.settings.rotation_interval | default: 2 | times: 1000 }}">
+  <div class="product-new-technology__inner">
+    {%- if section.settings.eyebrow != blank or section.settings.brand != blank or section.settings.heading != blank or section.settings.description != blank -%}
+      <div class="product-new-technology__header">
+        {%- if section.settings.eyebrow != blank -%}<p class="product-new-technology__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        {%- if section.settings.brand != blank or section.settings.heading != blank -%}
+          <h2 class="product-new-technology__heading">{% if section.settings.brand != blank %}<span class="product-new-technology__brand">{{ section.settings.brand | escape }}</span> {% endif %}{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}<p class="product-new-technology__description">{{ section.settings.description | escape }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- if feature_count > 0 -%}
+      <div class="product-new-technology__desktop">
+        <div>
+          {%- assign feature_index = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.title != blank or block.settings.description != blank or block.settings.image != blank -%}
+              <div class="product-new-technology__feature{% if feature_index == 0 %} is-active{% endif %}" data-feature="{{ feature_index }}" data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
+                <button class="product-new-technology__select" type="button" data-select="{{ feature_index }}" aria-pressed="{% if feature_index == 0 %}true{% else %}false{% endif %}" aria-controls="Technology-{{ section.id }}-{{ block.id }}" aria-label="{{ block.settings.title | strip_html | default: forloop.index | escape }}"></button>
+                <span class="product-new-technology__number" aria-hidden="true">{{ feature_index | plus: 1 }}</span>
+                <div class="product-new-technology__copy">
+                  {%- if block.settings.title != blank -%}<div class="product-new-technology__title">{{ block.settings.title }}</div>{%- endif -%}
+                  {%- if block.settings.description != blank -%}<p class="product-new-technology__text">{{ block.settings.description | escape }}</p>{%- endif -%}
+                </div>
+              </div>
+              {%- assign feature_index = feature_index | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <div>
+          {%- assign feature_index = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.title != blank or block.settings.description != blank or block.settings.image != blank -%}
+              <div class="product-new-technology__panel" id="Technology-{{ section.id }}-{{ block.id }}" data-panel="{{ feature_index }}"{% unless feature_index == 0 %} hidden{% endunless %}>
+                {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 1400 | image_tag: class: 'product-new-technology__image', loading: 'lazy', widths: '350, 600, 800, 1000, 1400', sizes: '(max-width: 1379px) 50vw, 639px' }}{%- endif -%}
+              </div>
+              {%- assign feature_index = feature_index | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="product-new-technology__mobile">
+        <div class="product-new-technology__track" data-track tabindex="0" role="region" aria-label="{{ section.settings.brand | default: section.settings.heading | escape }}">
+          {%- assign feature_index = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.title != blank or block.settings.description != blank or block.settings.image != blank -%}
+              <div class="product-new-technology__slide" data-slide="{{ feature_index }}" data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 1400 | image_tag: class: 'product-new-technology__image', loading: 'lazy', widths: '350, 600, 800, 1000, 1400', sizes: 'calc(100vw - 40px)' }}{%- endif -%}
+                {%- if block.settings.title != blank or block.settings.description != blank -%}
+                  <div class="product-new-technology__copy">
+                    {%- if block.settings.title != blank -%}<div class="product-new-technology__title">{{ block.settings.title }}</div>{%- endif -%}
+                    {%- if block.settings.description != blank -%}<p class="product-new-technology__text">{{ block.settings.description | escape }}</p>{%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+              {%- assign feature_index = feature_index | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- if feature_count > 1 -%}
+          <div class="product-new-technology__dots">
+            {%- assign feature_index = 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.settings.title != blank or block.settings.description != blank or block.settings.image != blank -%}
+                <button class="product-new-technology__dot" type="button" data-dot="{{ feature_index }}" aria-current="{% if feature_index == 0 %}true{% else %}false{% endif %}" aria-label="{{ block.settings.title | strip_html | default: forloop.index | escape }}"></button>
+                {%- assign feature_index = feature_index | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- if section.settings.footer_text != blank or section.settings.battery_label != blank or section.settings.technology_label != blank -%}
+      <div class="product-new-technology__footer">
+        {%- if section.settings.footer_text != blank or section.settings.battery_label != blank -%}
+          <p>{{ section.settings.footer_text | escape }} {% if section.settings.battery_label != blank %}<a href="{{ section.settings.battery_link | default: '#' | escape }}">{{ section.settings.battery_label | escape }}</a>{% endif %}</p>
+        {%- endif -%}
+        {%- if section.settings.technology_label != blank -%}
+          <a class="product-new-technology__technology-link" href="{{ section.settings.technology_link | default: '#' | escape }}">
+            <span>{{ section.settings.technology_label | escape }}</span>
+            <span class="product-new-technology__icon">{% render 'heating-icons', icon: 'arrow-right' %}</span>
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</product-new-technology>
+
+<script>
+  if (!customElements.get('product-new-technology')) {
+    customElements.define('product-new-technology', class extends HTMLElement {
+      connectedCallback() {
+        clearTimeout(this.timer);
+        this.abort?.abort();
+        this.abort = new AbortController();
+        cancelAnimationFrame(this.initFrame);
+        const initialize = () => {
+          this.initFrame = requestAnimationFrame(() => {
+            if (this.isConnected) this.initialize();
+          });
+        };
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initialize, { once: true, signal: this.abort.signal });
+        } else {
+          initialize();
+        }
+      }
+
+      initialize() {
+        const options = { signal: this.abort.signal };
+        this.track = this.querySelector('[data-track]');
+        this.slides = [...this.querySelectorAll('[data-slide]')];
+        this.mobile = window.matchMedia('(max-width: 767px)');
+        this.hoverMedia = window.matchMedia('(min-width: 768px) and (hover: hover)');
+        this.currentIndex = 0;
+        this.hovered = false;
+        this.touching = false;
+        this.focused = !this.mobile.matches && !!this.querySelector(':focus-visible');
+        this.interval = Number(this.dataset.interval) || 2000;
+        this.addEventListener('click', (event) => {
+          const select = event.target.closest('[data-select]');
+          const dot = event.target.closest('[data-dot]');
+          if (select) this.select(Number(select.dataset.select));
+          if (dot) this.scrollToSlide(Number(dot.dataset.dot));
+        }, options);
+        this.querySelectorAll('[data-feature]').forEach((feature) => {
+          feature.addEventListener('pointerenter', () => {
+            if (!this.hoverMedia.matches) return;
+            this.hovered = true;
+            this.select(Number(feature.dataset.feature));
+          }, options);
+          feature.addEventListener('pointerleave', () => {
+            this.hovered = false;
+            this.schedule();
+          }, options);
+        });
+        this.addEventListener('focusin', (event) => {
+          this.focused = !this.mobile.matches && event.target.matches(':focus-visible');
+          const select = event.target.closest('[data-select]');
+          if (select) this.select(Number(select.dataset.select));
+          this.schedule();
+        }, options);
+        this.addEventListener('focusout', (event) => {
+          this.focused = !this.mobile.matches && this.contains(event.relatedTarget) && event.relatedTarget.matches(':focus-visible');
+          this.schedule();
+        }, options);
+        this.track?.addEventListener('pointerdown', () => {
+          this.touching = true;
+          this.schedule();
+        }, options);
+        const release = () => {
+          if (!this.touching) return;
+          this.touching = false;
+          this.schedule();
+        };
+        window.addEventListener('pointerup', release, options);
+        window.addEventListener('pointercancel', release, options);
+        this.track?.addEventListener('scroll', () => {
+          if (!this.mobile.matches || !this.slides.length) return;
+          cancelAnimationFrame(this.frame);
+          this.frame = requestAnimationFrame(() => {
+            const position = this.track.getBoundingClientRect().left;
+            let nearest = 0;
+            this.slides.forEach((slide, index) => {
+              if (Math.abs(slide.getBoundingClientRect().left - position) < Math.abs(this.slides[nearest].getBoundingClientRect().left - position)) nearest = index;
+            });
+            this.select(nearest);
+          });
+        }, { ...options, passive: true });
+        this.addEventListener('shopify:block:select', (event) => {
+          const slide = this.slides.findIndex((item) => item.dataset.blockId === event.detail.blockId);
+          if (slide < 0) return;
+          this.select(slide);
+          if (this.mobile.matches) this.scrollToSlide(slide);
+        }, options);
+        this.mobile.addEventListener('change', () => {
+          this.hovered = false;
+          this.focused = !this.mobile.matches && !!this.querySelector(':focus-visible');
+          if (this.mobile.matches) this.scrollToSlide(this.currentIndex, false);
+          this.schedule();
+        }, options);
+        document.addEventListener('visibilitychange', () => this.schedule(), options);
+        this.schedule();
+      }
+
+      select(index) {
+        if (index < 0 || index >= this.slides.length) return;
+        this.currentIndex = index;
+        this.querySelectorAll('[data-feature]').forEach((item) => item.classList.toggle('is-active', Number(item.dataset.feature) === index));
+        this.querySelectorAll('[data-select]').forEach((item) => item.setAttribute('aria-pressed', String(Number(item.dataset.select) === index)));
+        this.querySelectorAll('[data-panel]').forEach((item) => { item.hidden = Number(item.dataset.panel) !== index; });
+        this.querySelectorAll('[data-dot]').forEach((item) => item.setAttribute('aria-current', String(Number(item.dataset.dot) === index)));
+        this.schedule();
+      }
+
+      scrollToSlide(index, smooth = true) {
+        const slide = this.slides[index];
+        if (!slide || !this.track) return;
+        this.track.scrollTo({ left: this.track.scrollLeft + slide.getBoundingClientRect().left - this.track.getBoundingClientRect().left, behavior: smooth && !window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'auto' });
+        this.select(index);
+      }
+
+      schedule() {
+        clearTimeout(this.timer);
+        if (!this.isConnected || this.slides.length < 2 || this.hovered || this.touching || this.focused || document.hidden) return;
+        this.timer = setTimeout(() => {
+          const next = (this.currentIndex + 1) % this.slides.length;
+          if (this.mobile.matches) this.scrollToSlide(next);
+          else this.select(next);
+        }, this.interval);
+      }
+
+      disconnectedCallback() {
+        clearTimeout(this.timer);
+        cancelAnimationFrame(this.initFrame);
+        this.abort?.abort();
+        cancelAnimationFrame(this.frame);
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "productN Technology",
+  "tag": "section",
+  "class": "product-new-technology-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "range", "id": "rotation_interval", "label": "Rotation interval", "min": 1, "max": 10, "step": 1, "unit": "s", "default": 2 },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Technology" },
+    { "type": "text", "id": "brand", "label": "Highlighted heading", "default": "Heatwave™" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "heating system" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Our own carbon-fiber heating system. It heats up fast, guards against overheating and keeps working wash after wash." },
+    { "type": "text", "id": "footer_text", "label": "Footer text", "default": "Also inside this vest:" },
+    { "type": "text", "id": "battery_label", "label": "Battery link label", "default": "PowerCore™ battery" },
+    { "type": "url", "id": "battery_link", "label": "Battery link" },
+    { "type": "text", "id": "technology_label", "label": "Technology link label", "default": "Explore Venustas technology" },
+    { "type": "url", "id": "technology_link", "label": "Technology link" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Feature image", "info": "Each feature has its own carousel image. The same image is used on desktop and mobile." },
+        { "type": "richtext", "id": "title", "label": "Title", "info": "Italic text appears upright in red, with a line above and below.", "default": "<p><em>12,000</em> carbon fibers</p>" },
+        { "type": "textarea", "id": "description", "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "productN Technology",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "<p><em>12,000</em> carbon fibers</p>", "description": "High-strength fibers from Japan's Toray Group for even, long-lasting heat." } },
+        { "type": "feature", "settings": { "title": "<p><em>Smart</em> Chip Control</p>", "description": "U.S.-homemade intelligent chips ensure rapid heat-up, stable temperature control, and optimized energy efficiency." } },
+        { "type": "feature", "settings": { "title": "<p><em>NTC</em> overheat protection</p>", "description": "Built-in sensors keep watch on the heating modules to protect both the vest and you." } },
+        { "type": "feature", "settings": { "title": "<p><em>10,000+</em> bends, 100 washes</p>", "description": "The heating module keeps working without losing heat." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

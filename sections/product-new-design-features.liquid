@@ -1,0 +1,210 @@
+{%- liquid
+  assign card_count = 0
+  for block in section.blocks
+    if block.settings.image != blank or block.settings.title != blank or block.settings.description != blank
+      assign card_count = card_count | plus: 1
+    endif
+  endfor
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-new-design-features {
+    padding: 80px 0;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__header {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__eyebrow,
+  #shopify-section-{{ section.id }} .product-new-design-features__heading,
+  #shopify-section-{{ section.id }} .product-new-design-features__description,
+  #shopify-section-{{ section.id }} .product-new-design-features__title,
+  #shopify-section-{{ section.id }} .product-new-design-features__text {
+    margin: 0;
+    color: inherit;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__heading {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.22;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__description,
+  #shopify-section-{{ section.id }} .product-new-design-features__text {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(300px, 100%);
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    list-style: none;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__track:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__card {
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 300 / 199.5;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__image + .product-new-design-features__copy {
+    margin-top: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__title {
+    color: #141414;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__text {
+    color: #3d3d3d;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-design-features__title + .product-new-design-features__text {
+    margin-top: 6px;
+  }
+
+  @media only screen and (min-width: 1340px) {
+    #shopify-section-{{ section.id }} .product-new-design-features__header {
+      margin-bottom: 56px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-design-features__track {
+      grid-auto-flow: row;
+      grid-auto-columns: auto;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 32px 24px;
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-design-features__image {
+      aspect-ratio: 317 / 199.5;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-new-design-features__heading {
+      font-size: 24px;
+    }
+  }
+{% endstyle %}
+
+{%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank or card_count > 0 -%}
+  <section class="product-new-design-features">
+    <div class="product-new-design-features__inner">
+      {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank -%}
+        <div class="product-new-design-features__header">
+          {%- if section.settings.eyebrow != blank -%}<p class="product-new-design-features__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+          {%- if section.settings.heading != blank -%}<h2 class="product-new-design-features__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+          {%- if section.settings.description != blank -%}<p class="product-new-design-features__description">{{ section.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- if card_count > 0 -%}
+        <ul class="product-new-design-features__track" role="list" tabindex="0" aria-label="{{ section.settings.heading | default: 'Design features' | escape }}">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.image != blank or block.settings.title != blank or block.settings.description != blank -%}
+              <li class="product-new-design-features__card" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 1000 | image_tag: class: 'product-new-design-features__image', loading: 'lazy', widths: '300, 450, 600, 750, 1000', sizes: '(max-width: 339px) calc(100vw - 40px), (max-width: 1339px) 300px, 317px' }}
+                {%- endif -%}
+                {%- if block.settings.title != blank or block.settings.description != blank -%}
+                  <div class="product-new-design-features__copy">
+                    {%- if block.settings.title != blank -%}<h3 class="product-new-design-features__title">{{ block.settings.title | escape }}</h3>{%- endif -%}
+                    {%- if block.settings.description != blank -%}<p class="product-new-design-features__text">{{ block.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+                  </div>
+                {%- endif -%}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "productN Design Features",
+  "tag": "section",
+  "class": "product-new-design-features-section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Design Features" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A good puffer first. Heated second." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "FELLEX® insulation with 100% recycled-polyester fill — it still works as a warm vest with the heat off." }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Design feature",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "description", "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "productN Design Features",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Stand collar", "description": "Keeps the collar heat zone right against the back of your neck." } },
+        { "type": "feature", "settings": { "title": "Water-repellent shell", "description": "100% nylon, wind- and water-resistant. Light rain and wet snow bead off." } },
+        { "type": "feature", "settings": { "title": "One-button control", "description": "One press on the chest switches settings. The light — red, white or blue — shows which one." } },
+        { "type": "feature", "settings": { "title": "Reflective lining", "description": "Black: silver Mylar that reflects body heat back to your core. Other colors: graphene-nylon lining." } },
+        { "type": "feature", "settings": { "title": "Heated zip pockets", "description": "Both hand pockets are heated and zip shut, so your phone and keys stay put." } },
+        { "type": "feature", "settings": { "title": "Battery pocket", "description": "A dedicated inner pocket holds the battery, with the power cable already inside." } },
+        { "type": "feature", "settings": { "title": "Adjustable hem", "description": "Cinch the hem to seal drafts at the waist. Hip-length cut." } },
+        { "type": "feature", "settings": { "title": "Machine washable", "description": "Take the battery out and wash in a laundry bag. Air dry completely before you turn the heat back on." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

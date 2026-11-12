@@ -1,0 +1,116 @@
+{%- liquid
+  assign benefit_count = 0
+  for block in section.blocks
+    if block.settings.value != blank or block.settings.description != blank
+      assign benefit_count = benefit_count | plus: 1
+    endif
+  endfor
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-new-benefits {
+    background: #000;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-benefits__list {
+    display: grid;
+    grid-template-columns: repeat({{ benefit_count | at_least: 1 }}, minmax(0, 1fr));
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-benefits__item {
+    display: flex;
+    min-width: 0;
+    padding: 28px 8px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-benefits__value {
+    margin: 0;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-benefits__description {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-new-benefits__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      padding: 32px 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-benefits__item {
+      padding: 20px 0;
+      gap: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+    }
+  }
+{% endstyle %}
+
+{%- if benefit_count > 0 -%}
+  <div class="product-new-benefits">
+    <ul class="product-new-benefits__list" role="list">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.value != blank or block.settings.description != blank -%}
+          <li class="product-new-benefits__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.value != blank -%}
+              <p class="product-new-benefits__value">{{ block.settings.value | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="product-new-benefits__description">{{ block.settings.description | escape }}</p>
+            {%- endif -%}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "productN Benefits",
+  "tag": "section",
+  "class": "product-new-benefits-section",
+  "max_blocks": 4,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "3S" },
+        { "type": "text", "id": "description", "label": "Description", "default": "to feel the warmth" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "productN Benefits",
+      "blocks": [
+        { "type": "benefit", "settings": { "value": "3S", "description": "to feel the warmth" } },
+        { "type": "benefit", "settings": { "value": "6", "description": "heating zones" } },
+        { "type": "benefit", "settings": { "value": "131°F", "description": "on high · 3 settings" } },
+        { "type": "benefit", "settings": { "value": "10h", "description": "on Low · 36Wh battery" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

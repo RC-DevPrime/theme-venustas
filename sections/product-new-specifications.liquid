@@ -1,0 +1,247 @@
+{%- assign group_count = 0 -%}
+{%- capture groups -%}
+  {%- for block in section.blocks -%}
+    {%- capture rows -%}
+      {%- for index in (1..5) -%}
+        {%- assign label_key = 'row_label_' | append: index -%}
+        {%- assign value_key = 'row_value_' | append: index -%}
+        {%- if block.settings[label_key] != blank or block.settings[value_key] != blank -%}
+          <div class="product-new-specifications__row{% if block.settings[label_key] == blank %} product-new-specifications__row--value-only{% endif %}">
+            {%- if block.settings[label_key] != blank -%}<div class="product-new-specifications__label">{{ block.settings[label_key] | escape }}</div>{%- endif -%}
+            {%- if block.settings[value_key] != blank -%}<div class="product-new-specifications__value">{{ block.settings[value_key] }}</div>{%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if block.settings.title != blank or rows != blank or block.settings.link_label != blank -%}
+      {%- assign group_count = group_count | plus: 1 -%}
+      <div class="product-new-specifications__group" {{ block.shopify_attributes }}>
+        {%- if block.settings.title != blank -%}<h3 class="product-new-specifications__group-heading">{{ block.settings.title | escape }}</h3>{%- endif -%}
+        {{ rows }}
+        {%- if block.settings.link_label != blank -%}<a class="product-new-specifications__link" href="{{ block.settings.link | default: '#' | escape }}">{{ block.settings.link_label | escape }}</a>{%- endif -%}
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-new-specifications {
+    padding: 80px 0;
+    background: #f5f5f5;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__header {
+    display: grid;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__header + .product-new-specifications__groups {
+    margin-top: 48px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__eyebrow,
+  #shopify-section-{{ section.id }} .product-new-specifications__heading,
+  #shopify-section-{{ section.id }} .product-new-specifications__group-heading {
+    margin: 0;
+    color: inherit;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__heading {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.22;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__groups {
+    display: grid;
+    grid-template-columns: repeat({{ group_count | at_least: 1 }}, minmax(0, 1fr));
+    gap: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__group {
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__group-heading {
+    padding-bottom: 12px;
+    border-bottom: 1.5px solid #141414;
+    color: #141414;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 1.56px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__row {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid #ececec;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__row--value-only {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__label {
+    min-width: 0;
+    color: #5c5c5c;
+    font-weight: 600;
+    line-height: 21px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__value {
+    min-width: 0;
+    color: #141414;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__value > * {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__value > * + * {
+    margin-top: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__value a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications__link {
+    display: inline-block;
+    margin-top: 72px;
+    color: #141414;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-specifications a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .product-new-specifications__groups {
+      grid-template-columns: repeat({{ group_count | at_most: 2 | at_least: 1 }}, minmax(0, 1fr));
+    }
+
+    #shopify-section-{{ section.id }} .product-new-specifications__row:not(.product-new-specifications__row--value-only) {
+      grid-template-columns: 90px minmax(0, 1fr);
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-new-specifications__heading {
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-specifications__groups {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 48px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-specifications__group-heading {
+      padding-top: 12px;
+      border-bottom-width: 3px;
+      font-size: 16px;
+      letter-spacing: 2px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-specifications__row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #shopify-section-{{ section.id }} .product-new-specifications__label {
+      color: #515151;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-specifications__link {
+      margin-top: 14px;
+    }
+  }
+{% endstyle %}
+
+{%- if section.settings.eyebrow != blank or section.settings.heading != blank or group_count > 0 -%}
+  <section class="product-new-specifications">
+    <div class="product-new-specifications__inner">
+      {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+        <div class="product-new-specifications__header">
+          {%- if section.settings.eyebrow != blank -%}<p class="product-new-specifications__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+          {%- if section.settings.heading != blank -%}<h2 class="product-new-specifications__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- if group_count > 0 -%}<div class="product-new-specifications__groups">{{ groups }}</div>{%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "productN Specifications",
+  "tag": "section",
+  "class": "product-new-specifications-section",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Specs" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Full specifications" }
+  ],
+  "blocks": [
+    {
+      "type": "group",
+      "name": "Specification group",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Group heading" },
+        { "type": "text", "id": "row_label_1", "label": "Row 1 label" },
+        { "type": "richtext", "id": "row_value_1", "label": "Row 1 value" },
+        { "type": "text", "id": "row_label_2", "label": "Row 2 label" },
+        { "type": "richtext", "id": "row_value_2", "label": "Row 2 value" },
+        { "type": "text", "id": "row_label_3", "label": "Row 3 label" },
+        { "type": "richtext", "id": "row_value_3", "label": "Row 3 value" },
+        { "type": "text", "id": "row_label_4", "label": "Row 4 label" },
+        { "type": "richtext", "id": "row_value_4", "label": "Row 4 value" },
+        { "type": "text", "id": "row_label_5", "label": "Row 5 label" },
+        { "type": "richtext", "id": "row_value_5", "label": "Row 5 value" },
+        { "type": "text", "id": "link_label", "label": "Link label" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "productN Specifications",
+      "blocks": [
+        { "type": "group", "settings": { "title": "Heating", "row_label_1": "Element", "row_value_1": "<p>Carbon fiber</p>", "row_label_2": "Zones", "row_value_2": "<p>6 — collar, left & right shoulders, mid-back, left & right pockets</p>", "row_label_3": "Settings", "row_value_3": "<p>High 131°F / 55°C</p><p>Medium 113°F / 45°C</p><p>Low 100°F / 38°C</p>", "row_label_4": "Indicator", "row_value_4": "<p>Pre-heat & High: red · Medium: white · Low: blue</p>", "row_label_5": "Runtime", "row_value_5": "<p>High 3 h · Medium 6 h · Low 10 h</p>" } },
+        { "type": "group", "settings": { "title": "Battery", "row_label_1": "Capacity", "row_value_1": "<p>5000mAh @ 7.2V (36Wh)</p>", "row_label_2": "Size", "row_value_2": "<p>3.15 × 2.60 × 1.02 in</p>", "row_label_3": "Weight", "row_value_3": "<p>6.56 oz</p>", "row_label_4": "Charging", "row_value_4": "<p>2.5 h with a 20W USB-C charger · charger (not included)</p>", "row_label_5": "Outputs", "row_value_5": "<p>DC to the vest · USB-A · USB-C</p>", "link_label": "Battery details & certifications" } },
+        { "type": "group", "settings": { "title": "Vest", "row_label_1": "Fit", "row_value_1": "<p>Regular · hip-length</p>", "row_label_2": "Shell", "row_value_2": "<p>100% nylon, water-repellent</p>", "row_label_3": "Lining", "row_value_3": "<p>Black: 95% polyester, 5% silver Mylar thermal fabric</p><p>Other colors: 93% nylon, 7% graphene nylon</p>", "row_label_4": "Insulation", "row_value_4": "<p>FELLEX®, 100% recycled polyester</p>", "row_label_5": "Care", "row_value_5": "<p>Remove battery.<br>Hand or machine wash in a laundry bag.<br>Air dry — no dryer<br>iron or dry cleaning.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

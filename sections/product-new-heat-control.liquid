@@ -1,0 +1,522 @@
+{% style %}
+  #shopify-section-{{ section.id }} .product-new-heat-control {
+    display: block;
+    padding: 80px 0;
+    background: #1a1a1a;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__header {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control p,
+  #shopify-section-{{ section.id }} .product-new-heat-control h2 {
+    margin: 0;
+    color: inherit;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__heading {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -.952px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control .product-new-heat-control__description {
+    color: rgba(255, 255, 255, .8);
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 490fr) minmax(0, 826fr);
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__buttons {
+    display: grid;
+    gap: 20px;
+    width: min(100%, 300px);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__button {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    min-height: 74px;
+    padding: 24px 56px;
+    box-sizing: border-box;
+    border: 1.4px solid var(--heat-color);
+    border-radius: 71px;
+    background: var(--heat-background);
+    color: var(--heat-color);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__button--low {
+    --heat-color: #0d6efd;
+    --heat-background: rgba(13, 110, 253, .12);
+    --heat-active-text: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__button--medium {
+    --heat-color: #fff;
+    --heat-background: rgba(255, 255, 255, .12);
+    --heat-active-text: #1a1a1a;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__button--high {
+    --heat-color: #ff4000;
+    --heat-background: rgba(185, 50, 5, .12);
+    --heat-active-text: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__button[aria-pressed='true'] {
+    background: var(--heat-color);
+    color: var(--heat-active-text);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__dot {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control .product-new-heat-control__note {
+    color: rgba(255, 255, 255, .8);
+    font-size: 12px;
+    font-style: italic;
+    line-height: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__details {
+    display: grid;
+    grid-template-columns: minmax(0, 330fr) minmax(0, 476fr);
+    gap: 20px;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__status,
+  #shopify-section-{{ section.id }} .product-new-heat-control__runtime {
+    min-width: 0;
+    min-height: 336px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(255, 159, 135, .16);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__status {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__image {
+    display: block;
+    width: 150px;
+    max-width: 100%;
+    height: 150px;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__status-copy,
+  #shopify-section-{{ section.id }} .product-new-heat-control__runtime-copy {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control .product-new-heat-control__status-label {
+    color: rgba(255, 255, 255, .8);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__temperature {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__value {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.22;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control .product-new-heat-control__text {
+    color: rgba(255, 255, 255, .8);
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__runtime {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 32px 24px;
+    background: #141414;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__scale {
+    display: grid;
+    gap: 16px;
+    padding-top: 54px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__bar {
+    position: relative;
+    height: 10px;
+    border-radius: 999px;
+    background: linear-gradient(to right, #4a8bf5, #fff 50%, #ff5f00);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__indicator {
+    position: absolute;
+    top: -6px;
+    left: calc(11px + (100% - 22px) * var(--heat-position, 0));
+    width: 22px;
+    height: 22px;
+    box-sizing: border-box;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: #141414;
+    box-shadow: 0 0 0 2px #141414;
+    transform: translateX(-50%);
+    transition: left .25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__scale-labels {
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size | at_least: 1 }}, minmax(0, 1fr));
+    gap: 8px;
+    color: rgba(255, 255, 255, .8);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__scale-labels span:not(:first-child):not(:last-child) {
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__scale-labels span:last-child:not(:first-child) {
+    text-align: right;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control__runtime-copy {
+    padding-top: 16px;
+    border-top: 1px solid #515151;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heat-control [hidden] {
+    display: none;
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .product-new-heat-control__layout {
+      grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__details {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__button {
+      padding-right: 24px;
+      padding-left: 24px;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-new-heat-control {
+      padding: 48px 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__header {
+      margin-bottom: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__heading {
+      font-size: 24px;
+      line-height: 1.22;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__details {
+      grid-column: 1;
+      grid-row: 1;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__buttons {
+      grid-template-columns: repeat({{ section.blocks.size | at_least: 1 }}, minmax(0, 1fr));
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__button {
+      flex-direction: column;
+      justify-content: center;
+      padding: 24px 8px;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__status {
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 20px;
+      min-height: 0;
+      padding: 24px 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__image {
+      flex-shrink: 0;
+      width: 84px;
+      height: 100px;
+      object-position: top;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__status-copy {
+      flex: 1;
+      width: auto;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__runtime {
+      gap: 16px;
+      min-height: 0;
+      padding: 20px 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heat-control__scale {
+      padding: 12px 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .product-new-heat-control__indicator {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+<product-new-heat-control class="product-new-heat-control">
+  <div class="product-new-heat-control__inner">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank -%}
+      <div class="product-new-heat-control__header">
+        {%- if section.settings.eyebrow != blank -%}<p class="product-new-heat-control__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="product-new-heat-control__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        {%- if section.settings.description != blank -%}<p class="product-new-heat-control__description">{{ section.settings.description | escape }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <div class="product-new-heat-control__layout">
+        <div class="product-new-heat-control__controls">
+          <div class="product-new-heat-control__buttons">
+            {%- for block in section.blocks -%}
+              <button class="product-new-heat-control__button product-new-heat-control__button--{{ block.settings.mode }}" type="button" data-select="{{ forloop.index0 }}" data-block-id="{{ block.id }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="HeatStatus-{{ section.id }}-{{ block.id }} HeatRuntime-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+                <span class="product-new-heat-control__dot" aria-hidden="true"></span>
+                <span>{% if block.settings.label != blank %}{{ block.settings.label | escape }}{% else %}{{ block.settings.mode | capitalize | escape }}{% endif %}</span>
+              </button>
+            {%- endfor -%}
+          </div>
+          {%- if section.settings.note != blank -%}<p class="product-new-heat-control__note">{{ section.settings.note | escape }}</p>{%- endif -%}
+        </div>
+        <div class="product-new-heat-control__details" aria-live="polite">
+          <div>
+            {%- for block in section.blocks -%}
+              <div class="product-new-heat-control__status" id="HeatStatus-{{ section.id }}-{{ block.id }}" data-panel="{{ forloop.index0 }}"{% unless forloop.first %} hidden{% endunless %}>
+                {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 450 | image_tag: class: 'product-new-heat-control__image', loading: 'lazy', widths: '150, 300, 450', sizes: '(max-width: 767px) 84px, 150px' }}{%- endif -%}
+                <div class="product-new-heat-control__status-copy">
+                  {%- liquid
+                    assign status_label = block.settings.status_label
+                    if status_label == blank
+                      case block.settings.mode
+                        when 'medium'
+                          assign status_label = 'MEDIUM.WHITE LIGHT'
+                        when 'high'
+                          assign status_label = 'HIGH.RED LIGHT'
+                        else
+                          assign status_label = 'LOW.BLUE LIGHT'
+                      endcase
+                    endif
+                  -%}
+                  <p class="product-new-heat-control__status-label">{{ status_label | escape }}</p>
+                  {%- if block.settings.temp_f != blank or block.settings.temp_c != blank -%}
+                    <div class="product-new-heat-control__temperature">
+                      {%- if block.settings.temp_f != blank -%}<p class="product-new-heat-control__value">{{ block.settings.temp_f | escape }}</p>{%- endif -%}
+                      {%- if block.settings.temp_c != blank -%}<p class="product-new-heat-control__text">{{ block.settings.temp_c | escape }}</p>{%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}<p class="product-new-heat-control__text">{{ block.settings.description | escape }}</p>{%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+          <div class="product-new-heat-control__runtime">
+            <div class="product-new-heat-control__scale">
+              <div class="product-new-heat-control__bar" aria-hidden="true"><span class="product-new-heat-control__indicator" data-indicator></span></div>
+              <div class="product-new-heat-control__scale-labels">
+                {%- for block in section.blocks -%}<span>{{ block.settings.scale_label | escape }}</span>{%- endfor -%}
+              </div>
+            </div>
+            {%- for block in section.blocks -%}
+              <div id="HeatRuntime-{{ section.id }}-{{ block.id }}" data-panel="{{ forloop.index0 }}"{% unless forloop.first %} hidden{% endunless %}>
+                {%- if block.settings.runtime != blank or block.settings.runtime_note != blank -%}
+                  <div class="product-new-heat-control__runtime-copy">
+                    {%- if block.settings.runtime != blank -%}<p class="product-new-heat-control__value">{{ block.settings.runtime | escape }}</p>{%- endif -%}
+                    {%- if block.settings.runtime_note != blank -%}<p class="product-new-heat-control__text">{{ block.settings.runtime_note | escape }}</p>{%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</product-new-heat-control>
+
+<script>
+  if (!customElements.get('product-new-heat-control')) {
+    customElements.define('product-new-heat-control', class extends HTMLElement {
+      connectedCallback() {
+        this.abort?.abort();
+        this.abort = new AbortController();
+        cancelAnimationFrame(this.initFrame);
+        const initialize = () => {
+          this.initFrame = requestAnimationFrame(() => {
+            if (this.isConnected) this.initialize();
+          });
+        };
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialize, { once: true, signal: this.abort.signal });
+        else initialize();
+      }
+
+      initialize() {
+        this.buttons = [...this.querySelectorAll('[data-select]')];
+        this.panels = [...this.querySelectorAll('[data-panel]')];
+        this.indicator = this.querySelector('[data-indicator]');
+        const options = { signal: this.abort.signal };
+        this.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-select]');
+          if (button) this.select(Number(button.dataset.select));
+        }, options);
+        this.addEventListener('shopify:block:select', (event) => {
+          const index = this.buttons.findIndex((button) => button.dataset.blockId === event.detail.blockId);
+          if (index >= 0) this.select(index);
+        }, options);
+      }
+
+      select(index) {
+        if (!this.buttons[index]) return;
+        this.buttons.forEach((button, buttonIndex) => button.setAttribute('aria-pressed', String(buttonIndex === index)));
+        this.panels.forEach((panel) => { panel.hidden = Number(panel.dataset.panel) !== index; });
+        this.indicator?.style.setProperty('--heat-position', this.buttons.length > 1 ? index / (this.buttons.length - 1) : 0);
+      }
+
+      disconnectedCallback() {
+        this.abort?.abort();
+        cancelAnimationFrame(this.initFrame);
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "productN Heat Control",
+  "tag": "section",
+  "class": "product-new-heat-control-section",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Temp Control" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "One button. Three levels of heat." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Press to switch between High, Medium and Low. The light on the button shows the setting you're on." },
+    { "type": "textarea", "id": "note", "label": "Start-up note", "default": "To start, hold the button for 3 seconds. It pre-heats for 5 minutes on High (blinking red), then settles on Medium by itself." }
+  ],
+  "blocks": [
+    {
+      "type": "level",
+      "name": "Heat level",
+      "settings": [
+        { "type": "select", "id": "mode", "label": "Button color", "default": "low", "options": [{ "value": "low", "label": "Blue" }, { "value": "medium", "label": "White" }, { "value": "high", "label": "Orange" }] },
+        { "type": "text", "id": "label", "label": "Button label" },
+        { "type": "image_picker", "id": "image", "label": "Status image" },
+        { "type": "text", "id": "status_label", "label": "Status label" },
+        { "type": "text", "id": "temp_f", "label": "Fahrenheit temperature" },
+        { "type": "text", "id": "temp_c", "label": "Celsius temperature" },
+        { "type": "textarea", "id": "description", "label": "Setting description" },
+        { "type": "text", "id": "scale_label", "label": "Scale label" },
+        { "type": "text", "id": "runtime", "label": "Runtime" },
+        { "type": "textarea", "id": "runtime_note", "label": "Runtime description" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "productN Heat Control",
+      "blocks": [
+        { "type": "level", "settings": { "mode": "low", "label": "Low", "status_label": "LOW.BLUE LIGHT", "temp_f": "100°F", "temp_c": "38°C", "description": "Mild days and the longest runtime.", "scale_label": "Low · 100°F", "runtime": "10 hours", "runtime_note": "on Low with the included 5K battery (36Wh)" } },
+        { "type": "level", "settings": { "mode": "medium", "label": "Medium", "status_label": "MEDIUM.WHITE LIGHT", "temp_f": "113°F", "temp_c": "45°C", "description": "everyday code.where the vest settles after pre-heat.", "scale_label": "Medium · 113°F", "runtime": "6 hours", "runtime_note": "on Medium with the included 5K battery (36Wh)" } },
+        { "type": "level", "settings": { "mode": "high", "label": "High", "status_label": "HIGH.RED LIGHT", "temp_f": "131°F", "temp_c": "55°C", "description": "Pre-heat and the coldest stretches of the day", "scale_label": "High · 131°F", "runtime": "3 hours", "runtime_note": "on High with the included 5K battery (36Wh)" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

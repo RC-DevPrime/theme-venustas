@@ -1,0 +1,253 @@
+{%- liquid
+  assign product_image = section.settings.image
+  assign feature_video = section.settings.video
+  assign video_url = section.settings.mp4_url
+  assign poster = section.settings.poster | default: feature_video.preview_image
+  if feature_video != blank
+    assign video_url = blank
+    for source in feature_video.sources
+      if source.mime_type == 'video/mp4'
+        assign video_url = source.url
+        break
+      endif
+    endfor
+  endif
+  assign video_label = section.settings.card_title | default: section.settings.title
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-new-heating {
+    padding: 100px 0;
+    background: radial-gradient(ellipse at 37% 50%, rgba(215, 51, 51, .2), rgba(164, 39, 39, .1) 50%, rgba(113, 27, 27, 0) 100%), #1a1a1a;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__header {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__eyebrow,
+  #shopify-section-{{ section.id }} .product-new-heating__title,
+  #shopify-section-{{ section.id }} .product-new-heating__card-eyebrow,
+  #shopify-section-{{ section.id }} .product-new-heating__card-title {
+    margin: 0;
+    color: inherit;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__title {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.22;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 500px);
+    gap: clamp(40px, 8.75vw, 168px);
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__layout--without-image {
+    grid-template-columns: minmax(0, 500px);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 672 / 600;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__card {
+    min-width: 0;
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 12px;
+    background: #1a1a1a;
+    box-shadow: 0 0 40px rgba(255, 159, 135, .16);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__media {
+    aspect-ratio: 500 / 281;
+    overflow: hidden;
+    border-radius: 11px 11px 0 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__video,
+  #shopify-section-{{ section.id }} .product-new-heating__poster {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__copy {
+    display: grid;
+    gap: 8px;
+    padding: 24px;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__card-eyebrow {
+    color: #ff4000;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__card-title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.22;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__body {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__body > * {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__body ul,
+  #shopify-section-{{ section.id }} .product-new-heating__body ol {
+    padding-left: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__body ul {
+    list-style: disc;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-heating__body a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .product-new-heating__layout:not(.product-new-heating__layout--without-image) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 40px;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-new-heating {
+      padding: 48px 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heating__header {
+      margin-bottom: 58px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heating__title {
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heating__layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heating__image {
+      aspect-ratio: 350 / 320;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heating__media {
+      aspect-ratio: 350 / 220;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-heating__copy {
+      gap: 12px;
+    }
+  }
+{% endstyle %}
+
+<section class="product-new-heating">
+  <div class="product-new-heating__inner">
+    {%- if section.settings.eyebrow != blank or section.settings.title != blank -%}
+      <div class="product-new-heating__header">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="product-new-heating__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="product-new-heating__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="product-new-heating__layout{% if product_image == blank %} product-new-heating__layout--without-image{% endif %}">
+      {%- if product_image != blank -%}
+        {{ product_image | image_url: width: 1400 | image_tag: class: 'product-new-heating__image', loading: 'lazy', widths: '350, 600, 750, 1000, 1400', sizes: '(max-width: 767px) calc(100vw - 40px), (max-width: 1379px) 50vw, 672px' }}
+      {%- endif -%}
+      {%- if video_url != blank or poster != blank or section.settings.card_eyebrow != blank or section.settings.card_title != blank or section.settings.body != blank -%}
+        <div class="product-new-heating__card">
+          {%- if video_url != blank or poster != blank -%}
+            <div class="product-new-heating__media">
+              {%- if video_url != blank -%}
+                <video class="product-new-heating__video" autoplay muted loop playsinline webkit-playsinline preload="metadata" controlslist="nofullscreen nodownload noremoteplayback" disablepictureinpicture disableremoteplayback aria-label="{{ video_label | escape }}"{% if poster != blank %} poster="{{ poster | image_url: width: 1000 }}"{% endif %}>
+                  <source src="{{ video_url | escape }}" type="video/mp4">
+                </video>
+              {%- else -%}
+                {{ poster | image_url: width: 1000 | image_tag: class: 'product-new-heating__poster', loading: 'lazy', widths: '350, 500, 750, 1000', sizes: '(max-width: 767px) calc(100vw - 40px), 500px' }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.card_eyebrow != blank or section.settings.card_title != blank or section.settings.body != blank -%}
+            <div class="product-new-heating__copy">
+              {%- if section.settings.card_eyebrow != blank -%}
+                <p class="product-new-heating__card-eyebrow">{{ section.settings.card_eyebrow | escape }}</p>
+              {%- endif -%}
+              {%- if section.settings.card_title != blank -%}
+                <h3 class="product-new-heating__card-title">{{ section.settings.card_title | escape }}</h3>
+              {%- endif -%}
+              {%- if section.settings.body != blank -%}
+                <div class="product-new-heating__body">{{ section.settings.body }}</div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "productN Heating",
+  "tag": "section",
+  "class": "product-new-heating-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "6-Zone Heating" },
+    { "type": "textarea", "id": "title", "label": "Heading", "default": "Warm in 3 seconds.\nSix zones of heat." },
+    { "type": "image_picker", "id": "image", "label": "Heating image" },
+    { "type": "video", "id": "video", "label": "Feature video" },
+    { "type": "url", "id": "mp4_url", "label": "MP4 video URL", "info": "Used when no feature video is selected. Video plays inline, muted and on loop." },
+    { "type": "image_picker", "id": "poster", "label": "Video cover image", "info": "Also displayed when no video is provided." },
+    { "type": "text", "id": "card_eyebrow", "label": "Card eyebrow", "default": "ONE PRESS" },
+    { "type": "text", "id": "card_title", "label": "Card heading", "default": "Press the button. Feel the heat spread." },
+    { "type": "richtext", "id": "body", "label": "Card text", "default": "<ul><li>Collar, both shoulders, mid-back and both hand pockets — up to 131°F on High, up to 10 hours on Low.</li><li>The chest button lights up and the heating panels start warming right away.</li></ul>" }
+  ],
+  "presets": [
+    { "name": "productN Heating" }
+  ]
+}
+{% endschema %}

@@ -1,5 +1,21 @@
 {%- assign icon_name = icon | strip | downcase -%}
 {%- case icon_name -%}
+  {%- when 'shield-check' -%}
+    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path d="M9.99992 2.5L16.6666 5V10C16.6666 13.75 13.8333 16.6667 9.99992 17.5C6.16659 16.6667 3.33325 13.75 3.33325 10V5L9.99992 2.5Z" stroke-width="1.5" stroke="currentColor"/>
+      <path d="M7.08325 9.99984L9.16659 12.0832L12.9166 7.9165" stroke-width="1.5" stroke="currentColor"/>
+    </svg>
+  {%- when 'lightning' -%}
+    <svg viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <g clip-path="url(#heating-lightning-{{ section.id }})">
+        <path d="M11 1L2 13H8L6 21L16 8H10L11 1Z" fill="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke="#0A0D1C"/>
+      </g>
+      <defs><clipPath id="heating-lightning-{{ section.id }}"><rect width="18" height="22" fill="white"/></clipPath></defs>
+    </svg>
+  {%- when 'arrow-right' -%}
+    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path d="M3.33325 8H12.6666M8.66659 12L12.6666 8L8.66659 4" stroke-width="1.33333" stroke="currentColor"/>
+    </svg>
   {%- when 'chevron-right' -%}
     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <path d="M12 24L20 16L12 8" stroke-width="3" stroke-linecap="round" stroke="currentColor"/>

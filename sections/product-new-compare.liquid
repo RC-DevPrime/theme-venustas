@@ -1,0 +1,472 @@
+{%- assign product_columns = section.blocks.size | at_least: 1 -%}
+{%- assign desktop_image_width = 1190 | divided_by: product_columns | minus: 40 -%}
+{%- capture image_sizes -%}(max-width: 767px) 69px, {{ desktop_image_width }}px{%- endcapture -%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-new-compare {
+    display: block;
+    padding: 80px 0;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__header {
+    display: grid;
+    gap: 16px;
+    {% if section.blocks.size > 0 %}margin-bottom: 48px;{% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare p,
+  #shopify-section-{{ section.id }} .product-new-compare h2,
+  #shopify-section-{{ section.id }} .product-new-compare h3 {
+    margin: 0;
+    color: inherit;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__heading {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.22;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__description {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__viewport {
+    min-width: 0;
+    overflow-x: auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__grid {
+    display: grid;
+    grid-template-columns: 150px repeat({{ section.blocks.size | at_least: 1 }}, minmax(0, 1fr));
+    min-width: 820px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__labels,
+  #shopify-section-{{ section.id }} .product-new-compare__card {
+    display: contents;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__row-label {
+    grid-column: 1;
+    padding: 18px 8px 18px 0;
+    border-top: 1px solid #ececec;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__product,
+  #shopify-section-{{ section.id }} .product-new-compare__feature,
+  #shopify-section-{{ section.id }} .product-new-compare__footer {
+    grid-column: var(--column);
+    min-width: 0;
+    padding: 18px 20px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__card--current > * {
+    background: #f5f5f5;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__product {
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 24px;
+    padding-bottom: 20px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__image {
+    display: block;
+    width: 100%;
+    height: 430px;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__info {
+    display: grid;
+    gap: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__price {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 23.2px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__feature {
+    border-top: 1px solid #ececec;
+    font-size: 16px;
+    line-height: 24px;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__card--current .product-new-compare__feature {
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__mobile-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__footer {
+    grid-row: 9;
+    border-top: 1px solid #ececec;
+    border-radius: 0 0 12px 12px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__current {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background: #141414;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20.3px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__button {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    color: #141414;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__dots {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-compare__viewport:focus-visible,
+  #shopify-section-{{ section.id }} .product-new-compare a:focus-visible,
+  #shopify-section-{{ section.id }} .product-new-compare button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-new-compare__heading {
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__viewport {
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__viewport::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__grid {
+      display: flex;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__labels {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__card {
+      display: flex;
+      flex: 0 0 100%;
+      flex-direction: column;
+      min-width: 0;
+      border-radius: 12px;
+      background: #f5f5f5;
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__product {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__image {
+      flex-shrink: 0;
+      width: 69px;
+      height: 95px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__info {
+      min-width: 0;
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__mobile-label {
+      display: block;
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      clip-path: none;
+      white-space: normal;
+      color: #515151;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__footer {
+      margin-top: auto;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 50px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__dot {
+      position: relative;
+      width: 7px;
+      height: 7px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #ddd;
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__dot::after {
+      position: absolute;
+      inset: -8px;
+      content: '';
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__dot[aria-current='true'] {
+      background: #b93205;
+    }
+  }
+{% endstyle %}
+
+{%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank or section.blocks.size > 0 -%}
+<product-new-compare class="product-new-compare">
+  <div class="product-new-compare__inner">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank -%}
+      <div class="product-new-compare__header">
+        {%- if section.settings.eyebrow != blank -%}<p class="product-new-compare__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="product-new-compare__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        {%- if section.settings.description != blank -%}<p class="product-new-compare__description">{{ section.settings.description | escape }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <div class="product-new-compare__viewport" data-track tabindex="0" aria-label="{{ section.settings.heading | default: 'Product comparison' | escape }}">
+        <div class="product-new-compare__grid">
+          <div class="product-new-compare__labels" aria-hidden="true">
+            {%- for index in (1..7) -%}
+              {%- assign label_key = 'row_label_' | append: index -%}
+              <div class="product-new-compare__row-label" style="grid-row: {{ index | plus: 1 }};">{{ section.settings[label_key] | escape }}</div>
+            {%- endfor -%}
+          </div>
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign chosen_product = block.settings.product
+              assign card_image = block.settings.image | default: chosen_product.featured_image
+              assign card_title = block.settings.title | default: chosen_product.title
+              assign button_label = block.settings.button_label | escape
+            -%}
+            <div class="product-new-compare__card{% if forloop.first %} product-new-compare__card--current{% endif %}" style="--column: {{ forloop.index | plus: 1 }};" data-card data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
+              {%- if card_image != blank or card_title != blank or chosen_product != blank -%}
+                <div class="product-new-compare__product">
+                  {%- if card_image != blank -%}{{ card_image | image_url: width: 1600 | image_tag: class: 'product-new-compare__image', loading: 'lazy', widths: '138, 300, 500, 750, 1000, 1340, 1600', sizes: image_sizes }}{%- endif -%}
+                  {%- if card_title != blank or chosen_product != blank -%}
+                    <div class="product-new-compare__info">
+                      {%- if card_title != blank -%}<h3 class="product-new-compare__title">{{ card_title | escape }}</h3>{%- endif -%}
+                      {%- if chosen_product != blank -%}<p class="product-new-compare__price">{{ chosen_product.price | money }}</p>{%- endif -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+              {%- for index in (1..7) -%}
+                {%- assign label_key = 'row_label_' | append: index -%}
+                {%- assign value_key = 'value_' | append: index -%}
+                <div class="product-new-compare__feature" style="grid-row: {{ index | plus: 1 }};">
+                  {%- if section.settings[label_key] != blank -%}<span class="product-new-compare__mobile-label">{{ section.settings[label_key] | escape }}</span>{%- endif -%}
+                  {%- if block.settings[value_key] != blank -%}<p>{{ block.settings[value_key] | escape | newline_to_br }}</p>{%- endif -%}
+                </div>
+              {%- endfor -%}
+              <div class="product-new-compare__footer">
+                {%- if forloop.first -%}
+                  <span class="product-new-compare__current">You're viewing this</span>
+                {%- elsif chosen_product != blank and block.settings.button_label != blank -%}
+                  {%- render 'heatingP-button', label: button_label, url: chosen_product.url, variant: 'secondary', class: 'product-new-compare__button' -%}
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- if section.blocks.size > 1 -%}
+        <div class="product-new-compare__dots">
+          {%- for block in section.blocks -%}
+            <button class="product-new-compare__dot" type="button" data-dot="{{ forloop.index0 }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ block.settings.title | default: block.settings.product.title | default: forloop.index | escape }}"></button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</product-new-compare>
+{%- endif -%}
+
+<script>
+  if (!customElements.get('product-new-compare')) {
+    customElements.define('product-new-compare', class extends HTMLElement {
+      connectedCallback() {
+        this.abort?.abort();
+        this.abort = new AbortController();
+        cancelAnimationFrame(this.initFrame);
+        const initialize = () => {
+          this.initFrame = requestAnimationFrame(() => { if (this.isConnected) this.initialize(); });
+        };
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialize, { once: true, signal: this.abort.signal });
+        else initialize();
+      }
+
+      initialize() {
+        const options = { signal: this.abort.signal };
+        this.track = this.querySelector('[data-track]');
+        this.cards = [...this.querySelectorAll('[data-card]')];
+        this.dots = [...this.querySelectorAll('[data-dot]')];
+        this.mobile = window.matchMedia('(max-width: 767px)');
+        this.index = 0;
+        this.addEventListener('click', (event) => {
+          const dot = event.target.closest('[data-dot]');
+          if (dot) this.scrollToCard(Number(dot.dataset.dot));
+        }, options);
+        this.track?.addEventListener('scroll', () => {
+          if (!this.mobile.matches || !this.cards.length) return;
+          cancelAnimationFrame(this.frame);
+          this.frame = requestAnimationFrame(() => {
+            const left = this.track.getBoundingClientRect().left;
+            let nearest = 0;
+            this.cards.forEach((card, index) => {
+              if (Math.abs(card.getBoundingClientRect().left - left) < Math.abs(this.cards[nearest].getBoundingClientRect().left - left)) nearest = index;
+            });
+            this.setActive(nearest);
+          });
+        }, { ...options, passive: true });
+        this.addEventListener('shopify:block:select', (event) => {
+          const index = this.cards.findIndex((card) => card.dataset.blockId === event.detail.blockId);
+          if (index >= 0 && this.mobile.matches) this.scrollToCard(index, false);
+        }, options);
+        this.observer = new ResizeObserver(() => {
+          if (this.mobile.matches) this.scrollToCard(this.index, false);
+        });
+        if (this.track) this.observer.observe(this.track);
+      }
+
+      setActive(index) {
+        this.index = index;
+        this.dots.forEach((dot, dotIndex) => dot.setAttribute('aria-current', String(dotIndex === index)));
+      }
+
+      scrollToCard(index, smooth = true) {
+        const card = this.cards[index];
+        if (!card || !this.track) return;
+        this.track.scrollTo({ left: this.track.scrollLeft + card.getBoundingClientRect().left - this.track.getBoundingClientRect().left, behavior: smooth && !window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'auto' });
+        this.setActive(index);
+      }
+
+      disconnectedCallback() {
+        this.abort?.abort();
+        cancelAnimationFrame(this.initFrame);
+        cancelAnimationFrame(this.frame);
+        this.observer?.disconnect();
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "productN Compare",
+  "tag": "section",
+  "class": "product-new-compare-section",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Compare" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Which heated vest is right for you?" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Our heated vests side by side, so you can pick the one that fits how you'll wear it." },
+    { "type": "text", "id": "row_label_1", "label": "Row 1 label", "default": "Best for" },
+    { "type": "text", "id": "row_label_2", "label": "Row 2 label", "default": "Outer fabric" },
+    { "type": "text", "id": "row_label_3", "label": "Row 3 label", "default": "Heating zones" },
+    { "type": "text", "id": "row_label_4", "label": "Row 4 label", "default": "Max temperature" },
+    { "type": "text", "id": "row_label_5", "label": "Row 5 label", "default": "Controls" },
+    { "type": "text", "id": "row_label_6", "label": "Row 6 label", "default": "System voltage" },
+    { "type": "text", "id": "row_label_7", "label": "Row 7 label", "default": "Battery · runtime on Low" }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Comparison product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "image_picker", "id": "image", "label": "Image override", "info": "Leave blank to use the product's main image." },
+        { "type": "text", "id": "title", "label": "Title override", "info": "Leave blank to use the product title." },
+        { "type": "textarea", "id": "value_1", "label": "Best for" },
+        { "type": "textarea", "id": "value_2", "label": "Outer fabric" },
+        { "type": "textarea", "id": "value_3", "label": "Heating zones" },
+        { "type": "textarea", "id": "value_4", "label": "Max temperature" },
+        { "type": "textarea", "id": "value_5", "label": "Controls" },
+        { "type": "textarea", "id": "value_6", "label": "System voltage" },
+        { "type": "textarea", "id": "value_7", "label": "Battery and runtime" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "View product" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "productN Compare",
+      "blocks": [
+        { "type": "product", "settings": { "value_1": "Commuting, hiking, game days", "value_2": "Water-repellent quilted nylon", "value_3": "6", "value_4": "131°F", "value_5": "1 button, 3 settings", "value_6": "7.4V", "value_7": "36Wh · up to 10 h" } },
+        { "type": "product", "settings": { "value_2": "Fleece", "value_6": "7.4V" } },
+        { "type": "product", "settings": { "value_1": "More warmth", "value_5": "Dual control", "value_6": "12V" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
