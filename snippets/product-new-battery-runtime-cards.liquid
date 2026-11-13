@@ -1,0 +1,200 @@
+{%- liquid
+  assign comparison_group = comparison_group | default: product.metafields.custom.battery_comparison_group.value
+  assign entries = comparison_group.items.value
+  assign group_products = comparison_group.products.value
+  assign default_order = '0,1,2' | split: ','
+  assign display_order = display_order | default: default_order
+  assign entry_count = 0
+  assign is_placeholder = false
+  assign maximum_runtime = 1.0
+  assign row_keys = 'runtime,battery,recharge,price' | split: ','
+  assign heat_keys = 'high,medium,low' | split: ','
+  for entry in entries limit: 3
+    assign linked_product = group_products[forloop.index0]
+    if entry.title.value != blank or entry.data.value != blank or linked_product != blank
+      assign entry_count = entry_count | plus: 1
+      assign data_lines = entry.data.value | newline_to_br | split: '<br />'
+      for data_line in data_lines
+        assign parts = data_line | split: '='
+        assign key = parts.first | strip | downcase
+        if key == 'high' or key == 'medium' or key == 'low'
+          assign hours = parts | slice: 1, parts.size | join: '=' | strip | plus: 0.0
+          assign maximum_runtime = maximum_runtime | at_least: hours
+        endif
+      endfor
+    endif
+  endfor
+  if entry_count == 0 and show_placeholder
+    assign is_placeholder = true
+    assign entry_count = 3
+    assign display_order = default_order
+    assign placeholder_titles = 'STANDARD,PRO,MAX' | split: ','
+  endif
+-%}
+
+{%- if entry_count > 0 -%}
+  <product-new-battery-runtime class="product-new-battery-runtime" id="{{ instance_id | escape }}" style="--runtime-columns: {{ entry_count }};">
+      <div class="product-new-battery-runtime__viewport" data-track tabindex="0" aria-label="{{ settings.battery_comparison_accessible_label | default: 'Battery comparison' | escape }}">
+        <div class="product-new-battery-runtime__grid">
+          <div class="product-new-battery-runtime__labels" aria-hidden="true">
+            {%- for row_key in row_keys -%}
+              {%- assign label_setting_key = 'battery_comparison_' | append: row_key | append: '_label' -%}
+              <div class="product-new-battery-runtime__row-label" style="grid-row: {{ forloop.index | plus: 1 }};">{{ settings[label_setting_key] | escape }}</div>
+            {%- endfor -%}
+          </div>
+          {%- assign card_index = 0 -%}
+          {%- for entry_position in display_order limit: 3 -%}
+            {%- liquid
+              assign entry_index = entry_position | plus: 0
+              assign entry = entries[entry_index]
+              if entry == blank and is_placeholder == false
+                continue
+              endif
+              assign linked_product = group_products[entry_index]
+            -%}
+            {%- if is_placeholder or entry.title.value != blank or entry.data.value != blank or linked_product != blank -%}
+              {%- liquid
+                assign is_current = false
+                if linked_product != blank and linked_product.id == product.id
+                  assign is_current = true
+                endif
+                assign high = blank
+                assign medium = blank
+                assign low = blank
+                assign battery = blank
+                assign weight = blank
+                assign recharge = blank
+                assign button = blank
+                assign data_lines = entry.data.value | newline_to_br | split: '<br />'
+                for data_line in data_lines
+                  assign parts = data_line | split: '='
+                  assign key = parts.first | strip | downcase
+                  assign value = parts | slice: 1, parts.size | join: '=' | strip
+                  case key
+                    when 'high'
+                      assign high = value
+                    when 'medium'
+                      assign medium = value
+                    when 'low'
+                      assign low = value
+                    when 'battery'
+                      assign battery = value
+                    when 'weight'
+                      assign weight = value
+                    when 'recharge'
+                      assign recharge = value
+                    when 'button'
+                      assign button = value
+                  endcase
+                endfor
+                assign title_lines = entry.title.value | newline_to_br | split: '<br />'
+                if is_placeholder
+                  assign is_current = false
+                  assign placeholder_title = placeholder_titles[entry_index] | append: '|Up to —|—'
+                  assign title_lines = placeholder_title | split: '|'
+                  assign high = '—'
+                  assign medium = '—'
+                  assign low = '—'
+                  assign battery = '—'
+                  assign weight = '—'
+                  assign recharge = '—'
+                  assign button = 'Choose ' | append: placeholder_titles[entry_index] | capitalize
+                  if card_index == 0
+                    assign is_current = true
+                  endif
+                endif
+                assign ordinary_line = 0
+              -%}
+              <div class="product-new-battery-runtime__card{% if is_current %} product-new-battery-runtime__card--selected{% endif %}" style="--column: {{ card_index | plus: 2 }};" data-card>
+                <div class="product-new-battery-runtime__cell product-new-battery-runtime__title">
+                  {%- for title_line in title_lines -%}
+                    {%- assign title_line = title_line | strip -%}
+                    {%- if title_line != blank -%}
+                      {%- assign title_prefix = title_line | slice: 0, 6 -%}
+                      {%- if title_prefix == 'badge=' -%}
+                        {%- assign badge = title_line | remove_first: 'badge=' | strip -%}
+                        {%- if badge != blank -%}<span class="product-new-battery-runtime__badge">{{ badge | escape }}</span>{%- endif -%}
+                      {%- else -%}
+                        {%- assign ordinary_line = ordinary_line | plus: 1 -%}
+                        {%- if ordinary_line == 1 -%}
+                          <p class="product-new-battery-runtime__model">{{ title_line | escape }}</p>
+                        {%- elsif ordinary_line == 2 -%}
+                          {%- liquid
+                            assign suffix = title_line | split: ' ' | last
+                            assign suffix_unit = suffix | slice: -1, 1
+                            assign suffix_number = suffix | remove: 'h'
+                            assign invalid_number = suffix_number | remove: '0' | remove: '1' | remove: '2' | remove: '3' | remove: '4' | remove: '5' | remove: '6' | remove: '7' | remove: '8' | remove: '9' | remove: '.'
+                            assign prefix_length = title_line.size | minus: suffix.size
+                          -%}
+                          <p class="product-new-battery-runtime__headline">
+                            {%- if suffix_unit == 'h' and suffix_number != blank and invalid_number == blank -%}<span>{{ title_line | slice: 0, prefix_length | strip | escape }}</span><strong>{{ suffix | escape }}</strong>{%- else -%}{{ title_line | escape }}{%- endif -%}
+                          </p>
+                        {%- else -%}
+                          <p class="product-new-battery-runtime__summary">{{ title_line | escape }}</p>
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+                <div class="product-new-battery-runtime__cell" style="grid-row: 2;">
+                  {%- if settings.battery_comparison_runtime_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ settings.battery_comparison_runtime_label | escape }}</span>{%- endif -%}
+                  <div class="product-new-battery-runtime__runtime">
+                    {%- for heat_key in heat_keys -%}
+                      {%- liquid
+                        assign hours = blank
+                        case heat_key
+                          when 'high'
+                            assign hours = high
+                          when 'medium'
+                            assign hours = medium
+                          when 'low'
+                            assign hours = low
+                        endcase
+                        assign heat_setting_key = 'battery_comparison_' | append: heat_key | append: '_label'
+                        assign width = hours | plus: 0.0 | times: 100.0 | divided_by: maximum_runtime | at_least: 0 | at_most: 100
+                      -%}
+                      {%- if hours != blank -%}
+                        <div class="product-new-battery-runtime__heat">
+                          <div class="product-new-battery-runtime__heat-label"><span>{{ settings[heat_setting_key] | escape }}</span><span class="product-new-battery-runtime__heat-value">{{ hours | escape }}{% unless is_placeholder %} h{% endunless %}</span></div>
+                          <div class="product-new-battery-runtime__bar" aria-hidden="true"><span class="product-new-battery-runtime__fill" style="--runtime-width: {{ width }}%;"></span></div>
+                        </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+                <div class="product-new-battery-runtime__cell" style="grid-row: 3;">
+                  {%- if settings.battery_comparison_battery_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ settings.battery_comparison_battery_label | escape }}</span>{%- endif -%}
+                  {%- if battery != blank -%}<p class="product-new-battery-runtime__battery">{{ battery | escape }}</p>{%- endif -%}
+                  {%- if weight != blank -%}<p>{{ weight | escape }}</p>{%- endif -%}
+                </div>
+                <div class="product-new-battery-runtime__cell" style="grid-row: 4;">
+                  {%- if settings.battery_comparison_recharge_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ settings.battery_comparison_recharge_label | escape }}</span>{%- endif -%}
+                  {%- if recharge != blank -%}<p>{{ recharge | escape }}</p>{%- endif -%}
+                </div>
+                <div class="product-new-battery-runtime__cell" style="grid-row: 5;">
+                  {%- if settings.battery_comparison_price_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ settings.battery_comparison_price_label | escape }}</span>{%- endif -%}
+                  {%- if is_placeholder -%}<p class="product-new-battery-runtime__price">—</p>{%- elsif linked_product != blank -%}<p class="product-new-battery-runtime__price">{{ linked_product.price | money }}</p>{%- endif -%}
+                </div>
+                <div class="product-new-battery-runtime__cell product-new-battery-runtime__footer">
+                  {%- if is_current -%}
+                    <span class="product-new-battery-runtime__selected">Selected<span class="product-new-battery-runtime__check">{% render 'heating-icons', icon: 'check' %}</span></span>
+                  {%- elsif is_placeholder -%}
+                    <span class="heatingP-button heatingP-button--secondary product-new-battery-runtime__button" aria-disabled="true"><span class="heatingP-button__label">{{ button | escape }}</span></span>
+                  {%- elsif linked_product != blank and button != blank -%}
+                    {%- assign button_label = button | escape -%}
+                    {%- render 'heatingP-button', label: button_label, url: linked_product.url, variant: 'secondary', class: 'product-new-battery-runtime__button' -%}
+                  {%- endif -%}
+                </div>
+              </div>
+              {%- assign card_index = card_index | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- if entry_count > 1 -%}
+        <div class="product-new-battery-runtime__dots">
+          {%- for index in (1..entry_count) -%}<button class="product-new-battery-runtime__dot" type="button" data-dot="{{ index | minus: 1 }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ settings.battery_comparison_pagination_label | escape }} {{ index }}"></button>{%- endfor -%}
+        </div>
+      {%- endif -%}
+  </product-new-battery-runtime>
+{%- endif -%}

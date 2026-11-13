@@ -1,0 +1,498 @@
+.product-new-battery-runtime {
+  display: block;
+  color: #1a1a1a;
+  font-family: var(--font-primary, 'Montserrat', sans-serif);
+}
+
+.product-new-battery-runtime p,
+.product-new-battery-runtime h2 {
+  margin: 0;
+  color: inherit;
+  overflow-wrap: anywhere;
+}
+
+.product-new-battery-runtime__viewport {
+  overflow-x: auto;
+}
+
+.product-new-battery-runtime__grid {
+  display: grid;
+  grid-template-columns: 200px repeat(var(--runtime-columns, 3), minmax(0, 1fr));
+  min-width: 820px;
+}
+
+.product-new-battery-runtime__labels,
+.product-new-battery-runtime__card {
+  display: contents;
+}
+
+.product-new-battery-runtime__row-label {
+  grid-column: 1;
+  padding: 18px 8px 18px 0;
+  border-top: 1px solid #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  overflow-wrap: anywhere;
+}
+
+.product-new-battery-runtime__cell {
+  font-size: 16px;
+  line-height: 24px;
+  grid-column: var(--column);
+  min-width: 0;
+  padding: 18px 20px;
+  border-top: 1px solid #e5e7eb;
+  background: #fff;
+  overflow-wrap: anywhere;
+}
+
+.product-new-battery-runtime__card--selected > * {
+  background: #efded9;
+}
+
+.product-new-battery-runtime__title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  grid-row: 1;
+  padding-top: 24px;
+  padding-bottom: 16px;
+  border: 0;
+  border-radius: 12px 12px 0 0;
+}
+
+.product-new-battery-runtime__model {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.product-new-battery-runtime__headline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.22;
+}
+
+.product-new-battery-runtime__headline strong {
+  border-top: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+  color: #b93205;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.product-new-battery-runtime__summary {
+  font-weight: 500;
+}
+
+.product-new-battery-runtime__badge {
+  max-width: 100%;
+  padding: 4px 12px;
+  border-radius: 24px;
+  background: #b93205;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.product-new-battery-runtime__cell-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.product-new-battery-runtime__runtime {
+  display: grid;
+  gap: 10px;
+}
+
+.product-new-battery-runtime__heat {
+  display: grid;
+  gap: 5px;
+}
+
+.product-new-battery-runtime__heat-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.product-new-battery-runtime__heat-value {
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20.3px;
+}
+
+.product-new-battery-runtime__bar {
+  height: 4px;
+  border-radius: 32px;
+  background: #d3d3d3;
+}
+
+.product-new-battery-runtime__fill {
+  display: block;
+  width: var(--runtime-width);
+  height: 100%;
+  border-radius: inherit;
+  background: #b93205;
+}
+
+.product-new-battery-runtime__battery {
+  font-weight: 700;
+}
+
+.product-new-battery-runtime__price {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 26.1px;
+}
+
+.product-new-battery-runtime__footer {
+  grid-row: 6;
+  border-radius: 0 0 12px 12px;
+}
+
+.product-new-battery-runtime__selected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background: #b93205;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.product-new-battery-runtime__check {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.product-new-battery-runtime__check svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.product-new-battery-runtime__button {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  color: #1a1a1a;
+}
+
+.product-new-battery-runtime__dots {
+  display: none;
+}
+
+.product-new-battery-runtime a:focus-visible,
+.product-new-battery-runtime button:focus-visible,
+.product-new-battery-runtime__viewport:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+@media only screen and (max-width: 767px) {
+
+  .product-new-battery-runtime__viewport {
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .product-new-battery-runtime__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-new-battery-runtime__grid {
+    display: flex;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .product-new-battery-runtime__labels {
+    display: none;
+  }
+
+  .product-new-battery-runtime__card {
+    display: flex;
+    flex: 0 0 100%;
+    flex-direction: column;
+    min-width: 0;
+    border-radius: 12px;
+    background: #fff;
+    scroll-snap-align: start;
+  }
+
+  .product-new-battery-runtime__card--selected {
+    background: #efded9;
+  }
+
+  .product-new-battery-runtime__cell {
+    padding: 12px 20px;
+  }
+
+  .product-new-battery-runtime__title {
+    padding-top: 24px;
+    padding-bottom: 16px;
+  }
+
+  .product-new-battery-runtime__cell-label {
+    position: static;
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 0 0 12px;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    color: #515151;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  .product-new-battery-runtime__footer {
+    margin-top: auto;
+    padding: 18px 20px;
+  }
+
+  .product-new-battery-runtime__dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 40px;
+  }
+
+  .product-new-battery-runtime__dot {
+    position: relative;
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+  }
+
+  .product-new-battery-runtime__dot::after {
+    position: absolute;
+    inset: -8px;
+    content: '';
+  }
+
+  .product-new-battery-runtime__dot[aria-current='true'] {
+    background: #b93205;
+  }
+}
+
+.choose-runtime {
+  display: block;
+  color: #1a1a1a;
+  font-family: var(--font-primary, 'Montserrat', sans-serif);
+}
+
+.choose-runtime__heading-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.choose-runtime .choose-runtime__heading {
+  margin: 0;
+  color: #111;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.choose-runtime__help {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 1.5px solid #6b6b6b;
+  border-radius: 50%;
+  background: transparent;
+  color: #515151;
+  font: 600 11px/1 var(--font-primary, 'Montserrat', sans-serif);
+  cursor: pointer;
+}
+
+.choose-runtime__options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.choose-runtime .choose-runtime__option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+  min-height: 81px;
+  padding: 16px 14px 8px;
+  box-sizing: border-box;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  color: #1a1a1a;
+  line-height: 1.2;
+  text-align: left;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.choose-runtime .choose-runtime__option.is-selected {
+  border: 1.6px solid #000;
+}
+
+.choose-runtime .choose-runtime__option--badged {
+  padding-top: 20px;
+}
+
+.choose-runtime a.choose-runtime__option:hover {
+  border-color: #1a1a1a;
+}
+
+.choose-runtime__option-title {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.choose-runtime__option-runtime,
+.choose-runtime__option-price {
+  font-size: 12px;
+}
+
+.choose-runtime__option-runtime { font-weight: 400; }
+.choose-runtime__option-price { font-weight: 700; }
+
+.choose-runtime__badge {
+  align-self: stretch;
+  margin: -21px -15px 0;
+  padding: 3px 8px;
+  border-radius: 6px 6px 0 0;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 12px;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.choose-runtime__help:focus-visible,
+.choose-runtime__option:focus-visible,
+.runtime-comparison__close:focus-visible {
+  outline: 2px solid #b93205;
+  outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .choose-runtime .choose-runtime__heading { font-size: 14px; }
+  .choose-runtime .choose-runtime__option { padding: 12px; }
+  .choose-runtime .choose-runtime__option--badged { padding-top: 20px; padding-bottom: 8px; }
+  .choose-runtime__option-title { font-weight: 700; }
+  .choose-runtime__badge { margin-right: -13px; margin-left: -13px; font-size: 8px; }
+}
+
+.runtime-comparison {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 24px 20px;
+  box-sizing: border-box;
+  border: 0;
+  background: transparent;
+  overflow: auto;
+}
+
+.runtime-comparison[open] {
+  display: flex;
+}
+
+.runtime-comparison::backdrop {
+  background: rgba(0, 0, 0, 0.68);
+}
+
+.runtime-comparison__content {
+  width: min(100%, 1340px);
+  min-width: 0;
+  margin: auto;
+}
+
+.runtime-comparison .product-new-battery-runtime {
+  padding: 24px;
+  border-radius: 12px;
+  background: #f5f5f5;
+}
+
+.runtime-comparison__toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
+.runtime-comparison__close {
+  position: relative;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.runtime-comparison__close::before,
+.runtime-comparison__close::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 7px;
+  width: 18px;
+  height: 2px;
+  background: #fff;
+}
+
+.runtime-comparison__close::before { transform: rotate(45deg); }
+.runtime-comparison__close::after { transform: rotate(-45deg); }
+
+@media (max-width: 767px) {
+  .runtime-comparison { padding: 12px 20px 24px; }
+  .runtime-comparison__content { max-width: 420px; }
+  .runtime-comparison .product-new-battery-runtime { padding: 0; background: transparent; }
+  .runtime-comparison .product-new-battery-runtime__dots { margin-top: 16px; }
+}

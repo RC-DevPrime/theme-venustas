@@ -659,5 +659,64 @@
         "info": "CSS selector for where to attach the icon on mobile view"
       }
     ]
+  },
+  {
+    "name": "Battery comparison",
+    "settings": [
+      {
+        "type": "text",
+        "id": "battery_comparison_runtime_label",
+        "label": "Runtime label",
+        "default": "Runtime"
+      },
+      {
+        "type": "text",
+        "id": "battery_comparison_high_label",
+        "label": "High label",
+        "default": "High"
+      },
+      {
+        "type": "text",
+        "id": "battery_comparison_medium_label",
+        "label": "Medium label",
+        "default": "Medium"
+      },
+      {
+        "type": "text",
+        "id": "battery_comparison_low_label",
+        "label": "Low label",
+        "default": "Low"
+      },
+      {
+        "type": "text",
+        "id": "battery_comparison_battery_label",
+        "label": "Battery label",
+        "default": "Battery"
+      },
+      {
+        "type": "text",
+        "id": "battery_comparison_recharge_label",
+        "label": "Recharge label",
+        "default": "Full recharge"
+      },
+      {
+        "type": "text",
+        "id": "battery_comparison_price_label",
+        "label": "Price label",
+        "default": "Price"
+      },
+      {
+        "type": "text",
+        "id": "battery_comparison_pagination_label",
+        "label": "Pagination label",
+        "default": "Battery option"
+      },
+      {
+        "type": "text",
+        "id": "battery_comparison_accessible_label",
+        "label": "Comparison accessible name",
+        "default": "Battery comparison"
+      }
+    ]
   }
 ]

@@ -1,186 +1,112 @@
 {%- liquid
-  assign show_runtime = true
-  assign default_option = block.settings.default_option | default: 'standard'
-
-  case default_option
-    when 'pro'
-      assign option_order = 'pro,max,standard' | split: ','
-    when 'max'
-      assign option_order = 'max,pro,standard' | split: ','
-    else
-      assign option_order = 'standard,pro,max' | split: ','
-  endcase
-
+  assign show_runtime = false
+  assign comparison_group = product.metafields.custom.battery_comparison_group.value
+  assign entries = comparison_group.items.value
+  assign group_products = comparison_group.products.value
+  assign option_count = 0
+  assign option_order = '0,1,2' | split: ','
+  for entry in entries limit: 3
+    assign linked_product = group_products[forloop.index0]
+    if linked_product != blank and linked_product.id == product.id
+      case forloop.index0
+        when 1
+          assign option_order = '1,2,0' | split: ','
+        when 2
+          assign option_order = '2,1,0' | split: ','
+      endcase
+    endif
+    if entry.title.value != blank or entry.data.value != blank or linked_product != blank
+      assign option_count = option_count | plus: 1
+    endif
+  endfor
+  if option_count > 0
+    assign show_runtime = true
+  endif
   for product_tag in product.tags
     assign product_tag_handle = product_tag | handleize
-    if product_tag_handle == 'open-box'
+    if product_tag_handle == 'open-box' or product_tag_handle == 'bundle-deal'
       assign show_runtime = false
       break
     endif
   endfor
 -%}
 {%- if show_runtime -%}
-  {{ 'choose-runtime.css' | asset_url | stylesheet_tag }}
-
   {%- assign dialog_id = 'RuntimeComparison-' | append: section.id | append: '-' | append: block.id -%}
-  <div class="product-details choose-runtime" id="ChooseRuntime-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+  {%- assign runtime_instance_id = dialog_id | append: '-cards' -%}
+  {%- capture runtime_cards -%}
+    {%- render 'product-new-battery-runtime-cards', product: product, comparison_group: comparison_group, display_order: option_order, instance_id: runtime_instance_id -%}
+  {%- endcapture -%}
+  <product-new-runtime-picker class="product-details choose-runtime" id="ChooseRuntime-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
     <div class="choose-runtime__heading-row">
-      <h2 class="choose-runtime__heading">{{ block.settings.heading | escape }}</h2>
-      <button
-        class="choose-runtime__help"
-        type="button"
-        aria-label="Open runtime and battery comparison"
-        aria-controls="{{ dialog_id }}"
-        aria-haspopup="dialog"
-      >?</button>
+      <h2 class="choose-runtime__heading">Choose Your Runtime</h2>
+      <button class="choose-runtime__help" type="button" aria-label="Open runtime and battery comparison" aria-controls="{{ dialog_id }}" aria-haspopup="dialog">?</button>
     </div>
-
     <div class="choose-runtime__options" aria-label="Runtime options">
-      {%- for option_name in option_order -%}
+      {%- for option_position in option_order -%}
         {%- liquid
-          case option_name
-            when 'standard'
-              assign option_index = 1
-            when 'pro'
-              assign option_index = 2
-            else
-              assign option_index = 3
-          endcase
-
-          assign title_key = 'option_' | append: option_index | append: '_title'
-          assign subtitle_key = 'option_' | append: option_index | append: '_subtitle'
-          assign price_key = 'option_' | append: option_index | append: '_price'
-          assign note_key = 'option_' | append: option_index | append: '_note'
-          assign link_key = 'option_' | append: option_index | append: '_link'
-          assign option_title = block.settings[title_key]
-          assign option_subtitle = block.settings[subtitle_key]
-          assign option_price = block.settings[price_key]
-          assign option_note = block.settings[note_key]
-          assign option_link = block.settings[link_key]
-          assign is_default = false
-          if option_name == default_option
-            assign is_default = true
+          assign entry_index = option_position | plus: 0
+          assign entry = entries[entry_index]
+          if entry == blank
+            continue
+          endif
+          assign linked_product = group_products[entry_index]
+          assign is_current = false
+          if linked_product != blank and linked_product.id == product.id
+            assign is_current = true
           endif
         -%}
-
-        {%- if is_default -%}
-          <div class="choose-runtime__option choose-runtime__option--{{ option_name }} is-selected" aria-current="true">
-        {%- elsif option_link != blank -%}
-          <a class="choose-runtime__option choose-runtime__option--{{ option_name }}" href="{{ option_link }}" target="_blank" rel="noopener noreferrer">
-        {%- else -%}
-          <div class="choose-runtime__option choose-runtime__option--{{ option_name }} is-disabled" aria-disabled="true">
-        {%- endif -%}
-            <span class="choose-runtime__check" aria-hidden="true"></span>
-            {%- if option_name == 'max' and block.settings.option_3_badge != blank -%}
-              <span class="choose-runtime__badge">{{ block.settings.option_3_badge | escape }}</span>
+        {%- if entry.title.value != blank or entry.data.value != blank or linked_product != blank -%}
+          {%- liquid
+            assign option_title = blank
+            assign option_runtime = blank
+            assign option_badge = blank
+            assign title_lines = entry.title.value | newline_to_br | split: '<br />'
+            assign ordinary_line = 0
+            for title_line in title_lines
+              assign title_line = title_line | strip
+              if title_line != blank
+                assign title_prefix = title_line | slice: 0, 6
+                if title_prefix == 'badge='
+                  assign option_badge = title_line | remove_first: 'badge=' | strip
+                else
+                  assign ordinary_line = ordinary_line | plus: 1
+                  if ordinary_line == 1
+                    assign option_title = title_line | split: '·' | first | strip
+                  elsif ordinary_line == 2
+                    assign option_runtime = title_line
+                  endif
+                endif
+              endif
+            endfor
+          -%}
+          {%- if is_current == false and linked_product != blank -%}
+            <a class="choose-runtime__option{% if option_badge != blank %} choose-runtime__option--badged{% endif %}" href="{{ linked_product.url | escape }}">
+          {%- else -%}
+            <div class="choose-runtime__option{% if is_current %} is-selected{% endif %}{% if option_badge != blank %} choose-runtime__option--badged{% endif %}"{% if is_current %} aria-current="true"{% else %} aria-disabled="true"{% endif %}>
+          {%- endif -%}
+            {%- if option_badge != blank -%}<span class="choose-runtime__badge">{{ option_badge | escape }}</span>{%- endif -%}
+            {%- if option_title != blank -%}<strong class="choose-runtime__option-title">{{ option_title | escape }}</strong>{%- endif -%}
+            {%- if option_runtime != blank -%}<span class="choose-runtime__option-runtime">{{ option_runtime | escape }}</span>{%- endif -%}
+            {%- if is_current -%}
+              <strong class="choose-runtime__option-price">Included</strong>
+            {%- elsif linked_product != blank -%}
+              {%- assign price_difference = linked_product.price | minus: product.price -%}
+              <strong class="choose-runtime__option-price">{%- if price_difference < 0 -%}-{%- else -%}+{%- endif -%}{{ price_difference | abs | money_without_trailing_zeros }}</strong>
             {%- endif -%}
-            <strong class="choose-runtime__option-title">{{ option_title | escape }}</strong>
-            <span class="choose-runtime__option-subtitle">{{ option_subtitle | escape }}</span>
-            <span class="choose-runtime__divider"></span>
-            <strong class="choose-runtime__option-price">
-              {%- if is_default -%}Included{%- else -%}{{ option_price | escape }}{%- endif -%}
-            </strong>
-            {%- unless is_default -%}
-              <span class="choose-runtime__option-note">{{ option_note | escape }}</span>
-            {%- endunless -%}
-        {%- if is_default or option_link == blank -%}</div>{%- else -%}</a>{%- endif -%}
+          {%- if is_current == false and linked_product != blank -%}</a>{%- else -%}</div>{%- endif -%}
+        {%- endif -%}
       {%- endfor -%}
     </div>
 
-    <dialog class="runtime-comparison" id="{{ dialog_id }}" aria-labelledby="{{ dialog_id }}-title">
-      <div class="runtime-comparison__header">
-        <h2 id="{{ dialog_id }}-title">{{ block.settings.comparison_title | escape }}</h2>
-        <button class="runtime-comparison__close" type="button" aria-label="Close comparison">
-          <span aria-hidden="true"></span>
-        </button>
-      </div>
-
-      <div class="runtime-comparison__grid">
-        <div class="runtime-comparison__cell runtime-comparison__corner"></div>
-        <div class="runtime-comparison__cell runtime-comparison__column-heading">
-          <strong>Standard</strong><span>5K Battery</span>
-          {%- if block.settings.standard_image != blank -%}
-            {{ block.settings.standard_image | image_url: width: 360 | image_tag: loading: 'lazy', widths: '180, 360', alt: '5K battery' }}
-          {%- else -%}
-            <img src="{{ 'choose-runtime-standard.png' | asset_url }}" loading="lazy" width="360" height="270" alt="5K battery">
-          {%- endif -%}
+    {%- if runtime_cards != blank -%}
+      <dialog class="runtime-comparison" id="{{ dialog_id }}" aria-label="{{ settings.battery_comparison_accessible_label | default: 'Battery comparison' | escape }}">
+        <div class="runtime-comparison__content">
+          <div class="runtime-comparison__toolbar">
+            <button class="runtime-comparison__close" type="button" aria-label="Close comparison"></button>
+          </div>
+          {{ runtime_cards }}
         </div>
-        <div class="runtime-comparison__cell runtime-comparison__column-heading">
-          <strong>Pro</strong><span>7.5K Battery</span>
-          {%- if block.settings.pro_image != blank -%}
-            {{ block.settings.pro_image | image_url: width: 360 | image_tag: loading: 'lazy', widths: '180, 360', alt: '7.5K battery' }}
-          {%- else -%}
-            <img src="{{ 'choose-runtime-pro.png' | asset_url }}" loading="lazy" width="360" height="270" alt="7.5K battery">
-          {%- endif -%}
-        </div>
-        <div class="runtime-comparison__cell runtime-comparison__column-heading">
-          <strong>Max</strong><span>10K Battery</span>
-          {%- if block.settings.max_image != blank -%}
-            {{ block.settings.max_image | image_url: width: 360 | image_tag: loading: 'lazy', widths: '180, 360', alt: '10K battery' }}
-          {%- else -%}
-            <img src="{{ 'choose-runtime-max.png' | asset_url }}" loading="lazy" width="360" height="270" alt="10K battery">
-          {%- endif -%}
-        </div>
-
-        <div class="runtime-comparison__cell runtime-comparison__label">
-          <span class="runtime-comparison__desktop-label">Runtime<br> (Low Heat Level)</span>
-          <span class="runtime-comparison__mobile-label">Runtime (Low Heat)</span>
-        </div>
-        <div class="runtime-comparison__cell runtime-comparison__value">{{ block.settings.option_1_title | escape }}</div>
-        <div class="runtime-comparison__cell runtime-comparison__value">{{ block.settings.option_2_title | escape }}</div>
-        <div class="runtime-comparison__cell runtime-comparison__value">{{ block.settings.option_3_title | escape }}</div>
-
-        <div class="runtime-comparison__cell runtime-comparison__label">Battery Capacity</div>
-        <div class="runtime-comparison__cell runtime-comparison__value">5000mAh@7.4V (37Wh)</div>
-        <div class="runtime-comparison__cell runtime-comparison__value">5000mAh@11.1V (55.5Wh)</div>
-        <div class="runtime-comparison__cell runtime-comparison__value">10000mAh@7.4V (74Wh)</div>
-
-        <div class="runtime-comparison__cell runtime-comparison__label">Battery Weight</div>
-        <div class="runtime-comparison__cell runtime-comparison__value runtime-comparison__weight">6.56oz</div>
-        <div class="runtime-comparison__cell runtime-comparison__value runtime-comparison__weight">10.4oz</div>
-        <div class="runtime-comparison__cell runtime-comparison__value runtime-comparison__weight">12.8oz</div>
-      </div>
-    </dialog>
-  </div>
-
-  <script>
-    (() => {
-      const root = document.getElementById('ChooseRuntime-{{ section.id }}-{{ block.id }}');
-      if (!root || root.dataset.runtimeReady === 'true') return;
-
-      const trigger = root.querySelector('.choose-runtime__help');
-      const dialog = root.querySelector('.runtime-comparison');
-      const closeButton = root.querySelector('.runtime-comparison__close');
-      if (!trigger || !dialog || !closeButton) return;
-
-      const positionDialog = () => {
-        if (!dialog.open) return;
-
-        const triggerRect = trigger.getBoundingClientRect();
-        const dialogWidth = dialog.offsetWidth;
-        const viewportGutter = 16;
-        const centeredLeft = triggerRect.left + triggerRect.width / 2;
-        const minimumLeft = viewportGutter + dialogWidth / 2;
-        const maximumLeft = window.innerWidth - viewportGutter - dialogWidth / 2;
-        const left = Math.min(Math.max(centeredLeft, minimumLeft), maximumLeft);
-
-        dialog.style.setProperty('--runtime-dialog-left', `${left}px`);
-        dialog.style.setProperty('--runtime-dialog-top', `${triggerRect.bottom + 4}px`);
-      };
-
-      root.dataset.runtimeReady = 'true';
-      trigger.addEventListener('click', () => {
-        if (!dialog.open) {
-          dialog.showModal();
-          positionDialog();
-        }
-      });
-      closeButton.addEventListener('click', () => dialog.close());
-      dialog.addEventListener('click', (event) => {
-        if (event.target === dialog) dialog.close();
-      });
-      window.addEventListener('resize', positionDialog);
-      window.addEventListener('scroll', positionDialog, true);
-    })();
-  </script>
+      </dialog>
+    {%- endif -%}
+  </product-new-runtime-picker>
 {%- endif -%}
