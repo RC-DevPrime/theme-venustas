@@ -13,7 +13,7 @@
 
   for product_tag in product.tags
     assign product_tag_handle = product_tag | handleize
-    if product_tag_handle == 'open-box'
+    if product_tag_handle == 'open-box' or product_tag_handle == 'bundle-deal'
       assign show_runtime = false
       break
     endif
