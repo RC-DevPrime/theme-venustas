@@ -1,0 +1,606 @@
+{%- liquid
+  assign entries = product.metafields.custom.battery_comparison.value
+  assign entry_count = 0
+  assign maximum_runtime = 1.0
+  assign row_keys = 'runtime,battery,recharge,price' | split: ','
+  assign heat_keys = 'high,medium,low' | split: ','
+  for entry in entries limit: 3
+    if entry.title.value != blank or entry.data.value != blank or entry.product.value != blank
+      assign entry_count = entry_count | plus: 1
+      assign data_lines = entry.data.value | newline_to_br | split: '<br />'
+      for data_line in data_lines
+        assign parts = data_line | split: '='
+        assign key = parts.first | strip | downcase
+        if key == 'high' or key == 'medium' or key == 'low'
+          assign hours = parts | slice: 1, parts.size | join: '=' | strip | plus: 0.0
+          assign maximum_runtime = maximum_runtime | at_least: hours
+        endif
+      endfor
+    endif
+  endfor
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-new-battery-runtime {
+    display: block;
+    padding: 80px 0;
+    background: #f5f5f5;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__header {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime p,
+  #shopify-section-{{ section.id }} .product-new-battery-runtime h2 {
+    margin: 0;
+    color: inherit;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__heading {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.22;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__description,
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__cell {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__viewport {
+    overflow-x: auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__grid {
+    display: grid;
+    grid-template-columns: 200px repeat({{ entry_count | at_least: 1 }}, minmax(0, 1fr));
+    min-width: 820px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__labels,
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__card {
+    display: contents;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__row-label {
+    grid-column: 1;
+    padding: 18px 8px 18px 0;
+    border-top: 1px solid #e5e7eb;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__cell {
+    grid-column: var(--column);
+    min-width: 0;
+    padding: 18px 20px;
+    border-top: 1px solid #e5e7eb;
+    background: #fff;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__card--selected > * {
+    background: #efded9;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    grid-row: 1;
+    padding-top: 24px;
+    padding-bottom: 16px;
+    border: 0;
+    border-radius: 12px 12px 0 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__model {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__headline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.22;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__headline strong {
+    border-top: 1px solid #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+    color: #b93205;
+    font-size: 32px;
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__summary {
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__badge {
+    max-width: 100%;
+    padding: 4px 12px;
+    border-radius: 24px;
+    background: #b93205;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__cell-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__runtime {
+    display: grid;
+    gap: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__heat {
+    display: grid;
+    gap: 5px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__heat-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__heat-value {
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20.3px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__bar {
+    height: 4px;
+    border-radius: 32px;
+    background: #d3d3d3;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__fill {
+    display: block;
+    width: var(--runtime-width);
+    height: 100%;
+    border-radius: inherit;
+    background: #b93205;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__battery {
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__price {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26.1px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__footer {
+    grid-row: 6;
+    border-radius: 0 0 12px 12px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__selected {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background: #b93205;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__check {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__check svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__button {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    color: #1a1a1a;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__dots {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-battery-runtime a:focus-visible,
+  #shopify-section-{{ section.id }} .product-new-battery-runtime button:focus-visible,
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__viewport:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__heading {
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__header {
+      margin-bottom: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__viewport {
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__viewport::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__grid {
+      display: flex;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__labels {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__card {
+      display: flex;
+      flex: 0 0 100%;
+      flex-direction: column;
+      min-width: 0;
+      border-radius: 12px;
+      background: #fff;
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__card--selected {
+      background: #efded9;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__cell {
+      padding: 12px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__title {
+      padding-top: 24px;
+      padding-bottom: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__cell-label {
+      position: static;
+      display: block;
+      width: auto;
+      height: auto;
+      margin: 0 0 12px;
+      overflow: visible;
+      clip-path: none;
+      white-space: normal;
+      color: #515151;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__footer {
+      margin-top: auto;
+      padding: 18px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__dot {
+      position: relative;
+      width: 7px;
+      height: 7px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #ddd;
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__dot::after {
+      position: absolute;
+      inset: -8px;
+      content: '';
+    }
+
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__dot[aria-current='true'] {
+      background: #b93205;
+    }
+  }
+{% endstyle %}
+
+{%- if entry_count > 0 -%}
+  <product-new-battery-runtime{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | strip | remove_first: '#' | escape }}"{% endif %} class="product-new-battery-runtime">
+    <div class="product-new-battery-runtime__inner">
+      {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank -%}
+        <div class="product-new-battery-runtime__header">
+          {%- if section.settings.eyebrow != blank -%}<p class="product-new-battery-runtime__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+          {%- if section.settings.heading != blank -%}<h2 class="product-new-battery-runtime__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+          {%- if section.settings.description != blank -%}<p class="product-new-battery-runtime__description">{{ section.settings.description | escape }}</p>{%- endif -%}
+        </div>
+      {%- endif -%}
+      <div class="product-new-battery-runtime__viewport" data-track tabindex="0" aria-label="{{ section.settings.heading | default: 'Battery comparison' | escape }}">
+        <div class="product-new-battery-runtime__grid">
+          <div class="product-new-battery-runtime__labels" aria-hidden="true">
+            {%- for row_key in row_keys -%}
+              {%- assign label_key = row_key | append: '_label' -%}
+              <div class="product-new-battery-runtime__row-label" style="grid-row: {{ forloop.index | plus: 1 }};">{{ section.settings[label_key] | escape }}</div>
+            {%- endfor -%}
+          </div>
+          {%- assign card_index = 0 -%}
+          {%- for entry in entries limit: 3 -%}
+            {%- if entry.title.value != blank or entry.data.value != blank or entry.product.value != blank -%}
+              {%- liquid
+                assign high = blank
+                assign medium = blank
+                assign low = blank
+                assign battery = blank
+                assign weight = blank
+                assign recharge = blank
+                assign button = blank
+                assign linked_product = entry.product.value
+                assign data_lines = entry.data.value | newline_to_br | split: '<br />'
+                for data_line in data_lines
+                  assign parts = data_line | split: '='
+                  assign key = parts.first | strip | downcase
+                  assign value = parts | slice: 1, parts.size | join: '=' | strip
+                  case key
+                    when 'high'
+                      assign high = value
+                    when 'medium'
+                      assign medium = value
+                    when 'low'
+                      assign low = value
+                    when 'battery'
+                      assign battery = value
+                    when 'weight'
+                      assign weight = value
+                    when 'recharge'
+                      assign recharge = value
+                    when 'button'
+                      assign button = value
+                  endcase
+                endfor
+                assign title_lines = entry.title.value | newline_to_br | split: '<br />'
+                assign ordinary_line = 0
+              -%}
+              <div class="product-new-battery-runtime__card{% if card_index == 0 %} product-new-battery-runtime__card--selected{% endif %}" style="--column: {{ card_index | plus: 2 }};" data-card>
+                <div class="product-new-battery-runtime__cell product-new-battery-runtime__title">
+                  {%- for title_line in title_lines -%}
+                    {%- assign title_line = title_line | strip -%}
+                    {%- if title_line != blank -%}
+                      {%- assign title_prefix = title_line | slice: 0, 6 -%}
+                      {%- if title_prefix == 'badge=' -%}
+                        {%- assign badge = title_line | remove_first: 'badge=' | strip -%}
+                        {%- if badge != blank -%}<span class="product-new-battery-runtime__badge">{{ badge | escape }}</span>{%- endif -%}
+                      {%- else -%}
+                        {%- assign ordinary_line = ordinary_line | plus: 1 -%}
+                        {%- if ordinary_line == 1 -%}
+                          <p class="product-new-battery-runtime__model">{{ title_line | escape }}</p>
+                        {%- elsif ordinary_line == 2 -%}
+                          {%- liquid
+                            assign suffix = title_line | split: ' ' | last
+                            assign suffix_unit = suffix | slice: -1, 1
+                            assign suffix_number = suffix | remove: 'h'
+                            assign invalid_number = suffix_number | remove: '0' | remove: '1' | remove: '2' | remove: '3' | remove: '4' | remove: '5' | remove: '6' | remove: '7' | remove: '8' | remove: '9' | remove: '.'
+                            assign prefix_length = title_line.size | minus: suffix.size
+                          -%}
+                          <p class="product-new-battery-runtime__headline">
+                            {%- if suffix_unit == 'h' and suffix_number != blank and invalid_number == blank -%}<span>{{ title_line | slice: 0, prefix_length | strip | escape }}</span><strong>{{ suffix | escape }}</strong>{%- else -%}{{ title_line | escape }}{%- endif -%}
+                          </p>
+                        {%- else -%}
+                          <p class="product-new-battery-runtime__summary">{{ title_line | escape }}</p>
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+                <div class="product-new-battery-runtime__cell" style="grid-row: 2;">
+                  {%- if section.settings.runtime_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ section.settings.runtime_label | escape }}</span>{%- endif -%}
+                  <div class="product-new-battery-runtime__runtime">
+                    {%- for heat_key in heat_keys -%}
+                      {%- liquid
+                        assign hours = blank
+                        case heat_key
+                          when 'high'
+                            assign hours = high
+                          when 'medium'
+                            assign hours = medium
+                          when 'low'
+                            assign hours = low
+                        endcase
+                        assign heat_label_key = heat_key | append: '_label'
+                        assign width = hours | plus: 0.0 | times: 100.0 | divided_by: maximum_runtime | at_least: 0 | at_most: 100
+                      -%}
+                      {%- if hours != blank -%}
+                        <div class="product-new-battery-runtime__heat">
+                          <div class="product-new-battery-runtime__heat-label"><span>{{ section.settings[heat_label_key] | escape }}</span><span class="product-new-battery-runtime__heat-value">{{ hours | escape }} h</span></div>
+                          <div class="product-new-battery-runtime__bar" aria-hidden="true"><span class="product-new-battery-runtime__fill" style="--runtime-width: {{ width }}%;"></span></div>
+                        </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+                <div class="product-new-battery-runtime__cell" style="grid-row: 3;">
+                  {%- if section.settings.battery_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ section.settings.battery_label | escape }}</span>{%- endif -%}
+                  {%- if battery != blank -%}<p class="product-new-battery-runtime__battery">{{ battery | escape }}</p>{%- endif -%}
+                  {%- if weight != blank -%}<p>{{ weight | escape }}</p>{%- endif -%}
+                </div>
+                <div class="product-new-battery-runtime__cell" style="grid-row: 4;">
+                  {%- if section.settings.recharge_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ section.settings.recharge_label | escape }}</span>{%- endif -%}
+                  {%- if recharge != blank -%}<p>{{ recharge | escape }}</p>{%- endif -%}
+                </div>
+                <div class="product-new-battery-runtime__cell" style="grid-row: 5;">
+                  {%- if section.settings.price_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ section.settings.price_label | escape }}</span>{%- endif -%}
+                  {%- if linked_product != blank -%}<p class="product-new-battery-runtime__price">{{ linked_product.price | money }}</p>{%- endif -%}
+                </div>
+                <div class="product-new-battery-runtime__cell product-new-battery-runtime__footer">
+                  {%- if card_index == 0 -%}
+                    <span class="product-new-battery-runtime__selected">Selected<span class="product-new-battery-runtime__check">{% render 'heating-icons', icon: 'check' %}</span></span>
+                  {%- elsif linked_product != blank and button != blank -%}
+                    {%- assign button_label = button | escape -%}
+                    {%- render 'heatingP-button', label: button_label, url: linked_product.url, variant: 'secondary', class: 'product-new-battery-runtime__button' -%}
+                  {%- endif -%}
+                </div>
+              </div>
+              {%- assign card_index = card_index | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- if entry_count > 1 -%}
+        <div class="product-new-battery-runtime__dots">
+          {%- for index in (1..entry_count) -%}<button class="product-new-battery-runtime__dot" type="button" data-dot="{{ index | minus: 1 }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ section.settings.pagination_label | escape }} {{ index }}"></button>{%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </product-new-battery-runtime>
+{%- endif -%}
+
+<script>
+  if (!customElements.get('product-new-battery-runtime')) {
+    customElements.define('product-new-battery-runtime', class extends HTMLElement {
+      connectedCallback() {
+        this.abort?.abort();
+        this.abort = new AbortController();
+        cancelAnimationFrame(this.initFrame);
+        const initialize = () => {
+          this.initFrame = requestAnimationFrame(() => { if (this.isConnected) this.initialize(); });
+        };
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialize, { once: true, signal: this.abort.signal });
+        else initialize();
+      }
+
+      initialize() {
+        const options = { signal: this.abort.signal };
+        this.track = this.querySelector('[data-track]');
+        this.cards = [...this.querySelectorAll('[data-card]')];
+        this.dots = [...this.querySelectorAll('[data-dot]')];
+        this.mobile = window.matchMedia('(max-width: 767px)');
+        this.index = 0;
+        this.addEventListener('click', (event) => {
+          const dot = event.target.closest('[data-dot]');
+          if (dot) this.scrollToCard(Number(dot.dataset.dot));
+        }, options);
+        this.track?.addEventListener('scroll', () => {
+          if (!this.mobile.matches) return;
+          cancelAnimationFrame(this.frame);
+          this.frame = requestAnimationFrame(() => {
+            const left = this.track.getBoundingClientRect().left;
+            let nearest = 0;
+            this.cards.forEach((card, index) => {
+              if (Math.abs(card.getBoundingClientRect().left - left) < Math.abs(this.cards[nearest].getBoundingClientRect().left - left)) nearest = index;
+            });
+            this.setActive(nearest);
+          });
+        }, { ...options, passive: true });
+        this.observer = new ResizeObserver(() => {
+          if (this.mobile.matches) this.scrollToCard(this.index, false);
+        });
+        if (this.track) this.observer.observe(this.track);
+      }
+
+      setActive(index) {
+        this.index = index;
+        this.dots.forEach((dot, dotIndex) => dot.setAttribute('aria-current', String(dotIndex === index)));
+      }
+
+      scrollToCard(index, smooth = true) {
+        const card = this.cards[index];
+        if (!card || !this.track) return;
+        this.track.scrollTo({ left: this.track.scrollLeft + card.getBoundingClientRect().left - this.track.getBoundingClientRect().left, behavior: smooth && !window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'auto' });
+        this.setActive(index);
+      }
+
+      disconnectedCallback() {
+        this.abort?.abort();
+        cancelAnimationFrame(this.initFrame);
+        cancelAnimationFrame(this.frame);
+        this.observer?.disconnect();
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "productN Battery Runtime",
+  "tag": "section",
+  "class": "product-new-battery-runtime-section",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Battery & Runtime" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Same vest. Choose how long it runs." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Standard, Pro and Max share the same vest, six zones and temperatures. The battery is the only difference — and it decides the runtime." },
+    { "type": "text", "id": "runtime_label", "label": "Runtime label", "default": "Runtime" },
+    { "type": "text", "id": "high_label", "label": "High label", "default": "High" },
+    { "type": "text", "id": "medium_label", "label": "Medium label", "default": "Medium" },
+    { "type": "text", "id": "low_label", "label": "Low label", "default": "Low" },
+    { "type": "text", "id": "battery_label", "label": "Battery label", "default": "Battery" },
+    { "type": "text", "id": "recharge_label", "label": "Recharge label", "default": "Full recharge" },
+    { "type": "text", "id": "price_label", "label": "Price label", "default": "Price" },
+    { "type": "text", "id": "pagination_label", "label": "Pagination label", "default": "Battery option" }
+  ],
+  "presets": [
+    { "name": "productN Battery Runtime" }
+  ]
+}
+{% endschema %}
