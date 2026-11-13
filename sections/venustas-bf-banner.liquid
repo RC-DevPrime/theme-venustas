@@ -1,0 +1,174 @@
+{%- liquid
+  assign bg = section.settings.bg_color
+  assign dark = section.settings.dark_color
+  assign accent = section.settings.accent_color
+-%}
+
+<section class="vbf" id="vbf-{{ section.id }}" style="--red:{{ bg }};--red-dark:{{ dark }};--amber:{{ accent }};" aria-label="{{ section.settings.tag | escape }}">
+  <div class="vbf__main">
+    <div class="vbf__top">
+      <div>
+        {%- if section.settings.tag != blank -%}<p class="vbf__tag">{{ section.settings.tag }}</p>{%- endif -%}
+        {%- if section.settings.title != blank -%}<h2 class="vbf__title">{{ section.settings.title }}</h2>{%- endif -%}
+        {%- if section.settings.sub_before != blank or section.settings.sub_highlight != blank -%}
+          <p class="vbf__sub">{{ section.settings.sub_before }} <b>{{ section.settings.sub_highlight }}</b> {{ section.settings.sub_after }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.show_timer and section.settings.countdown_end != blank -%}
+        <div class="vbf__timer" data-vbf-timer data-end="{{ section.settings.countdown_end | escape }}">
+          <span>{{ section.settings.timer_label }}</span>
+          <div class="vbf__box"><strong data-vbf-d>00</strong><span>days</span></div>
+          <div class="vbf__box"><strong data-vbf-h>00</strong><span>hrs</span></div>
+          <div class="vbf__box"><strong data-vbf-m>00</strong><span>min</span></div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="vbf__ladder">
+        {%- for block in section.blocks -%}
+          <div class="vbf__tier vbf__tier--{{ forloop.index }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.badge != blank -%}<span class="vbf__best">{{ block.settings.badge }}</span>{%- endif -%}
+            <div class="vbf__amt">{{ block.settings.amount }}<small>{{ block.settings.suffix }}</small></div>
+            <div class="vbf__min">{{ block.settings.minimum }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <div class="vbf__bar">
+      <span>{{ section.settings.bar_left }}</span>
+      <span>{{ section.settings.bar_right }}</span>
+    </div>
+  </div>
+
+  <div class="vbf__media">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 1400 | image_tag:
+        widths: '400, 600, 800, 1000, 1400',
+        sizes: '(max-width: 820px) 100vw, 40vw',
+        loading: 'eager',
+        fetchpriority: 'high',
+        alt: section.settings.image.alt | default: section.settings.title }}
+    {%- else -%}
+      {{ 'collection-1' | placeholder_svg_tag }}
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+#vbf-{{ section.id }}{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);background:var(--red);color:#fff;overflow:hidden;max-width:1440px;margin:0 auto;box-sizing:border-box}
+#vbf-{{ section.id }} *{box-sizing:border-box}
+#vbf-{{ section.id }} .vbf__main{padding:clamp(20px,3vw,44px) clamp(18px,3vw,44px) 0;display:flex;flex-direction:column}
+#vbf-{{ section.id }} .vbf__top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+#vbf-{{ section.id }} .vbf__tag{font-size:clamp(14px,1.3vw,18px);font-weight:600;letter-spacing:.08em;color:#F7C1C1;margin:0 0 6px}
+#vbf-{{ section.id }} .vbf__title{font-size:clamp(32px,4.4vw,64px);font-weight:700;line-height:1.05;margin:0;color:#fff}
+#vbf-{{ section.id }} .vbf__sub{font-size:clamp(18px,1.9vw,26px);font-weight:600;margin:10px 0 0;color:#fff}
+#vbf-{{ section.id }} .vbf__sub b{color:var(--amber);font-weight:700}
+#vbf-{{ section.id }} .vbf__timer{display:flex;align-items:center;gap:8px;font-size:clamp(13px,1.1vw,16px);color:#F7C1C1;font-weight:600}
+#vbf-{{ section.id }} .vbf__box{background:var(--red-dark);border-radius:8px;padding:6px 10px;min-width:58px;text-align:center;color:#fff;line-height:1.1}
+#vbf-{{ section.id }} .vbf__box strong{display:block;font-size:clamp(22px,2.2vw,32px);font-weight:700;font-variant-numeric:tabular-nums}
+#vbf-{{ section.id }} .vbf__box span{font-size:11px;font-weight:500;color:#F7C1C1}
+#vbf-{{ section.id }} .vbf__ladder{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end;margin-top:auto;padding-top:clamp(20px,2.6vw,36px)}
+#vbf-{{ section.id }} .vbf__tier{text-align:center;padding:14px 8px 16px;position:relative;display:flex;flex-direction:column;justify-content:flex-end}
+#vbf-{{ section.id }} .vbf__tier--1{background:#FCEBEB;color:#791F1F;min-height:clamp(96px,10vw,136px);border-radius:10px 0 0 0}
+#vbf-{{ section.id }} .vbf__tier--2{background:#F7C1C1;color:#791F1F;min-height:clamp(116px,12.5vw,168px)}
+#vbf-{{ section.id }} .vbf__tier--3{background:#fff;color:var(--red);min-height:clamp(136px,15vw,200px);border-radius:0 10px 0 0}
+#vbf-{{ section.id }} .vbf__amt{font-size:clamp(26px,3.7vw,54px);font-weight:700;line-height:1;white-space:nowrap}
+#vbf-{{ section.id }} .vbf__amt small{font-size:.58em;font-weight:700;margin-left:.15em}
+#vbf-{{ section.id }} .vbf__min{font-size:clamp(14px,1.45vw,20px);font-weight:600;margin-top:6px}
+#vbf-{{ section.id }} .vbf__best{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--amber);color:#412402;font-size:clamp(12px,1vw,14px);font-weight:700;padding:4px 12px;border-radius:5px;white-space:nowrap}
+#vbf-{{ section.id }} .vbf__bar{background:var(--red-dark);display:flex;justify-content:space-between;gap:8px 24px;flex-wrap:wrap;margin:0 calc(-1 * clamp(18px,3vw,44px));padding:clamp(12px,1.2vw,16px) clamp(18px,3vw,44px);font-size:clamp(14px,1.35vw,19px);font-weight:600}
+#vbf-{{ section.id }} .vbf__bar span:last-child{color:#F7C1C1}
+#vbf-{{ section.id }} .vbf__media{position:relative;min-height:240px;background:var(--red-dark)}
+#vbf-{{ section.id }} .vbf__media img,#vbf-{{ section.id }} .vbf__media svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+@media (max-width:820px){
+  #vbf-{{ section.id }}{grid-template-columns:1fr}
+  #vbf-{{ section.id }} .vbf__media{order:-1;min-height:0;height:clamp(150px,38vw,240px)}
+  #vbf-{{ section.id }} .vbf__top{align-items:flex-start}
+  #vbf-{{ section.id }} .vbf__tier{padding:12px 4px 14px}
+  #vbf-{{ section.id }} .vbf__tier--1{min-height:92px}
+  #vbf-{{ section.id }} .vbf__tier--2{min-height:112px}
+  #vbf-{{ section.id }} .vbf__tier--3{min-height:132px}
+  #vbf-{{ section.id }} .vbf__amt{font-size:clamp(22px,7vw,34px)}
+  #vbf-{{ section.id }} .vbf__min{font-size:13px}
+  #vbf-{{ section.id }} .vbf__best{font-size:11px;padding:3px 8px;top:-11px}
+  #vbf-{{ section.id }} .vbf__bar{flex-direction:column;font-size:14px}
+}
+</style>
+
+<script>
+(function(){
+  var root=document.getElementById('vbf-{{ section.id }}');
+  if(!root)return;
+  var t=root.querySelector('[data-vbf-timer]');
+  if(!t)return;
+  var end=new Date(t.getAttribute('data-end')).getTime();
+  function p(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var s=Math.floor((end-Date.now())/1000);
+    if(isNaN(s)||s<=0){t.style.display='none';return}
+    t.querySelector('[data-vbf-d]').textContent=p(Math.floor(s/86400));
+    t.querySelector('[data-vbf-h]').textContent=p(Math.floor(s%86400/3600));
+    t.querySelector('[data-vbf-m]').textContent=p(Math.floor(s%3600/60));
+  }
+  tick();
+  setInterval(tick,30000);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "BF offer banner",
+  "tag": "div",
+  "class": "vbf-section",
+  "limit": 1,
+  "max_blocks": 3,
+  "settings": [
+    { "type": "header", "content": "Text" },
+    { "type": "text", "id": "tag", "label": "Top label", "default": "BLACK FRIDAY EARLY ACCESS" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Spend more. Save more." },
+    { "type": "text", "id": "sub_before", "label": "Subheading, before highlight", "default": "Up to" },
+    { "type": "text", "id": "sub_highlight", "label": "Subheading highlight", "default": "40% OFF" },
+    { "type": "text", "id": "sub_after", "label": "Subheading, after highlight", "default": "select heated apparel" },
+    { "type": "text", "id": "bar_left", "label": "Bottom bar, left", "default": "Up to 40% OFF + extra savings on your order" },
+    { "type": "text", "id": "bar_right", "label": "Bottom bar, right", "default": "Auto-applied at checkout" },
+
+    { "type": "header", "content": "Countdown" },
+    { "type": "checkbox", "id": "show_timer", "label": "Show countdown", "default": true },
+    { "type": "text", "id": "timer_label", "label": "Countdown label", "default": "Ends in" },
+    { "type": "text", "id": "countdown_end", "label": "End time", "info": "Format: 2026-11-30T23:59:59-05:00 (include your time zone offset)", "default": "2026-11-30T23:59:59-05:00" },
+
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Right-side image" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#A32D2D" },
+    { "type": "color", "id": "dark_color", "label": "Dark accent (boxes, bottom bar)", "default": "#501313" },
+    { "type": "color", "id": "accent_color", "label": "Highlight (40% OFF, badge)", "default": "#EF9F27" }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Offer tier",
+      "settings": [
+        { "type": "text", "id": "amount", "label": "Amount", "default": "$20" },
+        { "type": "text", "id": "suffix", "label": "Suffix", "default": "OFF" },
+        { "type": "text", "id": "minimum", "label": "Minimum order", "default": "orders $100+" },
+        { "type": "text", "id": "badge", "label": "Badge (optional)", "info": "For example: Best value" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BF offer banner",
+      "blocks": [
+        { "type": "tier", "settings": { "amount": "$20", "suffix": "OFF", "minimum": "orders $100+" } },
+        { "type": "tier", "settings": { "amount": "$50", "suffix": "OFF", "minimum": "orders $200+" } },
+        { "type": "tier", "settings": { "amount": "$100", "suffix": "OFF", "minimum": "orders $400+", "badge": "Best value" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
