@@ -2,6 +2,8 @@
   assign comparison_group = comparison_group | default: product.metafields.custom.battery_comparison_group.value
   assign entries = comparison_group.items.value
   assign group_products = comparison_group.products.value
+  assign group_model = comparison_group.name.value | strip | split: ' ' | first | upcase
+  assign tier_names = 'STANDARD,PRO,MAX' | split: ','
   assign default_order = '0,1,2' | split: ','
   assign display_order = display_order | default: default_order
   assign entry_count = 0
@@ -117,7 +119,19 @@
                       {%- else -%}
                         {%- assign ordinary_line = ordinary_line | plus: 1 -%}
                         {%- if ordinary_line == 1 -%}
-                          <p class="product-new-battery-runtime__model">{{ title_line | escape }}</p>
+                          {%- liquid
+                            assign model_title = title_line
+                            if group_model != blank
+                              assign model_title = tier_names[entry_index] | append: ' · ' | append: group_model
+                              case entry_index
+                                when 1
+                                  assign model_title = model_title | append: ' PRO'
+                                when 2
+                                  assign model_title = model_title | append: ' MAX'
+                              endcase
+                            endif
+                          -%}
+                          <p class="product-new-battery-runtime__model">{{ model_title | escape }}</p>
                         {%- elsif ordinary_line == 2 -%}
                           {%- liquid
                             assign suffix = title_line | split: ' ' | last
