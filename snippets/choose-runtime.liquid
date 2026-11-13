@@ -3,12 +3,17 @@
   assign comparison_group = product.metafields.custom.battery_comparison_group.value
   assign entries = comparison_group.items.value
   assign group_products = comparison_group.products.value
+  assign tier_names = 'STANDARD,PRO,MAX' | split: ','
   assign option_count = 0
   assign option_order = '0,1,2' | split: ','
   for entry in entries limit: 3
-    assign linked_product = group_products[forloop.index0]
+    assign entry_index = forloop.index0
+    assign linked_product = blank
+    for compared_product in group_products offset: entry_index limit: 1
+      assign linked_product = compared_product
+    endfor
     if linked_product != blank and linked_product.id == product.id
-      case forloop.index0
+      case entry_index
         when 1
           assign option_order = '1,2,0' | split: ','
         when 2
@@ -45,11 +50,17 @@
       {%- for option_position in option_order -%}
         {%- liquid
           assign entry_index = option_position | plus: 0
-          assign entry = entries[entry_index]
+          assign entry = blank
+          for compared_entry in entries offset: entry_index limit: 1
+            assign entry = compared_entry
+          endfor
           if entry == blank
             continue
           endif
-          assign linked_product = group_products[entry_index]
+          assign linked_product = blank
+          for compared_product in group_products offset: entry_index limit: 1
+            assign linked_product = compared_product
+          endfor
           assign is_current = false
           if linked_product != blank and linked_product.id == product.id
             assign is_current = true
@@ -57,7 +68,7 @@
         -%}
         {%- if entry.title.value != blank or entry.data.value != blank or linked_product != blank -%}
           {%- liquid
-            assign option_title = blank
+            assign option_title = tier_names[entry_index]
             assign option_runtime = blank
             assign option_badge = blank
             assign title_lines = entry.title.value | newline_to_br | split: '<br />'
@@ -71,8 +82,6 @@
                 else
                   assign ordinary_line = ordinary_line | plus: 1
                   if ordinary_line == 1
-                    assign option_title = title_line | split: '·' | first | strip
-                  elsif ordinary_line == 2
                     assign option_runtime = title_line
                   endif
                 endif
