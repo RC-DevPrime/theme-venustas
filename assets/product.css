@@ -521,27 +521,6 @@ body.product-media-lightbox-open {
 .product .product-price .promotion.rte a:hover {
     opacity: 0.85;
 }
-.variant-type-toggle{
-    display:flex;
-    gap:10px;
-    margin-bottom:12px;
-}
-.variant-type-toggle variant-radios{
-    width:100%;
-}
-.variant-type-toggle button{
-    width:130px;
-    height:40px;
-    background:#FFF;
-    border: 1px solid #DADADA;
-    text-align:center;
-    padding:8px 20px;;
-}
-.variant-type-toggle button.active{
-    background:#000;
-    color:#FFF;
-    border-color:#000;
-}
 .product .variants fieldset{
     margin-bottom:15px;
 }
@@ -1815,16 +1794,10 @@ body.product-media-lightbox-open {
     .product .variants .variant .variant-name{
         font-size:14px;
     }
-    .variant-type-toggle button{
-        width: 100px;
-        height: 32px;
-        line-height: 13px;
-    }
     .product .variants .variant .variants-selector.color .color-swatch{
         width: 22px;
         height: 22px;
     }
-    .variant-type-toggle button,
     .product .variants .variant.variant-size .variants-selector{
         font-size:12px;
     }

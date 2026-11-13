@@ -2836,11 +2836,10 @@ $(document).ready(function () {
             $navSelector.toggleClass('selected', !!mainRadio.checked);
             $navSelector.toggleClass('disabled', mainSelector.classList.contains('disabled'));
             $navSelector.toggleClass('soldout', mainSelector.classList.contains('soldout'));
-
-            var mainDisplay = window.getComputedStyle(mainSelector).display;
-            $navSelector.css('display', mainDisplay === 'none' ? 'none' : '');
           }
         });
+
+        navFieldsetEl.querySelector('product-size-toggle')?.sync();
 
         const $info = $navFieldset.find('.variant-info');
         if ($info.length && selectedValue) {
@@ -2916,6 +2915,7 @@ $(document).ready(function () {
       } else if (mainInput) {
         mainInput.dispatchEvent(new Event('change', { bubbles: true }));
       }
+      mainVariantRadios.querySelectorAll('product-size-toggle').forEach(function (toggle) { toggle.sync(); });
     }
 
     function updateAddToCart(currentVariant) {
@@ -3267,170 +3267,3 @@ $(document).ready(function () {
     updateNavVariantInputs();
   });
 });
-
-
-if(enabled_option_indicator){
-    $(document).ready(function initVariantSizeToggle() {
-        $('.variant-size').each(function() {
-            const $fieldset = $(this);
-
-            // don't init twice
-            if ($fieldset.data('vst-initialized')) return;
-            $fieldset.data('vst-initialized', true);
-
-            function getOptionPairs() {
-            return $fieldset.find('.variants-selector, .nav-variants-selector').map(function() {
-                const $selector = $(this);
-                const text = $selector.text().trim();
-                const $option = $selector.next('.variants-option, .nav-variants-option');
-                const $input = $option.find('input.variant-radio, input.nav-variant-radio');
-
-                return {
-                selector: $selector,
-                option: $option,
-                input: $input,
-                text: text
-                };
-            }).get();
-            }
-
-            function isTallSize(text) {
-            return String(text || '').trim().toUpperCase().includes('LT');
-            }
-
-            const hasTallSizes = getOptionPairs().some(function(pair) {
-            return isTallSize(pair.text);
-            });
-
-            if (!hasTallSizes) {
-            $fieldset.find('.variant-type-toggle').remove();
-            getOptionPairs().forEach(function(pair) {
-                pair.selector.show();
-                pair.option.show();
-            });
-            return;
-            }
-
-            // insert toggles if not present
-            if (!$fieldset.find('.variant-type-toggle').length) {
-            const toggleButtons = `
-                <div class="variant-type-toggle">
-                    <button type="button" class="variant-type-btn active" data-type="standard">Standard</button>
-                    <button type="button" class="variant-type-btn" data-type="tall">Tall</button>
-                </div>
-            `;
-            $fieldset.find('legend').after(toggleButtons);
-            }
-
-            function isSizeVisibleForType(text, type) {
-            if (type === 'tall') return isTallSize(text);
-            return !isTallSize(text);
-            }
-
-            function showSizes(type) {
-            getOptionPairs().forEach(function(pair) {
-                const shouldShow = isSizeVisibleForType(pair.text, type);
-                pair.selector.toggle(shouldShow);
-                pair.option.toggle(shouldShow);
-            });
-            }
-
-            // Robust detection of the currently selected size text
-            function getSelectedSizeText() {
-            let text = '';
-
-            // 1) Prefer selector with 'selected' class
-            const $sel = $fieldset.find('.variants-selector.selected, .nav-variants-selector.selected');
-            if ($sel.length) {
-                text = $sel.first().text().trim();
-                if (text) return text;
-            }
-
-            // 2) Check for a checked input and find its related selector
-            const $checked = $fieldset.find('input.variant-radio:checked, input.nav-variant-radio:checked');
-            if ($checked.length) {
-                // common markup: <span class="variants-selector">...</span><span class="variants-option"><input ...></span>
-                const $prevSelector = $checked.closest('.variants-option').prev('.variants-selector, .nav-variants-selector');
-                if ($prevSelector.length) {
-                text = $prevSelector.text().trim();
-                if (text) return text;
-                }
-
-                // maybe input is inside the selector itself
-                const $insideSelector = $checked.closest('.variants-selector, .nav-variants-selector');
-                if ($insideSelector.length) {
-                text = $insideSelector.text().trim();
-                if (text) return text;
-                }
-
-                // fallback: attempt to match by index between inputs and selector list
-                const idx = $fieldset.find('input.variant-radio, input.nav-variant-radio').index($checked);
-                if (idx >= 0) {
-                const $selByIndex = $fieldset.find('.variants-selector, .nav-variants-selector').eq(idx);
-                if ($selByIndex.length) {
-                    text = $selByIndex.text().trim();
-                    if (text) return text;
-                }
-                }
-            }
-
-            // 3) For <select> dropdown fallback
-            const $select = $fieldset.find('select[name="Size"], select');
-            if ($select.length) {
-                const val = $select.val();
-                if (val) return String(val).trim();
-            }
-
-            return text; // may be empty if not found
-            }
-
-            function getCurrentType() {
-            return $fieldset.data('variantTypeMode') || null;
-            }
-
-            function setCurrentType(type) {
-            $fieldset.data('variantTypeMode', type);
-            $fieldset.find('.variant-type-btn').removeClass('active');
-            $fieldset.find(`.variant-type-btn[data-type="${type}"]`).addClass('active');
-            showSizes(type);
-            }
-
-            function detectSelectedType() {
-            const existingType = getCurrentType();
-            if (existingType) {
-                showSizes(existingType);
-                $fieldset.find('.variant-type-btn').removeClass('active');
-                $fieldset.find(`.variant-type-btn[data-type="${existingType}"]`).addClass('active');
-                return;
-            }
-
-            const selectedText = getSelectedSizeText();
-            let selectedType = 'standard';
-            if (selectedText && isTallSize(selectedText)) selectedType = 'tall';
-
-            setCurrentType(selectedType);
-            }
-
-            // Initial detection on page load
-            detectSelectedType();
-
-            // React when user changes a radio or a select inside this fieldset
-            $fieldset.on('change', 'input.variant-radio, input.nav-variant-radio, select', function() {
-            const currentType = getCurrentType();
-            if (currentType) {
-                showSizes(currentType);
-                return;
-            }
-
-            detectSelectedType();
-            });
-
-            // Toggle click handler
-            $fieldset.on('click', '.variant-type-btn', function() {
-            const type = $(this).data('type');
-            setCurrentType(type);
-            });
-        });
-    });
-}
-

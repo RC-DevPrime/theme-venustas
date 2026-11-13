@@ -228,30 +228,6 @@
     animation: spin .6s linear infinite;
 }
 
-.main-cart .variant-type-toggle,
-#popup-cart .variant-type-toggle,
-.popup-container .variant-type-toggle{
-    display:flex;
-    gap:10px;
-    margin-bottom:12px;
-}
-.main-cart .variant-type-toggle button,
-#popup-cart .variant-type-toggle button,
-.popup-container .variant-type-toggle button{
-    width:130px;
-    height:40px;
-    background:#FFF;
-    border: 1px solid #DADADA;
-    text-align:center;
-    padding:8px 20px;;
-}
-.main-cart .variant-type-toggle button.active,
-#popup-cart .variant-type-toggle button.active,
-.popup-container  .variant-type-toggle button.active{
-    background:#000;
-    color:#FFF;
-    border-color:#000;
-}
 .main-cart .product-price ,
 #popup-cart .product-price ,
 .popup-container  .product-price{

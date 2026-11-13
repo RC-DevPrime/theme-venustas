@@ -1,3 +1,80 @@
+// Shared by product, sticky navigation and cart variant pickers.
+if (!customElements.get('product-size-toggle')) {
+  customElements.define('product-size-toggle', class extends HTMLElement {
+    connectedCallback() {
+      this.fieldset = this.closest('fieldset');
+      this.scope = this.fieldset.parentElement;
+      this.onChange = () => queueMicrotask(() => { if (this.isConnected) this.sync(); });
+      this.onClick = event => {
+        const button = event.target.closest('[data-size-type]');
+        if (!button || button.disabled) return;
+        const pairs = this.getPairs();
+        const selected = pairs.find(pair => pair.input.checked);
+        const type = button.dataset.sizeType;
+        const candidates = pairs.filter(pair => this.getType(pair.input.value) === type &&
+          !pair.input.disabled && !pair.selector.classList.contains('disabled'));
+        const baseSize = value => value.trim().toUpperCase().replace(/T$/, '');
+        const next = candidates.find(pair => selected && baseSize(pair.input.value) === baseSize(selected.input.value)) || candidates[0];
+        if (!next) return;
+        this.showType(type);
+        if (next.input.classList.contains('variant-radio')) {
+          pairs.forEach(pair => {
+            pair.input.checked = pair === next;
+            pair.selector.classList.toggle('selected', pair === next);
+          });
+          next.input.dispatchEvent(new Event('change', { bubbles: true }));
+        } else {
+          next.selector.click();
+        }
+        this.sync();
+      };
+      this.addEventListener('click', this.onClick);
+      $(this.scope).on('change.productSizeToggle', this.onChange);
+      // Custom elements can connect while an AJAX fragment is still being inserted.
+      queueMicrotask(() => { if (this.isConnected) this.sync(); });
+    }
+
+    disconnectedCallback() {
+      this.removeEventListener('click', this.onClick);
+      $(this.scope).off('change.productSizeToggle', this.onChange);
+    }
+
+    getPairs() {
+      return Array.from(this.fieldset.querySelectorAll('.variants-selector, .nav-variants-selector')).map(selector => ({
+        selector,
+        option: selector.nextElementSibling,
+        input: selector.nextElementSibling?.querySelector('input[type="radio"]')
+      })).filter(pair => pair.input);
+    }
+
+    getType(value) {
+      return value.toUpperCase().includes('LT') ? 'tall' : 'standard';
+    }
+
+    showType(type) {
+      this.type = type;
+      this.querySelectorAll('[data-size-type]').forEach(button => {
+        button.setAttribute('aria-pressed', String(button.dataset.sizeType === type));
+      });
+      this.getPairs().forEach(pair => {
+        const visible = this.getType(pair.input.value) === type;
+        $(pair.selector).toggle(visible);
+        $(pair.option).toggle(visible);
+      });
+    }
+
+    sync() {
+      const pairs = this.getPairs();
+      const selected = pairs.find(pair => pair.input.checked);
+      this.showType(selected ? this.getType(selected.input.value) : this.type || 'standard');
+      this.querySelectorAll('[data-size-type]').forEach(button => {
+        button.disabled = !pairs.some(pair => this.getType(pair.input.value) === button.dataset.sizeType &&
+          !pair.input.disabled && !pair.selector.classList.contains('disabled'));
+      });
+    }
+  });
+}
+
 // ANNOUNCEMENT BAR ------------------------------------------>
 function initAnnouncementSwipers(root) {
     const $root = root ? $(root) : $(document);
@@ -1886,93 +1963,10 @@ $(function () {
 
     function refreshItemState($item, variants, $popup) {
       recomputeAvailabilityForItem($item, variants);
+      $item.find('product-size-toggle').each(function () { this.sync(); });
       updateVariantInfoForItem($item);
       const variant = findVariantForItem($item, variants);
       updatePriceImageForPopup($popup, variant);
-    }
-
-
-    // ======================================================
-    // PER-ITEM STANDARD/TALL TOGGLE
-    // ======================================================
-    function initVariantTypeToggleForItem($item) {
-      const $fieldset = $item.find('fieldset.variant-size').first();
-      if (!$fieldset.length) return;
-      if ($fieldset.data('vst-initialized')) return;
-
-      $fieldset.data('vst-initialized', true);
-
-      function isTallSize(label) {
-        return String(label || '').trim().toUpperCase().includes('LT');
-      }
-
-      const hasTallSizes = $fieldset.find('.nav-variants-selector').toArray().some(function (selector) {
-        return isTallSize($(selector).data('option-value'));
-      });
-
-      if (!hasTallSizes) {
-        $fieldset.find('.variant-type-toggle').remove();
-        $fieldset.find('.nav-variants-selector').show().removeClass('hidden-type');
-        $fieldset.find('.nav-variants-option').show();
-        return;
-      }
-
-      if (!$fieldset.find('.variant-type-toggle').length) {
-        $fieldset.find('legend').after(`
-          <div class="variant-type-toggle">
-            <button type="button" class="variant-type-btn active" data-type="standard">Standard</button>
-            <button type="button" class="variant-type-btn" data-type="tall">Tall</button>
-          </div>
-        `);
-      }
-
-      const $buttons = $fieldset.find('.variant-type-btn');
-
-      function getSelectedSizeLabel() {
-        const $selected = $fieldset.find('.nav-variants-selector.selected').first();
-        if ($selected.length) {
-          return $selected.data('option-value');
-        }
-
-        const $checked = $fieldset.find('.nav-variant-radio:checked').first();
-        return $checked.length ? $checked.val() : '';
-      }
-
-      function applyType(type) {
-        $buttons.removeClass('active');
-        $buttons.filter(`[data-type="${type}"]`).addClass('active');
-        $item.attr('data-variant-type', type);
-
-        const $selectors = $fieldset.find('.nav-variants-selector');
-
-        $selectors.each(function () {
-          const val = $(this).data('option-value');
-          const label = String(val).trim();
-          const $option = $(this).next('.nav-variants-option');
-
-          const show =
-            (type === 'standard' && !isTallSize(label)) ||
-            (type === 'tall' && isTallSize(label));
-
-          if (show) {
-            $(this).show().removeClass('hidden-type');
-            $option.show();
-          } else {
-            $(this).hide().addClass('hidden-type').removeClass('selected');
-            $option.hide();
-          }
-        });
-
-        const $popup = $item.closest('.product-update.popup-modal');
-        const variants = getPopupVariants($popup);
-        if (variants) refreshItemState($item, variants, $popup);
-      }
-
-      $fieldset.on('click.popupItem', '.variant-type-btn', function () {
-        applyType($(this).data('type'));
-      });
-
-      applyType(isTallSize(getSelectedSizeLabel()) ? 'tall' : 'standard');
     }
 
 
@@ -2022,7 +2016,6 @@ $(function () {
         refreshItemState($item, variants, $popup);
       });
 
-      initVariantTypeToggleForItem($item);
       refreshItemState($item, variants, $popup);
     }
 
@@ -2112,7 +2105,7 @@ $(function () {
         .removeClass('disabled');
 
       $clone.find('.nav-variants-selector')
-        .removeClass('disabled selected hidden-type')
+        .removeClass('disabled selected')
         .show();
 
       const uid = Date.now() + Math.floor(Math.random() * 10000);

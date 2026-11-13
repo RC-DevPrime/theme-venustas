@@ -20,6 +20,7 @@
             {{ option.name }}
             <span class="variant-info variant--{{ option.name | handleize }}"> : {{ selected_option_value }}</span>
           </legend>
+          {% render 'product-size-toggle', option: option %}
 
           {% for value in option.values %}
             {% liquid
