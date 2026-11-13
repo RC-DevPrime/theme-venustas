@@ -12,9 +12,9 @@
     "collection-featured-banner": {
       "type": "collection-featured-banner",
       "settings": {
-        "image": "shopify://shop_images/collection-heated-jacket.jpg",
+        "image": "{{ collection.image }}",
         "heading": "New Arrivals",
-        "description": "<p>Discover VENUSTAS' latest collection of heated jackets, vests, and more, now available in <strong>vibrant colors</strong> to match your style. Powered by our signature Venustas-Warm™ Heating Technology, these pieces provide enhanced warmth and comfort for every outdoor adventure. Shop now to stay warm and stylish all season!</p>"
+        "description": "{{ collection.description }}"
       }
     },
     "collection-list": {
