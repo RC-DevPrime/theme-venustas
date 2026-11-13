@@ -3,7 +3,7 @@
   assign comparison_group = product.metafields.custom.battery_comparison_group.value
   assign entries = comparison_group.items.value
   assign group_products = comparison_group.products.value
-  assign tier_names = 'STANDARD,PRO,MAX' | split: ','
+  assign tier_names = 'Standard,Pro,Max' | split: ','
   assign option_count = 0
   assign option_order = '0,1,2' | split: ','
   for entry in entries limit: 3
@@ -76,9 +76,10 @@
             for title_line in title_lines
               assign title_line = title_line | strip
               if title_line != blank
-                assign title_prefix = title_line | slice: 0, 6
-                if title_prefix == 'badge='
-                  assign option_badge = title_line | remove_first: 'badge=' | strip
+                assign title_parts = title_line | replace: '＝', '=' | split: '='
+                assign title_key = title_parts.first | strip | downcase
+                if title_key == 'badge' and title_parts.size > 1
+                  assign option_badge = title_parts | slice: 1, title_parts.size | join: '=' | strip
                 else
                   assign ordinary_line = ordinary_line | plus: 1
                   if ordinary_line == 1

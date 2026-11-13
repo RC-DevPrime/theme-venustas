@@ -132,22 +132,17 @@
                   {%- for title_line in title_lines -%}
                     {%- assign title_line = title_line | strip -%}
                     {%- if title_line != blank -%}
-                      {%- assign title_prefix = title_line | slice: 0, 6 -%}
-                      {%- if title_prefix == 'badge=' -%}
-                        {%- assign badge = title_line | remove_first: 'badge=' | strip -%}
+                      {%- assign title_parts = title_line | replace: '＝', '=' | split: '=' -%}
+                      {%- assign title_key = title_parts.first | strip | downcase -%}
+                      {%- if title_key == 'badge' and title_parts.size > 1 -%}
+                        {%- assign badge = title_parts | slice: 1, title_parts.size | join: '=' | strip -%}
                         {%- if badge != blank -%}<span class="product-new-battery-runtime__badge">{{ badge | escape }}</span>{%- endif -%}
                       {%- else -%}
                         {%- assign ordinary_line = ordinary_line | plus: 1 -%}
                         {%- if ordinary_line == 1 -%}
-                          {%- liquid
-                            assign suffix = title_line | split: ' ' | last
-                            assign suffix_unit = suffix | slice: -1, 1
-                            assign suffix_number = suffix | remove: 'h'
-                            assign invalid_number = suffix_number | remove: '0' | remove: '1' | remove: '2' | remove: '3' | remove: '4' | remove: '5' | remove: '6' | remove: '7' | remove: '8' | remove: '9' | remove: '.'
-                            assign prefix_length = title_line.size | minus: suffix.size
-                          -%}
                           <p class="product-new-battery-runtime__headline">
-                            {%- if suffix_unit == 'h' and suffix_number != blank and invalid_number == blank -%}<span>{{ title_line | slice: 0, prefix_length | strip | escape }}</span><strong>{{ suffix | escape }}</strong>{%- else -%}{{ title_line | escape }}{%- endif -%}
+                            <span>{{ title_line | slice: 0, 6 | strip | escape }}</span>
+                            <strong>{{ title_line | slice: 6, title_line.size | escape }}</strong>
                           </p>
                         {%- else -%}
                           <p class="product-new-battery-runtime__summary">{{ title_line | escape }}</p>
