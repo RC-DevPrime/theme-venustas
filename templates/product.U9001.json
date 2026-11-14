@@ -74,6 +74,14 @@
           "type": "divider",
           "settings": {}
         },
+        "selleasy_lb_upsell_widget_pal_UW8EbH": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
         "hightlights_4aek9f": {
           "type": "hightlights",
           "settings": {
@@ -87,14 +95,6 @@
         },
         "availability_VXL6mU": {
           "type": "availability",
-          "settings": {}
-        },
-        "selleasy_lb_upsell_widget_pal_UW8EbH": {
-          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
-          "settings": {}
-        },
-        "quantity_atc_nEzPi6": {
-          "type": "quantity_atc",
           "settings": {}
         },
         "support_product_RGhgRP": {
@@ -515,6 +515,12 @@
     "product_centered_image_slider_ypDqaV": {
       "type": "product-centered-image-slider",
       "blocks": {
+        "image_jEEzKM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/U9001-10.jpg"
+          }
+        },
         "image_z7HqT3": {
           "type": "image",
           "settings": {
@@ -547,6 +553,7 @@
         }
       },
       "block_order": [
+        "image_jEEzKM",
         "image_z7HqT3",
         "image_7aM6n3",
         "image_T8zVV6",
@@ -669,7 +676,8 @@
             "value_5": "2.5 hours (20W input)",
             "value_6": "",
             "value_7": "",
-            "value_8": ""
+            "value_8": "",
+            "value_9": ""
           }
         },
         "product_iGW6BX": {
@@ -684,7 +692,8 @@
             "value_5": "2 hours (35W input)",
             "value_6": "",
             "value_7": "",
-            "value_8": ""
+            "value_8": "",
+            "value_9": ""
           }
         },
         "product_JcQwBL": {
@@ -699,7 +708,8 @@
             "value_5": "3 hours (35W input)",
             "value_6": "",
             "value_7": "",
-            "value_8": ""
+            "value_8": "",
+            "value_9": ""
           }
         }
       },
@@ -739,12 +749,14 @@
         "row_7_metafield": "",
         "row_8_label": "",
         "row_8_sub": "",
-        "row_8_metafield": ""
+        "row_8_metafield": "",
+        "row_9_label": "",
+        "row_9_sub": "",
+        "row_9_metafield": ""
       }
     },
     "product_compare_tab_tEUPPC": {
       "type": "product-compare-tab",
-      "disabled": true,
       "blocks": {
         "compare_item_3Wz694": {
           "type": "compare_item",
@@ -839,6 +851,7 @@
         "compare_item_AVMqBp",
         "compare_item_VtVi3P"
       ],
+      "disabled": true,
       "name": "Compare Tab Section",
       "settings": {
         "enabled_section_child_scroll": false,
