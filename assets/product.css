@@ -983,7 +983,6 @@ body.product-media-lightbox-open {
 
 /* AVAILABILIY ---------------------------------------- */
 .product .availability-section {
-    --inventory-details-height: 83px;
     position: relative;
     padding-top: 5px;
 }
@@ -1055,7 +1054,6 @@ body.product-media-lightbox-open {
     flex-direction: column;
     justify-content: center;
     gap: 4px;
-    height: var(--inventory-details-height);
     padding: 10px 16px;
     box-sizing: border-box;
     border: 1px solid #e5e7eb;
@@ -1121,9 +1119,7 @@ body.product-media-lightbox-open {
     display: block !important;
 }
 @media only screen and (max-width: 767px) {
-    .product .availability-section {
-        --inventory-details-height: 132px;
-    }
+    
     .product .availability-section .heading-content {
         align-items: flex-start;
         flex-direction: column;
@@ -1142,9 +1138,9 @@ body.product-media-lightbox-open {
         align-self: flex-start;
     }
     .product .availability-country-tabs button {
-        height: 48px;
+        height: 36px;
         padding: 0 22px;
-        font-size: 16px;
+        font-size: 13px;
     }
     .product .availability-display {
         gap: 8px;
@@ -1152,7 +1148,7 @@ body.product-media-lightbox-open {
         border-radius: 14px;
     }
     .product .availability-status {
-        font-size: 18px;
+        font-size: 16px;
         line-height: 24px;
     }
     .product .availability-status-copy {
@@ -1166,7 +1162,7 @@ body.product-media-lightbox-open {
     }
     .product .availability-note,
     .product .availability-unknown {
-        font-size: 16px;
+        font-size: 14px;
         line-height: 22px;
     }
 }
@@ -1275,6 +1271,7 @@ body.product-media-lightbox-open {
     margin:0;
 }
 .product .support-product-container .support-product-text strong{
+    display:block;
     color:#1A1A1A;
     font-weight:700;
 }
