@@ -983,14 +983,9 @@ body.product-media-lightbox-open {
 
 /* AVAILABILIY ---------------------------------------- */
 .product .availability-section {
-    --inventory-details-height: 163px;
+    --inventory-details-height: 83px;
     position: relative;
     padding-top: 5px;
-}
-@media only screen and (max-width: 767px) {
-    .product .availability-section {
-        --inventory-details-height: 145px;
-    }
 }
 .product .iia-header-container{
     display:none;
@@ -1059,10 +1054,11 @@ body.product-media-lightbox-open {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 10px;
+    gap: 4px;
     height: var(--inventory-details-height);
-    padding: 16px;
+    padding: 10px 16px;
     box-sizing: border-box;
+    border: 1px solid #e5e7eb;
     border-radius: 8px;
     background: #f5f5f5;
     color: #1a1a1a;
@@ -1116,20 +1112,50 @@ body.product-media-lightbox-open {
 .product .availability-inventory-slot #inventory-info-app {
     display: block !important;
 }
-@media only screen and (max-width: 420px) {
+@media only screen and (max-width: 767px) {
+    .product .availability-section {
+        --inventory-details-height: 132px;
+    }
     .product .availability-section .heading-content {
         align-items: flex-start;
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+    .product .availability-title {
+        font-size: 20px;
+    }
+    .product .availability-title svg {
+        flex-basis: 22px;
+        width: 22px;
+        height: 22px;
     }
     .product .availability-country-tabs {
-        align-self: stretch;
+        align-self: flex-start;
     }
     .product .availability-country-tabs button {
-        flex: 1 1 50%;
+        height: 48px;
+        padding: 0 22px;
+        font-size: 16px;
     }
-    .product .availability-country-tabs[data-country-count='1'] button:not([hidden]) {
-        flex: 0 0 auto;
+    .product .availability-display {
+        gap: 8px;
+        padding: 20px;
+        border-radius: 14px;
+    }
+    .product .availability-status {
+        font-size: 18px;
+        line-height: 24px;
+    }
+    .product .availability-status-dot {
+        flex-basis: 12px;
+        width: 12px;
+        height: 12px;
+    }
+    .product .availability-note,
+    .product .availability-unknown {
+        font-size: 16px;
+        line-height: 22px;
     }
 }
 .product-page-nav-header-section .nav-product-details {

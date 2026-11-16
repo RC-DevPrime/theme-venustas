@@ -2036,6 +2036,47 @@ if ($('.product-image-location-section').length) {
         return '';
     }
 
+    function getWarehouseLabel(text) {
+        if (/(?:u\.?s\.?|united states|usa)\s+warehouse/i.test(text)) {
+            return 'U.S. warehouse';
+        }
+
+        if (/(?:canada|canadian)\s+warehouse/i.test(text)) {
+            return 'Canadian warehouse';
+        }
+
+        return '';
+    }
+
+    function getAvailabilityDetails(item, rawText) {
+        const detailNodes = Array.from(item.querySelectorAll('*')).filter(function (node) {
+            return node.children.length === 0 && (node.textContent || '').trim();
+        });
+        const sourceTexts = detailNodes.length
+            ? detailNodes.map(function (node) { return node.innerText || node.textContent || ''; })
+            : [rawText];
+        const details = [];
+
+        sourceTexts.forEach(function (sourceText) {
+            sourceText.split(/\n+|\s*[|•]\s*/).forEach(function (part) {
+                const detail = part
+                    .replace(/ship(?:s)?\s+to\s+(?:the\s+)?u\.?s\.?\s+(?:addresses\s+)?only/gi, '')
+                    .replace(/ship(?:s)?\s+to\s+canad(?:a|ian\s+addresses)\s+only/gi, '')
+                    .replace(/out of stock|sold out|unavailable|not available|no stock|low stock|limited stock|in stock|high stock|available/gi, '')
+                    .replace(/(?:u\.?s\.?|united states|usa|canadian|canada)\s+warehouse/gi, '')
+                    .replace(/^[\s·,:;\-–—]+|[\s·,:;\-–—]+$/g, '')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+                const isCountryOnly = /^(?:us|u\.s\.|usa|united states|ca|canada)$/i.test(detail);
+                if (!isCountryOnly && detail && !details.some(function (existing) { return existing.toLowerCase() === detail.toLowerCase(); })) {
+                    details.push(detail);
+                }
+            });
+        });
+
+        return details;
+    }
+
     function getDisplayAvailability(item) {
         if (!item) return null;
 
@@ -2055,10 +2096,20 @@ if ($('.product-image-location-section').length) {
             label = 'In stock';
         }
 
+        const noteParts = [];
+        const shippingNote = getShippingNote(rawText);
+        if (shippingNote) noteParts.push(shippingNote);
+        getAvailabilityDetails(item, rawText).forEach(function (detail) {
+            if (!noteParts.some(function (existing) { return existing.toLowerCase() === detail.toLowerCase(); })) {
+                noteParts.push(detail);
+            }
+        });
+
         return {
             status: status,
             label: label,
-            note: getShippingNote(rawText),
+            warehouse: getWarehouseLabel(rawText),
+            note: noteParts.join(' · '),
             rawText: rawText
                 .replace(/ship\s+to\s+us\s+only/gi, 'Ships to U.S. addresses only')
                 .replace(/ship\s+to\s+canada\s+only/gi, 'Ships to Canadian addresses only')
@@ -2078,6 +2129,30 @@ if ($('.product-image-location-section').length) {
         display.setAttribute('aria-busy', String(isBusy));
     }
 
+    function setAvailabilityStatus(display, status, label, note, isBusy) {
+        const content = document.createDocumentFragment();
+        const statusLine = document.createElement('p');
+        const dot = document.createElement('span');
+        const statusLabel = document.createElement('span');
+        statusLine.className = 'availability-status';
+        dot.className = 'availability-status-dot';
+        dot.setAttribute('aria-hidden', 'true');
+        statusLabel.textContent = label;
+        statusLine.append(dot, statusLabel);
+        content.appendChild(statusLine);
+
+        if (note) {
+            const noteLine = document.createElement('p');
+            noteLine.className = 'availability-note';
+            noteLine.textContent = note;
+            content.appendChild(noteLine);
+        }
+
+        display.dataset.status = status;
+        display.replaceChildren(content);
+        display.setAttribute('aria-busy', String(isBusy));
+    }
+
     function updateAvailabilityCountryControls(section, display, availableCountries, isResolved) {
         const tabs = section.querySelector('.availability-country-tabs');
         const countries = isResolved ? availableCountries : ['US', 'CA'];
@@ -2085,7 +2160,7 @@ if ($('.product-image-location-section').length) {
             selectedAvailabilityCountry = countries[0];
         }
 
-        const countryCode = getSelectedAvailabilityCountry();
+        const countryCode = isResolved ? getSelectedAvailabilityCountry() : 'US';
         let selectedButton = null;
         section.querySelectorAll('[data-availability-country]').forEach(function (button) {
             const isVisible = countries.indexOf(button.dataset.availabilityCountry) !== -1;
@@ -2123,7 +2198,15 @@ if ($('.product-image-location-section').length) {
         const section = getAvailabilitySection();
         const display = section && section.querySelector('[data-availability-display]');
         if (section && display) updateAvailabilityCountryControls(section, display, [], false);
-        setAvailabilityMessage('availability-loading', 'Checking availability…', true);
+        if (display) {
+            setAvailabilityStatus(
+                display,
+                'in_stock',
+                'In stock · U.S. warehouse',
+                'Ships to U.S. addresses only',
+                true
+            );
+        }
     }
 
     function renderAvailabilityDisplay() {
@@ -2147,11 +2230,8 @@ if ($('.product-image-location-section').length) {
         display.removeAttribute('data-status');
 
         if (!availability) {
-            setAvailabilityMessage(
-                hasResolved ? 'availability-unknown' : 'availability-loading',
-                hasResolved ? 'Availability information is currently unavailable.' : 'Checking availability…',
-                !hasResolved
-            );
+            if (hasResolved) setAvailabilityUnavailable();
+            else setAvailabilityLoading();
             return;
         }
 
@@ -2168,7 +2248,7 @@ if ($('.product-image-location-section').length) {
             status.className = 'availability-status';
             dot.className = 'availability-status-dot';
             dot.setAttribute('aria-hidden', 'true');
-            label.textContent = availability.label;
+            label.textContent = availability.label + (availability.warehouse ? ' · ' + availability.warehouse : '');
             status.append(dot, label);
             content.appendChild(status);
             display.dataset.status = availability.status;

@@ -275,8 +275,9 @@ endif
                                             <button id="AvailabilityTab-CA-{{ section.id }}" type="button" role="tab" data-availability-country="CA" aria-controls="AvailabilityPanel-{{ section.id }}" aria-selected="false">Canada</button>
                                         </div>
                                     </div>
-                                    <div id="AvailabilityPanel-{{ section.id }}" class="availability-display" data-availability-display role="tabpanel" aria-labelledby="AvailabilityTab-US-{{ section.id }}" aria-live="polite" aria-busy="true">
-                                        <p class="availability-loading">Checking availability…</p>
+                                    <div id="AvailabilityPanel-{{ section.id }}" class="availability-display" data-availability-display data-status="in_stock" role="tabpanel" aria-labelledby="AvailabilityTab-US-{{ section.id }}" aria-live="polite" aria-busy="true">
+                                        <p class="availability-status"><span class="availability-status-dot" aria-hidden="true"></span><span>In stock · U.S. warehouse</span></p>
+                                        <p class="availability-note">Ships to U.S. addresses only</p>
                                     </div>
                                     <div class="availability-inventory-slot" data-availability-source aria-hidden="true" inert></div>
                                 </div>
