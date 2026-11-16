@@ -984,16 +984,8 @@ body.product-media-lightbox-open {
 /* AVAILABILIY ---------------------------------------- */
 .product .availability-section {
     --inventory-details-height: 163px;
-    padding-top:5px;
-}
-.product .product-details.is-inventory-empty {
-    display: none;
-}
-.product .availability-section .availability-inventory-slot {
-    min-height: var(--inventory-details-height);
-}
-.product .availability-section .iia-details-container {
-    height: var(--inventory-details-height);
+    position: relative;
+    padding-top: 5px;
 }
 @media only screen and (max-width: 767px) {
     .product .availability-section {
@@ -1003,23 +995,142 @@ body.product-media-lightbox-open {
 .product .iia-header-container{
     display:none;
 }
-.product .availability-section .heading-content{
-    display:flex;
-    align-items:center;
-    gap:5px;
-    margin-bottom:10px;
+.product .availability-section .heading-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
 }
-.product .availability-section .heading-content .availability-icon{
-    width:20px;
-    height:20px;
-    object-fit:contain;
+.product .availability-title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #1a1a1a;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
 }
-.product .availability-section .heading-content svg{
-    width:20px;
-    height:20px;
+.product .availability-title svg {
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    color: #5c5f62;
 }
-.product #inventory-info-app{
-    display:none;
+.product .availability-country-tabs {
+    display: flex;
+    flex-shrink: 0;
+    align-items: flex-start;
+    padding: 2px;
+    border-radius: 38px;
+    background: #f5f5f5;
+}
+.product .availability-country-tabs[hidden],
+.product .availability-country-tabs button[hidden] {
+    display: none !important;
+}
+.product .availability-country-tabs[data-country-count='1'] {
+    align-self: flex-start;
+}
+.product .availability-country-tabs button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 29px;
+    background: transparent;
+    color: rgba(26, 26, 26, 0.4);
+    font: 700 13px/1 var(--font-primary, 'Montserrat', sans-serif);
+    white-space: nowrap;
+    cursor: pointer;
+}
+.product .availability-country-tabs button[aria-selected='true'] {
+    background: #fff;
+    color: #1a1a1a;
+}
+.product .availability-country-tabs button:focus-visible {
+    outline: 2px solid #b93205;
+    outline-offset: 2px;
+}
+.product .availability-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    height: var(--inventory-details-height);
+    padding: 16px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background: #f5f5f5;
+    color: #1a1a1a;
+    overflow: auto;
+}
+.product .availability-loading,
+.product .availability-status,
+.product .availability-note,
+.product .availability-unknown {
+    margin: 0;
+}
+.product .availability-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+}
+.product .availability-status-dot {
+    flex: 0 0 9px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #27863b;
+}
+.product .availability-display[data-status='low_stock'] .availability-status-dot {
+    background: #d9a514;
+}
+.product .availability-display[data-status='out_of_stock'] .availability-status-dot {
+    background: #c9362b;
+}
+.product .availability-note,
+.product .availability-unknown,
+.product .availability-loading {
+    font-size: 14px;
+    line-height: 20px;
+}
+.product .availability-inventory-slot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    pointer-events: none;
+}
+.product #inventory-info-app {
+    display: none !important;
+}
+.product .availability-inventory-slot #inventory-info-app {
+    display: block !important;
+}
+@media only screen and (max-width: 420px) {
+    .product .availability-section .heading-content {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .product .availability-country-tabs {
+        align-self: stretch;
+    }
+    .product .availability-country-tabs button {
+        flex: 1 1 50%;
+    }
+    .product .availability-country-tabs[data-country-count='1'] button:not([hidden]) {
+        flex: 0 0 auto;
+    }
 }
 .product-page-nav-header-section .nav-product-details {
     margin-top: 24px;
@@ -1097,30 +1208,54 @@ body.product-media-lightbox-open {
 
 /* PRODUCT SUPPORT -------------------------------------------- */
 .product .support-product-container{
-    background: rgba(185, 50, 5, 0.12);
-    border-radius: 12px;
-    padding:25px 15px;
     margin-top:15px;
+}
+.product .support-product-container .support-product-list{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:24px 32px;
 }
 .product .support-product-container .support-product-item{
     display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:0.7rem;
-}
-.product .support-product-container .support-product-item p{
-    color:#1A1A1A;
-    font-weight: 400;
-}
-.product .support-product-container .support-product-item strong{
-    font-weight:700;
-    color:#1A1A1A;
+    align-items:flex-start;
+    gap:20px;
+    min-width:0;
 }
 .product .support-product-container .support-product-item .icon-support{
+    flex-shrink:0;
     width:30px;
     height:30px;
     object-fit:contain;
+}
+.product .support-product-container .support-product-text{
+    color:#515151;
+    font-size:16px;
+    line-height:1.4;
+    overflow-wrap:anywhere;
+}
+.product .support-product-container .support-product-text p{
+    margin:0;
+}
+.product .support-product-container .support-product-text strong{
+    color:#1A1A1A;
+    font-weight:700;
+}
+.product .support-product-container .support-product-text ul,
+.product .support-product-container .support-product-text ol{
+    margin:0;
+    padding-left:1.2em;
+}
+@media only screen and (max-width: 767px){
+    .product .support-product-container .support-product-list{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+    .product .support-product-container .support-product-item{
+        gap:16px;
+    }
+    .product .support-product-container .support-product-text{
+        font-size:14px;
+    }
 }
 
 /* PICK YOUR ACCESSORIES -------------------------------------------- */

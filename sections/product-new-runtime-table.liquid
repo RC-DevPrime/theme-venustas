@@ -5,8 +5,12 @@
 
 {%- liquid
   assign maximum_runtime = 1.0
+  assign has_price = false
   assign selected_block_id = blank
   for block in section.blocks
+    if block.settings.product != blank
+      assign has_price = true
+    endif
     assign high_runtime = block.settings.high_runtime | plus: 0.0
     assign medium_runtime = block.settings.medium_runtime | plus: 0.0
     assign low_runtime = block.settings.low_runtime | plus: 0.0
@@ -65,6 +69,9 @@
     #shopify-section-{{ section.id }} .product-new-battery-runtime__selected {
       display: flex;
     }
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__cell--empty {
+      display: none;
+    }
   }
   @media (max-width: 767px) {
     #shopify-section-{{ section.id }} .product-new-runtime-table__heading {
@@ -94,11 +101,12 @@
               <div class="product-new-battery-runtime__row-label" style="grid-row: 2;">{{ section.settings.runtime_label | escape }}</div>
               <div class="product-new-battery-runtime__row-label" style="grid-row: 3;">{{ section.settings.battery_label | escape }}</div>
               <div class="product-new-battery-runtime__row-label" style="grid-row: 4;">{{ section.settings.recharge_label | escape }}</div>
-              <div class="product-new-battery-runtime__row-label" style="grid-row: 5;">{{ section.settings.price_label | escape }}</div>
+              {%- if has_price -%}<div class="product-new-battery-runtime__row-label" style="grid-row: 5;">{{ section.settings.price_label | escape }}</div>{%- endif -%}
             </div>
 
             {%- for block in section.blocks -%}
               {%- liquid
+                assign block_product = block.settings.product
                 assign is_selected = false
                 if block.id == selected_block_id
                   assign is_selected = true
@@ -149,17 +157,21 @@
                   {%- if block.settings.recharge != blank -%}<p>{{ block.settings.recharge | escape | newline_to_br }}</p>{%- endif -%}
                 </div>
 
-                <div class="product-new-battery-runtime__cell" style="grid-row: 5;">
-                  {%- if section.settings.price_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ section.settings.price_label | escape }}</span>{%- endif -%}
-                  {%- if block.settings.price != blank -%}<p class="product-new-battery-runtime__price">{{ block.settings.price | escape }}</p>{%- endif -%}
-                </div>
+                {%- if has_price -%}
+                  <div class="product-new-battery-runtime__cell product-new-battery-runtime__cell--price{% if block_product == blank %} product-new-battery-runtime__cell--empty{% endif %}" style="grid-row: 5;">
+                    {%- if block_product != blank -%}
+                      {%- if section.settings.price_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ section.settings.price_label | escape }}</span>{%- endif -%}
+                      <p class="product-new-battery-runtime__price">{{ block_product.price | money }}</p>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
 
                 <div class="product-new-battery-runtime__cell product-new-battery-runtime__footer">
                   {%- if is_selected -%}
                     <span class="product-new-battery-runtime__selected">{{ block.settings.selected_label | escape }}<span class="product-new-battery-runtime__check">{% render 'heating-icons', icon: 'check' %}</span></span>
-                  {%- elsif block.settings.button_label != blank and block.settings.button_link != blank -%}
+                  {%- elsif block_product != blank and block.settings.button_label != blank -%}
                     {%- assign button_label = block.settings.button_label | escape -%}
-                    {%- render 'heatingP-button', label: button_label, url: block.settings.button_link, variant: 'secondary', class: 'product-new-battery-runtime__button' -%}
+                    {%- render 'heatingP-button', label: button_label, url: block_product.url, variant: 'secondary', class: 'product-new-battery-runtime__button' -%}
                   {%- endif -%}
                 </div>
               </div>
@@ -204,6 +216,7 @@
       "type": "battery",
       "name": "Battery option",
       "settings": [
+        { "type": "product", "id": "product", "label": "Product", "info": "The price and the button link are taken from this product. Leave it empty to hide the price and the button." },
         { "type": "text", "id": "model", "label": "Battery name", "default": "5K Battery" },
         { "type": "text", "id": "runtime_prefix", "label": "Runtime prefix", "default": "Up to" },
         { "type": "text", "id": "runtime_value", "label": "Runtime value", "default": "10h" },
@@ -215,11 +228,9 @@
         { "type": "text", "id": "battery", "label": "Battery capacity", "default": "5K · 36Wh" },
         { "type": "text", "id": "weight", "label": "Weight", "default": "6.56 oz" },
         { "type": "textarea", "id": "recharge", "label": "Full recharge", "default": "2.5 h with a 20W USB-C charger (not included)" },
-        { "type": "text", "id": "price", "label": "Price" },
         { "type": "checkbox", "id": "selected", "label": "Selected option", "info": "Select only one battery option. The first selected block is used.", "default": false },
         { "type": "text", "id": "selected_label", "label": "Selected label", "default": "Selected" },
-        { "type": "text", "id": "button_label", "label": "Button label", "default": "Add Extra Battery" },
-        { "type": "url", "id": "button_link", "label": "Button link" }
+        { "type": "text", "id": "button_label", "label": "Button label", "info": "Links to the selected product page.", "default": "Add Extra Battery" }
       ]
     }
   ],
@@ -228,8 +239,8 @@
       "name": "productN Runtime Table",
       "blocks": [
         { "type": "battery", "settings": { "model": "5K Battery", "runtime_value": "10h", "summary": "Lightest battery", "high_runtime": "3", "medium_runtime": "6", "low_runtime": "10", "battery": "5K · 36Wh", "weight": "6.56 oz", "recharge": "2.5 h with a 20W USB-C charger (not included)", "selected": true } },
-        { "type": "battery", "settings": { "model": "7.5K Battery", "runtime_value": "13h", "summary": "Balanced weight & runtime", "high_runtime": "4", "medium_runtime": "8", "low_runtime": "13", "battery": "7.5K · 54Wh", "weight": "10.4 oz", "recharge": "2 h with a 35W USB-C charger (not included)", "price": "$69.99" } },
-        { "type": "battery", "settings": { "model": "10K Battery", "runtime_value": "20h", "summary": "", "badge": "Longest runtime", "high_runtime": "6", "medium_runtime": "12", "low_runtime": "20", "battery": "10K · 74Wh", "weight": "12.8 oz", "recharge": "3 h with a 35W USB-C charger (not included)", "price": "$179.99" } }
+        { "type": "battery", "settings": { "model": "7.5K Battery", "runtime_value": "13h", "summary": "Balanced weight & runtime", "high_runtime": "4", "medium_runtime": "8", "low_runtime": "13", "battery": "7.5K · 54Wh", "weight": "10.4 oz", "recharge": "2 h with a 35W USB-C charger (not included)" } },
+        { "type": "battery", "settings": { "model": "10K Battery", "runtime_value": "20h", "summary": "", "badge": "Longest runtime", "high_runtime": "6", "medium_runtime": "12", "low_runtime": "20", "battery": "10K · 74Wh", "weight": "12.8 oz", "recharge": "3 h with a 35W USB-C charger (not included)" } }
       ]
     }
   ]
