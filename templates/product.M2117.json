@@ -381,15 +381,96 @@
         "anchor_id": "",
         "eyebrow": "Battery & Runtime",
         "heading": "Same vest. Choose how long it runs.",
+        "description": "Standard, Pro and Max share the same vest, six zones and temperatures. The battery is the only difference — and it decides the runtime."
+      }
+    },
+    "product_new_runtime_table_njMnQP": {
+      "type": "product-new-runtime-table",
+      "blocks": {
+        "battery_QYmYVA": {
+          "type": "battery",
+          "settings": {
+            "model": "5K Battery",
+            "runtime_prefix": "Up to",
+            "runtime_value": "10h",
+            "summary": "Lightest battery",
+            "badge": "",
+            "high_runtime": "3",
+            "medium_runtime": "6",
+            "low_runtime": "10",
+            "battery": "5K · 36Wh",
+            "weight": "6.56 oz",
+            "recharge": "2.5 h with a 20W USB-C charger (not included)",
+            "price": "",
+            "selected": true,
+            "selected_label": "Selected",
+            "button_label": "Add Extra Battery",
+            "button_link": ""
+          }
+        },
+        "battery_DtwKL3": {
+          "type": "battery",
+          "settings": {
+            "model": "7.5K Battery",
+            "runtime_prefix": "Up to",
+            "runtime_value": "13h",
+            "summary": "Balanced weight & runtime",
+            "badge": "",
+            "high_runtime": "4",
+            "medium_runtime": "8",
+            "low_runtime": "13",
+            "battery": "7.5K · 54Wh",
+            "weight": "10.4 oz",
+            "recharge": "2 h with a 35W USB-C charger (not included)",
+            "price": "$69.99",
+            "selected": false,
+            "selected_label": "Selected",
+            "button_label": "Add Extra Battery",
+            "button_link": ""
+          }
+        },
+        "battery_HHWKi4": {
+          "type": "battery",
+          "settings": {
+            "model": "10K Battery",
+            "runtime_prefix": "Up to",
+            "runtime_value": "20h",
+            "summary": "",
+            "badge": "Longest runtime",
+            "high_runtime": "6",
+            "medium_runtime": "12",
+            "low_runtime": "20",
+            "battery": "10K · 74Wh",
+            "weight": "12.8 oz",
+            "recharge": "3 h with a 35W USB-C charger (not included)",
+            "price": "$179.99",
+            "selected": false,
+            "selected_label": "Selected",
+            "button_label": "Add Extra Battery",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "battery_QYmYVA",
+        "battery_DtwKL3",
+        "battery_HHWKi4"
+      ],
+      "name": "productN Runtime Table",
+      "settings": {
+        "anchor_id": "",
+        "eyebrow": "Battery & Runtime",
+        "heading": "Same vest. Choose how long it runs.",
         "description": "Standard, Pro and Max share the same vest, six zones and temperatures. The battery is the only difference — and it decides the runtime.",
         "runtime_label": "Runtime",
-        "high_label": "High",
-        "medium_label": "Medium",
-        "low_label": "Low",
         "battery_label": "Battery",
         "recharge_label": "Full recharge",
         "price_label": "Price",
-        "pagination_label": "Battery option"
+        "high_label": "High",
+        "medium_label": "Medium",
+        "low_label": "Low",
+        "accessible_label": "Battery comparison",
+        "pagination_label": "Show battery option"
       }
     },
     "product_new_battery_cCGanj": {
@@ -982,6 +1063,7 @@
     "product_new_technology_cHRrf8",
     "product_new_heat_control_NxLkJt",
     "product_new_battery_runtime_FLLgnX",
+    "product_new_runtime_table_njMnQP",
     "product_new_battery_cCGanj",
     "product_new_power_features_JxpD4E",
     "product_new_design_features_ViC86z",
