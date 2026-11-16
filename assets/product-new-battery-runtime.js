@@ -17,7 +17,7 @@ if (!customElements.get('product-new-battery-runtime')) {
         this.track = this.querySelector('[data-track]');
         this.cards = [...this.querySelectorAll('[data-card]')];
         this.dots = [...this.querySelectorAll('[data-dot]')];
-        this.mobile = window.matchMedia('(max-width: 767px)');
+        this.mobile = window.matchMedia('(max-width: 899px)');
         this.index = 0;
         this.addEventListener('click', (event) => {
           const dot = event.target.closest('[data-dot]');

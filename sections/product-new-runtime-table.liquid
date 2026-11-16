@@ -1,0 +1,237 @@
+{%- if request.page_type != 'product' -%}
+  {{ 'product-new-battery-runtime.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'product-new-battery-runtime.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{%- liquid
+  assign maximum_runtime = 1.0
+  assign selected_block_id = blank
+  for block in section.blocks
+    assign high_runtime = block.settings.high_runtime | plus: 0.0
+    assign medium_runtime = block.settings.medium_runtime | plus: 0.0
+    assign low_runtime = block.settings.low_runtime | plus: 0.0
+    assign maximum_runtime = maximum_runtime | at_least: high_runtime | at_least: medium_runtime | at_least: low_runtime
+    if selected_block_id == blank and block.settings.selected
+      assign selected_block_id = block.id
+    endif
+  endfor
+  if selected_block_id == blank and section.blocks.first != blank
+    assign selected_block_id = section.blocks.first.id
+  endif
+  assign runtime_instance_id = 'RuntimeTable-' | append: section.id
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-new-runtime-table__content {
+    padding: 80px 0;
+    background: #f5f5f5;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+  #shopify-section-{{ section.id }} .product-new-runtime-table__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+  }
+  #shopify-section-{{ section.id }} .product-new-runtime-table__header {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  #shopify-section-{{ section.id }} .product-new-runtime-table__header > * {
+    margin: 0;
+    color: inherit;
+    overflow-wrap: anywhere;
+  }
+  #shopify-section-{{ section.id }} .product-new-runtime-table__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .product-new-runtime-table__heading {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.22;
+  }
+  #shopify-section-{{ section.id }} .product-new-runtime-table__description {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  #shopify-section-{{ section.id }} .product-new-battery-runtime__selected {
+    display: none;
+  }
+  @media only screen and (max-width: 899px) {
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__selected {
+      display: flex;
+    }
+  }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-new-runtime-table__heading {
+      font-size: 24px;
+    }
+    #shopify-section-{{ section.id }} .product-new-runtime-table__header {
+      margin-bottom: 40px;
+    }
+  }
+{% endstyle %}
+
+<div class="product-new-runtime-table__content"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | strip | remove_first: '#' | escape }}"{% endif %}>
+  <div class="product-new-runtime-table__inner">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank -%}
+      <div class="product-new-runtime-table__header">
+        {%- if section.settings.eyebrow != blank -%}<p class="product-new-runtime-table__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="product-new-runtime-table__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        {%- if section.settings.description != blank -%}<p class="product-new-runtime-table__description">{{ section.settings.description | escape }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <product-new-battery-runtime class="product-new-battery-runtime" id="{{ runtime_instance_id }}" style="--runtime-columns: {{ section.blocks.size }};">
+        <div class="product-new-battery-runtime__viewport" data-track tabindex="0" aria-label="{{ section.settings.accessible_label | escape }}">
+          <div class="product-new-battery-runtime__grid">
+            <div class="product-new-battery-runtime__labels" aria-hidden="true">
+              <div class="product-new-battery-runtime__row-label" style="grid-row: 2;">{{ section.settings.runtime_label | escape }}</div>
+              <div class="product-new-battery-runtime__row-label" style="grid-row: 3;">{{ section.settings.battery_label | escape }}</div>
+              <div class="product-new-battery-runtime__row-label" style="grid-row: 4;">{{ section.settings.recharge_label | escape }}</div>
+              <div class="product-new-battery-runtime__row-label" style="grid-row: 5;">{{ section.settings.price_label | escape }}</div>
+            </div>
+
+            {%- for block in section.blocks -%}
+              {%- liquid
+                assign is_selected = false
+                if block.id == selected_block_id
+                  assign is_selected = true
+                endif
+              -%}
+              <div class="product-new-battery-runtime__card{% if is_selected %} product-new-battery-runtime__card--selected{% endif %}" style="--column: {{ forloop.index | plus: 1 }};" data-card {{ block.shopify_attributes }}>
+                <div class="product-new-battery-runtime__cell product-new-battery-runtime__title">
+                  {%- if block.settings.model != blank -%}<p class="product-new-battery-runtime__model">{{ block.settings.model | escape }}</p>{%- endif -%}
+                  {%- if block.settings.runtime_value != blank -%}
+                    <p class="product-new-battery-runtime__headline">
+                      {%- if block.settings.runtime_prefix != blank -%}<span>{{ block.settings.runtime_prefix | escape }}</span>{%- endif -%}
+                      <strong>{{ block.settings.runtime_value | escape }}</strong>
+                    </p>
+                  {%- endif -%}
+                  {%- if block.settings.summary != blank -%}<p class="product-new-battery-runtime__summary">{{ block.settings.summary | escape }}</p>{%- endif -%}
+                  {%- if block.settings.badge != blank -%}<span class="product-new-battery-runtime__badge">{{ block.settings.badge | escape }}</span>{%- endif -%}
+                </div>
+
+                <div class="product-new-battery-runtime__cell" style="grid-row: 2;">
+                  {%- if section.settings.runtime_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ section.settings.runtime_label | escape }}</span>{%- endif -%}
+                  <div class="product-new-battery-runtime__runtime">
+                    {%- assign heat_keys = 'high,medium,low' | split: ',' -%}
+                    {%- for heat_key in heat_keys -%}
+                      {%- liquid
+                        assign runtime_key = heat_key | append: '_runtime'
+                        assign label_key = heat_key | append: '_label'
+                        assign runtime = block.settings[runtime_key]
+                        assign runtime_width = runtime | plus: 0.0 | times: 100.0 | divided_by: maximum_runtime | at_least: 0 | at_most: 100
+                      -%}
+                      {%- if runtime != blank -%}
+                        <div class="product-new-battery-runtime__heat">
+                          <div class="product-new-battery-runtime__heat-label"><span>{{ section.settings[label_key] | escape }}</span><span class="product-new-battery-runtime__heat-value">{{ runtime | escape }} h</span></div>
+                          <div class="product-new-battery-runtime__bar" aria-hidden="true"><span class="product-new-battery-runtime__fill" style="--runtime-width: {{ runtime_width }}%;"></span></div>
+                        </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+
+                <div class="product-new-battery-runtime__cell" style="grid-row: 3;">
+                  {%- if section.settings.battery_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ section.settings.battery_label | escape }}</span>{%- endif -%}
+                  {%- if block.settings.battery != blank -%}<p class="product-new-battery-runtime__battery">{{ block.settings.battery | escape }}</p>{%- endif -%}
+                  {%- if block.settings.weight != blank -%}<p>{{ block.settings.weight | escape }}</p>{%- endif -%}
+                </div>
+
+                <div class="product-new-battery-runtime__cell" style="grid-row: 4;">
+                  {%- if section.settings.recharge_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ section.settings.recharge_label | escape }}</span>{%- endif -%}
+                  {%- if block.settings.recharge != blank -%}<p>{{ block.settings.recharge | escape | newline_to_br }}</p>{%- endif -%}
+                </div>
+
+                <div class="product-new-battery-runtime__cell" style="grid-row: 5;">
+                  {%- if section.settings.price_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ section.settings.price_label | escape }}</span>{%- endif -%}
+                  {%- if block.settings.price != blank -%}<p class="product-new-battery-runtime__price">{{ block.settings.price | escape }}</p>{%- endif -%}
+                </div>
+
+                <div class="product-new-battery-runtime__cell product-new-battery-runtime__footer">
+                  {%- if is_selected -%}
+                    <span class="product-new-battery-runtime__selected">{{ block.settings.selected_label | escape }}<span class="product-new-battery-runtime__check">{% render 'heating-icons', icon: 'check' %}</span></span>
+                  {%- elsif block.settings.button_label != blank and block.settings.button_link != blank -%}
+                    {%- assign button_label = block.settings.button_label | escape -%}
+                    {%- render 'heatingP-button', label: button_label, url: block.settings.button_link, variant: 'secondary', class: 'product-new-battery-runtime__button' -%}
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        {%- if section.blocks.size > 1 -%}
+          <div class="product-new-battery-runtime__dots">
+            {%- for block in section.blocks -%}<button class="product-new-battery-runtime__dot" type="button" data-dot="{{ forloop.index0 }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ section.settings.pagination_label | escape }} {{ forloop.index }}"></button>{%- endfor -%}
+          </div>
+        {%- endif -%}
+      </product-new-battery-runtime>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "productN Runtime Table",
+  "tag": "section",
+  "class": "product-new-runtime-table",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Battery & Runtime" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Same vest. Choose how long it runs." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Standard, Pro and Max share the same vest, six zones and temperatures. The battery is the only difference — and it decides the runtime." },
+    { "type": "header", "content": "Row labels" },
+    { "type": "text", "id": "runtime_label", "label": "Runtime label", "default": "Runtime" },
+    { "type": "text", "id": "battery_label", "label": "Battery label", "default": "Battery" },
+    { "type": "text", "id": "recharge_label", "label": "Recharge label", "default": "Full recharge" },
+    { "type": "text", "id": "price_label", "label": "Price label", "default": "Price" },
+    { "type": "text", "id": "high_label", "label": "High label", "default": "High" },
+    { "type": "text", "id": "medium_label", "label": "Medium label", "default": "Medium" },
+    { "type": "text", "id": "low_label", "label": "Low label", "default": "Low" },
+    { "type": "header", "content": "Accessibility" },
+    { "type": "text", "id": "accessible_label", "label": "Table label", "default": "Battery comparison" },
+    { "type": "text", "id": "pagination_label", "label": "Pagination label", "default": "Show battery option" }
+  ],
+  "blocks": [
+    {
+      "type": "battery",
+      "name": "Battery option",
+      "settings": [
+        { "type": "text", "id": "model", "label": "Battery name", "default": "5K Battery" },
+        { "type": "text", "id": "runtime_prefix", "label": "Runtime prefix", "default": "Up to" },
+        { "type": "text", "id": "runtime_value", "label": "Runtime value", "default": "10h" },
+        { "type": "text", "id": "summary", "label": "Summary", "default": "Lightest battery" },
+        { "type": "text", "id": "badge", "label": "Badge" },
+        { "type": "text", "id": "high_runtime", "label": "High runtime (hours)", "default": "3" },
+        { "type": "text", "id": "medium_runtime", "label": "Medium runtime (hours)", "default": "6" },
+        { "type": "text", "id": "low_runtime", "label": "Low runtime (hours)", "default": "10" },
+        { "type": "text", "id": "battery", "label": "Battery capacity", "default": "5K · 36Wh" },
+        { "type": "text", "id": "weight", "label": "Weight", "default": "6.56 oz" },
+        { "type": "textarea", "id": "recharge", "label": "Full recharge", "default": "2.5 h with a 20W USB-C charger (not included)" },
+        { "type": "text", "id": "price", "label": "Price" },
+        { "type": "checkbox", "id": "selected", "label": "Selected option", "info": "Select only one battery option. The first selected block is used.", "default": false },
+        { "type": "text", "id": "selected_label", "label": "Selected label", "default": "Selected" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Add Extra Battery" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "productN Runtime Table",
+      "blocks": [
+        { "type": "battery", "settings": { "model": "5K Battery", "runtime_value": "10h", "summary": "Lightest battery", "high_runtime": "3", "medium_runtime": "6", "low_runtime": "10", "battery": "5K · 36Wh", "weight": "6.56 oz", "recharge": "2.5 h with a 20W USB-C charger (not included)", "selected": true } },
+        { "type": "battery", "settings": { "model": "7.5K Battery", "runtime_value": "13h", "summary": "Balanced weight & runtime", "high_runtime": "4", "medium_runtime": "8", "low_runtime": "13", "battery": "7.5K · 54Wh", "weight": "10.4 oz", "recharge": "2 h with a 35W USB-C charger (not included)", "price": "$69.99" } },
+        { "type": "battery", "settings": { "model": "10K Battery", "runtime_value": "20h", "summary": "", "badge": "Longest runtime", "high_runtime": "6", "medium_runtime": "12", "low_runtime": "20", "battery": "10K · 74Wh", "weight": "12.8 oz", "recharge": "3 h with a 35W USB-C charger (not included)", "price": "$179.99" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
