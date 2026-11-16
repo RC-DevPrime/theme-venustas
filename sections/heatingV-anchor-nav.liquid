@@ -81,119 +81,15 @@
     transform: scaleX(1);
   }
 
-  #shopify-section-{{ section.id }} .heating-anchor-nav__mobile {
-    display: none;
-  }
-
   @media only screen and (min-width: 768px) and (max-width: 1279px) {
     #shopify-section-{{ section.id }} {
       top: 96px;
     }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__bar {
-      /* width: min(100%, 900px); */
-    }
-   
   }
 
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} {
-      position: static;
-      top: auto;
-      z-index: auto;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav {
-      height: 0;
-      background: transparent;
-      border-width: 0;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__sticky-wrap {
-      display: none;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile {
-      display: block;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__toggle {
-      position: fixed;
-      left: 20px;
-      bottom: 54px;
-      z-index: 80;
-      width: 56px;
-      height: 56px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 0;
-      border-radius: 50%;
-      background: #fff;
-      color: var(--color-brand, #B93205);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
-      cursor: pointer;
-      transition: transform 180ms ease;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__toggle svg {
-      width: 24px;
-      height: 24px;
-      display: block;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile.is-open .heating-anchor-nav__toggle {
-      transform: rotate(180deg);
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__panel {
-      position: fixed;
-      left: 20px;
-      bottom: 88px;
-      z-index: 79;
-      width: min(calc(100vw - 40px), 360px);
-      overflow: hidden;
-      border-radius: 6px;
-      background: #fff;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-      opacity: 0;
-      pointer-events: none;
-      transform: translate3d(0, 16px, 0);
-      transition: opacity 180ms ease, transform 180ms ease;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile.is-open .heating-anchor-nav__panel {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translate3d(0, 0, 0);
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile-list {
-      display: grid;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile-link {
-      display: block;
-      padding: 18px 20px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      color: {{ section.settings.text_color }};
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 1.2;
-      text-decoration: none;
-      letter-spacing: 0;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile-list li:last-child .heating-anchor-nav__mobile-link {
-      border-bottom: 0;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile-link.is-active {
-      color: var(--color-brand, #B93205);
-      font-weight: 700;
+      top: var(--headerHeight, 77px);
     }
   }
 {% endstyle %}
@@ -219,38 +115,6 @@
     </nav>
   </div>
 
-  <div class="heating-anchor-nav__mobile">
-    <div class="heating-anchor-nav__panel" id="heating-anchor-nav-panel-{{ section.id }}">
-      <ul class="heating-anchor-nav__mobile-list">
-        {%- for block in section.blocks -%}
-          {%- assign target_id = block.settings.target_id | strip | remove_first: '#' -%}
-          {%- if block.settings.label != blank and target_id != blank -%}
-            <li>
-              <a
-                class="heating-anchor-nav__mobile-link{% if forloop.first %} is-active{% endif %}"
-                href="#{{ target_id }}"
-                data-anchor-target="{{ target_id }}"
-              >
-                {{ block.settings.label }}
-              </a>
-            </li>
-          {%- endif -%}
-        {%- endfor -%}
-      </ul>
-    </div>
-
-    <button
-      class="heating-anchor-nav__toggle"
-      type="button"
-      aria-label="{{ section.settings.mobile_button_label | escape }}"
-      aria-controls="heating-anchor-nav-panel-{{ section.id }}"
-      aria-expanded="false"
-    >
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-  </div>
 </section>
 
 <script>
@@ -263,19 +127,7 @@
     var SCROLL_GAP = 16;
     // Only used if the header/nav can't be measured.
     var FALLBACK_OFFSET = 159;
-    var desktopLinks = Array.prototype.slice.call(root.querySelectorAll('.heating-anchor-nav__link'));
-    var mobileRoot = root.querySelector('.heating-anchor-nav__mobile');
-    var mobileLinks = Array.prototype.slice.call(root.querySelectorAll('.heating-anchor-nav__mobile-link'));
-    var toggle = root.querySelector('.heating-anchor-nav__toggle');
-    var links = desktopLinks.concat(mobileLinks);
-
-    // A target section sits below two stacked pieces of chrome: the site header
-    // (announcement bar included) and this sticky nav. Both are measured live —
-    // hardcoded heights only need to be a few pixels short for the section
-    // heading to end up hidden behind the nav.
-    function isDesktopLayout() {
-      return window.matchMedia('(min-width: 768px)').matches;
-    }
+    var links = Array.prototype.slice.call(root.querySelectorAll('.heating-anchor-nav__link'));
 
     function measureHeight(element) {
       return element ? element.getBoundingClientRect().height : 0;
@@ -288,15 +140,11 @@
       var headerHeight = measureHeight(headerEl);
       var occluded = headerHeight;
 
-      if (isDesktopLayout()) {
-        var navHeight = measureHeight(navSection);
-        if (navHeight) {
-          // The nav sticks under the header, but if the header renders taller
-          // than the nav's sticky top the nav's own bottom is what hides the
-          // content, so take whichever reaches lowest.
-          var pinnedTop = parseFloat(window.getComputedStyle(navSection).top) || 0;
-          occluded = Math.max(headerHeight, pinnedTop) + navHeight;
-        }
+      var navHeight = measureHeight(navSection);
+      if (navHeight) {
+        // Include the pinned navigation on both desktop and mobile.
+        var pinnedTop = parseFloat(window.getComputedStyle(navSection).top) || 0;
+        occluded = Math.max(headerHeight, pinnedTop) + navHeight;
       }
 
       return (occluded || FALLBACK_OFFSET) + SCROLL_GAP;
@@ -307,26 +155,13 @@
         link.classList.toggle('is-active', link.getAttribute('data-anchor-target') === targetId);
       });
 
-      var activeDesktop = desktopLinks.find(function(link) {
+      var activeLink = links.find(function(link) {
         return link.getAttribute('data-anchor-target') === targetId;
       });
 
-      if (activeDesktop) {
-        activeDesktop.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      if (activeLink) {
+        activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
-    }
-
-    function closeMobilePanel() {
-      if (!mobileRoot || !toggle) return;
-      mobileRoot.classList.remove('is-open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
-
-    if (toggle && mobileRoot) {
-      toggle.addEventListener('click', function() {
-        var isOpen = mobileRoot.classList.toggle('is-open');
-        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      });
     }
 
     links.forEach(function(link) {
@@ -342,7 +177,6 @@
         var top = target.getBoundingClientRect().top + window.pageYOffset - scrollOffset;
         window.scrollTo({ top: top, behavior: 'smooth' });
         setActive(targetId);
-        closeMobilePanel();
       });
     });
 
@@ -382,11 +216,7 @@
 
     window.addEventListener('resize', syncTargetOffsets);
 
-    document.addEventListener('click', function(event) {
-      if (!mobileRoot || !mobileRoot.classList.contains('is-open')) return;
-      if (root.contains(event.target)) return;
-      closeMobilePanel();
-    });
+
     }
 
     if (document.readyState === 'loading') {
@@ -426,12 +256,6 @@
       "id": "aria_label",
       "label": "Navigation aria label",
       "default": "Page navigation"
-    },
-    {
-      "type": "text",
-      "id": "mobile_button_label",
-      "label": "Mobile button label",
-      "default": "Open page navigation"
     }
   ],
   "blocks": [
