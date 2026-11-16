@@ -1,0 +1,346 @@
+{%- liquid
+  assign desktop_image = section.settings.desktop_image
+  assign mobile_image = section.settings.mobile_image | default: desktop_image
+  assign desktop_alt = desktop_image.alt | default: ''
+  assign mobile_alt = mobile_image.alt | default: ''
+  assign stat_values = '3M+|2M+|24/7|1000+' | split: '|'
+  assign stat_labels = 'Products Sold|Customers Trust Us|Dedicated Support|Media Outlet Choices' | split: '|'
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .giftG-faq {
+    position: relative;
+    padding: 80px 20px;
+    overflow: hidden;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__bg img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__bg--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(ellipse 92% 128% at 50% 100%, rgba(157, 92, 47, 0) 33.5%, rgba(109, 61, 35, 0.5) 63%, rgba(61, 29, 22, 1) 92.7%);
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 270px;
+    width: min(100%, 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__heading {
+    margin: 0 0 132px;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__stat + .giftG-faq__stat {
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__stat-value {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__stat-label {
+    margin: 10px 0 0;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__card {
+    padding: 64px 40px 80px;
+    background: linear-gradient(to top, #981d1a, #b93205);
+    border-radius: 22px;
+    box-shadow: 0 18px 20px rgba(51, 5, 0, 0.25);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 32px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.68;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__icon {
+    position: relative;
+    flex: 0 0 auto;
+    width: 14px;
+    height: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__icon::before,
+  #shopify-section-{{ section.id }} .giftG-faq__icon::after {
+    content: '';
+    position: absolute;
+    background: currentColor;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__icon::before {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    transform: translateY(-50%);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__icon::after {
+    top: 0;
+    left: 50%;
+    width: 1.5px;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__item[open] .giftG-faq__icon::after {
+    transform: translateX(-50%) scaleY(0);
+    opacity: 0;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__answer {
+    padding: 0 0 22px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__answer > :first-child {
+    margin-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-faq__answer > :last-child {
+    margin-bottom: 0;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .giftG-faq {
+      padding: 40px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__bg--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__bg--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__inner {
+      gap: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__heading {
+      margin-bottom: 32px;
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__stat:nth-child(2n + 1) {
+      border-left: 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__stat-value {
+      font-size: 28px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__stat-label {
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__card {
+      padding: 24px 20px;
+      border-radius: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__eyebrow {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__list {
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: 16px;
+      border-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__question {
+      padding: 16px 0;
+      font-size: 16px;
+      line-height: 21px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__answer {
+      padding-bottom: 16px;
+      font-size: 15px;
+    }
+  }
+{% endstyle %}
+
+<section class="giftG-faq">
+  {%- if desktop_image != blank -%}
+    <div class="giftG-faq__bg giftG-faq__bg--desktop" aria-hidden="true">
+      {{ desktop_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '960, 1340, 1600, 1920, 2400', sizes: '100vw', alt: desktop_alt }}
+    </div>
+  {%- endif -%}
+  {%- if mobile_image != blank -%}
+    <div class="giftG-faq__bg giftG-faq__bg--mobile" aria-hidden="true">
+      {{ mobile_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '390, 600, 750, 900', sizes: '100vw', alt: mobile_alt }}
+    </div>
+  {%- endif -%}
+  <div class="giftG-faq__overlay" aria-hidden="true"></div>
+
+  <div class="giftG-faq__inner">
+    <div class="giftG-faq__intro">
+      <h2 class="giftG-faq__heading">Why Choose Us for This Gift Season</h2>
+
+      <ul class="giftG-faq__stats">
+        {%- for value in stat_values -%}
+          <li class="giftG-faq__stat">
+            <span class="giftG-faq__stat-value">{{ value }}</span>
+            <p class="giftG-faq__stat-label">{{ stat_labels[forloop.index0] }}</p>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="giftG-faq__card">
+      <p class="giftG-faq__eyebrow">FAQ</p>
+
+      <div class="giftG-faq__list">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.question != blank -%}
+            <details class="giftG-faq__item" {{ block.shopify_attributes }}>
+              <summary class="giftG-faq__question">
+                <span class="giftG-faq__question-text">{{ block.settings.question | escape }}</span>
+                <span class="giftG-faq__icon" aria-hidden="true"></span>
+              </summary>
+              {%- if block.settings.answer != blank -%}
+                <div class="giftG-faq__answer">{{ block.settings.answer }}</div>
+              {%- endif -%}
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gift Guide FAQ",
+  "tag": "section",
+  "class": "giftG-faq-section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "image_picker", "id": "desktop_image", "label": "Desktop background image" },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile background image" }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Guide FAQ",
+      "blocks": [
+        { "type": "question", "settings": { "question": "What special offers are available for Christmas?" } },
+        { "type": "question", "settings": { "question": "How long does shipping take?" } },
+        { "type": "question", "settings": { "question": "What is the return policy for promotional items?" } },
+        { "type": "question", "settings": { "question": "How do I register my product for warranty?" } },
+        { "type": "question", "settings": { "question": "Can I wear these on their own?" } },
+        { "type": "question", "settings": { "question": "When does it ship?" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

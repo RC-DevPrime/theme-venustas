@@ -1,0 +1,360 @@
+{%- liquid
+  assign desktop_image = section.settings.desktop_image
+  assign mobile_image = section.settings.mobile_image | default: desktop_image
+  assign desktop_alt = desktop_image.alt | default: ''
+  assign mobile_alt = mobile_image.alt | default: ''
+  assign ornament_image = section.settings.ornament_image
+  assign badge_icons = 'shield-check|battery-charging|truck|returns' | split: '|'
+  assign badge_titles = '3-Year Heating|1-Year Limited|Free shipping|Extended Holiday' | split: '|'
+  assign badge_texts = 'System Warranty|Warranty on Battery|in the U.S. &amp; CA|Returns Until Jan 15,2027' | split: '|'
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .giftG-hero {
+    background: #f9f2e8;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__stage {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #8b1a14 0%, #9b261f 100%);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__stage-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    width: min(calc(100% - 40px), 1340px);
+    min-height: 760px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(566px, 100%);
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__ornament {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    display: flex;
+    gap: 32px;
+    margin-bottom: 12px;
+    transform: translateX(-50%);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__ornament img {
+    display: block;
+    width: 53px;
+    height: 80px;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__ornament img + img {
+    transform: scaleX(-1);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__title {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(34px, 3.33vw, 64px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__subtitle {
+    margin: 24px 0 0;
+    color: #fff;
+    font-size: clamp(16px, 1.3vw, 25px);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__form {
+    display: flex;
+    align-self: flex-end;
+    gap: 12px;
+    width: 100%;
+    max-width: 463px;
+    margin-top: 80px;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__form-field {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    min-width: 0;
+    height: 56px;
+    padding: 0 24px;
+    background: #fffaf0;
+    border-radius: 6px;
+    color: #515151;
+    font-size: 18px;
+    line-height: 27px;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__form-button {
+    display: flex;
+    flex: 0 0 165px;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    background: #b93205;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__badges {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: min(calc(100% - 40px), 1340px);
+    min-height: 122px;
+    margin: -61px auto 0;
+    padding: 25px 42px;
+    list-style: none;
+    background: #fffaf0;
+    border-radius: 9px;
+    box-shadow: 0 10px 14px rgba(62, 0, 0, 0.1);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__badge {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 0 22px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__badge + .giftG-hero__badge {
+    border-left: 1px solid #ead9c9;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__badge-icon {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    color: #b52b0b;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__badge-icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__badge-body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    color: #b52b0b;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-hero__badge-title {
+    font-weight: 700;
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1279px) {
+    #shopify-section-{{ section.id }} .giftG-hero__badges {
+      padding: 20px 24px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__badge {
+      gap: 12px;
+      padding: 0 14px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__badge-body {
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .giftG-hero__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__image--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__stage-inner {
+      align-items: stretch;
+      width: 100%;
+      min-height: 500px;
+      padding: 38px 20px 18px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__content {
+      flex: 1;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__ornament {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__title {
+      font-size: 28px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__subtitle {
+      margin-top: 14px;
+      font-size: 15px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__form {
+      flex-direction: column;
+      align-self: stretch;
+      max-width: none;
+      margin-top: 24px;
+      gap: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__form-field,
+    #shopify-section-{{ section.id }} .giftG-hero__form-button {
+      flex: 0 0 auto;
+      height: 50px;
+      font-size: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__badges {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: calc(100% - 40px);
+      min-height: 0;
+      margin: 24px auto 32px;
+      padding: 8px 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__badge {
+      gap: 14px;
+      padding: 18px 16px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__badge:nth-child(2n + 1) {
+      border-left: 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__badge:nth-child(n + 3) {
+      border-top: 1px solid #ead9c9;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__badge-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-hero__badge-body {
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+{% endstyle %}
+
+<section class="giftG-hero">
+  <div class="giftG-hero__stage">
+    <div class="giftG-hero__media">
+      {%- if desktop_image != blank -%}
+        {{ desktop_image | image_url: width: 2400 | image_tag: class: 'giftG-hero__image giftG-hero__image--desktop', loading: 'eager', fetchpriority: 'high', widths: '960, 1340, 1600, 1920, 2400', sizes: '100vw', alt: desktop_alt }}
+      {%- endif -%}
+      {%- if mobile_image != blank -%}
+        {{ mobile_image | image_url: width: 900 | image_tag: class: 'giftG-hero__image giftG-hero__image--mobile', loading: 'eager', fetchpriority: 'high', widths: '390, 600, 750, 900', sizes: '100vw', alt: mobile_alt }}
+      {%- endif -%}
+    </div>
+
+    <div class="giftG-hero__stage-inner">
+      <div class="giftG-hero__content">
+        {%- if ornament_image != blank -%}
+          <div class="giftG-hero__ornament" aria-hidden="true">
+            {{ ornament_image | image_url: width: 160 | image_tag: loading: 'lazy', widths: '53, 106, 160', sizes: '53px', alt: '' }}
+            {{ ornament_image | image_url: width: 160 | image_tag: loading: 'lazy', widths: '53, 106, 160', sizes: '53px', alt: '' }}
+          </div>
+        {%- endif -%}
+
+        <div class="giftG-hero__text">
+          <h2 class="giftG-hero__title">Winter Gift Guide</h2>
+          <p class="giftG-hero__subtitle">Warm Gifts for the Ones You Love</p>
+        </div>
+
+        {%- comment -%} Klaviyo 邮件订阅表单占位，正式表单由 Klaviyo 嵌入替换 {%- endcomment -%}
+        <div class="giftG-hero__form" aria-hidden="true">
+          <span class="giftG-hero__form-field">Email</span>
+          <span class="giftG-hero__form-button">Get Notified</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="giftG-hero__badges">
+    {%- for badge_title in badge_titles -%}
+      <li class="giftG-hero__badge">
+        <span class="giftG-hero__badge-icon">{%- render 'heating-icons', icon: badge_icons[forloop.index0] -%}</span>
+        <span class="giftG-hero__badge-body">
+          <span class="giftG-hero__badge-title">{{ badge_title }}</span>
+          <span class="giftG-hero__badge-text">{{ badge_texts[forloop.index0] }}</span>
+        </span>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Gift Guide Hero",
+  "tag": "section",
+  "class": "giftG-hero-section",
+  "settings": [
+    { "type": "image_picker", "id": "desktop_image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" },
+    { "type": "image_picker", "id": "ornament_image", "label": "Desktop decoration (antler)" }
+  ],
+  "presets": [
+    { "name": "Gift Guide Hero" }
+  ]
+}
+{% endschema %}
