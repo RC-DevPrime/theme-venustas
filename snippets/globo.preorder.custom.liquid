@@ -50,17 +50,18 @@
 .main-product-form .d-flex:has(.gPreorderBtn,.gPreorderNAMessage){display:grid !important;grid-template-columns:minmax(130px,36%) 1fr;grid-template-areas:"top top" "qty btn" "bottom bottom";gap:0 !important;align-items:stretch}
 .main-product-form .d-flex:has(.gPreorderBtn,.gPreorderNAMessage) :is(.product-form,product-form,form.product-atc-form,.form-btn){display:contents !important}
 .main-product-form .gPreorderTopMessageParent{grid-area:top;height:auto}
-.main-product-form .gPreorderTopMessage{text-align:left !important;margin:14px 0 8px !important}
+.main-product-form .gPreorderTopMessage{color:#1a1a1a !important;font-size:14px !important;font-weight:600;line-height:1.4;text-align:left !important;padding:0 !important;margin:16px 0 10px !important}
 .main-product-form .d-flex:has(.gPreorderBtn,.gPreorderNAMessage) .quantity-container{grid-area:qty;height:52px;border:0 !important;background:transparent}
 .main-product-form .d-flex:has(.gPreorderBtn,.gPreorderNAMessage) .quantity-container quantity-input.quantity{display:flex !important;width:100% !important;align-items:stretch;height:52px;box-sizing:border-box;border:1px solid #b93205 !important;border-right:0 !important;border-radius:10px 0 0 10px !important;background:#fff}
 .main-product-form .d-flex:has(.gPreorderBtn,.gPreorderNAMessage) .quantity-container quantity-input.quantity :is(.less_qty,.add_qty){flex:1 1 0;width:auto !important;min-width:0;padding:0}
-.main-product-form .d-flex:has(.gPreorderBtn,.gPreorderNAMessage) .quantity-container quantity-input.quantity input.qty{flex:0 0 44px;width:44px !important;padding:0;text-align:center}
+.main-product-form ..d-flex:has(.gPreorderBtn,.gPreorderNAMessage) quantity-container quantity-input.quantity input.qty{flex:0 0 44px;width:44px !important;padding:0;text-align:center}
 .main-product-form .gPreorderBtn,.main-product-form .gPreorderNAMessage{grid-area:btn;height:52px;padding:7px 13px;justify-content:center;align-items:center;border-radius:0 10px 10px 0 !important}
 .main-product-form .gPreorderBtn{background:#b93205 !important;border:1px solid #b93205 !important;border-left:0 !important;color:#fff !important}
 .main-product-form .gPreorderBtn:hover{background:#161616 !important;border-color:#161616 !important}
 .main-product-form .gPreorderNAMessage{background:#e6e6e6 !important;border:1px solid #e6e6e6 !important;color:#666 !important;opacity:1 !important}
 .main-product-form .gPreorderBtn span,.main-product-form .gPreorderNAMessage span{font-size:16px;font-weight:600;line-height:1.5}
 .main-product-form .gPreorderNAMessage span{color:#666 !important}
-.main-product-form .gPreorderBottomMessage{grid-area:bottom;text-align:left !important;margin:8px 0 0 !important;height:auto}
-.main-product-form .gPreorderBottomMessage::before{content:"";display:inline-block;width:18px;height:18px;margin-right:8px;vertical-align:-4px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M8 12.5l2.7 2.7L16 9.5'/%3E%3C/svg%3E") no-repeat center/contain;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M8 12.5l2.7 2.7L16 9.5'/%3E%3C/svg%3E") no-repeat center/contain}
+.main-product-form .gPreorderBottomMessage{grid-area:bottom;background:none !important;color:#6b6b6b !important;font-size:14px !important;font-weight:500;line-height:1.4;text-align:left !important;padding:0 !important;margin:10px 0 0 !important;border-radius:0;height:auto}
+.main-product-form .gPreorderBottomMessage::before{content:"";display:inline-block;width:18px;height:18px;margin-right:8px;vertical-align:-4px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b93205' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M8 12.5l2.7 2.7L16 9.5'/%3E%3C/svg%3E") no-repeat center/contain}
+
 </style>
