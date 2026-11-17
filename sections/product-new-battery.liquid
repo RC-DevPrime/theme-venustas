@@ -4,12 +4,20 @@
     {%- liquid
       assign certificate_url = blank
       case index
+        when 1
+          assign certificate_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/productN-cert-icon-one.png?v=1794887858'
         when 2
           assign certificate_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/battery-cert-one.webp?v=1788163072'
-        when 4, 6
+        when 3
+          assign certificate_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/productN-cert-icon-two.png?v=1794887859'
+        when 4
           assign certificate_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/battery-cert-three.webp?v=1788163072'
+        when 5
+          assign certificate_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/productN-cert-icon-three.png?v=1794887858'
+        when 6  
+          assign certificate_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/battery-cert-two.webp?v=1788163072'        
         when 7
-          assign certificate_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/battery-cert-four.webp?v=1788163072'
+          assign certificate_url = 'https://cdn.shopify.com/s/files/1/0457/1099/9709/files/productN-cert-icon-four.png?v=1794887858'
       endcase
     -%}
     {%- if section.settings[setting_key] and certificate_url != blank -%}

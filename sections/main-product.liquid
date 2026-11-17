@@ -209,19 +209,7 @@ endif
                                                 {{ promotion_mf | metafield_tag }}
                                             {% else %}
                                                 <div class='promotion-text'>
-                                                    <span>
-                                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <g clip-path="url(#clip0_5804_2218)">
-                                                            <path d="M1.75 7.00001V2.33334H6.41667L12.25 8.16668L7.58333 12.8333L1.75 7.00001Z" stroke-width="1.16667" stroke="white"/>
-                                                            <path d="M5.25 4.95834C5.25 5.44159 4.85825 5.83334 4.375 5.83334C3.89175 5.83334 3.5 5.44159 3.5 4.95834C3.5 4.47509 3.89175 4.08334 4.375 4.08334C4.85825 4.08334 5.25 4.47509 5.25 4.95834Z" stroke-width="1.16667" stroke="white"/>
-                                                            </g>
-                                                            <defs>
-                                                            <clipPath id="clip0_5804_2218">
-                                                            <rect width="14" height="14" fill="white"/>
-                                                            </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    </span>
+                                                    <span class="promotion-text__icon">{% render 'heating-icons', icon: 'promotion-tag' %}</span>
                                                     {{ promotion_text }}
                                                     {% if promotion_discount_price != blank %}
                                                         <span data-promotion-discount-price> · {{ promotion_discount_price }}</span>

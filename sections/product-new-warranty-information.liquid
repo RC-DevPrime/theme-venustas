@@ -1,0 +1,179 @@
+{%- if section.blocks.size > 0 -%}
+  {% style %}
+    #shopify-section-{{ section.id }} .product-new-warranty-information {
+      background: #f6f6f6;
+      color: #1a1a1a;
+      font-family: var(--font-primary, 'Montserrat', sans-serif);
+    }
+
+    #shopify-section-{{ section.id }} .product-new-warranty-information__grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      width: min(100% - 40px, 1340px);
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-warranty-information__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      min-width: 0;
+      padding: 28px 12px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-warranty-information__item:nth-child(2),
+    #shopify-section-{{ section.id }} .product-new-warranty-information__item:nth-child(4) {
+      border-right: 1px solid #e5e7eb;
+      border-left: 1px solid #e5e7eb;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-warranty-information__icon {
+      display: flex;
+      flex: 0 0 28px;
+      width: 28px;
+      height: 28px;
+      color: #1a1a1a;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-warranty-information__icon svg {
+      display: block;
+      width: 28px;
+      height: 28px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-warranty-information__copy {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-warranty-information__title,
+    #shopify-section-{{ section.id }} .product-new-warranty-information__description {
+      margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-warranty-information__title {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-warranty-information__description {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.45;
+    }
+
+    @media only screen and (max-width: 767px) {
+      #shopify-section-{{ section.id }} .product-new-warranty-information {
+        padding: 40px 20px;
+      }
+
+      #shopify-section-{{ section.id }} .product-new-warranty-information__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+        gap: 12px;
+        border-radius: 0;
+        overflow: visible;
+      }
+
+      #shopify-section-{{ section.id }} .product-new-warranty-information__item {
+        min-height: 112px;
+        padding: 20px 16px;
+        border: 0;
+        border-radius: 12px;
+        background: #fff;
+      }
+
+      #shopify-section-{{ section.id }} .product-new-warranty-information__item[data-icon='customers'] {
+        order: 3;
+      }
+
+      #shopify-section-{{ section.id }} .product-new-warranty-information__item[data-icon='warranty'] {
+        order: 4;
+      }
+
+      #shopify-section-{{ section.id }} .product-new-warranty-information__item[data-icon='support'] {
+        order: 5;
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      #shopify-section-{{ section.id }} .product-new-warranty-information__title {
+        font-size: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .product-new-warranty-information__description {
+        font-size: 13px;
+      }
+    }
+  {% endstyle %}
+
+  <section class="product-new-warranty-information" aria-label="Warranty information">
+    <div class="product-new-warranty-information__grid">
+      {%- for block in section.blocks -%}
+        <article class="product-new-warranty-information__item" data-icon="{{ block.settings.icon | escape }}" {{ block.shopify_attributes }}>
+          <span class="product-new-warranty-information__icon" aria-hidden="true">
+            {%- render 'heating-icons', icon: block.settings.icon -%}
+          </span>
+          <div class="product-new-warranty-information__copy">
+            {%- if block.settings.title != blank -%}
+              <h2 class="product-new-warranty-information__title">{{ block.settings.title | escape }}</h2>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="product-new-warranty-information__description">{{ block.settings.description | escape | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "productN Warranty",
+  "tag": "section",
+  "class": "product-new-warranty-information-section",
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "free-shipping", "label": "Free shipping" },
+            { "value": "returns", "label": "Returns" },
+            { "value": "warranty", "label": "Warranty" },
+            { "value": "support", "label": "Support" },
+            { "value": "customers", "label": "Customers" }
+          ],
+          "default": "free-shipping"
+        },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "description", "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "productN Warranty",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon": "free-shipping", "title": "Free shipping", "description": "Every order to the U.S. and Canada" } },
+        { "type": "benefit", "settings": { "icon": "returns", "title": "30-day returns", "description": "Free return shipping in the U.S." } },
+        { "type": "benefit", "settings": { "icon": "warranty", "title": "3-year warranty", "description": "On heating elements · 1 year on batteries" } },
+        { "type": "benefit", "settings": { "icon": "support", "title": "Real people, real help", "description": "+1 (888) 836-6460 · Mon–Fri, 9 AM–6 PM ET" } },
+        { "type": "benefit", "settings": { "icon": "customers", "title": "[2M+] customers", "description": "Keeping people warm since 2018" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
