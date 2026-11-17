@@ -166,6 +166,16 @@
                                                     {% if is_at_max or item.variant.available == false %}disabled{% endif %}
                                                     style="margin-left: 5px;">+</button>
                                             </div>
+
+                                            {% comment %} GLOBO custom this {% endcomment %}
+                                            {%- for property in item.properties -%}
+                                            {%- assign first_char = property.first | slice: 0 -%}
+                                            {%- if first_char != '_' and property.last != blank -%}
+                                                <div class="cart-item-property" style="font-size:13px;color:#b93205;margin-top:4px">{{ property.first }}: {{ property.last }}</div>
+                                            {%- endif -%}
+                                            {%- endfor -%}
+                                             {% comment %} END GLOBO custom {% endcomment %}
+
                                         </div>
                                         <div class="d-flex justify-content-between">
                                             <div class="d-flex align-items-center justify-content-between">
