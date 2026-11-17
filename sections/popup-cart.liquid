@@ -167,7 +167,9 @@
                                                     style="margin-left: 5px;">+</button>
                                             </div>
 
-                                            {% comment %} GLOBO custom this {% endcomment %}
+                                        </div>
+                                        
+                                          {% comment %} GLOBO custom this {% endcomment %}
                                             {%- for property in item.properties -%}
                                             {%- assign first_char = property.first | slice: 0 -%}
                                             {%- if first_char != '_' and property.last != blank -%}
@@ -176,7 +178,7 @@
                                             {%- endfor -%}
                                              {% comment %} END GLOBO custom {% endcomment %}
 
-                                        </div>
+
                                         <div class="d-flex justify-content-between">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="product-price">
