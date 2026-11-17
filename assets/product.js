@@ -309,9 +309,20 @@ $(document).ready(function() {
                         sizeBtn = document.createElement('button');
                         sizeBtn.type = 'button';
                         sizeBtn.className = 'size-chart-button';
+                        sizeBtn.setAttribute('aria-label', 'Open Size Guide');
                         sizeBtn.innerHTML = `
-                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/size-chart-icon.png?v=1765009516" alt="size-chart-icon">
-                            <span class="pp-regular italic body-sm f-gray">Size Guide</span>
+                            <span class="size-chart-button__icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18.3334 5.83335L14.1667 1.66669L12.6042 3.22919L11.0417 4.79169L7.91675 7.91669L4.79175 11.0417L3.22925 12.6042L1.66675 14.1667L5.83341 18.3334L18.3334 5.83335Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12.6042 3.22919L3.22925 12.6042" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3.75 12.0833L5.41667 13.75" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M5.83325 10L8.33325 12.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M7.91675 7.91669L9.58341 9.58335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M10 5.83331L12.5 8.33331" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12.0833 3.75L13.7499 5.41667" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span>Size Guide</span>
                         `;
                     }
 

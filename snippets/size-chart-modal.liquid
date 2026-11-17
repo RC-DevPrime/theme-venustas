@@ -1,11 +1,42 @@
 
 
 {%- if matched_size_chart != blank -%}
-  
-  <div class='size-chart-button' style='display:none;'>
-    <img src='https://cdn.shopify.com/s/files/1/0457/1099/9709/files/size-chart-icon.png?v=1765009516' alt='size-chart-icon'>
-    <span class='pp-regular italic body-sm f-gray'>Size Guide</span>
-  </div>
+  {% style %}
+    .product .size-chart-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #1a1a1a;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: normal;
+      text-decoration: underline;
+    }
+
+    .product .size-chart-button__icon {
+      display: inline-flex;
+      flex: 0 0 20px;
+      width: 20px;
+      height: 20px;
+      color: #333;
+    }
+
+    .product .size-chart-button__icon svg {
+      display: block;
+    }
+  {% endstyle %}
+
+  <button class="size-chart-button" type="button" style="display:none;" aria-label="Open Size Guide">
+    <span class="size-chart-button__icon" aria-hidden="true">
+      {% render 'heating-icons', icon: 'size-guide' %}
+    </span>
+    <span>Size Guide</span>
+  </button>
 <div class="size-chart-modal popup-modal">
   <div class="popup-overlay"></div>
 
