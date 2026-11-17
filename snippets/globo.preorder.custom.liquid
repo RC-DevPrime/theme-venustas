@@ -20,7 +20,7 @@
     }
 
     function globoPreorderGetProperties(form, profile) {
-        var label = (profile.message && profile.message.preorderedItemlabel) || 'Pre-order';
+        var label = (profile.message && profile.message.preorderText) || 'Pre-order';
         console.log(profile.message);
         var properties = { Note: label.replace(/^\s*Note\s*:\s*/i, '') };
         var inputs = form.querySelectorAll('input[name^="properties["]');
