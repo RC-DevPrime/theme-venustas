@@ -4,6 +4,46 @@
     window.GloboPreorderParams.advancedSettings = window.GloboPreorderParams.advancedSettings || {};
     window.GloboPreorderParams.selectors.productForm = [ '.main-product-form form.product-atc-form' ]
     window.GloboPreorderParams.advancedSettings.reRenderForm = 300;
+
+
+    document.addEventListener('globo.preorder.show.preorder', e => {
+        const { form, profile } = e.detail;
+
+        if (!form || !profile) return;
+        {% comment %}
+        const oldInput = form.find('input[name="properties[Note]"]');
+        $('<input>', {
+            type: 'hidden',
+            name: 'properties[Note]',
+            value: profile.message?.preorderedItemlabel || "Pre-order item",
+            class: 'gPreorderProperty'
+        }).appendTo(form);
+        {% endcomment %}
+
+        const oldInput = form.querySelector('input[name="properties[Note]"]');
+        if (oldInput) oldInput.remove();
+
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'properties[Note]';
+        input.value = profile.message?.preorderedItemlabel || 'Pre-order item';
+        input.className = 'gPreorderProperty';
+        form.appendChild(input);
+    })
+
+    document.addEventListener("globo.preorder.show.addtocart", function(e){
+        const { form, profile } = e.detail;
+        setTimeout(function(){
+        if(form){
+            {% comment %} const inputHtml = form.find('input[name="properties[Note]"]'); {% endcomment %}
+            const inputHtml = form.querySelector('input[name="properties[Note]"]');
+            if(inputHtml){
+                inputHtml.remove();
+            }
+        }
+        }, 1000)
+    })
+
 </script>
 
 <style>
