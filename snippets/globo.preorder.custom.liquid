@@ -5,3 +5,17 @@
     window.GloboPreorderParams.selectors.productForm = [ '.main-product-form form.product-atc-form' ]
     window.GloboPreorderParams.advancedSettings.reRenderForm = 300;
 </script>
+
+<style>
+.main-product-form .d-flex:has(> .quantity-container){align-items:flex-start}
+.main-product-form .quantity-container{height:52px}
+.main-product-form .form-btn{display:flex !important;flex-direction:column}
+.main-product-form .gPreorderBtn{order:1;height:52px;padding:7px 13px;justify-content:center;align-items:center;background:#b93205 !important;border:0 !important;border-radius:10px !important;color:#fff !important}
+.main-product-form .gPreorderBtn:hover{background:#161616 !important;border:0 !important}
+.main-product-form .gPreorderBtn span,.main-product-form .gPreorderNAMessage span{font-size:16px;font-weight:600;line-height:1.5}
+.main-product-form .gPreorderNAMessage{height:52px;background:#e6e6e6 !important;border:0 !important;border-radius:10px !important;color:#666 !important;opacity:1 !important}
+.main-product-form .gPreorderNAMessage span{color:#666 !important}
+.main-product-form .gPreorderTopMessageParent{order:2;height:auto}
+.main-product-form .gPreorderTopMessage{color:#1a1a1a !important;font-size:14px !important;line-height:1.4;padding:10px 0 0;margin:0}
+.main-product-form .gPreorderBottomMessage{order:3;background:none !important;color:#5c5c5c !important;font-size:13px !important;text-align:left !important;line-height:1.4;padding:4px 0 0;height:auto;border-radius:0;margin:0}
+</style>
