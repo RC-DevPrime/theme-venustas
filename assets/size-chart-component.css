@@ -9,16 +9,25 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: #666;
+  color: #1a1a1a;
   cursor: pointer;
-  font: inherit;
-  font-style: italic;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration: underline;
 }
 
 .size-chart-component__button-icon {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
+  display: inline-flex;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  color: #333;
+}
+
+.size-chart-component__button-icon svg {
+  display: block;
 }
 
 .size-chart-component__modal .popup-content {

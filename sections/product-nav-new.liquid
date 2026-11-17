@@ -5,6 +5,33 @@
   assign selected_variant = product.selected_or_first_available_variant
   assign product_image = product.featured_image | default: product.images.first
   assign product_summary = product.metafields.custom.short_description.value | default: product.description | strip_html | strip | truncate: 92
+  assign promotion_mf = product.metafields.promo.cart_discount_text
+  assign promotion_text = promotion_mf.value | default: promotion_mf | strip_html | strip
+  assign promotion_prefix = promotion_text | slice: 0, 5
+  assign promotion_discount_type = blank
+  assign promotion_discount_value = 0
+  assign promotion_discount_price = blank
+  if promotion_text != blank and promotion_prefix == 'Extra'
+    assign promotion_extra_text = promotion_text | remove_first: 'Extra' | strip
+    if promotion_extra_text contains '%'
+      assign promotion_discount_value = promotion_extra_text | split: '%' | first | strip | plus: 0
+      assign promotion_discount_type = 'percent'
+    elsif promotion_extra_text contains '$'
+      assign promotion_discount_value = promotion_extra_text | remove_first: '$' | strip | split: ' ' | first | plus: 0 | times: 100 | round
+      assign promotion_discount_type = 'amount'
+    endif
+  endif
+  if promotion_discount_type == 'percent' and promotion_discount_value > 0 and promotion_discount_value < 100
+    assign promotion_discount_multiplier = 100 | minus: promotion_discount_value
+    assign promotion_discounted_price_cents = selected_variant.price | times: promotion_discount_multiplier | divided_by: 100
+    assign promotion_discount_price = promotion_discounted_price_cents | money | prepend: curSym
+  elsif promotion_discount_type == 'amount' and promotion_discount_value > 0
+    assign promotion_discounted_price_cents = selected_variant.price | minus: promotion_discount_value
+    if promotion_discounted_price_cents < 0
+      assign promotion_discounted_price_cents = 0
+    endif
+    assign promotion_discount_price = promotion_discounted_price_cents | money | prepend: curSym
+  endif
   assign selected_size = blank
   assign selected_color = blank
   for option in product.options_with_values
@@ -14,7 +41,6 @@
       assign selected_size = selected_variant.options[forloop.index0]
     endif
   endfor
-  assign savings = selected_variant.compare_at_price | minus: selected_variant.price
   assign nav_size_chart = blank
   paginate shop.metaobjects.size_chart.values by 250
     for chart in shop.metaobjects.size_chart.values
@@ -81,7 +107,7 @@
   #shopify-section-{{ section.id }} .product-nav-new__purchase-row { display: flex; align-items: stretch; gap: 8px; margin-top: 16px; }
   #shopify-section-{{ section.id }} .product-nav-new__purchase-row .product-form { flex: 1; min-width: 0; margin-top: 0; }
   #shopify-section-{{ section.id }} .product-nav-new__purchase-row .main-product-error { font-size: 12px; }
-  #shopify-section-{{ section.id }} .product-nav-new__price-compare[hidden], #shopify-section-{{ section.id }} .product-nav-new__panel-save[hidden] { display: none; }
+  #shopify-section-{{ section.id }} .product-nav-new__price-compare[hidden] { display: none; }
   #shopify-section-{{ section.id }} .product-nav-new__backdrop { display: none; }
   #shopify-section-{{ section.id }} .product-nav-new__size-guide { float: right; margin-left: 12px; font-size: 12px; font-weight: 400; font-style: normal; }
   #shopify-section-{{ section.id }} .product-nav-new > .size-chart-component .size-chart-component__modal { z-index: 3; }
@@ -139,12 +165,18 @@
     #shopify-section-{{ section.id }} .product-nav-new__purchase-row .main-product-error p { margin: 0; color: inherit; font-size: inherit; line-height: inherit; }
     #shopify-section-{{ section.id }} .product-nav-new.is-open > [data-purchase-error] { display: none; }
     #shopify-section-{{ section.id }} .product-nav-new__close { display: block; flex: 0 0 auto; margin: 0 20px 12px auto; padding: 0; border: 0; background: transparent; color: #515151; font-size: 26px; line-height: 1; cursor: pointer; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel-product { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel-title { margin: 0; font-size: 18px; line-height: 1.25; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel-summary { margin: 0; color: #515151; font-size: 12px; line-height: 1.35; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel-price { display: flex; align-items: baseline; gap: 10px; margin: 12px 0; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel-price .product-nav-new__price-current { font-size: 20px; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel-save { padding: 5px 12px; border-radius: 4px; background: #fff5f5; color: #b93205; font-size: 12px; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel-product { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel-product-image { width: 98px; height: 98px; flex: 0 0 98px; overflow: hidden; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel-product-image img { display: block; width: 100%; height: 150%; object-fit: cover; object-position: center top;}
+  #shopify-section-{{ section.id }} .product-nav-new__panel-product-copy { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 4px; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel-title { display: -webkit-box; margin: 0; overflow: hidden; color: #1a1a1a; font-size: 18px; font-weight: 600; line-height: normal; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel-price { display: flex; align-items: center; gap: 6px; margin: 0; line-height: normal; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel-price .product-nav-new__price-current { color: #b93205; font-size: 20px; font-weight: 700; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel-price .product-nav-new__price-compare { color: #999; font-size: 12px; font-weight: 500; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel-promotion { display: flex; align-items: center; gap: 6px; margin: 0; color: #1a1a1a; font-size: 12px; font-weight: 600; line-height: normal; white-space: nowrap; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel-promotion-icon { display: inline-flex; width: 14px; height: 14px; flex: 0 0 14px; color: #1a1a1a; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel-promotion-icon svg { display: block; width: 14px; height: 14px; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel-promotion[hidden] { display: none; }
     #shopify-section-{{ section.id }} .product-nav-new__panel .product-nav-new__submit { width: 100%; min-height: 48px; }
   }
 {% endstyle %}
@@ -176,8 +208,22 @@
   <div class="product-variant-selector product-nav-new__panel" id="ProductNavPanel-{{ section.id }}" role="dialog" aria-label="Product options" aria-hidden="true" tabindex="-1" data-product-panel>
     <button class="product-nav-new__close" type="button" data-mobile-close aria-label="Close">×</button>
     <div class="product-nav-new__panel-content">
-    <div class="product-nav-new__panel-product"><h2 class="product-nav-new__panel-title">{{ product.title | escape }}</h2><p class="product-nav-new__panel-summary">{{ product_summary | escape }}</p></div>
-    <div class="product-nav-new__panel-price"><span class="product-nav-new__price-current">{{ selected_variant.price | money | prepend: curSym }}</span><span class="product-nav-new__price-compare"{% unless selected_variant.compare_at_price > selected_variant.price %} hidden{% endunless %}>{{ selected_variant.compare_at_price | money | prepend: curSym }}</span><span class="product-nav-new__panel-save"{% unless selected_variant.compare_at_price > selected_variant.price %} hidden{% endunless %}>Save {{ savings | money }}</span></div>
+    <div class="product-nav-new__panel-product">
+      {%- if product_image != blank -%}
+        <div class="product-nav-new__panel-product-image">
+          {{ product_image | image_url: width: 196 | image_tag: loading: 'lazy', alt: product.title }}
+        </div>
+      {%- endif -%}
+      <div class="product-nav-new__panel-product-copy">
+        <h2 class="product-nav-new__panel-title">{{ product.title | escape }}</h2>
+        <div class="product-nav-new__panel-price"><span class="product-nav-new__price-current">{{ selected_variant.price | money | prepend: curSym }}</span><span class="product-nav-new__price-compare"{% unless selected_variant.compare_at_price > selected_variant.price %} hidden{% endunless %}>{{ selected_variant.compare_at_price | money | prepend: curSym }}</span></div>
+        <div class="product-nav-new__panel-promotion" data-nav-promotion{% if promotion_discount_price == blank %} hidden{% endif %}>
+          <span class="product-nav-new__panel-promotion-icon" aria-hidden="true">{% render 'heating-icons', icon: 'promotion-tag' %}</span>
+          <span data-nav-promotion-text>{{ promotion_text | escape }}</span>
+          <span data-nav-promotion-discount-price>{% if promotion_discount_price != blank %}· {{ promotion_discount_price }}{% endif %}</span>
+        </div>
+      </div>
+    </div>
     {% render 'nav-product-variant', product: product, product_form_id: product_form_id %}
     </div>
     <div class="product-nav-new__purchase-row">
@@ -193,7 +239,7 @@
   </div>
   {% render 'size-chart-component', product: product, matched_size_chart: nav_size_chart, id: nav_chart_id, button_class: 'product-nav-new__size-guide' %}
 <script type="application/json" data-nav-prices>
-  {"currency": {{ cart.currency.iso_code | default: shop.currency | json }}, "locale": {{ request.locale.iso_code | json }}}
+  {"currency": {{ cart.currency.iso_code | default: shop.currency | json }}, "locale": {{ request.locale.iso_code | json }}, "promotionType": {{ promotion_discount_type | json }}, "promotionValue": {{ promotion_discount_value | json }}, "promotionText": {{ promotion_text | json }}}
 </script>
 </section>
 <script src="{{ 'product-nav-new.js' | asset_url }}" defer="defer"></script>

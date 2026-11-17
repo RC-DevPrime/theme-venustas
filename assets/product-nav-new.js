@@ -22,6 +22,11 @@
     const moneyConfig = JSON.parse(root.querySelector('[data-nav-prices]')?.textContent || '{}');
     const moneyFormatter = new Intl.NumberFormat(moneyConfig.locale || 'en', { style: 'currency', currency: moneyConfig.currency || 'USD' });
     const formatTotal = (cents) => moneyFormatter.format(cents / 100);
+    const promotion = {
+      type: moneyConfig.promotionType || '',
+      value: Number(moneyConfig.promotionValue || 0),
+      text: moneyConfig.promotionText || ''
+    };
     const optionFieldsets = panel ? Array.from(panel.querySelectorAll('.nav-variants fieldset')) : [];
     const optionTriggers = Array.from(root.querySelectorAll('[data-open-panel]'));
     const classifyOption = (fieldset, index) => {
@@ -119,7 +124,17 @@
         const discounted = selectedVariant.compare_at_price > selectedVariant.price;
         root.querySelectorAll('.product-nav-new__price-current').forEach((element) => { element.textContent = formatTotal(selectedVariant.price * quantity); });
         root.querySelectorAll('.product-nav-new__price-compare').forEach((element) => { element.textContent = formatTotal((selectedVariant.compare_at_price || 0) * quantity); element.hidden = !discounted; });
-        root.querySelectorAll('.product-nav-new__panel-save').forEach((element) => { element.textContent = `Save ${formatTotal(Math.max(0, selectedVariant.compare_at_price - selectedVariant.price) * quantity)}`; element.hidden = !discounted; });
+        const promotionPrice = root.querySelector('[data-nav-promotion-discount-price]');
+        const promotionBox = root.querySelector('[data-nav-promotion]');
+        if (promotionPrice && promotionBox && promotion.type && promotion.value > 0) {
+          let promotionCents = selectedVariant.price;
+          if (promotion.type === 'percent') promotionCents = Math.round(selectedVariant.price * (100 - promotion.value) / 100);
+          if (promotion.type === 'amount') promotionCents = Math.max(0, selectedVariant.price - promotion.value);
+          promotionPrice.textContent = `· ${formatTotal(promotionCents * quantity)}`;
+          promotionBox.hidden = false;
+        } else if (promotionBox) {
+          promotionBox.hidden = true;
+        }
       }
       availabilityButtons.forEach((button) => {
         const busy = root.querySelector('#header-nav-product-form')?.getAttribute('aria-busy') === 'true';
