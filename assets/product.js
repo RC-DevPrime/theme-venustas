@@ -146,6 +146,39 @@ $(document).ready(function() {
             }
         });
 
+        // Thumbnails: scroll the strip with the mouse wheel while hovering (desktop only).
+        (function initThumbnailWheelScroll() {
+            const thumbEl = document.querySelector('.thumbnail-slider.desktop');
+            if (!thumbEl || !sliderThumbs) return;
+            if (typeof window.matchMedia === 'function' &&
+                !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+            const MAX_STEP = 160;
+            const LINE_HEIGHT = 16;
+            const clamp = (value) => Math.min(
+                Math.max(value, sliderThumbs.maxTranslate()),
+                sliderThumbs.minTranslate()
+            );
+
+            thumbEl.addEventListener('wheel', (event) => {
+                if (event.ctrlKey || sliderThumbs.params.direction !== 'vertical') return;
+
+                const unit = event.deltaMode === 1 ? LINE_HEIGHT : event.deltaMode === 2 ? thumbEl.clientHeight : 1;
+                const delta = Math.max(-MAX_STEP, Math.min(MAX_STEP, event.deltaY * unit));
+                if (!delta) return;
+
+                const current = sliderThumbs.translate;
+                const next = clamp(current - delta);
+                // At the first or last thumbnail, let the page scroll normally.
+                if (Math.abs(next - current) < 0.5) return;
+
+                event.preventDefault();
+                sliderThumbs.setTransition(0);
+                sliderThumbs.setTranslate(next);
+                sliderThumbs.updateProgress();
+            }, { passive: false });
+        })();
+
         
         gallerySlider = new Swiper(".gallery-slider", {
             direction: 'horizontal',
@@ -2813,7 +2846,6 @@ if ($('.product-image-location-section').length) {
     }
     document.addEventListener('shopify:section:load', initializeAvailabilityDisplays);
 })();
-
 
     document.querySelectorAll('.product-image-location-section .variant-option-block').forEach(block => {
       const mainList = block.querySelector('ul.variant-colors:not(.variant-colors-dropdown)');

@@ -603,7 +603,7 @@ body.product-media-lightbox-open {
     margin-right: 5px;
 }
 .product .variants .variant .variants-selector.default {
-    border-radius: 0px;
+    border-radius: 6px;
     padding: 6px 14px;
     text-align: center;
     background: transparent;
@@ -675,19 +675,22 @@ body.product-media-lightbox-open {
 /* PRODUCT MEDIA ---------------------------------------- */
 .product .product-media-tab{
     display:flex;
-    align-items: center;
-    justify-content: center;
-    gap:1rem;
-    padding-bottom:2px;
+    align-items:center;
+    width:fit-content;
+    margin-left:auto;
+    margin-right:auto;
+    padding:2px;
+    border-radius:38px;
+    background:#f5f5f5;
 }
 .product .product-media-tab .media-tab-btn{
-    border: 1px solid #B8B8B8;
-    border-radius:50px;
-    padding:6px 1.7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:36px;
+    padding:0 16px;
+    border-radius:49px;
     cursor:pointer;
 }
 .product .product-media-tab .media-tab-btn svg{
@@ -697,18 +700,22 @@ body.product-media-lightbox-open {
 .product .product-media-tab .media-tab-btn svg path{
     fill:#B8B8B8;
 }
-.product .product-media-tab .media-tab-btn span{
-    color:#B8B8B8;
-}
 .product .product-media-tab .media-tab-btn.active{
-    border-color:#000;
-    background-color:#000;
+    border-radius:29px;
+    background-color:#fff;
 }
 .product .product-media-tab .media-tab-btn.active svg path{
-    fill:#FFF;
+    fill:#1A1A1A;
 }
-.product .product-media-tab .media-tab-btn.active span{
-    color:#FFF;
+.product .product-media-tab .media-tab-btn span{
+    position:absolute;
+    width:1px;
+    height:1px;
+    margin:-1px;
+    padding:0;
+    overflow:hidden;
+    clip-path:inset(50%);
+    white-space:nowrap;
 }
 
 /* PRODUCT VARIANTS ---------------------------------------- */
@@ -1001,6 +1008,7 @@ body.product-media-lightbox-open {
 .product .highlights-accordion .accordion-content ul{
     padding-top:12px;
     padding-left: 1.2rem;
+    font-weight: 500;
 }
 
 .product .highlights-accordion .accordion-content ul li{
@@ -1229,9 +1237,6 @@ body.product-media-lightbox-open {
 }
 
 /* PRODUCT SUPPORT -------------------------------------------- */
-.product .support-product-container{
-    margin-top:15px;
-}
 .product .support-product-container .support-product-list{
     display:grid;
     grid-template-columns:repeat(2, minmax(0, 1fr));
@@ -1909,13 +1914,6 @@ body.product-media-lightbox-open {
         font-size:12px;
         padding:4px 12px;
         border-radius:4px;
-    }
-    .product div.variants{
-        background: #F9F9F9;
-        padding:25px 12px 15px;
-    }
-    .product .product-details div.variants{
-        padding:5px 10px 5px;
     }
     .product .variants fieldset:last-child{
         margin-bottom: 0;
