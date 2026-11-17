@@ -160,12 +160,7 @@ endif
                         {%- when 'title' %}
                             <div class="product-details product-main-title" {{ block.shopify_attributes }}>
                                 <h1 class="product-title ">
-                                    <span class="d-lg-block d-md-block d-sm-none title-sm">
-                                        {{ product.title }}
-                                    </span>
-                                    <span class="d-lg-none d-md-none d-sm-block pretitle-xl">
-                                        {{ product.title }}
-                                    </span>
+                                    {{ product.title }}
                                 </h1>
                             </div>
                         {%- when 'review' %}
@@ -213,7 +208,25 @@ endif
                                             {% if promotion_mf.type contains 'rich_text' and promotion_is_extra == false %}
                                                 {{ promotion_mf | metafield_tag }}
                                             {% else %}
-                                                {{ promotion_text }}{% if promotion_discount_price != blank %} <span data-promotion-discount-price>{{ promotion_discount_price }}</span>{% endif %}
+                                                <div class='promotion-text'>
+                                                    <span>
+                                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g clip-path="url(#clip0_5804_2218)">
+                                                            <path d="M1.75 7.00001V2.33334H6.41667L12.25 8.16668L7.58333 12.8333L1.75 7.00001Z" stroke-width="1.16667" stroke="white"/>
+                                                            <path d="M5.25 4.95834C5.25 5.44159 4.85825 5.83334 4.375 5.83334C3.89175 5.83334 3.5 5.44159 3.5 4.95834C3.5 4.47509 3.89175 4.08334 4.375 4.08334C4.85825 4.08334 5.25 4.47509 5.25 4.95834Z" stroke-width="1.16667" stroke="white"/>
+                                                            </g>
+                                                            <defs>
+                                                            <clipPath id="clip0_5804_2218">
+                                                            <rect width="14" height="14" fill="white"/>
+                                                            </clipPath>
+                                                            </defs>
+                                                        </svg>
+                                                    </span>
+                                                    {{ promotion_text }}
+                                                    {% if promotion_discount_price != blank %}
+                                                        <span data-promotion-discount-price> · {{ promotion_discount_price }}</span>
+                                                    {% endif %}
+                                                </div>
                                             {% endif %}
                                         </div>
                                     {% endif %}
@@ -224,15 +237,10 @@ endif
                             <div class="product-details">
                                 <div class="shop-pay-container pb-2">
                                     {% assign quarter_price = product.selected_or_first_available_variant.price | times: 0.25 %}
-                                    <p class="pp-semibold f-black body-xl d-lg-block d-md-block d-sm-none">
+                                    <p class="pay-in-installments">
                                         Pay in 4 interest-free installments of <span class="pp-bold">{{ quarter_price | money | prepend: curSym }}</span> with 
                                         <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/45661_2x_7a6071bd-7096-4132-b066-66e804ca4273.png?v=1761060214" class="shop-pay-icon" alt="shop-pay-icon">
-                                        <a href="" class="pp-semibold body-xs text-underline">Learn More</a>
-                                    </p>
-                                    <p class="pp-semibold f-black body-sm d-lg-none d-md-none d-sm-block">
-                                        Pay in 4 interest-free installments of <span class="pp-bold">{{ quarter_price | money | prepend: curSym }}</span> with 
-                                        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/45661_2x_7a6071bd-7096-4132-b066-66e804ca4273.png?v=1761060214" class="shop-pay-icon" alt="shop-pay-icon">
-                                        <a href="" class="pp-semibold body-sm text-underline">Learn More</a>
+                                        <a href="" class="text-underline learn-more-link">Learn More</a>
                                     </p>
                                 </div>
                             </div>
@@ -311,17 +319,24 @@ endif
                                             </svg>
                                             <span>Availability</span>
                                         </div>
-                                        <div class="availability-country-tabs" role="tablist" aria-label="Select shipping country">
-                                            <button id="AvailabilityTab-US-{{ section.id }}" type="button" role="tab" data-availability-country="US" aria-controls="AvailabilityPanel-{{ section.id }}" aria-selected="true">United States</button>
-                                            <button id="AvailabilityTab-CA-{{ section.id }}" type="button" role="tab" data-availability-country="CA" aria-controls="AvailabilityPanel-{{ section.id }}" aria-selected="false">Canada</button>
-                                        </div>
                                     </div>
-                                    <div id="AvailabilityPanel-{{ section.id }}" class="availability-display" data-availability-display data-status="in_stock" role="tabpanel" aria-labelledby="AvailabilityTab-US-{{ section.id }}" aria-live="polite" aria-busy="true">
-                                        <div class="availability-status-row">
-                                            <span class="availability-status-dot" aria-hidden="true"></span>
-                                            <div class="availability-status-copy">
-                                                <p class="availability-status">In stock · U.S. warehouse</p>
-                                                <p class="availability-note">Ships to U.S. addresses only</p>
+                                    <div class="availability-displays" data-availability-displays>
+                                        <div class="availability-display" data-availability-display data-availability-country="US" data-status="in_stock" aria-live="polite" aria-busy="true">
+                                            <div class="availability-status-row">
+                                                <span class="availability-status-dot" aria-hidden="true"></span>
+                                                <div class="availability-status-copy">
+                                                    <p class="availability-status">In stock · U.S. warehouse</p>
+                                                    <p class="availability-note">Ships to U.S. addresses only</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="availability-display" data-availability-display data-availability-country="CA" data-status="in_stock" aria-live="polite" aria-busy="true">
+                                            <div class="availability-status-row">
+                                                <span class="availability-status-dot" aria-hidden="true"></span>
+                                                <div class="availability-status-copy">
+                                                    <p class="availability-status">In stock · Canada warehouse</p>
+                                                    <p class="availability-note">Ships to Canadian addresses only</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
