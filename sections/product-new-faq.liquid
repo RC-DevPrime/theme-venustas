@@ -1,0 +1,196 @@
+{% liquid
+  assign product_faq = product.metafields.custom.product_series_faq.value
+  if product_faq == blank
+    assign product_faq = product.metafields.custom.product_series_faq
+  endif
+
+  assign faq_content = product_faq.faq_content.value | default: product_faq.faq_content
+  assign faq_entries = faq_content | split: 'Q:'
+%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-new-faq {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    color: var(--venustas-black, #14161a);
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+    padding: 100px 0;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__eyebrow {
+    margin: 0 0 40px;
+    color: var(--color-brand, #b93205);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.68;
+    letter-spacing: 1.21px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 654px));
+    gap: 0 32px;
+    border-top: 1px solid #e3e4e0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__item {
+    border-bottom: 1px solid #e3e4e0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__summary {
+    display: flex;
+    min-height: 70px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 0;
+    color: #14161a;
+    cursor: pointer;
+    list-style: none;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__question {
+    min-width: 0;
+    margin: 0;
+    color: #14161a;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.68;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__icon {
+    flex: 0 0 auto;
+    color: var(--color-brand, #b93205);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__icon::before {
+    content: '+';
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__item[open] .product-new-faq__icon::before {
+    content: '−';
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__answer {
+    padding: 0 0 28px;
+    color: #565b63;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.62;
+    white-space: normal;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__answer p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-faq__answer p + p {
+    margin-top: 12px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-new-faq__inner {
+      width: 100%;
+      padding: 56px 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-faq__eyebrow {
+      margin-bottom: 32px;
+      font-size: 11px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-faq__grid {
+      display: flex;
+      flex-direction: column;
+      border-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-faq__summary {
+      min-height: 54px;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-faq__question {
+      overflow: hidden;
+      font-size: 14px;
+      line-height: 1.2;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-faq__answer {
+      padding-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+{% endstyle %}
+
+{% if faq_content != blank and faq_entries.size > 1 %}
+  <section class="product-new-faq" id="product-new-faq-{{ section.id }}">
+    <div class="product-new-faq__inner">
+      {% if section.settings.eyebrow != blank %}
+        <p class="product-new-faq__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      <div class="product-new-faq__grid">
+        {% for entry in faq_entries offset: 1 %}
+          {% assign faq_parts = entry | split: 'A:' %}
+          {% assign question = faq_parts[0] | strip %}
+          {% assign answer = faq_parts[1] | default: '' | strip %}
+
+          {% if question != blank and answer != blank %}
+            <details class="product-new-faq__item">
+              <summary class="product-new-faq__summary">
+                <span class="product-new-faq__question">{{ question | escape }}</span>
+                <span class="product-new-faq__icon" aria-hidden="true"></span>
+              </summary>
+              <div class="product-new-faq__answer">{{ answer | newline_to_br }}</div>
+            </details>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "productN FAQ",
+  "class": "product-new-faq-section",
+  "templates": ["product"],
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "FAQ label",
+      "default": "FAQ"
+    }
+  ],
+  "presets": [
+    {
+      "name": "productN FAQ"
+    }
+  ]
+}
+{% endschema %}
