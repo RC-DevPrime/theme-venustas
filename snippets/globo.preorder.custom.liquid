@@ -6,43 +6,58 @@
     window.GloboPreorderParams.advancedSettings.reRenderForm = 300;
 
 
-    document.addEventListener('globo.preorder.show.preorder', e => {
-        const { form, profile } = e.detail;
 
-        if (!form || !profile) return;
-        {% comment %}
-        const oldInput = form.find('input[name="properties[Note]"]');
-        $('<input>', {
-            type: 'hidden',
-            name: 'properties[Note]',
-            value: profile.message?.preorderedItemlabel || "Pre-order item",
-            class: 'gPreorderProperty'
-        }).appendTo(form);
-        {% endcomment %}
+    var globoPreorderCurrent = null;
+    var globoPreorderNativeFetch = window.fetch;
 
-        const oldInput = form.querySelector('input[name="properties[Note]"]');
-        if (oldInput) oldInput.remove();
+    function globoPreorderSetCurrent(e) {
+        var detail = e.detail || {};
+        globoPreorderCurrent = detail.form && detail.profile ? { form: detail.form, profile: detail.profile } : null;
+    }
 
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'properties[Note]';
-        input.value = profile.message?.preorderedItemlabel || 'Pre-order item';
-        input.className = 'gPreorderProperty';
-        form.appendChild(input);
-    })
+    function globoPreorderClearCurrent() {
+        globoPreorderCurrent = null;
+    }
 
-    document.addEventListener("globo.preorder.show.addtocart", function(e){
-        const { form, profile } = e.detail;
-        setTimeout(function(){
-        if(form){
-            {% comment %} const inputHtml = form.find('input[name="properties[Note]"]'); {% endcomment %}
-            const inputHtml = form.querySelector('input[name="properties[Note]"]');
-            if(inputHtml){
-                inputHtml.remove();
-            }
+    function globoPreorderGetProperties(form, profile) {
+        var label = (profile.message && profile.message.preorderedItemlabel) || 'Pre-order item';
+        var properties = { Note: label.replace(/^\s*Note\s*:\s*/i, '') };
+        var inputs = form.querySelectorAll('input[name^="properties["]');
+        for (var i = 0; i < inputs.length; i++) {
+            var key = inputs[i].name.slice(11, -1);
+            if (key.charAt(0) === '_' && inputs[i].value) properties[key] = inputs[i].value;
         }
-        }, 1000)
-    })
+        return properties;
+    }
+
+    function globoPreorderFetch(input, init) {
+        try {
+            var url = typeof input === 'string' ? input : (input && input.url) || '';
+            if (globoPreorderCurrent && url.indexOf('/cart/add') > -1 && init && typeof init.body === 'string') {
+                var form = globoPreorderCurrent.form;
+                var idInput = form.querySelector('input[name="id"]');
+                var planInput = form.querySelector('input[name="selling_plan"]:checked') || form.querySelector('input[name="selling_plan"]');
+                var data = JSON.parse(init.body);
+                if (idInput && data && Array.isArray(data.items)) {
+                    var properties = globoPreorderGetProperties(form, globoPreorderCurrent.profile);
+                    data.items.forEach(function (item) {
+                        if (String(item.id) !== String(idInput.value)) return;
+                        if (planInput && !item.selling_plan) item.selling_plan = Number(planInput.value);
+                        item.properties = Object.assign({}, item.properties, properties);
+                    });
+                    init = Object.assign({}, init, { body: JSON.stringify(data) });
+                }
+            }
+        } catch (error) {
+            console.log('[preorder] add to cart error', error);
+        }
+        return globoPreorderNativeFetch.call(this, input, init);
+    }
+
+    document.addEventListener('globo.preorder.show.preorder', globoPreorderSetCurrent);
+    document.addEventListener('globo.preorder.show.addtocart', globoPreorderClearCurrent);
+    window.fetch = globoPreorderFetch;
+
 
 </script>
 
