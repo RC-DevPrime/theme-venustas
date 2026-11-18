@@ -1139,7 +1139,7 @@ a.f-white:hover{
     width: 100%;
     background: #fff;
     box-shadow: 0px 3px 6px 1px rgba(0,0,0,0.1);
-    z-index: 89999;
+    z-index: 100000;
     height: var(--headerHeight);
     transition: box-shadow .2s ease;
 }
@@ -1691,7 +1691,7 @@ a.f-white:hover{
     height: 100vh !important;
     width: 100%;
     transition: opacity .5s ease;
-    z-index: 99999;
+    z-index: 100001;
     visibility:hidden;
 }
 .nav-mobile .main-nav-content{
@@ -1702,6 +1702,12 @@ a.f-white:hover{
     background: #fff;
     transition: all .5s ease 0.2s;
     max-width:600px;
+}
+.nav-mobile .main-nav-content .inner-nav-content{
+    max-height:100%;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
 }
 
 .nav-mobile .main-nav-content .btn-mav-close{
