@@ -1044,7 +1044,7 @@ class VariantSelects extends HTMLElement {
         const addButtonText = button.querySelector('[name="add"] > span') || button.querySelector('.btn-atc > span');
         const price = document.getElementById(`price-${this.dataset.section}`);
         if (!addButton) return;
-        addButtonText.textContent = 'Unavailable';
+        addButtonText.textContent = 'Please select an option';
         if (price) price.classList.add('visibility-hidden');
     }
 

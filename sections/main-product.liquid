@@ -2,6 +2,15 @@
 
 {% assign product_form_id = 'product-form-' | append: product.id %}
 
+{%- comment -%}
+  Keep variant data available for products with a single default variant too.
+  The purchase and regional inventory scripts use this data to resolve the
+  selected variant; without it they incorrectly label the button unavailable.
+{%- endcomment -%}
+<script type="application/json" id="ProductJson-{{ section.id }}">
+  {{ product.variants | json }}
+</script>
+
 
 {%- liquid
 assign current_variant = product.selected_or_first_available_variant

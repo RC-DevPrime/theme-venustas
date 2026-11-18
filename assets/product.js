@@ -2588,7 +2588,7 @@ if ($('.product-image-location-section').length) {
             return {
                 selectedVariant: null,
                 finalAvailable: false,
-                buttonText: 'Unavailable'
+                buttonText: 'Please select an option'
             };
         }
 
@@ -2654,7 +2654,7 @@ if ($('.product-image-location-section').length) {
         const state = getVariantAvailabilityState(mainVariantId ? mainVariantId.value : '', getInventoryRoot());
 
         if (!state.selectedVariant) {
-            setButtonState(mainButton, false, 'Unavailable');
+            setButtonState(mainButton, false, 'Please select an option');
             return;
         }
 
@@ -2675,7 +2675,7 @@ if ($('.product-image-location-section').length) {
         const state = getVariantAvailabilityState(navVariantId ? navVariantId.value : '', navInventoryRoot);
 
         if (!state.selectedVariant) {
-            setButtonState(navButton, false, 'Unavailable');
+            setButtonState(navButton, false, 'Please select an option');
             return;
         }
 
@@ -3166,7 +3166,7 @@ $(document).ready(function () {
       if (!currentVariant) {
         $idInput.val('');
         $addBtn.prop('disabled', true);
-        setButtonText($addBtn, 'Unavailable');
+        setButtonText($addBtn, 'Please select an option');
         return;
       }
 
@@ -3435,7 +3435,7 @@ $(document).ready(function () {
 
       if (!variant) {
         $navButton.prop('disabled', true);
-        setButtonText($navButton, 'Unavailable');
+        setButtonText($navButton, 'Please select an option');
         return;
       }
 
