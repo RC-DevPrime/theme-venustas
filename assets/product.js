@@ -2171,36 +2171,6 @@ if ($('.product-image-location-section').length) {
         return '';
     }
 
-    function getAvailabilityDetails(item, rawText) {
-        const detailNodes = Array.from(item.querySelectorAll('*')).filter(function (node) {
-            return node.children.length === 0 && (node.textContent || '').trim();
-        });
-        const sourceTexts = detailNodes.length
-            ? detailNodes.map(function (node) { return node.innerText || node.textContent || ''; })
-            : [rawText];
-        const details = [];
-
-        sourceTexts.forEach(function (sourceText) {
-            sourceText.split(/\n+|\s*[|•]\s*/).forEach(function (part) {
-                const detail = part
-                    .replace(/ship(?:s)?\s+to\s+(?:the\s+)?u\.?s\.?\s+(?:addresses\s+)?only/gi, '')
-                    .replace(/ship(?:s)?\s+to\s+canad(?:a|ian\s+addresses)\s+only/gi, '')
-                    .replace(/out of stock|sold out|unavailable|not available|no stock|low stock|limited stock|in stock|high stock|available/gi, '')
-                    .replace(/(?:u\.?s\.?|united states|usa|canadian|canada)\s+warehouse/gi, '')
-                    .replace(/\(\s*\)/g, '')
-                    .replace(/^[\s·,:;\-–—]+|[\s·,:;\-–—]+$/g, '')
-                    .replace(/\s+/g, ' ')
-                    .trim();
-                const isCountryOnly = /^(?:us|u\.s\.|usa|united states|ca|canada)$/i.test(detail);
-                if (!isCountryOnly && detail && !details.some(function (existing) { return existing.toLowerCase() === detail.toLowerCase(); })) {
-                    details.push(detail);
-                }
-            });
-        });
-
-        return details;
-    }
-
     function getDisplayAvailability(item) {
         if (!item) return null;
 
@@ -2220,20 +2190,11 @@ if ($('.product-image-location-section').length) {
             label = 'In stock';
         }
 
-        const noteParts = [];
-        const shippingNote = getShippingNote(rawText);
-        if (shippingNote) noteParts.push(shippingNote);
-        getAvailabilityDetails(item, rawText).forEach(function (detail) {
-            if (!noteParts.some(function (existing) { return existing.toLowerCase() === detail.toLowerCase(); })) {
-                noteParts.push(detail);
-            }
-        });
-
         return {
             status: status,
             label: label,
             warehouse: getWarehouseLabel(rawText),
-            note: noteParts.join(' · '),
+            note: getShippingNote(rawText),
             rawText: rawText
                 .replace(/ship\s+to\s+us\s+only/gi, 'Ships to U.S. addresses only')
                 .replace(/ship\s+to\s+canada\s+only/gi, 'Ships to Canadian addresses only')
@@ -2283,22 +2244,12 @@ if ($('.product-image-location-section').length) {
         display.setAttribute('aria-busy', String(!!isBusy));
     }
 
-    function setAvailabilityUnavailable(display, countryCode) {
-        setAvailabilityStatus(
-            display,
-            'unknown',
-            countryCode === 'CA' ? 'Canada availability unavailable' : 'U.S. availability unavailable',
-            '',
-            false
-        );
-    }
-
     function renderAvailabilityDisplays() {
         const section = getAvailabilitySection();
         if (!section) return;
 
         const inventoryRoot = getInventoryRoot();
-        const hasResolved = !!(inventoryRoot && hasMeaningfulInventoryContent(inventoryRoot));
+        const hasResolved = !!(inventoryRoot && inventoryRoot.querySelector('.iia-list-item'));
         let visibleDisplayCount = 0;
 
         section.querySelectorAll('[data-availability-display]').forEach(function (display) {
@@ -2311,11 +2262,7 @@ if ($('.product-image-location-section').length) {
             visibleDisplayCount += 1;
 
             if (!availability) {
-                if (hasResolved) {
-                    setAvailabilityUnavailable(display, countryCode);
-                } else {
-                    setAvailabilityEmpty(display, true);
-                }
+                setAvailabilityEmpty(display, true);
                 return;
             }
 

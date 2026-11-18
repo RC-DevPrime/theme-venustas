@@ -1077,10 +1077,8 @@ body.product-media-lightbox-open {
 .product .availability-display[hidden] {
     display: none;
 }
-.product .availability-loading,
 .product .availability-status,
-.product .availability-note,
-.product .availability-unknown {
+.product .availability-note {
     margin: 0;
 }
 .product .availability-status-row {
@@ -1105,6 +1103,9 @@ body.product-media-lightbox-open {
     height: 9px;
     margin-top: 7px;
     border-radius: 50%;
+    background: #737373;
+}
+.product .availability-display[data-status='in_stock'] .availability-status-dot {
     background: #27863b;
 }
 .product .availability-display[data-status='low_stock'] .availability-status-dot {
@@ -1113,9 +1114,7 @@ body.product-media-lightbox-open {
 .product .availability-display[data-status='out_of_stock'] .availability-status-dot {
     background: #c9362b;
 }
-.product .availability-note,
-.product .availability-unknown,
-.product .availability-loading {
+.product .availability-note {
     font-size: 14px;
     line-height: 20px;
 }
@@ -1160,8 +1159,7 @@ body.product-media-lightbox-open {
         height: 12px;
         margin-top: 6px;
     }
-    .product .availability-note,
-    .product .availability-unknown {
+    .product .availability-note {
         font-size: 12px;
         line-height: 18px;
     }
