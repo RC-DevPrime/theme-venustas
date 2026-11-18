@@ -391,7 +391,7 @@ body.product-media-lightbox-open {
 }
 .product .shop-pay-container .learn-more-link{
     color:#161616;
-    font-size:12px;
+    font-size:14px;
 }
 .product-main-info .oke-sr-count{
     color:#141414
@@ -1055,6 +1055,10 @@ body.product-media-lightbox-open {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
+    min-height: 74px;
+}
+.product .availability-displays[data-availability-count='1'] {
+    grid-template-columns: minmax(0, 1fr);
 }
 .product .availability-display {
     display: flex;

@@ -1957,6 +1957,73 @@ if ($('.product-image-location-section').length) {
       // remove the view all button
       if (viewAllBtn) viewAllBtn.remove();
     });
+
+    document.addEventListener('click', function (e) {
+      const swatch = e.target.closest('.product-hotspot-item-container .variant-color-item');
+      if (!swatch) return;
+
+      const container = swatch.closest('.product-hotspot-item-container');
+      if (!container) return;
+
+      const variantId = swatch.getAttribute('data-color') || swatch.getAttribute('data-id');
+      if (!variantId) return;
+
+      // swatch active state (optional)
+      const swatchList = swatch.closest('ul');
+      if (swatchList) {
+        swatchList.querySelectorAll('.variant-color-item').forEach(li => li.classList.remove('active', 'on'));
+      }
+      swatch.classList.add('active', 'on');
+
+      // image switching
+      const imagesWrap = container.querySelector('.product-image');
+      if (!imagesWrap) return;
+
+      const imgs = imagesWrap.querySelectorAll('img[data-variant]');
+      if (!imgs.length) return;
+
+      imgs.forEach(img => img.classList.remove('active'));
+
+      // match exact variant
+      let target = imagesWrap.querySelector(`img[data-variant="${CSS.escape(variantId)}"]`);
+
+      // fallback: if no exact match, use the swatch's data-product-img and swap the currently active image src
+      if (!target) {
+        const fallbackUrl = swatch.getAttribute('data-product-img');
+        const activeImg = imagesWrap.querySelector('img.active') || imgs[0];
+
+        if (fallbackUrl && activeImg) {
+          // keep srcset/sizes untouched unless you also store them
+          activeImg.src = fallbackUrl;
+          activeImg.classList.add('active');
+        }
+        return;
+      }
+
+      target.classList.add('active');
+    });
+
+}
+
+
+    document.querySelectorAll('.product-image-location-section .variant-option-block').forEach(block => {
+      const mainList = block.querySelector('ul.variant-colors:not(.variant-colors-dropdown)');
+      const dropdownList = block.querySelector('ul.variant-colors.variant-colors-dropdown');
+      const viewAllBtn = block.querySelector('.view-all-options-btn');
+
+      if (!mainList) return;
+
+      // move dropdown items into main list
+      if (dropdownList) {
+        dropdownList.querySelectorAll('li.variant-color-item').forEach(li => {
+          mainList.appendChild(li);
+        });
+        dropdownList.remove();
+      }
+
+      // remove the view all button
+      if (viewAllBtn) viewAllBtn.remove();
+    });
     
     document.addEventListener('click', function (e) {
       const swatch = e.target.closest('.product-hotspot-item-container .variant-color-item');
@@ -2120,6 +2187,7 @@ if ($('.product-image-location-section').length) {
                     .replace(/ship(?:s)?\s+to\s+canad(?:a|ian\s+addresses)\s+only/gi, '')
                     .replace(/out of stock|sold out|unavailable|not available|no stock|low stock|limited stock|in stock|high stock|available/gi, '')
                     .replace(/(?:u\.?s\.?|united states|usa|canadian|canada)\s+warehouse/gi, '')
+                    .replace(/\(\s*\)/g, '')
                     .replace(/^[\s·,:;\-–—]+|[\s·,:;\-–—]+$/g, '')
                     .replace(/\s+/g, ' ')
                     .trim();
@@ -2205,15 +2273,14 @@ if ($('.product-image-location-section').length) {
         display.setAttribute('aria-busy', String(isBusy));
     }
 
-    function setAvailabilityDefault(display, countryCode, isBusy) {
-        const isCanada = countryCode === 'CA';
-        setAvailabilityStatus(
-            display,
-            'in_stock',
-            isCanada ? 'In stock · Canada warehouse' : 'In stock · U.S. warehouse',
-            isCanada ? 'Ships to Canadian addresses only' : 'Ships to U.S. addresses only',
-            isBusy
-        );
+    function setAvailabilityEmpty(display, isBusy) {
+        const signature = 'empty|' + (isBusy ? '1' : '0');
+        if (display.dataset.availabilitySignature === signature) return;
+
+        display.dataset.availabilitySignature = signature;
+        display.removeAttribute('data-status');
+        display.replaceChildren();
+        display.setAttribute('aria-busy', String(!!isBusy));
     }
 
     function setAvailabilityUnavailable(display, countryCode) {
@@ -2231,10 +2298,8 @@ if ($('.product-image-location-section').length) {
         if (!section) return;
 
         const inventoryRoot = getInventoryRoot();
-        const hasResolved = !!(inventoryRoot && (
-            inventoryRoot.getAttribute('iia-is-default') === 'true' ||
-            hasMeaningfulInventoryContent(inventoryRoot)
-        ));
+        const hasResolved = !!(inventoryRoot && hasMeaningfulInventoryContent(inventoryRoot));
+        let visibleDisplayCount = 0;
 
         section.querySelectorAll('[data-availability-display]').forEach(function (display) {
             const countryCode = display.dataset.availabilityCountry;
@@ -2243,12 +2308,13 @@ if ($('.product-image-location-section').length) {
 
             display.hidden = hasResolved && !availabilityItem;
             if (display.hidden) return;
+            visibleDisplayCount += 1;
 
             if (!availability) {
                 if (hasResolved) {
                     setAvailabilityUnavailable(display, countryCode);
                 } else {
-                    setAvailabilityDefault(display, countryCode, true);
+                    setAvailabilityEmpty(display, true);
                 }
                 return;
             }
@@ -2272,6 +2338,8 @@ if ($('.product-image-location-section').length) {
                 false
             );
         });
+
+        section.querySelector('[data-availability-displays]').dataset.availabilityCount = String(visibleDisplayCount);
     }
 
     function queueAvailabilityRender() {
@@ -2595,28 +2663,20 @@ if ($('.product-image-location-section').length) {
     }
 
     function refreshInventoryInfoForVariant(variantId, options) {
-        if (!variantId || typeof fetch === 'undefined' || typeof DOMParser === 'undefined') return;
+        if (!variantId) return;
 
         const inventoryRoot = options && options.targetRoot ? options.targetRoot : getInventoryRoot();
         if (!inventoryRoot) return;
+
         const requestId = String((Number(inventoryRoot.dataset.inventoryRequestId) || 0) + 1);
         inventoryRoot.dataset.inventoryRequestId = requestId;
-        const isMainRequest = !options || options.context !== 'nav';
-        if (isMainRequest) {
-            clearPendingAvailabilityCountry();
-            setAvailabilityLoading();
-        }
+        const isNav = options && options.context === 'nav';
 
-        if (options && options.context === 'nav') {
-            loadInventoryMarkupViaIframe(variantId, function (markup) {
-                if (inventoryRoot.dataset.inventoryRequestId !== requestId) return;
-                if (!markup) return;
+        loadInventoryMarkupViaIframe(variantId, function (markup) {
+            if (!markup || inventoryRoot.dataset.inventoryRequestId !== requestId || !inventoryRoot.isConnected) return;
 
-                const currentContainer = inventoryRoot.querySelector('.iia-container');
-                if (currentContainer && currentContainer.outerHTML === markup) {
-                    return;
-                }
-
+            const currentContainer = inventoryRoot.querySelector('.iia-container');
+            if (!currentContainer || currentContainer.outerHTML !== markup) {
                 if (currentContainer) {
                     currentContainer.outerHTML = markup;
                 } else {
@@ -2624,77 +2684,18 @@ if ($('.product-image-location-section').length) {
                 }
 
                 const visibleContainer = inventoryRoot.querySelector('.iia-container');
-                if (visibleContainer) {
-                    visibleContainer.style.display = 'block';
-                }
+                if (visibleContainer) visibleContainer.style.display = 'block';
+            }
 
+            if (isNav) {
                 updateNavRegionalInventoryGate();
-            });
-            return;
-        }
+                return;
+            }
 
-        const requestUrl = new URL(window.location.href);
-        requestUrl.searchParams.set('variant', variantId);
-
-        fetch(requestUrl.toString(), { credentials: 'same-origin' })
-            .then(function (response) {
-                return response.text();
-            })
-            .then(function (htmlText) {
-                if (inventoryRoot.dataset.inventoryRequestId !== requestId) return;
-                const parsed = new DOMParser().parseFromString(htmlText, 'text/html');
-                const nextContainer = getParsedInventoryContainer(parsed);
-                if (!nextContainer) {
-                    if (isMainRequest) setAvailabilityUnavailable();
-                    return;
-                }
-
-                const nextMarkup = getInventoryMarkupHtml(nextContainer, {
-                    stripId: !!(options && options.context === 'nav')
-                });
-                if (!nextMarkup) {
-                    if (isMainRequest) setAvailabilityUnavailable();
-                    return;
-                }
-
-                const currentContainer = inventoryRoot.querySelector('.iia-container');
-                if (currentContainer && currentContainer.outerHTML === nextMarkup) {
-                    if (isMainRequest) renderSelectedCountryAfterVariantRefresh(inventoryRoot, requestId);
-                    return;
-                }
-
-                if (currentContainer) {
-                    currentContainer.outerHTML = nextMarkup;
-                } else {
-                    inventoryRoot.innerHTML = nextMarkup;
-                }
-
-                const visibleContainer = inventoryRoot.querySelector('.iia-container');
-                if (visibleContainer) {
-                    visibleContainer.style.display = 'block';
-                }
-
-                if (options && options.context === 'nav') {
-                    updateNavRegionalInventoryGate();
-                } else {
-                    updateMainRegionalInventoryGate();
-                    renderSelectedCountryAfterVariantRefresh(inventoryRoot, requestId);
-                }
-
-                if (
-                    (!options || options.context !== 'nav') &&
-                    window.venustasRegionalInventoryGate &&
-                    typeof window.venustasRegionalInventoryGate.syncNavInventoryMarkup === 'function'
-                ) {
-                    window.venustasRegionalInventoryGate.syncNavInventoryMarkup();
-                }
-            })
-            .catch(function (error) {
-                if (inventoryRoot.dataset.inventoryRequestId === requestId && isMainRequest) {
-                    setAvailabilityUnavailable();
-                }
-                console.warn('Unable to refresh inventory info for variant selection.', error);
-            });
+            updateMainRegionalInventoryGate();
+            renderAvailabilityDisplays();
+            syncNavInventoryMarkup();
+        });
     }
 
     function updateMainRegionalInventoryGate() {
@@ -2857,72 +2858,6 @@ if ($('.product-image-location-section').length) {
     }
     document.addEventListener('shopify:section:load', initializeAvailabilityDisplays);
 })();
-
-    document.querySelectorAll('.product-image-location-section .variant-option-block').forEach(block => {
-      const mainList = block.querySelector('ul.variant-colors:not(.variant-colors-dropdown)');
-      const dropdownList = block.querySelector('ul.variant-colors.variant-colors-dropdown');
-      const viewAllBtn = block.querySelector('.view-all-options-btn');
-
-      if (!mainList) return;
-
-      // move dropdown items into main list
-      if (dropdownList) {
-        dropdownList.querySelectorAll('li.variant-color-item').forEach(li => {
-          mainList.appendChild(li);
-        });
-        dropdownList.remove();
-      }
-
-      // remove the view all button
-      if (viewAllBtn) viewAllBtn.remove();
-    });
-    
-    document.addEventListener('click', function (e) {
-      const swatch = e.target.closest('.product-hotspot-item-container .variant-color-item');
-      if (!swatch) return;
-
-      const container = swatch.closest('.product-hotspot-item-container');
-      if (!container) return;
-
-      const variantId = swatch.getAttribute('data-color') || swatch.getAttribute('data-id');
-      if (!variantId) return;
-
-      // swatch active state (optional)
-      const swatchList = swatch.closest('ul');
-      if (swatchList) {
-        swatchList.querySelectorAll('.variant-color-item').forEach(li => li.classList.remove('active', 'on'));
-      }
-      swatch.classList.add('active', 'on');
-
-      // image switching
-      const imagesWrap = container.querySelector('.product-image');
-      if (!imagesWrap) return;
-
-      const imgs = imagesWrap.querySelectorAll('img[data-variant]');
-      if (!imgs.length) return;
-
-      imgs.forEach(img => img.classList.remove('active'));
-
-      // match exact variant
-      let target = imagesWrap.querySelector(`img[data-variant="${CSS.escape(variantId)}"]`);
-
-      // fallback: if no exact match, use the swatch's data-product-img and swap the currently active image src
-      if (!target) {
-        const fallbackUrl = swatch.getAttribute('data-product-img');
-        const activeImg = imagesWrap.querySelector('img.active') || imgs[0];
-
-        if (fallbackUrl && activeImg) {
-          // keep srcset/sizes untouched unless you also store them
-          activeImg.src = fallbackUrl;
-          activeImg.classList.add('active');
-        }
-        return;
-      }
-
-      target.classList.add('active');
-    });
-
-}
 
     $('.prorw_preview_badge_setup').on('click', function (e) {
         e.preventDefault();
