@@ -69,10 +69,7 @@
       flex: 1 1 auto;
       flex-direction: column;
       justify-content: space-between;
-      /* min-height instead of a fixed height: extra content (injected app
-         labels, longer titles) must grow the column, not be squeezed and
-         clipped by the horizontally scrolling track. */
-      min-height: 590px;
+      height: 590px;
       min-width: 0;
     }
 
@@ -91,31 +88,14 @@
     #shopify-section-{{ section.id }} .giftG-coll__card {
       display: flex;
       position: relative;
-      isolation: isolate;
       flex: 0 0 calc((100% - 48px) / 3);
       flex-direction: column;
       gap: 20px;
       scroll-snap-align: start;
     }
 
-    /* App labels are overlays: kept in the card flow they add height inside the
-       590px column, which pushes that single card's content down and clips its
-       bottom (the Shop Now button border). */
     #shopify-section-{{ section.id }} .giftG-coll__card .bss_pl_img {
-      position: absolute !important;
-      top: 0;
-      right: 0;
-      left: auto;
-      z-index: 4 !important;
-      margin: 0;
-    }
-
-    /* "Full width" buttons are width:100% on a content-box box, so padding and
-       border made them wider than the card and the left border ended up on the
-       track's clipping edge. */
-    #shopify-section-{{ section.id }} .giftG-coll__card .heatingP-button {
-      box-sizing: border-box;
-      max-width: 100%;
+      margin-top:-20px;
     }
 
     #shopify-section-{{ section.id }} .giftG-coll__card-media {
