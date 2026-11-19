@@ -71,6 +71,7 @@
 
     #shopify-section-{{ section.id }} .giftG-new__card {
       display: flex;
+      position: relative;
       flex: 0 0 calc((100% - 48px) / 4);
       flex-direction: column;
       box-sizing: border-box;
@@ -350,6 +351,7 @@
           {%- for product in gift_collection.products limit: products_limit -%}
             {%- assign card_alt = product.featured_image.alt | default: product.title -%}
             <article class="giftG-new__card">
+              {%- render 'sale-badge', product: product -%}
               {%- if product.featured_image != blank -%}
                 <a class="giftG-new__media" href="{{ product.url }}">
                   {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '180, 300, 420, 600', sizes: '(max-width: 767px) 45vw, (max-width: 1199px) 25vw, 20vw', alt: card_alt }}

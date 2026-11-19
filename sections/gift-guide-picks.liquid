@@ -40,6 +40,7 @@
 
   #shopify-section-{{ section.id }} .giftG-picks__card {
     display: flex;
+    position: relative;
     flex-direction: column;
     overflow: hidden;
     background: #fff;
@@ -191,6 +192,8 @@
           {%- assign card_title = block.settings.title | default: card_product.title -%}
           {%- assign card_alt = card_image.alt | default: card_title -%}
           <article class="giftG-picks__card" {{ block.shopify_attributes }}>
+            {%- render 'sale-badge', product: card_product -%}
+
             {%- if card_image != blank -%}
               <a class="giftG-picks__media" href="{{ card_product.url }}">
                 {{ card_image | image_url: width: 800 | image_tag: class: 'giftG-picks__image', loading: 'lazy', widths: '350, 500, 660, 800', sizes: '(max-width: 767px) calc(100vw - 40px), min(46vw, 658px)', alt: card_alt }}

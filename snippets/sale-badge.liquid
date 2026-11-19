@@ -1,0 +1,38 @@
+{%- comment -%}
+  Sale badge for product cards.
+
+  Usage:
+    {% render 'sale-badge', product: product %}
+    {% render 'sale-badge', product: product, badge_type: 'percent' %}
+
+  Parameters:
+    product     required – product object.
+    badge_type  optional – 'discount' (default, e.g. "$20 OFF") or 'percent'
+                (e.g. "20% OFF").
+{%- endcomment -%}
+
+{%- liquid
+  assign sale_variant = product.selected_or_first_available_variant
+-%}
+
+{%- if product != blank and sale_variant.compare_at_price > sale_variant.price and sale_variant.compare_at_price > 0 -%}
+  {%- liquid
+    assign sale_badge_type = badge_type | default: 'discount'
+    assign sale_price_diff = sale_variant.compare_at_price | minus: sale_variant.price
+    assign sale_percent_off = sale_price_diff | times: 100.0 | divided_by: sale_variant.compare_at_price | round
+    if sale_percent_off < 0
+      assign sale_percent_off = 0
+    endif
+    assign sale_off_dollars = sale_price_diff | times: 0.01 | ceil
+  -%}
+
+  <span class="badge sale-badge" aria-hidden="true">
+    <span class="body-sm pp-semibold">
+      {%- if sale_badge_type == 'discount' -%}
+        {%- if sale_off_dollars > 0 -%}${{ sale_off_dollars }} OFF{%- endif -%}
+      {%- else -%}
+        {{ sale_percent_off }}% OFF
+      {%- endif -%}
+    </span>
+  </span>
+{%- endif -%}
