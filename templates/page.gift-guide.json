@@ -115,6 +115,7 @@
         "anchor_id": "gifts-for-her",
         "title": "Gifts For Her",
         "collection": "womens",
+        "products_limit": 15,
         "desktop_image": "shopify://shop_images/giftG-her-promo.webp",
         "mobile_image": "shopify://shop_images/giftG-her-promo-mobile.webp",
         "image_position": "left"
@@ -127,6 +128,7 @@
         "anchor_id": "gifts-for-him",
         "title": "Gifts For Him",
         "collection": "men",
+        "products_limit": 15,
         "desktop_image": "shopify://shop_images/giftG-him-promo.webp",
         "mobile_image": "shopify://shop_images/giftG-him-promo-mobile.webp",
         "image_position": "right"
@@ -139,6 +141,7 @@
         "anchor_id": "gifts-for-kits",
         "title": "Gifts For Kits",
         "collection": "kids",
+        "products_limit": 15,
         "desktop_image": "shopify://shop_images/giftG-kids-promo.webp",
         "mobile_image": "shopify://shop_images/giftG-kids-promo-mobile.webp",
         "image_position": "left"
@@ -148,8 +151,10 @@
       "type": "gift-guide-collection",
       "name": "Gift Guide Collection",
       "settings": {
+        "anchor_id": "",
         "title": "Gifts By Activity",
         "collection": "",
+        "products_limit": 12,
         "desktop_image": "shopify://shop_images/venustas_ins_post1.jpg",
         "image_position": "right"
       }
@@ -158,8 +163,10 @@
       "type": "gift-guide-collection",
       "name": "Gift Guide Collection",
       "settings": {
+        "anchor_id": "",
         "title": "Gifts for Couple & Family",
         "collection": "couple-family",
+        "products_limit": 15,
         "desktop_image": "shopify://shop_images/giftG-couple-promo.webp",
         "mobile_image": "shopify://shop_images/giftG-her-couple-mobile.webp",
         "image_position": "right"
@@ -266,7 +273,8 @@
         "anchor_id": "new-arrivals",
         "heading": "New Arrivals",
         "heading_mark": "shopify://shop_images/giftG-flower.webp",
-        "collection": ""
+        "collection": "new-arrivals",
+        "products_limit": 20
       }
     },
     "gift_guide_egift": {
