@@ -1,0 +1,570 @@
+{%- liquid
+  assign slide_count = 0
+  for block in section.blocks
+    if block.settings.title != blank or block.settings.image != blank
+      assign slide_count = slide_count | plus: 1
+    endif
+  endfor
+  assign heading_mark = section.settings.heading_mark
+-%}
+
+{%- if slide_count > 0 -%}
+  {% style %}
+    #shopify-section-{{ section.id }} .giftG-act {
+      padding: 80px 0;
+      background: #f9f2e8;
+      color: #0b4c20;
+      font-family: var(--font-primary, 'Montserrat', sans-serif);
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__inner {
+      width: min(calc(100% - 40px), 1340px);
+      margin: 0 auto;
+      padding: 32px 56px;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 3px 7px rgba(95, 73, 35, 0.12);
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+      margin-bottom: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__mark {
+      flex: 0 0 auto;
+      width: 30px;
+      height: 38px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__mark img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__heading {
+      margin: 0;
+      color: #0b4c20;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__slider {
+      position: relative;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__slide {
+      display: flex;
+      flex: 0 0 100%;
+      align-items: stretch;
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__left {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+      padding: 80px 0 86px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__text {
+      max-width: 531px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__title {
+      margin: 0 0 20px;
+      color: #0b4c20;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__subtitle {
+      margin: 0 0 12px;
+      color: #0b4c20;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__desc {
+      margin: 0;
+      color: #0b4c20;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__button .heatingP-button {
+      min-height: 48px;
+      padding-right: 32px;
+      padding-left: 32px;
+      border-radius: 6px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__media {
+      flex: 0 0 54.5%;
+      overflow: hidden;
+      border-radius: 12px;
+      aspect-ratio: 669 / 430;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 45.5%;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__dots {
+      display: flex;
+      gap: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__dot {
+      width: 7px;
+      height: 7px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #e5e7eb;
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__dot--active {
+      background: #b93205;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__arrows {
+      display: flex;
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.05);
+      color: #1a1a1a;
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__arrow svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-act__arrow--prev svg {
+      transform: rotate(180deg);
+    }
+
+    @media only screen and (max-width: 767px) {
+      #shopify-section-{{ section.id }} .giftG-act {
+        padding: 24px 0;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__inner {
+        width: 100%;
+        padding: 0 20px;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__header {
+        gap: 0;
+        margin-bottom: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__mark {
+        display: none;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__heading {
+        font-size: 24px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__slider {
+        position: static;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__slide {
+        flex-direction: column;
+        overflow: hidden;
+        background: #fff;
+        border-radius: 10px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__media {
+        order: -1;
+        flex: none;
+        width: 100%;
+        border-radius: 0;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__left {
+        gap: 12px;
+        padding: 20px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__text {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: none;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__title {
+        margin: 0;
+        font-size: 20px;
+        line-height: 24px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__subtitle {
+        margin: 0;
+        font-size: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__desc {
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__button .heatingP-button {
+        width: 100%;
+        min-height: 44px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__controls {
+        position: static;
+        justify-content: center;
+        width: 100%;
+        margin-top: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-act__arrows {
+        display: none;
+      }
+    }
+  {% endstyle %}
+
+  <section class="giftG-act">
+    <div class="giftG-act__inner">
+      <div class="giftG-act__header">
+        {%- if heading_mark != blank -%}
+          <span class="giftG-act__mark">
+            {{ heading_mark | image_url: width: 90 | image_tag: loading: 'lazy', widths: '30, 60, 90', sizes: '30px', alt: '' }}
+          </span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="giftG-act__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if heading_mark != blank -%}
+          <span class="giftG-act__mark">
+            {{ heading_mark | image_url: width: 90 | image_tag: loading: 'lazy', widths: '30, 60, 90', sizes: '30px', alt: '' }}
+          </span>
+        {%- endif -%}
+      </div>
+
+      <div class="giftG-act__slider">
+        <div class="giftG-act__track" data-giftG-track>
+          {%- for block in section.blocks -%}
+            {%- assign slide_title = block.settings.title -%}
+            {%- assign slide_image = block.settings.image -%}
+            {%- if slide_title != blank or slide_image != blank -%}
+            {%- assign slide_alt = slide_image.alt | default: slide_title -%}
+            <article class="giftG-act__slide" {{ block.shopify_attributes }}>
+              <div class="giftG-act__left">
+                <div class="giftG-act__text">
+                  {%- if slide_title != blank -%}
+                    <h3 class="giftG-act__title">{{ slide_title | escape }}</h3>
+                  {%- endif -%}
+                  {%- if block.settings.subtitle != blank -%}
+                    <p class="giftG-act__subtitle">{{ block.settings.subtitle | escape }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <p class="giftG-act__desc">{{ block.settings.description | escape }}</p>
+                  {%- endif -%}
+                </div>
+
+                {%- if block.settings.button_label != blank -%}
+                  <div class="giftG-act__button">
+                    {%- render 'heatingP-button', label: block.settings.button_label, url: block.settings.button_link, variant: 'primary' -%}
+                  </div>
+                {%- endif -%}
+              </div>
+
+              {%- if slide_image != blank -%}
+                <div class="giftG-act__media">
+                  {{ slide_image | image_url: width: 1340 | image_tag: loading: 'lazy', widths: '420, 669, 900, 1340', sizes: '(max-width: 767px) 100vw, 640px', alt: slide_alt }}
+                </div>
+              {%- endif -%}
+            </article>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        <div class="giftG-act__controls">
+          <div class="giftG-act__dots" data-giftG-dots>
+            {%- for i in (1..slide_count) -%}
+              <button class="giftG-act__dot{% if forloop.first %} giftG-act__dot--active{% endif %}" type="button" aria-label="Go to slide {{ i }}" data-giftG-dot="{{ forloop.index0 }}"></button>
+            {%- endfor -%}
+          </div>
+          <div class="giftG-act__arrows">
+            <button class="giftG-act__arrow giftG-act__arrow--prev" type="button" aria-label="Previous slide" data-giftG-prev>
+              {%- render 'heating-icons', icon: 'chevron-right' -%}
+            </button>
+            <button class="giftG-act__arrow giftG-act__arrow--next" type="button" aria-label="Next slide" data-giftG-next>
+              {%- render 'heating-icons', icon: 'chevron-right' -%}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var section = document.getElementById('shopify-section-{{ section.id }}');
+      if (!section) return;
+      var track = section.querySelector('[data-giftG-track]');
+      var dots = section.querySelector('[data-giftG-dots]');
+      var prevBtn = section.querySelector('[data-giftG-prev]');
+      var nextBtn = section.querySelector('[data-giftG-next]');
+      if (!track || !dots) return;
+
+      var slides = track.children;
+      if (slides.length < 2) return;
+
+      var interval = {{ section.settings.autoplay_interval | default: 0 | times: 1000 }};
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var current = 0;
+      var timer = null;
+      var ticking = false;
+
+      function goTo(index) {
+        var target = (index + slides.length) % slides.length;
+        track.scrollTo({
+          left: target * track.clientWidth,
+          behavior: reduceMotion.matches ? 'auto' : 'smooth'
+        });
+      }
+
+      function updateState() {
+        current = Math.min(slides.length - 1, Math.max(0, Math.round(track.scrollLeft / track.clientWidth)));
+        var items = dots.children;
+        for (var i = 0; i < items.length; i++) {
+          items[i].classList.toggle('giftG-act__dot--active', i === current);
+        }
+      }
+
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(function () {
+          ticking = false;
+          updateState();
+        });
+      }
+
+      function stop() {
+        if (timer) {
+          window.clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      function start() {
+        stop();
+        if (!interval || reduceMotion.matches || document.hidden) return;
+        timer = window.setInterval(function () {
+          goTo(current + 1);
+        }, interval);
+      }
+
+      track.addEventListener('scroll', onScroll, { passive: true });
+
+      dots.addEventListener('click', function (event) {
+        var dot = event.target.closest('[data-giftG-dot]');
+        if (!dot) return;
+        goTo(parseInt(dot.getAttribute('data-giftG-dot'), 10));
+        start();
+      });
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function () {
+          goTo(current - 1);
+          start();
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          goTo(current + 1);
+          start();
+        });
+      }
+
+      function pause() {
+        stop();
+      }
+
+      function onVisibilityChange() {
+        if (document.hidden) {
+          stop();
+        } else {
+          start();
+        }
+      }
+
+      section.addEventListener('mouseenter', pause);
+      section.addEventListener('mouseleave', start);
+      section.addEventListener('focusin', pause);
+      section.addEventListener('focusout', start);
+
+      document.addEventListener('visibilitychange', onVisibilityChange);
+
+      section.addEventListener('shopify:section:unload', function () {
+        stop();
+        document.removeEventListener('visibilitychange', onVisibilityChange);
+      });
+
+      updateState();
+      start();
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Gift Guide Activity",
+  "tag": "section",
+  "class": "giftG-act-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Gifts By Activity" },
+    { "type": "image_picker", "id": "heading_mark", "label": "Heading decoration (desktop)" },
+    {
+      "type": "range",
+      "id": "autoplay_interval",
+      "label": "Autoplay interval",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 2,
+      "info": "0 turns autoplay off"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle" },
+        { "type": "textarea", "id": "description", "label": "Description" },
+        { "type": "text", "id": "button_label", "label": "Button label" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Guide Activity",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Comfort, Every Day",
+            "subtitle": "Gifts for the little moments in between",
+            "description": "Soft layers, easy fits and cozy details for the people who make every ordinary day feel a little warmer. Thoughtful pieces they'll reach for again and again.",
+            "button_label": "Shop Everyday Comfort"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Carve Your Line",
+            "subtitle": "Gear for every run, from first chair to last",
+            "description": "Waterproof, breathable and built to move with every turn. Give the skier in your life the confidence to chase fresh powder all season.",
+            "button_label": "Shop Ski Gear"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Play On, Whatever the Weather",
+            "subtitle": "The golf collection",
+            "description": "Lightweight, flexible layers built for a smooth swing from the first tee to the 18th green. A gift for every golfer who never skips a round.",
+            "button_label": "Shop Golf Collection"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Cold Nights, Warm Memories",
+            "subtitle": "Gifts for the winter camper",
+            "description": "Insulated layers and rugged essentials that keep the chill out when the campfire is all that's glowing. Made for long nights under the stars.",
+            "button_label": "Shop Winter Camping"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Ride Through the Cold",
+            "subtitle": "Gifts for the all-season rider",
+            "description": "Windproof, warm and made to stay comfortable at speed. Gear that keeps riders focused on the road, not the temperature.",
+            "button_label": "Shop Riding Gear"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Made for Work",
+            "subtitle": "Pieces to wear on the job",
+            "description": "Comfortable, easy-to-move-in pieces for your workday. Just put them on and get to it.",
+            "button_label": "Shop Work Collection"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

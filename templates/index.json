@@ -901,6 +901,373 @@
         "heading": "As Seen In",
         "description": "<p>Venustas has earned the trust of businesses worldwide through continuous innovation and building relationships based on mutual trust.</p>"
       }
+    },
+    "gift_guide_hero": {
+      "type": "gift-guide-hero",
+      "name": "Gift Guide Hero",
+      "settings": {
+        "desktop_image": "shopify://shop_images/Volcano_banner.jpg",
+        "mobile_image": "",
+        "ornament_image": ""
+      }
+    },
+     "gift_guide_picks": {
+      "type": "gift-guide-picks",
+      "blocks": {
+        "pick_women": {
+          "type": "product_card",
+          "settings": {
+            "product": "shopify://products/mens-classic-heated-vest-7-4v",
+            "image": "shopify://shop_images/40550_2x_de310eb8-8722-4886-a76a-dd8a02dbe88b.png",
+            "title": ""
+          }
+        },
+        "pick_men": {
+          "type": "product_card",
+          "settings": {
+            "product": "shopify://products/mens-classic-heated-vest-7-4v",
+            "image": "shopify://shop_images/40550_2x_de310eb8-8722-4886-a76a-dd8a02dbe88b.png",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "pick_women",
+        "pick_men"
+      ],
+      "name": "Gift Guide Picks",
+      "settings": {}
+    },
+    "gift_guide_categories": {
+      "type": "gift-guide-categories",
+      "blocks": {
+        "cat_her": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/40550_2x_de310eb8-8722-4886-a76a-dd8a02dbe88b.png",
+            "label": "Gifts for Her",
+            "link": "shopify://products/mens-classic-heated-vest-7-4v"
+          }
+        },
+        "cat_him": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/40552_2x_196d9c71-0607-4ffe-8e99-a7ea0c836d48.png",
+            "label": "Gifts for Him",
+            "link": "shopify://products/mens-classic-heated-vest-7-4v"
+          }
+        },
+        "cat_kits": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "label": "Gifts for Kits",
+            "link": ""
+          }
+        },
+        "cat_activity": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "label": "Gifts by Activity",
+            "link": ""
+          }
+        },
+        "cat_new": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "label": "New Arrivals",
+            "link": ""
+          }
+        },
+        "cat_card": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "label": "Gift Card",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_her",
+        "cat_him",
+        "cat_kits",
+        "cat_activity",
+        "cat_new",
+        "cat_card"
+      ],
+      "name": "Gift Guide Categories",
+      "settings": {}
+    },
+    "gift_guide_collection": {
+      "type": "gift-guide-collection",
+      "name": "Gift Guide Collection",
+      "settings": {
+        "title": "Gifts For Her",
+        "collection": "deal-of-the-week",
+        "desktop_image": "shopify://shop_images/venustas_ins_post1.jpg",
+        "mobile_image": "",
+        "image_position": "left"
+      }
+    },
+    "gift_guide_collection_2": {
+      "type": "gift-guide-collection",
+      "name": "Gift Guide Collection",
+      "settings": {
+        "title": "Gifts For Him",
+        "collection": "deal-of-the-week",
+        "desktop_image": "shopify://shop_images/venustas_ins_post1.jpg",
+        "mobile_image": "",
+        "image_position": "right"
+      }
+    },
+    "gift_guide_collection_3": {
+      "type": "gift-guide-collection",
+      "name": "Gift Guide Collection",
+      "settings": {
+        "title": "Gifts For Kits",
+        "collection": "deal-of-the-week",
+        "desktop_image": "",
+        "mobile_image": "",
+        "image_position": "left"
+      }
+    },
+    "gift_guide_collection_4": {
+      "type": "gift-guide-collection",
+      "name": "Gift Guide Collection",
+      "settings": {
+        "title": "Gifts By Activity",
+        "collection": "",
+        "desktop_image": "shopify://shop_images/venustas_ins_post1.jpg",
+        "mobile_image": "",
+        "image_position": "right"
+      }
+    },
+    "gift_guide_price": {
+      "type": "gift-guide-price",
+      "name": "Gift Guide Price",
+      "settings": {
+        "link_1": "",
+        "link_2": "",
+        "link_3": ""
+      }
+    },
+    "gift_guide_activity": {
+      "type": "gift-guide-activity",
+      "blocks": {
+        "act_1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/teach_home_page_pc_1.jpg",
+            "title": "Comfort, Every Day",
+            "subtitle": "Gifts for the little moments in between",
+            "description": "Soft layers, easy fits and cozy details for the people who make every ordinary day feel a little warmer. Thoughtful pieces they'll reach for again and again.",
+            "button_label": "Shop Everyday Comfort",
+            "button_link": ""
+          }
+        },
+        "act_2": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/teach_home_page_pc_1.jpg",
+            "title": "Carve Your Line",
+            "subtitle": "Gear for every run, from first chair to last",
+            "description": "Waterproof, breathable and built to move with every turn. Give the skier in your life the confidence to chase fresh powder all season.",
+            "button_label": "Shop Ski Gear",
+            "button_link": ""
+          }
+        },
+        "act_3": {
+          "type": "slide",
+          "settings": {
+            "image": "",
+            "title": "Play On, Whatever the Weather",
+            "subtitle": "The golf collection",
+            "description": "Lightweight, flexible layers built for a smooth swing from the first tee to the 18th green. A gift for every golfer who never skips a round.",
+            "button_label": "Shop Golf Collection",
+            "button_link": ""
+          }
+        },
+        "act_4": {
+          "type": "slide",
+          "settings": {
+            "image": "",
+            "title": "Cold Nights, Warm Memories",
+            "subtitle": "Gifts for the winter camper",
+            "description": "Insulated layers and rugged essentials that keep the chill out when the campfire is all that's glowing. Made for long nights under the stars.",
+            "button_label": "Shop Winter Camping",
+            "button_link": ""
+          }
+        },
+        "act_5": {
+          "type": "slide",
+          "settings": {
+            "image": "",
+            "title": "Ride Through the Cold",
+            "subtitle": "Gifts for the all-season rider",
+            "description": "Windproof, warm and made to stay comfortable at speed. Gear that keeps riders focused on the road, not the temperature.",
+            "button_label": "Shop Riding Gear",
+            "button_link": ""
+          }
+        },
+        "act_6": {
+          "type": "slide",
+          "settings": {
+            "image": "",
+            "title": "Made for Work",
+            "subtitle": "Pieces to wear on the job",
+            "description": "Comfortable, easy-to-move-in pieces for your workday. Just put them on and get to it.",
+            "button_label": "Shop Work Collection",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "act_1",
+        "act_2",
+        "act_3",
+        "act_4",
+        "act_5",
+        "act_6"
+      ],
+      "name": "Gift Guide Activity",
+      "settings": {
+        "heading": "Gifts By Activity",
+        "heading_mark": "",
+        "autoplay_interval": 2
+      }
+    },
+    "gift_guide_new": {
+      "type": "gift-guide-new",
+      "blocks": {
+        "new_1": {
+          "type": "product_card",
+          "settings": {
+            "product": "shopify://products/mens-classic-heated-vest-7-4v  ",
+            "image": "",
+            "title": ""
+          }
+        },
+        "new_2": {
+          "type": "product_card",
+          "settings": {
+            "product": "shopify://products/mens-classic-heated-vest-7-4v",
+            "image": "",
+            "title": ""
+          }
+        },
+        "new_3": {
+          "type": "product_card",
+          "settings": {
+            "product": "shopify://products/mens-classic-heated-vest-7-4v",
+            "image": "",
+            "title": ""
+          }
+        },
+        "new_4": {
+          "type": "product_card",
+          "settings": {
+            "product": "shopify://products/mens-classic-heated-vest-7-4v",
+            "image": "",
+            "title": ""
+          }
+        },
+        "new_5": {
+          "type": "product_card",
+          "settings": {
+            "product": "shopify://products/mens-classic-heated-vest-7-4v",
+            "image": "",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "new_1",
+        "new_2",
+        "new_3",
+        "new_4",
+        "new_5"
+      ],
+      "name": "Gift Guide New",
+      "settings": {
+        "heading": "New Arrivals",
+        "heading_mark": ""
+      }
+    },
+    "gift_guide_egift": {
+      "type": "gift-guide-egift",
+      "name": "Gift Guide eGift",
+      "settings": {
+        "title": "Out of Time? Send an e-Gift Card.",
+        "description": "Delivered instantly by email. They pick the size and the style.",
+        "desktop_image": "",
+        "mobile_image": "",
+        "button_label": "Buy a e-Gift Card",
+        "mobile_button_label": "Buy a $100 e-Gift Card",
+        "button_link": ""
+      }
+    },
+    "gift_guide_faq": {
+      "type": "gift-guide-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "question",
+          "settings": {
+            "question": "What special offers are available for Christmas?",
+            "answer": ""
+          }
+        },
+        "faq_2": {
+          "type": "question",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": ""
+          }
+        },
+        "faq_3": {
+          "type": "question",
+          "settings": {
+            "question": "What is the return policy for promotional items?",
+            "answer": ""
+          }
+        },
+        "faq_4": {
+          "type": "question",
+          "settings": {
+            "question": "How do I register my product for warranty?",
+            "answer": ""
+          }
+        },
+        "faq_5": {
+          "type": "question",
+          "settings": {
+            "question": "Can I wear these on their own?",
+            "answer": ""
+          }
+        },
+        "faq_6": {
+          "type": "question",
+          "settings": {
+            "question": "When does it ship?",
+            "answer": ""
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "name": "Gift Guide FAQ",
+      "settings": {
+        "desktop_image": "",
+        "mobile_image": ""
+      }
     }
   },
   "order": [
@@ -914,6 +1281,18 @@
     "tech_logo_Hcknee",
     "index_two_column_9CjNwK",
     "index_instagram_gallery_slider_zdJGmG",
-    "index_custom_column_GGGrHg"
+    "index_custom_column_GGGrHg",
+    "gift_guide_hero",
+    "gift_guide_categories",
+    "gift_guide_picks",
+    "gift_guide_collection",
+    "gift_guide_collection_2",
+    "gift_guide_collection_3",
+    "gift_guide_collection_4",
+    "gift_guide_price",
+    "gift_guide_activity",
+    "gift_guide_new",
+    "gift_guide_egift",
+    "gift_guide_faq"
   ]
 }

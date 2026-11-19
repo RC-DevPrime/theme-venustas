@@ -1,0 +1,476 @@
+{%- liquid
+  assign gift_collection = section.settings.collection
+  assign desktop_image = section.settings.desktop_image | default: section.settings.mobile_image
+  assign mobile_image = section.settings.mobile_image | default: section.settings.desktop_image
+  assign desktop_alt = desktop_image.alt | default: ''
+  assign mobile_alt = mobile_image.alt | default: ''
+  assign has_media = false
+  if desktop_image != blank
+    assign has_media = true
+  endif
+-%}
+
+{%- if gift_collection != blank and gift_collection.products_count > 0 -%}
+  {% style %}
+    #shopify-section-{{ section.id }} .giftG-coll {
+      padding: 80px 0;
+      background: #f9f2e8;
+      color: #0b4c20;
+      font-family: var(--font-primary, 'Montserrat', sans-serif);
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__inner {
+      width: min(calc(100% - 40px), 1340px);
+      margin: 0 auto;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__heading {
+      margin: 0 0 40px;
+      color: #0b4c20;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__layout {
+      display: flex;
+      align-items: stretch;
+      gap: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__media {
+      display: block;
+      position: relative;
+      flex: 0 0 420px;
+      align-self: stretch;
+      min-height: 320px;
+      overflow: hidden;
+      background: #efe6d8;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__layout--reverse .giftG-coll__media {
+      order: 2;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__media-img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__main {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__card {
+      display: flex;
+      flex: 0 0 calc((100% - 48px) / 3);
+      flex-direction: column;
+      gap: 20px;
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__card-media {
+      display: block;
+      overflow: hidden;
+      aspect-ratio: 280 / 365;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__card-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__name {
+      color: #0b4c20;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.25;
+      text-decoration: none;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__name:hover {
+      text-decoration: underline;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__price {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+      margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__price-now {
+      color: #0b4c20;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__price-was {
+      color: #777;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      text-decoration: line-through;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__button .heatingP-button--third {
+      border-width: 1.4px;
+      border-color: #515151;
+      color: #0b4c20;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__button .heatingP-button--third:hover {
+      border-color: #0b4c20;
+      background: rgba(11, 76, 32, 0.06);
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 40px;
+      margin-top: 15px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__dot {
+      width: 20px;
+      height: 5px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: #e5e7eb;
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__dot--active {
+      background: #1a1a1a;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__arrows {
+      display: flex;
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      color: #1a1a1a;
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__arrow:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__arrow svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__arrow--prev svg {
+      transform: rotate(180deg);
+    }
+
+    @media only screen and (max-width: 767px) {
+      #shopify-section-{{ section.id }} .giftG-coll {
+        padding: 24px 0;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__heading {
+        margin-bottom: 16px;
+        font-size: 24px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__layout {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__media,
+      #shopify-section-{{ section.id }} .giftG-coll__layout--reverse .giftG-coll__media {
+        order: -1;
+        flex: none;
+        width: 100%;
+        min-height: 0;
+        aspect-ratio: 350 / 363;
+        border-radius: 8px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__track {
+        gap: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__card {
+        flex-basis: calc((100% - 16px) / 2);
+        gap: 8px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__name {
+        min-height: 51px;
+        font-size: 12px;
+        line-height: 15.6px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__price-now {
+        font-size: 16px;
+        line-height: 25.6px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__price-was {
+        font-size: 12px;
+        line-height: 1.3;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__controls {
+        min-height: 0;
+        margin-top: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__arrows {
+        display: none;
+      }
+    }
+  {% endstyle %}
+
+  <section class="giftG-coll">
+    <div class="giftG-coll__inner">
+      {%- if section.settings.title != blank -%}
+        <h2 class="giftG-coll__heading">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+
+      <div class="giftG-coll__layout{% if section.settings.image_position == 'right' %} giftG-coll__layout--reverse{% endif %}">
+        {%- if has_media -%}
+          <picture class="giftG-coll__media">
+            {%- if mobile_image != blank -%}
+              <source
+                media="(max-width: 767px)"
+                srcset="{{ mobile_image | image_url: width: 350 }} 350w, {{ mobile_image | image_url: width: 700 }} 700w"
+                sizes="calc(100vw - 40px)">
+            {%- endif -%}
+            {{ desktop_image | image_url: width: 840 | image_tag: widths: '420, 640, 840', sizes: '420px', class: 'giftG-coll__media-img', alt: desktop_alt, loading: 'lazy' }}
+          </picture>
+        {%- endif -%}
+
+        <div class="giftG-coll__main">
+          <div class="giftG-coll__track" data-giftG-track>
+            {%- for product in gift_collection.products limit: 12 -%}
+              {%- assign card_alt = product.featured_image.alt | default: product.title -%}
+              <article class="giftG-coll__card">
+                <a class="giftG-coll__card-media" href="{{ product.url }}">
+                  {%- if product.featured_image != blank -%}
+                    {{ product.featured_image | image_url: width: 560 | image_tag: loading: 'lazy', widths: '280, 420, 560', sizes: '(max-width: 767px) 45vw, 280px', alt: card_alt }}
+                  {%- endif -%}
+                </a>
+
+                <div class="giftG-coll__info">
+                  <a class="giftG-coll__name" href="{{ product.url }}">{{ product.title | escape }}</a>
+                  <p class="giftG-coll__price">
+                    <span class="giftG-coll__price-now">{{ product.price | money }}</span>
+                    {%- if product.compare_at_price > product.price -%}
+                      <span class="giftG-coll__price-was">{{ product.compare_at_price | money }}</span>
+                    {%- endif -%}
+                  </p>
+                </div>
+
+                <div class="giftG-coll__button">
+                  {%- render 'heatingP-button', label: 'Shop Now', url: product.url, variant: 'third', class: 'heatingP-button--full heatingP-button--card' -%}
+                </div>
+              </article>
+            {%- endfor -%}
+          </div>
+
+          <div class="giftG-coll__controls">
+            <div class="giftG-coll__dots" data-giftG-dots></div>
+            <div class="giftG-coll__arrows">
+              <button class="giftG-coll__arrow giftG-coll__arrow--prev" type="button" aria-label="Previous" data-giftG-prev>
+                {%- render 'heating-icons', icon: 'chevron-right' -%}
+              </button>
+              <button class="giftG-coll__arrow giftG-coll__arrow--next" type="button" aria-label="Next" data-giftG-next>
+                {%- render 'heating-icons', icon: 'chevron-right' -%}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var section = document.getElementById('shopify-section-{{ section.id }}');
+      if (!section) return;
+      var track = section.querySelector('[data-giftG-track]');
+      var dots = section.querySelector('[data-giftG-dots]');
+      var prevBtn = section.querySelector('[data-giftG-prev]');
+      var nextBtn = section.querySelector('[data-giftG-next]');
+      if (!track || !dots) return;
+
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var pages = 1;
+
+      function gapWidth() {
+        return parseFloat(window.getComputedStyle(track).columnGap) || 0;
+      }
+
+      function perView() {
+        var card = track.firstElementChild;
+        if (!card) return 1;
+        var gap = gapWidth();
+        var cardWidth = card.getBoundingClientRect().width;
+        return Math.max(1, Math.round((track.clientWidth + gap) / (cardWidth + gap)));
+      }
+
+      function step() {
+        var card = track.firstElementChild;
+        if (!card) return 0;
+        return (card.getBoundingClientRect().width + gapWidth()) * perView();
+      }
+
+      function currentPage() {
+        var distance = step();
+        if (!distance) return 0;
+        var page = Math.round(track.scrollLeft / distance);
+        return Math.min(Math.max(page, 0), pages - 1);
+      }
+
+      function goTo(page) {
+        track.scrollTo({
+          left: page * step(),
+          behavior: reduceMotion.matches ? 'auto' : 'smooth'
+        });
+      }
+
+      function updateState() {
+        var page = currentPage();
+        var items = dots.children;
+        for (var i = 0; i < items.length; i++) {
+          items[i].classList.toggle('giftG-coll__dot--active', i === page);
+        }
+        if (prevBtn) prevBtn.disabled = page === 0;
+        if (nextBtn) nextBtn.disabled = page >= pages - 1;
+      }
+
+      function renderDots() {
+        pages = Math.max(1, Math.ceil(track.children.length / perView()));
+        dots.innerHTML = '';
+        for (var i = 0; i < pages; i++) {
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'giftG-coll__dot';
+          dot.setAttribute('aria-label', 'Go to page ' + (i + 1));
+          dot.addEventListener('click', (function (index) {
+            return function () {
+              goTo(index);
+            };
+          })(i));
+          dots.appendChild(dot);
+        }
+        updateState();
+      }
+
+      var ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(function () {
+          ticking = false;
+          updateState();
+        });
+      }
+
+      function onResize() {
+        renderDots();
+      }
+
+      track.addEventListener('scroll', onScroll, { passive: true });
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function () {
+          goTo(currentPage() - 1);
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          goTo(currentPage() + 1);
+        });
+      }
+      window.addEventListener('resize', onResize);
+      section.addEventListener('shopify:section:unload', function () {
+        window.removeEventListener('resize', onResize);
+      });
+
+      renderDots();
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Gift Guide Collection",
+  "tag": "section",
+  "class": "giftG-coll-section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Gifts For Her" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "image_picker", "id": "desktop_image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position (desktop)",
+      "options": [
+        { "value": "left", "label": "Left of cards" },
+        { "value": "right", "label": "Right of cards" }
+      ],
+      "default": "left"
+    }
+  ],
+  "presets": [
+    { "name": "Gift Guide Collection" }
+  ]
+}
+{% endschema %}
