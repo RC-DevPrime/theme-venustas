@@ -14,7 +14,8 @@
       "name": "Gift Guide Hero",
       "settings": {
         "desktop_image": "shopify://shop_images/giftG-banner.webp",
-        "mobile_image": "shopify://shop_images/giftG-banner-mobile.webp"
+        "mobile_image": "shopify://shop_images/giftG-banner-mobile.webp",
+        "ornament_image": "shopify://shop_images/giftG-icon-left.webp"
       }
     },
     "gift_guide_categories": {
@@ -150,13 +151,24 @@
         "image_position": "right"
       }
     },
+    "gift_guide_collection_GMpXKg": {
+      "type": "gift-guide-collection",
+      "name": "Gift Guide Collection",
+      "settings": {
+        "title": "Gifts for Couple & Family",
+        "collection": "couple-family",
+        "desktop_image": "shopify://shop_images/giftG-couple-promo.webp",
+        "mobile_image": "shopify://shop_images/giftG-her-couple-mobile.webp",
+        "image_position": "right"
+      }
+    },
     "gift_guide_price": {
       "type": "gift-guide-price",
       "name": "Gift Guide Price",
       "settings": {
-        "link_1": "",
-        "link_2": "",
-        "link_3": ""
+        "link_1": "https://venustas.com/collections/all-sales?filter.v.price.gte=0&filter.v.price.lte=100&sort_by=manual",
+        "link_2": "https://venustas.com/collections/all-sales?filter.v.price.gte=0&filter.v.price.lte=150&sort_by=manual",
+        "link_3": "https://venustas.com/collections/all-sales?filter.v.price.gte=200&filter.v.price.lte=799&sort_by=manual"
       }
     },
     "gift_guide_activity": {
@@ -305,7 +317,7 @@
         "mobile_image": "shopify://shop_images/giftG-banner-two-mobile.webp",
         "button_label": "Buy a e-Gift Card",
         "mobile_button_label": "Buy a $100 e-Gift Card",
-        "button_link": ""
+        "button_link": "https://venustas.com/products/100-200-venustas-gift-card?_pos=1&_sid=307ff8c8b&_ss=r"
       }
     },
     "gift_guide_faq": {
@@ -315,42 +327,28 @@
           "type": "question",
           "settings": {
             "question": "What special offers are available for Christmas?",
-            "answer": ""
+            "answer": "<p>Enjoy these lovely savings:<br/>- Save $20 on purchases of $200 or more<br/>- Up to 50% off select items<br/>- Subscribe and get $30 off your first purchase - no minimum required<br/>Note: Discounts cannot be combined.</p>"
           }
         },
         "faq_2": {
           "type": "question",
           "settings": {
             "question": "How long does shipping take?",
-            "answer": ""
+            "answer": "<p>We offer shipping to both US and CA:<br/>- US delivery: 3-5 business days<br/>- CA delivery: 5-7 business days</p>"
           }
         },
         "faq_3": {
           "type": "question",
           "settings": {
             "question": "What is the return policy for promotional items?",
-            "answer": ""
+            "answer": "<p>All products come with a 2-year warranty. If your product becomes defective due<br/>to manufacturing issues during the warranty period, you're eligible for afree<br/>replacement or refund. For detailed information, please visit:<br/>[https://www.birdfy.com/policies/refund-policy](https://www.birdfy.com/policies/refund-policy)</p>"
           }
         },
         "faq_4": {
           "type": "question",
           "settings": {
             "question": "How do I register my product for warranty?",
-            "answer": ""
-          }
-        },
-        "faq_5": {
-          "type": "question",
-          "settings": {
-            "question": "Can I wear these on their own?",
-            "answer": ""
-          }
-        },
-        "faq_6": {
-          "type": "question",
-          "settings": {
-            "question": "When does it ship?",
-            "answer": ""
+            "answer": "<p>Register your product online by visiting:<br/>https://www.venustas.com/warranty-registration\"</p>"
           }
         }
       },
@@ -358,9 +356,7 @@
         "faq_1",
         "faq_2",
         "faq_3",
-        "faq_4",
-        "faq_5",
-        "faq_6"
+        "faq_4"
       ],
       "name": "Gift Guide FAQ",
       "settings": {
@@ -377,6 +373,7 @@
     "gift_guide_collection_2",
     "gift_guide_collection_3",
     "gift_guide_collection_4",
+    "gift_guide_collection_GMpXKg",
     "gift_guide_price",
     "gift_guide_activity",
     "gift_guide_new",
