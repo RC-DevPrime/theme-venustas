@@ -68,7 +68,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/giftG-nav-three.webp",
-            "label": "Gifts for Kits",
+            "label": "Gifts for Kids",
             "link": "#gifts-for-kits"
           }
         },
@@ -139,7 +139,7 @@
       "name": "Gift Guide Collection",
       "settings": {
         "anchor_id": "gifts-for-kits",
-        "title": "Gifts For Kits",
+        "title": "Gifts For Kids",
         "collection": "kids",
         "products_limit": 15,
         "desktop_image": "shopify://shop_images/giftG-kids-promo.webp",
@@ -297,29 +297,43 @@
         "faq_1": {
           "type": "question",
           "settings": {
-            "question": "What special offers are available for Christmas?",
-            "answer": "<p>Enjoy these lovely savings:<br/>- Save $20 on purchases of $200 or more<br/>- Up to 50% off select items<br/>- Subscribe and get $30 off your first purchase - no minimum required<br/>Note: Discounts cannot be combined.</p>"
+            "question": "Can I return or exchange a gift?",
+            "answer": "<p>Yes. Brand-new, unworn items with tags can be returned or exchanged within 30 days of delivery. Orders placed from Oct 27, 2026 can be returned through Jan 15, 2027 if the buyer is a free Heatwave Club member at checkout. Outlet and final sale items aren't eligible.</p>"
           }
         },
         "faq_2": {
           "type": "question",
           "settings": {
-            "question": "How long does shipping take?",
-            "answer": "<p>We offer shipping to both US and CA:<br/>- US delivery: 3-5 business days<br/>- CA delivery: 5-7 business days</p>"
+            "question": "How do refunds and return shipping work?",
+            "answer": "<p>Submit a request in our Return Center. U.S. orders get one prepaid return label. Refunds take about 3–6 business days to process, plus bank time. Original shipping fees aren't refundable.</p>"
           }
         },
         "faq_3": {
           "type": "question",
           "settings": {
-            "question": "What is the return policy for promotional items?",
-            "answer": "<p>All products come with a 2-year warranty. If your product becomes defective due<br/>to manufacturing issues during the warranty period, you're eligible for afree<br/>replacement or refund. For detailed information, please visit:<br/>[https://www.birdfy.com/policies/refund-policy](https://www.birdfy.com/policies/refund-policy)</p>"
+            "question": "Will it arrive in time for the holidays?",
+            "answer": "<p>Orders ship within 1–2 days. Standard shipping is free in the U.S. and Canada, and takes about 3–7 days in the U.S. and 4–8 days in Canada. Expedited shipping is $10. Order early to be safe.</p>"
           }
         },
         "faq_4": {
           "type": "question",
           "settings": {
-            "question": "How do I register my product for warranty?",
-            "answer": "<p>Register your product online by visiting:<br/>https://www.venustas.com/warranty-registration\"</p>"
+            "question": "Does the gift come with a warranty?",
+            "answer": "<p>Yes. The heating elements have a 3-year limited warranty and the battery has 1 year. The recipient can claim it with the buyer's name, email and order number.</p>"
+          }
+        },
+        "question_tbGryC": {
+          "type": "question",
+          "settings": {
+            "question": "Is the battery included? How long does it last?",
+            "answer": "<p>Most heated apparel come with a rechargeable battery. A few USB-C models are listed as \"Battery Not Included\", so check the product page.</p>"
+          }
+        },
+        "question_dNgrTE": {
+          "type": "question",
+          "settings": {
+            "question": "Is it machine washable?",
+            "answer": "<p>Yes. Please follow the care label and user manual to keep your warranty valid.</p>"
           }
         }
       },
@@ -327,7 +341,9 @@
         "faq_1",
         "faq_2",
         "faq_3",
-        "faq_4"
+        "faq_4",
+        "question_tbGryC",
+        "question_dNgrTE"
       ],
       "name": "Gift Guide FAQ",
       "settings": {
