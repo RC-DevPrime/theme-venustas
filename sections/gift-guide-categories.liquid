@@ -15,7 +15,9 @@
     padding: 0;
     list-style: none;
   }
-
+  #shopify-section-{{ section.id }} .giftG-cat__list .bss_pl_img{
+    display:none !important;
+  }
   #shopify-section-{{ section.id }} .giftG-cat__link {
     display: flex;
     flex-direction: column;
@@ -209,6 +211,7 @@
       var nav = section.querySelector('.giftG-cat__nav');
       var bar = section.querySelector('.giftG-cat__bar');
       if (!nav || !bar) return;
+      var barList = bar.querySelector('.giftG-cat__bar-list');
 
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       var observer = new IntersectionObserver(function (entries) {
@@ -216,6 +219,33 @@
         bar.classList.toggle('giftG-cat__bar--shown', entry.boundingClientRect.bottom <= 0);
       });
       observer.observe(nav);
+
+      // Horizontal bar: keep the active item in view. A fully visible item never
+      // moves the list; a cut-off one is centered smoothly, like the anchor nav.
+      function scrollBarToLink(link) {
+        if (!barList || !link) return;
+        var maxScroll = barList.scrollWidth - barList.clientWidth;
+        if (maxScroll <= 0) return;
+        var listRect = barList.getBoundingClientRect();
+        var linkRect = link.getBoundingClientRect();
+        var fullyVisible = linkRect.left >= listRect.left - 1 && linkRect.right <= listRect.right + 1;
+        if (fullyVisible) return;
+        var left = barList.scrollLeft + (linkRect.left - listRect.left) - (listRect.width - linkRect.width) / 2;
+        left = Math.min(Math.max(left, 0), maxScroll);
+        if (Math.abs(left - barList.scrollLeft) < 1) return;
+        barList.scrollTo({
+          left: left,
+          behavior: reduceMotion.matches ? 'auto' : 'smooth'
+        });
+      }
+
+      function matchingBarLink(href) {
+        var links = bar.querySelectorAll('.giftG-cat__bar-link');
+        for (var i = 0; i < links.length; i++) {
+          if (links[i].getAttribute('href') === href) return links[i];
+        }
+        return null;
+      }
 
       section.addEventListener('click', function (event) {
         var link = event.target.closest('.giftG-cat__link, .giftG-cat__bar-link');
@@ -225,6 +255,7 @@
         var target = document.getElementById(href.slice(1));
         if (!target) return;
         event.preventDefault();
+        scrollBarToLink(matchingBarLink(href));
         var barTop = parseFloat(window.getComputedStyle(bar).top) || 0;
         var offset = bar.offsetHeight + barTop;
         var top = target.getBoundingClientRect().top + window.pageYOffset - offset;

@@ -32,7 +32,7 @@
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
   }
 
@@ -107,42 +107,14 @@
   }
 
   #shopify-section-{{ section.id }} .giftG-hero__form {
-    display: flex;
     align-self: flex-end;
-    gap: 12px;
     width: 100%;
     max-width: 463px;
     margin-top: 80px;
-    pointer-events: none;
   }
 
-  #shopify-section-{{ section.id }} .giftG-hero__form-field {
-    display: flex;
-    flex: 1 1 auto;
-    align-items: center;
-    min-width: 0;
-    height: 56px;
-    padding: 0 24px;
-    background: #fffaf0;
-    border-radius: 6px;
-    color: #515151;
-    font-size: 18px;
-    line-height: 27px;
-    text-align: left;
-  }
-
-  #shopify-section-{{ section.id }} .giftG-hero__form-button {
-    display: flex;
-    flex: 0 0 165px;
-    align-items: center;
-    justify-content: center;
-    height: 56px;
-    background: #b93205;
-    border-radius: 6px;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 27px;
+  #shopify-section-{{ section.id }} .giftG-hero__form .klaviyo-form {
+    width: 100%;
   }
 
   #shopify-section-{{ section.id }} .giftG-hero__badges {
@@ -249,31 +221,26 @@
     }
 
     #shopify-section-{{ section.id }} .giftG-hero__form {
-      flex-direction: column;
       align-self: stretch;
       max-width: none;
       margin-top: 24px;
-      gap: 10px;
-    }
-
-    #shopify-section-{{ section.id }} .giftG-hero__form-field,
-    #shopify-section-{{ section.id }} .giftG-hero__form-button {
-      flex: 0 0 auto;
-      height: 50px;
-      font-size: 16px;
     }
 
     #shopify-section-{{ section.id }} .giftG-hero__badges {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       width: calc(100% - 40px);
       min-height: 0;
-      margin: 24px auto 32px;
+      margin: 24px auto 0px;
       padding: 8px 0;
+      background:#FFFAF0;
+      box-shadow: none;
     }
 
     #shopify-section-{{ section.id }} .giftG-hero__badge {
       gap: 14px;
       padding: 18px 16px;
+      flex-direction:column;
+      text-align:center;
     }
 
     #shopify-section-{{ section.id }} .giftG-hero__badge:nth-child(2n + 1) {
@@ -321,10 +288,8 @@
           <p class="giftG-hero__subtitle">Warm Gifts for the Ones You Love</p>
         </div>
 
-        {%- comment -%} Klaviyo 邮件订阅表单占位，正式表单由 Klaviyo 嵌入替换 {%- endcomment -%}
-        <div class="giftG-hero__form" aria-hidden="true">
-          <span class="giftG-hero__form-field">Email</span>
-          <span class="giftG-hero__form-button">Get Notified</span>
+        <div class="giftG-hero__form">
+          <div class="klaviyo-form-VamEGz"></div>
         </div>
       </div>
     </div>

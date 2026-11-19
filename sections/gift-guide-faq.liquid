@@ -34,14 +34,6 @@
     display: none;
   }
 
-  #shopify-section-{{ section.id }} .giftG-faq__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: radial-gradient(ellipse 92% 128% at 50% 100%, rgba(157, 92, 47, 0) 33.5%, rgba(109, 61, 35, 0.5) 63%, rgba(61, 29, 22, 1) 92.7%);
-    pointer-events: none;
-  }
-
   #shopify-section-{{ section.id }} .giftG-faq__inner {
     position: relative;
     z-index: 2;
@@ -192,46 +184,66 @@
 
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .giftG-faq {
-      padding: 40px 20px;
+      padding: 0;
+      background: #382117;
     }
 
     #shopify-section-{{ section.id }} .giftG-faq__bg--desktop {
       display: none;
     }
 
+    /* Mobile shows the image as a rounded photo between heading and stats */
     #shopify-section-{{ section.id }} .giftG-faq__bg--mobile {
       display: block;
+      position: static;
+      aspect-ratio: 350 / 195;
+      overflow: hidden;
+      border-radius: 6px;
     }
 
     #shopify-section-{{ section.id }} .giftG-faq__inner {
-      gap: 40px;
+      gap: 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-faq__intro {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 32px 20px;
     }
 
     #shopify-section-{{ section.id }} .giftG-faq__heading {
-      margin-bottom: 32px;
+      margin: 0;
       font-size: 24px;
     }
 
     #shopify-section-{{ section.id }} .giftG-faq__stats {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 24px;
+      gap: 20px;
+      padding-top: 20px;
     }
 
-    #shopify-section-{{ section.id }} .giftG-faq__stat:nth-child(2n + 1) {
+    #shopify-section-{{ section.id }} .giftG-faq__stat + .giftG-faq__stat {
       border-left: 0;
     }
 
     #shopify-section-{{ section.id }} .giftG-faq__stat-value {
-      font-size: 28px;
+      font-size: 26px;
+      line-height: 30px;
     }
 
     #shopify-section-{{ section.id }} .giftG-faq__stat-label {
-      font-size: 14px;
+      margin-top: 12px;
+      font-size: 12px;
+      line-height: 30px;
+      text-transform: uppercase;
     }
 
     #shopify-section-{{ section.id }} .giftG-faq__card {
       padding: 24px 20px;
-      border-radius: 16px;
+      background: #8f1212;
+      border-radius: 0;
+      box-shadow: none;
     }
 
     #shopify-section-{{ section.id }} .giftG-faq__eyebrow {
@@ -243,19 +255,25 @@
 
     #shopify-section-{{ section.id }} .giftG-faq__list {
       grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
       margin-top: 16px;
       border-top: 0;
     }
 
+    #shopify-section-{{ section.id }} .giftG-faq__item {
+      border-bottom-color: #fff;
+    }
+
     #shopify-section-{{ section.id }} .giftG-faq__question {
-      padding: 16px 0;
-      font-size: 16px;
+      gap: 16px;
+      padding: 12px 0;
+      font-size: 14px;
       line-height: 21px;
     }
 
     #shopify-section-{{ section.id }} .giftG-faq__answer {
-      padding-bottom: 16px;
-      font-size: 15px;
+      padding-bottom: 12px;
+      font-size: 14px;
     }
   }
 {% endstyle %}
@@ -266,16 +284,17 @@
       {{ desktop_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '960, 1340, 1600, 1920, 2400', sizes: '100vw', alt: desktop_alt }}
     </div>
   {%- endif -%}
-  {%- if mobile_image != blank -%}
-    <div class="giftG-faq__bg giftG-faq__bg--mobile" aria-hidden="true">
-      {{ mobile_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '390, 600, 750, 900', sizes: '100vw', alt: mobile_alt }}
-    </div>
-  {%- endif -%}
   <div class="giftG-faq__overlay" aria-hidden="true"></div>
 
   <div class="giftG-faq__inner">
     <div class="giftG-faq__intro">
       <h2 class="giftG-faq__heading">Why Choose Us for This Gift Season</h2>
+
+      {%- if mobile_image != blank -%}
+        <div class="giftG-faq__bg giftG-faq__bg--mobile" aria-hidden="true">
+          {{ mobile_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '390, 600, 750, 900', sizes: '(max-width: 767px) calc(100vw - 40px), 100vw', alt: mobile_alt }}
+        </div>
+      {%- endif -%}
 
       <ul class="giftG-faq__stats">
         {%- for value in stat_values -%}

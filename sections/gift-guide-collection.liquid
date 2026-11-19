@@ -1,5 +1,6 @@
 {%- liquid
   assign gift_collection = section.settings.collection
+  assign products_limit = section.settings.products_limit | default: 12
   assign desktop_image = section.settings.desktop_image | default: section.settings.mobile_image
   assign mobile_image = section.settings.mobile_image | default: section.settings.desktop_image
   assign desktop_alt = desktop_image.alt | default: ''
@@ -8,6 +9,7 @@
   if desktop_image != blank
     assign has_media = true
   endif
+  assign section_anchor = section.settings.anchor_id | strip
 -%}
 
 {%- if gift_collection != blank and gift_collection.products_count > 0 -%}
@@ -43,8 +45,7 @@
       display: block;
       position: relative;
       flex: 0 0 420px;
-      align-self: stretch;
-      min-height: 320px;
+      height: 590px;
       overflow: hidden;
       background: #efe6d8;
     }
@@ -68,6 +69,7 @@
       flex: 1 1 auto;
       flex-direction: column;
       justify-content: space-between;
+      height: 590px;
       min-width: 0;
     }
 
@@ -85,10 +87,15 @@
 
     #shopify-section-{{ section.id }} .giftG-coll__card {
       display: flex;
+      position: relative;
       flex: 0 0 calc((100% - 48px) / 3);
       flex-direction: column;
       gap: 20px;
       scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__card .bss_pl_img {
+      margin-top:-20px;
     }
 
     #shopify-section-{{ section.id }} .giftG-coll__card-media {
@@ -111,11 +118,17 @@
     }
 
     #shopify-section-{{ section.id }} .giftG-coll__name {
+      display: -webkit-box;
+      overflow: hidden;
       color: #0b4c20;
       font-size: 16px;
       font-weight: 500;
       line-height: 1.25;
       text-decoration: none;
+      overflow-wrap: break-word;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
     }
 
     #shopify-section-{{ section.id }} .giftG-coll__name:hover {
@@ -236,9 +249,14 @@
         order: -1;
         flex: none;
         width: 100%;
+        height: auto;
         min-height: 0;
         aspect-ratio: 350 / 363;
         border-radius: 8px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__main {
+        height: auto;
       }
 
       #shopify-section-{{ section.id }} .giftG-coll__track {
@@ -251,7 +269,7 @@
       }
 
       #shopify-section-{{ section.id }} .giftG-coll__name {
-        min-height: 51px;
+        min-height: 32px;
         font-size: 12px;
         line-height: 15.6px;
       }
@@ -277,7 +295,7 @@
     }
   {% endstyle %}
 
-  <section class="giftG-coll">
+  <section class="giftG-coll"{% if section_anchor != blank %} id="{{ section_anchor | escape }}"{% endif %}>
     <div class="giftG-coll__inner">
       {%- if section.settings.title != blank -%}
         <h2 class="giftG-coll__heading">{{ section.settings.title | escape }}</h2>
@@ -298,7 +316,7 @@
 
         <div class="giftG-coll__main">
           <div class="giftG-coll__track" data-giftG-track>
-            {%- for product in gift_collection.products limit: 12 -%}
+            {%- for product in gift_collection.products limit: products_limit -%}
               {%- assign card_alt = product.featured_image.alt | default: product.title -%}
               <article class="giftG-coll__card">
                 <a class="giftG-coll__card-media" href="{{ product.url }}">
@@ -454,8 +472,18 @@
   "tag": "section",
   "class": "giftG-coll-section",
   "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Section anchor ID", "info": "Used by the gift guide category links, e.g. gifts-for-her" },
     { "type": "text", "id": "title", "label": "Title", "default": "Gifts For Her" },
     { "type": "collection", "id": "collection", "label": "Collection" },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Maximum products to show",
+      "min": 1,
+      "max": 24,
+      "step": 1,
+      "default": 12
+    },
     { "type": "image_picker", "id": "desktop_image", "label": "Desktop image" },
     { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" },
     {

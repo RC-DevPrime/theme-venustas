@@ -6,6 +6,7 @@
     endif
   endfor
   assign heading_mark = section.settings.heading_mark
+  assign section_anchor = section.settings.anchor_id | strip
 -%}
 
 {%- if slide_count > 0 -%}
@@ -84,7 +85,7 @@
       flex-direction: column;
       justify-content: space-between;
       min-width: 0;
-      padding: 80px 0 86px;
+      padding: 80px 0 86px 12px;
     }
 
     #shopify-section-{{ section.id }} .giftG-act__text {
@@ -144,6 +145,7 @@
       align-items: center;
       justify-content: space-between;
       width: 45.5%;
+      max-width: 531px;
     }
 
     #shopify-section-{{ section.id }} .giftG-act__dots {
@@ -274,6 +276,7 @@
         position: static;
         justify-content: center;
         width: 100%;
+        max-width: none;
         margin-top: 16px;
       }
 
@@ -283,7 +286,7 @@
     }
   {% endstyle %}
 
-  <section class="giftG-act">
+  <section class="giftG-act"{% if section_anchor != blank %} id="{{ section_anchor | escape }}"{% endif %}>
     <div class="giftG-act__inner">
       <div class="giftG-act__header">
         {%- if heading_mark != blank -%}
@@ -371,29 +374,72 @@
       var slides = track.children;
       if (slides.length < 2) return;
 
+      var slideCount = slides.length;
+      var firstClone = slides[0].cloneNode(true);
+      firstClone.setAttribute('aria-hidden', 'true');
+      firstClone.setAttribute('inert', '');
+      firstClone.removeAttribute('data-shopify-editor-block');
+      var editableNodes = firstClone.querySelectorAll('[data-shopify-editor-block]');
+      for (var i = 0; i < editableNodes.length; i++) {
+        editableNodes[i].removeAttribute('data-shopify-editor-block');
+      }
+      var focusables = firstClone.querySelectorAll('a, button, input, select, textarea');
+      for (var j = 0; j < focusables.length; j++) {
+        focusables[j].setAttribute('tabindex', '-1');
+      }
+      track.appendChild(firstClone);
+
       var interval = {{ section.settings.autoplay_interval | default: 0 | times: 1000 }};
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       var current = 0;
       var timer = null;
       var ticking = false;
+      var settleTimer = null;
+
+      function slideWidth() {
+        return track.clientWidth;
+      }
 
       function goTo(index) {
-        var target = (index + slides.length) % slides.length;
+        if (!slideWidth()) return;
+        var wrapBack = index < 0;
+        if (wrapBack) index = slideCount - 1;
+        if (index > slideCount) index = 0;
         track.scrollTo({
-          left: target * track.clientWidth,
-          behavior: reduceMotion.matches ? 'auto' : 'smooth'
+          left: index * slideWidth(),
+          behavior: wrapBack || reduceMotion.matches ? 'auto' : 'smooth'
         });
+        current = Math.min(index, slideCount - 1);
       }
 
       function updateState() {
-        current = Math.min(slides.length - 1, Math.max(0, Math.round(track.scrollLeft / track.clientWidth)));
+        var width = slideWidth();
+        if (!width) return;
+        var index = Math.round(track.scrollLeft / width);
+        current = Math.min(slideCount - 1, Math.max(0, index));
         var items = dots.children;
-        for (var i = 0; i < items.length; i++) {
-          items[i].classList.toggle('giftG-act__dot--active', i === current);
+        for (var k = 0; k < items.length; k++) {
+          items[k].classList.toggle('giftG-act__dot--active', k === current);
+        }
+      }
+
+      function wrapToStart() {
+        track.scrollLeft = 0;
+        current = 0;
+        updateState();
+      }
+
+      function checkWrap() {
+        var width = slideWidth();
+        if (!width) return;
+        if (Math.round(track.scrollLeft / width) >= slideCount) {
+          wrapToStart();
         }
       }
 
       function onScroll() {
+        window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(checkWrap, 150);
         if (ticking) return;
         ticking = true;
         window.requestAnimationFrame(function () {
@@ -461,6 +507,7 @@
 
       section.addEventListener('shopify:section:unload', function () {
         stop();
+        window.clearTimeout(settleTimer);
         document.removeEventListener('visibilitychange', onVisibilityChange);
       });
 
@@ -477,6 +524,7 @@
   "class": "giftG-act-section",
   "max_blocks": 6,
   "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Section anchor ID", "info": "Used by the gift guide category links, e.g. gifts-by-activity" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Gifts By Activity" },
     { "type": "image_picker", "id": "heading_mark", "label": "Heading decoration (desktop)" },
     {

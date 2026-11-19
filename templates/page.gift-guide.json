@@ -53,7 +53,7 @@
           "settings": {
             "image": "shopify://shop_images/giftG-nav-one.webp",
             "label": "Gifts for Her",
-            "link": "shopify://products/mens-classic-heated-vest-7-4v"
+            "link": "#gifts-for-her"
           }
         },
         "cat_him": {
@@ -61,7 +61,7 @@
           "settings": {
             "image": "shopify://shop_images/giftG-nav-two.webp",
             "label": "Gifts for Him",
-            "link": "shopify://products/mens-classic-heated-vest-7-4v"
+            "link": "#gifts-for-him"
           }
         },
         "cat_kits": {
@@ -69,7 +69,7 @@
           "settings": {
             "image": "shopify://shop_images/giftG-nav-three.webp",
             "label": "Gifts for Kits",
-            "link": ""
+            "link": "#gifts-for-kits"
           }
         },
         "cat_activity": {
@@ -77,7 +77,7 @@
           "settings": {
             "image": "shopify://shop_images/giftG-nav-four.webp",
             "label": "Gifts by Activity",
-            "link": ""
+            "link": "#gifts-by-activity"
           }
         },
         "cat_new": {
@@ -85,7 +85,7 @@
           "settings": {
             "image": "shopify://shop_images/giftG-nav-five.webp",
             "label": "New Arrivals",
-            "link": ""
+            "link": "#new-arrivals"
           }
         },
         "cat_card": {
@@ -93,7 +93,7 @@
           "settings": {
             "image": "shopify://shop_images/giftG-nav-six.webp",
             "label": "Gift Card",
-            "link": ""
+            "link": "#gift-card"
           }
         }
       },
@@ -112,6 +112,7 @@
       "type": "gift-guide-collection",
       "name": "Gift Guide Collection",
       "settings": {
+        "anchor_id": "gifts-for-her",
         "title": "Gifts For Her",
         "collection": "womens",
         "desktop_image": "shopify://shop_images/giftG-her-promo.webp",
@@ -123,6 +124,7 @@
       "type": "gift-guide-collection",
       "name": "Gift Guide Collection",
       "settings": {
+        "anchor_id": "gifts-for-him",
         "title": "Gifts For Him",
         "collection": "men",
         "desktop_image": "shopify://shop_images/giftG-him-promo.webp",
@@ -134,6 +136,7 @@
       "type": "gift-guide-collection",
       "name": "Gift Guide Collection",
       "settings": {
+        "anchor_id": "gifts-for-kits",
         "title": "Gifts For Kits",
         "collection": "kids",
         "desktop_image": "shopify://shop_images/giftG-kids-promo.webp",
@@ -251,66 +254,26 @@
       ],
       "name": "Gift Guide Activity",
       "settings": {
+        "anchor_id": "gifts-by-activity",
         "heading": "Gifts By Activity",
         "autoplay_interval": 2
       }
     },
     "gift_guide_new": {
       "type": "gift-guide-new",
-      "blocks": {
-        "new_1": {
-          "type": "product_card",
-          "settings": {
-            "product": "shopify://products/mens-classic-heated-vest-7-4v",
-            "title": ""
-          }
-        },
-        "new_2": {
-          "type": "product_card",
-          "settings": {
-            "product": "shopify://products/mens-classic-heated-vest-7-4v",
-            "title": ""
-          }
-        },
-        "new_3": {
-          "type": "product_card",
-          "settings": {
-            "product": "shopify://products/mens-classic-heated-vest-7-4v",
-            "title": ""
-          }
-        },
-        "new_4": {
-          "type": "product_card",
-          "settings": {
-            "product": "shopify://products/mens-classic-heated-vest-7-4v",
-            "title": ""
-          }
-        },
-        "new_5": {
-          "type": "product_card",
-          "settings": {
-            "product": "shopify://products/mens-classic-heated-vest-7-4v",
-            "title": ""
-          }
-        }
-      },
-      "block_order": [
-        "new_1",
-        "new_2",
-        "new_3",
-        "new_4",
-        "new_5"
-      ],
       "name": "Gift Guide New",
       "settings": {
+        "anchor_id": "new-arrivals",
         "heading": "New Arrivals",
-        "heading_mark": "shopify://shop_images/giftG-flower.webp"
+        "heading_mark": "shopify://shop_images/giftG-flower.webp",
+        "collection": ""
       }
     },
     "gift_guide_egift": {
       "type": "gift-guide-egift",
       "name": "Gift Guide eGift",
       "settings": {
+        "anchor_id": "gift-card",
         "title": "Out of Time? Send an e-Gift Card.",
         "description": "Delivered instantly by email. They pick the size and the style.",
         "desktop_image": "shopify://shop_images/giftG-banner-two.webp",

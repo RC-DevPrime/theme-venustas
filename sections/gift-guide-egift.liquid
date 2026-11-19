@@ -1,54 +1,58 @@
 {%- liquid
   assign desktop_image = section.settings.desktop_image
-  assign mobile_image = section.settings.mobile_image
+  assign mobile_image = section.settings.mobile_image | default: desktop_image
   assign desktop_alt = desktop_image.alt | default: ''
   assign mobile_alt = mobile_image.alt | default: ''
   assign button_label = section.settings.button_label
   assign mobile_button_label = section.settings.mobile_button_label | default: button_label
+  assign section_anchor = section.settings.anchor_id | strip
+  assign title_parts = section.settings.title | split: '?'
 -%}
 
 {% style %}
   #shopify-section-{{ section.id }} .giftG-egift {
     position: relative;
-    display: flex;
-    align-items: center;
-    min-height: 500px;
-    padding: 80px 0;
     overflow: hidden;
     background: radial-gradient(ellipse 60% 177% at 75% 86%, #ffdb97 0%, #fce6c0 28.5%, #f9f2e8 57%);
     color: #0b4c20;
     font-family: var(--font-primary, 'Montserrat', sans-serif);
   }
 
-  #shopify-section-{{ section.id }} .giftG-egift__inner {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 48px;
-    width: min(calc(100% - 40px), 1340px);
-    min-height: 340px;
-    margin: 0 auto;
-    justify-content: center;
+  #shopify-section-{{ section.id }} .giftG-egift--no-media {
+    min-height: 500px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-egift__media,
+  #shopify-section-{{ section.id }} .giftG-egift__image {
+    width: 100%;
   }
 
   #shopify-section-{{ section.id }} .giftG-egift__media {
-    position: absolute;
-    top: -80px;
-    bottom: -80px;
-    left: 52%;
-    right: calc((100% - 100vw) / 2);
-    z-index: 0;
-    overflow: hidden;
+    position: relative;
   }
 
-  #shopify-section-{{ section.id }} .giftG-egift__media img {
+  #shopify-section-{{ section.id }} .giftG-egift__image {
     display: block;
-    width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
     object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-egift__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-egift__inner {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 48px;
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
   }
 
   #shopify-section-{{ section.id }} .giftG-egift__text {
@@ -85,23 +89,45 @@
 
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .giftG-egift {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
       min-height: 0;
       padding: 24px 0 40px;
       background: #f9f2e8;
     }
 
+    #shopify-section-{{ section.id }} .giftG-egift__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-egift__image--mobile {
+      display: block;
+    }
+
+    /* Mobile order: text → image → button */
+    #shopify-section-{{ section.id }} .giftG-egift__media {
+      order: 2;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-egift--empty .giftG-egift__media {
+      display: none;
+    }
+
     #shopify-section-{{ section.id }} .giftG-egift__inner {
-      gap: 16px;
-      align-items: stretch;
-      width: 100%;
-      min-height: 0;
-      padding: 0 20px;
+      display: contents;
     }
 
     #shopify-section-{{ section.id }} .giftG-egift__text {
+      order: 1;
       max-width: none;
+      padding: 0 20px;
       text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-egift__button {
+      order: 3;
+      padding: 0 20px;
     }
 
     #shopify-section-{{ section.id }} .giftG-egift__title {
@@ -109,14 +135,13 @@
       line-height: 1.25;
     }
 
+    #shopify-section-{{ section.id }} .giftG-egift__title-line {
+      display: block;
+    }
+
     #shopify-section-{{ section.id }} .giftG-egift__desc {
       font-size: 16px;
       line-height: 24px;
-    }
-
-    #shopify-section-{{ section.id }} .giftG-egift__media {
-      position: static;
-      height: 240px;
     }
 
     #shopify-section-{{ section.id }} .giftG-egift__button .heatingP-button {
@@ -135,31 +160,33 @@
   }
 {% endstyle %}
 
-<section class="giftG-egift{% if mobile_button_label != button_label %} giftG-egift--alt-label{% endif %}">
+<section class="giftG-egift{% if desktop_image == blank %} giftG-egift--no-media{% endif %}{% if mobile_image == blank %} giftG-egift--empty{% endif %}{% if mobile_button_label != button_label %} giftG-egift--alt-label{% endif %}"{% if section_anchor != blank %} id="{{ section_anchor | escape }}"{% endif %}>
+  <div class="giftG-egift__media">
+    {%- if desktop_image != blank -%}
+      {{ desktop_image | image_url: width: 2400 | image_tag: class: 'giftG-egift__image giftG-egift__image--desktop', loading: 'lazy', widths: '960, 1340, 1600, 1920, 2400', sizes: '100vw', alt: desktop_alt }}
+    {%- endif -%}
+    {%- if mobile_image != blank -%}
+      {{ mobile_image | image_url: width: 900 | image_tag: class: 'giftG-egift__image giftG-egift__image--mobile', loading: 'lazy', widths: '390, 600, 750, 900', sizes: '100vw', alt: mobile_alt }}
+    {%- endif -%}
+  </div>
+
   <div class="giftG-egift__inner">
     {%- if section.settings.title != blank or section.settings.description != blank -%}
       <div class="giftG-egift__text">
         {%- if section.settings.title != blank -%}
-          <h2 class="giftG-egift__title">{{ section.settings.title | escape }}</h2>
+          <h2 class="giftG-egift__title">
+            {%- if title_parts.size == 2 and title_parts[1] != blank -%}
+              <span class="giftG-egift__title-line">{{ title_parts[0] | strip | escape }}?</span>
+              <span class="giftG-egift__title-line">{{ title_parts[1] | strip | escape }}</span>
+            {%- else -%}
+              {{ section.settings.title | escape }}
+            {%- endif -%}
+          </h2>
         {%- endif -%}
         {%- if section.settings.description != blank -%}
           <p class="giftG-egift__desc">{{ section.settings.description | escape }}</p>
         {%- endif -%}
       </div>
-    {%- endif -%}
-
-    {%- if desktop_image != blank -%}
-      <picture class="giftG-egift__media">
-        {%- if mobile_image != blank -%}
-          <source media="(max-width: 767px)" srcset="{{ mobile_image | image_url: width: 390 }} 390w, {{ mobile_image | image_url: width: 600 }} 600w, {{ mobile_image | image_url: width: 750 }} 750w" sizes="calc(100vw - 40px)">
-        {%- endif -%}
-        <img
-          src="{{ desktop_image | image_url: width: 1340 }}"
-          srcset="{{ desktop_image | image_url: width: 960 }} 960w, {{ desktop_image | image_url: width: 1340 }} 1340w, {{ desktop_image | image_url: width: 1920 }} 1920w"
-          sizes="50vw"
-          alt="{{ desktop_alt | escape }}"
-          loading="lazy">
-      </picture>
     {%- endif -%}
 
     {%- if button_label != blank -%}
@@ -181,6 +208,7 @@
   "tag": "section",
   "class": "giftG-egift-section",
   "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Section anchor ID", "info": "Used by the gift guide category links, e.g. gift-card" },
     { "type": "text", "id": "title", "label": "Title", "default": "Out of Time? Send an e-Gift Card." },
     { "type": "textarea", "id": "description", "label": "Description", "default": "Delivered instantly by email. They pick the size and the style." },
     { "type": "image_picker", "id": "desktop_image", "label": "Desktop image" },
