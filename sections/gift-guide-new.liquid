@@ -410,39 +410,151 @@
       }
 
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var cards = Array.prototype.slice.call(track.children);
       var pages = 1;
+      var clones = [];
+      var settleTimer = null;
+      var resizeTimer = null;
 
       function gapWidth() {
         return parseFloat(window.getComputedStyle(track).columnGap) || 0;
       }
 
-      function perView() {
-        var card = track.firstElementChild;
-        if (!card) return 1;
-        var gap = gapWidth();
-        var cardWidth = card.getBoundingClientRect().width;
-        return Math.max(1, Math.round((track.clientWidth + gap) / (cardWidth + gap)));
+      function cardWidth() {
+        return cards[0] ? cards[0].getBoundingClientRect().width : track.clientWidth;
       }
 
-      function step() {
-        var card = track.firstElementChild;
-        if (!card) return 0;
-        return (card.getBoundingClientRect().width + gapWidth()) * perView();
+      function unit() {
+        return cardWidth() + gapWidth();
+      }
+
+      function perView() {
+        var gap = gapWidth();
+        var width = cardWidth();
+        if (!width) return 1;
+        return Math.max(1, Math.round((track.clientWidth + gap) / (width + gap)));
+      }
+
+      function cloneCount() {
+        return Math.min(perView(), cards.length);
+      }
+
+      // A cloned page sits before and after the real cards, so the first real
+      // card starts at this offset and the track can always scroll both ways.
+      function realOffset() {
+        return clones.length ? cloneCount() * unit() : 0;
+      }
+
+      function loopWidth() {
+        return cards.length * unit();
+      }
+
+      function maxScroll() {
+        return Math.max(track.scrollWidth - track.clientWidth, 0);
+      }
+
+      // Pages are one screen wide; the last page is end-aligned so it always
+      // shows the final cards (it may overlap the previous page).
+      function pageStart(page) {
+        var perPage = cloneCount();
+        var index = Math.min(page * perPage, Math.max(cards.length - perPage, 0));
+        return realOffset() + index * unit();
+      }
+
+      function pageCount() {
+        return Math.max(1, Math.ceil(cards.length / cloneCount()));
       }
 
       function currentPage() {
-        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) return pages - 1;
-        var distance = step();
-        if (!distance) return 0;
-        var page = Math.round(track.scrollLeft / distance);
-        return Math.min(Math.max(page, 0), pages - 1);
+        if (!unit()) return 0;
+        var max = maxScroll();
+        if (clones.length && track.scrollLeft < realOffset() - 1) return pages - 1;
+        if (max && track.scrollLeft >= max - 1) return 0;
+        var index = Math.round((track.scrollLeft - realOffset()) / unit());
+        index = Math.min(Math.max(index, 0), cards.length - 1);
+        if (index >= cards.length - cloneCount()) return pages - 1;
+        return Math.min(Math.floor(index / cloneCount()), pages - 1);
+      }
+
+      function scrollToLeft(left) {
+        track.scrollTo({
+          left: Math.max(0, Math.min(left, maxScroll())),
+          behavior: reduceMotion.matches ? 'auto' : 'smooth'
+        });
       }
 
       function goTo(page) {
-        track.scrollTo({
-          left: page * step(),
-          behavior: reduceMotion.matches ? 'auto' : 'smooth'
-        });
+        if (!unit()) return;
+        scrollToLeft(pageStart(page));
+      }
+
+      // Cloned pages before/after the real cards make the loop seamless: once a
+      // clone page is reached the track is shifted by one whole loop, so the
+      // same cards stay on screen and nothing ever rewinds visibly.
+      function clearClones() {
+        for (var i = 0; i < clones.length; i++) {
+          if (clones[i].parentNode) clones[i].parentNode.removeChild(clones[i]);
+        }
+        clones = [];
+      }
+
+      function makeClone(card) {
+        var clone = card.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        clone.setAttribute('inert', '');
+        clone.setAttribute('data-giftG-new-clone', '');
+        var focusables = clone.querySelectorAll('a, button, input, select, textarea');
+        for (var i = 0; i < focusables.length; i++) {
+          focusables[i].setAttribute('tabindex', '-1');
+        }
+        return clone;
+      }
+
+      function buildClones() {
+        clearClones();
+        var count = cloneCount();
+        if (cards.length <= count || !unit()) return;
+        var first = cards[0];
+        var i;
+        for (i = 0; i < count; i++) {
+          var tail = makeClone(cards[i]);
+          track.appendChild(tail);
+          clones.push(tail);
+        }
+        for (i = cards.length - count; i < cards.length; i++) {
+          var head = makeClone(cards[i]);
+          track.insertBefore(head, first);
+          clones.push(head);
+        }
+        track.scrollLeft = realOffset();
+      }
+
+      function checkWrap() {
+        if (!clones.length || !unit()) return;
+        if (track.scrollLeft < realOffset() - 1) {
+          // Entered the leading clone page: shift forward by one full loop.
+          track.scrollLeft += loopWidth();
+          updateState();
+          return;
+        }
+        var max = maxScroll();
+        if (max && track.scrollLeft >= max - 1) {
+          // Entered the trailing clone page: shift back by one full loop.
+          track.scrollLeft = Math.max(track.scrollLeft - loopWidth(), 0);
+          updateState();
+        }
+      }
+
+      function goNext() {
+        if (pages <= 1) return;
+        var page = currentPage();
+        scrollToLeft(page >= pages - 1 ? maxScroll() : pageStart(page + 1));
+      }
+
+      function goPrev() {
+        if (pages <= 1) return;
+        var page = currentPage();
+        scrollToLeft(page <= 0 ? 0 : pageStart(page - 1));
       }
 
       // Keeps the active dot reachable when the dot strip overflows on mobile.
@@ -462,13 +574,13 @@
         for (var i = 0; i < items.length; i++) {
           items[i].classList.toggle('giftG-new__dot--active', i === page);
         }
-        if (prevBtn) prevBtn.disabled = page === 0;
-        if (nextBtn) nextBtn.disabled = page >= pages - 1;
         keepActiveDotVisible();
       }
 
       function renderDots() {
-        pages = Math.max(1, Math.ceil(track.children.length / perView()));
+        pages = pageCount();
+        if (prevBtn) prevBtn.disabled = pages <= 1;
+        if (nextBtn) nextBtn.disabled = pages <= 1;
         dots.innerHTML = '';
         for (var i = 0; i < pages; i++) {
           var dot = document.createElement('button');
@@ -487,6 +599,8 @@
 
       var ticking = false;
       function onScroll() {
+        window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(checkWrap, 160);
         if (ticking) return;
         ticking = true;
         window.requestAnimationFrame(function () {
@@ -495,32 +609,26 @@
         });
       }
 
-      var resizeFrame = 0;
       function onResize() {
-        if (resizeFrame) return;
-        resizeFrame = window.requestAnimationFrame(function () {
-          resizeFrame = 0;
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(function () {
+          track.scrollLeft = 0;
+          buildClones();
           renderDots();
-        });
+        }, 150);
       }
 
       track.addEventListener('scroll', onScroll, { passive: true });
-      if (prevBtn) {
-        prevBtn.addEventListener('click', function () {
-          goTo(currentPage() - 1);
-        });
-      }
-      if (nextBtn) {
-        nextBtn.addEventListener('click', function () {
-          goTo(currentPage() + 1);
-        });
-      }
+      if (prevBtn) prevBtn.addEventListener('click', goPrev);
+      if (nextBtn) nextBtn.addEventListener('click', goNext);
       window.addEventListener('resize', onResize);
       section.addEventListener('shopify:section:unload', function () {
         window.removeEventListener('resize', onResize);
-        if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
+        window.clearTimeout(settleTimer);
+        window.clearTimeout(resizeTimer);
       });
 
+      buildClones();
       renderDots();
     })();
   </script>
