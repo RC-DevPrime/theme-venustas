@@ -1,9 +1,8 @@
 {%- liquid
   assign gift_collection = section.settings.collection
-  assign products_limit = section.settings.products_limit
-  assign gift_products = gift_collection.products
-  if products_limit != blank and products_limit > 0
-    assign gift_products = gift_products | slice: 0, products_limit
+  assign products_limit = section.settings.products_limit | plus: 0
+  if products_limit <= 0
+    assign products_limit = 50
   endif
   assign section_anchor = section.settings.anchor_id | strip
 -%}
@@ -57,6 +56,7 @@
       margin-top: 38px;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
     }
 
@@ -69,7 +69,6 @@
       flex: 0 0 calc((100% - 56px) / 5);
       flex-direction: column;
       box-sizing: border-box;
-      padding: 12px 12px 24px;
       background: #fff;
       border-radius: 14px;
       box-shadow: 0 3px 6px rgba(119, 107, 86, 0.14);
@@ -79,7 +78,7 @@
     #shopify-section-{{ section.id }} .giftG-new__media {
       display: block;
       overflow: hidden;
-      aspect-ratio: 233 / 241;
+      aspect-ratio: 618 / 800;
     }
 
     #shopify-section-{{ section.id }} .giftG-new__media img {
@@ -93,7 +92,7 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
-      padding: 12px 0;
+      padding: 12px;
     }
 
     #shopify-section-{{ section.id }} .giftG-new__title {
@@ -142,9 +141,17 @@
     #shopify-section-{{ section.id }} .giftG-new__dots {
       display: flex;
       gap: 8px;
+      min-width: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-new__dots::-webkit-scrollbar {
+      display: none;
     }
 
     #shopify-section-{{ section.id }} .giftG-new__dot {
+      flex: 0 0 auto;
       width: 20px;
       height: 5px;
       padding: 0;
@@ -160,6 +167,7 @@
 
     #shopify-section-{{ section.id }} .giftG-new__arrows {
       display: flex;
+      flex: 0 0 auto;
       gap: 24px;
     }
 
@@ -263,10 +271,30 @@
       #shopify-section-{{ section.id }} .giftG-new__controls {
         min-height: 0;
         margin-top: 16px;
+        gap: 12px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-new__dots {
+        gap: 6px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-new__dot {
+        width: 16px;
+        height: 4px;
       }
 
       #shopify-section-{{ section.id }} .giftG-new__arrows {
-        display: none;
+        gap: 12px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-new__arrow {
+        width: 32px;
+        height: 32px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-new__arrow svg {
+        width: 14px;
+        height: 14px;
       }
     }
   {% endstyle %}
@@ -290,7 +318,7 @@
       </div>
 
       <div class="giftG-new__track" data-giftG-new-track>
-        {%- for product in gift_products -%}
+        {%- for product in gift_collection.products limit: products_limit -%}
           {%- assign card_alt = product.featured_image.alt | default: product.title -%}
           <article class="giftG-new__card">
             {%- if product.featured_image != blank -%}
@@ -340,6 +368,14 @@
       var nextBtn = section.querySelector('[data-giftG-new-next]');
       if (!track || !dots) return;
 
+      // Nothing rendered (e.g. the collection has no available products):
+      // hide the empty carousel controls instead of showing a lone dot.
+      if (!track.children.length) {
+        var emptyControls = section.querySelector('.giftG-new__controls');
+        if (emptyControls) emptyControls.style.display = 'none';
+        return;
+      }
+
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       var pages = 1;
 
@@ -376,6 +412,17 @@
         });
       }
 
+      // Keeps the active dot reachable when the dot strip overflows on mobile.
+      function keepActiveDotVisible() {
+        var active = dots.querySelector('.giftG-new__dot--active');
+        if (!active || dots.scrollWidth <= dots.clientWidth) return;
+        var dotsRect = dots.getBoundingClientRect();
+        var activeRect = active.getBoundingClientRect();
+        if (activeRect.left >= dotsRect.left && activeRect.right <= dotsRect.right) return;
+        var left = dots.scrollLeft + (activeRect.left - dotsRect.left) - (dotsRect.width - activeRect.width) / 2;
+        dots.scrollTo({ left: Math.max(left, 0), behavior: 'auto' });
+      }
+
       function updateState() {
         var page = currentPage();
         var items = dots.children;
@@ -384,6 +431,7 @@
         }
         if (prevBtn) prevBtn.disabled = page === 0;
         if (nextBtn) nextBtn.disabled = page >= pages - 1;
+        keepActiveDotVisible();
       }
 
       function renderDots() {
@@ -414,8 +462,13 @@
         });
       }
 
+      var resizeFrame = 0;
       function onResize() {
-        renderDots();
+        if (resizeFrame) return;
+        resizeFrame = window.requestAnimationFrame(function () {
+          resizeFrame = 0;
+          renderDots();
+        });
       }
 
       track.addEventListener('scroll', onScroll, { passive: true });
@@ -432,6 +485,7 @@
       window.addEventListener('resize', onResize);
       section.addEventListener('shopify:section:unload', function () {
         window.removeEventListener('resize', onResize);
+        if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
       });
 
       renderDots();
