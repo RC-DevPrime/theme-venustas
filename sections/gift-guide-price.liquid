@@ -1,0 +1,265 @@
+{%- liquid
+  assign card_eyebrows = 'UNDER|UNDER|FROM' | split: '|'
+  assign card_amounts = '$100|$150|$200' | split: '|'
+  assign card_taglines = 'Little gifts. Big warmth.|Everyday warmth, wrapped.|Make it extra special.' | split: '|'
+  assign card_labels = 'Shop Under $100|Shop Under $150|Shop $200 &amp; Up' | split: '|'
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .giftG-price {
+    padding: 80px 0;
+    background: #f9f2e8;
+    color: #0b4c20;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__inner {
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__header {
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__heading {
+    margin: 0;
+    color: #0b4c20;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__subheading {
+    margin: 16px 0 0;
+    color: #515151;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+    margin-top: 56px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 44px 32px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 14px rgba(95, 73, 35, 0.12);
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__budget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    color: #b93205;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__tier {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__eyebrow {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__amount {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__tagline {
+    margin: 0;
+    color: #515151;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    min-height: 64px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-price__button {
+    width: 312px;
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    #shopify-section-{{ section.id }} .giftG-price__grid {
+      gap: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__card {
+      gap: 16px;
+      padding: 32px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__amount {
+      font-size: 38px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__tagline {
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__action {
+      min-height: 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__button {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .giftG-price {
+      padding: 24px 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__heading {
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__subheading {
+      margin-top: 12px;
+      color: #0b4c20;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 21px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__card {
+      align-items: flex-start;
+      gap: 12px;
+      padding: 20px;
+      text-align: left;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__budget {
+      flex-direction: row-reverse;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__tier {
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__eyebrow {
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__amount {
+      font-size: 30px;
+      line-height: 34.5px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__tagline {
+      color: #0b4c20;
+      font-size: 14px;
+      line-height: 21px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__action {
+      align-items: stretch;
+      min-height: 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-price__button {
+      width: 100%;
+      min-height: 44px;
+    }
+  }
+{% endstyle %}
+
+<section class="giftG-price">
+  <div class="giftG-price__inner">
+    <div class="giftG-price__header">
+      <h2 class="giftG-price__heading">Gifts By Price</h2>
+      <p class="giftG-price__subheading">A little warmth. A lot of love. Gifts for every budget.</p>
+    </div>
+
+    <div class="giftG-price__grid">
+      {%- for amount in card_amounts -%}
+        {%- assign index = forloop.index0 -%}
+        {%- assign link_key = 'link_' | append: forloop.index -%}
+        {%- assign card_link = section.settings[link_key] -%}
+        <article class="giftG-price__card">
+          <div class="giftG-price__budget">
+            <span class="giftG-price__icon">{%- render 'heating-icons', icon: 'gift' -%}</span>
+            <div class="giftG-price__tier">
+              <span class="giftG-price__eyebrow">{{ card_eyebrows[index] }}</span>
+              <span class="giftG-price__amount">{{ amount }}</span>
+            </div>
+          </div>
+
+          <p class="giftG-price__tagline">{{ card_taglines[index] }}</p>
+
+          <div class="giftG-price__action">
+            {%- render 'heatingP-button', label: card_labels[index], url: card_link, variant: 'primary', class: 'giftG-price__button' -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gift Guide Price",
+  "tag": "section",
+  "class": "giftG-price-section",
+  "settings": [
+    { "type": "url", "id": "link_1", "label": "Under $100 button link" },
+    { "type": "url", "id": "link_2", "label": "Under $150 button link" },
+    { "type": "url", "id": "link_3", "label": "$200 and up button link" }
+  ],
+  "presets": [
+    { "name": "Gift Guide Price" }
+  ]
+}
+{% endschema %}

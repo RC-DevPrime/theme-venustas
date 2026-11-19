@@ -1,0 +1,622 @@
+{%- liquid
+  assign gift_collection = section.settings.collection
+  assign products_limit = section.settings.products_limit | default: 12
+  assign desktop_image = section.settings.desktop_image | default: section.settings.mobile_image
+  assign mobile_image = section.settings.mobile_image | default: section.settings.desktop_image
+  assign desktop_alt = desktop_image.alt | default: ''
+  assign mobile_alt = mobile_image.alt | default: ''
+  assign has_media = false
+  if desktop_image != blank
+    assign has_media = true
+  endif
+  assign section_anchor = section.settings.anchor_id | strip
+-%}
+
+{%- if gift_collection != blank and gift_collection.products_count > 0 -%}
+  {% style %}
+    #shopify-section-{{ section.id }} .giftG-coll {
+      padding: 80px 0;
+      background: #f9f2e8;
+      color: #0b4c20;
+      font-family: var(--font-primary, 'Montserrat', sans-serif);
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__inner {
+      width: min(calc(100% - 40px), 1340px);
+      margin: 0 auto;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__heading {
+      margin: 0 0 40px;
+      color: #0b4c20;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__layout {
+      display: flex;
+      align-items: stretch;
+      gap: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__media {
+      display: block;
+      position: relative;
+      flex: 0 0 420px;
+      height: 590px;
+      overflow: hidden;
+      background: #efe6d8;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__layout--reverse .giftG-coll__media {
+      order: 2;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__media-img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__main {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 590px;
+      min-width: 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__card {
+      display: flex;
+      position: relative;
+      flex: 0 0 calc((100% - 48px) / 3);
+      flex-direction: column;
+      gap: 20px;
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__card .bss_pl_img {
+      margin-top:-20px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__card-media {
+      display: block;
+      overflow: hidden;
+      aspect-ratio: 280 / 365;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__card-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__name {
+      display: -webkit-box;
+      overflow: hidden;
+      color: #0b4c20;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.25;
+      text-decoration: none;
+      overflow-wrap: break-word;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__name:hover {
+      text-decoration: underline;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__price {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+      margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__price-now {
+      color: #0b4c20;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__price-was {
+      color: #777;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      text-decoration: line-through;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__button .heatingP-button--third {
+      border-width: 1.4px;
+      border-color: #515151;
+      color: #0b4c20;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__button .heatingP-button--third:hover {
+      border-color: #0b4c20;
+      background: rgba(11, 76, 32, 0.06);
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 40px;
+      margin-top: 15px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__dot {
+      width: 20px;
+      height: 5px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: #e5e7eb;
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__dot--active {
+      background: #1a1a1a;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__arrows {
+      display: flex;
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      color: #1a1a1a;
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__arrow:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__arrow svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__arrow--prev svg {
+      transform: rotate(180deg);
+    }
+
+    @media only screen and (max-width: 767px) {
+      #shopify-section-{{ section.id }} .giftG-coll {
+        padding: 24px 0;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__heading {
+        margin-bottom: 16px;
+        font-size: 24px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__layout {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__media,
+      #shopify-section-{{ section.id }} .giftG-coll__layout--reverse .giftG-coll__media {
+        order: -1;
+        flex: none;
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 350 / 363;
+        border-radius: 8px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__main {
+        height: auto;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__track {
+        gap: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__card {
+        flex-basis: calc((100% - 16px) / 2);
+        gap: 8px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__name {
+        min-height: 32px;
+        font-size: 12px;
+        line-height: 15.6px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__price-now {
+        font-size: 16px;
+        line-height: 25.6px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__price-was {
+        font-size: 12px;
+        line-height: 1.3;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__controls {
+        min-height: 0;
+        margin-top: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .giftG-coll__arrows {
+        display: none;
+      }
+    }
+  {% endstyle %}
+
+  <section class="giftG-coll"{% if section_anchor != blank %} id="{{ section_anchor | escape }}"{% endif %}>
+    <div class="giftG-coll__inner">
+      {%- if section.settings.title != blank -%}
+        <h2 class="giftG-coll__heading">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+
+      <div class="giftG-coll__layout{% if section.settings.image_position == 'right' %} giftG-coll__layout--reverse{% endif %}">
+        {%- if has_media -%}
+          <picture class="giftG-coll__media">
+            {%- if mobile_image != blank -%}
+              <source
+                media="(max-width: 767px)"
+                srcset="{{ mobile_image | image_url: width: 350 }} 350w, {{ mobile_image | image_url: width: 700 }} 700w"
+                sizes="calc(100vw - 40px)">
+            {%- endif -%}
+            {{ desktop_image | image_url: width: 840 | image_tag: widths: '420, 640, 840', sizes: '420px', class: 'giftG-coll__media-img', alt: desktop_alt, loading: 'lazy' }}
+          </picture>
+        {%- endif -%}
+
+        <div class="giftG-coll__main">
+          <div class="giftG-coll__track" data-giftG-track>
+            {%- for product in gift_collection.products limit: products_limit -%}
+              {%- assign card_alt = product.featured_image.alt | default: product.title -%}
+              <article class="giftG-coll__card">
+                {%- render 'sale-badge', product: product -%}
+                <a class="giftG-coll__card-media" href="{{ product.url }}">
+                  {%- if product.featured_image != blank -%}
+                    {{ product.featured_image | image_url: width: 560 | image_tag: loading: 'lazy', widths: '280, 420, 560', sizes: '(max-width: 767px) 45vw, 280px', alt: card_alt }}
+                  {%- endif -%}
+                </a>
+
+                <div class="giftG-coll__info">
+                  <a class="giftG-coll__name" href="{{ product.url }}">{{ product.title | escape }}</a>
+                  <p class="giftG-coll__price">
+                    <span class="giftG-coll__price-now">{{ product.price | money }}</span>
+                    {%- if product.compare_at_price > product.price -%}
+                      <span class="giftG-coll__price-was">{{ product.compare_at_price | money }}</span>
+                    {%- endif -%}
+                  </p>
+                </div>
+
+                <div class="giftG-coll__button">
+                  {%- render 'heatingP-button', label: 'Shop Now', url: product.url, variant: 'third', class: 'heatingP-button--full heatingP-button--card' -%}
+                </div>
+              </article>
+            {%- endfor -%}
+          </div>
+
+          <div class="giftG-coll__controls">
+            <div class="giftG-coll__dots" data-giftG-dots></div>
+            <div class="giftG-coll__arrows">
+              <button class="giftG-coll__arrow giftG-coll__arrow--prev" type="button" aria-label="Previous" data-giftG-prev>
+                {%- render 'heating-icons', icon: 'chevron-right' -%}
+              </button>
+              <button class="giftG-coll__arrow giftG-coll__arrow--next" type="button" aria-label="Next" data-giftG-next>
+                {%- render 'heating-icons', icon: 'chevron-right' -%}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var section = document.getElementById('shopify-section-{{ section.id }}');
+      if (!section) return;
+      var track = section.querySelector('[data-giftG-track]');
+      var dots = section.querySelector('[data-giftG-dots]');
+      var prevBtn = section.querySelector('[data-giftG-prev]');
+      var nextBtn = section.querySelector('[data-giftG-next]');
+      if (!track || !dots) return;
+
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var cards = Array.prototype.slice.call(track.children);
+      if (!cards.length) return;
+
+      var pages = 1;
+      var clones = [];
+      var settleTimer = null;
+      var resizeTimer = null;
+
+      function gapWidth() {
+        return parseFloat(window.getComputedStyle(track).columnGap) || 0;
+      }
+
+      function cardWidth() {
+        return cards[0] ? cards[0].getBoundingClientRect().width : track.clientWidth;
+      }
+
+      function unit() {
+        return cardWidth() + gapWidth();
+      }
+
+      function perView() {
+        var gap = gapWidth();
+        var width = cardWidth();
+        if (!width) return 1;
+        return Math.max(1, Math.round((track.clientWidth + gap) / (width + gap)));
+      }
+
+      function cloneCount() {
+        return Math.min(perView(), cards.length);
+      }
+
+      // A cloned page sits before and after the real cards, so the first real
+      // card starts at this offset and the track can always scroll both ways.
+      function realOffset() {
+        return clones.length ? cloneCount() * unit() : 0;
+      }
+
+      function loopWidth() {
+        return cards.length * unit();
+      }
+
+      function maxScroll() {
+        return Math.max(track.scrollWidth - track.clientWidth, 0);
+      }
+
+      // Pages are one screen wide; the last page is end-aligned so it always
+      // shows the final cards (it may overlap the previous page).
+      function pageStart(page) {
+        var perPage = cloneCount();
+        var index = Math.min(page * perPage, Math.max(cards.length - perPage, 0));
+        return realOffset() + index * unit();
+      }
+
+      function pageCount() {
+        return Math.max(1, Math.ceil(cards.length / cloneCount()));
+      }
+
+      function currentPage() {
+        if (!unit()) return 0;
+        var max = maxScroll();
+        if (clones.length && track.scrollLeft < realOffset() - 1) return pages - 1;
+        if (max && track.scrollLeft >= max - 1) return 0;
+        var index = Math.round((track.scrollLeft - realOffset()) / unit());
+        index = Math.min(Math.max(index, 0), cards.length - 1);
+        if (index >= cards.length - cloneCount()) return pages - 1;
+        return Math.min(Math.floor(index / cloneCount()), pages - 1);
+      }
+
+      function scrollToLeft(left) {
+        track.scrollTo({
+          left: Math.max(0, Math.min(left, maxScroll())),
+          behavior: reduceMotion.matches ? 'auto' : 'smooth'
+        });
+      }
+
+      function goTo(page) {
+        if (!unit()) return;
+        scrollToLeft(pageStart(page));
+      }
+
+      // Cloned pages before/after the real cards make the loop seamless: once a
+      // clone page is reached the track is shifted by one whole loop, so the
+      // same cards stay on screen and nothing ever rewinds visibly.
+      function clearClones() {
+        for (var i = 0; i < clones.length; i++) {
+          if (clones[i].parentNode) clones[i].parentNode.removeChild(clones[i]);
+        }
+        clones = [];
+      }
+
+      function makeClone(card) {
+        var clone = card.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        clone.setAttribute('inert', '');
+        clone.setAttribute('data-giftG-clone', '');
+        var focusables = clone.querySelectorAll('a, button, input, select, textarea');
+        for (var i = 0; i < focusables.length; i++) {
+          focusables[i].setAttribute('tabindex', '-1');
+        }
+        return clone;
+      }
+
+      function buildClones() {
+        clearClones();
+        var count = cloneCount();
+        if (cards.length <= count || !unit()) return;
+        var first = cards[0];
+        var i;
+        for (i = 0; i < count; i++) {
+          var tail = makeClone(cards[i]);
+          track.appendChild(tail);
+          clones.push(tail);
+        }
+        for (i = cards.length - count; i < cards.length; i++) {
+          var head = makeClone(cards[i]);
+          track.insertBefore(head, first);
+          clones.push(head);
+        }
+        track.scrollLeft = realOffset();
+      }
+
+      function goNext() {
+        if (pages <= 1) return;
+        var page = currentPage();
+        scrollToLeft(page >= pages - 1 ? maxScroll() : pageStart(page + 1));
+      }
+
+      function goPrev() {
+        if (pages <= 1) return;
+        var page = currentPage();
+        scrollToLeft(page <= 0 ? 0 : pageStart(page - 1));
+      }
+
+      function updateState() {
+        var page = currentPage();
+        var items = dots.children;
+        for (var i = 0; i < items.length; i++) {
+          items[i].classList.toggle('giftG-coll__dot--active', i === page);
+        }
+      }
+
+      function renderDots() {
+        pages = pageCount();
+        if (prevBtn) prevBtn.disabled = pages <= 1;
+        if (nextBtn) nextBtn.disabled = pages <= 1;
+        dots.innerHTML = '';
+        for (var i = 0; i < pages; i++) {
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'giftG-coll__dot';
+          dot.setAttribute('aria-label', 'Go to page ' + (i + 1));
+          dot.addEventListener('click', (function (index) {
+            return function () {
+              goTo(index);
+            };
+          })(i));
+          dots.appendChild(dot);
+        }
+        updateState();
+      }
+
+      function checkWrap() {
+        if (!clones.length || !unit()) return;
+        if (track.scrollLeft < realOffset() - 1) {
+          // Entered the leading clone page: shift forward by one full loop.
+          track.scrollLeft += loopWidth();
+          updateState();
+          return;
+        }
+        var max = maxScroll();
+        if (max && track.scrollLeft >= max - 1) {
+          // Entered the trailing clone page: shift back by one full loop.
+          track.scrollLeft = Math.max(track.scrollLeft - loopWidth(), 0);
+          updateState();
+        }
+      }
+
+      var ticking = false;
+      function onScroll() {
+        window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(checkWrap, 160);
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(function () {
+          ticking = false;
+          updateState();
+        });
+      }
+
+      function onResize() {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(function () {
+          track.scrollLeft = 0;
+          buildClones();
+          renderDots();
+        }, 150);
+      }
+
+      track.addEventListener('scroll', onScroll, { passive: true });
+      if (prevBtn) prevBtn.addEventListener('click', goPrev);
+      if (nextBtn) nextBtn.addEventListener('click', goNext);
+      window.addEventListener('resize', onResize);
+      section.addEventListener('shopify:section:unload', function () {
+        window.removeEventListener('resize', onResize);
+        window.clearTimeout(settleTimer);
+        window.clearTimeout(resizeTimer);
+      });
+
+      buildClones();
+      renderDots();
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Gift Guide Collection",
+  "tag": "section",
+  "class": "giftG-coll-section",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Section anchor ID", "info": "Used by the gift guide category links, e.g. gifts-for-her" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Gifts For Her" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Maximum products to show",
+      "min": 1,
+      "max": 24,
+      "step": 1,
+      "default": 12
+    },
+    { "type": "image_picker", "id": "desktop_image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position (desktop)",
+      "options": [
+        { "value": "left", "label": "Left of cards" },
+        { "value": "right", "label": "Right of cards" }
+      ],
+      "default": "left"
+    }
+  ],
+  "presets": [
+    { "name": "Gift Guide Collection" }
+  ]
+}
+{% endschema %}

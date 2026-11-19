@@ -1,0 +1,255 @@
+{% style %}
+  #shopify-section-{{ section.id }} .giftG-picks {
+    padding: 80px 0;
+    background: #f9f2e8;
+    color: #0b4c20;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__inner {
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__header {
+    padding-bottom: 40px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__heading {
+    margin: 0;
+    color: #0b4c20;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__subheading {
+    margin: 16px 0 0;
+    color: #0b4c20;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__card {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 3px 14px rgba(95, 73, 35, 0.12);
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__media {
+    display: block;
+    background: #f7f6f1;
+    aspect-ratio: 658 / 390;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__body {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 24px 25px;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__title {
+    margin: 0;
+    color: #0b4c20;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__title a:hover {
+    text-decoration: underline;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__price-now {
+    color: #0b4c20;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__price-was {
+    color: #6e6e6e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-decoration: line-through;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__button .heatingP-button--third {
+    border-width: 1.4px;
+    border-color: #515151;
+    color: #0b4c20;
+  }
+
+  #shopify-section-{{ section.id }} .giftG-picks__button .heatingP-button--third:hover {
+    border-color: #0b4c20;
+    background: rgba(11, 76, 32, 0.06);
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .giftG-picks {
+      padding: 48px 0;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-picks__header {
+      padding-bottom: 28px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-picks__heading {
+      font-size: 26px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-picks__subheading {
+      margin-top: 12px;
+      font-size: 15px;
+      line-height: 22px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-picks__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-picks__card {
+      border-radius: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-picks__body {
+      gap: 14px;
+      padding: 16px 18px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-picks__title {
+      font-size: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-picks__price-now {
+      font-size: 22px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-picks__price-was {
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-picks__button .heatingP-button {
+      min-height: 44px;
+    }
+  }
+{% endstyle %}
+
+<section class="giftG-picks">
+  <div class="giftG-picks__inner">
+    <div class="giftG-picks__header">
+      <h2 class="giftG-picks__heading">A Premium Christmas Day Choice</h2>
+      <p class="giftG-picks__subheading">Our best-seller, gift the best warmth.</p>
+    </div>
+
+    <div class="giftG-picks__grid">
+      {%- for block in section.blocks -%}
+        {%- assign card_product = block.settings.product -%}
+        {%- if card_product != blank -%}
+          {%- assign card_image = block.settings.image | default: card_product.featured_image -%}
+          {%- assign card_title = block.settings.title | default: card_product.title -%}
+          {%- assign card_alt = card_image.alt | default: card_title -%}
+          <article class="giftG-picks__card" {{ block.shopify_attributes }}>
+            {%- render 'sale-badge', product: card_product -%}
+
+            {%- if card_image != blank -%}
+              <a class="giftG-picks__media" href="{{ card_product.url }}">
+                {{ card_image | image_url: width: 800 | image_tag: class: 'giftG-picks__image', loading: 'lazy', widths: '350, 500, 660, 800', sizes: '(max-width: 767px) calc(100vw - 40px), min(46vw, 658px)', alt: card_alt }}
+              </a>
+            {%- endif -%}
+
+            <div class="giftG-picks__body">
+              <div class="giftG-picks__info">
+                <h3 class="giftG-picks__title">
+                  <a href="{{ card_product.url }}">{{ card_title | escape }}</a>
+                </h3>
+
+                <p class="giftG-picks__price">
+                  <span class="giftG-picks__price-now">{{ card_product.price | money }}</span>
+                  {%- if card_product.compare_at_price > card_product.price -%}
+                    <span class="giftG-picks__price-was">{{ card_product.compare_at_price | money }}</span>
+                  {%- endif -%}
+                </p>
+              </div>
+
+              <div class="giftG-picks__button">
+                {%- render 'heatingP-button', label: 'Shop Now', url: card_product.url, variant: 'third', class: 'heatingP-button--full heatingP-button--card' -%}
+              </div>
+            </div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gift Guide Picks",
+  "tag": "section",
+  "class": "giftG-picks-section",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product card",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title override" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Guide Picks",
+      "blocks": [
+        { "type": "product_card" },
+        { "type": "product_card" }
+      ]
+    }
+  ]
+}
+{% endschema %}
