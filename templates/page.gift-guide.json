@@ -18,6 +18,33 @@
         "ornament_image": "shopify://shop_images/giftG-icon-left.webp"
       }
     },
+    "gift_guide_picks": {
+      "type": "gift-guide-picks",
+      "blocks": {
+        "pick_women": {
+          "type": "product_card",
+          "settings": {
+            "product": "womens-heated-vest-7-4v",
+            "image": "shopify://shop_images/giftG-best-one_2cab2b45-bccc-4cda-b903-8d90c58f8d9e.webp",
+            "title": ""
+          }
+        },
+        "pick_men": {
+          "type": "product_card",
+          "settings": {
+            "product": "mens-classic-heated-vest-7-4v",
+            "image": "shopify://shop_images/giftG-best-two_17d8ff37-576c-464f-8d5a-3440b4a14c51.webp",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "pick_women",
+        "pick_men"
+      ],
+      "name": "Gift Guide Picks",
+      "settings": {}
+    },
     "gift_guide_categories": {
       "type": "gift-guide-categories",
       "blocks": {
@@ -79,33 +106,6 @@
         "cat_card"
       ],
       "name": "Gift Guide Categories",
-      "settings": {}
-    },
-    "gift_guide_picks": {
-      "type": "gift-guide-picks",
-      "blocks": {
-        "pick_women": {
-          "type": "product_card",
-          "settings": {
-            "product": "womens-heated-vest-7-4v",
-            "image": "shopify://shop_images/giftG-best-one_2cab2b45-bccc-4cda-b903-8d90c58f8d9e.webp",
-            "title": ""
-          }
-        },
-        "pick_men": {
-          "type": "product_card",
-          "settings": {
-            "product": "mens-classic-heated-vest-7-4v",
-            "image": "shopify://shop_images/giftG-best-two_17d8ff37-576c-464f-8d5a-3440b4a14c51.webp",
-            "title": ""
-          }
-        }
-      },
-      "block_order": [
-        "pick_women",
-        "pick_men"
-      ],
-      "name": "Gift Guide Picks",
       "settings": {}
     },
     "gift_guide_collection": {
@@ -367,8 +367,8 @@
   },
   "order": [
     "gift_guide_hero",
-    "gift_guide_categories",
     "gift_guide_picks",
+    "gift_guide_categories",
     "gift_guide_collection",
     "gift_guide_collection_2",
     "gift_guide_collection_3",
