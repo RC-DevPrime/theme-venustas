@@ -50,6 +50,14 @@
           "type": "divider",
           "settings": {}
         },
+        "selleasy_lb_upsell_widget_pal_UW8EbH": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
         "hightlights_4aek9f": {
           "type": "hightlights",
           "settings": {
@@ -63,14 +71,6 @@
         },
         "availability_VXL6mU": {
           "type": "availability",
-          "settings": {}
-        },
-        "selleasy_lb_upsell_widget_pal_UW8EbH": {
-          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
-          "settings": {}
-        },
-        "quantity_atc_nEzPi6": {
-          "type": "quantity_atc",
           "settings": {}
         },
         "support_product_RGhgRP": {
@@ -168,9 +168,9 @@
             "x_position": 10,
             "y_position": 70,
             "heading": "Long-Lasting Warmth",
-            "description": "<p>Up to 6 Hours of Warmth: Enjoy instant heat within seconds with an ultra-compact 36Wh battery pack that fully recharges in just 2 hours using a 35W adapter (not included).</p>",
+            "description": "<p>Up to 7.5 Hours of Warmth: Enjoy instant heat within seconds with an ultra-compact 36Wh battery pack that fully recharges in just 2 hours using a 35W adapter (not included).</p>",
             "video_or_image": "image",
-            "image": "shopify://shop_images/long-lasting-hours-7.5K-6.jpg"
+            "image": "shopify://shop_images/long-lasting-hours-7_5.jpg"
           }
         },
         "hotspot_video_8PGkgd": {
@@ -208,7 +208,9 @@
         "nav_title": "Features",
         "background_image": "shopify://shop_images/40058_2x_7bb103e6-0745-4dcb-ad16-a87e7616bb66.png",
         "element": "shopify://shop_images/M43_black_heating.png",
-        "heading": "Recycled Warmth, Eco-Friendly Comfort"
+        "heading": "Recycled Warmth, Eco-Friendly Comfort",
+        "switch_to": true,
+        "popup_trigger": "click"
       }
     },
     "product_image_content_g3c3AM": {
@@ -242,11 +244,11 @@
           "settings": {
             "heading": "7.5K",
             "low_range_temperature": 112,
-            "low_range_heating_duration": 6,
+            "low_range_heating_duration": 7.5,
             "medium_range_temperature": 130,
-            "medium_range_heating_duration": 4.5,
+            "medium_range_heating_duration": 5,
             "high_range_temperature": 144,
-            "high_range_heating_duration": 2.2
+            "high_range_heating_duration": 3
           }
         },
         "battery_K4UN33": {
@@ -609,7 +611,6 @@
     },
     "product_compare_tab_tEUPPC": {
       "type": "product-compare-tab",
-      "disabled": true,
       "blocks": {
         "compare_item_3Wz694": {
           "type": "compare_item",
@@ -694,6 +695,7 @@
         "compare_item_FCHLcf",
         "compare_item_VtVi3P"
       ],
+      "disabled": true,
       "name": "Compare Tab Section",
       "settings": {
         "enabled_section_child_scroll": false,
