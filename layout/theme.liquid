@@ -343,7 +343,11 @@
         display: none !important;
       }
     </style>
-    {% include 'pagefly-app-header' %}</head>
+    {% include 'pagefly-app-header' %}{%- if request.page_type == 'product' -%}
+      {{ 'product-new-battery-runtime.css' | asset_url | stylesheet_tag }}
+      <script src="{{ 'product-new-battery-runtime.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    </head>
 
     <body>
 

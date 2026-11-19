@@ -30,14 +30,9 @@
       aria-haspopup="dialog"
       aria-controls="{{ modal_key }}"
     >
-      <img
-        class="size-chart-component__button-icon"
-        src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/size-chart-icon.png?v=1765009516"
-        alt=""
-        loading="lazy"
-        width="18"
-        height="18"
-      >
+      <span class="size-chart-component__button-icon" aria-hidden="true">
+        {% render 'heating-icons', icon: 'size-guide' %}
+      </span>
       <span>{{ button_text }}</span>
     </button>
 

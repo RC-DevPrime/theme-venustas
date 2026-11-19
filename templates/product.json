@@ -119,6 +119,59 @@
         "heading": "Reviews"
       }
     },
+    "product_new_warranty": {
+      "type": "product-new-warranty-information",
+      "blocks": {
+        "free_shipping": {
+          "type": "benefit",
+          "settings": {
+            "icon": "free-shipping",
+            "title": "Free shipping",
+            "description": "Every order to the U.S. and Canada"
+          }
+        },
+        "returns": {
+          "type": "benefit",
+          "settings": {
+            "icon": "returns",
+            "title": "30-day returns",
+            "description": "Free return shipping in the U.S."
+          }
+        },
+        "warranty": {
+          "type": "benefit",
+          "settings": {
+            "icon": "warranty",
+            "title": "3-year warranty",
+            "description": "On heating elements · 1 year on batteries"
+          }
+        },
+        "support": {
+          "type": "benefit",
+          "settings": {
+            "icon": "support",
+            "title": "Real people, real help",
+            "description": "+1 (888) 836-6460 · Mon–Fri, 9 AM–6 PM ET"
+          }
+        },
+        "customers": {
+          "type": "benefit",
+          "settings": {
+            "icon": "customers",
+            "title": "[2M+] customers",
+            "description": "Keeping people warm since 2018"
+          }
+        }
+      },
+      "block_order": [
+        "free_shipping",
+        "returns",
+        "warranty",
+        "support",
+        "customers"
+      ],
+      "settings": {}
+    },
     "product_featured_banner_mazp9M": {
       "type": "product-featured-banner",
       "name": "Featured Banner",
@@ -137,6 +190,7 @@
   },
   "order": [
     "main-product",
+    "product_new_warranty",
     "product_review_section_VnyXRe",
     "product_featured_banner_mazp9M"
   ]

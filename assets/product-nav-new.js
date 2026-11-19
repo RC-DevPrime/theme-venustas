@@ -22,6 +22,11 @@
     const moneyConfig = JSON.parse(root.querySelector('[data-nav-prices]')?.textContent || '{}');
     const moneyFormatter = new Intl.NumberFormat(moneyConfig.locale || 'en', { style: 'currency', currency: moneyConfig.currency || 'USD' });
     const formatTotal = (cents) => moneyFormatter.format(cents / 100);
+    const promotion = {
+      type: moneyConfig.promotionType || '',
+      value: Number(moneyConfig.promotionValue || 0),
+      text: moneyConfig.promotionText || ''
+    };
     const optionFieldsets = panel ? Array.from(panel.querySelectorAll('.nav-variants fieldset')) : [];
     const optionTriggers = Array.from(root.querySelectorAll('[data-open-panel]'));
     const classifyOption = (fieldset, index) => {
@@ -110,21 +115,38 @@
       renderDesktopOptions();
     };
     const syncAvailability = () => {
+      const setText = (element, value) => { if (element.textContent !== value) element.textContent = value; };
       const selectedVariant = variants.find((variant) => String(variant.id) === String(variantIdInput?.value));
       const gate = window.venustasRegionalInventoryGate;
-      const state = gate?.getVariantAvailabilityState?.(selectedVariant?.id, root.querySelector('.nav-inventory-info-app'));
+      const selectedOptions = optionFieldsets.length
+        ? optionFieldsets.map((fieldset) => fieldset.querySelector('.nav-variant-radio:checked')?.value || null)
+        : null;
+      const state = gate?.getVariantAvailabilityState?.(selectedVariant?.id,
+        root.querySelector('.nav-inventory-info-app'), selectedOptions);
       const available = Boolean(selectedVariant?.available) && (state ? state.finalAvailable : true);
       if (selectedVariant) {
         const quantity = Math.max(1, Math.floor(Number(formQuantity?.value) || 1));
         const discounted = selectedVariant.compare_at_price > selectedVariant.price;
-        root.querySelectorAll('.product-nav-new__price-current').forEach((element) => { element.textContent = formatTotal(selectedVariant.price * quantity); });
-        root.querySelectorAll('.product-nav-new__price-compare').forEach((element) => { element.textContent = formatTotal((selectedVariant.compare_at_price || 0) * quantity); element.hidden = !discounted; });
-        root.querySelectorAll('.product-nav-new__panel-save').forEach((element) => { element.textContent = `Save ${formatTotal(Math.max(0, selectedVariant.compare_at_price - selectedVariant.price) * quantity)}`; element.hidden = !discounted; });
+        root.querySelectorAll('.product-nav-new__price-current').forEach((element) => { setText(element, formatTotal(selectedVariant.price * quantity)); });
+        root.querySelectorAll('.product-nav-new__price-compare').forEach((element) => { setText(element, formatTotal((selectedVariant.compare_at_price || 0) * quantity)); element.hidden = !discounted; });
+        const promotionPrice = root.querySelector('[data-nav-promotion-discount-price]');
+        const promotionBox = root.querySelector('[data-nav-promotion]');
+        if (promotionPrice && promotionBox && promotion.type && promotion.value > 0) {
+          let promotionCents = selectedVariant.price;
+          if (promotion.type === 'percent') promotionCents = Math.round(selectedVariant.price * (100 - promotion.value) / 100);
+          if (promotion.type === 'amount') promotionCents = Math.max(0, selectedVariant.price - promotion.value);
+          setText(promotionPrice, `· ${formatTotal(promotionCents * quantity)}`);
+          promotionBox.hidden = false;
+        } else if (promotionBox) {
+          promotionBox.hidden = true;
+        }
       }
       availabilityButtons.forEach((button) => {
         const busy = root.querySelector('#header-nav-product-form')?.getAttribute('aria-busy') === 'true';
         button.disabled = !available || busy;
-        button.textContent = busy ? 'Adding…' : available ? 'ADD TO CART' : 'Out of Stock';
+        const label = busy ? 'Adding…' : available ? 'ADD TO CART'
+          : state?.buttonText === 'Unavailable' ? 'Unavailable' : 'Out of Stock';
+        if (button.textContent !== label) button.textContent = label;
       });
     };
     let previousFocus;
@@ -185,6 +207,7 @@
     });
     const setQuantity = (value) => { const numeric = Number(value); const next = Number.isFinite(numeric) ? Math.max(1, Math.floor(numeric)) : 1; quantityInputs.forEach((input) => { input.value = next; }); if (formQuantity) formQuantity.value = next; syncAvailability(); };
     const purchaseForm = root.querySelector('#header-nav-product-form');
+    listen(root, 'nav:availability-change', syncAvailability);
     listen(root, 'nav:cart-error', () => {
       const error = root.querySelector('[data-purchase-error]');
       error.textContent = root.querySelector('.main-product-error p')?.textContent || 'Unable to add this item. Please try again.';

@@ -226,6 +226,34 @@ $(document).off('submit.productAtc').on('submit.productAtc', '.product-atc-form.
         if (!mainId) {
             throw { message: 'Variant ID not found.' };
         }
+        const variantRoot = isNavForm
+            ? document.querySelector('.product-nav-new .nav-variants')
+            : document.querySelector('.product variant-radios');
+        const fieldsets = variantRoot?.querySelectorAll('fieldset') || [];
+        const selectedOptions = fieldsets.length ? Array.from(fieldsets, function (fieldset) {
+            return fieldset.querySelector('input[type="radio"]:checked')?.value || null;
+        }) : null;
+        const inventoryRoot = isNavForm
+            ? document.querySelector('.product-nav-new .nav-inventory-info-app')
+            : document.getElementById('inventory-info-app');
+        const inventoryGate = window.venustasRegionalInventoryGate;
+        if (inventoryGate) {
+            const state = inventoryGate.getVariantAvailabilityState(mainId, inventoryRoot, selectedOptions);
+            if (!state.finalAvailable) {
+                throw { message: state.buttonText === 'Unavailable'
+                    ? 'Please select an available variant.'
+                    : 'This variant is currently out of stock.' };
+            }
+        } else {
+            const variantsNode = document.querySelector('.product [data-product-variants]');
+            const variants = variantsNode ? JSON.parse(variantsNode.textContent) : [];
+            const variant = variants.find(function (candidate) { return String(candidate.id) === String(mainId); });
+            if (!variant || !variant.available || (selectedOptions && !variant.options.every(function (value, index) {
+                return value === selectedOptions[index];
+            }))) {
+                throw { message: 'Please select an available variant.' };
+            }
+        }
     } catch (err) {
         handleProductAtcError(err);
         return false;

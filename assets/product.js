@@ -9,6 +9,22 @@ var headerHeight = $('.shopify-section-group-header-group .header').outerHeight(
 
 $(document).ready(function() {
     if ($('.product').length) {
+        if (!new URLSearchParams(window.location.search).has('variant')) {
+            window.setTimeout(function () {
+                const variantRadios = document.querySelector('.product variant-radios');
+                const colorFieldset = variantRadios?.querySelector('fieldset.color-variant');
+                const sizeFieldset = variantRadios?.querySelector('fieldset.variant-size');
+                const colorRadio = colorFieldset?.querySelector('input[type="radio"]');
+                const lRadio = Array.from(sizeFieldset?.querySelectorAll('input[type="radio"]') || [])
+                    .find((input) => input.value === 'L');
+                if (colorRadio && lRadio) {
+                    colorRadio.checked = true;
+                    lRadio.checked = true;
+                    lRadio.dispatchEvent(new Event('change', { bubbles: true }));
+                    sizeFieldset.querySelector('product-size-toggle')?.sync();
+                }
+            }, 0);
+        }
         
         $('.sticky-top').css('top', headerHeight + 25 + 'px');
 
@@ -146,6 +162,39 @@ $(document).ready(function() {
             }
         });
 
+        // Thumbnails: scroll the strip with the mouse wheel while hovering (desktop only).
+        (function initThumbnailWheelScroll() {
+            const thumbEl = document.querySelector('.thumbnail-slider.desktop');
+            if (!thumbEl || !sliderThumbs) return;
+            if (typeof window.matchMedia === 'function' &&
+                !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+            const MAX_STEP = 160;
+            const LINE_HEIGHT = 16;
+            const clamp = (value) => Math.min(
+                Math.max(value, sliderThumbs.maxTranslate()),
+                sliderThumbs.minTranslate()
+            );
+
+            thumbEl.addEventListener('wheel', (event) => {
+                if (event.ctrlKey || sliderThumbs.params.direction !== 'vertical') return;
+
+                const unit = event.deltaMode === 1 ? LINE_HEIGHT : event.deltaMode === 2 ? thumbEl.clientHeight : 1;
+                const delta = Math.max(-MAX_STEP, Math.min(MAX_STEP, event.deltaY * unit));
+                if (!delta) return;
+
+                const current = sliderThumbs.translate;
+                const next = clamp(current - delta);
+                // At the first or last thumbnail, let the page scroll normally.
+                if (Math.abs(next - current) < 0.5) return;
+
+                event.preventDefault();
+                sliderThumbs.setTransition(0);
+                sliderThumbs.setTranslate(next);
+                sliderThumbs.updateProgress();
+            }, { passive: false });
+        })();
+
         
         gallerySlider = new Swiper(".gallery-slider", {
             direction: 'horizontal',
@@ -276,9 +325,20 @@ $(document).ready(function() {
                         sizeBtn = document.createElement('button');
                         sizeBtn.type = 'button';
                         sizeBtn.className = 'size-chart-button';
+                        sizeBtn.setAttribute('aria-label', 'Open Size Guide');
                         sizeBtn.innerHTML = `
-                            <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/size-chart-icon.png?v=1765009516" alt="size-chart-icon">
-                            <span class="pp-regular italic body-sm f-gray">Size Guide</span>
+                            <span class="size-chart-button__icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18.3334 5.83335L14.1667 1.66669L12.6042 3.22919L11.0417 4.79169L7.91675 7.91669L4.79175 11.0417L3.22925 12.6042L1.66675 14.1667L5.83341 18.3334L18.3334 5.83335Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12.6042 3.22919L3.22925 12.6042" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3.75 12.0833L5.41667 13.75" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M5.83325 10L8.33325 12.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M7.91675 7.91669L9.58341 9.58335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M10 5.83331L12.5 8.33331" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12.0833 3.75L13.7499 5.41667" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span>Size Guide</span>
                         `;
                     }
 
@@ -1913,6 +1973,73 @@ if ($('.product-image-location-section').length) {
       // remove the view all button
       if (viewAllBtn) viewAllBtn.remove();
     });
+
+    document.addEventListener('click', function (e) {
+      const swatch = e.target.closest('.product-hotspot-item-container .variant-color-item');
+      if (!swatch) return;
+
+      const container = swatch.closest('.product-hotspot-item-container');
+      if (!container) return;
+
+      const variantId = swatch.getAttribute('data-color') || swatch.getAttribute('data-id');
+      if (!variantId) return;
+
+      // swatch active state (optional)
+      const swatchList = swatch.closest('ul');
+      if (swatchList) {
+        swatchList.querySelectorAll('.variant-color-item').forEach(li => li.classList.remove('active', 'on'));
+      }
+      swatch.classList.add('active', 'on');
+
+      // image switching
+      const imagesWrap = container.querySelector('.product-image');
+      if (!imagesWrap) return;
+
+      const imgs = imagesWrap.querySelectorAll('img[data-variant]');
+      if (!imgs.length) return;
+
+      imgs.forEach(img => img.classList.remove('active'));
+
+      // match exact variant
+      let target = imagesWrap.querySelector(`img[data-variant="${CSS.escape(variantId)}"]`);
+
+      // fallback: if no exact match, use the swatch's data-product-img and swap the currently active image src
+      if (!target) {
+        const fallbackUrl = swatch.getAttribute('data-product-img');
+        const activeImg = imagesWrap.querySelector('img.active') || imgs[0];
+
+        if (fallbackUrl && activeImg) {
+          // keep srcset/sizes untouched unless you also store them
+          activeImg.src = fallbackUrl;
+          activeImg.classList.add('active');
+        }
+        return;
+      }
+
+      target.classList.add('active');
+    });
+
+}
+
+
+    document.querySelectorAll('.product-image-location-section .variant-option-block').forEach(block => {
+      const mainList = block.querySelector('ul.variant-colors:not(.variant-colors-dropdown)');
+      const dropdownList = block.querySelector('ul.variant-colors.variant-colors-dropdown');
+      const viewAllBtn = block.querySelector('.view-all-options-btn');
+
+      if (!mainList) return;
+
+      // move dropdown items into main list
+      if (dropdownList) {
+        dropdownList.querySelectorAll('li.variant-color-item').forEach(li => {
+          mainList.appendChild(li);
+        });
+        dropdownList.remove();
+      }
+
+      // remove the view all button
+      if (viewAllBtn) viewAllBtn.remove();
+    });
     
     document.addEventListener('click', function (e) {
       const swatch = e.target.closest('.product-hotspot-item-container .variant-color-item');
@@ -1995,6 +2122,229 @@ if ($('.product-image-location-section').length) {
         return document.querySelector('.product-page-nav-header-section .nav-inventory-info-app');
     }
 
+    let availabilityObserver = null;
+    let availabilityObservedRoot = null;
+    let availabilityRenderFrame = null;
+    let availabilityUpdateScheduled = false;
+
+    function getAvailabilitySection() {
+        return document.querySelector('.product [data-availability-section]');
+    }
+
+    function getExplicitCountry(value) {
+        const normalized = String(value || '').trim().toLowerCase().replace(/\s+/g, ' ');
+        if (!normalized) return '';
+
+        if (['ca', 'canada', 'canadian'].indexOf(normalized) !== -1) return 'CA';
+        if (['us', 'u.s.', 'u.s', 'usa', 'united states', 'united states of america'].indexOf(normalized) !== -1) return 'US';
+        return '';
+    }
+
+    function getItemCountry(item) {
+        const explicit = getExplicitCountry(item.getAttribute('data-country')) ||
+            getExplicitCountry(item.getAttribute('data-region')) ||
+            getExplicitCountry(item.getAttribute('data-country-code')) ||
+            getExplicitCountry(item.getAttribute('data-shipping-country'));
+        if (explicit) return explicit;
+
+        const text = (item.textContent || '').toLowerCase();
+        const isCanada = /canadian warehouse|canada warehouse|ships to canadian addresses only|ship to canada only|ships to canada only|\bcanada\b|\bcanadian\b|\bca\b/.test(text);
+        const isUnitedStates = /(?:u\.?s\.?|usa|united states)\s+warehouse|ships to (?:the )?u\.?s\.?\s+addresses only|ship to us only|ships to united states only|\bu\.s\.|\busa\b|\bunited states\b/.test(text);
+
+        if (isCanada === isUnitedStates) return '';
+        return isCanada ? 'CA' : 'US';
+    }
+
+    function getAvailabilityItem(root, countryCode) {
+        if (!root) return null;
+
+        return Array.from(root.querySelectorAll('.iia-list-item')).find(function (item) {
+            return getItemCountry(item) === countryCode;
+        }) || null;
+    }
+
+    function getShippingNote(text) {
+        if (/ship(?:s)?\s+to\s+(?:the\s+)?u\.?s\.?\s+(?:addresses\s+)?only/i.test(text)) {
+            return 'Ships to U.S. addresses only';
+        }
+
+        if (/ship(?:s)?\s+to\s+canad(?:a|ian\s+addresses)\s+only/i.test(text)) {
+            return 'Ships to Canadian addresses only';
+        }
+
+        return '';
+    }
+
+    function getWarehouseLabel(text) {
+        if (/(?:u\.?s\.?|united states|usa)\s+warehouse/i.test(text)) {
+            return 'U.S. warehouse';
+        }
+
+        if (/(?:canada|canadian)\s+warehouse/i.test(text)) {
+            return 'Canada warehouse';
+        }
+
+        return '';
+    }
+
+    function getDisplayAvailability(item) {
+        if (!item) return null;
+
+        const rawText = (item.textContent || '').replace(/\s+/g, ' ').trim();
+        const text = rawText.toLowerCase();
+        let status = 'unknown';
+        let label = '';
+
+        if (['out of stock', 'sold out', 'unavailable', 'not available', 'no stock'].some(function (phrase) { return text.indexOf(phrase) !== -1; })) {
+            status = 'out_of_stock';
+            label = 'Out of stock';
+        } else if (['low stock', 'limited stock'].some(function (phrase) { return text.indexOf(phrase) !== -1; })) {
+            status = 'low_stock';
+            label = 'Low stock';
+        } else if (['in stock', 'high stock', 'available'].some(function (phrase) { return text.indexOf(phrase) !== -1; })) {
+            status = 'in_stock';
+            label = 'In stock';
+        }
+
+        return {
+            status: status,
+            label: label,
+            warehouse: getWarehouseLabel(rawText),
+            note: getShippingNote(rawText),
+            rawText: rawText
+                .replace(/ship\s+to\s+us\s+only/gi, 'Ships to U.S. addresses only')
+                .replace(/ship\s+to\s+canada\s+only/gi, 'Ships to Canadian addresses only')
+        };
+    }
+
+    function setAvailabilityStatus(display, status, label, note, isBusy) {
+        const signature = [status, label, note || '', isBusy ? '1' : '0'].join('|');
+        if (display.dataset.availabilitySignature === signature) return;
+        display.dataset.availabilitySignature = signature;
+
+        const content = document.createDocumentFragment();
+        const statusRow = document.createElement('div');
+        const dot = document.createElement('span');
+        const copy = document.createElement('div');
+        const statusLabel = document.createElement('p');
+        statusRow.className = 'availability-status-row';
+        dot.className = 'availability-status-dot';
+        dot.setAttribute('aria-hidden', 'true');
+        copy.className = 'availability-status-copy';
+        statusLabel.className = 'availability-status';
+        statusLabel.textContent = label;
+        copy.appendChild(statusLabel);
+
+        if (note) {
+            const noteLine = document.createElement('p');
+            noteLine.className = 'availability-note';
+            noteLine.textContent = note;
+            copy.appendChild(noteLine);
+        }
+
+        statusRow.append(dot, copy);
+        content.appendChild(statusRow);
+
+        display.dataset.status = status;
+        display.replaceChildren(content);
+        display.setAttribute('aria-busy', String(isBusy));
+    }
+
+    function setAvailabilityEmpty(display, isBusy) {
+        const signature = 'empty|' + (isBusy ? '1' : '0');
+        if (display.dataset.availabilitySignature === signature) return;
+
+        display.dataset.availabilitySignature = signature;
+        display.removeAttribute('data-status');
+        display.replaceChildren();
+        display.setAttribute('aria-busy', String(!!isBusy));
+    }
+
+    function renderAvailabilityDisplays() {
+        const section = getAvailabilitySection();
+        if (!section) return;
+
+        const inventoryRoot = getInventoryRoot();
+        const hasResolved = !!(inventoryRoot && inventoryRoot.querySelector('.iia-list-item'));
+        let visibleDisplayCount = 0;
+
+        section.querySelectorAll('[data-availability-display]').forEach(function (display) {
+            const countryCode = display.dataset.availabilityCountry;
+            const availabilityItem = getAvailabilityItem(inventoryRoot, countryCode);
+            const availability = getDisplayAvailability(availabilityItem);
+
+            display.hidden = hasResolved && !availabilityItem;
+            if (display.hidden) return;
+            visibleDisplayCount += 1;
+
+            if (!availability) {
+                setAvailabilityEmpty(display, true);
+                return;
+            }
+
+            if (availability.status === 'unknown') {
+                setAvailabilityStatus(
+                    display,
+                    'unknown',
+                    availability.rawText || (countryCode === 'CA' ? 'Canada availability unavailable' : 'U.S. availability unavailable'),
+                    availability.note,
+                    false
+                );
+                return;
+            }
+
+            setAvailabilityStatus(
+                display,
+                availability.status,
+                availability.label + (availability.warehouse ? ' · ' + availability.warehouse : ''),
+                availability.note,
+                false
+            );
+        });
+
+        section.querySelector('[data-availability-displays]').dataset.availabilityCount = String(visibleDisplayCount);
+    }
+
+    function queueAvailabilityRender() {
+        if (availabilityRenderFrame) window.cancelAnimationFrame(availabilityRenderFrame);
+        availabilityRenderFrame = window.requestAnimationFrame(function () {
+            availabilityRenderFrame = null;
+            renderAvailabilityDisplays();
+        });
+    }
+
+    function initializeAvailabilityDisplays() {
+        const section = getAvailabilitySection();
+        if (!section) return false;
+
+        const sourceSlot = section.querySelector('[data-availability-source]');
+        const inventoryRoot = document.getElementById('inventory-info-app');
+        if (sourceSlot && inventoryRoot && !sourceSlot.contains(inventoryRoot)) {
+            sourceSlot.appendChild(inventoryRoot);
+        }
+
+        if (!inventoryRoot && availabilityObservedRoot) {
+            if (availabilityObserver) availabilityObserver.disconnect();
+            availabilityObservedRoot = null;
+        }
+
+        if (inventoryRoot && availabilityObservedRoot !== inventoryRoot && typeof MutationObserver !== 'undefined') {
+            if (availabilityObserver) availabilityObserver.disconnect();
+            availabilityObservedRoot = inventoryRoot;
+            availabilityObserver = new MutationObserver(queueAvailabilityRender);
+            availabilityObserver.observe(inventoryRoot, {
+                childList: true,
+                subtree: true,
+                characterData: true,
+                attributes: true,
+                attributeFilter: ['iia-is-default', 'class', 'aria-hidden', 'hidden', 'style', 'value', 'checked']
+            });
+        }
+
+        renderAvailabilityDisplays();
+        return !!inventoryRoot;
+    }
+
     function getInventoryMarkupSource() {
         const renderedContainer = document.querySelector('.product .availability-section .iia-container');
         if (renderedContainer) return renderedContainer;
@@ -2035,6 +2385,7 @@ if ($('.product-image-location-section').length) {
         if (!variantId || typeof callback !== 'function') return;
 
         const iframe = document.createElement('iframe');
+        iframe.name = 'venustas-inventory-snapshot';
         const requestUrl = new URL(window.location.href);
         requestUrl.searchParams.set('variant', variantId);
 
@@ -2121,6 +2472,7 @@ if ($('.product-image-location-section').length) {
             }
 
             const nextMarkup = getInventoryMarkupHtml(inventorySource, { stripId: true });
+            target.dataset.inventoryVariantId = inventorySource.closest('#inventory-info-app')?.dataset.inventoryVariantId || '';
             if (target.innerHTML === nextMarkup) {
                 return;
             }
@@ -2135,7 +2487,7 @@ if ($('.product-image-location-section').length) {
     }
 
     function getVariantData() {
-        const jsonNode = document.querySelector('variant-radios script[type="application/json"], variant-selects script[type="application/json"], [id^="ProductJson-"]');
+        const jsonNode = document.querySelector('.product [data-product-variants], variant-radios script[type="application/json"], variant-selects script[type="application/json"], [id^="ProductJson-"]');
         if (!jsonNode) return [];
 
         try {
@@ -2171,9 +2523,9 @@ if ($('.product-image-location-section').length) {
     function getCountryMatchers(countryCode) {
         switch (countryCode) {
             case 'US':
-                return ['ship to us only', 'united states warehouse', 'usa warehouse', 'us warehouse'];
+                return ['ship to us only', 'ships to u.s. addresses only', 'united states warehouse', 'usa warehouse', 'us warehouse'];
             case 'CA':
-                return ['ship to canada only', 'canada warehouse'];
+                return ['ship to canada only', 'ships to canadian addresses only', 'canada warehouse'];
             default:
                 return [];
         }
@@ -2235,20 +2587,31 @@ if ($('.product-image-location-section').length) {
     function setButtonState(button, enabled, text) {
         if (!button) return;
 
-        button.toggleAttribute('disabled', !enabled);
-        button.dataset.regionBlocked = enabled ? 'false' : 'true';
+        if (button.hasAttribute('disabled') === enabled) button.toggleAttribute('disabled', !enabled);
+        const regionBlocked = enabled ? 'false' : 'true';
+        if (button.dataset.regionBlocked !== regionBlocked) button.dataset.regionBlocked = regionBlocked;
 
+        if (!text) return;
         const textNode = button.querySelector('span');
-        if (textNode && text) {
-            textNode.textContent = text;
-        } else if (text) {
+        if (textNode) {
+            if (textNode.textContent !== text) textNode.textContent = text;
+        } else if (button.textContent !== text) {
             button.textContent = text;
         }
     }
 
-    function getVariantAvailabilityState(variantId, inventoryRoot) {
+    function getSelectedOptions(selector) {
+        const fieldsets = document.querySelectorAll(selector + ' fieldset');
+        return fieldsets.length ? Array.from(fieldsets, function (fieldset) {
+            return fieldset.querySelector('input[type="radio"]:checked')?.value || null;
+        }) : null;
+    }
+
+    function getVariantAvailabilityState(variantId, inventoryRoot, selectedOptions) {
         const selectedVariant = getVariantById(variantId);
-        if (!selectedVariant) {
+        if (!selectedVariant || (selectedOptions && !selectedVariant.options.every(function (value, index) {
+            return value === selectedOptions[index];
+        }))) {
             return {
                 selectedVariant: null,
                 finalAvailable: false,
@@ -2257,7 +2620,9 @@ if ($('.product-image-location-section').length) {
         }
 
         const countryCode = getCustomerCountry();
-        const regionalAvailability = getRegionalAvailabilityFromRoot(inventoryRoot, countryCode);
+        const regionalAvailability = inventoryRoot?.dataset.inventoryVariantId === String(variantId)
+            ? getRegionalAvailabilityFromRoot(inventoryRoot, countryCode)
+            : null;
         const baseAvailable = !!selectedVariant.available;
         const isBlockedByRegion = !!(
             regionalAvailability &&
@@ -2274,20 +2639,24 @@ if ($('.product-image-location-section').length) {
     }
 
     function refreshInventoryInfoForVariant(variantId, options) {
-        if (!variantId || typeof fetch === 'undefined' || typeof DOMParser === 'undefined') return;
+        if (!variantId) return;
 
         const inventoryRoot = options && options.targetRoot ? options.targetRoot : getInventoryRoot();
         if (!inventoryRoot) return;
 
-        if (options && options.context === 'nav') {
-            loadInventoryMarkupViaIframe(variantId, function (markup) {
-                if (!markup) return;
+        const requestId = String((Number(inventoryRoot.dataset.inventoryRequestId) || 0) + 1);
+        inventoryRoot.dataset.inventoryRequestId = requestId;
+        inventoryRoot.dataset.inventoryVariantId = '';
+        const isNav = options && options.context === 'nav';
+        updateRegionalInventoryGate();
 
-                const currentContainer = inventoryRoot.querySelector('.iia-container');
-                if (currentContainer && currentContainer.outerHTML === markup) {
-                    return;
-                }
+        loadInventoryMarkupViaIframe(variantId, function (markup) {
+            const selectedInput = document.getElementById(isNav ? 'main-product-id-nav' : 'main-product-id');
+            if (!markup || inventoryRoot.dataset.inventoryRequestId !== requestId ||
+                !inventoryRoot.isConnected || String(selectedInput?.value) !== String(variantId)) return;
 
+            const currentContainer = inventoryRoot.querySelector('.iia-container');
+            if (!currentContainer || currentContainer.outerHTML !== markup) {
                 if (currentContainer) {
                     currentContainer.outerHTML = markup;
                 } else {
@@ -2295,65 +2664,20 @@ if ($('.product-image-location-section').length) {
                 }
 
                 const visibleContainer = inventoryRoot.querySelector('.iia-container');
-                if (visibleContainer) {
-                    visibleContainer.style.display = 'block';
-                }
+                if (visibleContainer) visibleContainer.style.display = 'block';
+            }
+            inventoryRoot.dataset.inventoryVariantId = String(variantId);
 
+            if (isNav) {
                 updateNavRegionalInventoryGate();
-            });
-            return;
-        }
+                return;
+            }
 
-        const requestUrl = new URL(window.location.href);
-        requestUrl.searchParams.set('variant', variantId);
-
-        fetch(requestUrl.toString(), { credentials: 'same-origin' })
-            .then(function (response) {
-                return response.text();
-            })
-            .then(function (htmlText) {
-                const parsed = new DOMParser().parseFromString(htmlText, 'text/html');
-                const nextContainer = getParsedInventoryContainer(parsed);
-                if (!nextContainer) return;
-
-                const nextMarkup = getInventoryMarkupHtml(nextContainer, {
-                    stripId: !!(options && options.context === 'nav')
-                });
-                if (!nextMarkup) return;
-
-                const currentContainer = inventoryRoot.querySelector('.iia-container');
-                if (currentContainer && currentContainer.outerHTML === nextMarkup) {
-                    return;
-                }
-
-                if (currentContainer) {
-                    currentContainer.outerHTML = nextMarkup;
-                } else {
-                    inventoryRoot.innerHTML = nextMarkup;
-                }
-
-                const visibleContainer = inventoryRoot.querySelector('.iia-container');
-                if (visibleContainer) {
-                    visibleContainer.style.display = 'block';
-                }
-
-                if (options && options.context === 'nav') {
-                    updateNavRegionalInventoryGate();
-                } else {
-                    updateMainRegionalInventoryGate();
-                }
-
-                if (
-                    (!options || options.context !== 'nav') &&
-                    window.venustasRegionalInventoryGate &&
-                    typeof window.venustasRegionalInventoryGate.syncNavInventoryMarkup === 'function'
-                ) {
-                    window.venustasRegionalInventoryGate.syncNavInventoryMarkup();
-                }
-            })
-            .catch(function (error) {
-                console.warn('Unable to refresh inventory info for nav variant selection.', error);
-            });
+            updateMainRegionalInventoryGate();
+            renderAvailabilityDisplays();
+            syncNavInventoryMarkup(true);
+            updateNavRegionalInventoryGate();
+        });
     }
 
     function updateMainRegionalInventoryGate() {
@@ -2362,10 +2686,12 @@ if ($('.product-image-location-section').length) {
         const mainButton = document.querySelector('.main-product-form .product-atc-form [name="add"]')
             || document.querySelector('.main-product-form .product-atc-form .btn-atc');
         const mainVariantId = document.getElementById('main-product-id');
-        const state = getVariantAvailabilityState(mainVariantId ? mainVariantId.value : '', getInventoryRoot());
+        const state = getVariantAvailabilityState(mainVariantId ? mainVariantId.value : '',
+            getInventoryRoot(), getSelectedOptions('.product variant-radios'));
 
         if (!state.selectedVariant) {
             setButtonState(mainButton, false, 'Unavailable');
+            document.querySelectorAll('.btn-bn').forEach(function (button) { button.disabled = true; });
             return;
         }
 
@@ -2383,14 +2709,15 @@ if ($('.product-image-location-section').length) {
             || document.querySelector('#header-nav-product-form button[type="submit"]');
         const navVariantId = document.getElementById('main-product-id-nav');
         const navInventoryRoot = getNavInventoryRoot() || getInventoryRoot();
-        const state = getVariantAvailabilityState(navVariantId ? navVariantId.value : '', navInventoryRoot);
+        const state = getVariantAvailabilityState(navVariantId ? navVariantId.value : '', navInventoryRoot,
+            getSelectedOptions('.product-nav-new .nav-variants'));
 
-        if (!state.selectedVariant) {
-            setButtonState(navButton, false, 'Unavailable');
-            return;
-        }
-
-        setButtonState(navButton, state.finalAvailable, state.buttonText);
+        const navLabel = state.buttonText === 'Add To Cart' ? 'ADD TO CART'
+            : state.buttonText === 'Out Of Stock' ? 'Out of Stock' : state.buttonText;
+        setButtonState(navButton, state.finalAvailable, navLabel);
+        document.querySelectorAll('[data-product-nav-new]').forEach(function (root) {
+            root.dispatchEvent(new CustomEvent('nav:availability-change'));
+        });
     }
 
     function updateRegionalInventoryGate() {
@@ -2399,21 +2726,14 @@ if ($('.product-image-location-section').length) {
     }
 
     function canAddSelectedVariant() {
-        const selectedVariant = getVariantById(document.getElementById('main-product-id') ? document.getElementById('main-product-id').value : '');
-        if (!selectedVariant || !selectedVariant.available) {
+        const state = getVariantAvailabilityState(document.getElementById('main-product-id')?.value,
+            getInventoryRoot(), getSelectedOptions('.product variant-radios'));
+        if (!state.finalAvailable) {
             return {
                 allowed: false,
-                reason: selectedVariant && selectedVariant.name
-                    ? "The product '" + selectedVariant.name + "' is already sold out."
+                reason: state.buttonText === 'Unavailable'
+                    ? 'Please select an available variant.'
                     : 'This variant is currently out of stock.'
-            };
-        }
-
-        const regionalAvailability = getRegionalAvailability(getCustomerCountry());
-        if (regionalAvailability && regionalAvailability.matched && regionalAvailability.available === false) {
-            return {
-                allowed: false,
-                reason: 'This item is out of stock for your shipping region.'
             };
         }
 
@@ -2423,36 +2743,54 @@ if ($('.product-image-location-section').length) {
     }
 
     function queueUpdate() {
-        if (typeof window.requestAnimationFrame === 'function') {
-            window.requestAnimationFrame(function () {
+        if (availabilityUpdateScheduled) return;
+        availabilityUpdateScheduled = true;
+
+        const run = function () {
+            try {
                 updateRegionalInventoryGate();
                 syncNavInventoryMarkup();
-            });
-            return;
-        }
+            } finally {
+                availabilityUpdateScheduled = false;
+            }
+        };
 
-        window.setTimeout(function () {
-            updateRegionalInventoryGate();
-            syncNavInventoryMarkup();
-        }, 0);
+        if (typeof window.requestAnimationFrame === 'function') {
+            window.requestAnimationFrame(run);
+        } else {
+            window.setTimeout(run, 0);
+        }
     }
 
     function watchInventoryMarkup() {
         if (typeof MutationObserver === 'undefined') return;
 
         const observer = new MutationObserver(function () {
+            const inventoryRoot = getInventoryRoot();
+            if (availabilityObservedRoot !== inventoryRoot) {
+                initializeAvailabilityDisplays();
+            }
             queueUpdate();
         });
 
         observer.observe(document.body, {
             childList: true,
-            subtree: true,
-            characterData: true
+            subtree: true
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        if (!document.querySelector('.product')) return;
+    function initializeRegionalInventory() {
+        if (!document.querySelector('.product') || window.name === 'venustas-inventory-snapshot') return;
+
+        const initialVariantId = document.getElementById('main-product-id')?.value || '';
+        const mainInventoryRoot = getInventoryRoot();
+        if (mainInventoryRoot && !mainInventoryRoot.dataset.inventoryVariantId) {
+            mainInventoryRoot.dataset.inventoryVariantId = initialVariantId;
+        }
+        const navInventoryRoot = getNavInventoryRoot();
+        if (navInventoryRoot && !navInventoryRoot.dataset.inventoryVariantId) {
+            navInventoryRoot.dataset.inventoryVariantId = document.getElementById('main-product-id-nav')?.value || '';
+        }
 
         window.venustasRegionalInventoryGate = {
             update: updateRegionalInventoryGate,
@@ -2462,8 +2800,17 @@ if ($('.product-image-location-section').length) {
             getVariantAvailabilityState: getVariantAvailabilityState
         };
 
+        initializeAvailabilityDisplays();
+        window.setTimeout(initializeAvailabilityDisplays, 300);
+        window.setTimeout(initializeAvailabilityDisplays, 1000);
         queueUpdate();
         watchInventoryMarkup();
+        if (initialVariantId && mainInventoryRoot) {
+            refreshInventoryInfoForVariant(initialVariantId, {
+                targetRoot: mainInventoryRoot,
+                context: 'main'
+            });
+        }
 
         document.addEventListener('change', function (event) {
             if (
@@ -2496,75 +2843,15 @@ if ($('.product-image-location-section').length) {
                 }
             }
         });
-    });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeRegionalInventory, { once: true });
+    } else {
+        initializeRegionalInventory();
+    }
+    document.addEventListener('shopify:section:load', initializeAvailabilityDisplays);
 })();
-
-
-    document.querySelectorAll('.product-image-location-section .variant-option-block').forEach(block => {
-      const mainList = block.querySelector('ul.variant-colors:not(.variant-colors-dropdown)');
-      const dropdownList = block.querySelector('ul.variant-colors.variant-colors-dropdown');
-      const viewAllBtn = block.querySelector('.view-all-options-btn');
-
-      if (!mainList) return;
-
-      // move dropdown items into main list
-      if (dropdownList) {
-        dropdownList.querySelectorAll('li.variant-color-item').forEach(li => {
-          mainList.appendChild(li);
-        });
-        dropdownList.remove();
-      }
-
-      // remove the view all button
-      if (viewAllBtn) viewAllBtn.remove();
-    });
-    
-    document.addEventListener('click', function (e) {
-      const swatch = e.target.closest('.product-hotspot-item-container .variant-color-item');
-      if (!swatch) return;
-
-      const container = swatch.closest('.product-hotspot-item-container');
-      if (!container) return;
-
-      const variantId = swatch.getAttribute('data-color') || swatch.getAttribute('data-id');
-      if (!variantId) return;
-
-      // swatch active state (optional)
-      const swatchList = swatch.closest('ul');
-      if (swatchList) {
-        swatchList.querySelectorAll('.variant-color-item').forEach(li => li.classList.remove('active', 'on'));
-      }
-      swatch.classList.add('active', 'on');
-
-      // image switching
-      const imagesWrap = container.querySelector('.product-image');
-      if (!imagesWrap) return;
-
-      const imgs = imagesWrap.querySelectorAll('img[data-variant]');
-      if (!imgs.length) return;
-
-      imgs.forEach(img => img.classList.remove('active'));
-
-      // match exact variant
-      let target = imagesWrap.querySelector(`img[data-variant="${CSS.escape(variantId)}"]`);
-
-      // fallback: if no exact match, use the swatch's data-product-img and swap the currently active image src
-      if (!target) {
-        const fallbackUrl = swatch.getAttribute('data-product-img');
-        const activeImg = imagesWrap.querySelector('img.active') || imgs[0];
-
-        if (fallbackUrl && activeImg) {
-          // keep srcset/sizes untouched unless you also store them
-          activeImg.src = fallbackUrl;
-          activeImg.classList.add('active');
-        }
-        return;
-      }
-
-      target.classList.add('active');
-    });
-
-}
 
     $('.prorw_preview_badge_setup').on('click', function (e) {
         e.preventDefault();
@@ -2750,6 +3037,22 @@ $(document).ready(function () {
     }
 
     function getMainSelectedVariant() {
+      const mainVariantRadios = getMainVariantRadios();
+      if (mainVariantRadios) {
+        const selectedOptions = Array.from(mainVariantRadios.querySelectorAll('fieldset'), function (fieldset) {
+          return fieldset.querySelector('input[type="radio"]:checked')?.value || null;
+        });
+        const selectedVariant = findExactVariant(selectedOptions);
+        if (selectedVariant) {
+          const mainInput = document.getElementById('main-product-id');
+          if (mainInput && String(mainInput.value) !== String(selectedVariant.id)) {
+            mainInput.value = selectedVariant.id;
+            mainInput.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+          return selectedVariant;
+        }
+        return null;
+      }
       const mainInput = document.getElementById('main-product-id');
       const variantId = mainInput ? String(mainInput.value || '') : '';
       if (!variantId) return null;
@@ -2836,11 +3139,10 @@ $(document).ready(function () {
             $navSelector.toggleClass('selected', !!mainRadio.checked);
             $navSelector.toggleClass('disabled', mainSelector.classList.contains('disabled'));
             $navSelector.toggleClass('soldout', mainSelector.classList.contains('soldout'));
-
-            var mainDisplay = window.getComputedStyle(mainSelector).display;
-            $navSelector.css('display', mainDisplay === 'none' ? 'none' : '');
           }
         });
+
+        navFieldsetEl.querySelector('product-size-toggle')?.sync();
 
         const $info = $navFieldset.find('.variant-info');
         if ($info.length && selectedValue) {
@@ -2849,12 +3151,7 @@ $(document).ready(function () {
         }
       });
 
-      const $idInput = $form.find('#main-product-id-nav, input[name="id"]').first();
-      if (mainSelectedVariant && $idInput.length) {
-        $idInput.val(mainSelectedVariant.id);
-      }
-
-      updateAddToCart(mainSelectedVariant || findExactVariant(getSelectedOptions()));
+      updateAddToCart(mainSelectedVariant);
 
       if (
         window.venustasRegionalInventoryGate &&
@@ -2916,6 +3213,7 @@ $(document).ready(function () {
       } else if (mainInput) {
         mainInput.dispatchEvent(new Event('change', { bubbles: true }));
       }
+      mainVariantRadios.querySelectorAll('product-size-toggle').forEach(function (toggle) { toggle.sync(); });
     }
 
     function updateAddToCart(currentVariant) {
@@ -2927,6 +3225,7 @@ $(document).ready(function () {
         $idInput.val('');
         $addBtn.prop('disabled', true);
         setButtonText($addBtn, 'Unavailable');
+        window.venustasRegionalInventoryGate?.update();
         return;
       }
 
@@ -2939,6 +3238,7 @@ $(document).ready(function () {
         $addBtn.prop('disabled', false);
         setButtonText($addBtn, 'Add To Cart');
       }
+      window.venustasRegionalInventoryGate?.update();
     }
 
     function applyVariantToUI(variant) {
@@ -2982,6 +3282,8 @@ $(document).ready(function () {
           const matchesOtherSelected = (variant) => {
             return variant.options.every((opt, idx) => {
               if (idx === optionIndex) return opt === val;              // candidate
+              if ($fieldset.hasClass('color-variant') &&
+                  $variantsWrapper.find('fieldset').eq(idx).hasClass('variant-size')) return true;
               const selected = selectedOptions[idx];
               if (!selected) return true;                                // not chosen yet -> ignore
               return opt === selected;                                    // must match chosen
@@ -3004,8 +3306,22 @@ $(document).ready(function () {
       });
     }
 
-    function updateVariantInputs() {
+    function updateVariantInputs(event) {
       let selectedOptions = getSelectedOptions();
+      if (event?.target?.closest('.color-variant')) {
+        const sizeIndex = Array.from($variantsWrapper.find('fieldset')).findIndex(function (fieldset) {
+          return fieldset.classList.contains('variant-size');
+        });
+        if (sizeIndex >= 0) {
+          const lOptions = selectedOptions.slice();
+          lOptions[sizeIndex] = 'L';
+          const lVariant = findExactVariant(lOptions);
+          if (lVariant) {
+            applyVariantToUI(lVariant);
+            selectedOptions = getSelectedOptions();
+          }
+        }
+      }
       let currentVariant = findExactVariant(selectedOptions);
 
       // If invalid combo, snap to closest (prefer available)
@@ -3062,8 +3378,9 @@ $(document).ready(function () {
       $container.removeData('navVariantsReady');
     };
 
-    // Init
-    updateVariantInputs();
+    // On load the main product selection is authoritative; nav interactions
+    // use updateVariantInputs() after the customer changes an option.
+    mirrorMainStateToNav();
   });
   };
   window.initNavProductVariants();
@@ -3267,170 +3584,3 @@ $(document).ready(function () {
     updateNavVariantInputs();
   });
 });
-
-
-if(enabled_option_indicator){
-    $(document).ready(function initVariantSizeToggle() {
-        $('.variant-size').each(function() {
-            const $fieldset = $(this);
-
-            // don't init twice
-            if ($fieldset.data('vst-initialized')) return;
-            $fieldset.data('vst-initialized', true);
-
-            function getOptionPairs() {
-            return $fieldset.find('.variants-selector, .nav-variants-selector').map(function() {
-                const $selector = $(this);
-                const text = $selector.text().trim();
-                const $option = $selector.next('.variants-option, .nav-variants-option');
-                const $input = $option.find('input.variant-radio, input.nav-variant-radio');
-
-                return {
-                selector: $selector,
-                option: $option,
-                input: $input,
-                text: text
-                };
-            }).get();
-            }
-
-            function isTallSize(text) {
-            return String(text || '').trim().toUpperCase().includes('LT');
-            }
-
-            const hasTallSizes = getOptionPairs().some(function(pair) {
-            return isTallSize(pair.text);
-            });
-
-            if (!hasTallSizes) {
-            $fieldset.find('.variant-type-toggle').remove();
-            getOptionPairs().forEach(function(pair) {
-                pair.selector.show();
-                pair.option.show();
-            });
-            return;
-            }
-
-            // insert toggles if not present
-            if (!$fieldset.find('.variant-type-toggle').length) {
-            const toggleButtons = `
-                <div class="variant-type-toggle">
-                    <button type="button" class="variant-type-btn active" data-type="standard">Standard</button>
-                    <button type="button" class="variant-type-btn" data-type="tall">Tall</button>
-                </div>
-            `;
-            $fieldset.find('legend').after(toggleButtons);
-            }
-
-            function isSizeVisibleForType(text, type) {
-            if (type === 'tall') return isTallSize(text);
-            return !isTallSize(text);
-            }
-
-            function showSizes(type) {
-            getOptionPairs().forEach(function(pair) {
-                const shouldShow = isSizeVisibleForType(pair.text, type);
-                pair.selector.toggle(shouldShow);
-                pair.option.toggle(shouldShow);
-            });
-            }
-
-            // Robust detection of the currently selected size text
-            function getSelectedSizeText() {
-            let text = '';
-
-            // 1) Prefer selector with 'selected' class
-            const $sel = $fieldset.find('.variants-selector.selected, .nav-variants-selector.selected');
-            if ($sel.length) {
-                text = $sel.first().text().trim();
-                if (text) return text;
-            }
-
-            // 2) Check for a checked input and find its related selector
-            const $checked = $fieldset.find('input.variant-radio:checked, input.nav-variant-radio:checked');
-            if ($checked.length) {
-                // common markup: <span class="variants-selector">...</span><span class="variants-option"><input ...></span>
-                const $prevSelector = $checked.closest('.variants-option').prev('.variants-selector, .nav-variants-selector');
-                if ($prevSelector.length) {
-                text = $prevSelector.text().trim();
-                if (text) return text;
-                }
-
-                // maybe input is inside the selector itself
-                const $insideSelector = $checked.closest('.variants-selector, .nav-variants-selector');
-                if ($insideSelector.length) {
-                text = $insideSelector.text().trim();
-                if (text) return text;
-                }
-
-                // fallback: attempt to match by index between inputs and selector list
-                const idx = $fieldset.find('input.variant-radio, input.nav-variant-radio').index($checked);
-                if (idx >= 0) {
-                const $selByIndex = $fieldset.find('.variants-selector, .nav-variants-selector').eq(idx);
-                if ($selByIndex.length) {
-                    text = $selByIndex.text().trim();
-                    if (text) return text;
-                }
-                }
-            }
-
-            // 3) For <select> dropdown fallback
-            const $select = $fieldset.find('select[name="Size"], select');
-            if ($select.length) {
-                const val = $select.val();
-                if (val) return String(val).trim();
-            }
-
-            return text; // may be empty if not found
-            }
-
-            function getCurrentType() {
-            return $fieldset.data('variantTypeMode') || null;
-            }
-
-            function setCurrentType(type) {
-            $fieldset.data('variantTypeMode', type);
-            $fieldset.find('.variant-type-btn').removeClass('active');
-            $fieldset.find(`.variant-type-btn[data-type="${type}"]`).addClass('active');
-            showSizes(type);
-            }
-
-            function detectSelectedType() {
-            const existingType = getCurrentType();
-            if (existingType) {
-                showSizes(existingType);
-                $fieldset.find('.variant-type-btn').removeClass('active');
-                $fieldset.find(`.variant-type-btn[data-type="${existingType}"]`).addClass('active');
-                return;
-            }
-
-            const selectedText = getSelectedSizeText();
-            let selectedType = 'standard';
-            if (selectedText && isTallSize(selectedText)) selectedType = 'tall';
-
-            setCurrentType(selectedType);
-            }
-
-            // Initial detection on page load
-            detectSelectedType();
-
-            // React when user changes a radio or a select inside this fieldset
-            $fieldset.on('change', 'input.variant-radio, input.nav-variant-radio, select', function() {
-            const currentType = getCurrentType();
-            if (currentType) {
-                showSizes(currentType);
-                return;
-            }
-
-            detectSelectedType();
-            });
-
-            // Toggle click handler
-            $fieldset.on('click', '.variant-type-btn', function() {
-            const type = $(this).data('type');
-            setCurrentType(type);
-            });
-        });
-    });
-}
-

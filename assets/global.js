@@ -765,9 +765,32 @@ class VariantSelects extends HTMLElement {
         this.addEventListener('change', this.onVariantChange);
     }
 
-    onVariantChange() {
+    onVariantChange(event) {
         this.updateOptions();
         this.updateMasterId();
+        if (event?.target?.closest('.color-variant')) {
+            const sizeFieldset = this.querySelector('fieldset.variant-size');
+            const fieldsets = Array.from(this.querySelectorAll('fieldset'));
+            const sizeIndex = fieldsets.indexOf(sizeFieldset);
+            if (sizeIndex >= 0) {
+                const lVariant = this.getVariantData().find((variant) =>
+                    variant.options.every((value, index) =>
+                        value === (index === sizeIndex ? 'L' : this.options[index]))
+                );
+                const lRadio = Array.from(sizeFieldset.querySelectorAll('input[type="radio"]'))
+                    .find((input) => input.value === 'L');
+                if (lVariant && lRadio) {
+                    lRadio.checked = true;
+                    sizeFieldset.querySelectorAll('.variants-selector').forEach((selector) =>
+                        selector.classList.toggle('selected', selector.dataset.id === lRadio.id));
+                    const sizeLabel = sizeFieldset.querySelector('.variant-info');
+                    if (sizeLabel) sizeLabel.textContent = ' : L';
+                    sizeFieldset.querySelector('product-size-toggle')?.sync();
+                    this.updateOptions();
+                    this.updateMasterId();
+                }
+            }
+        }
         this.toggleAddButton(
             !this.currentVariant || !this.currentVariant.available,
             this.currentVariant && !this.currentVariant.available ? 'Out Of Stock' : '',
@@ -777,12 +800,16 @@ class VariantSelects extends HTMLElement {
         this.updateVariantStatuses();
 
         if (!this.currentVariant) {
+            const mainInput = document.getElementById('main-product-id');
+            if (mainInput) mainInput.value = '';
             this.toggleAddButton(true, '', true);
             this.setUnavailable();
+            window.venustasRegionalInventoryGate?.update();
         } else {
             this.updateMedia();
             this.updateURL();
             this.updateVariantInput();
+            window.venustasRegionalInventoryGate?.update();
             this.renderProductInfo();
             this.updateShareUrl();
         }
@@ -923,9 +950,11 @@ class VariantSelects extends HTMLElement {
     }
 
     renderProductInfo() {
-        fetch(`${this.dataset.url}?variant=${this.currentVariant.id}`)
+        const variantId = this.currentVariant.id;
+        fetch(`${this.dataset.url}?variant=${variantId}`)
             .then((response) => response.text())
             .then((responseText) => {
+                if (this.currentVariant?.id !== variantId) return;
                 const html = new DOMParser().parseFromString(responseText, 'text/html')
 
                 const destination = document.getElementById(`price`);
@@ -1007,7 +1036,11 @@ class VariantSelects extends HTMLElement {
                 const price = document.getElementById(`price`);
 
                 if (price) price.classList.remove('visibility-hidden');
-                this.toggleAddButton(!this.currentVariant.available, 'Out Of Stock');
+                if (window.venustasRegionalInventoryGate) {
+                    window.venustasRegionalInventoryGate.update();
+                } else {
+                    this.toggleAddButton(!this.currentVariant.available, 'Out Of Stock');
+                }
             });
     }
 

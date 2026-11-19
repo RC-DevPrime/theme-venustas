@@ -58,9 +58,51 @@ endif
 
 -%}
 
+{% style %}
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-main-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-main-info {
+      display: contents;
+    }
+
+    #shopify-section-{{ section.id }} .product-main-info > * {
+      order: 5;
+      min-width: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-main-info > .product-main-tags {
+      order: 1;
+      padding-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-main-info > .product-main-title {
+      order: 2;
+    }
+
+    #shopify-section-{{ section.id }} .product-main-info > .product-main-review,
+    #shopify-section-{{ section.id }} .product-main-info > .shopify-app-block:has([data-oke-star-rating]) {
+      order: 3;
+      padding-bottom: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .product-main-media {
+      order: 4;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+  }
+{% endstyle %}
+
 <section class="product default aos-section-animate">
+    <script type="application/json" data-product-variants>{{ product.variants | json }}</script>
     <div class="container section-content">
-        <div class="breadcrumbs mb-lg-3 mb-md-3 mb-sm-2 col-lg-6 col-md-12 col-sm-12">
+        <div class="breadcrumbs mb-lg-3 mb-md-3 mb-sm-2 col-lg-6 col-md-12 col-sm-12  d-sm-none">
             <a href="/" class="pp-regular body f-gray">Home ></a>
 
             {% if collection %}
@@ -77,34 +119,34 @@ endif
             <span class="pp-regular body f-black">{{ product.title }}</span>
         </div>
 
-        <div class="row products-row">
+        <div class="row products-row product-main-layout">
             
-            <div class="col-lg-6 col-sm-12 ">
+            <div class="col-lg-6 col-sm-12 product-main-media">
                 <div class="sticky-top">
                     {% render 'product-media', sale_badge_type: sale_badge_type, badge_detail: true, product: product %}
                 </div>
             </div>
-            <div class="col-lg-6 col-sm-12 overflow-hidden">
+            <div class="col-lg-6 col-sm-12 overflow-hidden product-main-info">
                 {%- for block in section.blocks -%}
                     {%- case block.type -%}
                         {%- when 'tags' %}
-                            <div class="product-details">
+                            <div class="product-details product-main-tags" {{ block.shopify_attributes }}>
                                 <div class="d-flex align-items-center justify-content-between">
                                     {%- liquid
-                                        assign product_label = product.metafields.custom.custom_tag.value
-                                        if product_label == blank
-                                            assign product_label = product.metafields.custom.custom_tag
-                                        endif
-                                        assign product_label = product_label | strip_html | strip
-                                        if product_label == blank
-                                            assign product_label = 'FASHION | CONVENIENT'
-                                        endif
+                                        assign product_label = product.metafields.custom.custom_tag.value | default: product.metafields.custom.custom_tag | strip_html | strip
+                                        assign product_temperature = product.metafields.custom.temperature.value | default: product.metafields.custom.temperature | strip_html | strip
                                     -%}
-                                    <div class="custom-label">
-                                        <span class="pp-semibold body">
-                                            {{ product_label }}
-                                        </span>
-                                    </div>
+                                    {%- capture product_label_text -%}
+                                        {%- if product_temperature != blank -%}Best for {{ product_temperature }}°F{%- endif -%}
+                                        {%- if product_label != blank -%}
+                                            {{- product_label -}}
+                                        {%- endif -%}
+                                    {%- endcapture -%}
+                                    {%- if product_label_text != blank -%}
+                                        <div class="custom-label">
+                                            <span class="pp-semibold body">{{ product_label_text | escape }}</span>
+                                        </div>
+                                    {%- endif -%}
 
                                     <div class="wishlist-button">
                                         <button aria-label="Add to Wishlist" data-with-epi="true" class="swym-button swym-add-to-wishlist-view-product product_{{product.id}}" 
@@ -117,19 +159,14 @@ endif
                                 </div>
                             </div>
                         {%- when 'title' %}
-                            <div class="product-details">
+                            <div class="product-details product-main-title" {{ block.shopify_attributes }}>
                                 <h1 class="product-title ">
-                                    <span class="d-lg-block d-md-block d-sm-none title-sm">
-                                        {{ product.title }}
-                                    </span>
-                                    <span class="d-lg-none d-md-none d-sm-block pretitle-xl">
-                                        {{ product.title }}
-                                    </span>
+                                    {{ product.title }}
                                 </h1>
                             </div>
                         {%- when 'review' %}
                             {% if product.metafields.proviews.totalReviewCount != 0 %}
-                                <div class="product-details">
+                                <div class="product-details product-main-review" {{ block.shopify_attributes }}>
                                     <p tabindex="0" 
                                         class="prorw_preview_badge_setup" 
                                         id="prorw_preview_badge_id_{{ product.id }}" 
@@ -172,7 +209,13 @@ endif
                                             {% if promotion_mf.type contains 'rich_text' and promotion_is_extra == false %}
                                                 {{ promotion_mf | metafield_tag }}
                                             {% else %}
-                                                {{ promotion_text }}{% if promotion_discount_price != blank %} <span data-promotion-discount-price>{{ promotion_discount_price }}</span>{% endif %}
+                                                <div class='promotion-text'>
+                                                    <span class="promotion-text__icon">{% render 'heating-icons', icon: 'promotion-tag' %}</span>
+                                                    {{ promotion_text }}
+                                                    {% if promotion_discount_price != blank %}
+                                                        <span data-promotion-discount-price> · {{ promotion_discount_price }}</span>
+                                                    {% endif %}
+                                                </div>
                                             {% endif %}
                                         </div>
                                     {% endif %}
@@ -183,15 +226,10 @@ endif
                             <div class="product-details">
                                 <div class="shop-pay-container pb-2">
                                     {% assign quarter_price = product.selected_or_first_available_variant.price | times: 0.25 %}
-                                    <p class="pp-semibold f-black body-xl d-lg-block d-md-block d-sm-none">
+                                    <p class="pay-in-installments">
                                         Pay in 4 interest-free installments of <span class="pp-bold">{{ quarter_price | money | prepend: curSym }}</span> with 
                                         <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/45661_2x_7a6071bd-7096-4132-b066-66e804ca4273.png?v=1761060214" class="shop-pay-icon" alt="shop-pay-icon">
-                                        <a href="" class="pp-semibold body-xs text-underline">Learn More</a>
-                                    </p>
-                                    <p class="pp-semibold f-black body-sm d-lg-none d-md-none d-sm-block">
-                                        Pay in 4 interest-free installments of <span class="pp-bold">{{ quarter_price | money | prepend: curSym }}</span> with 
-                                        <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/45661_2x_7a6071bd-7096-4132-b066-66e804ca4273.png?v=1761060214" class="shop-pay-icon" alt="shop-pay-icon">
-                                        <a href="" class="pp-semibold body-sm text-underline">Learn More</a>
+                                        <a href="" class="text-underline learn-more-link">Learn More</a>
                                     </p>
                                 </div>
                             </div>
@@ -261,62 +299,22 @@ endif
                             </script>
                         {%- when 'availability' %}
                             <div class="product-details"> 
-                                <div class="availability-section">
+                                <div class="availability-section" data-availability-section>
                                     <div class="heading-content">
-                                        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M1.791 2.253l-.597 3.583A1 1 0 002.18 7h.893a1.5 1.5 0 001.342-.83L5 5l.585 1.17A1.5 1.5 0 006.927 7h1.146a1.5 1.5 0 001.342-.83L10 5l.585 1.17a1.5 1.5 0 001.342.83h1.146a1.5 1.5 0 001.342-.83L15 5l.585 1.17a1.5 1.5 0 001.342.83h.893a1 1 0 00.986-1.164l-.597-3.583A1.5 1.5 0 0016.729 1H3.271a1.5 1.5 0 00-1.48 1.253z" fill="#5C5F62"></path>
-                                            <path d="M18 9H2v8.5A1.5 1.5 0 003.5 19H7v-7h6v7h3.5a1.5 1.5 0 001.5-1.5V9z" fill="#5C5F62"></path>
-                                        </svg>
-                                        <span class="body-lg pp-bold d-lg-block d-md-block d-sm-none">Availability</span>
-                                        <span class="body pp-bold d-lg-none d-md-none d-sm-block">Availability</span>
+                                        <div class="availability-title">
+                                            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                                <path d="M1.791 2.253l-.597 3.583A1 1 0 002.18 7h.893a1.5 1.5 0 001.342-.83L5 5l.585 1.17A1.5 1.5 0 006.927 7h1.146a1.5 1.5 0 001.342-.83L10 5l.585 1.17a1.5 1.5 0 001.342.83h1.146a1.5 1.5 0 001.342-.83L15 5l.585 1.17A1.5 1.5 0 0016.927 7h.893a1 1 0 00.986-1.164l-.597-3.583A1.5 1.5 0 0016.729 1H3.271a1.5 1.5 0 00-1.48 1.253z" fill="currentColor"></path>
+                                                <path d="M18 9H2v8.5A1.5 1.5 0 003.5 19H7v-7h6v7h3.5a1.5 1.5 0 001.5-1.5V9z" fill="currentColor"></path>
+                                            </svg>
+                                            <span>Availability</span>
+                                        </div>
                                     </div>
-                                    <div class="availability-inventory-slot"></div>
+                                    <div class="availability-displays" data-availability-displays>
+                                        <div class="availability-display" data-availability-display data-availability-country="US" aria-live="polite" aria-busy="true"></div>
+                                        <div class="availability-display" data-availability-display data-availability-country="CA" aria-live="polite" aria-busy="true"></div>
+                                    </div>
+                                    <div class="availability-inventory-slot" data-availability-source aria-hidden="true" inert></div>
                                 </div>
-
-                                <div class="size-chart-injector form__label">
-                                    <script>
-                                        document.addEventListener("DOMContentLoaded", function () {
-                                            var inventoryInfo = document.querySelector("#inventory-info-app");
-                                            var inventorySlot = document.querySelector(".availability-section .availability-inventory-slot");
-                                            var availabilityDetails = inventorySlot && inventorySlot.closest(".product-details");
-
-                                            if (inventoryInfo && inventorySlot) {
-                                                inventorySlot.appendChild(inventoryInfo);
-                                                inventoryInfo.style.display = "block";
-
-                                                function hasMeaningfulInventoryContent() {
-                                                    return Boolean(
-                                                        inventoryInfo.querySelector(".iia-list-item, .iia-details-container, .iia-list") ||
-                                                        (inventoryInfo.textContent || "").trim()
-                                                    );
-                                                }
-
-                                                function updateInventoryVisibility() {
-                                                    var isResolvedEmpty = inventoryInfo.getAttribute("iia-is-default") === "true" &&
-                                                        !hasMeaningfulInventoryContent();
-
-                                                    if (availabilityDetails) {
-                                                        availabilityDetails.classList.toggle("is-inventory-empty", isResolvedEmpty);
-                                                    }
-                                                }
-
-                                                updateInventoryVisibility();
-
-                                                var inventoryObserver = new MutationObserver(updateInventoryVisibility);
-                                                inventoryObserver.observe(inventoryInfo, {
-                                                    childList: true,
-                                                    subtree: true,
-                                                    characterData: true,
-                                                    attributes: true,
-                                                    attributeFilter: ["iia-is-default"]
-                                                });
-                                            } else {
-                                                console.warn("⚠️ Either #inventory-info-app or .availability-inventory-slot not found.");
-                                            }
-                                        });
-                                    </script>
-                                </div>
-
                             </div>
                         {%- when 'quantity_atc' %}
                             <div class="product-details main-product-form">
@@ -415,141 +413,63 @@ endif
                                     {% assign image_3 = product.metafields.custom.support_icon_list_image_3 | default: block.settings.icon_3 %}
                                     {% assign image_4 = product.metafields.custom.support_icon_list_image_4 | default: block.settings.icon_4 %}
 
-                                    <div class="row d-lg-flex d-md-flex d-sm-none">
+                                    <div class="support-product-list">
                                         {% if heading_1 != blank or block.settings.heading_1 != blank %}
-                                            <div class="col">
-                                                <div class="support-product-item">
-                                                    {% if image_1 != blank %}
-                                                        <img src="{{ image_1 | image_url: width: 500 }}" width="100%" height="100%" class="icon-support" alt="icon-support">
+                                            <div class="support-product-item">
+                                                {% if image_1 != blank %}
+                                                    <img src="{{ image_1 | image_url: width: 60 }}" width="30" height="30" class="icon-support" alt="">
+                                                {% endif %}
+                                                <div class="support-product-text">
+                                                    {% if heading_1 != blank %}
+                                                        {{ heading_1 | metafield_tag }}
+                                                    {% else %}
+                                                        {{ block.settings.heading_1 }}
                                                     {% endif %}
-                                                    <div class="body-sm pp-semibold text-center l-h-normal">
-                                                        {% if heading_1 != blank %}
-                                                            {{ heading_1 | metafield_tag }}
-                                                        {% else %}
-                                                            {{ block.settings.heading_1 }}
-                                                        {% endif %}
-                                                    </div>
                                                 </div>
                                             </div>
                                         {% endif %}
 
                                         {% if heading_2 != blank or block.settings.heading_2 != blank %}
-                                            <div class="col">
-                                                <div class="support-product-item">
-                                                    {% if image_2 != blank %}
-                                                        <img src="{{ image_2 | image_url: width: 500 }}" width="100%" height="100%" class="icon-support" alt="icon-support">
+                                            <div class="support-product-item">
+                                                {% if image_2 != blank %}
+                                                    <img src="{{ image_2 | image_url: width: 60 }}" width="30" height="30" class="icon-support" alt="">
+                                                {% endif %}
+                                                <div class="support-product-text">
+                                                    {% if heading_2 != blank %}
+                                                        {{ heading_2 | metafield_tag }}
+                                                    {% else %}
+                                                        {{ block.settings.heading_2 }}
                                                     {% endif %}
-                                                    <div class="body-sm pp-semibold text-center l-h-normal">
-                                                        {% if heading_2 != blank %}
-                                                            {{ heading_2 | metafield_tag }}
-                                                        {% else %}
-                                                            {{ block.settings.heading_2 }}
-                                                        {% endif %}
-                                                    </div>
                                                 </div>
                                             </div>
                                         {% endif %}
 
                                         {% if heading_3 != blank or block.settings.heading_3 != blank %}
-                                            <div class="col">
-                                                <div class="support-product-item">
-                                                    {% if image_3 != blank %}
-                                                        <img src="{{ image_3 | image_url: width: 500 }}" width="100%" height="100%" class="icon-support" alt="icon-support">
+                                            <div class="support-product-item">
+                                                {% if image_3 != blank %}
+                                                    <img src="{{ image_3 | image_url: width: 60 }}" width="30" height="30" class="icon-support" alt="">
+                                                {% endif %}
+                                                <div class="support-product-text">
+                                                    {% if heading_3 != blank %}
+                                                        {{ heading_3 | metafield_tag }}
+                                                    {% else %}
+                                                        {{ block.settings.heading_3 }}
                                                     {% endif %}
-                                                    <div class="body-sm pp-semibold text-center l-h-normal">
-                                                        {% if heading_3 != blank %}
-                                                            {{ heading_3 | metafield_tag }}
-                                                        {% else %}
-                                                            {{ block.settings.heading_3 }}
-                                                        {% endif %}
-                                                    </div>
                                                 </div>
                                             </div>
                                         {% endif %}
 
                                         {% if heading_4 != blank or block.settings.heading_4 != blank %}
-                                            <div class="col">
-                                                <div class="support-product-item">
-                                                    {% if image_4 != blank %}
-                                                        <img src="{{ image_4 | image_url: width: 500 }}" width="100%" height="100%" class="icon-support" alt="icon-support">
+                                            <div class="support-product-item">
+                                                {% if image_4 != blank %}
+                                                    <img src="{{ image_4 | image_url: width: 60 }}" width="30" height="30" class="icon-support" alt="">
+                                                {% endif %}
+                                                <div class="support-product-text">
+                                                    {% if heading_4 != blank %}
+                                                        {{ heading_4 | metafield_tag }}
+                                                    {% else %}
+                                                        {{ block.settings.heading_4 }}
                                                     {% endif %}
-                                                    <div class="body-sm pp-semibold text-center l-h-normal">
-                                                        {% if heading_4 != blank %}
-                                                            {{ heading_4 | metafield_tag }}
-                                                        {% else %}
-                                                            {{ block.settings.heading_4 }}
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-
-                                    <div class="row d-lg-none d-md-none d-sm-flex" style="--bs-gutter-x: 2.5rem; --bs-gutter-y: 1.5rem;">
-                                        {% if heading_1 != blank or block.settings.heading_1 != blank %}
-                                            <div class="col-6">
-                                                <div class="support-product-item">
-                                                    {% if image_1 != blank %}
-                                                        <img src="{{ image_1 | image_url: width: 500 }}" width="100%" height="100%" class="icon-support" alt="icon-support">
-                                                    {% endif %}
-                                                    <div class="body-sm pp-semibold text-center l-h-normal">
-                                                        {% if heading_1 != blank %}
-                                                            {{ heading_1 | metafield_tag }}
-                                                        {% else %}
-                                                            {{ block.settings.heading_1 }}
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endif %}
-
-                                        {% if heading_2 != blank or block.settings.heading_2 != blank %}
-                                            <div class="col-6">
-                                                <div class="support-product-item">
-                                                    {% if image_2 != blank %}
-                                                        <img src="{{ image_2 | image_url: width: 500 }}" width="100%" height="100%" class="icon-support" alt="icon-support">
-                                                    {% endif %}
-                                                    <div class="body-sm pp-semibold text-center l-h-normal">
-                                                        {% if heading_2 != blank %}
-                                                            {{ heading_2 | metafield_tag }}
-                                                        {% else %}
-                                                            {{ block.settings.heading_2 }}
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endif %}
-
-                                        {% if heading_3 != blank or block.settings.heading_3 != blank %}
-                                            <div class="col-6">
-                                                <div class="support-product-item">
-                                                    {% if image_3 != blank %}
-                                                        <img src="{{ image_3 | image_url: width: 500 }}" width="100%" height="100%" class="icon-support" alt="icon-support">
-                                                    {% endif %}
-                                                    <div class="body-sm pp-semibold text-center l-h-normal">
-                                                        {% if heading_3 != blank %}
-                                                            {{ heading_3 | metafield_tag }}
-                                                        {% else %}
-                                                            {{ block.settings.heading_3 }}
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endif %}
-
-                                        {% if heading_4 != blank or block.settings.heading_4 != blank %}
-                                            <div class="col-6">
-                                                <div class="support-product-item">
-                                                    {% if image_4 != blank %}
-                                                        <img src="{{ image_4 | image_url: width: 500 }}" width="100%" height="100%" class="icon-support" alt="icon-support">
-                                                    {% endif %}
-                                                    <div class="body-sm pp-semibold text-center l-h-normal">
-                                                        {% if heading_4 != blank %}
-                                                            {{ heading_4 | metafield_tag }}
-                                                        {% else %}
-                                                            {{ block.settings.heading_4 }}
-                                                        {% endif %}
-                                                    </div>
                                                 </div>
                                             </div>
                                         {% endif %}
@@ -723,23 +643,28 @@ endif
                     </div>
                 </div>
                 {%- liquid
-                    assign product_label = product.metafields.custom.custom_tag.value
-                    if product_label == blank
-                        assign product_label = product.metafields.custom.custom_tag
-                    endif
-                    assign product_label = product_label | strip_html | strip
-                    if product_label == blank
-                        assign product_label = 'FASHION | CONVENIENT'
-                    endif
+                    assign product_label = product.metafields.custom.custom_tag.value | default: product.metafields.custom.custom_tag | strip_html | strip
+                    assign product_temperature = product.metafields.custom.temperature.value | default: product.metafields.custom.temperature | strip_html | strip
                 -%}
-                <div class="custom-label pb-1">
-                    <span class="pp-semibold body d-lg-block d-md-block d-sm-none">
-                        {{ product_label }}
-                    </span>
-                    <span class="pp-semibold body-xs d-lg-none d-md-none d-sm-block">
-                        {{ product_label }}
-                    </span>
-                </div>
+                {%- capture product_label_text -%}
+                    {%- if product_temperature != blank -%}
+                        Best for {{ product_temperature }}°F
+                    {%- endif -%}
+                    {%- if product_label != blank -%}
+                        {%- if product_temperature != blank %} | {% endif -%}
+                        {{- product_label -}}
+                    {%- endif -%}
+                {%- endcapture -%}
+                {%- if product_label_text != blank -%}
+                    <div class="custom-label pb-1">
+                        <span class="pp-semibold body d-lg-block d-md-block d-sm-none">
+                            {{ product_label_text | escape }}
+                        </span>
+                        <span class="pp-semibold body-xs d-lg-none d-md-none d-sm-block">
+                            {{ product_label_text | escape }}
+                        </span>
+                    </div>
+                {%- endif -%}
                 <a href="{{ product.url }}" class="product-title d-block pb-2">
                     <h4 class="d-lg-block d-md-block d-sm-none body-lg pp-bold">
                         <div class="truncate-2-text">
@@ -1221,7 +1146,7 @@ endif
             {
                 "type": "tags",
                 "name": "Tags",
-                "limit": 1,
+                "limit": 1
             },
             {
                 "type": "title",
@@ -1252,156 +1177,7 @@ endif
             {
                 "type": "choose_runtime",
                 "name": "Choose Your Runtime",
-                "settings": [
-                    {
-                        "type": "select",
-                        "id": "default_option",
-                        "label": "Default selected option",
-                        "options": [
-                            {
-                                "value": "standard",
-                                "label": "Standard"
-                            },
-                            {
-                                "value": "pro",
-                                "label": "Pro"
-                            },
-                            {
-                                "value": "max",
-                                "label": "Max"
-                            }
-                        ],
-                        "default": "standard"
-                    },
-                    {
-                        "type": "text",
-                        "id": "heading",
-                        "label": "Heading",
-                        "default": "Choose Your Runtime"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_1_title",
-                        "label": "Runtime",
-                        "default": "Up to 10 hrs"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_1_subtitle",
-                        "label": "Label",
-                        "default": "Standard"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_1_price",
-                        "label": "Price text",
-                        "default": "-$10.00"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_1_note",
-                        "label": "Comparison text",
-                        "default": "-3 hrs vs. Pro"
-                    },
-                    {
-                        "type": "url",
-                        "id": "option_1_link",
-                        "label": "Destination link"
-                    },
-                    {
-                        "type": "header",
-                        "content": "Pro option"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_2_title",
-                        "label": "Runtime",
-                        "default": "Up to 13 hrs"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_2_subtitle",
-                        "label": "Label",
-                        "default": "Pro"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_2_price",
-                        "label": "Price text",
-                        "default": "+$10.00"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_2_note",
-                        "label": "Comparison text",
-                        "default": "+3 hrs vs. Standard"
-                    },
-                    {
-                        "type": "url",
-                        "id": "option_2_link",
-                        "label": "Destination link"
-                    },
-                    {
-                        "type": "header",
-                        "content": "Max option"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_3_badge",
-                        "label": "Badge",
-                        "default": "LONGEST RUNTIME"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_3_title",
-                        "label": "Runtime",
-                        "default": "Up to 20 hrs"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_3_subtitle",
-                        "label": "Label",
-                        "default": "Max"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_3_price",
-                        "label": "Price text",
-                        "default": "+$30.00"
-                    },
-                    {
-                        "type": "text",
-                        "id": "option_3_note",
-                        "label": "Comparison text",
-                        "default": "+10 hrs vs. Standard"
-                    },
-                    {
-                        "type": "url",
-                        "id": "option_3_link",
-                        "label": "Destination link"
-                    },
-                    {
-                        "type": "text",
-                        "id": "comparison_title",
-                        "label": "Popup heading",
-                        "default": "Runtime & Battery Comparison"
-                    },
-                    {
-                        "type": "image_picker",
-                        "id": "standard_image",
-                        "label": "Standard battery image"
-                    },
-                    {
-                        "type": "image_picker",
-                        "id": "pro_image",
-                        "label": "Pro battery image"
-                    },
-                    {
-                        "type": "image_picker",
-                        "id": "max_image",
-                        "label": "Max battery image"
-                    }
-                ]
+                "settings": []
             },
             {
                 "type": "variant_option",
@@ -1527,7 +1303,7 @@ endif
                 "name": "Divider"
             } ,
             {
-                "type": "@app",
+                "type": "@app"
             } 
         ]
     }
