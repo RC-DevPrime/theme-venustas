@@ -107,6 +107,12 @@
     #shopify-section-{{ section.id }} {
       top: var(--headerHeight, 77px);
     }
+    #shopify-section-{{ section.id }} .heating-anchor-nav__link:last-child {
+      padding-right: 0;
+    }
+    #shopify-section-{{ section.id }} .heating-anchor-nav__link:last-child::after {
+      right: 0;
+    }
   }
 {% endstyle %}
 
@@ -153,6 +159,7 @@
     var drag = null;
     var suppressClick = false;
     var activeTargetId;
+    var mobile = window.matchMedia('(max-width: 767px)');
     var scrollBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 
     list.addEventListener('pointerdown', function(event) {
@@ -229,12 +236,13 @@
         return link.getAttribute('data-anchor-target') === targetId;
       });
 
-      if (reveal && activeLink && list) {
+      if (activeLink && list) {
         var linkRect = activeLink.getBoundingClientRect();
         var listRect = list.getBoundingClientRect();
-        if (linkRect.left < listRect.left || linkRect.right > listRect.right) {
+        if (mobile.matches || linkRect.left < listRect.left || linkRect.right > listRect.right) {
+          var left = list.scrollLeft + linkRect.left - listRect.left - (mobile.matches ? 0 : (list.clientWidth - linkRect.width) / 2);
           list.scrollTo({
-            left: list.scrollLeft + linkRect.left - listRect.left - (list.clientWidth - linkRect.width) / 2,
+            left: Math.max(0, Math.min(left, list.scrollWidth - list.clientWidth)),
             behavior: scrollBehavior
           });
         }
@@ -292,11 +300,12 @@
       var currentTop = -Infinity;
       var first = null;
       var firstTop = Infinity;
+      var atBottom = window.pageYOffset + window.innerHeight >= document.documentElement.scrollHeight - 2;
       targets.forEach(function(target) {
         if (!target.getClientRects().length) return;
         var top = target.getBoundingClientRect().top;
         if (top < firstTop) { first = target; firstTop = top; }
-        if (top <= offset + 2 && top > currentTop) { current = target; currentTop = top; }
+        if ((top <= offset + 2 || (atBottom && top < window.innerHeight)) && top > currentTop) { current = target; currentTop = top; }
       });
       if (current || first) setActive((current || first).id, false);
     }
@@ -313,6 +322,7 @@
 
     function onResize() {
       syncTargetOffsets();
+      if (activeTargetId) setActive(activeTargetId, true);
       scheduleHighlight();
     }
 

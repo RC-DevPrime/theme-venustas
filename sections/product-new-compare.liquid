@@ -1,6 +1,6 @@
 {%- assign product_columns = section.blocks.size | at_least: 1 -%}
 {%- assign desktop_image_width = 1190 | divided_by: product_columns | minus: 40 -%}
-{%- capture image_sizes -%}(max-width: 767px) 69px, {{ desktop_image_width }}px{%- endcapture -%}
+{%- capture image_sizes -%}(max-width: 899px) calc(50vw - 45px), {{ desktop_image_width }}px{%- endcapture -%}
 
 {% style %}
   #shopify-section-{{ section.id }} .product-new-compare {
@@ -222,6 +222,10 @@
     #shopify-section-{{ section.id }} .product-new-compare__labels {
       display: none;
     }
+    #shopify-section-{{ section.id }} .product-new-compare__price {
+      font-size: 18px;
+      line-height: 24px;
+    }
 
     #shopify-section-{{ section.id }} .product-new-compare__card {
       display: flex;
@@ -239,15 +243,28 @@
     }
 
     #shopify-section-{{ section.id }} .product-new-compare__media {
-      flex-shrink: 0;
-      width: 69px;
+      max-width: 240px;
+      flex: 1 1 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__media .sale-badge {
+      border-radius: 3px 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-compare__media .sale-badge > span {
+      padding: 3px 4px;
+      font-size: 8px;
+      line-height: 1.2;
     }
 
     #shopify-section-{{ section.id }} .product-new-compare__image {
-      height: 95px;
+      height: auto;
+      aspect-ratio: 618 / 800;
+      object-fit: contain;
     }
 
     #shopify-section-{{ section.id }} .product-new-compare__info {
+      flex: 1 1 0;
       min-width: 0;
       gap: 8px;
     }
