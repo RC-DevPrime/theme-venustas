@@ -321,7 +321,7 @@
                   </div>
                 {%- endif -%}
               </div>
-              {%- if block.settings.button_label != blank -%}<a class="product-new-tested-worn__button" href="{{ block.settings.button_link | default: '#' | escape }}">{{ block.settings.button_label | escape }}</a>{%- endif -%}
+              {%- if block.settings.button_label != blank -%}<a class="product-new-tested-worn__button" href="{{ block.settings.button_link | default: '#' | escape }}" target="_blank" rel="noopener noreferrer">{{ block.settings.button_label | escape }}</a>{%- endif -%}
             </div>
             {%- assign review_index = review_index | plus: 1 -%}
           {%- endif -%}

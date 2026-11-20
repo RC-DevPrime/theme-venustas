@@ -1,3 +1,8 @@
+{%- liquid
+  assign desktop_image = section.settings.image | default: section.settings.mobile_image
+  assign mobile_image = section.settings.mobile_image | default: desktop_image
+-%}
+
 {%- capture certificate_icons -%}
   {%- for index in (1..7) -%}
     {%- assign setting_key = 'show_certificate_' | append: index -%}
@@ -356,7 +361,14 @@
       {%- endif -%}
     </div>
     <div class="product-new-battery__card">
-      {%- if section.settings.image != blank -%}<div class="product-new-battery__media">{{ section.settings.image | image_url: width: 1200 | image_tag: class: 'product-new-battery__image', loading: 'lazy', widths: '350, 500, 750, 1000, 1200', sizes: '(max-width: 767px) calc(100vw - 66px), (max-width: 1199px) 50vw, 498px' }}</div>{%- endif -%}
+      {%- if desktop_image != blank -%}
+        <div class="product-new-battery__media">
+          <picture>
+            <source media="(max-width: 767px)" srcset="{{ mobile_image | image_url: width: 350 }} 350w, {{ mobile_image | image_url: width: 500 }} 500w, {{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1000 }} 1000w, {{ mobile_image | image_url: width: 1200 }} 1200w" sizes="calc(100vw - 66px)" width="{{ mobile_image.width }}" height="{{ mobile_image.height }}">
+            {{ desktop_image | image_url: width: 1200 | image_tag: class: 'product-new-battery__image', loading: 'lazy', widths: '350, 500, 750, 1000, 1200', sizes: '(max-width: 767px) calc(100vw - 66px), (max-width: 1199px) 50vw, 498px' }}
+          </picture>
+        </div>
+      {%- endif -%}
       <div class="product-new-battery__progress" aria-hidden="true"><div class="product-new-battery__fill"></div><span class="product-new-battery__lightning">{% render 'heating-icons', icon: 'lightning' %}</span></div>
       {%- if section.settings.charging_label != blank or section.settings.full_label != blank -%}
         <div class="product-new-battery__charging">
@@ -389,7 +401,8 @@
     { "type": "checkbox", "id": "show_certificate_6", "label": "Show certificate6", "default": true },
     { "type": "checkbox", "id": "show_certificate_7", "label": "Show certificate7", "default": true },
     { "type": "textarea", "id": "safety_note", "label": "Certification note", "default": "UN38.3 is the UN transport test for lithium batteries — the battery is TSA-friendly in your carry-on." },
-    { "type": "image_picker", "id": "image", "label": "Battery image" },
+    { "type": "image_picker", "id": "image", "label": "Desktop battery image" },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile battery image", "info": "Defaults to the desktop image when empty." },
     { "type": "text", "id": "charging_label", "label": "Charging label", "default": "Charging over USB-C" },
     { "type": "text", "id": "full_label", "label": "Full-charge label", "default": "Full in 2.5 h" },
     { "type": "text", "id": "dimensions", "label": "Dimensions and weight", "default": "3.15 × 2.60 × 1.02 in · 6.56 oz" }
