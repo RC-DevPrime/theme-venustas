@@ -45,7 +45,7 @@
       display: block;
       position: relative;
       flex: 0 0 420px;
-      height: 590px;
+      min-height: 590px;
       overflow: hidden;
       background: #efe6d8;
     }
@@ -69,12 +69,14 @@
       flex: 1 1 auto;
       flex-direction: column;
       justify-content: space-between;
-      height: 590px;
+      min-height: 590px;
       min-width: 0;
+      gap: 20px;
     }
 
     #shopify-section-{{ section.id }} .giftG-coll__track {
       display: flex;
+      flex-shrink: 0;
       gap: 24px;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
@@ -155,6 +157,10 @@
       margin-top: 20px;
       font-size: 16px;
       line-height: 1.4;
+    }
+
+    #shopify-section-{{ section.id }} .giftG-coll__promotion [data-promotion-fallback] {
+      color: var(--color-brand, #B93205);
     }
 
     #shopify-section-{{ section.id }} .giftG-coll__promotion .product-nav-new__panel-promotion {
@@ -286,7 +292,8 @@
       }
 
       #shopify-section-{{ section.id }} .giftG-coll__main {
-        height: auto;
+        min-height: 0;
+        gap: 0;
       }
 
       #shopify-section-{{ section.id }} .giftG-coll__track {

@@ -42,6 +42,6 @@
 -%}
 <div class="product-nav-new__panel-promotion" data-nav-promotion{% if promotion_text == blank %} hidden{% endif %}>
   <span class="product-nav-new__panel-promotion-icon" aria-hidden="true">{% render 'heating-icons', icon: 'promotion-tag' %}</span>
-  <span data-nav-promotion-text>{{ promotion_text | escape }}</span>
+  <span data-nav-promotion-text{% if promotion_discount_price == blank %} data-promotion-fallback{% endif %}>{{ promotion_text | escape }}</span>
   {%- if promotion_discount_price != blank -%}<span data-nav-promotion-discount-price>· {{ promotion_discount_price }}</span>{%- endif -%}
 </div>
