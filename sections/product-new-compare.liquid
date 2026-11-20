@@ -340,11 +340,6 @@
           {%- for block in section.blocks -%}
             {%- liquid
               assign chosen_product = block.settings.product
-              assign price_variant = chosen_product.selected_or_first_available_variant
-              assign display_price = price_variant.price
-              if chosen_product.price_varies
-                assign display_price = chosen_product.price_min
-              endif
               assign card_image = block.settings.image | default: chosen_product.featured_image
               assign card_title = block.settings.title | default: chosen_product.title
               assign button_label = block.settings.button_label | escape
@@ -362,10 +357,7 @@
                     <div class="product-new-compare__info">
                       {%- if card_title != blank -%}<h3 class="product-new-compare__title">{{ card_title | escape }}</h3>{%- endif -%}
                       {%- if chosen_product != blank -%}
-                        <p class="product-new-compare__price">
-                          <span>{% if chosen_product.price_varies %}From {% endif %}{{ display_price | money }}</span>
-                          {%- if price_variant.compare_at_price > price_variant.price -%}<s class="product-new-compare__compare-price">{{ price_variant.compare_at_price | money }}</s>{%- endif -%}
-                        </p>
+                        {%- render 'product-new-price', product: chosen_product, price_class: 'product-new-compare__price', compare_price_class: 'product-new-compare__compare-price' -%}
                       {%- endif -%}
                     </div>
                   {%- endif -%}

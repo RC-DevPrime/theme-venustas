@@ -1,0 +1,19 @@
+{%- comment -%}
+  Product price with From for varying prices and a sale compare-at price.
+  Pass product, price_class and compare_price_class to reuse module styles.
+{%- endcomment -%}
+{%- if product != blank -%}
+  {%- liquid
+    assign price_variant = product.selected_or_first_available_variant
+    assign display_price = price_variant.price
+    if product.price_varies
+      assign display_price = product.price_min
+    endif
+  -%}
+  <p class="{{ price_class | default: 'product-new-price' | escape }}">
+    <span>{% if product.price_varies %}From {% endif %}{{ display_price | money }}</span>
+    {%- if price_variant.compare_at_price > price_variant.price -%}
+      <s class="{{ compare_price_class | default: 'product-new-price__compare' | escape }}">{{ price_variant.compare_at_price | money }}</s>
+    {%- endif -%}
+  </p>
+{%- endif -%}

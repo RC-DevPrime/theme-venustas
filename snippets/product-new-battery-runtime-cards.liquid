@@ -191,11 +191,7 @@
                   {%- if is_placeholder -%}
                     <p class="product-new-battery-runtime__price">—</p>
                   {%- elsif linked_product != blank -%}
-                    {%- assign price_variant = linked_product.selected_or_first_available_variant -%}
-                    <p class="product-new-battery-runtime__price">
-                      <span>{% if linked_product.price_varies %}From {{ linked_product.price_min | money }}{% else %}{{ price_variant.price | money }}{% endif %}</span>
-                      {%- if price_variant.compare_at_price > price_variant.price -%}<s class="product-new-battery-runtime__compare-price">{{ price_variant.compare_at_price | money }}</s>{%- endif -%}
-                    </p>
+                    {%- render 'product-new-price', product: linked_product, price_class: 'product-new-battery-runtime__price', compare_price_class: 'product-new-battery-runtime__compare-price' -%}
                   {%- endif -%}
                 </div>
                 <div class="product-new-battery-runtime__cell product-new-battery-runtime__footer">

@@ -5,33 +5,6 @@
   assign selected_variant = product.selected_or_first_available_variant
   assign product_image = product.featured_image | default: product.images.first
   assign product_summary = product.metafields.custom.short_description.value | default: product.description | strip_html | strip | truncate: 92
-  assign promotion_mf = product.metafields.promo.cart_discount_text
-  assign promotion_text = promotion_mf.value | default: promotion_mf | strip_html | strip
-  assign promotion_prefix = promotion_text | slice: 0, 5
-  assign promotion_discount_type = blank
-  assign promotion_discount_value = 0
-  assign promotion_discount_price = blank
-  if promotion_text != blank and promotion_prefix == 'Extra'
-    assign promotion_extra_text = promotion_text | remove_first: 'Extra' | strip
-    if promotion_extra_text contains '%'
-      assign promotion_discount_value = promotion_extra_text | split: '%' | first | strip | plus: 0
-      assign promotion_discount_type = 'percent'
-    elsif promotion_extra_text contains '$'
-      assign promotion_discount_value = promotion_extra_text | remove_first: '$' | strip | split: ' ' | first | plus: 0 | times: 100 | round
-      assign promotion_discount_type = 'amount'
-    endif
-  endif
-  if promotion_discount_type == 'percent' and promotion_discount_value > 0 and promotion_discount_value < 100
-    assign promotion_discount_multiplier = 100 | minus: promotion_discount_value
-    assign promotion_discounted_price_cents = selected_variant.price | times: promotion_discount_multiplier | divided_by: 100
-    assign promotion_discount_price = promotion_discounted_price_cents | money | prepend: curSym
-  elsif promotion_discount_type == 'amount' and promotion_discount_value > 0
-    assign promotion_discounted_price_cents = selected_variant.price | minus: promotion_discount_value
-    if promotion_discounted_price_cents < 0
-      assign promotion_discounted_price_cents = 0
-    endif
-    assign promotion_discount_price = promotion_discounted_price_cents | money | prepend: curSym
-  endif
   assign selected_size = blank
   assign selected_color = blank
   for option in product.options_with_values
@@ -218,11 +191,7 @@
       <div class="product-nav-new__panel-product-copy">
         <h2 class="product-nav-new__panel-title">{{ product.title | escape }}</h2>
         <div class="product-nav-new__panel-price"><span class="product-nav-new__price-current">{{ selected_variant.price | money | prepend: curSym }}</span><span class="product-nav-new__price-compare"{% unless selected_variant.compare_at_price > selected_variant.price %} hidden{% endunless %}>{{ selected_variant.compare_at_price | money | prepend: curSym }}</span></div>
-        <div class="product-nav-new__panel-promotion" data-nav-promotion{% if promotion_discount_price == blank %} hidden{% endif %}>
-          <span class="product-nav-new__panel-promotion-icon" aria-hidden="true">{% render 'heating-icons', icon: 'promotion-tag' %}</span>
-          <span data-nav-promotion-text>{{ promotion_text | escape }}</span>
-          <span data-nav-promotion-discount-price>{% if promotion_discount_price != blank %}· {{ promotion_discount_price }}{% endif %}</span>
-        </div>
+        {%- render 'product-nav-promotion', product: product -%}
       </div>
     </div>
     {% render 'nav-product-variant', product: product, product_form_id: product_form_id %}
@@ -240,7 +209,7 @@
   </div>
   {% render 'size-chart-component', product: product, matched_size_chart: nav_size_chart, id: nav_chart_id, button_class: 'product-nav-new__size-guide' %}
 <script type="application/json" data-nav-prices>
-  {"currency": {{ cart.currency.iso_code | default: shop.currency | json }}, "locale": {{ request.locale.iso_code | json }}, "promotionType": {{ promotion_discount_type | json }}, "promotionValue": {{ promotion_discount_value | json }}, "promotionText": {{ promotion_text | json }}}
+  {"currency": {{ cart.currency.iso_code | default: shop.currency | json }}, "locale": {{ request.locale.iso_code | json }}}
 </script>
 </section>
 <script src="{{ 'product-nav-new.js' | asset_url }}" defer="defer"></script>
