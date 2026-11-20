@@ -50,6 +50,14 @@
           "type": "divider",
           "settings": {}
         },
+        "selleasy_lb_upsell_widget_pal_UW8EbH": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
         "hightlights_4aek9f": {
           "type": "hightlights",
           "settings": {
@@ -63,14 +71,6 @@
         },
         "availability_VXL6mU": {
           "type": "availability",
-          "settings": {}
-        },
-        "selleasy_lb_upsell_widget_pal_UW8EbH": {
-          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
-          "settings": {}
-        },
-        "quantity_atc_nEzPi6": {
-          "type": "quantity_atc",
           "settings": {}
         },
         "support_product_RGhgRP": {
@@ -168,9 +168,9 @@
             "x_position": 10,
             "y_position": 70,
             "heading": "Long-Lasting Warmth",
-            "description": "<p>With the Venustas ultra-compact 54Wh battery pack. Pocket-only heating lasts up to 30 hours, upper body zones up to 12 hours, and all-six-zones heating lasts up to 10 hours.</p>",
+            "description": "<p>With the Venustas ultra-compact 54Wh battery pack. Pocket-only heating lasts up to 22 hours, upper body zones up to 15 hours, and all-six-zones heating lasts up to 9 hours.</p>",
             "video_or_image": "image",
-            "image": "shopify://shop_images/long-lasting-hours-7.5K-30.jpg"
+            "image": "shopify://shop_images/long-lasting-hours-7.5K-22.jpg"
           }
         },
         "hotspot_video_8PGkgd": {
@@ -178,8 +178,8 @@
           "settings": {
             "x_position": 28,
             "y_position": 36,
-            "heading": "3 Levels. Easy Control.",
-            "description": "<p>Switch seamlessly between Low, Medium, and High to match changing temperatures and activities — whether you're commuting, hiking, or cheering outdoors.</p>",
+            "heading": "3 Heat Settings",
+            "description": "<p>Start on High for a quick warm-up, then switch to Medium or Low as you get comfortable.</p>",
             "video_or_image": "video",
             "video": "shopify://files/videos/3_level.mp4"
           }
@@ -189,10 +189,10 @@
           "settings": {
             "x_position": 82,
             "y_position": 25,
-            "heading": "6 Heating Zones",
-            "description": "<p>Venustas heated vest heats quickly in seconds, 6 carbon fiber heating elements generate heat across the collar, chest, pockets, and back, with 3 adjustable heat settings (low, medium, high)</p>",
+            "heading": "6 Heating Panels. 2 Independent Controls.",
+            "description": "<p>Six carbon fiber panels warm your collar, chest, back, and hand pockets. One button controls the collar, chest, and back. The other controls the hand pockets. Use either on its own or both together.</p>",
             "video_or_image": "image",
-            "image": "shopify://shop_images/EM27_heating_zones.jpg"
+            "image": "shopify://shop_images/EM21-heating-zones.jpg"
           }
         }
       },
@@ -207,8 +207,10 @@
         "section_scroll_nav": "",
         "nav_title": "Features",
         "background_image": "shopify://shop_images/40058_2x_7bb103e6-0745-4dcb-ad16-a87e7616bb66.png",
-        "element": "shopify://shop_images/EM27_heating.png",
-        "heading": "Dual-Control Warmth, All-Day Comfort"
+        "element": "shopify://shop_images/EM21-heating.png",
+        "heading": "Soft Fleece. Heat Where You Want It.",
+        "switch_to": true,
+        "popup_trigger": "click"
       }
     },
     "product_image_content_g3c3AM": {
@@ -609,7 +611,6 @@
     },
     "product_compare_tab_tEUPPC": {
       "type": "product-compare-tab",
-      "disabled": true,
       "blocks": {
         "compare_item_3Wz694": {
           "type": "compare_item",
@@ -694,6 +695,7 @@
         "compare_item_FCHLcf",
         "compare_item_VtVi3P"
       ],
+      "disabled": true,
       "name": "Compare Tab Section",
       "settings": {
         "enabled_section_child_scroll": false,
