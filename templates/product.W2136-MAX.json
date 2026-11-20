@@ -54,6 +54,14 @@
           "type": "divider",
           "settings": {}
         },
+        "selleasy_lb_upsell_widget_pal_UW8EbH": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
         "hightlights_4aek9f": {
           "type": "hightlights",
           "settings": {
@@ -67,14 +75,6 @@
         },
         "availability_VXL6mU": {
           "type": "availability",
-          "settings": {}
-        },
-        "selleasy_lb_upsell_widget_pal_UW8EbH": {
-          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
-          "settings": {}
-        },
-        "quantity_atc_nEzPi6": {
-          "type": "quantity_atc",
           "settings": {}
         },
         "support_product_RGhgRP": {
@@ -173,7 +173,7 @@
             "x_position": 10,
             "y_position": 70,
             "heading": "Quick & Long-Lasting Warmth",
-            "description": "<p>The Venustas women’s heated fleece jacket warms up in seconds with its ultra-compact 36Wh battery pack. Fully charge in just 2.5H and delivers up to 10 hours on low, 6 hours on medium, or 3 hours on high—keeping you cozy all day.</p>",
+            "description": "<p>The Venustas women’s heated fleece jacket warms up in seconds with its ultra-compact 74Wh battery pack. Fully charge in just 2.5H and delivers up to 20 hours on low, 12 hours on medium, or 6 hours on high—keeping you cozy all day.</p>",
             "video_or_image": "image",
             "image": "shopify://shop_images/long-lasting-hours-5K-10.jpg"
           }
@@ -435,7 +435,7 @@
         "col_1_description": "<p><strong>100%</strong> Nylon</p>",
         "col_1_description_2": "",
         "col_2_label": "Lining",
-        "col_2_description": "<p><strong>97%</strong> Nylon </p>",
+        "col_2_description": "<p><strong>97%</strong> Nylon&nbsp;</p>",
         "col_2_description_2": "<p><strong>3%</strong> Graphene Nylon</p>",
         "col_3_label": "",
         "col_3_description": "",
@@ -587,7 +587,7 @@
           "type": "icon",
           "settings": {
             "icon": "shopify://shop_images/76296_2x_1e30564f-29ac-425d-aef9-2282d6963144.png",
-            "heading": "5K Rechargeable Lithium-Ion Battery *1"
+            "heading": "10K Rechargeable Lithium-Ion Battery *1"
           }
         },
         "icon_DnC4Jd": {
@@ -629,7 +629,6 @@
     },
     "product_compare_tab_tEUPPC": {
       "type": "product-compare-tab",
-      "disabled": true,
       "blocks": {
         "compare_item_3Wz694": {
           "type": "compare_item",
@@ -714,6 +713,7 @@
         "compare_item_AVMqBp",
         "compare_item_VtVi3P"
       ],
+      "disabled": true,
       "name": "Compare Tab Section",
       "settings": {
         "enabled_section_child_scroll": false,
