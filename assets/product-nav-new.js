@@ -36,6 +36,39 @@
       fieldset.dataset.optionKind = classifyOption(fieldset, index);
       if (optionTriggers[index]) optionTriggers[index].dataset.optionKind = fieldset.dataset.optionKind;
     });
+    const colorIndex = optionFieldsets.findIndex((fieldset) => fieldset.dataset.optionKind === 'color');
+    const colorImages = new Map();
+    variants.forEach((variant) => {
+      const color = variant.options[colorIndex];
+      const image = variant.featured_image || variant.featured_media?.preview_image;
+      if (color && image?.src && !colorImages.has(color)) colorImages.set(color, image);
+    });
+    const productImages = Array.from(root.querySelectorAll('.product-nav-new__image, .product-nav-new__panel-product-image img'), (element) => ({
+      element,
+      fallback: Object.fromEntries(['src', 'srcset', 'sizes', 'alt'].map((name) => [name, element.getAttribute(name)]))
+    }));
+    let currentImageColor;
+    const syncColorImage = () => {
+      const color = optionFieldsets[colorIndex]?.querySelector('.nav-variant-radio:checked')?.value;
+      if (!color || color === currentImageColor) return;
+      currentImageColor = color;
+      const image = colorImages.get(color);
+      productImages.forEach(({ element, fallback }) => {
+        if (!image) {
+          Object.entries(fallback).forEach(([name, value]) => {
+            if (value === null) element.removeAttribute(name);
+            else element.setAttribute(name, value);
+          });
+          return;
+        }
+        const url = new URL(image.src, window.location.href);
+        url.searchParams.set('width', element.classList.contains('product-nav-new__image') ? '128' : '196');
+        element.removeAttribute('srcset');
+        element.removeAttribute('sizes');
+        element.src = url.href;
+        element.alt = image.alt || fallback.alt || '';
+      });
+    };
     const sizeGuideButton = root.querySelector('.product-nav-new__size-guide');
     const sizeLegend = panel?.querySelector('[data-option-kind="size"] legend');
     const sizeGuideModal = root.querySelector('[data-size-chart-modal]');
@@ -103,6 +136,7 @@
       renderDesktopOptions();
     };
     const syncTriggerLabels = () => {
+      syncColorImage();
       optionTriggers.forEach((trigger, index) => {
         const fieldset = optionFieldsets[index];
         const radio = fieldset?.querySelector('.nav-variant-radio:checked');
@@ -137,7 +171,7 @@
       purchaseObserver = new MutationObserver(syncPurchaseButtons);
       purchaseObserver.observe(mainPurchaseButton, { attributes: true, attributeFilter: ['disabled', 'class', 'aria-busy'], childList: true, characterData: true, subtree: true });
     }
-    listen(root, 'nav:state-updated', syncPurchaseButtons);
+    listen(root, 'nav:state-updated', () => { syncPurchaseButtons(); syncColorImage(); });
     const syncAvailability = () => {
       const selectedVariant = variants.find((variant) => String(variant.id) === String(variantIdInput?.value));
       if (selectedVariant) {
