@@ -88,23 +88,24 @@ endif
                 {%- for block in section.blocks -%}
                     {%- case block.type -%}
                         {%- when 'tags' %}
-                            <div class="product-details">
+                            <div class="product-details product-main-tags" {{ block.shopify_attributes }}>
                                 <div class="d-flex align-items-center justify-content-between">
                                     {%- liquid
-                                        assign product_label = product.metafields.custom.custom_tag.value
-                                        if product_label == blank
-                                            assign product_label = product.metafields.custom.custom_tag
-                                        endif
-                                        assign product_label = product_label | strip_html | strip
-                                        if product_label == blank
-                                            assign product_label = 'FASHION | CONVENIENT'
-                                        endif
+                                        assign product_label = product.metafields.custom.custom_tag.value | default: product.metafields.custom.custom_tag | strip_html | strip
+                                        assign product_temperature = product.metafields.custom.temperature.value | default: product.metafields.custom.temperature | strip_html | strip
                                     -%}
-                                    <div class="custom-label">
-                                        <span class="pp-semibold body">
-                                            {{ product_label }}
-                                        </span>
-                                    </div>
+                                    {%- capture product_label_text -%}
+                                        {%- if product_temperature != blank -%}Best for {{ product_temperature }}°F{%- endif -%}
+                                        {%- if product_label != blank -%}
+                                            {%- if product_temperature != blank -%}{{- ' | ' -}}{%- endif -%}
+                                            {{- product_label -}}
+                                        {%- endif -%}
+                                    {%- endcapture -%}
+                                    {%- if product_label_text != blank -%}
+                                        <div class="custom-label">
+                                            <span class="pp-semibold body">{{ product_label_text | escape }}</span>
+                                        </div>
+                                    {%- endif -%}
 
                                     <div class="wishlist-button">
                                         <button aria-label="Add to Wishlist" data-with-epi="true" class="swym-button swym-add-to-wishlist-view-product product_{{product.id}}" 

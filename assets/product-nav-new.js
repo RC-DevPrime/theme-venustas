@@ -67,14 +67,20 @@
     };
     const renderDesktopOptions = () => {
       if (!activeTrigger) return;
-      const fieldset = optionFieldsets[Number(activeTrigger.dataset.openPanel)];
+      const optionIndex = Number(activeTrigger.dataset.openPanel);
+      const fieldset = optionFieldsets[optionIndex];
       desktopOptions.replaceChildren();
       fieldset?.querySelectorAll('.nav-variant-radio').forEach((radio) => {
         const choice = document.createElement('button');
         choice.type = 'button';
         choice.className = 'product-nav-new__option-choice';
         choice.textContent = `${activeTrigger.dataset.optionName}: ${radio.value}`;
-        choice.disabled = radio.disabled;
+        const sizeUnavailable = fieldset.dataset.optionKind === 'size' && !variants.some((variant) =>
+          variant.available && variant.options.every((value, index) =>
+            value === (index === optionIndex ? radio.value : optionFieldsets[index]?.querySelector('.nav-variant-radio:checked')?.value)
+          )
+        );
+        choice.disabled = radio.disabled || sizeUnavailable;
         choice.setAttribute('aria-pressed', String(radio.checked));
         const source = Array.from(fieldset.querySelectorAll('.nav-variants-selector')).find((item) => item.dataset.id === radio.id);
         const swatch = source?.querySelector('.color-swatch');
