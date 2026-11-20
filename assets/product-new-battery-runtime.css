@@ -154,9 +154,19 @@
 }
 
 .product-new-battery-runtime__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
   font-size: 20px;
   font-weight: 700;
   line-height: 26.1px;
+}
+
+.product-new-battery-runtime__compare-price {
+  color: #999;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .product-new-battery-runtime__footer {

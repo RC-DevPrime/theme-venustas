@@ -161,7 +161,11 @@
                   <div class="product-new-battery-runtime__cell product-new-battery-runtime__cell--price{% if block_product == blank %} product-new-battery-runtime__cell--empty{% endif %}" style="grid-row: 5;">
                     {%- if block_product != blank -%}
                       {%- if section.settings.price_label != blank -%}<span class="product-new-battery-runtime__cell-label">{{ section.settings.price_label | escape }}</span>{%- endif -%}
-                      <p class="product-new-battery-runtime__price">{{ block_product.price | money }}</p>
+                      {%- assign price_variant = block_product.selected_or_first_available_variant -%}
+                      <p class="product-new-battery-runtime__price">
+                        <span>{% if block_product.price_varies %}From {{ block_product.price_min | money }}{% else %}{{ price_variant.price | money }}{% endif %}</span>
+                        {%- if price_variant.compare_at_price > price_variant.price -%}<s class="product-new-battery-runtime__compare-price">{{ price_variant.compare_at_price | money }}</s>{%- endif -%}
+                      </p>
                     {%- endif -%}
                   </div>
                 {%- endif -%}
