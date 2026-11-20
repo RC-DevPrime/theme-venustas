@@ -19,17 +19,19 @@
     width: 100%;
     padding: 0 20px 0;
     box-sizing: border-box;
-    pointer-events: none;
   }
 
   #shopify-section-{{ section.id }} .heating-anchor-nav__bar {
     width: min(100%, 1340px);
+    min-width: 0;
     margin: 0 auto;
     pointer-events: auto;
   }
 
   #shopify-section-{{ section.id }} .heating-anchor-nav__list {
     display: flex;
+    width: 100%;
+    min-width: 0;
     align-items: center;
     overflow-x: auto;
     overflow-y: hidden;
@@ -39,6 +41,19 @@
 
   #shopify-section-{{ section.id }} .heating-anchor-nav__list::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    #shopify-section-{{ section.id }} .heating-anchor-nav__list {
+      cursor: grab;
+      user-select: none;
+    }
+    #shopify-section-{{ section.id }} .heating-anchor-nav__list.is-dragging {
+      cursor: grabbing;
+    }
+    #shopify-section-{{ section.id }} .heating-anchor-nav__link {
+      cursor: inherit;
+    }
   }
 
   #shopify-section-{{ section.id }} .heating-anchor-nav__link {
@@ -51,7 +66,7 @@
     padding-right: 44px;
     color: #14161a;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 400;
     line-height: 21.84px;
     text-align: center;
     text-decoration: none;
@@ -74,6 +89,7 @@
   }
 
   #shopify-section-{{ section.id }} .heating-anchor-nav__link.is-active {
+    font-weight: 700;
     color: #14161a;
   }
 
@@ -81,119 +97,15 @@
     transform: scaleX(1);
   }
 
-  #shopify-section-{{ section.id }} .heating-anchor-nav__mobile {
-    display: none;
-  }
-
   @media only screen and (min-width: 768px) and (max-width: 1279px) {
     #shopify-section-{{ section.id }} {
       top: 96px;
     }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__bar {
-      /* width: min(100%, 900px); */
-    }
-   
   }
 
   @media only screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} {
-      position: static;
-      top: auto;
-      z-index: auto;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav {
-      height: 0;
-      background: transparent;
-      border-width: 0;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__sticky-wrap {
-      display: none;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile {
-      display: block;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__toggle {
-      position: fixed;
-      left: 20px;
-      bottom: 54px;
-      z-index: 80;
-      width: 56px;
-      height: 56px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 0;
-      border-radius: 50%;
-      background: #fff;
-      color: var(--color-brand, #B93205);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
-      cursor: pointer;
-      transition: transform 180ms ease;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__toggle svg {
-      width: 24px;
-      height: 24px;
-      display: block;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile.is-open .heating-anchor-nav__toggle {
-      transform: rotate(180deg);
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__panel {
-      position: fixed;
-      left: 20px;
-      bottom: 88px;
-      z-index: 79;
-      width: min(calc(100vw - 40px), 360px);
-      overflow: hidden;
-      border-radius: 6px;
-      background: #fff;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-      opacity: 0;
-      pointer-events: none;
-      transform: translate3d(0, 16px, 0);
-      transition: opacity 180ms ease, transform 180ms ease;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile.is-open .heating-anchor-nav__panel {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translate3d(0, 0, 0);
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile-list {
-      display: grid;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile-link {
-      display: block;
-      padding: 18px 20px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      color: {{ section.settings.text_color }};
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 1.2;
-      text-decoration: none;
-      letter-spacing: 0;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile-list li:last-child .heating-anchor-nav__mobile-link {
-      border-bottom: 0;
-    }
-
-    #shopify-section-{{ section.id }} .heating-anchor-nav__mobile-link.is-active {
-      color: var(--color-brand, #B93205);
-      font-weight: 700;
+      top: var(--headerHeight, 77px);
     }
   }
 {% endstyle %}
@@ -207,8 +119,8 @@
           {%- if block.settings.label != blank and target_id != blank -%}
             <a
               class="heating-anchor-nav__link{% if forloop.first %} is-active{% endif %}"
-              href="#{{ target_id }}"
-              data-anchor-target="{{ target_id }}"
+              href="#{{ target_id | escape }}"
+              data-anchor-target="{{ target_id | escape }}"
               {{ block.shopify_attributes }}
             >
               {{ block.settings.label }}
@@ -219,62 +131,68 @@
     </nav>
   </div>
 
-  <div class="heating-anchor-nav__mobile">
-    <div class="heating-anchor-nav__panel" id="heating-anchor-nav-panel-{{ section.id }}">
-      <ul class="heating-anchor-nav__mobile-list">
-        {%- for block in section.blocks -%}
-          {%- assign target_id = block.settings.target_id | strip | remove_first: '#' -%}
-          {%- if block.settings.label != blank and target_id != blank -%}
-            <li>
-              <a
-                class="heating-anchor-nav__mobile-link{% if forloop.first %} is-active{% endif %}"
-                href="#{{ target_id }}"
-                data-anchor-target="{{ target_id }}"
-              >
-                {{ block.settings.label }}
-              </a>
-            </li>
-          {%- endif -%}
-        {%- endfor -%}
-      </ul>
-    </div>
-
-    <button
-      class="heating-anchor-nav__toggle"
-      type="button"
-      aria-label="{{ section.settings.mobile_button_label | escape }}"
-      aria-controls="heating-anchor-nav-panel-{{ section.id }}"
-      aria-expanded="false"
-    >
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-  </div>
 </section>
 
 <script>
   (function() {
+    function initialize() {
     var root = document.querySelector('#shopify-section-{{ section.id }} [data-heating-anchor-nav]');
     if (!root) return;
+    if (root.anchorNavCleanup) root.anchorNavCleanup();
+    var controller = new AbortController();
+    var frame = 0;
+    var clickTimer;
+    var pendingTargetId;
 
     // Breathing room between the pinned nav and the top of the target section.
     var SCROLL_GAP = 16;
     // Only used if the header/nav can't be measured.
     var FALLBACK_OFFSET = 159;
-    var desktopLinks = Array.prototype.slice.call(root.querySelectorAll('.heating-anchor-nav__link'));
-    var mobileRoot = root.querySelector('.heating-anchor-nav__mobile');
-    var mobileLinks = Array.prototype.slice.call(root.querySelectorAll('.heating-anchor-nav__mobile-link'));
-    var toggle = root.querySelector('.heating-anchor-nav__toggle');
-    var links = desktopLinks.concat(mobileLinks);
+    var links = Array.prototype.slice.call(root.querySelectorAll('.heating-anchor-nav__link'));
+    var list = root.querySelector('.heating-anchor-nav__list');
+    var drag = null;
+    var suppressClick = false;
+    var activeTargetId;
+    var scrollBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 
-    // A target section sits below two stacked pieces of chrome: the site header
-    // (announcement bar included) and this sticky nav. Both are measured live —
-    // hardcoded heights only need to be a few pixels short for the section
-    // heading to end up hidden behind the nav.
-    function isDesktopLayout() {
-      return window.matchMedia('(min-width: 768px)').matches;
+    list.addEventListener('pointerdown', function(event) {
+      suppressClick = false;
+      if (event.pointerType !== 'mouse' || event.button !== 0) return;
+      if (list.scrollWidth <= list.clientWidth) return;
+      drag = { id: event.pointerId, x: event.clientX, scrollLeft: list.scrollLeft, moved: false };
+    }, { signal: controller.signal });
+    window.addEventListener('pointermove', function(event) {
+      if (!drag || event.pointerId !== drag.id) return;
+      if (!(event.buttons & 1)) { stopDrag(); return; }
+      var distance = event.clientX - drag.x;
+      if (!drag.moved && Math.abs(distance) < 5) return;
+      if (!drag.moved) {
+        drag.moved = true;
+        suppressClick = true;
+        list.classList.add('is-dragging');
+        list.setPointerCapture(event.pointerId);
+      }
+      event.preventDefault();
+      list.scrollLeft = drag.scrollLeft - distance;
+    }, { signal: controller.signal });
+    function stopDrag(event) {
+      if (!drag || (event && event.pointerId !== drag.id)) return;
+      var pointerId = drag.id;
+      drag = null;
+      list.classList.remove('is-dragging');
+      if (list.hasPointerCapture(pointerId)) list.releasePointerCapture(pointerId);
     }
+    window.addEventListener('pointerup', stopDrag, { signal: controller.signal });
+    window.addEventListener('pointercancel', stopDrag, { signal: controller.signal });
+    window.addEventListener('blur', function() { stopDrag(); }, { signal: controller.signal });
+    list.addEventListener('lostpointercapture', stopDrag, { signal: controller.signal });
+    list.addEventListener('dragstart', function(event) { event.preventDefault(); }, { signal: controller.signal });
+    list.addEventListener('click', function(event) {
+      if (!suppressClick || event.detail === 0) return;
+      suppressClick = false;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }, { capture: true, signal: controller.signal });
 
     function measureHeight(element) {
       return element ? element.getBoundingClientRect().height : 0;
@@ -287,45 +205,40 @@
       var headerHeight = measureHeight(headerEl);
       var occluded = headerHeight;
 
-      if (isDesktopLayout()) {
-        var navHeight = measureHeight(navSection);
-        if (navHeight) {
-          // The nav sticks under the header, but if the header renders taller
-          // than the nav's sticky top the nav's own bottom is what hides the
-          // content, so take whichever reaches lowest.
-          var pinnedTop = parseFloat(window.getComputedStyle(navSection).top) || 0;
-          occluded = Math.max(headerHeight, pinnedTop) + navHeight;
-        }
+      var navHeight = measureHeight(navSection);
+      if (navHeight) {
+        // Include the pinned navigation on both desktop and mobile.
+        var pinnedTop = parseFloat(window.getComputedStyle(navSection).top) || 0;
+        occluded = Math.max(headerHeight, pinnedTop) + navHeight;
       }
 
       return (occluded || FALLBACK_OFFSET) + SCROLL_GAP;
     }
 
-    function setActive(targetId) {
+    function setActive(targetId, reveal) {
+      if (activeTargetId === targetId && !reveal) return;
+      activeTargetId = targetId;
       links.forEach(function(link) {
-        link.classList.toggle('is-active', link.getAttribute('data-anchor-target') === targetId);
+        var active = link.getAttribute('data-anchor-target') === targetId;
+        link.classList.toggle('is-active', active);
+        if (active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
       });
 
-      var activeDesktop = desktopLinks.find(function(link) {
+      var activeLink = links.find(function(link) {
         return link.getAttribute('data-anchor-target') === targetId;
       });
 
-      if (activeDesktop) {
-        activeDesktop.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      if (reveal && activeLink && list) {
+        var linkRect = activeLink.getBoundingClientRect();
+        var listRect = list.getBoundingClientRect();
+        if (linkRect.left < listRect.left || linkRect.right > listRect.right) {
+          list.scrollTo({
+            left: list.scrollLeft + linkRect.left - listRect.left - (list.clientWidth - linkRect.width) / 2,
+            behavior: scrollBehavior
+          });
+        }
       }
-    }
-
-    function closeMobilePanel() {
-      if (!mobileRoot || !toggle) return;
-      mobileRoot.classList.remove('is-open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
-
-    if (toggle && mobileRoot) {
-      toggle.addEventListener('click', function() {
-        var isOpen = mobileRoot.classList.toggle('is-open');
-        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      });
     }
 
     links.forEach(function(link) {
@@ -339,10 +252,13 @@
         target.style.scrollMarginTop = scrollOffset + 'px';
 
         var top = target.getBoundingClientRect().top + window.pageYOffset - scrollOffset;
-        window.scrollTo({ top: top, behavior: 'smooth' });
-        setActive(targetId);
-        closeMobilePanel();
-      });
+        pendingTargetId = targetId;
+        window.clearTimeout(clickTimer);
+        clickTimer = window.setTimeout(cancelPendingScroll, 1500);
+        setActive(targetId, true);
+        window.scrollTo({ top: top, behavior: scrollBehavior });
+        scheduleHighlight();
+      }, { signal: controller.signal });
     });
 
     var targets = links
@@ -358,34 +274,74 @@
       });
     }
 
-    if ('IntersectionObserver' in window && targets.length) {
-      var observer = new IntersectionObserver(function(entries) {
-        var visible = entries
-          .filter(function(entry) { return entry.isIntersecting; })
-          .sort(function(a, b) { return b.intersectionRatio - a.intersectionRatio; })[0];
-
-        if (visible && visible.target && visible.target.id) {
-          setActive(visible.target.id);
+    function updateHighlight() {
+      frame = 0;
+      var offset = getScrollOffset();
+      if (pendingTargetId) {
+        var pendingTarget = document.getElementById(pendingTargetId);
+        if (pendingTarget) {
+          var destination = pendingTarget.getBoundingClientRect().top + window.pageYOffset - offset;
+          var maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+          destination = Math.max(0, Math.min(destination, maxScroll));
+          if (Math.abs(window.pageYOffset - destination) > 2) return;
         }
-      }, {
-        root: null,
-        rootMargin: '-' + getScrollOffset() + 'px 0px -55% 0px',
-        threshold: [0.12, 0.25, 0.5, 0.75]
-      });
-
-      syncTargetOffsets();
+        pendingTargetId = null;
+        window.clearTimeout(clickTimer);
+      }
+      var current = null;
+      var currentTop = -Infinity;
+      var first = null;
+      var firstTop = Infinity;
       targets.forEach(function(target) {
-        observer.observe(target);
+        if (!target.getClientRects().length) return;
+        var top = target.getBoundingClientRect().top;
+        if (top < firstTop) { first = target; firstTop = top; }
+        if (top <= offset + 2 && top > currentTop) { current = target; currentTop = top; }
       });
+      if (current || first) setActive((current || first).id, false);
     }
 
-    window.addEventListener('resize', syncTargetOffsets);
+    function scheduleHighlight() {
+      if (!frame) frame = window.requestAnimationFrame(updateHighlight);
+    }
 
-    document.addEventListener('click', function(event) {
-      if (!mobileRoot || !mobileRoot.classList.contains('is-open')) return;
-      if (root.contains(event.target)) return;
-      closeMobilePanel();
-    });
+    function cancelPendingScroll() {
+      pendingTargetId = null;
+      window.clearTimeout(clickTimer);
+      scheduleHighlight();
+    }
+
+    function onResize() {
+      syncTargetOffsets();
+      scheduleHighlight();
+    }
+
+    window.addEventListener('scroll', scheduleHighlight, { passive: true, signal: controller.signal });
+    window.addEventListener('resize', onResize, { signal: controller.signal });
+    window.addEventListener('wheel', cancelPendingScroll, { passive: true, signal: controller.signal });
+    window.addEventListener('touchstart', cancelPendingScroll, { passive: true, signal: controller.signal });
+    window.addEventListener('keydown', function(event) {
+      if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].indexOf(event.key) !== -1) cancelPendingScroll();
+    }, { signal: controller.signal });
+    root.anchorNavCleanup = function() {
+      stopDrag();
+      controller.abort();
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(clickTimer);
+    };
+    document.addEventListener('shopify:section:unload', function(event) {
+      if (event.target.contains(root)) root.anchorNavCleanup();
+    }, { signal: controller.signal });
+    syncTargetOffsets();
+    scheduleHighlight();
+
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initialize, { once: true });
+    } else {
+      initialize();
+    }
   })();
 </script>
 
@@ -418,12 +374,6 @@
       "id": "aria_label",
       "label": "Navigation aria label",
       "default": "Page navigation"
-    },
-    {
-      "type": "text",
-      "id": "mobile_button_label",
-      "label": "Mobile button label",
-      "default": "Open page navigation"
     }
   ],
   "blocks": [

@@ -26,6 +26,11 @@ $(document).ready(function() {
             speed: 1500,
             freeMode: true,
             watchSlidesProgress: true,
+            mousewheel: {
+                enabled: false,
+                forceToAxis: true,
+                releaseOnEdges: true
+            },
             breakpoints: {
                 0: {
                     direction: "horizontal",
@@ -34,7 +39,10 @@ $(document).ready(function() {
                     speed: 1000,
                 },
                 1280: {
-                    direction: "vertical"
+                    direction: "vertical",
+                    mousewheel: {
+                        enabled: true
+                    }
                 }
             },
             on: {
@@ -2381,6 +2389,11 @@ if ($('.product-image-location-section').length) {
             || document.querySelector('#header-nav-product-form .btn-atc')
             || document.querySelector('#header-nav-product-form .btn-main')
             || document.querySelector('#header-nav-product-form button[type="submit"]');
+        const navRoot = navButton?.closest('[data-product-nav-new]');
+        if (navRoot) {
+            navRoot.dispatchEvent(new CustomEvent('nav:state-updated'));
+            return;
+        }
         const navVariantId = document.getElementById('main-product-id-nav');
         const navInventoryRoot = getNavInventoryRoot() || getInventoryRoot();
         const state = getVariantAvailabilityState(navVariantId ? navVariantId.value : '', navInventoryRoot);
@@ -2678,6 +2691,7 @@ $(document).ready(function () {
     const $variantsWrapper = $container.find('.nav-variants .no-js-hidden.variants');
     const $quantityInput = $container.find('input.qty.quantity__input');
     const $form = $container.find('#header-nav-product-form');
+    const navRoot = $container.closest('[data-product-nav-new]')[0];
 
     if (!$variantsWrapper.length || !$form.length) return;
     if ($container.data('navVariantsReady')) return;
@@ -2685,7 +2699,7 @@ $(document).ready(function () {
 
     // ✅ IMPORTANT: if Liquid outputs disabled="", remove it so JS can control states
     $variantsWrapper.find('input[type="radio"]').prop('disabled', false).removeClass('disabled');
-    $variantsWrapper.find('.nav-variants-selector').removeClass('disabled soldout');
+    if (!navRoot) $variantsWrapper.find('.nav-variants-selector').removeClass('disabled soldout');
 
     // Hidden quantity in form
     if ($form.find('input[name="quantity"]').length === 0) {
@@ -2750,13 +2764,12 @@ $(document).ready(function () {
     }
 
     function getMainSelectedVariant() {
-      const mainInput = document.getElementById('main-product-id');
-      const variantId = mainInput ? String(mainInput.value || '') : '';
-      if (!variantId) return null;
-
-      return variants.find(function (variant) {
-        return String(variant.id) === variantId;
-      }) || null;
+      const mainVariantRadios = getMainVariantRadios();
+      if (!mainVariantRadios) return null;
+      const selectedOptions = Array.from(mainVariantRadios.querySelectorAll('fieldset'), function (fieldset) {
+        return fieldset.querySelector('input[type="radio"]:checked')?.value;
+      });
+      return findExactVariant(selectedOptions) || null;
     }
 
     function applyNavSelectionToMain(selectedOptions) {
@@ -2782,6 +2795,15 @@ $(document).ready(function () {
           radio.checked = true;
           changed = true;
         }
+        fieldset.querySelectorAll('.variants-selector').forEach(function (selector) {
+          selector.classList.toggle('selected', selector.dataset.id === radio.id);
+        });
+        if (fieldset.classList.contains('variant-size')) {
+          const sizeType = String(value).toUpperCase().includes('LT') ? 'tall' : 'standard';
+          if ($(fieldset).data('variantTypeMode') !== sizeType) {
+            $(fieldset).find('.variant-type-btn[data-type="' + sizeType + '"]').trigger('click');
+          }
+        }
       });
 
       if (typeof mainVariantRadios.updateOptions === 'function') {
@@ -2793,6 +2815,10 @@ $(document).ready(function () {
       if (typeof mainVariantRadios.onVariantChange === 'function') {
         mainVariantRadios.onVariantChange();
         changed = true;
+      }
+      if (!findExactVariant(selectedOptions)) {
+        const mainInput = document.getElementById('main-product-id');
+        if (mainInput) mainInput.value = '';
       }
 
       return changed;
@@ -2813,8 +2839,11 @@ $(document).ready(function () {
 
         const mainChecked = mainFieldset.querySelector('input[type="radio"]:checked');
         const selectedValue = mainChecked ? mainChecked.value : '';
-
-        $navFieldset.find('.nav-variants-selector').removeClass('selected disabled soldout');
+        const previousValue = $navFieldset.find('input[type="radio"]:checked').val();
+        if ($navFieldset.hasClass('variant-size') && selectedValue && selectedValue !== previousValue) {
+          const sizeType = String(selectedValue).toUpperCase().includes('LT') ? 'tall' : 'standard';
+          $navFieldset.find('.variant-type-btn[data-type="' + sizeType + '"]').trigger('click');
+        }
 
         $navFieldset.find('input[type="radio"]').each(function () {
           const $navRadio = $(this);
@@ -2830,15 +2859,18 @@ $(document).ready(function () {
           const mainSelector = mainFieldset.querySelector('.variants-selector[data-id="' + mainRadio.id + '"]');
           const $navSelector = $navFieldset.find('.nav-variants-selector[data-id="' + navId + '"]');
 
-          $navRadio.prop('checked', !!mainRadio.checked);
+          $navRadio.prop('checked', !!mainRadio.checked).prop('disabled', mainRadio.disabled);
 
           if ($navSelector.length && mainSelector) {
             $navSelector.toggleClass('selected', !!mainRadio.checked);
             $navSelector.toggleClass('disabled', mainSelector.classList.contains('disabled'));
             $navSelector.toggleClass('soldout', mainSelector.classList.contains('soldout'));
 
-            var mainDisplay = window.getComputedStyle(mainSelector).display;
-            $navSelector.css('display', mainDisplay === 'none' ? 'none' : '');
+            const sizeType = $navFieldset.data('variantTypeMode');
+            if (sizeType && $navFieldset.hasClass('variant-size')) {
+              const isTall = String(value).toUpperCase().includes('LT');
+              $navSelector.toggle(sizeType === 'tall' ? isTall : !isTall);
+            }
           }
         });
 
@@ -2850,11 +2882,11 @@ $(document).ready(function () {
       });
 
       const $idInput = $form.find('#main-product-id-nav, input[name="id"]').first();
-      if (mainSelectedVariant && $idInput.length) {
-        $idInput.val(mainSelectedVariant.id);
+      if ($idInput.length) {
+        $idInput.val(mainSelectedVariant ? mainSelectedVariant.id : '');
       }
 
-      updateAddToCart(mainSelectedVariant || findExactVariant(getSelectedOptions()));
+      if (!navRoot) updateAddToCart(mainSelectedVariant);
 
       if (
         window.venustasRegionalInventoryGate &&
@@ -2862,6 +2894,7 @@ $(document).ready(function () {
       ) {
         window.venustasRegionalInventoryGate.syncNavInventoryMarkup();
       }
+      navRoot?.dispatchEvent(new CustomEvent('nav:state-updated'));
     }
 
     function syncMainVariantRadios(currentVariant) {
@@ -3018,12 +3051,16 @@ $(document).ready(function () {
         }
       }
 
-      updateDisabledStates(selectedOptions);
-      updateAddToCart(currentVariant);
+      const usesMainState = Boolean(navRoot && getMainVariantRadios());
+      if (!usesMainState) {
+        updateDisabledStates(selectedOptions);
+        updateAddToCart(currentVariant);
+      }
 
+      applyNavSelectionToMain(selectedOptions);
+      if (usesMainState) mirrorMainStateToNav();
       if (currentVariant) {
-        applyNavSelectionToMain(selectedOptions);
-        syncMainVariantRadios(currentVariant);
+        if (!usesMainState) syncMainVariantRadios(currentVariant);
         if (
           window.venustasRegionalInventoryGate &&
           typeof window.venustasRegionalInventoryGate.refreshInventoryInfoForVariant === 'function'
@@ -3032,8 +3069,10 @@ $(document).ready(function () {
         }
       }
 
-      window.setTimeout(mirrorMainStateToNav, 0);
-      window.setTimeout(mirrorMainStateToNav, 120);
+      if (!usesMainState) {
+        window.setTimeout(mirrorMainStateToNav, 0);
+        window.setTimeout(mirrorMainStateToNav, 120);
+      }
     }
 
     // Swatch click (allow soldout; block only truly disabled)
@@ -3055,7 +3094,6 @@ $(document).ready(function () {
       window.setTimeout(mirrorMainStateToNav, 0);
     };
     $(document).on('change.navInventorySync', '#main-product-id, .product .variant-radio', onMainVariantChange);
-    const navRoot = $container.closest('[data-product-nav-new]')[0];
     if (navRoot) navRoot.navVariantCleanup = function () {
       $(document).off('change.navInventorySync', '#main-product-id, .product .variant-radio', onMainVariantChange);
       $variantsWrapper.off('click', '.nav-variants-selector:not(.disabled)').off('change', 'input[type="radio"]');
@@ -3306,7 +3344,7 @@ if(enabled_option_indicator){
             $fieldset.find('.variant-type-toggle').remove();
             getOptionPairs().forEach(function(pair) {
                 pair.selector.show();
-                pair.option.show();
+                pair.option.hide();
             });
             return;
             }
@@ -3331,7 +3369,7 @@ if(enabled_option_indicator){
             getOptionPairs().forEach(function(pair) {
                 const shouldShow = isSizeVisibleForType(pair.text, type);
                 pair.selector.toggle(shouldShow);
-                pair.option.toggle(shouldShow);
+                pair.option.hide();
             });
             }
 

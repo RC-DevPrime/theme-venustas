@@ -1,0 +1,19 @@
+{%- liquid
+  assign option_handle = option.name | handleize
+  assign has_tall_sizes = false
+  if option_handle == 'size'
+    for value in option.values
+      assign size_value = value | upcase
+      if size_value contains 'LT'
+        assign has_tall_sizes = true
+        break
+      endif
+    endfor
+  endif
+-%}
+{%- if has_tall_sizes -%}
+  <product-size-toggle class="product-size-toggle" role="group" aria-label="Size type">
+    <button type="button" data-size-type="standard" aria-pressed="true">Standard</button>
+    <button type="button" data-size-type="tall" aria-pressed="false">Tall</button>
+  </product-size-toggle>
+{%- endif -%}

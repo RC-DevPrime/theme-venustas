@@ -271,6 +271,8 @@
 
       {%- if template.name == 'product' -%}
         {{ 'product.css' | asset_url | stylesheet_tag }}
+        {{ 'product-new-battery-runtime.css' | asset_url | stylesheet_tag }}
+        <script src="{{ 'product-new-battery-runtime.js' | asset_url }}" defer="defer"></script>
       {%- endif -%}
 
       {%- if template.name == 'collection' or template.name == 'search' -%}
@@ -343,7 +345,8 @@
         display: none !important;
       }
     </style>
-    {% include 'pagefly-app-header' %}</head>
+    {% include 'pagefly-app-header' %}
+    </head>
 
     <body>
 

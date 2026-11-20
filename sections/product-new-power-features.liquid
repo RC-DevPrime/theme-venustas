@@ -1,0 +1,203 @@
+{%- liquid
+  assign card_count = 0
+  for block in section.blocks
+    if block.settings.image != blank or block.settings.title != blank or block.settings.description != blank
+      assign card_count = card_count | plus: 1
+    endif
+  endfor
+  assign total_gaps = card_count | minus: 1 | at_least: 0 | times: 12
+  assign safe_card_count = card_count | at_least: 1
+  assign desktop_card_width = 1340 | minus: total_gaps | divided_by: safe_card_count
+  assign full_cards_breakpoint = card_count | times: 300 | plus: total_gaps | plus: 39
+  capture image_sizes
+    if card_count == 1
+      echo '(max-width: 1379px) calc(100vw - 40px), 1340px'
+    else
+      echo '(max-width: 420px) 80vw, (max-width: ' | append: full_cards_breakpoint | append: 'px) 300px, ' | append: desktop_card_width | append: 'px'
+    endif
+  endcapture
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .product-new-power-features {
+    padding: 80px 0;
+    background: #1a1a1a;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__inner {
+    width: min(100% - 40px, 1340px);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__heading {
+    margin-bottom: 48px;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.22;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__heading p,
+  #shopify-section-{{ section.id }} .product-new-power-features__title p,
+  #shopify-section-{{ section.id }} .product-new-power-features__description {
+    margin: 0;
+    color: inherit;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__heading em,
+  #shopify-section-{{ section.id }} .product-new-power-features__title em {
+    color: #ff4000;
+    font-style: normal;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: {% if card_count == 1 %}100%{% else %}max(300px, calc((100% - {{ total_gaps }}px) / {{ card_count | at_least: 1 }})){% endif %};
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    list-style: none;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__track:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    background: #1b1b1b;
+    scroll-snap-align: start;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 326 / 366.664;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__copy {
+    padding: 18px 16px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: -.4px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__title em {
+    border-top: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+    font-weight: 800;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__description {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .product-new-power-features__title + .product-new-power-features__description {
+    margin-top: 12px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .product-new-power-features__heading {
+      margin-bottom: 40px;
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .product-new-power-features__image {
+      aspect-ratio: 300 / 366.664;
+    }
+  }
+
+  {% if card_count > 1 %}
+    @media only screen and (max-width: 420px) {
+      #shopify-section-{{ section.id }} .product-new-power-features__track {
+        grid-auto-columns: min(300px, calc((100% - 12px) / 1.2));
+      }
+    }
+  {% endif %}
+{% endstyle %}
+
+{%- if section.settings.heading != blank or card_count > 0 -%}
+  <section class="product-new-power-features">
+    <div class="product-new-power-features__inner">
+      {%- if section.settings.heading != blank -%}
+        <div class="product-new-power-features__heading" role="heading" aria-level="2">{{ section.settings.heading }}</div>
+      {%- endif -%}
+      {%- if card_count > 0 -%}
+        <ul class="product-new-power-features__track" role="list" tabindex="0" aria-label="{{ section.settings.heading | strip_html | default: 'Power features' | escape }}">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.image != blank or block.settings.title != blank or block.settings.description != blank -%}
+              <li class="product-new-power-features__card" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 1600 | image_tag: class: 'product-new-power-features__image', loading: 'lazy', widths: '300, 450, 600, 750, 1000, 1340, 1600', sizes: image_sizes }}
+                {%- endif -%}
+                {%- if block.settings.title != blank or block.settings.description != blank -%}
+                  <div class="product-new-power-features__copy">
+                    {%- if block.settings.title != blank -%}<div class="product-new-power-features__title">{{ block.settings.title }}</div>{%- endif -%}
+                    {%- if block.settings.description != blank -%}<p class="product-new-power-features__description">{{ block.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+                  </div>
+                {%- endif -%}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "productN Power Features",
+  "tag": "section",
+  "class": "product-new-power-features-section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "richtext", "id": "heading", "label": "Heading", "info": "Italic text appears upright in red.", "default": "<p>Built for reliable power</p>" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Power feature",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "richtext", "id": "title", "label": "Title", "info": "Italic text appears upright in red, with a line above and below." },
+        { "type": "textarea", "id": "description", "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "productN Power Features",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "<p><em>36Wh</em> of steady power</p>", "description": "A dedicated chip delivers stable, efficient heat." } },
+        { "type": "feature", "settings": { "title": "<p><em>ETL</em>-certified LG cells</p>", "description": "Plus NTC temperature protection and smart battery management." } },
+        { "type": "feature", "settings": { "title": "<p>Full in <em>2.5 h</em></p>", "description": "Charges over USB-C. Its USB-A and USB-C ports top up your phone too." } },
+        { "type": "feature", "settings": { "title": "<p><em>1,000</em> charge cycles</p>", "description": "Built to last season after season." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

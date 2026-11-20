@@ -6,10 +6,11 @@
     const controller = new AbortController();
     const timers = new Set();
     let chartObserver;
+    let purchaseObserver;
     let cleanupUI = () => {};
     const listen = (target, type, handler) => target?.addEventListener(type, handler, { signal: controller.signal });
     const schedule = (callback, delay) => { const timer = window.setTimeout(() => { timers.delete(timer); if (root.isConnected) callback(); }, delay); timers.add(timer); return timer; };
-    instances.set(root, () => { controller.abort(); timers.forEach(clearTimeout); chartObserver?.disconnect(); root.navVariantCleanup?.(); cleanupUI(); delete root.dataset.ready; });
+    instances.set(root, () => { controller.abort(); timers.forEach(clearTimeout); chartObserver?.disconnect(); purchaseObserver?.disconnect(); root.navVariantCleanup?.(); cleanupUI(); delete root.dataset.ready; });
     try {
     const panel = root.querySelector('[data-product-panel]');
     const quantityInputs = root.querySelectorAll('[data-quantity-input]');
@@ -109,11 +110,30 @@
       });
       renderDesktopOptions();
     };
-    const syncAvailability = () => {
+    const mainPurchaseButton = document.querySelector('.main-product-form .product-atc-form [name="add"]');
+    const syncPurchaseButtons = () => {
       const selectedVariant = variants.find((variant) => String(variant.id) === String(variantIdInput?.value));
       const gate = window.venustasRegionalInventoryGate;
       const state = gate?.getVariantAvailabilityState?.(selectedVariant?.id, root.querySelector('.nav-inventory-info-app'));
-      const available = Boolean(selectedVariant?.available) && (state ? state.finalAvailable : true);
+      const useMainState = Boolean(mainPurchaseButton);
+      const busy = root.querySelector('#header-nav-product-form')?.getAttribute('aria-busy') === 'true'
+        || (useMainState && (mainPurchaseButton.classList.contains('is-loading') || mainPurchaseButton.getAttribute('aria-busy') === 'true'));
+      const disabled = busy || (useMainState ? mainPurchaseButton.disabled : !(state ? state.finalAvailable : selectedVariant?.available));
+      const mainLabel = mainPurchaseButton?.querySelector('span')?.textContent.trim() || mainPurchaseButton?.textContent.trim();
+      const label = busy ? 'Adding…' : useMainState ? mainLabel : state?.buttonText || (selectedVariant ? selectedVariant.available ? 'Add To Cart' : 'Out Of Stock' : 'Unavailable');
+      availabilityButtons.forEach((button) => {
+        const buttonDisabled = button.hasAttribute('data-mobile-toggle') ? false : Boolean(disabled);
+        if (button.disabled !== buttonDisabled) button.disabled = buttonDisabled;
+        if (button.textContent !== label) button.textContent = label;
+      });
+    };
+    if (mainPurchaseButton) {
+      purchaseObserver = new MutationObserver(syncPurchaseButtons);
+      purchaseObserver.observe(mainPurchaseButton, { attributes: true, attributeFilter: ['disabled', 'class', 'aria-busy'], childList: true, characterData: true, subtree: true });
+    }
+    listen(root, 'nav:state-updated', syncPurchaseButtons);
+    const syncAvailability = () => {
+      const selectedVariant = variants.find((variant) => String(variant.id) === String(variantIdInput?.value));
       if (selectedVariant) {
         const quantity = Math.max(1, Math.floor(Number(formQuantity?.value) || 1));
         const discounted = selectedVariant.compare_at_price > selectedVariant.price;
@@ -121,11 +141,7 @@
         root.querySelectorAll('.product-nav-new__price-compare').forEach((element) => { element.textContent = formatTotal((selectedVariant.compare_at_price || 0) * quantity); element.hidden = !discounted; });
         root.querySelectorAll('.product-nav-new__panel-save').forEach((element) => { element.textContent = `Save ${formatTotal(Math.max(0, selectedVariant.compare_at_price - selectedVariant.price) * quantity)}`; element.hidden = !discounted; });
       }
-      availabilityButtons.forEach((button) => {
-        const busy = root.querySelector('#header-nav-product-form')?.getAttribute('aria-busy') === 'true';
-        button.disabled = !available || busy;
-        button.textContent = busy ? 'Adding…' : available ? 'ADD TO CART' : 'Out of Stock';
-      });
+      syncPurchaseButtons();
     };
     let previousFocus;
     const mobileQuery = window.matchMedia('(max-width: 767px)');
@@ -234,7 +250,7 @@
 
     window.initNavProductVariants?.(root);
     root.dataset.ready = 'true';
-    } catch (error) { controller.abort(); timers.forEach(clearTimeout); chartObserver?.disconnect(); instances.delete(root); delete root.dataset.ready; console.error('Product navigation initialization failed:', error); }
+    } catch (error) { controller.abort(); timers.forEach(clearTimeout); chartObserver?.disconnect(); purchaseObserver?.disconnect(); instances.delete(root); delete root.dataset.ready; console.error('Product navigation initialization failed:', error); }
   }
   function scan() {
     instances.forEach((cleanup, root) => { if (!root.isConnected) { cleanup(); instances.delete(root); } });
