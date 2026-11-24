@@ -1,0 +1,235 @@
+{{ 'header-new.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign announcement_count = 0
+  assign current_timestamp = 'now' | date: '%s' | plus: 0
+  for block in section.blocks
+    case block.type
+      when 'announcement_bar'
+        if block.settings.announcement_content != blank
+          assign announcement_count = announcement_count | plus: 1
+        endif
+      when 'announcement_countdown'
+        assign countdown_timestamp = block.settings.date_time | date: '%s' | plus: 0
+        if block.settings.date_time != blank and countdown_timestamp > current_timestamp
+          assign announcement_count = announcement_count | plus: 1
+        endif
+    endcase
+  endfor
+-%}
+{% style %}
+  :root {
+    --announcement-height: 38px;
+    --announcement-current-height: {% if announcement_count > 0 %}38px{% else %}0px{% endif %};
+  }
+{% endstyle %}
+{%- if announcement_count > 0 -%}
+  <div
+    class="header-announcement"
+    data-header-announcement
+    style="background:{{ section.settings.background_color }}; --header-announcement-underline-color: {{ section.settings.underline_text_color }};"
+  >
+    <div class="container">
+      <div class="header-announcement__layout{% if announcement_count > 1 %} header-announcement__layout--navigation{% endif %}">
+        {% if announcement_count > 1 %}
+          <button type="button" class="header-announcement__nav" data-header-announcement-prev style="color:{{ section.settings.text_color }};" aria-label="Previous announcement">
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+          </button>
+        {% endif %}
+
+        <div class="header-announcement__slider">
+          <div
+            class="swiper header-announcement__swiper"
+            data-header-announcement-swiper
+            data-autoplay-enabled="{{ section.settings.autoplay_enabled }}"
+            data-autoplay="{{ section.settings.autoplay }}"
+          >
+            <div class="swiper-wrapper">
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {% when 'announcement_bar' %}
+                    {% if block.settings.announcement_content != blank %}
+                      <div class="swiper-slide">
+                        <div class="header-announcement__content" style="color:{{ section.settings.text_color }};">
+                          {% if block.settings.link != blank %}
+                            <a href="{{ block.settings.link }}" class="header-announcement__link">
+                          {% else %}
+                            <span class="header-announcement__link">
+                          {% endif %}
+                            <span class="header-announcement__marquee-viewport">
+                              <span class="header-announcement__marquee-track">
+                                <span class="header-announcement__marquee-item">
+                                  {{ block.settings.announcement_content
+                                    | replace: '<p>', ''
+                                    | replace: '</p>', ''
+                                    | replace: '[u]', '<span class="header-announcement__underline">'
+                                    | replace: '[/u]', '</span>'
+                                    | replace: '【u】', '<span class="header-announcement__underline">'
+                                    | replace: '【/u】', '</span>'
+                                  }}
+                                  <span class="header-announcement__arrow" aria-hidden="true">
+                                    <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M1 7H17M17 7L13 3.5M17 7L13 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          {% if block.settings.link != blank %}
+                            </a>
+                          {% else %}
+                            </span>
+                          {% endif %}
+                        </div>
+                      </div>
+                    {% endif %}
+
+                  {% when 'announcement_countdown' %}
+                    {% assign countdown_timestamp = block.settings.date_time | date: '%s' | plus: 0 %}
+                    {% if block.settings.date_time != blank and countdown_timestamp > current_timestamp %}
+                      <div
+                        class="swiper-slide header-announcement__slide--countdown"
+                        data-header-announcement-countdown
+                        data-date="{{ block.settings.date_time }}"
+                      >
+                        <div class="header-announcement__content" style="color:{{ section.settings.text_color }};">
+                          <span class="header-announcement__marquee-viewport">
+                            <span class="header-announcement__marquee-track">
+                              <span class="header-announcement__marquee-item">
+                                <span class="header-announcement__countdown-line">
+                                  <span class="header-announcement__countdown-copy">
+                                    {{ block.settings.announcement_content
+                                      | replace: '<p>', ''
+                                      | replace: '</p>', ''
+                                    }}
+                                  </span>
+                                  <span class="header-announcement__countdown-timer">
+                                    <span class="header-announcement__unit">
+                                      <span class="header-announcement__unit-value" data-header-announcement-unit="days">00</span> Days
+                                    </span>
+                                    <span class="header-announcement__unit">
+                                      <span class="header-announcement__unit-value" data-header-announcement-unit="hours">00</span> Hrs
+                                    </span>
+                                    <span class="header-announcement__unit">
+                                      <span class="header-announcement__unit-value" data-header-announcement-unit="minutes">00</span> Mins
+                                    </span>
+                                    <span class="header-announcement__unit">
+                                      <span class="header-announcement__unit-value" data-header-announcement-unit="seconds">00</span> Secs
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    {% endif %}
+                {% endcase %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        {% if announcement_count > 1 %}
+          <button type="button" class="header-announcement__nav" data-header-announcement-next style="color:{{ section.settings.text_color }};" aria-label="Next announcement">
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+          </button>
+        {% endif %}
+      </div>
+    </div>
+
+    <button type="button" class="header-announcement__close" data-header-announcement-close aria-label="Close announcement">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "class": "header-announcement-section",
+  "enabled_on": {
+    "groups": [
+      "header"
+    ]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "autoplay_enabled",
+      "label": "Enable announcement autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay",
+      "label": "Autoplay (in seconds)",
+      "info": "Controls both desktop and mobile announcement autoplay.",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#161616"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "underline_text_color",
+      "label": "Underlined Text Color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement_bar",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "announcement_content",
+          "label": "Announcement Bar Content",
+          "info": "Make the text bold to emphasize text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "announcement_countdown",
+      "name": "Announcement - Countdown",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "announcement_content",
+          "label": "Announcement Bar Content",
+          "info": "Make the text bold to emphasize text"
+        },
+        {
+          "type": "text",
+          "id": "date_time",
+          "label": "Date & Time",
+          "default": "May 24, 2025 14:00:00"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,47 @@
+{% doc %}
+  Renders mobile search using the existing search section configuration.
+  @param {object} section - Search section.
+{% enddoc %}
+<div class="header-new__search-layer" data-header-search-layer hidden role="dialog" aria-modal="true" aria-label="Search">
+  <button class="header-new__search-overlay" type="button" data-header-search-overlay tabindex="-1" aria-label="Close search"></button>
+  <div class="header-new__search-drawer">
+    <form class="header-new__search-form" action="{{ routes.search_url }}" method="get" role="search">
+      <button type="submit" aria-label="Search">{% render 'header-icons', icon: 'search' %}</button>
+      <input type="search" name="q" placeholder="Search" aria-label="Search products" autocomplete="off">
+      <button type="button" data-header-search-close aria-label="Close search">{% render 'header-icons', icon: 'close' %}</button>
+    </form>
+    <div class="header-new__search-content">
+      <h2>Trending Search Term</h2>
+      <ul class="header-new__search-terms">
+        {% for block in section.blocks %}
+          {% if block.type == 'Link' and block.settings.title != blank and block.settings.link != blank %}
+            <li {{ block.shopify_attributes }}><a href="{{ block.settings.link | escape }}">{{ block.settings.title | escape }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {% assign has_products = false %}
+      {% for block in section.blocks %}{% if block.type == 'Product' and block.settings.product != blank %}{% assign has_products = true %}{% endif %}{% endfor %}
+      {% if has_products %}
+        <h2>Products</h2>
+        <div class="header-new__search-products">
+          {% for block in section.blocks %}
+            {% if block.type == 'Product' and block.settings.product != blank %}
+              {% assign search_product = block.settings.product %}
+              {% assign search_variant = search_product.selected_or_first_available_variant %}
+              <a class="header-new__search-product" href="{{ search_product.url | escape }}" {{ block.shopify_attributes }}>
+                <span class="header-new__search-product-media">
+                  {% if search_product.featured_image != blank %}
+                    {{ search_product.featured_image | image_url: width: 600 | image_tag: widths: '180, 300, 450, 600', sizes: '(max-width: 680px) 42vw, 278px', loading: 'lazy' }}
+                  {% else %}{{ 'product-1' | placeholder_svg_tag }}{% endif %}
+                  {% if search_variant.compare_at_price > search_variant.price %}<span class="header-new__search-discount">{{ search_variant.compare_at_price | minus: search_variant.price | money_without_trailing_zeros }} OFF</span>{% endif %}
+                </span>
+                <span class="header-new__search-product-title">{{ search_product.title | escape }}</span>
+                <span class="header-new__search-price"><strong>{{ search_variant.price | money }}</strong>{% if search_variant.compare_at_price > search_variant.price %}<s>{{ search_variant.compare_at_price | money }}</s>{% endif %}</span>
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

@@ -1,5 +1,19 @@
 # Header 已知事项
 
+2026-11-24 功能入口：新 Header 已接入旧搜索弹层与购物车接口，先前“无搜索/购物车入口”为历史状态。预测搜索H-001仍待单独确认；Wishlist需应用加载，账户专用链接与后台登录态待商店验证，US/CA继续旧跨站跳转。没有浏览器或应用运行证据。见 [日志](../../logs/header/2026-11-24-header-utilities.md)。
+
+2026-11-24 Accessories：本地确认用户已添加面板，但 section 硬编码下拉名单遗漏 accessories；当时改为配置驱动匹配。已配的空链接仍为非交互文本，具体目标应在编辑器补齐。Gift 的价格、礼品卡及指南地址未提供，不能据文案推断实际URL。静态修正不代表测试主题已同步或浏览器实测。
+
+2026-11-24 顶级下拉失效：上述“遍历 section.blocks 读 settings.menu_key”的做法在主题块上无效（父 section 拿不到主题块 settings，block.type 也恒为 @theme），导致所有入口没有 data-header-toggle，下拉全部不显示。现由 assets/header-new.js 的 prepareNavToggles() 依据已渲染面板的 data-header-panel 在运行时升级导航项。遗留：无 JS 时导航退化为直达链接（移动端所有入口仍显示箭头）；桌面悬停／键盘、移动抽屉、无面板入口（Bundles／Sale）的实际跳转均未浏览器实测。见 [日志](../../logs/header/2026-11-24-nav-toggle-runtime.md)。
+
+2026-11-24 Bundles／Sale 面板丢失：ed170a6 “Update from Shopify … by Yaoyao zhang” 后台保存回写 sections/header-group-new.json，覆盖掉 c202258 加的两个 _header-nav-campaign，导致该两项无可展开面板。已从 c202258 增量恢复 bundles_panel／sale_panel（纯新增 177 行，原有五个面板未改）。恢复内容为旧配置，集合商品、分类文案与编辑器表现未验证；后台若再次整体保存仍可能覆盖本地配置，改配置前先确认该文件与线上主题一致。见 [日志](../../logs/header/2026-11-24-restore-bundles-sale-panels.md)。
+
+2026-11-24 Help 面板：Order Tracking／Returns & Exchanges／Warranty Registration／User Manuals／Help Center 已使用主题里已有的默认地址（Liquid default 回退：aftership、returnscenter、shopify://pages/warranty-registration、zendesk User-Manual、help_link），Warranty Claim 无现成地址仍为不可点击文本，需要时在 help_warranty_claim_url 配置。Help 仅点击触发（data-header-no-hover，跳过 pointerenter，--help 面板不受 pointerleave 自动关闭影响），行 hover 为 #f5f5f5。桌面卡片右边缘按 max 1720 的 bar 对齐，1200–1259 窄桌面与移动抽屉 Help 页、返回、Esc／外点关闭均未浏览器实测。见 [日志](../../logs/header/2026-11-24-help-panel.md)。
+
+2026-11-24 桌面布局：header 高 68、左侧约 800（Logo 154 + 32 + 8 项导航 gap 30、16/21）、右侧图标间距 16 与 28，均按 Figma 6175:2532 静态实现。搜索胶囊按“紧邻 Help”实现（Figma 默认帧的 300 宽容器是为展开态预留，本次不做展开，故胶囊比该帧靠右约 200px），点击仍打开既有 .predictive-search 弹层。导航总宽依赖字体度量，可能需要浏览器实测微调；1200–1599 只显示搜索图标。见 [日志](../../logs/header/2026-11-24-desktop-header-layout.md)。
+
+2026-11-24 移动 Help 箭头／Gift Guide 按钮：移动 Help 行已加右侧箭头（复用 .header-new__nav-chevron，util-row 内 margin-left:auto）。桌面 Gift 面板底部按钮此前因 guide 块 url 为空而不渲染（_header-nav-button 需 title 与 url 同时存在），现已设为 shopify://pages/gift-guide；该页面句柄按 templates/page.gift-guide.json 推断，需后台确认，若不同则在编辑器改 Link。见 [日志](../../logs/header/2026-11-24-mobile-help-chevron-gift-guide.md)。
+
 2026-11-24 Sale：复用活动组件接入五分类后共61块，仍为用户授权超限实验，未确认平台能接受保存／上传／显示。旧 Sale nav_1 是Liquid字串，已用设计中的首项文案及运行时集合标题回退，避免显示原字串。新增分类 new-customer 的集合与数据来自旧配置；真实商品和浏览器展示仍待验证。见 [任务日志](../../logs/header/2026-11-24-sale-navigation.md)。以下55块为 Sale 添加前历史状态。
 
 2026-11-24 Bundles 实验：用户明确要求不控制在50以内，现配置55个嵌套区块。该配置保留供用户测试；静态语法通过不证明 Shopify 接受超限保存、上传或显示。四个集合来自旧 Bundle Sale，本地未确认集合实际商品；空集合隐藏对应入口，全部为空禁用 Bundles 面板。此前用户报告测试主题看不到新 Header 配置，尚未获得该主题环境的排查证据，不将本次新增视为已修复该问题。见 [任务日志](../../logs/header/2026-11-24-bundles-navigation.md)。

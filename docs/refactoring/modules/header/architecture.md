@@ -1,5 +1,33 @@
 # Header 架构
 
+2026-11-24 公告栏独立：announcement-bar section 位于 header group 的 header 前，`.header-announcement` 固定 top:0、高 38；header 盒高改为 `--header-nav-height`（<1280 40、≥1280 68）+ `--announcement-current-height`，导航条整体下移，占位随 `.header` 实测高度；关闭/过期写 0，`ResizeObserver` 自动更新。公告样式与 Swiper／marquee／倒计时／关闭全部在 header-new.css／header-new.js，类名统一 `header-announcement`，旧 main.js 公告逻辑因选择器不匹配而不执行。移动抽屉 top 让出公告高度；panel 的 max-height 改用 `--headerHeight`。classic main.js 仅在自身 section 含 `.announcement-bar` 时写公告高度。详见[日志](../../logs/header/2026-11-24-announcement-bar-section.md)。
+
+2026-11-24 桌面布局：按 Figma 6175:2532 对齐——header 高 68（--header-nav-height 同步）、bar 左右 100px（1920 下 min(100%-40px,1720px)）、左侧 Logo 154 + 32 间距 + 8 项导航（gap 30、16/21 #161616）合计约 800、右侧搜索胶囊 100×36 与 Help/账户/心/购物车/地区按 28/16/16/28 与图一致。搜索入口保持链接，点击仍打开既有 .predictive-search 弹层，未做行内展开。1200–1599 收窄导航间距并只留搜索图标。详见[日志](../../logs/header/2026-11-24-desktop-header-layout.md)。
+
+2026-11-24 细节补充：移动 Help 行右侧加箭头（复用 .header-new__nav-chevron，utility-row 内 margin-left:auto）；桌面 Gift 面板底部 guide 块补 shopify://pages/gift-guide 后恢复渲染，因为 `_header-nav-button` 只有在 title 与 url 同时非空时才输出。详见[日志](../../logs/header/2026-11-24-mobile-help-chevron-gift-guide.md)。
+
+2026-11-24 Help 面板：Help 入口不再直达 help_link，改为仅点击触发的面板：桌面右对齐 347px 卡片、移动抽屉内 Help 页（复用 data-header-panel/showPanel、panel-top 返回行，用 data-help-open 例外保留抽屉 Logo）。内容为 6 行固定文案（Order Tracking、Returns & Exchanges、Warranty Registration、Warranty Claim、User Manuals、Help Center）+ mailto 按钮 + 电话说明；前五项与 Help Center 使用主题已有地址作默认回退（aftership、returnscenter、shopify://pages/warranty-registration、zendesk User-Manual、help_link），Warranty Claim 默认空值且可在 section 设置配置；行 hover 为 #f5f5f5。图标集中在 header-icons（5 个用户 SVG + 复用 help-circle）。详见[日志](../../logs/header/2026-11-24-help-panel.md)。
+
+2026-11-24 移动抽屉修正：按旧样式从左边缘滑出，全高、89%宽且最大600px；内部独立滚动，外侧40px橙色圆角关闭按钮复用旧close-nav-mobile图片。My Account固定显示Profile、Orders、Return Center、Loyalty Hub，不再按登录态替换成访客入口。详见[日志](../../logs/header/2026-11-24-mobile-drawer.md)。此前390px居中留白抽屉为历史实现。
+
+## 2026-11-24 功能入口接入
+
+新 Header 已接入旧 Logo、搜索、账户、Wishlist、购物车、US/CA与Help链接，详情见 [日志](../../logs/header/2026-11-24-header-utilities.md)。图标集中header-icons，Help使用用户SVG且不实现下拉。购物车调用现有openCart与cart:updated，不使用旧icon-cart绑定；Wishlist通过SwymCallbacks；地区切换保留旧域名跳转，不使用icon-local双重初始化。搜索打开既有section并管理关闭／键盘与滚动，H-001旧缺口未扩展修复。
+
+两端共用原导航数据。为完整Logo/八导航/搜索/图标布局，CSS/JS统一1199px移动断点，桌面67px、移动56px，继续输出旧高度变量／事件。移动抽屉增加遮罩和登录态账户区，进入导航面板时隐藏底部工具区；图片sizes同步断点和最大390px抽屉。所有旧业务组件文件保留。
+
+## 2026-11-24 Bundles／Sale 面板恢复
+
+ed170a6“Update from Shopify … by Yaoyao zhang”把 sections/header-group-new.json 整体回写，覆盖掉 c202258 新增的两个 _header-nav-campaign，Bundles／Sale 因此没有可展开面板。本地已从 c202258 增量恢复 bundles_panel（menu_key bundles，入口集合 bundle-deal）与 sale_panel（menu_key sale，category_1／2／4／5／6 对应 campaign、deal-of-the-week、mega-clearance-sale、new-customer、outlet），纯新增 177 行，既有 New／Men／Women／Accessories／Gift 未改，header_new 现为 7 个块。运行时匹配无需改动代码。后台再次整体保存仍可能覆盖本地配置。详见 [日志](../../logs/header/2026-11-24-restore-bundles-sale-panels.md)。
+
+## 2026-11-24 Accessories／Gift 与自动关联
+
+用户已在 group 添加 Accessories，但原 section 的 navigation_panel_keys 固定名单不包含 accessories，顶级入口因此仍输出普通链接，已有面板不会被展开。当时改为遍历当前 section.blocks，以 settings.menu_key 标准化后匹配顶级名称，意图不再维护第二份名单；菜单名称与顺序仍沿用八项变量，没有接入原生主菜单。
+
+2026-11-24 修正：该 section.blocks 方案不成立。本 section 的块是 blocks/_header-nav-* 主题块，父 section 遍历时 block.settings 为空、block.type 恒为 @theme，has_panel 恒 false，所有顶级入口退化为普通链接，下拉全部失效。现改为：section 只输出 li[data-nav-key] 加普通 a 链接，assets/header-new.js 在初始化时按 data-nav-key 与 data-header-panel 匹配，把对应链接原位升级为 button[data-header-toggle]，面板仍是唯一数据源，新增面板无需第二份名单。详见 [日志](../../logs/header/2026-11-24-nav-toggle-runtime.md)。
+
+Accessories 保留已配置的 Batteries & Power 三项及说明，补齐 Heated Accessories 五项，移除完全空白的第三列；两列 role=group、mobile_open=false。Gift 三列为 Gifts by Recipient、Gift by Price、Gift Card，均使用普通分组折叠、默认关闭，不将 Price 做成下一级页面。两面板复用现有双推广卡素材，移动显示。未提供的链接保持空值，编辑器可维护；旧 Header 保留。详见 [任务日志](../../logs/header/2026-11-24-accessories-gift-navigation.md)。
+
 ## 2026-11-24 Sale 增量
 
 新增 Sale 面板实例，复用 _header-nav-campaign、_header-nav-category、header-new-product-card 和现有 CSS/JS。旧 Sale 有效集合按原顺序为 campaign、deal-of-the-week、mega-clearance-sale、new-customer、outlet；空的第三槽跳过。首项旧 nav_1 保存的是未求值Liquid字串，初始化分类名使用用户设计的 Fall Mega Sale，其他分类名采用旧配置。内容标题为空时回退实际集合标题，不把旧字串直接输出；原 Bundles 显式标题仍优先。

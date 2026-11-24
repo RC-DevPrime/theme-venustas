@@ -1,5 +1,27 @@
 # Header 实际文件清单
 
+## 2026-11-24 公告栏独立
+
+- sections/announcement-bar.liquid：新公告 section（header group），设置、两类区块、38px 高度变量、header-announcement 标记。
+- sections/header-group-new.json：announcement_bar 置于 header_new 前，迁移 3 条公告与 #000/#fff、autoplay 4。
+- assets/header-new.css：header 40/68 与公告高度叠加、导航条/抽屉偏移、40px 控件、公告全部样式。
+- assets/header-new.js：公告 Swiper／marquee／倒计时／关闭／section 重载，measure 不再写 --header-nav-height。
+- sections/header-new.liquid：nav 40/68（1280 断点）、headerHeight 叠加公告；assets/main.js 的旧 section:load 仅在旧 header 内有公告时写高度。详见 [日志](../../logs/header/2026-11-24-announcement-bar-section.md)。
+
+## 2026-11-24 功能入口
+
+- sections/header-new.liquid → header-icons、header-new-localization；group设置初始化旧Logo/功能链接。
+- header-icons → 旧图标路径、icon_currency旗帜与用户Help SVG，无新SVG文件。
+- assets/header-new.js → window.openCart、cart:updated、SwymCallbacks、既有.predictive-search；国家菜单使用旧原生站点链接。
+- header-new.css、_header-nav-image-menu/_header-nav-promo及header-new-product-card的sizes统一1199px断点。
+- 未修改旧 header.liquid、main.js/global.js/popup-cart.js 或搜索section。见 [日志](../../logs/header/2026-11-24-header-utilities.md)。
+
+## 2026-11-24 Accessories／Gift
+
+- sections/header-new.liquid：按当前面板 menu_key 自动生成下拉入口，移除硬编码入口名单。
+- sections/header-group-new.json：修正用户现有 Accessories 两列与移动默认收起，补齐 Gift 三列与两面板的双推广卡，复用既有块与样式／脚本。
+- 无新增业务文件或全局依赖，见 [任务日志](../../logs/header/2026-11-24-accessories-gift-navigation.md)。
+
 ## 2026-11-24 Sale 扩展
 
 - sections/header-new.liquid：sale 加入可展开面板入口键。

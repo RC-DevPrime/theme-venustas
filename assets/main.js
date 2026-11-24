@@ -631,8 +631,9 @@ $(document).ready(function() {
     document.addEventListener('shopify:section:load', function (event) {
       if (!event.target.querySelector('.header')) return;
 
-      const hasAnnouncement = Boolean(event.target.querySelector('.announcement-bar'));
-      document.documentElement.style.setProperty('--announcement-current-height', hasAnnouncement ? '37px' : '0px');
+      if (event.target.querySelector('.announcement-bar')) {
+        document.documentElement.style.setProperty('--announcement-current-height', '37px');
+      }
       initAnnouncementSwipers(event.target);
       window.dispatchEvent(new CustomEvent('header:heightchange'));
     });

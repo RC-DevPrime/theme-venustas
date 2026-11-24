@@ -1,5 +1,21 @@
 # Shopify Theme 重构知识库
 
+2026-11-24：[公告栏独立 section](logs/header/2026-11-24-announcement-bar-section.md)：公告 38px 固定，header 40/68（1280 断点），样式与交互迁入 header-new.css／js。
+
+2026-11-24：[顶级导航下拉失效修复](logs/header/2026-11-24-nav-toggle-runtime.md)：section.blocks 读不到主题块 settings，改为运行时按面板 key 升级导航项。
+
+2026-11-24：[恢复 Bundles／Sale 面板](logs/header/2026-11-24-restore-bundles-sale-panels.md)：后台保存回写曾覆盖 group 文件，已从 c202258 增量恢复两个 campaign 块。
+
+2026-11-24：[Help 下拉／Help 页面](logs/header/2026-11-24-help-panel.md)：Help 入口改为面板开关，桌面卡片、移动抽屉页，5 个业务链接待配置。
+
+2026-11-24：[桌面 Header 布局对齐 Figma](logs/header/2026-11-24-desktop-header-layout.md)：1920/100px 留白、左侧 800、右侧间距与搜索胶囊按 6175:2532，搜索仍开既有弹层。
+
+2026-11-24：[移动 Help 箭头与 Gift Guide 按钮](logs/header/2026-11-24-mobile-help-chevron-gift-guide.md)：Help 行加右箭头；Gift 面板 guide 块补链接后恢复桌面底部按钮。
+
+2026-11-24：[Header功能入口](logs/header/2026-11-24-header-utilities.md) 接入旧Logo/搜索/购物车/应用与用户Help图标，Help下拉未实现。
+
+2026-11-24：[Accessories／Gift 导航及入口关联修正](logs/header/2026-11-24-accessories-gift-navigation.md)，保留用户已有配置，复用既有组件。
+
 2026-11-24：[Sale 五分类](logs/header/2026-11-24-sale-navigation.md) 复用活动面板接入，图片228:285，桌面无底部按钮，当前61块超限实验。
 
 2026-11-24：[Bundles 导航与55块超限实验](logs/header/2026-11-24-bundles-navigation.md) 按用户明确要求继续原嵌套结构，未实施多 section 拆分，旧代码保留。

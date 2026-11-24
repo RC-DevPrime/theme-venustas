@@ -41,7 +41,7 @@
         {%- if item_url != blank -%}<a class="header-new__image-menu-link" href="{{ item_url | escape }}"{% if item_current %} aria-current="page"{% endif %}>{%- else -%}<span class="header-new__image-menu-link">{%- endif -%}
           <span class="header-new__image-menu-media">
             {%- if item_image != blank -%}
-              {{ item_image | image_url: width: 360 | image_tag: class: 'header-new__image-menu-image', widths: '120, 180, 240, 360', sizes: '(max-width: 767px) calc((100vw - 72px) / 3), 1px', alt: image_alt, loading: 'lazy' }}
+              {{ item_image | image_url: width: 360 | image_tag: class: 'header-new__image-menu-image', widths: '120, 180, 240, 360', sizes: '(max-width: 1199px) calc((min(89vw, 100vw - 40px, 600px) - 72px) / 3), 1px', alt: image_alt, loading: 'lazy' }}
             {%- else -%}
               {{ 'collection-1' | placeholder_svg_tag: 'header-new__image-menu-placeholder' }}
             {%- endif -%}

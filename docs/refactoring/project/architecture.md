@@ -4,7 +4,7 @@
 
 ## 技术栈与目录
 
-Shopify Online Store 2.0：Liquid 服务端渲染，JSON 模板／section group 编排，section schema 管理后台内容，CSS、原生 JavaScript 与 jQuery 实现展示和交互。`config/settings_schema.json` 的 theme_info 为 Venustas x Futura，版本字段 1.1.0；不能据此推断部署版本或上游主题。
+Shopify Online Store 2.0：Liquid 服务端渲染，JSON 模板／section group 编排，section schema 管理后台内容，CSS、原生 JavaScript 与 jQuery 实现展示和交互。`config/settings_schema.json` 的 theme_info 为 Venustas，版本字段 1.1.0；不能据此推断部署版本或上游主题。
 
 | 目录 | 初始化文件数 | 实际作用 |
 | --- | ---: | --- |
@@ -21,6 +21,10 @@ Shopify Online Store 2.0：Liquid 服务端渲染，JSON 模板／section group 
 数量是初始化文件快照，不是长期约束。根目录未发现 package.json、锁文件或 .theme-check 配置；未识别到可据以运行的项目构建／测试脚本，不推断仓库外没有开发工具。
 
 ## 主渲染与资源关系
+
+2026-11-24 功能入口增量：header-new.js 调用既有 openCart、监听 cart:updated、通过 SwymCallbacks 打开 Wishlist，独立管理旧 search section 弹层和国家菜单，避免复用旧Header选择器导致重复绑定。Help只实现链接；桌面/移动高度与共享事件保留。见Header功能入口日志。
+
+2026-11-24 Accessories/Gift 增量：顶级入口改为按实际面板 menu_key 自动关联，修复用户手动添加面板未生效；新增/补齐两个分组后总计76块。复用已有块、样式与脚本，跨模块高度协议不变。
 
 2026-11-24 Sale 增量：复用 Bundles 活动组件增加五个 Sale 集合，不配置 Sale 桌面底部按钮，图片使用现有 portrait 比例；当前61块，继续用户授权的超限测试。无新资源或跨模块协议变更。
 

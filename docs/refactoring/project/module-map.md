@@ -4,9 +4,11 @@
 
 | 模块 | 页面入口 | 核心输出 | 资源／共享消费者 | 详细清单 |
 | --- | --- | --- | --- | --- |
-| Header | theme → header-group-new（旧 header-group 保留） | header-new + search + popup-cart；New/Men/Women/Bundles/Sale 面板（61块超限实验） | header-new.css/js；既有高度变量、nav.header 与高度事件；旧全局资源仍加载 | [Header](../modules/header/files.md) |
+| Header | theme → header-group-new（旧 header-group 保留） | header-new + search + popup-cart；七个导航面板（76块超限实验），Kids普通链接 | header-new.css/js；既有高度变量、nav.header 与高度事件；旧全局资源仍加载 | [Header](../modules/header/files.md) |
 | Collection | collection JSON → main-collection 及辅助 sections | filters、分页商品列表、推广与推荐 | collection.css/js；main.js；product-collection → badge/colors/reviews；Header 高度 | [Collection](../modules/collection/files.md) |
 | Product Detail | product JSON → main-product + 产品专属 sections | media、选项、价格、加购、库存、评价、导航与内容 | product.css/js、global.js、popup-cart.js；商品／尺寸／runtime snippets；应用 | [Product Detail](../modules/product-detail/files.md) |
+
+2026-11-24 功能入口：header-new.js 复用 popup-cart.js 的 openCart 与 cart:updated，通过 SwymCallbacks 打开 Wishlist，并接入既有 search section；新 data-header-* 避开旧点击选择器。US/CA仍原站点链接，Help无下拉。
 
 ## 必须保留或显式迁移的跨模块契约
 

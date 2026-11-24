@@ -1,56 +1,236 @@
 {{ 'header-new.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'header-new.js' | asset_url }}" defer></script>
+<script src="{{ 'header-new.js' | asset_url }}" defer>
+</script>
 {% style %}
   :root {
-    --announcement-current-height: 0px;
-    --announcement-height: 0px;
-    --header-nav-height: 56px;
-    --headerHeight: var(--header-nav-height);
+    --header-nav-height: 40px;
+    --headerHeight: calc(var(--header-nav-height) + var(--announcement-current-height, 0px));
+  }
+  @media (min-width: 1280px) {
+    :root { --header-nav-height: 68px; }
   }
 {% endstyle %}
 
 {%- liquid
   assign navigation_labels = 'New|Men|Women|Kids|Accessories|Bundles|Gift|Sale' | split: '|'
   assign navigation_paths = '/collections/new-arrivals|/collections/men|/collections/women|/collections/kids|/collections/accessories|/collections/bundles|/collections/gift|/collections/sale' | split: '|'
-  assign navigation_panel_keys = 'new|men|women|bundles|sale' | split: '|'
 -%}
 
 <nav class="header header-new" data-header-new aria-label="Main navigation">
   <div class="header-new__bar">
-    <button class="header-new__mobile-open" type="button" data-header-mobile-open aria-expanded="false" aria-controls="HeaderDrawer-{{ section.id }}">Menu</button>
+    <div class="header-new__mobile-left">
+    <button class="header-new__mobile-open" type="button" data-header-mobile-open aria-label="Open menu" aria-expanded="false" aria-controls="HeaderDrawer-{{ section.id }}">{% render 'header-icons', icon: 'menu' %}</button>
+<a class="header-new__mobile-search" data-header-search href="{{ routes.search_url }}" aria-label="Search">{% render 'header-icons', icon: 'search' %}</a>
+</div>
+     <a class="header-new__logo" href="{{ routes.root_url }}">{% if section.settings.logo != blank %}{{ section.settings.logo | image_url: width: 462 | image_tag: widths: '154, 308, 462', sizes: '154px', alt: shop.name, loading: 'eager' }}{% else %}{{ shop.name | escape }}{% endif %}</a>
     <div class="header-new__drawer" id="HeaderDrawer-{{ section.id }}" data-header-drawer>
+      <button class="header-new__drawer-close" type="button" data-header-mobile-close aria-label="Close menu">{% render 'header-icons', icon: 'drawer-close' %}</button>
+      <div class="header-new__drawer-scroll">
       <div class="header-new__drawer-top">
-        <span>Menu</span>
-        <button type="button" data-header-mobile-close>Close</button>
+        <a class="header-new__logo" href="{{ routes.root_url }}">{% if section.settings.logo != blank %}{{ section.settings.logo | image_url: width: 462 | image_tag: widths: '154, 308, 462', sizes: '154px', alt: shop.name, loading: 'eager' }}{% else %}{{ shop.name | escape }}{% endif %}</a>
       </div>
       <ul class="header-new__nav-list" data-header-main-list>
         {%- for label in navigation_labels -%}
           {%- assign menu_key = label | handleize -%}
-          <li class="header-new__nav-item">
-            {%- if navigation_panel_keys contains menu_key -%}
-              <button type="button" class="header-new__nav-link" data-header-toggle="{{ menu_key }}" aria-expanded="false">
-                {{- label | escape -}}
-                <span class="header-new__nav-chevron">{% render 'header-icons', icon: 'chevron-right' %}</span>
-              </button>
-            {%- else -%}
-              <a class="header-new__nav-link{% if menu_key == 'gift' %} header-new__nav-link--emphasis{% endif %}" href="{{ routes.root_url | append: navigation_paths[forloop.index0] | replace: '//', '/' }}">{{ label | escape }}</a>
-            {%- endif -%}
+          <li class="header-new__nav-item" data-nav-key="{{ menu_key }}">
+            <a class="header-new__nav-link{% if menu_key == 'gift' %} header-new__nav-link--emphasis{% endif %}" href="{{ routes.root_url | append: navigation_paths[forloop.index0] | replace: '//', '/' }}">
+              {{- label | escape -}}
+              <span class="header-new__nav-chevron">{% render 'header-icons', icon: 'chevron-right' %}</span>
+            </a>
           </li>
         {%- endfor -%}
       </ul>
-      {% content_for 'blocks' %}
-    </div>
-  </div>
-</nav>
-<div class="header-new__placeholder" aria-hidden="true"></div>
+      <div class="header-new__mobile-utilities">
+      <div class="header-new__account-heading">
+      <span class="header-new__utility-icon">{% render 'header-icons', icon: 'account' %}</span>My Account</div>
+      <div class="header-new__account-links">
+      <a href="{{ section.settings.profile_link | default: routes.account_url | escape }}">Profile</a>
+      <a href="{{ section.settings.orders_link | default: routes.account_url | escape }}">Orders</a>
+      <a href="{{ section.settings.return_center_link | default: 'https://venustas.returnscenter.com/?ref=powr-io' | escape }}">Return Center</a>
+      <a href="{{ section.settings.loyalty_link | default: '#smile-home' | escape }}">Loyalty Hub</a>
+      </div>
+      <button class="header-new__utility-row" type="button" data-header-toggle="help" data-header-no-hover aria-expanded="false">
+      <span class="header-new__utility-icon">{% render 'header-icons', icon: 'help-circle' %}</span>Help
+      <span class="header-new__nav-chevron">{% render 'header-icons', icon: 'chevron-right' %}</span></button>
+      <button class="header-new__utility-row" type="button" data-header-wishlist>
+      <span class="header-new__utility-icon">{% render 'header-icons', icon: 'wishlist' %}</span>Wishlist</button>
+      {% render 'header-new-localization', section: section, mode: 'mobile' %}
+      </div>
+            {% content_for 'blocks' %}
+            <div class="header-new__panel header-new__panel--help" id="HeaderPanel-{{ section.id }}-help" data-header-panel="help" hidden aria-label="Help">
+              <div class="header-new__panel-top">
+                <button type="button" class="header-new__back" data-header-mobile-back>
+                  <span class="header-new__icon">{% render 'header-icons', icon: 'chevron-left' %}</span>
+                  Help
+                </button>
+              </div>
+              {%- liquid
+                assign help_labels = 'Order Tracking|Returns & Exchanges|Warranty Registration|Warranty Claim|User Manuals|Help Center' | split: '|'
+                assign help_icons = 'help-order-tracking|help-returns|help-warranty-registration|help-warranty-claim|help-manuals|help-circle' | split: '|'
+                assign help_order_tracking = section.settings.help_order_tracking_url | default: 'https://venustas.aftership.com/'
+                assign help_returns = section.settings.help_returns_url | default: 'https://venustas.returnscenter.com/?ref=powr-io'
+                assign help_warranty_registration = section.settings.help_warranty_registration_url | default: 'shopify://pages/warranty-registration'
+                assign help_warranty_claim = section.settings.help_warranty_claim_url
+                assign help_manuals = section.settings.help_manuals_url | default: 'https://venustas.zendesk.com/hc/en-us/categories/38122906510477-User-Manual'
+                assign help_center = section.settings.help_link | default: 'https://venustas.zendesk.com/hc/en-us'
+                assign help_url_list = help_order_tracking | append: '|' | append: help_returns | append: '|' | append: help_warranty_registration | append: '|' | append: help_warranty_claim | append: '|' | append: help_manuals | append: '|' | append: help_center
+                assign help_urls = help_url_list | split: '|'
+              -%}
+              <ul class="header-new__help-list">
+                {%- for help_label in help_labels -%}
+                  {%- assign help_url = help_urls[forloop.index0] -%}
+                  <li class="header-new__help-item">
+                    {%- if help_url != blank -%}
+                      <a class="header-new__help-link" href="{{ help_url }}">
+                    {%- else -%}
+                      <span class="header-new__help-link">
+                    {%- endif -%}
+                      <span class="header-new__help-icon">{% render 'header-icons', icon: help_icons[forloop.index0] %}</span>
+                      <span>{{ help_label | escape }}</span>
+                    {%- if help_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+              {%- if section.settings.help_email != blank -%}
+                <a class="header-new__help-email" href="mailto:{{ section.settings.help_email | escape }}">Email us &middot; {{ section.settings.help_email | escape }}</a>
+              {%- endif -%}
+              {%- if section.settings.help_phone != blank or section.settings.help_hours != blank -%}
+                <p class="header-new__help-phone">
+                  {%- if section.settings.help_phone != blank -%}<span>Prefer to call? {{ section.settings.help_phone | escape }}</span>{%- endif -%}
+                  {%- if section.settings.help_hours != blank -%}<span>{{ section.settings.help_hours | escape }}</span>{%- endif -%}
+                </p>
+              {%- endif -%}
+            </div>
+            </div>
+          </div>
+      <div class="header-new__utilities">
+<a class="header-new__mobile-gift" data-header-gift href="#smile-home" aria-label="Open rewards">{% render 'header-icons', icon: 'gift' %}</a>
+      <a class="header-new__search" data-header-search href="{{ routes.search_url }}" aria-label="Search">
+      <span class="header-new__utility-icon">{% render 'header-icons', icon: 'search' %}</span>
+      <span class="header-new__search-label">Search</span>
+      </a>
+      <div class="header-new__desktop-utilities"><button class="header-new__help" type="button" data-header-toggle="help" data-header-no-hover aria-expanded="false" aria-label="Help">{% render 'header-icons', icon: 'help' %}</button><a class="header-new__utility-icon" href="{{ routes.account_url }}" aria-label="Account">{% render 'header-icons', icon: 'account' %}</a>
+      <button class="header-new__utility-icon" type="button" data-header-wishlist aria-label="Wishlist">{% render 'header-icons', icon: 'wishlist' %}</button>
+      </div>
+      <button class="header-new__cart" type="button" data-header-cart aria-label="Open cart">
+      <span class="header-new__utility-icon">{% render 'header-icons', icon: 'cart' %}</span>
+      <span class="dot" data-header-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </button>
+      <div class="header-new__desktop-utilities">{% render 'header-new-localization', section: section, mode: 'desktop' %}</div>
+      </div>
+        </div>
+      <div class="header-new__backdrop" data-header-backdrop hidden>
+      </div>
+      </nav>
+      <div class="header-new__placeholder" aria-hidden="true">
+      </div>
 
 {% schema %}
 {
   "name": "Header New",
   "class": "shopify-section-group-header-group header-new-section",
-  "enabled_on": { "groups": ["header"] },
-  "settings": [],
-  "blocks": [{ "type": "_header-nav-group" }, { "type": "_header-nav-campaign" }],
-  "presets": [{ "name": "Header New" }]
+  "enabled_on": {
+    "groups": [
+      "header"
+    ]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "url",
+      "id": "help_link",
+      "label": "Help Center link"
+    },
+    {
+      "type": "text",
+      "id": "help_email",
+      "label": "Help email",
+      "default": "service@venustas.com"
+    },
+    {
+      "type": "text",
+      "id": "help_phone",
+      "label": "Help phone",
+      "default": "+1 (888) 836-6460"
+    },
+    {
+      "type": "text",
+      "id": "help_hours",
+      "label": "Help hours",
+      "default": "Mon–Fri, 9 AM–6 PM ET"
+    },
+    {
+      "type": "url",
+      "id": "help_order_tracking_url",
+      "label": "Order Tracking link"
+    },
+    {
+      "type": "url",
+      "id": "help_returns_url",
+      "label": "Returns & Exchanges link"
+    },
+    {
+      "type": "url",
+      "id": "help_warranty_registration_url",
+      "label": "Warranty Registration link"
+    },
+    {
+      "type": "url",
+      "id": "help_warranty_claim_url",
+      "label": "Warranty Claim link"
+    },
+    {
+      "type": "url",
+      "id": "help_manuals_url",
+      "label": "User Manuals link"
+    },
+    {
+      "type": "url",
+      "id": "profile_link",
+      "label": "Profile link"
+    },
+    {
+      "type": "url",
+      "id": "orders_link",
+      "label": "Orders link"
+    },
+    {
+      "type": "url",
+      "id": "return_center_link",
+      "label": "Return Center link"
+    },
+    {
+      "type": "url",
+      "id": "loyalty_link",
+      "label": "Loyalty Hub link"
+    },
+    {
+      "type": "url",
+      "id": "country_us_url",
+      "label": "United States store"
+    },
+    {
+      "type": "url",
+      "id": "country_ca_url",
+      "label": "Canada store"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_header-nav-group"
+    },
+    {
+      "type": "_header-nav-campaign"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header New"
+    }
+  ]
 }
 {% endschema %}

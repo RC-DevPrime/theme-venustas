@@ -11,9 +11,222 @@
   "type": "header",
   "name": "Header New",
   "sections": {
+    "announcement_bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_1": {
+          "type": "announcement_bar",
+          "settings": {
+            "announcement_content": "<p>Extra <em><strong>$20 off</strong></em> $100+ or <em><strong>$50 off</strong></em> $200+</p>",
+            "link": "shopify://collections/campaign"
+          }
+        },
+        "announcement_2": {
+          "type": "announcement_bar",
+          "settings": {
+            "announcement_content": "<p><em><strong>Holiday Returns Extended </strong></em>- Until Jan 15th, 2027</p>",
+            "link": "shopify://pages/return-and-exchange-policy"
+          }
+        },
+        "announcement_3": {
+          "type": "announcement_bar",
+          "settings": {
+            "announcement_content": "<p><em><strong>Apex™ / Volcano™ Founder Pass </strong></em>holder? Your <em><strong>$50 code </strong></em>is in your inbox.</p>",
+            "link": "shopify://collections/apex-riding-system"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_1",
+        "announcement_2",
+        "announcement_3"
+      ],
+      "settings": {
+        "autoplay_enabled": true,
+        "autoplay": 4,
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "underline_text_color": "#ffffff"
+      }
+    },
     "header_new": {
       "type": "header-new",
       "blocks": {
+        "bundles_panel": {
+          "type": "_header-nav-campaign",
+          "settings": {
+            "title": "导航｜Bundles",
+            "label": "Bundle Sale",
+            "menu_key": "bundles",
+            "sidebar_title": "Bundle",
+            "mobile_shop_all_label": "Shop All",
+            "mobile_shop_all_link": "shopify://collections/bundle-deal",
+            "show_category_button": true
+          },
+          "blocks": {
+            "category_1": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Clothing + Battery",
+                "short_description": "",
+                "content_title": "More Power, Longer Warmth",
+                "description": "",
+                "collection": "clothing-extra-battery",
+                "image_ratio": "landscape",
+                "product_limit": 4,
+                "button_label": "Shop All Clothing + Battery"
+              }
+            },
+            "category_2": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Clothing + Gloves",
+                "short_description": "",
+                "content_title": "Warm Hands, Stay Warm",
+                "description": "",
+                "collection": "complete-your-warmth",
+                "image_ratio": "landscape",
+                "product_limit": 4,
+                "button_label": "Shop All Clothing + Gloves"
+              }
+            },
+            "category_3": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Couple & Family",
+                "short_description": "",
+                "content_title": "Stay Warm Together",
+                "description": "",
+                "collection": "couple-family",
+                "image_ratio": "landscape",
+                "product_limit": 4,
+                "button_label": "Shop All Couple & Family"
+              }
+            },
+            "category_4": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Clothing + Socks",
+                "short_description": "",
+                "content_title": "Warm from Head to Toe",
+                "description": "",
+                "collection": "clothing-extra-socks",
+                "image_ratio": "landscape",
+                "product_limit": 4,
+                "button_label": "Shop All Clothing + Socks"
+              }
+            },
+            "shop_all": {
+              "type": "_header-nav-button",
+              "settings": {
+                "title": "Shop All Bundles",
+                "url": "shopify://collections/bundle-deal",
+                "style": "outline",
+                "align": "left",
+                "show_arrow": true,
+                "visibility": "desktop"
+              }
+            }
+          },
+          "block_order": [
+            "category_1",
+            "category_2",
+            "category_3",
+            "category_4",
+            "shop_all"
+          ]
+        },
+        "sale_panel": {
+          "type": "_header-nav-campaign",
+          "settings": {
+            "title": "导航｜Sale",
+            "label": "Sale",
+            "menu_key": "sale",
+            "sidebar_title": "Shop the Sale",
+            "mobile_shop_all_label": "Shop All",
+            "mobile_shop_all_link": "shopify://collections/campaign",
+            "show_category_button": true
+          },
+          "blocks": {
+            "category_1": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Fall Mega Sale",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "campaign",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All Fall Mega Sale"
+              },
+              "blocks": {}
+            },
+            "category_2": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Weekly Hot Deals",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "deal-of-the-week",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All Weekly Hot Deals"
+              },
+              "blocks": {}
+            },
+            "category_4": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Mega Clearance Sale",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "mega-clearance-sale",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All Mega Clearance Sale"
+              },
+              "blocks": {}
+            },
+            "category_5": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "New Customer -$30 Off",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "new-customer",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All New Customer -$30 Off"
+              },
+              "blocks": {}
+            },
+            "category_6": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Outlet",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "outlet",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All Outlet"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "category_1",
+            "category_2",
+            "category_4",
+            "category_5",
+            "category_6"
+          ]
+        },
         "new_panel": {
           "type": "_header-nav-group",
           "settings": {
@@ -691,7 +904,7 @@
             "label": "Accessories",
             "menu_key": "accessories",
             "mobile_shop_all_label": "Shop All",
-            "mobile_shop_all_link": "",
+            "mobile_shop_all_link": "shopify://collections/heated-accessories",
             "emphasize": false
           },
           "blocks": {
@@ -700,7 +913,7 @@
               "settings": {
                 "title": "Batteries & Power",
                 "role": "group",
-                "mobile_open": true
+                "mobile_open": false
               },
               "blocks": {
                 "header_nav_feature_E3KjEb": {
@@ -745,48 +958,251 @@
               "settings": {
                 "title": "Heated Accessories",
                 "role": "group",
-                "mobile_open": true
+                "mobile_open": false
               },
               "blocks": {
                 "header_nav_feature_dYUPd9": {
                   "type": "_header-nav-feature",
                   "name": "Feature link",
                   "settings": {
-                    "title": "Feature",
+                    "title": "Gloves & Mittens",
                     "description": "",
                     "url": ""
                   },
                   "blocks": {}
+                },
+                "socks": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Socks",
+                    "description": "",
+                    "url": ""
+                  }
+                },
+                "hats": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Hats",
+                    "description": "",
+                    "url": ""
+                  }
+                },
+                "scarves": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Scarves & Shawl",
+                    "description": "",
+                    "url": ""
+                  }
+                },
+                "warmers": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Hand Warmers",
+                    "description": "",
+                    "url": ""
+                  }
                 }
               },
               "block_order": [
-                "header_nav_feature_dYUPd9"
+                "header_nav_feature_dYUPd9",
+                "socks",
+                "hats",
+                "scarves",
+                "warmers"
               ]
             },
-            "header_nav_column_qipUBa": {
-              "type": "_header-nav-column",
+            "promo_1": {
+              "type": "_header-nav-promo",
               "settings": {
-                "title": "",
-                "role": "group",
-                "mobile_open": true
+                "preset_image": "volcano",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Volcano™ Flagship Heated Vest",
+                "description": "Built for -40°F",
+                "url": "shopify://pages/volcano-series",
+                "mobile_visible": true
               },
               "blocks": {}
+            },
+            "promo_2": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "preset_image": "apex",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Apex™ Riding System",
+                "description": "Powered by your bike",
+                "url": "shopify://pages/heated-riding-system",
+                "mobile_visible": true
+              },
+              "blocks": {}
+            },
+            "shop_all": {
+              "type": "_header-nav-button",
+              "settings": {
+                "title": "Shop all Accessories",
+                "url": "shopify://collections/heated-accessories",
+                "style": "text",
+                "align": "left",
+                "show_arrow": true,
+                "visibility": "desktop"
+              }
             }
           },
           "block_order": [
             "header_nav_column_a4LyLr",
             "header_nav_column_qnziTN",
-            "header_nav_column_qipUBa"
+            "promo_1",
+            "promo_2",
+            "shop_all"
+          ]
+        },
+        "gift_panel": {
+          "type": "_header-nav-group",
+          "settings": {
+            "title": "导航｜Gift",
+            "label": "Gift",
+            "menu_key": "gift",
+            "mobile_shop_all_label": "Shop All",
+            "mobile_shop_all_link": "",
+            "emphasize": true
+          },
+          "blocks": {
+            "recipient": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Gifts by Recipient",
+                "role": "group",
+                "mobile_open": false
+              },
+              "blocks": {
+                "menu": {
+                  "type": "_header-nav-menu",
+                  "settings": {
+                    "menu": "",
+                    "title_1": "For Him",
+                    "url_1": "shopify://collections/men",
+                    "title_2": "For Her",
+                    "url_2": "shopify://collections/womens",
+                    "title_3": "For Kids",
+                    "url_3": "",
+                    "title_4": "Couple & Family",
+                    "url_4": "shopify://collections/couple-family"
+                  }
+                }
+              },
+              "block_order": [
+                "menu"
+              ]
+            },
+            "price": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Gift by Price",
+                "role": "group",
+                "mobile_open": false
+              },
+              "blocks": {
+                "menu": {
+                  "type": "_header-nav-menu",
+                  "settings": {
+                    "menu": "",
+                    "title_1": "Under $100",
+                    "url_1": "",
+                    "title_2": "Under $150",
+                    "url_2": "",
+                    "title_3": "$200 & Up",
+                    "url_3": ""
+                  }
+                }
+              },
+              "block_order": [
+                "menu"
+              ]
+            },
+            "card": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Gift Card",
+                "role": "group",
+                "mobile_open": false
+              },
+              "blocks": {
+                "menu": {
+                  "type": "_header-nav-menu",
+                  "settings": {
+                    "menu": "",
+                    "title_1": "Venustas Gift Card",
+                    "url_1": ""
+                  }
+                }
+              },
+              "block_order": [
+                "menu"
+              ]
+            },
+            "promo_1": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "preset_image": "volcano",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Volcano™ Flagship Heated Vest",
+                "description": "Built for -40°F",
+                "url": "shopify://pages/volcano-series",
+                "mobile_visible": true
+              },
+              "blocks": {}
+            },
+            "promo_2": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "preset_image": "apex",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Apex™ Riding System",
+                "description": "Powered by your bike",
+                "url": "shopify://pages/heated-riding-system",
+                "mobile_visible": true
+              },
+              "blocks": {}
+            },
+            "guide": {
+              "type": "_header-nav-button",
+              "settings": {
+                "title": "Shop the Gift Guide",
+                "url": "shopify://pages/gift-guide",
+                "style": "text",
+                "align": "left",
+                "show_arrow": true,
+                "visibility": "desktop"
+              }
+            }
+          },
+          "block_order": [
+            "recipient",
+            "price",
+            "card",
+            "promo_1",
+            "promo_2",
+            "guide"
           ]
         }
       },
       "block_order": [
+        "bundles_panel",
+        "sale_panel",
         "new_panel",
         "men_panel",
         "women_panel",
-        "header_nav_group_HHkAQK"
+        "header_nav_group_HHkAQK",
+        "gift_panel"
       ],
-      "settings": {}
+      "settings": {
+        "logo": "shopify://shop_images/main-header-logo.png",
+        "help_link": "https://venustas.zendesk.com/hc/en-us",
+        "return_center_link": "https://venustas.returnscenter.com/?ref=powr-io",
+        "loyalty_link": "#smile-home",
+        "country_us_url": "https://venustas.com/",
+        "country_ca_url": "https://venustas.ca/"
+      }
     },
     "search": {
       "type": "search",
@@ -932,6 +1348,7 @@
     }
   },
   "order": [
+    "announcement_bar",
     "header_new",
     "search",
     "popup-cart"
