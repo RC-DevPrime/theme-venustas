@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "header",
   "name": "Header New",
@@ -9,11 +18,11 @@
           "type": "_header-nav-group",
           "settings": {
             "title": "导航｜New",
+            "label": "New",
             "menu_key": "new",
             "mobile_shop_all_label": "Shop All",
             "mobile_shop_all_link": "",
-            "emphasize": false,
-            "label": "New"
+            "emphasize": false
           },
           "blocks": {
             "quick": {
@@ -24,22 +33,55 @@
                 "mobile_open": true
               },
               "blocks": {
+                "header_nav_featured_yprdGa": {
+                  "type": "_header-nav-featured",
+                  "name": "Featured link",
+                  "settings": {
+                    "title": "New Arrival",
+                    "url": ""
+                  },
+                  "blocks": {}
+                },
+                "header_nav_featured_Kw4bhq": {
+                  "type": "_header-nav-featured",
+                  "name": "Featured link",
+                  "settings": {
+                    "title": "New Arrival",
+                    "url": ""
+                  },
+                  "blocks": {}
+                },
+                "header_nav_feature_dYTKeL": {
+                  "type": "_header-nav-feature",
+                  "name": "Feature link",
+                  "settings": {
+                    "title": "Feature",
+                    "description": "",
+                    "url": ""
+                  },
+                  "blocks": {}
+                },
                 "arrival": {
                   "type": "_header-nav-featured",
                   "settings": {
                     "title": "New Arrival",
                     "url": "shopify://collections/new-arrivals"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "color": {
                   "type": "_header-nav-featured",
                   "settings": {
                     "title": "New Color",
                     "url": "shopify://collections/new-arrivals"
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
+                "header_nav_featured_yprdGa",
+                "header_nav_featured_Kw4bhq",
+                "header_nav_feature_dYTKeL",
                 "arrival",
                 "color"
               ]
@@ -58,7 +100,8 @@
                     "title": "Volcano™ Heated Vest",
                     "description": "Men’s & women’s · Built for -40°F",
                     "url": "shopify://pages/volcano-series"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "apex": {
                   "type": "_header-nav-feature",
@@ -66,7 +109,8 @@
                     "title": "Apex™ Riding System",
                     "description": "12V heated jacket & pant liners",
                     "url": "shopify://pages/heated-riding-system"
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -88,7 +132,8 @@
                     "title": "Safety Jacket",
                     "description": "Men’s · 12V",
                     "url": "shopify://collections/new-arrivals"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "tactical": {
                   "type": "_header-nav-feature",
@@ -96,7 +141,8 @@
                     "title": "Tactical Jacket",
                     "description": "Men’s · 12V",
                     "url": "shopify://collections/new-arrivals"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "hunting": {
                   "type": "_header-nav-feature",
@@ -104,7 +150,8 @@
                     "title": "Hunting Pants",
                     "description": "Men’s · 7.4V",
                     "url": "shopify://collections/new-arrivals"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "hat": {
                   "type": "_header-nav-feature",
@@ -112,7 +159,8 @@
                     "title": "Heated Hat",
                     "description": "",
                     "url": "shopify://collections/new-arrivals"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "warmer": {
                   "type": "_header-nav-feature",
@@ -120,7 +168,8 @@
                     "title": "Hand Warmer",
                     "description": "",
                     "url": "shopify://collections/new-arrivals"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "hoodie": {
                   "type": "_header-nav-feature",
@@ -128,7 +177,8 @@
                     "title": "Kids Heated Hoodie",
                     "description": "7.4V",
                     "url": "shopify://collections/new-arrivals"
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -144,23 +194,27 @@
               "type": "_header-nav-promo",
               "settings": {
                 "image": "shopify://shop_images/Volcano-Mega-2.webp",
+                "preset_image": "none",
                 "eyebrow": "JUST LAUNCHED",
                 "title": "Volcano™ Flagship Vest – Now Available",
                 "description": "Built for -40°F",
                 "url": "shopify://pages/volcano-series",
                 "mobile_visible": true
-              }
+              },
+              "blocks": {}
             },
             "promo_2": {
               "type": "_header-nav-promo",
               "settings": {
                 "image": "shopify://shop_images/Apex-Series-Founder-Pass-Mega-Menu.webp",
+                "preset_image": "none",
                 "eyebrow": "JUST LAUNCHED",
                 "title": "Apex™ Riding System – Now Available",
                 "description": "Powered by your bike",
                 "url": "shopify://pages/heated-riding-system",
                 "mobile_visible": true
-              }
+              },
+              "blocks": {}
             },
             "shop_all": {
               "type": "_header-nav-button",
@@ -170,8 +224,12 @@
                 "style": "text",
                 "align": "left",
                 "show_arrow": true,
-                "visibility": "desktop"
-              }
+                "visibility": "desktop",
+                "secondary_title": "",
+                "secondary_url": "",
+                "secondary_visibility": "both"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -207,14 +265,16 @@
                   "settings": {
                     "title": "New Arrivals",
                     "url": "shopify://collections/new-arrivals"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "best_sellers": {
                   "type": "_header-nav-featured",
                   "settings": {
                     "title": "Best Sellers",
                     "url": "shopify://collections/men"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "categories": {
                   "type": "_header-nav-image-menu",
@@ -231,8 +291,13 @@
                     "title_5": "Gloves & Mittens",
                     "url_5": "",
                     "title_6": "Socks",
-                    "url_6": ""
-                  }
+                    "url_6": "",
+                    "title_7": "",
+                    "url_7": "",
+                    "title_8": "",
+                    "url_8": ""
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -255,11 +320,18 @@
                     "menu": "",
                     "title_1": "Fleece",
                     "url_1": "",
+                    "description_1": "",
                     "title_2": "Down",
                     "url_2": "",
+                    "description_2": "",
                     "title_3": "Waterproof Shell",
-                    "url_3": ""
-                  }
+                    "url_3": "",
+                    "description_3": "",
+                    "title_4": "",
+                    "url_4": "",
+                    "description_4": ""
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -280,7 +352,8 @@
                     "title": "Ultra Warm 12V",
                     "description": "Down to -4°F",
                     "url": ""
-                  }
+                  },
+                  "blocks": {}
                 },
                 "extreme": {
                   "type": "_header-nav-feature",
@@ -288,7 +361,8 @@
                     "title": "Extreme Cold",
                     "description": "Built for -40°F",
                     "url": "shopify://pages/volcano-series"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "all_day": {
                   "type": "_header-nav-feature",
@@ -296,7 +370,8 @@
                     "title": "All-Day Warmth",
                     "description": "Up to 20 hours",
                     "url": ""
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -329,34 +404,13 @@
                     "title_4": "Riding",
                     "url_4": "",
                     "description_4": "Vehicle-powered 12V liners"
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
                 "collections"
               ]
-            },
-            "volcano_card": {
-              "type": "_header-nav-promo",
-              "settings": {
-                "preset_image": "volcano",
-                "eyebrow": "JUST LAUNCHED",
-                "title": "Volcano™ Flagship Heated Vest",
-                "description": "Built for -40°F",
-                "url": "shopify://pages/volcano-series",
-                "mobile_visible": true
-              }
-            },
-            "apex_card": {
-              "type": "_header-nav-promo",
-              "settings": {
-                "preset_image": "apex",
-                "eyebrow": "JUST LAUNCHED",
-                "title": "Apex™ Riding System",
-                "description": "Powered by your bike",
-                "url": "shopify://pages/heated-riding-system",
-                "mobile_visible": true
-              }
             },
             "footer": {
               "type": "_header-nav-button",
@@ -370,7 +424,32 @@
                 "secondary_title": "Our Technology: Heatwave™ & PowerCore™",
                 "secondary_url": "shopify://pages/technology",
                 "secondary_visibility": "both"
-              }
+              },
+              "blocks": {}
+            },
+            "volcano_card": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "preset_image": "volcano",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Volcano™ Flagship Heated Vest",
+                "description": "Built for -40°F",
+                "url": "shopify://pages/volcano-series",
+                "mobile_visible": true
+              },
+              "blocks": {}
+            },
+            "apex_card": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "preset_image": "apex",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Apex™ Riding System",
+                "description": "Powered by your bike",
+                "url": "shopify://pages/heated-riding-system",
+                "mobile_visible": true
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -407,14 +486,16 @@
                   "settings": {
                     "title": "New Arrivals",
                     "url": "shopify://collections/new-arrivals"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "best_sellers": {
                   "type": "_header-nav-featured",
                   "settings": {
                     "title": "Best Sellers",
                     "url": "shopify://collections/womens"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "categories": {
                   "type": "_header-nav-image-menu",
@@ -431,8 +512,13 @@
                     "title_5": "Gloves & Mittens",
                     "url_5": "",
                     "title_6": "Socks",
-                    "url_6": ""
-                  }
+                    "url_6": "",
+                    "title_7": "",
+                    "url_7": "",
+                    "title_8": "",
+                    "url_8": ""
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -455,13 +541,18 @@
                     "menu": "",
                     "title_1": "Fleece",
                     "url_1": "",
+                    "description_1": "",
                     "title_2": "Quilted",
                     "url_2": "",
+                    "description_2": "",
                     "title_3": "Down",
                     "url_3": "",
+                    "description_3": "",
                     "title_4": "Waterproof Shell",
-                    "url_4": ""
-                  }
+                    "url_4": "",
+                    "description_4": ""
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -482,7 +573,8 @@
                     "title": "Ultra Warm 12V",
                     "description": "Down to -4°F",
                     "url": ""
-                  }
+                  },
+                  "blocks": {}
                 },
                 "extreme": {
                   "type": "_header-nav-feature",
@@ -490,7 +582,8 @@
                     "title": "Extreme Cold",
                     "description": "Built for -40°F",
                     "url": "shopify://pages/volcano-series"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "all_day": {
                   "type": "_header-nav-feature",
@@ -498,7 +591,8 @@
                     "title": "All-Day Warmth",
                     "description": "Up to 20 hours",
                     "url": ""
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -521,35 +615,23 @@
                     "menu": "",
                     "title_1": "Recycled",
                     "url_1": "",
-                    "description_1": ""
-                  }
+                    "description_1": "",
+                    "title_2": "",
+                    "url_2": "",
+                    "description_2": "",
+                    "title_3": "",
+                    "url_3": "",
+                    "description_3": "",
+                    "title_4": "",
+                    "url_4": "",
+                    "description_4": ""
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
                 "collections"
               ]
-            },
-            "volcano_card": {
-              "type": "_header-nav-promo",
-              "settings": {
-                "preset_image": "volcano",
-                "eyebrow": "JUST LAUNCHED",
-                "title": "Volcano™ Flagship Heated Vest",
-                "description": "Built for -40°F",
-                "url": "shopify://pages/volcano-series",
-                "mobile_visible": true
-              }
-            },
-            "apex_card": {
-              "type": "_header-nav-promo",
-              "settings": {
-                "preset_image": "apex",
-                "eyebrow": "JUST LAUNCHED",
-                "title": "Apex™ Riding System",
-                "description": "Powered by your bike",
-                "url": "shopify://pages/heated-riding-system",
-                "mobile_visible": true
-              }
             },
             "footer": {
               "type": "_header-nav-button",
@@ -563,7 +645,32 @@
                 "secondary_title": "Our Technology: Heatwave™ & PowerCore™",
                 "secondary_url": "shopify://pages/technology",
                 "secondary_visibility": "both"
-              }
+              },
+              "blocks": {}
+            },
+            "volcano_card": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "preset_image": "volcano",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Volcano™ Flagship Heated Vest",
+                "description": "Built for -40°F",
+                "url": "shopify://pages/volcano-series",
+                "mobile_visible": true
+              },
+              "blocks": {}
+            },
+            "apex_card": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "preset_image": "apex",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Apex™ Riding System",
+                "description": "Powered by your bike",
+                "url": "shopify://pages/heated-riding-system",
+                "mobile_visible": true
+              },
+              "blocks": {}
             }
           },
           "block_order": [
