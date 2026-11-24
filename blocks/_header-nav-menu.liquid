@@ -1,0 +1,137 @@
+{%- liquid
+  assign use_menu = false
+  assign item_count = 4
+  if block.settings.menu.links != blank
+    assign use_menu = true
+    assign item_count = block.settings.menu.links.size
+  endif
+-%}
+{%- capture menu_items -%}
+  {%- for item_index in (1..item_count) -%}
+    {%- liquid
+      assign item_description = blank
+      assign item_current = false
+      if use_menu
+        assign item_link = block.settings.menu.links[forloop.index0]
+        assign item_title = item_link.title
+        assign item_url = item_link.url
+        assign item_current = item_link.current
+      else
+        assign title_key = 'title_' | append: item_index
+        assign url_key = 'url_' | append: item_index
+        assign description_key = 'description_' | append: item_index
+        assign item_title = block.settings[title_key]
+        assign item_url = block.settings[url_key]
+        assign item_description = block.settings[description_key]
+      endif
+    -%}
+    {%- if item_title != blank -%}
+      <li>
+        {%- if item_url != blank -%}<a href="{{ item_url | escape }}"{% if item_current %} aria-current="page"{% endif %}>{%- else -%}<span class="header-new__menu-label">{%- endif -%}
+          <span>{{ item_title | escape }}</span>
+          {%- if item_description != blank -%}<span class="header-new__menu-description">{{ item_description | escape | newline_to_br }}</span>{%- endif -%}
+        {%- if item_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- assign menu_items = menu_items | strip -%}
+{%- if menu_items != blank -%}
+  <ul class="header-new__menu" {{ block.shopify_attributes }}>{{ menu_items }}</ul>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Menu list",
+  "tag": null,
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "A non-empty menu replaces the initial links below."
+    },
+    {
+      "type": "header",
+      "content": "Initial link 1"
+    },
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Initial link text"
+    },
+    {
+      "type": "url",
+      "id": "url_1",
+      "label": "Initial link URL"
+    },
+    {
+      "type": "textarea",
+      "id": "description_1",
+      "label": "Initial link description"
+    },
+    {
+      "type": "header",
+      "content": "Initial link 2"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Initial link text"
+    },
+    {
+      "type": "url",
+      "id": "url_2",
+      "label": "Initial link URL"
+    },
+    {
+      "type": "textarea",
+      "id": "description_2",
+      "label": "Initial link description"
+    },
+    {
+      "type": "header",
+      "content": "Initial link 3"
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Initial link text"
+    },
+    {
+      "type": "url",
+      "id": "url_3",
+      "label": "Initial link URL"
+    },
+    {
+      "type": "textarea",
+      "id": "description_3",
+      "label": "Initial link description"
+    },
+    {
+      "type": "header",
+      "content": "Initial link 4"
+    },
+    {
+      "type": "text",
+      "id": "title_4",
+      "label": "Initial link text"
+    },
+    {
+      "type": "url",
+      "id": "url_4",
+      "label": "Initial link URL"
+    },
+    {
+      "type": "textarea",
+      "id": "description_4",
+      "label": "Initial link description"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Menu list"
+    }
+  ]
+}
+{% endschema %}

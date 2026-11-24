@@ -1,0 +1,230 @@
+{%- liquid
+  assign use_menu = false
+  assign item_count = 8
+  if block.settings.menu.links != blank
+    assign use_menu = true
+    assign item_count = block.settings.menu.links.size
+  endif
+-%}
+{%- capture menu_items -%}
+  {%- for item_index in (1..item_count) -%}
+    {%- liquid
+      assign item_image = blank
+      assign item_current = false
+      if use_menu
+        assign item_link = block.settings.menu.links[forloop.index0]
+        assign item_title = item_link.title
+        assign item_url = item_link.url
+        assign item_current = item_link.current
+        assign match_url = item_url | append: '' | remove: shop.url | split: '?' | first | split: '#' | first
+        for image_index in (1..8)
+          assign url_key = 'url_' | append: image_index
+          assign image_key = 'image_' | append: image_index
+          assign image_url = block.settings[url_key] | append: '' | remove: shop.url | split: '?' | first | split: '#' | first
+          if match_url == image_url
+            assign item_image = block.settings[image_key]
+            break
+          endif
+        endfor
+      else
+        assign title_key = 'title_' | append: item_index
+        assign url_key = 'url_' | append: item_index
+        assign image_key = 'image_' | append: item_index
+        assign item_title = block.settings[title_key]
+        assign item_url = block.settings[url_key]
+        assign item_image = block.settings[image_key]
+      endif
+      assign image_alt = item_image.alt | default: item_title
+    -%}
+    {%- if item_title != blank -%}
+      <li class="header-new__image-menu-item">
+        {%- if item_url != blank -%}<a class="header-new__image-menu-link" href="{{ item_url | escape }}"{% if item_current %} aria-current="page"{% endif %}>{%- else -%}<span class="header-new__image-menu-link">{%- endif -%}
+          <span class="header-new__image-menu-media">
+            {%- if item_image != blank -%}
+              {{ item_image | image_url: width: 360 | image_tag: class: 'header-new__image-menu-image', widths: '120, 180, 240, 360', sizes: '(max-width: 767px) calc((100vw - 72px) / 3), 1px', alt: image_alt, loading: 'lazy' }}
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'header-new__image-menu-placeholder' }}
+            {%- endif -%}
+          </span>
+          <span class="header-new__image-menu-title">{{ item_title | escape }}</span>
+        {%- if item_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- assign menu_items = menu_items | strip -%}
+{%- if menu_items != blank -%}
+  <ul class="header-new__image-menu" {{ block.shopify_attributes }}>{{ menu_items }}</ul>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Category image menu",
+  "tag": null,
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "Menu links control names, destinations and order. Image slots match links by URL. Initial slot text is used only when the menu is empty."
+    },
+    {
+      "type": "header",
+      "content": "Category 1"
+    },
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Initial category name"
+    },
+    {
+      "type": "url",
+      "id": "url_1",
+      "label": "Matching category link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Mobile category image"
+    },
+    {
+      "type": "header",
+      "content": "Category 2"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Initial category name"
+    },
+    {
+      "type": "url",
+      "id": "url_2",
+      "label": "Matching category link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Mobile category image"
+    },
+    {
+      "type": "header",
+      "content": "Category 3"
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Initial category name"
+    },
+    {
+      "type": "url",
+      "id": "url_3",
+      "label": "Matching category link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Mobile category image"
+    },
+    {
+      "type": "header",
+      "content": "Category 4"
+    },
+    {
+      "type": "text",
+      "id": "title_4",
+      "label": "Initial category name"
+    },
+    {
+      "type": "url",
+      "id": "url_4",
+      "label": "Matching category link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Mobile category image"
+    },
+    {
+      "type": "header",
+      "content": "Category 5"
+    },
+    {
+      "type": "text",
+      "id": "title_5",
+      "label": "Initial category name"
+    },
+    {
+      "type": "url",
+      "id": "url_5",
+      "label": "Matching category link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Mobile category image"
+    },
+    {
+      "type": "header",
+      "content": "Category 6"
+    },
+    {
+      "type": "text",
+      "id": "title_6",
+      "label": "Initial category name"
+    },
+    {
+      "type": "url",
+      "id": "url_6",
+      "label": "Matching category link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "Mobile category image"
+    },
+    {
+      "type": "header",
+      "content": "Category 7"
+    },
+    {
+      "type": "text",
+      "id": "title_7",
+      "label": "Initial category name"
+    },
+    {
+      "type": "url",
+      "id": "url_7",
+      "label": "Matching category link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_7",
+      "label": "Mobile category image"
+    },
+    {
+      "type": "header",
+      "content": "Category 8"
+    },
+    {
+      "type": "text",
+      "id": "title_8",
+      "label": "Initial category name"
+    },
+    {
+      "type": "url",
+      "id": "url_8",
+      "label": "Matching category link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_8",
+      "label": "Mobile category image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category image menu"
+    }
+  ]
+}
+{% endschema %}

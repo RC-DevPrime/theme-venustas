@@ -1,0 +1,21 @@
+{%- if block.settings.title != blank -%}
+  <div class="header-new__featured" {{ block.shopify_attributes }}>
+    {%- if block.settings.url != blank -%}
+      <a href="{{ block.settings.url }}">{{ block.settings.title | escape }}</a>
+    {%- else -%}
+      <span>{{ block.settings.title | escape }}</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Featured link",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Link text", "default": "New Arrival" },
+    { "type": "url", "id": "url", "label": "Link" }
+  ],
+  "presets": [{ "name": "Featured link" }]
+}
+{% endschema %}

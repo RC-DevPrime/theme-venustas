@@ -1,0 +1,21 @@
+{%- if block.settings.title != blank -%}
+  <div class="header-new__feature" {{ block.shopify_attributes }}>
+    {%- if block.settings.url != blank -%}<a class="header-new__feature-link" href="{{ block.settings.url }}">{%- else -%}<div class="header-new__feature-link">{%- endif -%}
+      <span class="header-new__feature-title">{{ block.settings.title | escape }}</span>
+      {%- if block.settings.description != blank -%}<span class="header-new__feature-description">{{ block.settings.description | escape | newline_to_br }}</span>{%- endif -%}
+    {%- if block.settings.url != blank -%}</a>{%- else -%}</div>{%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Feature link",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Link text", "default": "Feature" },
+    { "type": "textarea", "id": "description", "label": "Feature description" },
+    { "type": "url", "id": "url", "label": "Link" }
+  ],
+  "presets": [{ "name": "Feature link" }]
+}
+{% endschema %}

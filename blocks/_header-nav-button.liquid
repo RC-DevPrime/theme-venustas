@@ -1,0 +1,156 @@
+{%- liquid
+  assign has_primary = false
+  assign has_secondary = false
+  if block.settings.title != blank and block.settings.url != blank
+    assign has_primary = true
+  endif
+  if block.settings.secondary_title != blank and block.settings.secondary_url != blank
+    assign has_secondary = true
+  endif
+  assign footer_visibility = block.settings.visibility
+  unless has_primary
+    assign footer_visibility = block.settings.secondary_visibility
+  endunless
+  if has_primary and has_secondary
+    unless block.settings.visibility == block.settings.secondary_visibility
+      assign footer_visibility = 'both'
+    endunless
+  endif
+-%}
+{%- if has_primary or has_secondary -%}
+  <div class="header-new__footer header-new__footer--{{ block.settings.align }} header-new__footer--{{ footer_visibility }}{% if has_primary and has_secondary %} header-new__footer--paired{% endif %}" data-header-footer {{ block.shopify_attributes }}>
+    {%- if has_primary -%}
+      <a class="header-new__button header-new__button--{{ block.settings.style }} header-new__button--{{ block.settings.visibility }}" href="{{ block.settings.url | escape }}">
+        {{- block.settings.title | escape -}}
+        {%- if block.settings.show_arrow -%}<span class="header-new__icon">{% render 'header-icons', icon: 'chevron-right' %}</span>{%- endif -%}
+      </a>
+    {%- endif -%}
+    {%- if has_secondary -%}
+      <a class="header-new__button header-new__button--secondary header-new__button--{{ block.settings.secondary_visibility }}" href="{{ block.settings.secondary_url | escape }}">
+        {{- block.settings.secondary_title | escape -}}
+        {%- if block.settings.show_arrow -%}<span class="header-new__icon">{% render 'header-icons', icon: 'chevron-right' %}</span>{%- endif -%}
+      </a>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Bottom button",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Button text",
+      "default": "Shop all new arrivals"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Link"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "options": [
+        {
+          "value": "text",
+          "label": "Text link"
+        },
+        {
+          "value": "outline",
+          "label": "Outline pill"
+        },
+        {
+          "value": "solid",
+          "label": "Solid"
+        }
+      ],
+      "default": "text"
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow",
+      "label": "Show arrow",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "label": "Show on",
+      "options": [
+        {
+          "value": "desktop",
+          "label": "Desktop"
+        },
+        {
+          "value": "mobile",
+          "label": "Mobile"
+        },
+        {
+          "value": "both",
+          "label": "Desktop and mobile"
+        }
+      ],
+      "default": "both"
+    },
+    {
+      "type": "text",
+      "id": "secondary_title",
+      "label": "Secondary link text"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary link"
+    },
+    {
+      "type": "select",
+      "id": "secondary_visibility",
+      "label": "Secondary link display",
+      "options": [
+        {
+          "value": "desktop",
+          "label": "Desktop"
+        },
+        {
+          "value": "mobile",
+          "label": "Mobile"
+        },
+        {
+          "value": "both",
+          "label": "Desktop and mobile"
+        }
+      ],
+      "default": "both"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bottom button"
+    }
+  ]
+}
+{% endschema %}

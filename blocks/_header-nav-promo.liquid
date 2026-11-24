@@ -1,0 +1,46 @@
+{%- liquid
+  assign promo_image = block.settings.image
+  assign promo_title = block.settings.title
+  if block.settings.url.type == 'product_link'
+    assign promo_product = block.settings.url.object
+    assign promo_image = promo_image | default: promo_product.featured_image
+    assign promo_title = promo_title | default: promo_product.title
+  endif
+-%}
+<div class="header-new__promo{% unless block.settings.mobile_visible %} header-new__promo--desktop{% endunless %}" data-header-promo {{ block.shopify_attributes }}>
+  {%- if block.settings.url != blank -%}<a class="header-new__promo-link" href="{{ block.settings.url }}">{%- else -%}<div class="header-new__promo-link">{%- endif -%}
+    {%- if promo_image != blank -%}
+      {{ promo_image | image_url: width: 684 | image_tag: class: 'header-new__promo-image', widths: '228, 342, 456, 684', sizes: '(max-width: 767px) calc((100vw - 56px) / 2), 228px', loading: 'lazy' }}
+    {%- elsif block.settings.preset_image == 'volcano' -%}
+      <img class="header-new__promo-image" src="{{ 'header-new-volcano.jpg' | asset_img_url: '456x' }}" srcset="{{ 'header-new-volcano.jpg' | asset_img_url: '228x' }} 228w, {{ 'header-new-volcano.jpg' | asset_img_url: '456x' }} 456w, {{ 'header-new-volcano.jpg' | asset_img_url: '684x' }} 684w" sizes="(max-width: 767px) calc((100vw - 56px) / 2), 228px" alt="{{ promo_title | escape }}" width="1080" height="1350" loading="lazy">
+    {%- elsif block.settings.preset_image == 'apex' -%}
+      <img class="header-new__promo-image" src="{{ 'header-new-apex.jpg' | asset_img_url: '456x' }}" srcset="{{ 'header-new-apex.jpg' | asset_img_url: '228x' }} 228w, {{ 'header-new-apex.jpg' | asset_img_url: '456x' }} 456w, {{ 'header-new-apex.jpg' | asset_img_url: '684x' }} 684w" sizes="(max-width: 767px) calc((100vw - 56px) / 2), 228px" alt="{{ promo_title | escape }}" width="1080" height="1350" loading="lazy">
+    {%- endif -%}
+    <div class="header-new__promo-copy">
+      {%- if block.settings.eyebrow != blank -%}<span class="header-new__promo-eyebrow">{{ block.settings.eyebrow | escape }}</span>{%- endif -%}
+      {%- if promo_title != blank -%}<span class="header-new__promo-title">{{ promo_title | escape }}</span>{%- endif -%}
+      {%- if block.settings.description != blank -%}<span class="header-new__promo-description">{{ block.settings.description | escape | newline_to_br }}</span>{%- endif -%}
+    </div>
+  {%- if block.settings.url != blank -%}</a>{%- else -%}</div>{%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Promotion card",
+  "tag": null,
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "select", "id": "preset_image", "label": "Default campaign image", "info": "Used only when no image or product image is available.", "options": [
+      { "value": "none", "label": "None" },
+      { "value": "volcano", "label": "Volcano" },
+      { "value": "apex", "label": "Apex" }
+    ], "default": "none" },
+    { "type": "text", "id": "eyebrow", "label": "Short text", "default": "JUST LAUNCHED" },
+    { "type": "text", "id": "title", "label": "Title" },
+    { "type": "textarea", "id": "description", "label": "Description" },
+    { "type": "url", "id": "url", "label": "Link", "info": "Select a product to use its image and title when these fields are empty." },
+    { "type": "checkbox", "id": "mobile_visible", "label": "Show on mobile", "default": true }
+  ],
+  "presets": [{ "name": "Promotion card" }]
+}
+{% endschema %}

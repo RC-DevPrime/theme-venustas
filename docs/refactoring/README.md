@@ -1,0 +1,58 @@
+# Shopify Theme 重构知识库
+
+2026-11-23 后续增量：[Men／Women 四列导航](logs/header/2026-11-23-men-women-navigation.md) 已按本次授权实现，旧代码保留，未扩展其他导航。
+
+2026-11-23 增量：用户批准实施 New 导航首批，当前本地 Header 入口为 header-group-new，旧代码保留。见 [New 实施日志](logs/header/2026-11-23-new-navigation.md) 与 [ADR-0002](decisions/0002-header-new-theme-blocks.md)。以下“未开始”描述为初始化时的历史状态；Collection、Product Detail 尚未启动。
+
+初始化：2026-11-23。范围：当前本地工作区源代码；未连接线上主题或浏览器。当前阶段：知识库已初始化，等待审核，尚未开始业务重构。
+
+## 入口与顺序
+
+1. [Header](modules/header/README.md)：第一阶段，等待方案与批准。
+2. [Collection](modules/collection/README.md)：后续阶段，不自动启动。
+3. [Product Detail](modules/product-detail/README.md)：后续阶段，不自动启动。
+
+## 目录用途
+
+| 路径 | 内容 |
+| --- | --- |
+| [project/architecture.md](project/architecture.md) | 整体架构、资源加载和分析边界 |
+| [project/coding-standards.md](project/coding-standards.md) | 现行规则、代码事实、建议的区别 |
+| [project/module-map.md](project/module-map.md) | 模块入口和跨模块契约 |
+| modules/{模块}/README.md | 职责、阅读顺序、状态、待确认项 |
+| modules/{模块}/architecture.md | 核心流程与数据／交互依赖 |
+| modules/{模块}/files.md | 实际文件清单、静态调用链、模板启用状态 |
+| modules/{模块}/known-issues.md | 有证据的发现、历史经验、待验证风险 |
+| logs/{模块}/ | 一次任务一份日志，不覆盖旧记录 |
+| [logs/2026-11-23-knowledge-base-init.md](logs/2026-11-23-knowledge-base-init.md) | 本次跨模块初始化记录 |
+| decisions/ | 有编号的 ADR，记录重要决策及取舍 |
+| [templates/refactoring-log.md](templates/refactoring-log.md) | 重构日志模板 |
+| [templates/adr.md](templates/adr.md) | ADR 模板 |
+
+模块日志目录中的 `.gitkeep` 仅用于让空目录可被 Git 保存，不代表已有重构任务。根目录 [AGENTS.md](../../AGENTS.md) 负责要求 Codex 按范围读取和维护文档；没有新增后台服务、数据库或自动运行脚本。
+
+## 读取流程
+
+修改前读取本入口、相关 project 文档、对应模块的四份文档；按模块／共享文件／关键词检索相关历史日志和 ADR，再阅读实际源码。跨模块修改必须读所有受影响模块。不能以文档代替源码核对。
+
+提交完整方案：目标、证据、文件范围、依赖影响、实施步骤、保留行为、验证方法、风险、回退方式和待确认项。业务代码必须取得用户对该方案的明确批准后才可修改。批准不自动延伸到其他文件、模块或线上发布。
+
+## 增量维护
+
+- 普通代码修改：新增必要任务日志，包含批准范围、改动、证据及实际验证。
+- 功能逻辑变化：同步更新对应模块技术档案。
+- 架构／跨模块关系变化：更新模块 architecture、files 和 project/module-map，必要时更新 project/architecture。
+- 重要技术取舍：新增 ADR；未批准的选择标记 proposed，不写成 accepted。
+- 修正文档：先核对源码；记录旧结论、修正依据和日期，保留必要历史，不每次重新生成整套文档。
+- 日志命名 `YYYY-MM-DD-简短主题.md`，同日重名加序号；ADR 使用递增四位编号。
+- 条目须区分：已确认代码事实／项目规则／建议／待验证／历史复盘。问题记录应含路径、位置或函数、适用环境、影响边界与状态。
+- 文件路径和行号是初始化快照；改动后更新受影响条目，以当前源码为准。静态字符串调用不代表分支运行，也不包含全部动态／应用依赖。
+- 不自动提交、推送、发布或开始下一个模块。完成后汇报并停止。
+
+## 当前未知
+
+线上主题与本地代码是否一致、商品／集合实际分配的 template suffix、后台菜单和 metafield/metaobject 数据、应用注入 DOM 及网络响应、实际交互和性能，均未验证。
+
+## 版本管理待处理
+
+本地 `.gitignore:5` 忽略根 `AGENTS.md`，且该文件当前未被 Git 跟踪。因此本次 AGENTS 更新在本地生效，但不会被常规 Git 添加包含；需审核后单独决定调整忽略规则或显式纳入跟踪。本次授权仅限文档与 AGENTS，未修改 `.gitignore`，未暂存、提交或推送。知识库 Markdown 本身不被该规则忽略。

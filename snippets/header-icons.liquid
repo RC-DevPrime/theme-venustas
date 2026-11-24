@@ -1,0 +1,11 @@
+{% doc %}
+  Renders an existing navigation chevron without duplicating SVG paths.
+
+  @param {string} icon - 'chevron-right' or 'chevron-left'.
+{% enddoc %}
+{%- case icon -%}
+  {%- when 'chevron-right' -%}
+    {%- render 'heating-icons', icon: 'chevron-right-16' -%}
+  {%- when 'chevron-left' -%}
+    {%- render 'heating-icons', icon: 'chevron-left-16' -%}
+{%- endcase -%}

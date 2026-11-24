@@ -1,0 +1,56 @@
+{{ 'header-new.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'header-new.js' | asset_url }}" defer></script>
+{% style %}
+  :root {
+    --announcement-current-height: 0px;
+    --announcement-height: 0px;
+    --header-nav-height: 56px;
+    --headerHeight: var(--header-nav-height);
+  }
+{% endstyle %}
+
+{%- liquid
+  assign navigation_labels = 'New|Men|Women|Kids|Accessories|Bundles|Gift|Sale' | split: '|'
+  assign navigation_paths = '/collections/new-arrivals|/collections/men|/collections/women|/collections/kids|/collections/accessories|/collections/bundles|/collections/gift|/collections/sale' | split: '|'
+  assign navigation_panel_keys = 'new|men|women' | split: '|'
+-%}
+
+<nav class="header header-new" data-header-new aria-label="Main navigation">
+  <div class="header-new__bar">
+    <button class="header-new__mobile-open" type="button" data-header-mobile-open aria-expanded="false" aria-controls="HeaderDrawer-{{ section.id }}">Menu</button>
+    <div class="header-new__drawer" id="HeaderDrawer-{{ section.id }}" data-header-drawer>
+      <div class="header-new__drawer-top">
+        <span>Menu</span>
+        <button type="button" data-header-mobile-close>Close</button>
+      </div>
+      <ul class="header-new__nav-list" data-header-main-list>
+        {%- for label in navigation_labels -%}
+          {%- assign menu_key = label | handleize -%}
+          <li class="header-new__nav-item">
+            {%- if navigation_panel_keys contains menu_key -%}
+              <button type="button" class="header-new__nav-link" data-header-toggle="{{ menu_key }}" aria-expanded="false">
+                {{- label | escape -}}
+                <span class="header-new__nav-chevron">{% render 'header-icons', icon: 'chevron-right' %}</span>
+              </button>
+            {%- else -%}
+              <a class="header-new__nav-link{% if menu_key == 'gift' %} header-new__nav-link--emphasis{% endif %}" href="{{ routes.root_url | append: navigation_paths[forloop.index0] | replace: '//', '/' }}">{{ label | escape }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+</nav>
+<div class="header-new__placeholder" aria-hidden="true"></div>
+
+{% schema %}
+{
+  "name": "Header New",
+  "class": "shopify-section-group-header-group header-new-section",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [],
+  "blocks": [{ "type": "_header-nav-group" }],
+  "presets": [{ "name": "Header New" }]
+}
+{% endschema %}

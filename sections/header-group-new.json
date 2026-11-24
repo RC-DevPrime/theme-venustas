@@ -1,0 +1,735 @@
+{
+  "type": "header",
+  "name": "Header New",
+  "sections": {
+    "header_new": {
+      "type": "header-new",
+      "blocks": {
+        "new_panel": {
+          "type": "_header-nav-group",
+          "settings": {
+            "title": "导航｜New",
+            "menu_key": "new",
+            "mobile_shop_all_label": "Shop All",
+            "mobile_shop_all_link": "",
+            "emphasize": false,
+            "label": "New"
+          },
+          "blocks": {
+            "quick": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "New Arrival",
+                "role": "category",
+                "mobile_open": true
+              },
+              "blocks": {
+                "arrival": {
+                  "type": "_header-nav-featured",
+                  "settings": {
+                    "title": "New Arrival",
+                    "url": "shopify://collections/new-arrivals"
+                  }
+                },
+                "color": {
+                  "type": "_header-nav-featured",
+                  "settings": {
+                    "title": "New Color",
+                    "url": "shopify://collections/new-arrivals"
+                  }
+                }
+              },
+              "block_order": [
+                "arrival",
+                "color"
+              ]
+            },
+            "launched": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Just Launched",
+                "role": "group",
+                "mobile_open": true
+              },
+              "blocks": {
+                "volcano": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Volcano™ Heated Vest",
+                    "description": "Men’s & women’s · Built for -40°F",
+                    "url": "shopify://pages/volcano-series"
+                  }
+                },
+                "apex": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Apex™ Riding System",
+                    "description": "12V heated jacket & pant liners",
+                    "url": "shopify://pages/heated-riding-system"
+                  }
+                }
+              },
+              "block_order": [
+                "volcano",
+                "apex"
+              ]
+            },
+            "just_in": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Just In",
+                "role": "group",
+                "mobile_open": true
+              },
+              "blocks": {
+                "safety": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Safety Jacket",
+                    "description": "Men’s · 12V",
+                    "url": "shopify://collections/new-arrivals"
+                  }
+                },
+                "tactical": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Tactical Jacket",
+                    "description": "Men’s · 12V",
+                    "url": "shopify://collections/new-arrivals"
+                  }
+                },
+                "hunting": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Hunting Pants",
+                    "description": "Men’s · 7.4V",
+                    "url": "shopify://collections/new-arrivals"
+                  }
+                },
+                "hat": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Heated Hat",
+                    "description": "",
+                    "url": "shopify://collections/new-arrivals"
+                  }
+                },
+                "warmer": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Hand Warmer",
+                    "description": "",
+                    "url": "shopify://collections/new-arrivals"
+                  }
+                },
+                "hoodie": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Kids Heated Hoodie",
+                    "description": "7.4V",
+                    "url": "shopify://collections/new-arrivals"
+                  }
+                }
+              },
+              "block_order": [
+                "safety",
+                "tactical",
+                "hunting",
+                "hat",
+                "warmer",
+                "hoodie"
+              ]
+            },
+            "promo_1": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "image": "shopify://shop_images/Volcano-Mega-2.webp",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Volcano™ Flagship Vest – Now Available",
+                "description": "Built for -40°F",
+                "url": "shopify://pages/volcano-series",
+                "mobile_visible": true
+              }
+            },
+            "promo_2": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "image": "shopify://shop_images/Apex-Series-Founder-Pass-Mega-Menu.webp",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Apex™ Riding System – Now Available",
+                "description": "Powered by your bike",
+                "url": "shopify://pages/heated-riding-system",
+                "mobile_visible": true
+              }
+            },
+            "shop_all": {
+              "type": "_header-nav-button",
+              "settings": {
+                "title": "Shop all new arrivals",
+                "url": "shopify://collections/new-arrivals",
+                "style": "text",
+                "align": "left",
+                "show_arrow": true,
+                "visibility": "desktop"
+              }
+            }
+          },
+          "block_order": [
+            "quick",
+            "launched",
+            "just_in",
+            "promo_1",
+            "promo_2",
+            "shop_all"
+          ]
+        },
+        "men_panel": {
+          "type": "_header-nav-group",
+          "settings": {
+            "title": "导航｜Men",
+            "label": "Men",
+            "menu_key": "men",
+            "mobile_shop_all_label": "Shop All",
+            "mobile_shop_all_link": "shopify://collections/men",
+            "emphasize": false
+          },
+          "blocks": {
+            "category": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Shop by Category",
+                "role": "category",
+                "mobile_open": true
+              },
+              "blocks": {
+                "new_arrivals": {
+                  "type": "_header-nav-featured",
+                  "settings": {
+                    "title": "New Arrivals",
+                    "url": "shopify://collections/new-arrivals"
+                  }
+                },
+                "best_sellers": {
+                  "type": "_header-nav-featured",
+                  "settings": {
+                    "title": "Best Sellers",
+                    "url": "shopify://collections/men"
+                  }
+                },
+                "categories": {
+                  "type": "_header-nav-image-menu",
+                  "settings": {
+                    "menu": "",
+                    "title_1": "Vests",
+                    "url_1": "",
+                    "title_2": "Jackets",
+                    "url_2": "",
+                    "title_3": "Hoodies",
+                    "url_3": "",
+                    "title_4": "Pants",
+                    "url_4": "",
+                    "title_5": "Gloves & Mittens",
+                    "url_5": "",
+                    "title_6": "Socks",
+                    "url_6": ""
+                  }
+                }
+              },
+              "block_order": [
+                "new_arrivals",
+                "best_sellers",
+                "categories"
+              ]
+            },
+            "style": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Shop by Style",
+                "role": "group",
+                "mobile_open": true
+              },
+              "blocks": {
+                "styles": {
+                  "type": "_header-nav-menu",
+                  "settings": {
+                    "menu": "",
+                    "title_1": "Fleece",
+                    "url_1": "",
+                    "title_2": "Down",
+                    "url_2": "",
+                    "title_3": "Waterproof Shell",
+                    "url_3": ""
+                  }
+                }
+              },
+              "block_order": [
+                "styles"
+              ]
+            },
+            "warmth": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Warmth & Runtime",
+                "role": "group",
+                "mobile_open": true
+              },
+              "blocks": {
+                "ultra": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Ultra Warm 12V",
+                    "description": "Down to -4°F",
+                    "url": ""
+                  }
+                },
+                "extreme": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Extreme Cold",
+                    "description": "Built for -40°F",
+                    "url": "shopify://pages/volcano-series"
+                  }
+                },
+                "all_day": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "All-Day Warmth",
+                    "description": "Up to 20 hours",
+                    "url": ""
+                  }
+                }
+              },
+              "block_order": [
+                "ultra",
+                "extreme",
+                "all_day"
+              ]
+            },
+            "collections": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Collections",
+                "role": "group",
+                "mobile_open": true
+              },
+              "blocks": {
+                "collections": {
+                  "type": "_header-nav-menu",
+                  "settings": {
+                    "menu": "",
+                    "title_1": "Heating",
+                    "url_1": "",
+                    "description_1": "",
+                    "title_2": "Work & Tactical",
+                    "url_2": "",
+                    "description_2": "",
+                    "title_3": "Recycled",
+                    "url_3": "",
+                    "description_3": "",
+                    "title_4": "Riding",
+                    "url_4": "",
+                    "description_4": "Vehicle-powered 12V liners"
+                  }
+                }
+              },
+              "block_order": [
+                "collections"
+              ]
+            },
+            "volcano_card": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "preset_image": "volcano",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Volcano™ Flagship Heated Vest",
+                "description": "Built for -40°F",
+                "url": "shopify://pages/volcano-series",
+                "mobile_visible": true
+              }
+            },
+            "apex_card": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "preset_image": "apex",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Apex™ Riding System",
+                "description": "Powered by your bike",
+                "url": "shopify://pages/heated-riding-system",
+                "mobile_visible": true
+              }
+            },
+            "footer": {
+              "type": "_header-nav-button",
+              "settings": {
+                "title": "Shop all Men’s",
+                "url": "shopify://collections/men",
+                "style": "text",
+                "align": "left",
+                "show_arrow": true,
+                "visibility": "desktop",
+                "secondary_title": "Our Technology: Heatwave™ & PowerCore™",
+                "secondary_url": "shopify://pages/technology",
+                "secondary_visibility": "both"
+              }
+            }
+          },
+          "block_order": [
+            "category",
+            "style",
+            "warmth",
+            "collections",
+            "footer",
+            "volcano_card",
+            "apex_card"
+          ]
+        },
+        "women_panel": {
+          "type": "_header-nav-group",
+          "settings": {
+            "title": "导航｜Women",
+            "label": "Women",
+            "menu_key": "women",
+            "mobile_shop_all_label": "Shop All",
+            "mobile_shop_all_link": "shopify://collections/womens",
+            "emphasize": false
+          },
+          "blocks": {
+            "category": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Shop by Category",
+                "role": "category",
+                "mobile_open": true
+              },
+              "blocks": {
+                "new_arrivals": {
+                  "type": "_header-nav-featured",
+                  "settings": {
+                    "title": "New Arrivals",
+                    "url": "shopify://collections/new-arrivals"
+                  }
+                },
+                "best_sellers": {
+                  "type": "_header-nav-featured",
+                  "settings": {
+                    "title": "Best Sellers",
+                    "url": "shopify://collections/womens"
+                  }
+                },
+                "categories": {
+                  "type": "_header-nav-image-menu",
+                  "settings": {
+                    "menu": "",
+                    "title_1": "Vests",
+                    "url_1": "",
+                    "title_2": "Jackets",
+                    "url_2": "",
+                    "title_3": "Long Jackets",
+                    "url_3": "",
+                    "title_4": "Hoodies",
+                    "url_4": "",
+                    "title_5": "Gloves & Mittens",
+                    "url_5": "",
+                    "title_6": "Socks",
+                    "url_6": ""
+                  }
+                }
+              },
+              "block_order": [
+                "new_arrivals",
+                "best_sellers",
+                "categories"
+              ]
+            },
+            "style": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Shop by Style",
+                "role": "group",
+                "mobile_open": true
+              },
+              "blocks": {
+                "styles": {
+                  "type": "_header-nav-menu",
+                  "settings": {
+                    "menu": "",
+                    "title_1": "Fleece",
+                    "url_1": "",
+                    "title_2": "Quilted",
+                    "url_2": "",
+                    "title_3": "Down",
+                    "url_3": "",
+                    "title_4": "Waterproof Shell",
+                    "url_4": ""
+                  }
+                }
+              },
+              "block_order": [
+                "styles"
+              ]
+            },
+            "warmth": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Warmth & Runtime",
+                "role": "group",
+                "mobile_open": true
+              },
+              "blocks": {
+                "ultra": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Ultra Warm 12V",
+                    "description": "Down to -4°F",
+                    "url": ""
+                  }
+                },
+                "extreme": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "Extreme Cold",
+                    "description": "Built for -40°F",
+                    "url": "shopify://pages/volcano-series"
+                  }
+                },
+                "all_day": {
+                  "type": "_header-nav-feature",
+                  "settings": {
+                    "title": "All-Day Warmth",
+                    "description": "Up to 20 hours",
+                    "url": ""
+                  }
+                }
+              },
+              "block_order": [
+                "ultra",
+                "extreme",
+                "all_day"
+              ]
+            },
+            "collections": {
+              "type": "_header-nav-column",
+              "settings": {
+                "title": "Collections",
+                "role": "group",
+                "mobile_open": true
+              },
+              "blocks": {
+                "collections": {
+                  "type": "_header-nav-menu",
+                  "settings": {
+                    "menu": "",
+                    "title_1": "Recycled",
+                    "url_1": "",
+                    "description_1": ""
+                  }
+                }
+              },
+              "block_order": [
+                "collections"
+              ]
+            },
+            "volcano_card": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "preset_image": "volcano",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Volcano™ Flagship Heated Vest",
+                "description": "Built for -40°F",
+                "url": "shopify://pages/volcano-series",
+                "mobile_visible": true
+              }
+            },
+            "apex_card": {
+              "type": "_header-nav-promo",
+              "settings": {
+                "preset_image": "apex",
+                "eyebrow": "JUST LAUNCHED",
+                "title": "Apex™ Riding System",
+                "description": "Powered by your bike",
+                "url": "shopify://pages/heated-riding-system",
+                "mobile_visible": true
+              }
+            },
+            "footer": {
+              "type": "_header-nav-button",
+              "settings": {
+                "title": "Shop all Women’s",
+                "url": "shopify://collections/womens",
+                "style": "text",
+                "align": "left",
+                "show_arrow": true,
+                "visibility": "desktop",
+                "secondary_title": "Our Technology: Heatwave™ & PowerCore™",
+                "secondary_url": "shopify://pages/technology",
+                "secondary_visibility": "both"
+              }
+            }
+          },
+          "block_order": [
+            "category",
+            "style",
+            "warmth",
+            "collections",
+            "footer",
+            "volcano_card",
+            "apex_card"
+          ]
+        }
+      },
+      "block_order": [
+        "new_panel",
+        "men_panel",
+        "women_panel"
+      ],
+      "settings": {}
+    },
+    "search": {
+      "type": "search",
+      "blocks": {
+        "link_7bFzPg": {
+          "type": "Link",
+          "settings": {
+            "title": "Heated Vest",
+            "link": "shopify://collections/heated-vest"
+          }
+        },
+        "link_jR4njE": {
+          "type": "Link",
+          "settings": {
+            "title": "Heated Jacket",
+            "link": "shopify://collections/heated-jacket"
+          }
+        },
+        "link_KL4Cfr": {
+          "type": "Link",
+          "settings": {
+            "title": "Heated Hoodie",
+            "link": "shopify://collections/heated-hoodie"
+          }
+        },
+        "link_KWLgQG": {
+          "type": "Link",
+          "settings": {
+            "title": "Heated Gloves",
+            "link": "shopify://collections/heated-gloves"
+          }
+        },
+        "link_ek6hQF": {
+          "type": "Link",
+          "settings": {
+            "title": "Heated Socks",
+            "link": "shopify://collections/heated-socks"
+          }
+        },
+        "product_UAE8wJ": {
+          "type": "Product",
+          "settings": {
+            "product": "mens-classic-heated-vest-7-4v"
+          }
+        },
+        "product_bytWca": {
+          "type": "Product",
+          "settings": {
+            "product": "womens-heated-vest-7-4v"
+          }
+        },
+        "product_7MaiiE": {
+          "type": "Product",
+          "settings": {
+            "product": "zipper-up-heated-hoodie-for-unisex-7-4v"
+          }
+        },
+        "product_VUEy8t": {
+          "type": "Product",
+          "settings": {
+            "product": "mens-heated-jacket-7-4v"
+          }
+        },
+        "product_FJxJLt": {
+          "type": "Product",
+          "settings": {
+            "product": "womens-heated-jacket-7-4v"
+          }
+        },
+        "product_b7pqpB": {
+          "type": "Product",
+          "settings": {
+            "product": "heated-jacket-unisex-with-heating-areas-control-button-7-4v"
+          }
+        }
+      },
+      "block_order": [
+        "link_7bFzPg",
+        "link_jR4njE",
+        "link_KL4Cfr",
+        "link_KWLgQG",
+        "link_ek6hQF",
+        "product_UAE8wJ",
+        "product_bytWca",
+        "product_7MaiiE",
+        "product_VUEy8t",
+        "product_FJxJLt",
+        "product_b7pqpB"
+      ],
+      "settings": {}
+    },
+    "popup-cart": {
+      "type": "popup-cart",
+      "blocks": {
+        "banner_link_gpNK7e": {
+          "type": "banner_link",
+          "settings": {
+            "image": "shopify://shop_images/40630_2x_f2a3c749-3e21-4851-9212-0740499a3aee.png",
+            "heading": "Shop Men",
+            "link": "shopify://collections/men"
+          }
+        },
+        "banner_link_RwJ7nU": {
+          "type": "banner_link",
+          "settings": {
+            "image": "shopify://shop_images/40631_2x_63c2e6f4-c177-4bb0-b162-54fc2fea5481.png",
+            "heading": "Shop Women",
+            "link": "shopify://collections/womens"
+          }
+        },
+        "banner_link_cq8aQ7": {
+          "type": "banner_link",
+          "settings": {
+            "image": "shopify://shop_images/40629_2x_a58dd2a2-c805-4eeb-9a58-db607b4cecbc.png",
+            "heading": "Shop Bestseller",
+            "link": "shopify://collections/best-seller"
+          }
+        },
+        "banner_link_tydF9e": {
+          "type": "banner_link",
+          "settings": {
+            "image": "shopify://shop_images/40632_2x_bd404519-6b59-4ff5-9b37-861d1d3a1260.png",
+            "heading": "Shop Outlet",
+            "link": "shopify://collections/outlet"
+          }
+        }
+      },
+      "block_order": [
+        "banner_link_gpNK7e",
+        "banner_link_RwJ7nU",
+        "banner_link_cq8aQ7",
+        "banner_link_tydF9e"
+      ],
+      "settings": {
+        "promotion_text": "Your order is eligible for free shipping!",
+        "membership_intro_text": "Join",
+        "membership_link_text": "Venustas Heatwave Club",
+        "membership_link_url": "#smile-home",
+        "membership_points_text": "and earn [points] points on this order now!",
+        "membership_points_rate": 1,
+        "ymal_product": []
+      }
+    }
+  },
+  "order": [
+    "header_new",
+    "search",
+    "popup-cart"
+  ]
+}

@@ -1,0 +1,48 @@
+<section id="HeaderPanel-{{ section.id }}-{{ block.id }}" class="header-new__panel" data-header-panel="{{ block.settings.menu_key | handleize }}" data-emphasize="{{ block.settings.emphasize }}" aria-label="{{ block.settings.title | escape }}" hidden {{ block.shopify_attributes }}>
+  <div class="header-new__panel-top">
+    <button type="button" class="header-new__back" data-header-mobile-back>
+      <span class="header-new__icon">{% render 'header-icons', icon: 'chevron-left' %}</span>
+      {{ block.settings.label | escape }}
+    </button>
+    {%- if block.settings.mobile_shop_all_link != blank and block.settings.mobile_shop_all_label != blank -%}
+      <a href="{{ block.settings.mobile_shop_all_link }}">{{ block.settings.mobile_shop_all_label | escape }}</a>
+    {%- endif -%}
+    <button type="button" class="header-new__panel-close" data-header-mobile-close>Close</button>
+  </div>
+  <div class="header-new__panel-inner">
+    {% content_for 'blocks' %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Navigation panel",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Panel name", "default": "New" },
+    { "type": "text", "id": "label", "label": "Navigation label", "default": "New" },
+    { "type": "text", "id": "menu_key", "label": "Main menu item key", "default": "new" },
+    { "type": "text", "id": "mobile_shop_all_label", "label": "Mobile Shop All text", "default": "Shop All" },
+    { "type": "url", "id": "mobile_shop_all_link", "label": "Mobile Shop All link" },
+    { "type": "checkbox", "id": "emphasize", "label": "Emphasize main navigation", "default": false }
+  ],
+  "blocks": [
+    { "type": "_header-nav-column" },
+    { "type": "_header-nav-promo" },
+    { "type": "_header-nav-button" }
+  ],
+  "presets": [
+    { "name": "Navigation - 3 columns", "blocks": [
+      { "type": "_header-nav-column" },
+      { "type": "_header-nav-column" },
+      { "type": "_header-nav-column" }
+    ] },
+    { "name": "Navigation - 4 columns", "blocks": [
+      { "type": "_header-nav-column" },
+      { "type": "_header-nav-column" },
+      { "type": "_header-nav-column" },
+      { "type": "_header-nav-column" }
+    ] }
+  ]
+}
+{% endschema %}
