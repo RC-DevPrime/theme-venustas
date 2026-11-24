@@ -766,13 +766,105 @@
             "category_4",
             "shop_all"
           ]
+        },
+        "sale_panel": {
+          "type": "_header-nav-campaign",
+          "settings": {
+            "title": "导航｜Sale",
+            "label": "Sale",
+            "menu_key": "sale",
+            "sidebar_title": "Shop the Sale",
+            "mobile_shop_all_label": "Shop All",
+            "mobile_shop_all_link": "shopify://collections/campaign",
+            "show_category_button": true
+          },
+          "blocks": {
+            "category_1": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Fall Mega Sale",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "campaign",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All Fall Mega Sale"
+              },
+              "blocks": {}
+            },
+            "category_2": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Weekly Hot Deals",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "deal-of-the-week",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All Weekly Hot Deals"
+              },
+              "blocks": {}
+            },
+            "category_4": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Mega Clearance Sale",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "mega-clearance-sale",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All Mega Clearance Sale"
+              },
+              "blocks": {}
+            },
+            "category_5": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "New Customer -$30 Off",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "new-customer",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All New Customer -$30 Off"
+              },
+              "blocks": {}
+            },
+            "category_6": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Outlet",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "outlet",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All Outlet"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "category_1",
+            "category_2",
+            "category_4",
+            "category_5",
+            "category_6"
+          ]
         }
       },
       "block_order": [
         "new_panel",
         "men_panel",
         "women_panel",
-        "bundles_panel"
+        "bundles_panel",
+        "sale_panel"
       ],
       "settings": {}
     },

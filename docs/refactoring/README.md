@@ -1,5 +1,7 @@
 # Shopify Theme 重构知识库
 
+2026-11-24：[Sale 五分类](logs/header/2026-11-24-sale-navigation.md) 复用活动面板接入，图片228:285，桌面无底部按钮，当前61块超限实验。
+
 2026-11-24：[Bundles 导航与55块超限实验](logs/header/2026-11-24-bundles-navigation.md) 按用户明确要求继续原嵌套结构，未实施多 section 拆分，旧代码保留。
 
 2026-11-23 后续增量：[Men／Women 四列导航](logs/header/2026-11-23-men-women-navigation.md) 已按本次授权实现，旧代码保留，未扩展其他导航。

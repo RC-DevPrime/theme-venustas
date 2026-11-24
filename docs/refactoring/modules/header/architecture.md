@@ -1,5 +1,13 @@
 # Header 架构
 
+## 2026-11-24 Sale 增量
+
+新增 Sale 面板实例，复用 _header-nav-campaign、_header-nav-category、header-new-product-card 和现有 CSS/JS。旧 Sale 有效集合按原顺序为 campaign、deal-of-the-week、mega-clearance-sale、new-customer、outlet；空的第三槽跳过。首项旧 nav_1 保存的是未求值Liquid字串，初始化分类名使用用户设计的 Fall Mega Sale，其他分类名采用旧配置。内容标题为空时回退实际集合标题，不把旧字串直接输出；原 Bundles 显式标题仍优先。
+
+Sale 分类图片使用现有 portrait（228:285，object-fit:cover），默认每集合前四商品。没有桌面底部按钮区块；移动顶部 Shop All 使用旧 campaign 总集合，移动当前分类按钮直接使用所选集合。保留空集合隐藏、默认首个非空、分类切换及键盘处理。不新增折扣角标映射。
+
+面板1＋分类5增加6块，当前共61个嵌套区块，按用户前述明确授权保留供超限测试。未改旧 Header、其他面板配置、CSS或JS。见 [任务日志](../../logs/header/2026-11-24-sale-navigation.md)。下文55与49为历史记录。
+
 ## 2026-11-24 Bundles 与超限实验
 
 用户明确要求继续当前单 section 嵌套结构，不压缩为固定设置，并自行测试超过50个区块是否能显示。新增 _header-nav-campaign 面板、四个 _header-nav-category 集合分类和一个既有底部按钮，动态区块总数由49增至55。该用户授权覆盖本次容量实验，取代下文历史记录中“不能继续堆叠”的本次执行限制，但不改变平台文档限制，也不代表已确认能保存或发布。

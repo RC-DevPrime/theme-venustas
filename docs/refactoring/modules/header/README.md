@@ -1,6 +1,6 @@
 # Header 技术档案
 
-状态：2026-11-24 已实现 New、Men、Women、Bundles 导航；本地入口为 header-group-new，旧代码保留。仅静态验证，未验证浏览器或线上环境。
+状态：2026-11-24 已实现 New、Men、Women、Bundles、Sale 导航；本地入口为 header-group-new，旧代码保留。仅静态验证，未验证浏览器或线上环境。
 
 职责：站点公告、Logo、桌面／移动菜单、国家／币种入口、账户入口，以及 header group 挂载的搜索与购物车弹层。不能把 header.liquid 当作全部 Header 系统。
 
@@ -11,6 +11,8 @@
 Men／Women 四列扩展：[实施日志](../../logs/header/2026-11-23-men-women-navigation.md)、[ADR-0003](../../decisions/0003-header-menu-image-settings.md)。两个面板独立配置；分类、Style、Collections 的原生菜单及分类图片仍需商家选择，未配置时展示初始文案／占位图。
 
 Bundles：[实施日志](../../logs/header/2026-11-24-bundles-navigation.md)、[ADR-0004](../../decisions/0004-header-over-limit-experiment.md)。用户明确要求保留真实嵌套分类并测试超50个区块，目前55个；不代表平台保存／上传／显示已验证。
+
+Sale：[实施日志](../../logs/header/2026-11-24-sale-navigation.md)。复用活动面板，五个旧 Sale 集合含 New Customer -$30 Off，图片228:285裁切，不配置桌面底部按钮。新增后总计61块，继续用户授权的超限实验。
 
 ## 后续建议（未批准实施）
 

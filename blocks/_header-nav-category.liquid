@@ -1,4 +1,5 @@
 {%- assign campaign_collection = block.settings.collection -%}
+{%- assign campaign_heading = block.settings.content_title | default: campaign_collection.title -%}
 {%- if campaign_collection != blank and campaign_collection.products_count > 0 and block.settings.title != blank -%}
   <div class="header-new__campaign-category" data-header-campaign-category {{ block.shopify_attributes }}>
     <a class="header-new__campaign-tab header-new__campaign-tab--desktop" href="{{ campaign_collection.url | escape }}" data-header-campaign-tab aria-controls="HeaderCampaignContent-{{ section.id }}-{{ block.id }}" aria-expanded="false">
@@ -7,7 +8,7 @@
     </a>
     <button type="button" class="header-new__campaign-tab header-new__campaign-tab--mobile" data-header-campaign-tab aria-controls="HeaderCampaignContent-{{ section.id }}-{{ block.id }}" aria-expanded="false" aria-pressed="false">{{ block.settings.title | escape }}</button>
     <div id="HeaderCampaignContent-{{ section.id }}-{{ block.id }}" class="header-new__campaign-content header-new__campaign-content--{{ block.settings.image_ratio }}" data-header-campaign-content hidden>
-      {%- if block.settings.content_title != blank -%}<h3 class="header-new__campaign-title">{{ block.settings.content_title | escape }}</h3>{%- endif -%}
+      {%- if campaign_heading != blank -%}<h3 class="header-new__campaign-title">{{ campaign_heading | escape }}</h3>{%- endif -%}
       {%- if block.settings.description != blank -%}<p class="header-new__campaign-description">{{ block.settings.description | escape | newline_to_br }}</p>{%- endif -%}
       <div class="header-new__campaign-products">
         {%- for campaign_product in campaign_collection.products limit: block.settings.product_limit -%}

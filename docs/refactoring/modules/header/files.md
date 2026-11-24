@@ -1,5 +1,12 @@
 # Header 实际文件清单
 
+## 2026-11-24 Sale 扩展
+
+- sections/header-new.liquid：sale 加入可展开面板入口键。
+- sections/header-group-new.json：新增 sale_panel → 五个 _header-nav-category；复用活动面板，不添加底部按钮区块。
+- blocks/_header-nav-category.liquid：空内容标题回退集合标题，既有 Bundles 显式标题优先。
+- 无新增业务文件、CSS/JS或依赖；旧 Header 与其他面板数据保留。见 [任务日志](../../logs/header/2026-11-24-sale-navigation.md)。
+
 ## 2026-11-24 Bundles 扩展
 
 - sections/header-new.liquid：增加 bundles 面板入口键及 _header-nav-campaign 类型。
