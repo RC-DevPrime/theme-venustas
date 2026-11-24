@@ -75,7 +75,8 @@
                 "image_ratio": "landscape",
                 "product_limit": 4,
                 "button_label": "Shop All Clothing + Battery"
-              }
+              },
+              "blocks": {}
             },
             "category_2": {
               "type": "_header-nav-category",
@@ -88,7 +89,8 @@
                 "image_ratio": "landscape",
                 "product_limit": 4,
                 "button_label": "Shop All Clothing + Gloves"
-              }
+              },
+              "blocks": {}
             },
             "category_3": {
               "type": "_header-nav-category",
@@ -101,7 +103,8 @@
                 "image_ratio": "landscape",
                 "product_limit": 4,
                 "button_label": "Shop All Couple & Family"
-              }
+              },
+              "blocks": {}
             },
             "category_4": {
               "type": "_header-nav-category",
@@ -114,7 +117,8 @@
                 "image_ratio": "landscape",
                 "product_limit": 4,
                 "button_label": "Shop All Clothing + Socks"
-              }
+              },
+              "blocks": {}
             },
             "shop_all": {
               "type": "_header-nav-button",
@@ -124,8 +128,12 @@
                 "style": "outline",
                 "align": "left",
                 "show_arrow": true,
-                "visibility": "desktop"
-              }
+                "visibility": "desktop",
+                "secondary_title": "",
+                "secondary_url": "",
+                "secondary_visibility": "both"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -246,34 +254,6 @@
                 "mobile_open": true
               },
               "blocks": {
-                "header_nav_featured_yprdGa": {
-                  "type": "_header-nav-featured",
-                  "name": "Featured link",
-                  "settings": {
-                    "title": "New Arrival",
-                    "url": ""
-                  },
-                  "blocks": {}
-                },
-                "header_nav_featured_Kw4bhq": {
-                  "type": "_header-nav-featured",
-                  "name": "Featured link",
-                  "settings": {
-                    "title": "New Arrival",
-                    "url": ""
-                  },
-                  "blocks": {}
-                },
-                "header_nav_feature_dYTKeL": {
-                  "type": "_header-nav-feature",
-                  "name": "Feature link",
-                  "settings": {
-                    "title": "Feature",
-                    "description": "",
-                    "url": ""
-                  },
-                  "blocks": {}
-                },
                 "arrival": {
                   "type": "_header-nav-featured",
                   "settings": {
@@ -292,9 +272,6 @@
                 }
               },
               "block_order": [
-                "header_nav_featured_yprdGa",
-                "header_nav_featured_Kw4bhq",
-                "header_nav_feature_dYTKeL",
                 "arrival",
                 "color"
               ]
@@ -977,7 +954,8 @@
                     "title": "Socks",
                     "description": "",
                     "url": ""
-                  }
+                  },
+                  "blocks": {}
                 },
                 "hats": {
                   "type": "_header-nav-feature",
@@ -985,7 +963,8 @@
                     "title": "Hats",
                     "description": "",
                     "url": ""
-                  }
+                  },
+                  "blocks": {}
                 },
                 "scarves": {
                   "type": "_header-nav-feature",
@@ -993,7 +972,8 @@
                     "title": "Scarves & Shawl",
                     "description": "",
                     "url": ""
-                  }
+                  },
+                  "blocks": {}
                 },
                 "warmers": {
                   "type": "_header-nav-feature",
@@ -1001,7 +981,8 @@
                     "title": "Hand Warmers",
                     "description": "",
                     "url": ""
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -1044,8 +1025,12 @@
                 "style": "text",
                 "align": "left",
                 "show_arrow": true,
-                "visibility": "desktop"
-              }
+                "visibility": "desktop",
+                "secondary_title": "",
+                "secondary_url": "",
+                "secondary_visibility": "both"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -1081,13 +1066,18 @@
                     "menu": "",
                     "title_1": "For Him",
                     "url_1": "shopify://collections/men",
+                    "description_1": "",
                     "title_2": "For Her",
                     "url_2": "shopify://collections/womens",
+                    "description_2": "",
                     "title_3": "For Kids",
                     "url_3": "",
+                    "description_3": "",
                     "title_4": "Couple & Family",
-                    "url_4": "shopify://collections/couple-family"
-                  }
+                    "url_4": "shopify://collections/couple-family",
+                    "description_4": ""
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -1108,11 +1098,18 @@
                     "menu": "",
                     "title_1": "Under $100",
                     "url_1": "",
+                    "description_1": "",
                     "title_2": "Under $150",
                     "url_2": "",
+                    "description_2": "",
                     "title_3": "$200 & Up",
-                    "url_3": ""
-                  }
+                    "url_3": "",
+                    "description_3": "",
+                    "title_4": "",
+                    "url_4": "",
+                    "description_4": ""
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -1132,8 +1129,19 @@
                   "settings": {
                     "menu": "",
                     "title_1": "Venustas Gift Card",
-                    "url_1": ""
-                  }
+                    "url_1": "",
+                    "description_1": "",
+                    "title_2": "",
+                    "url_2": "",
+                    "description_2": "",
+                    "title_3": "",
+                    "url_3": "",
+                    "description_3": "",
+                    "title_4": "",
+                    "url_4": "",
+                    "description_4": ""
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -1172,8 +1180,12 @@
                 "style": "text",
                 "align": "left",
                 "show_arrow": true,
-                "visibility": "desktop"
-              }
+                "visibility": "desktop",
+                "secondary_title": "",
+                "secondary_url": "",
+                "secondary_visibility": "both"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -1196,12 +1208,21 @@
         "gift_panel"
       ],
       "settings": {
-        "logo": "shopify://shop_images/main-header-logo.png",
-        "help_link": "https://venustas.zendesk.com/hc/en-us",
-        "return_center_link": "https://venustas.returnscenter.com/?ref=powr-io",
-        "loyalty_link": "#smile-home",
-        "country_us_url": "https://venustas.com/",
-        "country_ca_url": "https://venustas.ca/"
+        "help_link": "",
+        "help_email": "service@venustas.com",
+        "help_phone": "+1 (888) 836-6460",
+        "help_hours": "Mon–Fri, 9 AM–6 PM ET",
+        "help_order_tracking_url": "",
+        "help_returns_url": "",
+        "help_warranty_registration_url": "",
+        "help_warranty_claim_url": "",
+        "help_manuals_url": "",
+        "profile_link": "",
+        "orders_link": "",
+        "return_center_link": "",
+        "loyalty_link": "",
+        "country_us_url": "",
+        "country_ca_url": ""
       }
     },
     "search": {
