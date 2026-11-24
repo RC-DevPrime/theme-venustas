@@ -12,7 +12,7 @@
 {%- liquid
   assign navigation_labels = 'New|Men|Women|Kids|Accessories|Bundles|Gift|Sale' | split: '|'
   assign navigation_paths = '/collections/new-arrivals|/collections/men|/collections/women|/collections/kids|/collections/accessories|/collections/bundles|/collections/gift|/collections/sale' | split: '|'
-  assign navigation_panel_keys = 'new|men|women' | split: '|'
+  assign navigation_panel_keys = 'new|men|women|bundles' | split: '|'
 -%}
 
 <nav class="header header-new" data-header-new aria-label="Main navigation">
@@ -50,7 +50,7 @@
   "class": "shopify-section-group-header-group header-new-section",
   "enabled_on": { "groups": ["header"] },
   "settings": [],
-  "blocks": [{ "type": "_header-nav-group" }],
+  "blocks": [{ "type": "_header-nav-group" }, { "type": "_header-nav-campaign" }],
   "presets": [{ "name": "Header New" }]
 }
 {% endschema %}

@@ -39,10 +39,22 @@
         }
         toggle.setAttribute('aria-controls', panel.id);
         this.bind(toggle, 'pointerenter', (event) => {
-          if (!this.media.matches && event.pointerType !== 'touch') this.showPanel(panel);
+          if (!toggle.disabled && !this.media.matches && event.pointerType !== 'touch') this.showPanel(panel);
         });
       });
       this.panels.forEach((panel) => this.preparePanel(panel));
+      root.querySelectorAll('[data-header-campaign]').forEach((campaign) => this.prepareCampaign(campaign));
+      this.bind(root, 'pointerover', (event) => {
+        const tab = event.target.closest('[data-header-campaign-tab]');
+        if (tab && !this.media.matches && event.pointerType !== 'touch') {
+          const content = tab.closest('[data-header-campaign]')?.querySelector('[data-header-campaign-content]:not([hidden])');
+          if (!content?.contains(document.activeElement)) this.selectCampaignTab(tab);
+        }
+      });
+      this.bind(root, 'focusin', (event) => {
+        const tab = event.target.closest('[data-header-campaign-tab]');
+        if (tab && !this.media.matches) this.selectCampaignTab(tab);
+      });
       this.toggles.forEach((toggle) => {
         const panel = this.panels.find((item) => item.dataset.headerPanel === toggle.dataset.headerToggle);
         if (panel?.dataset.emphasize === 'true') toggle.classList.add('header-new__nav-link--emphasis');
@@ -86,6 +98,53 @@
       window.dispatchEvent(new CustomEvent('header:heightchange'));
     }
 
+    prepareCampaign(campaign) {
+      const categories = [...campaign.querySelectorAll('[data-header-campaign-category]')];
+      const layout = campaign.querySelector('.header-new__campaign-layout');
+      if (!layout) return;
+      layout.style.setProperty('--campaign-category-count', categories.length);
+      layout.style.setProperty('--campaign-footer-row', categories.length + 2);
+      layout.style.setProperty('--campaign-content-span', categories.length + 2);
+      layout.style.setProperty('--campaign-mobile-content-row', Math.ceil(categories.length / 2) + 1);
+      categories.forEach((category, index) => {
+        category.style.setProperty('--campaign-tab-row', index + 2);
+        category.style.setProperty('--campaign-mobile-row', Math.floor(index / 2) + 1);
+        category.style.setProperty('--campaign-mobile-column', index % 2 + 1);
+        const help = campaign.querySelector('.header-new__campaign-keyboard-help');
+        const button = category.querySelector('button[data-header-campaign-tab]');
+        if (help && button) button.setAttribute('aria-describedby', help.id);
+      });
+      if (categories.length) {
+        this.selectCampaignTab(categories[0].querySelector('[data-header-campaign-tab]'));
+      } else {
+        const panel = campaign.closest('[data-header-panel]');
+        if (panel) panel.dataset.campaignEmpty = 'true';
+        this.toggles.filter((toggle) => toggle.dataset.headerToggle === panel?.dataset.headerPanel)
+          .forEach((toggle) => { toggle.disabled = true; });
+      }
+    }
+
+    selectCampaignTab(tab) {
+      if (!tab) return;
+      const campaign = tab.closest('[data-header-campaign]');
+      const selected = tab.closest('[data-header-campaign-category]');
+      if (!campaign || !selected) return;
+      campaign.querySelectorAll('[data-header-campaign-category]').forEach((category) => {
+        const active = category === selected;
+        category.dataset.active = String(active);
+        category.querySelectorAll('[data-header-campaign-tab]').forEach((control) => {
+          control.dataset.active = String(active);
+          control.setAttribute('aria-expanded', String(active));
+          if (control.tagName === 'BUTTON') {
+            control.setAttribute('aria-pressed', String(active));
+            control.tabIndex = active ? 0 : -1;
+          }
+        });
+        const content = category.querySelector('[data-header-campaign-content]');
+        if (content) content.hidden = !active;
+      });
+    }
+
     syncColumns() {
       this.columns.forEach((column) => {
         const button = column.querySelector('[data-header-column-toggle]');
@@ -101,6 +160,7 @@
     }
 
     showPanel(panel, focus = false) {
+      if (panel?.dataset.campaignEmpty === 'true') panel = null;
       this.activePanel = panel;
       this.panels.forEach((item) => { item.hidden = item !== panel; });
       this.toggles.forEach((toggle) => {
@@ -158,7 +218,8 @@
     click(event) {
       const target = event.target.closest('button, a');
       if (!target) return;
-      if (target.matches('[data-header-mobile-open]')) this.openDrawer();
+      if (target.matches('button[data-header-campaign-tab]')) this.selectCampaignTab(target);
+      else if (target.matches('[data-header-mobile-open]')) this.openDrawer();
       else if (target.matches('[data-header-mobile-close]')) this.close(true);
       else if (target.matches('[data-header-mobile-back]')) {
         const toggle = this.toggles.find((item) => item.dataset.headerToggle === this.activePanel?.dataset.headerPanel);
@@ -175,6 +236,16 @@
     }
 
     keydown(event) {
+      if (this.media.matches && event.target.matches('button[data-header-campaign-tab]') && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) {
+        const campaign = event.target.closest('[data-header-campaign]');
+        const controls = [...campaign.querySelectorAll('button[data-header-campaign-tab]')];
+        const index = controls.indexOf(event.target);
+        const offset = event.key === 'ArrowUp' ? -2 : event.key === 'ArrowDown' ? 2 : event.key === 'ArrowLeft' ? -1 : 1;
+        const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? controls.length - 1 : (index + offset + controls.length) % controls.length;
+        event.preventDefault();
+        this.selectCampaignTab(controls[nextIndex]);
+        controls[nextIndex]?.focus();
+      }
       if (event.key === 'Escape') {
         event.preventDefault();
         if (this.activePanel) {
@@ -194,7 +265,7 @@
       }
       if (event.key !== 'Tab' || !this.media.matches || !this.drawerOpen) return;
       const focusable = [...this.drawer.querySelectorAll('a[href], button:not([disabled]), [tabindex="0"]')]
-        .filter((item) => item.getClientRects().length && !item.closest('[hidden]'));
+        .filter((item) => item.tabIndex >= 0 && item.getClientRects().length && !item.closest('[hidden]'));
       const first = focusable[0];
       const last = focusable.at(-1);
       if (event.shiftKey && document.activeElement === first) {
@@ -212,6 +283,8 @@
       if (!panel || !this.root.contains(panel)) return;
       if (this.media.matches) this.openDrawer();
       this.showPanel(panel);
+      const category = block.closest('[data-header-campaign-category]');
+      if (category) this.selectCampaignTab(category.querySelector('[data-header-campaign-tab]'));
       const column = block.closest('[data-header-column]');
       if (column) {
         column.dataset.mobileExpanded = 'true';

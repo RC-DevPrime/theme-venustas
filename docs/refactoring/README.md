@@ -1,5 +1,7 @@
 # Shopify Theme 重构知识库
 
+2026-11-24：[Bundles 导航与55块超限实验](logs/header/2026-11-24-bundles-navigation.md) 按用户明确要求继续原嵌套结构，未实施多 section 拆分，旧代码保留。
+
 2026-11-23 后续增量：[Men／Women 四列导航](logs/header/2026-11-23-men-women-navigation.md) 已按本次授权实现，旧代码保留，未扩展其他导航。
 
 2026-11-23 增量：用户批准实施 New 导航首批，当前本地 Header 入口为 header-group-new，旧代码保留。见 [New 实施日志](logs/header/2026-11-23-new-navigation.md) 与 [ADR-0002](decisions/0002-header-new-theme-blocks.md)。以下“未开始”描述为初始化时的历史状态；Collection、Product Detail 尚未启动。

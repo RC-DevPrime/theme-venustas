@@ -1,0 +1,40 @@
+<section id="HeaderPanel-{{ section.id }}-{{ block.id }}" class="header-new__panel header-new__panel--campaign" data-header-panel="{{ block.settings.menu_key | handleize }}" data-header-campaign data-show-category-button="{{ block.settings.show_category_button }}" aria-label="{{ block.settings.title | escape }}" hidden {{ block.shopify_attributes }}>
+  <div class="header-new__panel-top">
+    <button type="button" class="header-new__back" data-header-mobile-back>
+      <span class="header-new__icon">{% render 'header-icons', icon: 'chevron-left' %}</span>
+      {{ block.settings.label | escape }}
+    </button>
+    {%- if block.settings.mobile_shop_all_link != blank and block.settings.mobile_shop_all_label != blank -%}
+      <a href="{{ block.settings.mobile_shop_all_link | escape }}">{{ block.settings.mobile_shop_all_label | escape }}</a>
+    {%- endif -%}
+    <button type="button" class="header-new__panel-close" data-header-mobile-close>Close</button>
+  </div>
+  <span class="header-new__campaign-keyboard-help" id="HeaderCampaignHelp-{{ section.id }}-{{ block.id }}">Use the arrow keys to choose a category.</span>
+  <div class="header-new__campaign-layout">
+    {%- if block.settings.sidebar_title != blank -%}
+      <h2 class="header-new__campaign-sidebar-title">{{ block.settings.sidebar_title | escape }}</h2>
+    {%- endif -%}
+    {% content_for 'blocks' %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Campaign navigation",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Panel name", "default": "Bundles" },
+    { "type": "text", "id": "label", "label": "Mobile navigation label", "default": "Bundle Sale" },
+    { "type": "text", "id": "menu_key", "label": "Main menu item key", "default": "bundles" },
+    { "type": "text", "id": "sidebar_title", "label": "Desktop category heading", "default": "Bundle" },
+    { "type": "text", "id": "mobile_shop_all_label", "label": "Mobile Shop All text", "default": "Shop All" },
+    { "type": "url", "id": "mobile_shop_all_link", "label": "Mobile Shop All link" },
+    { "type": "checkbox", "id": "show_category_button", "label": "Show current category button", "default": true }
+  ],
+  "blocks": [
+    { "type": "_header-nav-category" },
+    { "type": "_header-nav-button" }
+  ],
+  "presets": [{ "name": "Campaign navigation" }]
+}
+{% endschema %}

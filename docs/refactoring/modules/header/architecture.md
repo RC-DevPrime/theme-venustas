@@ -1,5 +1,15 @@
 # Header 架构
 
+## 2026-11-24 Bundles 与超限实验
+
+用户明确要求继续当前单 section 嵌套结构，不压缩为固定设置，并自行测试超过50个区块是否能显示。新增 _header-nav-campaign 面板、四个 _header-nav-category 集合分类和一个既有底部按钮，动态区块总数由49增至55。该用户授权覆盖本次容量实验，取代下文历史记录中“不能继续堆叠”的本次执行限制，但不改变平台文档限制，也不代表已确认能保存或发布。
+
+Bundles 数据复制旧 header-group.json 的 dislay_6_yaYK6A：clothing-extra-battery、complete-your-warmth、couple-family、clothing-extra-socks；总入口 bundle-deal。分类为独立可排序主题区块，设置集合、名称、标题、说明、图片比例、商品数和移动按钮文字。商品图片／标题／链接来自集合商品，按集合顺序默认前四个；未实现 New/Hot 角标。空集合不输出入口和商品区域，首个非空分类默认选中；全部为空时 JS 禁用该面板触发器。
+
+活动面板复用 data-header-panel 与移动返回／关闭逻辑。新增局部 campaign 初始化：category 包装保留编辑器属性，CSS display:contents 将桌面链接、移动按钮及内容放入网格；不移动或克隆区块DOM。JS 在每个 campaign 内设置网格位置与当前分类，桌面悬停／聚焦切换预览、链接点击进入集合；移动按钮切换标题、说明、商品与当前分类按钮。固定桌面总按钮和移动顶部 Shop All 都使用旧 bundle-deal 链接；分类按钮始终指向当前集合。
+
+复用 section 生命周期清理、键盘开关与焦点约束，未改旧 Header 或跨模块高度契约。见 [任务日志](../../logs/header/2026-11-24-bundles-navigation.md)。以下49/50为上一批历史状态。
+
 ## 2026-11-23 Men／Women 增量
 
 沿用现有 group 与单一 section，新增 men、women 两个独立面板。顶级导航变量仍固定八个入口，new/men/women 使用同一 data-header-toggle 交互。每个新增面板含四列、两张移动可见推广卡和一个双链接 footer；四列分别为 Category、Style、Warmth & Runtime、Collections。原有 New 数据与旧代码保留。

@@ -1,0 +1,41 @@
+{%- assign campaign_collection = block.settings.collection -%}
+{%- if campaign_collection != blank and campaign_collection.products_count > 0 and block.settings.title != blank -%}
+  <div class="header-new__campaign-category" data-header-campaign-category {{ block.shopify_attributes }}>
+    <a class="header-new__campaign-tab header-new__campaign-tab--desktop" href="{{ campaign_collection.url | escape }}" data-header-campaign-tab aria-controls="HeaderCampaignContent-{{ section.id }}-{{ block.id }}" aria-expanded="false">
+      <span>{{ block.settings.title | escape }}</span>
+      {%- if block.settings.short_description != blank -%}<span class="header-new__campaign-tab-description">{{ block.settings.short_description | escape | newline_to_br }}</span>{%- endif -%}
+    </a>
+    <button type="button" class="header-new__campaign-tab header-new__campaign-tab--mobile" data-header-campaign-tab aria-controls="HeaderCampaignContent-{{ section.id }}-{{ block.id }}" aria-expanded="false" aria-pressed="false">{{ block.settings.title | escape }}</button>
+    <div id="HeaderCampaignContent-{{ section.id }}-{{ block.id }}" class="header-new__campaign-content header-new__campaign-content--{{ block.settings.image_ratio }}" data-header-campaign-content hidden>
+      {%- if block.settings.content_title != blank -%}<h3 class="header-new__campaign-title">{{ block.settings.content_title | escape }}</h3>{%- endif -%}
+      {%- if block.settings.description != blank -%}<p class="header-new__campaign-description">{{ block.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+      <div class="header-new__campaign-products">
+        {%- for campaign_product in campaign_collection.products limit: block.settings.product_limit -%}
+          {% render 'header-new-product-card', product: campaign_product %}
+        {%- endfor -%}
+      </div>
+      {%- if block.settings.button_label != blank -%}<a class="header-new__campaign-category-button" href="{{ campaign_collection.url | escape }}">{{ block.settings.button_label | escape }}</a>{%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Campaign category",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Category name", "default": "Clothing + Battery" },
+    { "type": "textarea", "id": "short_description", "label": "Desktop category description" },
+    { "type": "text", "id": "content_title", "label": "Content heading", "default": "More Power, Longer Warmth" },
+    { "type": "textarea", "id": "description", "label": "Content description" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "select", "id": "image_ratio", "label": "Product image ratio", "options": [
+      { "value": "landscape", "label": "236:189 - fit" },
+      { "value": "portrait", "label": "228:285 - crop" }
+    ], "default": "landscape" },
+    { "type": "range", "id": "product_limit", "label": "Products to show", "min": 1, "max": 8, "step": 1, "default": 4 },
+    { "type": "text", "id": "button_label", "label": "Mobile category button text", "info": "Leave empty to hide. The link always uses this collection." }
+  ],
+  "presets": [{ "name": "Campaign category" }]
+}
+{% endschema %}

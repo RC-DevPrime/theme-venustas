@@ -1,5 +1,7 @@
 # Header 已知事项
 
+2026-11-24 Bundles 实验：用户明确要求不控制在50以内，现配置55个嵌套区块。该配置保留供用户测试；静态语法通过不证明 Shopify 接受超限保存、上传或显示。四个集合来自旧 Bundle Sale，本地未确认集合实际商品；空集合隐藏对应入口，全部为空禁用 Bundles 面板。此前用户报告测试主题看不到新 Header 配置，尚未获得该主题环境的排查证据，不将本次新增视为已修复该问题。见 [任务日志](../../logs/header/2026-11-24-bundles-navigation.md)。
+
 2026-11-23 Men／Women：实现与静态验证完成，尚无后台菜单句柄及分类图片，暂展示可编辑初始文案和统一占位图；部分目标链接为空，Best Sellers 临时指向各自总集合。当前 Header section 已用49/50个动态区块，后续面板新增需先规划容量。两张默认推广图已本地化。见 [任务日志](../../logs/header/2026-11-23-men-women-navigation.md)。
 
 2026-11-23 增量：本地入口已切换 header-group-new。新 New 面板完成静态校验，见 [实施日志](../../logs/header/2026-11-23-new-navigation.md)。New Color 与 Just In 样例条目暂指向已有 New Arrivals 集合，需商家配置实际目标；其他七个入口地址为临时值。H-002 的旧 header schema 未修复，H-001 的搜索缺口仍保留；新 Header 未提供搜索入口。以下历史事项继续保留，均不代表新入口线上已复现。

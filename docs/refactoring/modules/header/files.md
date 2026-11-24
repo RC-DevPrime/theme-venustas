@@ -1,5 +1,14 @@
 # Header 实际文件清单
 
+## 2026-11-24 Bundles 扩展
+
+- sections/header-new.liquid：增加 bundles 面板入口键及 _header-nav-campaign 类型。
+- sections/header-group-new.json：新增 bundles_panel → 四个 _header-nav-category + _header-nav-button，旧 dislay_6 集合与文字复制；原面板配置保留。
+- blocks/_header-nav-campaign.liquid：活动面板与编辑器设置，content_for 子区块。
+- blocks/_header-nav-category.liquid → snippets/header-new-product-card.liquid：集合分类与前四商品。
+- assets/header-new.js：局部分类选择、网格位置、默认非空分类及编辑器选中；assets/header-new.css：活动导航桌面／移动样式。
+- 旧 sections/header-group.json、header.liquid 和旧 Bundle snippets 未修改。
+
 ## 2026-11-23 Men／Women 扩展
 
 - sections/header-new.liquid：固定导航中 new/men/women 启用面板入口；沿用 assets/header-new.js 的现有交互，本批未改脚本。
