@@ -1,0 +1,1052 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "tags_VbTTx6": {
+          "type": "tags",
+          "settings": {}
+        },
+        "title_kNgEjj": {
+          "type": "title",
+          "settings": {}
+        },
+        "okendo_star_rating_wmeHrN": {
+          "type": "shopify://apps/okendo/blocks/star-rating/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "discount_banner_ja6qra": {
+          "type": "discount_banner",
+          "settings": {}
+        },
+        "price_efrDnx": {
+          "type": "price",
+          "settings": {}
+        },
+        "payment_installment_8PywPB": {
+          "type": "payment_installment",
+          "settings": {}
+        },
+        "divider_FmYRAm": {
+          "type": "divider",
+          "settings": {}
+        },
+        "choose_runtime_zBqpHC": {
+          "type": "choose_runtime",
+          "settings": {}
+        },
+        "variant_option_Gm9UTe": {
+          "type": "variant_option",
+          "settings": {}
+        },
+        "divider_JBC3FR": {
+          "type": "divider",
+          "settings": {}
+        },
+        "selleasy_lb_upsell_widget_pal_UW8EbH": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pal/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        },
+        "quantity_atc_nEzPi6": {
+          "type": "quantity_atc",
+          "settings": {}
+        },
+        "hightlights_4aek9f": {
+          "type": "hightlights",
+          "settings": {
+            "heading": "HIGHLIGHTS",
+            "description": "<p>{{ product.metafields.c_f.highlights | metafield_tag }}</p>"
+          }
+        },
+        "divider_PUdp4i": {
+          "type": "divider",
+          "settings": {}
+        },
+        "availability_VXL6mU": {
+          "type": "availability",
+          "settings": {}
+        },
+        "support_product_RGhgRP": {
+          "type": "support_product",
+          "settings": {
+            "icon_1": "shopify://shop_images/47494_2x_50cbcdba-e5ec-4541-a4a2-fcd51740ea9b.png",
+            "heading_1": "<p><strong>3-Year</strong> Limited Warranty on heating elements</p>",
+            "icon_2": "shopify://shop_images/47768_2x_55d5aef8-5c10-4dfb-aac9-a5aa82ef92d6.png",
+            "heading_2": "<p><strong>1-Year</strong> Limited Warranty on battery</p>",
+            "icon_3": "shopify://shop_images/47496_2x_113086b9-9973-4a17-943c-63937d66fb74.png",
+            "heading_3": "<p><strong>Free </strong>Shipping in the U.S.&CA </p>",
+            "icon_4": "shopify://shop_images/47501_2x_b12b7c51-283f-4077-9d15-d8673a0d2ce8.png",
+            "heading_4": "<p><strong>Free</strong> Return Shipping in the U.S.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tags_VbTTx6",
+        "title_kNgEjj",
+        "okendo_star_rating_wmeHrN",
+        "discount_banner_ja6qra",
+        "price_efrDnx",
+        "payment_installment_8PywPB",
+        "divider_FmYRAm",
+        "choose_runtime_zBqpHC",
+        "variant_option_Gm9UTe",
+        "divider_JBC3FR",
+        "selleasy_lb_upsell_widget_pal_UW8EbH",
+        "quantity_atc_nEzPi6",
+        "hightlights_4aek9f",
+        "divider_PUdp4i",
+        "availability_VXL6mU",
+        "support_product_RGhgRP"
+      ],
+      "settings": {}
+    },
+    "heating_v_anchor_nav_UcEwiV": {
+      "type": "heatingV-anchor-nav",
+      "blocks": {
+        "link_p9KF8z": {
+          "type": "link",
+          "settings": {
+            "label": "6-Zone Heating",
+            "target_id": "productN-heating"
+          }
+        },
+        "link_844z9f": {
+          "type": "link",
+          "settings": {
+            "label": "Technology",
+            "target_id": "productN-technology"
+          }
+        },
+        "link_J4DcWN": {
+          "type": "link",
+          "settings": {
+            "label": "Temp Control",
+            "target_id": "productN-heat-control"
+          }
+        },
+        "link_ytWcpb": {
+          "type": "link",
+          "settings": {
+            "label": "Battery & Runtime",
+            "target_id": "productN-battery"
+          }
+        },
+        "link_4cAbYN": {
+          "type": "link",
+          "settings": {
+            "label": "Design Features",
+            "target_id": "productN-design-features"
+          }
+        },
+        "link_PLaer3": {
+          "type": "link",
+          "settings": {
+            "label": "Tested & Worn",
+            "target_id": "productN-tested-worn"
+          }
+        },
+        "link_NInBox": {
+          "type": "link",
+          "settings": {
+            "label": "In the Box",
+            "target_id": "productN-in-box"
+          }
+        },
+        "link_NSpecs": {
+          "type": "link",
+          "settings": {
+            "label": "Specs",
+            "target_id": "productN-specifications"
+          }
+        },
+        "link_NCompare": {
+          "type": "link",
+          "settings": {
+            "label": "Compare",
+            "target_id": "productN-compare"
+          }
+        },
+        "link_FAQs": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "target_id": "productN-new-faq"
+          }
+        },
+        "link_Reviews": {
+          "type": "link",
+          "settings": {
+            "label": "Reviews",
+            "target_id": "current-review"
+          }
+        }
+      },
+      "block_order": [
+        "link_p9KF8z",
+        "link_844z9f",
+        "link_J4DcWN",
+        "link_ytWcpb",
+        "link_4cAbYN",
+        "link_PLaer3",
+        "link_NInBox",
+        "link_NSpecs",
+        "link_NCompare",
+        "link_FAQs",
+        "link_Reviews"
+      ],
+      "name": "Heating Anchor Nav",
+      "settings": {
+        "section_background": "#f5f5f5",
+        "nav_background": "#ffffff",
+        "text_color": "#1f1f1f",
+        "aria_label": "Page navigation"
+      }
+    },
+    "product_new_heating_wrnKrW": {
+      "type": "product-new-heating",
+      "name": "productN Heating",
+      "settings": {
+        "anchor_id": "productN-heating",
+        "eyebrow": "6-Zone Heating",
+        "title": "Warm in 3 seconds.\nSix zones of heat.",
+        "image": "shopify://shop_images/productN-new-vest.webp",
+        "video": "shopify://files/videos/productN-small-video.mp4",
+        "mp4_url": "",
+        "card_eyebrow": "ONE PRESS",
+        "card_title": "Press the button. Feel the heat spread.",
+        "body": "<ul><li>Collar, both shoulders, mid-back and both hand pockets — up to 131°F on High, up to 10 hours on Low.</li><li>The chest button lights up and the heating panels start warming right away.</li></ul>"
+      }
+    },
+    "product_new_benefits_qjmLMG": {
+      "type": "product-new-benefits",
+      "blocks": {
+        "benefit_PUykYd": {
+          "type": "benefit",
+          "settings": {
+            "value": "3S",
+            "description": "to feel the warmth"
+          }
+        },
+        "benefit_3nBq3W": {
+          "type": "benefit",
+          "settings": {
+            "value": "6",
+            "description": "heating zones"
+          }
+        },
+        "benefit_gfc74Q": {
+          "type": "benefit",
+          "settings": {
+            "value": "131°F",
+            "description": "on high · 3 settings"
+          }
+        },
+        "benefit_4tYURh": {
+          "type": "benefit",
+          "settings": {
+            "value": "10h",
+            "description": "on Low · 36Wh battery"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_PUykYd",
+        "benefit_3nBq3W",
+        "benefit_gfc74Q",
+        "benefit_4tYURh"
+      ],
+      "name": "productN Benefits",
+      "settings": {}
+    },
+    "product_new_technology_cHRrf8": {
+      "type": "product-new-technology",
+      "blocks": {
+        "feature_fK6CpF": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-new-fiber.webp",
+            "title": "<p><em>12,000</em> carbon fibers</p>",
+            "description": "High-strength fibers from Japan's Toray Group for even, long-lasting heat."
+          }
+        },
+        "feature_NcFnkF": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-new-chip.webp",
+            "title": "<p><em>Smart</em> Chip Control</p>",
+            "description": "U.S.-homemade intelligent chips ensure rapid heat-up, stable temperature control, and optimized energy efficiency."
+          }
+        },
+        "feature_R6dLHk": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-new-overheat.webp",
+            "title": "<p><em>NTC</em> overheat protection</p>",
+            "description": "Built-in sensors keep watch on the heating modules to protect both the vest and you."
+          }
+        },
+        "feature_zgjYr7": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-new-bends.webp",
+            "title": "<p><em>10,000+</em> bends, 100 washes</p>",
+            "description": "The heating module keeps working without losing heat."
+          }
+        }
+      },
+      "block_order": [
+        "feature_fK6CpF",
+        "feature_NcFnkF",
+        "feature_R6dLHk",
+        "feature_zgjYr7"
+      ],
+      "name": "productN Technology",
+      "settings": {
+        "anchor_id": "productN-technology",
+        "rotation_interval": 2,
+        "eyebrow": "Technology",
+        "brand": "Heatwave™",
+        "heading": "heating system",
+        "description": "Our own carbon-fiber heating system. It heats up fast, guards against overheating and keeps working wash after wash.",
+        "footer_text": "Also inside this vest:",
+        "battery_label": "PowerCore™ battery",
+        "battery_link": "#productN-battery-detail",
+        "technology_label": "Explore Venustas technology",
+        "technology_link": "https://venustas.com/pages/technology"
+      }
+    },
+    "product_new_heat_control_NxLkJt": {
+      "type": "product-new-heat-control",
+      "blocks": {
+        "level_3MnUdT": {
+          "type": "level",
+          "settings": {
+            "mode": "low",
+            "label": "Low",
+            "image": "shopify://shop_images/productN-new-blue-button.webp",
+            "status_label": "LOW.BLUE LIGHT",
+            "temp_f": "100°F",
+            "temp_c": "38°C",
+            "description": "Mild days and the longest runtime.",
+            "scale_label": "Low · 100°F",
+            "runtime": "10 hours",
+            "runtime_note": "on Low with the included 5K battery (36Wh)"
+          }
+        },
+        "level_LjBg3a": {
+          "type": "level",
+          "settings": {
+            "mode": "medium",
+            "label": "Medium",
+            "image": "shopify://shop_images/productN-new-white-button.webp",
+            "status_label": "MEDIUM.WHITE LIGHT",
+            "temp_f": "113°F",
+            "temp_c": "45°C",
+            "description": "everyday code.where the vest settles after pre-heat.",
+            "scale_label": "Medium · 113°F",
+            "runtime": "6 hours",
+            "runtime_note": "on Medium with the included 5K battery (36Wh)"
+          }
+        },
+        "level_rLhQaL": {
+          "type": "level",
+          "settings": {
+            "mode": "high",
+            "label": "High",
+            "image": "shopify://shop_images/productN-new-red-button.webp",
+            "status_label": "HIGH.RED LIGHT",
+            "temp_f": "131°F",
+            "temp_c": "55°C",
+            "description": "Pre-heat and the coldest stretches of the day",
+            "scale_label": "High · 131°F",
+            "runtime": "3 hours",
+            "runtime_note": "on High with the included 5K battery (36Wh)"
+          }
+        }
+      },
+      "block_order": [
+        "level_3MnUdT",
+        "level_LjBg3a",
+        "level_rLhQaL"
+      ],
+      "name": "productN Heat Control",
+      "settings": {
+        "anchor_id": "productN-heat-control",
+        "eyebrow": "Temp Control",
+        "heading": "One button. Three levels of heat.",
+        "description": "Press to switch between High, Medium and Low. The light on the button shows the setting you're on.",
+        "note": "To start, hold the button for 3 seconds. It pre-heats for 5 minutes on High (blinking red), then settles on Medium by itself."
+      }
+    },
+    "product_new_battery_runtime_FLLgnX": {
+      "type": "product-new-battery-runtime",
+      "name": "productN Battery Runtime",
+      "settings": {
+        "anchor_id": "productN-battery-detail",
+        "eyebrow": "Battery & Runtime",
+        "heading": "Same vest. Choose how long it runs.",
+        "description": "Standard, Pro and Max share the same vest, six zones and temperatures. The battery is the only difference — and it decides the runtime."
+      }
+    },
+    "product_new_battery_cCGanj": {
+      "type": "product-new-battery",
+      "blocks": {
+        "metric_LW7xja": {
+          "type": "metric",
+          "settings": {
+            "value": "36Wh",
+            "description": "5000mAh @ 7.2V (36Wh)"
+          }
+        },
+        "metric_Whnrzd": {
+          "type": "metric",
+          "settings": {
+            "value": "2.5 h",
+            "description": "with a 20W USB-C charger (not included)"
+          }
+        },
+        "metric_q7wh4B": {
+          "type": "metric",
+          "settings": {
+            "value": "1,000",
+            "description": "charge cycles"
+          }
+        },
+        "metric_eeTqAK": {
+          "type": "metric",
+          "settings": {
+            "value": "3 ports",
+            "description": "DC to the vest · USB-A and USB-C to charge your phone"
+          }
+        }
+      },
+      "block_order": [
+        "metric_LW7xja",
+        "metric_Whnrzd",
+        "metric_q7wh4B",
+        "metric_eeTqAK"
+      ],
+      "name": "productN Battery",
+      "settings": {
+        "anchor_id": "productN-battery",
+        "eyebrow": "PowerCore™ battery",
+        "heading": "<p><strong>5K</strong> battery · <strong>36</strong>Wh</p>",
+        "description": "Standard, Pro and Max share the same vest, six zones and temperatures. The battery is the only difference — and it decides the runtime.",
+        "safety_heading": "Safety certified",
+        "show_certificate_1": true,
+        "show_certificate_2": true,
+        "show_certificate_3": true,
+        "show_certificate_4": true,
+        "show_certificate_5": true,
+        "show_certificate_6": true,
+        "show_certificate_7": true,
+        "safety_note": "UN38.3 is the UN transport test for lithium batteries — the battery is TSA-friendly in your carry-on.",
+        "image": "shopify://shop_images/productN-new-battery-5k.webp",
+        "mobile_image": "shopify://shop_images/productN-new-battery-5k-mobile.png",
+        "charging_label": "Charging over USB-C",
+        "full_label": "Full in 2.5 h",
+        "dimensions": "3.15 × 2.60 × 1.02 in · 6.56 oz"
+      }
+    },
+    "product_new_power_features_JxpD4E": {
+      "type": "product-new-power-features",
+      "blocks": {
+        "feature_6WLp7z": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-new-power.webp",
+            "title": "<p><em>36Wh</em> of steady power</p>",
+            "description": "A dedicated chip delivers stable, efficient heat."
+          }
+        },
+        "feature_xyya9R": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-new-cells.webp",
+            "title": "<p><em>ETL</em>-certified LG cells</p>",
+            "description": "Plus NTC temperature protection and smart battery management."
+          }
+        },
+        "feature_HQwQ7F": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-new-usb.webp",
+            "title": "<p>Full in <em>2.5 h</em></p>",
+            "description": "Charges over USB-C. Its USB-A and USB-C ports top up your phone too."
+          }
+        },
+        "feature_NahAz8": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-new-charge.webp",
+            "title": "<p><em>1,000</em> charge cycles</p>",
+            "description": "Built to last season after season."
+          }
+        }
+      },
+      "block_order": [
+        "feature_6WLp7z",
+        "feature_xyya9R",
+        "feature_HQwQ7F",
+        "feature_NahAz8"
+      ],
+      "name": "productN Power Features",
+      "settings": {
+        "heading": "<p>Built for reliable power</p>"
+      }
+    },
+    "product_new_design_features_ViC86z": {
+      "type": "product-new-design-features",
+      "blocks": {
+        "feature_4WCzTg": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-2118-detail-one.webp",
+            "title": "Stand collar",
+            "description": "Keeps the collar heat zone right against the back of your neck."
+          }
+        },
+        "feature_HBwd8r": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-2118-detail-two.webp",
+            "title": "Water-repellent shell",
+            "description": "100% nylon, wind- and water-resistant. Light rain and wet snow bead off."
+          }
+        },
+        "feature_LWkUpe": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-2118-detail-three.webp",
+            "title": "One-button control",
+            "description": "One press on the chest switches settings. The light — red, white or blue — shows which one."
+          }
+        },
+        "feature_YPN8qT": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-2118-detail-four.webp",
+            "title": "Reflective lining",
+            "description": "Black: silver Mylar that reflects body heat back to your core. Other colors: graphene-nylon lining."
+          }
+        },
+        "feature_nyPFa9": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-2118-detail-five.webp",
+            "title": "Heated zip pockets",
+            "description": "Both hand pockets are heated and zip shut, so your phone and keys stay put."
+          }
+        },
+        "feature_JdwYLE": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-2118-detail-six.webp",
+            "title": "Battery pocket",
+            "description": "A dedicated inner pocket holds the battery, with the power cable already inside."
+          }
+        },
+        "feature_K9RDFa": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-2118-detail-sever.webp",
+            "title": "Adjustable hem",
+            "description": "Cinch the hem to seal drafts at the waist. Hip-length cut."
+          }
+        },
+        "feature_JMn8Dz": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/productN-2118-detail-eight-new.webp",
+            "title": "Machine washable",
+            "description": "Take the battery out and wash in a laundry bag. Air dry completely before you turn the heat back on."
+          }
+        }
+      },
+      "block_order": [
+        "feature_4WCzTg",
+        "feature_HBwd8r",
+        "feature_LWkUpe",
+        "feature_YPN8qT",
+        "feature_nyPFa9",
+        "feature_JdwYLE",
+        "feature_K9RDFa",
+        "feature_JMn8Dz"
+      ],
+      "name": "productN Design Features",
+      "settings": {
+        "anchor_id": "productN-design-features",
+        "eyebrow": "Design Features",
+        "heading": "A good puffer first. Heated second.",
+        "description": "FELLEX® insulation with 100% recycled-polyester fill — it still works as a warm vest with the heat off."
+      }
+    },
+    "product_new_tested_worn_fFfJ7N": {
+      "type": "product-new-tested-worn",
+      "blocks": {
+        "review_VRXjbb": {
+          "type": "review",
+          "settings": {
+            "source": "GEARJUNKIE · FIELD TEST",
+            "rating": "★ 4.5 / 5 · Expert Verdict",
+            "quote": "\"Venustas Classic Heated Vest offers reliable warmth and versatile comfort for cold days.\"",
+            "note": "Reliable multi-zone warmth with adjustable levels and accurate battery life, soft and easy to wear, with only slight battery bulk and a visible button.",
+            "button_label": "Read the review",
+            "button_link": "https://venustas.com/blogs/news/trusted-by-gearjunkie-venustas-heated-vest-field-tested-review"
+          }
+        },
+        "image_jibQkL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/M2118-classic-heated-vest-product-3.png"
+          }
+        },
+        "image_hYNfK8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/productN-custome-one.webp"
+          }
+        },
+        "image_aVg9FR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/productN-custome-four.webp"
+          }
+        },
+        "image_tbfX7f": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/M2118-classic-heated-vest-product-1.png"
+          }
+        },
+        "image_JFkVK7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/productN-custome-two.webp"
+          }
+        },
+        "image_bpRdWr": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/productN-custome-three.webp"
+          }
+        },
+        "image_8FDKpr": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/productN-custome-five.webp"
+          }
+        },
+        "image_WXhLLr": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/M2118-classic-heated-vest-product-2.png"
+          }
+        },
+        "image_eptytX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/productN-custome-six.webp"
+          }
+        },
+        "image_knFLEM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/productN-custome-sever.webp"
+          }
+        }
+      },
+      "block_order": [
+        "review_VRXjbb",
+        "image_jibQkL",
+        "image_hYNfK8",
+        "image_aVg9FR",
+        "image_tbfX7f",
+        "image_JFkVK7",
+        "image_bpRdWr",
+        "image_8FDKpr",
+        "image_WXhLLr",
+        "image_eptytX",
+        "image_knFLEM"
+      ],
+      "name": "productN Tested Worn",
+      "settings": {
+        "anchor_id": "productN-tested-worn",
+        "eyebrow": "Tested & Worn",
+        "heading": "Field-tested. Winter-worn.",
+        "caption": "<p>Real customers wearing the Classic Heated Vest. Tag <strong>#VenustasExplorer</strong> for a chance to be featured.</p>"
+      }
+    },
+    "product_new_in_box_C3gcR9": {
+      "type": "product-new-in-box",
+      "blocks": {
+        "item_eTgP6L": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/productN-box-vest.webp",
+            "title": "Men's Classic Heated Vest",
+            "quantity": "× 1"
+          }
+        },
+        "item_FcDL8G": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/productN-box-battery.webp",
+            "title": "5K Battery (36Wh)",
+            "quantity": "× 1"
+          }
+        },
+        "item_KDRVQy": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/productN-box-cable.webp",
+            "title": "USB-C Charging Cable",
+            "quantity": "× 1"
+          }
+        },
+        "item_njzxE6": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/productN-box-bag.webp",
+            "title": "Carry Bag",
+            "quantity": "× 1"
+          }
+        },
+        "item_BXeAGA": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/productN-box-spec-book.webp",
+            "title": "User Manual (English)",
+            "quantity": "× 1"
+          }
+        }
+      },
+      "block_order": [
+        "item_eTgP6L",
+        "item_FcDL8G",
+        "item_KDRVQy",
+        "item_njzxE6",
+        "item_BXeAGA"
+      ],
+      "name": "productN In the Box",
+      "settings": {
+        "anchor_id": "productN-in-box",
+        "heading": "In the Box"
+      }
+    },
+    "product_new_specifications_pwQ6JC": {
+      "type": "product-new-specifications",
+      "blocks": {
+        "group_UGNyCe": {
+          "type": "group",
+          "settings": {
+            "title": "Heating",
+            "row_label_1": "Element",
+            "row_value_1": "<p>Carbon fiber</p>",
+            "row_label_2": "Zones",
+            "row_value_2": "<p>6 — collar, left & right shoulders, mid-back, left & right pockets</p>",
+            "row_label_3": "Settings",
+            "row_value_3": "<p>High 131°F / 55°C</p><p>Medium 113°F / 45°C</p><p>Low 100°F / 38°C</p>",
+            "row_label_4": "Indicator",
+            "row_value_4": "<p>Pre-heat & High: red · Medium: white · Low: blue</p>",
+            "row_label_5": "Runtime",
+            "row_value_5": "<p>High 3 h · Medium 6 h · Low 10 h</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "group_gx7QPM": {
+          "type": "group",
+          "settings": {
+            "title": "Battery",
+            "row_label_1": "Capacity",
+            "row_value_1": "<p>5000mAh @ 7.2V (36Wh)</p>",
+            "row_label_2": "Size",
+            "row_value_2": "<p>3.15 × 2.60 × 1.02 in</p>",
+            "row_label_3": "Weight",
+            "row_value_3": "<p>6.56 oz</p>",
+            "row_label_4": "Charging",
+            "row_value_4": "<p>2.5 h with a 20W USB-C charger · charger (not included)</p>",
+            "row_label_5": "Outputs",
+            "row_value_5": "<p>DC to the vest · USB-A · USB-C</p>",
+            "link_label": "Battery details & certifications",
+            "link": "#productN-battery"
+          }
+        },
+        "group_xBjEAn": {
+          "type": "group",
+          "settings": {
+            "title": "Vest",
+            "row_label_1": "Fit",
+            "row_value_1": "<p>Regular · hip-length</p>",
+            "row_label_2": "Shell",
+            "row_value_2": "<p>100% nylon, water-repellent</p>",
+            "row_label_3": "Lining",
+            "row_value_3": "<p>Black: 95% polyester, 5% silver Mylar thermal fabric</p><p>Other colors: 93% nylon, 7% graphene nylon</p>",
+            "row_label_4": "Insulation",
+            "row_value_4": "<p>FELLEX®, 100% recycled polyester</p>",
+            "row_label_5": "Care",
+            "row_value_5": "<p>Remove battery.<br>Hand or machine wash in a laundry bag.<br>Air dry — no dryer<br>iron or dry cleaning.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "group_UGNyCe",
+        "group_gx7QPM",
+        "group_xBjEAn"
+      ],
+      "name": "productN Specifications",
+      "settings": {
+        "anchor_id": "productN-specifications",
+        "eyebrow": "Specs",
+        "heading": "Full specifications"
+      }
+    },
+    "product_new_compare_eQV7yA": {
+      "type": "product-new-compare",
+      "blocks": {
+        "product_gPaYnX": {
+          "type": "product",
+          "settings": {
+            "product": "mens-classic-heated-vest-7-4v",
+            "title": "",
+            "value_1": "Camping & Hiking, Hunting, Golf, Skiing, Riding, Fishing, Daily and Outdoor Lifestyle",
+            "value_2": "Lightweight, Water-Reistant & Windproof",
+            "value_3": "6",
+            "value_4": "131°F",
+            "value_5": "1 button, 3 settings",
+            "value_6": "7.4V",
+            "value_7": "36Wh · up to 10 h",
+            "button_label": "View product"
+          }
+        },
+        "product_kd7Hpt": {
+          "type": "product",
+          "settings": {
+            "product": "mens-heated-fleece-vest-7-4v",
+            "title": "",
+            "value_1": "Hunting, Hiking, Walking, Golf, Daily Work and Commute, Sport Games",
+            "value_2": "Soft, Lightweight and Windproof",
+            "value_3": "6",
+            "value_4": "131°F",
+            "value_5": "1 button, 3 settings",
+            "value_6": "7.4V",
+            "value_7": "36Wh · Up to 10h",
+            "button_label": "View product"
+          }
+        },
+        "product_QnWznH": {
+          "type": "product",
+          "settings": {
+            "product": "mens-heated-dual-control-fellex-vest-12v",
+            "title": "",
+            "value_1": "Camping & Hiking, Hunting, Golf, Skiing, Riding, Fishing, Daily and Outdoor Lifestyle",
+            "value_2": "Lightweight, Abrasion-Resistant, Water-Resistant & Windproof",
+            "value_3": "6",
+            "value_4": "144°F",
+            "value_5": "Dual Control, 3 settings",
+            "value_6": "12V",
+            "value_7": "54Wh · Up to 30h",
+            "button_label": "View product"
+          }
+        }
+      },
+      "block_order": [
+        "product_gPaYnX",
+        "product_kd7Hpt",
+        "product_QnWznH"
+      ],
+      "name": "productN Compare",
+      "settings": {
+        "anchor_id": "productN-compare",
+        "eyebrow": "Compare",
+        "heading": "Which heated vest is right for you?",
+        "description": "Our heated vests side by side, so you can pick the one that fits how you'll wear it.",
+        "row_label_1": "Best for",
+        "row_label_2": "Benefit",
+        "row_label_3": "Heating zones",
+        "row_label_4": "Max temperature",
+        "row_label_5": "Controls",
+        "row_label_6": "System voltage",
+        "row_label_7": "Battery · runtime on Low"
+      }
+    },
+    "product_new_faq_beLHXf": {
+      "type": "product-new-faq",
+      "name": "productN FAQ",
+      "settings": {
+        "eyebrow": "FAQ"
+      }
+    },
+    "product_review_section_nwk9r6": {
+      "type": "product-review-section",
+      "blocks": {
+        "okendo_reviews_widget_GB7mre": {
+          "type": "shopify://apps/okendo/blocks/reviews-widget/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{product}}",
+            "widget_type": "combined_widget"
+          }
+        }
+      },
+      "block_order": [
+        "okendo_reviews_widget_GB7mre"
+      ],
+      "name": "Review Section",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "current-review",
+        "nav_title": "Reviews",
+        "heading": "Reviews"
+      }
+    },
+    "product_recommendation_bgYVqc": {
+      "type": "product-recommendation",
+      "name": "Recommendation",
+      "settings": {
+        "enabled_section_child_scroll": false,
+        "section_scroll_nav": "",
+        "nav_title": "",
+        "heading": "You May Also Like",
+        "collection": "",
+        "number_product": 8
+      }
+    },
+    "product_promo_ELPiqn": {
+      "type": "product-promo",
+      "blocks": {
+        "stat_kbxxnY": {
+          "type": "stat",
+          "settings": {
+            "label": "BUILT FOR",
+            "value": "-40°F"
+          }
+        },
+        "stat_DWfDDV": {
+          "type": "stat",
+          "settings": {
+            "label": "HEATING POWER",
+            "value": "4×"
+          }
+        },
+        "stat_X78EJp": {
+          "type": "stat",
+          "settings": {
+            "label": "BATTERIES",
+            "value": "2"
+          }
+        }
+      },
+      "block_order": [
+        "stat_kbxxnY",
+        "stat_DWfDDV",
+        "stat_X78EJp"
+      ],
+      "name": "Product Promo",
+      "settings": {
+        "desktop_image": "shopify://shop_images/product-promo-banner.webp",
+        "mobile_image": "shopify://shop_images/product-promo-banner-mobile.webp",
+        "eyebrow": "NEW · VOLCANO™ PRO",
+        "title": "Heading Somewhere Colder?",
+        "description": "Our warmest vest, with 4× the heating power of the Classic.",
+        "button_label": "Meet VOLCANO™",
+        "button_link": "",
+        "link_label": "How our heating works",
+        "link": ""
+      }
+    },
+    "product_new_warranty_information_fH8Bjh": {
+      "type": "product-new-warranty-information",
+      "blocks": {
+        "benefit_YigRJD": {
+          "type": "benefit",
+          "settings": {
+            "icon": "free-shipping",
+            "title": "Free shipping",
+            "description": "Every order to the U.S. and Canada"
+          }
+        },
+        "benefit_3dW6qy": {
+          "type": "benefit",
+          "settings": {
+            "icon": "returns",
+            "title": "30-day returns",
+            "description": "Free return shipping in the U.S."
+          }
+        },
+        "benefit_qLp7ny": {
+          "type": "benefit",
+          "settings": {
+            "icon": "warranty",
+            "title": "3-year warranty",
+            "description": "On heating elements · 1 year on batteries"
+          }
+        },
+        "benefit_FEJJnP": {
+          "type": "benefit",
+          "settings": {
+            "icon": "support",
+            "title": "Real people, real help",
+            "description": "+1 (888) 836-6460 · Mon–Fri, 9 AM–6 PM ET"
+          }
+        },
+        "benefit_KBRdEq": {
+          "type": "benefit",
+          "settings": {
+            "icon": "customers",
+            "title": "[2M+] customers",
+            "description": "Keeping people warm since 2018"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_YigRJD",
+        "benefit_3dW6qy",
+        "benefit_qLp7ny",
+        "benefit_FEJJnP",
+        "benefit_KBRdEq"
+      ],
+      "name": "productN Warranty",
+      "settings": {}
+    },
+    "product_nav_new": {
+      "type": "product-nav-new",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main-product",
+    "heating_v_anchor_nav_UcEwiV",
+    "product_new_heating_wrnKrW",
+    "product_new_benefits_qjmLMG",
+    "product_new_technology_cHRrf8",
+    "product_new_heat_control_NxLkJt",
+    "product_new_battery_runtime_FLLgnX",
+    "product_new_battery_cCGanj",
+    "product_new_power_features_JxpD4E",
+    "product_new_design_features_ViC86z",
+    "product_new_tested_worn_fFfJ7N",
+    "product_new_in_box_C3gcR9",
+    "product_new_specifications_pwQ6JC",
+    "product_new_compare_eQV7yA",
+    "product_new_faq_beLHXf",
+    "product_review_section_nwk9r6",
+    "product_recommendation_bgYVqc",
+    "product_promo_ELPiqn",
+    "product_new_warranty_information_fH8Bjh",
+    "product_nav_new"
+  ]
+}
