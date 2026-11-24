@@ -4,6 +4,8 @@
   @param {string} icon - Header icon case name.
 {% enddoc %}
 {%- case icon -%}
+  {%- when 'check' -%}
+    {%- render 'heating-icons', icon: 'check-18' -%}
   {%- when 'chevron-right' -%}
     {%- render 'heating-icons', icon: 'chevron-right-16' -%}
   {%- when 'chevron-left' -%}
@@ -71,7 +73,7 @@
     </svg>
   {%- when 'icon-arrow-right' -%}
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2.9165 7H11.0832M7.58317 10.5L11.0832 7L7.58317 3.5" stroke-width="1.28333" stroke="#B93205"/>
+      <path d="M2.9165 7H11.0832M7.58317 10.5L11.0832 7L7.58317 3.5" stroke-width="1.28333" stroke="currentColor"/>
     </svg>
       
   {%- when 'help-circle' -%}

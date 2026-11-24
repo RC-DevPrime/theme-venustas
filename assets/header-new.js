@@ -225,6 +225,7 @@
         button.className = link.className;
         button.dataset.headerToggle = key;
         button.setAttribute('aria-expanded', 'false');
+        if (link.hasAttribute('aria-current')) button.setAttribute('aria-current', link.getAttribute('aria-current'));
         button.innerHTML = link.innerHTML;
         link.replaceWith(button);
       });

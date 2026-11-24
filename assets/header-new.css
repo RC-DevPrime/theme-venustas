@@ -27,6 +27,7 @@
   font-size:14px;
   color: inherit;
   text-decoration: none;
+  font-weight: 500;
 }
 
 .header-new button {
@@ -101,6 +102,22 @@
 .header-new .header-new__nav-link[aria-expanded='true'],
 .header-new .header-new__nav-link:hover {
   color: #b93205;
+}
+
+@media (min-width: 1200px) {
+  .header-new .header-new__nav-link { position: relative; }
+  .header-new .header-new__nav-link--active::after,
+  .header-new .header-new__nav-link:hover::after,
+  .header-new .header-new__nav-link:focus-visible::after,
+  .header-new .header-new__nav-link[aria-expanded='true']::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 6px;
+    left: 0;
+    height: 2px;
+    background: #b93205;
+  }
 }
 
 .header-new__mobile-open,
@@ -219,8 +236,21 @@
   gap: 12px;
 }
 
+@media (hover: hover) {
+  .header-new .header-new__menu a:hover,
+  .header-new .header-new__featured a:hover,
+  .header-new .header-new__image-menu-link:hover,
+  .header-new .header-new__feature-link:hover .header-new__feature-title,
+  .header-new .header-new__promo-link:hover .header-new__promo-title,
+  .header-new .header-new__campaign-tab:hover,
+  .header-new .header-new__campaign-product:hover .header-new__campaign-product-title {
+    color: #b93205;
+  }
+}
+
 .header-new__menu a,
 .header-new__menu-label {
+  font-weight: 500;
   display: flex;
   flex-direction: column;
 }
@@ -353,6 +383,13 @@
 .header-new .header-new__button--solid {
   background: #b93205;
   color: #fff;
+}
+
+@media (min-width: 1200px) and (hover: hover) {
+  .header-new .header-new__footer .header-new__button:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
 }
 
 
@@ -595,6 +632,7 @@
 
   .header-new__menu a,
   .header-new__menu-label {
+    font-weight: 500;
     display: block;
     padding: 16px;
     border-bottom: 1px solid #e5e7eb;
@@ -938,7 +976,8 @@
 .header-new__country-label { display:none; }
 .header-new .header-new__localization ul { position:absolute;right:0;top:100%;min-width:220px;background:#fff;box-shadow:0 4px 12px #0002; }
 .header-new__localization li a { padding:12px 16px; }
-.header-new__localization a[aria-current] { background:#f1f2f4; }
+.header-new__country-check { display:inline-flex;align-items:center;margin-left:auto; }
+.header-new__country-check svg { display:block;width:18px;height:18px; }
 .header-new__localization small { color:#777;font-size:12px; }
 .header-new__mobile-utilities { display:none; }
 .header-new__backdrop { position:fixed;inset:0;background:#0006;z-index:-1; }

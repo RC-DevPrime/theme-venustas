@@ -32,8 +32,9 @@
       <ul class="header-new__nav-list" data-header-main-list>
         {%- for label in navigation_labels -%}
           {%- assign menu_key = label | handleize -%}
+          {%- assign nav_href = routes.root_url | append: navigation_paths[forloop.index0] | replace: '//', '/' -%}
           <li class="header-new__nav-item" data-nav-key="{{ menu_key }}">
-            <a class="header-new__nav-link{% if menu_key == 'gift' %} header-new__nav-link--emphasis{% endif %}" href="{{ routes.root_url | append: navigation_paths[forloop.index0] | replace: '//', '/' }}">
+            <a class="header-new__nav-link{% if menu_key == 'gift' %} header-new__nav-link--emphasis{% endif %}{% if request.path == nav_href %} header-new__nav-link--active{% endif %}" href="{{ nav_href }}"{% if request.path == nav_href %} aria-current="page"{% endif %}>
               {{- label | escape -}}
               <span class="header-new__nav-chevron">{% render 'header-icons', icon: 'chevron-right' %}</span>
             </a>

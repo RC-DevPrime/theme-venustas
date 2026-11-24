@@ -12,6 +12,8 @@
 
 2026-11-24 Badge：Feature link 增加 badge 文本；Category image menu 的 8 个分类槽各增加 badge 文本，与标题同排显示。见 [日志](../../logs/header/2026-11-24-nav-badge.md)。
 
+2026-11-24 桌面状态：国家浮窗当前项显示 check 图标；导航 hover／focus／下拉展开／当前页显示 2px 下划线（宽度随文字）；下拉内链接 hover 变 #b93205，桌面底部按钮 hover 加下划线。见 [日志](../../logs/header/2026-11-24-header-desktop-states.md)。
+
 状态：2026-11-24 已实现 New、Men、Women、Bundles、Sale 导航；本地入口为 header-group-new，旧代码保留。仅静态验证，未验证浏览器或线上环境。
 
 职责：站点公告、Logo、桌面／移动菜单、国家／币种入口、账户入口，以及 header group 挂载的搜索与购物车弹层。不能把 header.liquid 当作全部 Header 系统。
