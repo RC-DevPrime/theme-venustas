@@ -6,6 +6,12 @@
 
 2026-11-24 最新：[Accessories／Gift](../../logs/header/2026-11-24-accessories-gift-navigation.md) 接入，并修正手动新增面板未关联入口的问题。面板按 menu_key 自动匹配；两列 Accessories 与三列 Gift 移动默认收起，双推广卡复用既有数据。
 
+2026-11-24 移动账户：登录后 My Account 改为原生 details 折叠（默认展开、右箭头旋转，四个链接沿用 section 设置），未登录只显示 Sign In / Join 链接且无下拉。仅静态检查。见 [日志](../../logs/header/2026-11-24-mobile-account-menu.md)。
+
+2026-11-24 区块调整：Gift 移动端 Shop All 指向 gift-guide；同日对 Featured link 与 Category image menu 的改动已全部还原，区块代码与数据保持原样。见 [日志](../../logs/header/2026-11-24-nav-block-cleanup.md)。
+
+2026-11-24 Badge：Feature link 增加 badge 文本；Category image menu 的 8 个分类槽各增加 badge 文本，与标题同排显示。见 [日志](../../logs/header/2026-11-24-nav-badge.md)。
+
 状态：2026-11-24 已实现 New、Men、Women、Bundles、Sale 导航；本地入口为 header-group-new，旧代码保留。仅静态验证，未验证浏览器或线上环境。
 
 职责：站点公告、Logo、桌面／移动菜单、国家／币种入口、账户入口，以及 header group 挂载的搜索与购物车弹层。不能把 header.liquid 当作全部 Header 系统。

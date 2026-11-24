@@ -1,7 +1,7 @@
 {%- if block.settings.title != blank -%}
   <div class="header-new__feature" {{ block.shopify_attributes }}>
     {%- if block.settings.url != blank -%}<a class="header-new__feature-link" href="{{ block.settings.url }}">{%- else -%}<div class="header-new__feature-link">{%- endif -%}
-      <span class="header-new__feature-title">{{ block.settings.title | escape }}</span>
+      <span class="header-new__feature-title">{{ block.settings.title | escape }}{% if block.settings.badge != blank %}<span class="header-new__badge">{{ block.settings.badge | escape }}</span>{% endif %}</span>
       {%- if block.settings.description != blank -%}<span class="header-new__feature-description">{{ block.settings.description | escape | newline_to_br }}</span>{%- endif -%}
     {%- if block.settings.url != blank -%}</a>{%- else -%}</div>{%- endif -%}
   </div>
@@ -13,6 +13,7 @@
   "tag": null,
   "settings": [
     { "type": "text", "id": "title", "label": "Link text", "default": "Feature" },
+    { "type": "text", "id": "badge", "label": "Badge", "info": "e.g. New, Hot. Leave blank to hide." },
     { "type": "textarea", "id": "description", "label": "Feature description" },
     { "type": "url", "id": "url", "label": "Link" }
   ],

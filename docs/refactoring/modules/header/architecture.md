@@ -52,6 +52,8 @@ Bundles 数据复制旧 header-group.json 的 dislay_6_yaYK6A：clothing-extra-b
 
 新增 _header-nav-image-menu 为列内第四种内容块。原生菜单非空时以其第一层链接作为名称／地址／顺序来源，并按 URL 匹配最多八组上传图片；菜单为空时使用图片槽内初始文案。普通菜单 _header-nav-menu 非空菜单优先，否则显示最多四组初始文案／可选链接和说明。当前未提供六个真实菜单句柄，初始化未绑定菜单，也未编造分类／Style／Collections 目标地址；空地址显示非交互文本。图片缺失使用 Shopify 内置 collection-1 占位图，不读取集合图片。
 
+2026-11-24 调整：Gift 移动端 Shop All 复用桌面 Shop the Gift Guide 链接。同日曾删除 _header-nav-featured 并改 image-menu 为顺序匹配，均按用户要求完整还原；featured／image-menu 代码与数据与改动前一致。详见 [日志](../../logs/header/2026-11-24-nav-block-cleanup.md)。
+
 分类图片映射采用固定设置槽，避免为每张图片新增动态区块；单 section 目前共49个嵌套区块（New17、Men16、Women16），平台上限50。footer 一个区块管理桌面左 Shop All 与右 Technology，移动仅 Technology，DOM 顺序放在双卡之前以保持键盘顺序。后续新增面板需先重新规划区块数量，不可直接继续堆叠。
 
 两张1080×1350的推广图从本次 Figma 节点下载为 assets/header-new-volcano.jpg、header-new-apex.jpg，配置 preset_image 选择默认图；上传图片／产品图片优先。使用 asset_img_url 响应尺寸与懒加载，样式维持228:285。无 Figma 临时地址进入运行代码。详见 [实施日志](../../logs/header/2026-11-23-men-women-navigation.md)。下文 New 首批记录为历史基线。

@@ -10,6 +10,7 @@
   {%- for item_index in (1..item_count) -%}
     {%- liquid
       assign item_image = blank
+      assign item_badge = blank
       assign item_current = false
       if use_menu
         assign item_link = block.settings.menu.links[forloop.index0]
@@ -23,6 +24,8 @@
           assign image_url = block.settings[url_key] | append: '' | remove: shop.url | split: '?' | first | split: '#' | first
           if match_url == image_url
             assign item_image = block.settings[image_key]
+            assign badge_key = 'badge_' | append: image_index
+            assign item_badge = block.settings[badge_key]
             break
           endif
         endfor
@@ -30,9 +33,11 @@
         assign title_key = 'title_' | append: item_index
         assign url_key = 'url_' | append: item_index
         assign image_key = 'image_' | append: item_index
+        assign badge_key = 'badge_' | append: item_index
         assign item_title = block.settings[title_key]
         assign item_url = block.settings[url_key]
         assign item_image = block.settings[image_key]
+        assign item_badge = block.settings[badge_key]
       endif
       assign image_alt = item_image.alt | default: item_title
     -%}
@@ -46,7 +51,7 @@
               {{ 'collection-1' | placeholder_svg_tag: 'header-new__image-menu-placeholder' }}
             {%- endif -%}
           </span>
-          <span class="header-new__image-menu-title">{{ item_title | escape }}</span>
+          <span class="header-new__image-menu-title">{{ item_title | escape }}{% if item_badge != blank %}<span class="header-new__badge">{{ item_badge | escape }}</span>{% endif %}</span>
         {%- if item_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
       </li>
     {%- endif -%}
@@ -83,6 +88,12 @@
       "label": "Matching category link"
     },
     {
+      "type": "text",
+      "id": "badge_1",
+      "label": "Badge",
+      "info": "e.g. New, Hot. Leave blank to hide."
+    },
+    {
       "type": "image_picker",
       "id": "image_1",
       "label": "Mobile category image"
@@ -100,6 +111,12 @@
       "type": "url",
       "id": "url_2",
       "label": "Matching category link"
+    },
+    {
+      "type": "text",
+      "id": "badge_2",
+      "label": "Badge",
+      "info": "e.g. New, Hot. Leave blank to hide."
     },
     {
       "type": "image_picker",
@@ -121,6 +138,12 @@
       "label": "Matching category link"
     },
     {
+      "type": "text",
+      "id": "badge_3",
+      "label": "Badge",
+      "info": "e.g. New, Hot. Leave blank to hide."
+    },
+    {
       "type": "image_picker",
       "id": "image_3",
       "label": "Mobile category image"
@@ -138,6 +161,12 @@
       "type": "url",
       "id": "url_4",
       "label": "Matching category link"
+    },
+    {
+      "type": "text",
+      "id": "badge_4",
+      "label": "Badge",
+      "info": "e.g. New, Hot. Leave blank to hide."
     },
     {
       "type": "image_picker",
@@ -159,6 +188,12 @@
       "label": "Matching category link"
     },
     {
+      "type": "text",
+      "id": "badge_5",
+      "label": "Badge",
+      "info": "e.g. New, Hot. Leave blank to hide."
+    },
+    {
       "type": "image_picker",
       "id": "image_5",
       "label": "Mobile category image"
@@ -176,6 +211,12 @@
       "type": "url",
       "id": "url_6",
       "label": "Matching category link"
+    },
+    {
+      "type": "text",
+      "id": "badge_6",
+      "label": "Badge",
+      "info": "e.g. New, Hot. Leave blank to hide."
     },
     {
       "type": "image_picker",
@@ -197,6 +238,12 @@
       "label": "Matching category link"
     },
     {
+      "type": "text",
+      "id": "badge_7",
+      "label": "Badge",
+      "info": "e.g. New, Hot. Leave blank to hide."
+    },
+    {
       "type": "image_picker",
       "id": "image_7",
       "label": "Mobile category image"
@@ -214,6 +261,12 @@
       "type": "url",
       "id": "url_8",
       "label": "Matching category link"
+    },
+    {
+      "type": "text",
+      "id": "badge_8",
+      "label": "Badge",
+      "info": "e.g. New, Hot. Leave blank to hide."
     },
     {
       "type": "image_picker",

@@ -54,7 +54,7 @@
 - layout/theme.liquid 当前引用 sections/header-group-new.json；原 group 保留。
 - sections/header-new.liquid → assets/header-new.css、assets/header-new.js、snippets/header-icons.liquid，以及嵌套主题区块。
 - blocks/_header-nav-group.liquid → _header-nav-column、_header-nav-promo、_header-nav-button。
-- blocks/_header-nav-column.liquid → _header-nav-featured、_header-nav-menu、_header-nav-feature。
+- blocks/_header-nav-column.liquid → _header-nav-featured、_header-nav-image-menu、_header-nav-menu、_header-nav-feature。
 - snippets/header-icons.liquid → heating-icons.liquid 的既有左右箭头；未新增 SVG 素材。
 - header-group-new.json 的 New 面板使用三列、两推广卡与桌面底部按钮，推广图片／标题／地址来自旧 New 配置；search、popup-cart 数据原样保留。
 

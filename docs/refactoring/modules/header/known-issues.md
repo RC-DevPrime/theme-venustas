@@ -1,5 +1,9 @@
 # Header 已知事项
 
+2026-11-24 导航区块调整：Featured link 与 Category image menu 的同日改动已按用户要求全部还原，本仓库区块类型、schema、CSS 与 JSON 数据回到改动前状态。Gift 移动端 Shop All 复用 `shopify://pages/gift-guide`，页面句柄存在性未验证；image-menu 的图片仍按 `url_i` 匹配，Men／Women 的 `url_1..8` 全为空，移动端显示占位图，需补匹配地址后才会显示已上传图片。未浏览器实测。见 [日志](../../logs/header/2026-11-24-nav-block-cleanup.md)。
+
+2026-11-24 移动账户：登录态由 `{% if customer %}` 决定，未登录展示 `routes.account_login_url` 链接；登录后四个链接默认展开、details 折叠、箭头旋转。四个链接仍取 section 设置默认值（Orders 复用账户页地址），登录态切换、键盘折叠和箭头方向未浏览器实测。见 [日志](../../logs/header/2026-11-24-mobile-account-menu.md)。
+
 2026-11-24 功能入口：新 Header 已接入旧搜索弹层与购物车接口，先前“无搜索/购物车入口”为历史状态。预测搜索H-001仍待单独确认；Wishlist需应用加载，账户专用链接与后台登录态待商店验证，US/CA继续旧跨站跳转。没有浏览器或应用运行证据。见 [日志](../../logs/header/2026-11-24-header-utilities.md)。
 
 2026-11-24 Accessories：本地确认用户已添加面板，但 section 硬编码下拉名单遗漏 accessories；当时改为配置驱动匹配。已配的空链接仍为非交互文本，具体目标应在编辑器补齐。Gift 的价格、礼品卡及指南地址未提供，不能据文案推断实际URL。静态修正不代表测试主题已同步或浏览器实测。

@@ -22,13 +22,13 @@
     {%- if has_primary -%}
       <a class="header-new__button header-new__button--{{ block.settings.style }} header-new__button--{{ block.settings.visibility }}" href="{{ block.settings.url | escape }}">
         {{- block.settings.title | escape -}}
-        {%- if block.settings.show_arrow -%}<span class="header-new__icon">{% render 'header-icons', icon: 'chevron-right' %}</span>{%- endif -%}
+        {%- if block.settings.show_arrow -%}<span class="header-new__icon">{% render 'header-icons', icon: 'icon-arrow-right' %}</span>{%- endif -%}
       </a>
     {%- endif -%}
     {%- if has_secondary -%}
       <a class="header-new__button header-new__button--secondary header-new__button--{{ block.settings.secondary_visibility }}" href="{{ block.settings.secondary_url | escape }}">
         {{- block.settings.secondary_title | escape -}}
-        {%- if block.settings.show_arrow -%}<span class="header-new__icon">{% render 'header-icons', icon: 'chevron-right' %}</span>{%- endif -%}
+        {%- if block.settings.show_arrow -%}<span class="header-new__icon">{% render 'header-icons', icon: 'icon-arrow-right' %}</span>{%- endif -%}
       </a>
     {%- endif -%}
   </div>
