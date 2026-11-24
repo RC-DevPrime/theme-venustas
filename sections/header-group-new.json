@@ -500,7 +500,7 @@
                 "categories": {
                   "type": "_header-nav-image-menu",
                   "settings": {
-                    "menu": "",
+                    "menu": "women-shop-categories",
                     "title_1": "Vests",
                     "url_1": "",
                     "title_2": "Jackets",
@@ -683,179 +683,100 @@
             "apex_card"
           ]
         },
-        "bundles_panel": {
-          "type": "_header-nav-campaign",
+        "header_nav_group_HHkAQK": {
+          "type": "_header-nav-group",
+          "name": "Navigation Panel",
           "settings": {
-            "title": "导航｜Bundles",
-            "label": "Bundle Sale",
-            "menu_key": "bundles",
-            "sidebar_title": "Bundle",
+            "title": "导航 | Accessories",
+            "label": "Accessories",
+            "menu_key": "accessories",
             "mobile_shop_all_label": "Shop All",
-            "mobile_shop_all_link": "shopify://collections/bundle-deal",
-            "show_category_button": true
+            "mobile_shop_all_link": "",
+            "emphasize": false
           },
           "blocks": {
-            "category_1": {
-              "type": "_header-nav-category",
+            "header_nav_column_a4LyLr": {
+              "type": "_header-nav-column",
               "settings": {
-                "title": "Clothing + Battery",
-                "short_description": "",
-                "content_title": "More Power, Longer Warmth",
-                "description": "",
-                "collection": "clothing-extra-battery",
-                "image_ratio": "landscape",
-                "product_limit": 4,
-                "button_label": "Shop All Clothing + Battery"
-              }
-            },
-            "category_2": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Clothing + Gloves",
-                "short_description": "",
-                "content_title": "Warm Hands, Stay Warm",
-                "description": "",
-                "collection": "complete-your-warmth",
-                "image_ratio": "landscape",
-                "product_limit": 4,
-                "button_label": "Shop All Clothing + Gloves"
-              }
-            },
-            "category_3": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Couple & Family",
-                "short_description": "",
-                "content_title": "Stay Warm Together",
-                "description": "",
-                "collection": "couple-family",
-                "image_ratio": "landscape",
-                "product_limit": 4,
-                "button_label": "Shop All Couple & Family"
-              }
-            },
-            "category_4": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Clothing + Socks",
-                "short_description": "",
-                "content_title": "Warm from Head to Toe",
-                "description": "",
-                "collection": "clothing-extra-socks",
-                "image_ratio": "landscape",
-                "product_limit": 4,
-                "button_label": "Shop All Clothing + Socks"
-              }
-            },
-            "shop_all": {
-              "type": "_header-nav-button",
-              "settings": {
-                "title": "Shop All Bundles",
-                "url": "shopify://collections/bundle-deal",
-                "style": "outline",
-                "align": "left",
-                "show_arrow": true,
-                "visibility": "desktop"
-              }
-            }
-          },
-          "block_order": [
-            "category_1",
-            "category_2",
-            "category_3",
-            "category_4",
-            "shop_all"
-          ]
-        },
-        "sale_panel": {
-          "type": "_header-nav-campaign",
-          "settings": {
-            "title": "导航｜Sale",
-            "label": "Sale",
-            "menu_key": "sale",
-            "sidebar_title": "Shop the Sale",
-            "mobile_shop_all_label": "Shop All",
-            "mobile_shop_all_link": "shopify://collections/campaign",
-            "show_category_button": true
-          },
-          "blocks": {
-            "category_1": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Fall Mega Sale",
-                "short_description": "",
-                "content_title": "",
-                "description": "",
-                "collection": "campaign",
-                "image_ratio": "portrait",
-                "product_limit": 4,
-                "button_label": "Shop All Fall Mega Sale"
+                "title": "Batteries & Power",
+                "role": "group",
+                "mobile_open": true
               },
-              "blocks": {}
-            },
-            "category_2": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Weekly Hot Deals",
-                "short_description": "",
-                "content_title": "",
-                "description": "",
-                "collection": "deal-of-the-week",
-                "image_ratio": "portrait",
-                "product_limit": 4,
-                "button_label": "Shop All Weekly Hot Deals"
+              "blocks": {
+                "header_nav_feature_E3KjEb": {
+                  "type": "_header-nav-feature",
+                  "name": "Feature link",
+                  "settings": {
+                    "title": "Battery",
+                    "description": "",
+                    "url": ""
+                  },
+                  "blocks": {}
+                },
+                "header_nav_feature_emiBY6": {
+                  "type": "_header-nav-feature",
+                  "name": "Feature link",
+                  "settings": {
+                    "title": "Battery & Charger Sets",
+                    "description": "",
+                    "url": ""
+                  },
+                  "blocks": {}
+                },
+                "header_nav_feature_ahQKtn": {
+                  "type": "_header-nav-feature",
+                  "name": "Feature link",
+                  "settings": {
+                    "title": "Chargers & Cables",
+                    "description": "Incl. Y Cable Set · 3-Way Cable",
+                    "url": ""
+                  },
+                  "blocks": {}
+                }
               },
-              "blocks": {}
+              "block_order": [
+                "header_nav_feature_E3KjEb",
+                "header_nav_feature_emiBY6",
+                "header_nav_feature_ahQKtn"
+              ]
             },
-            "category_4": {
-              "type": "_header-nav-category",
+            "header_nav_column_qnziTN": {
+              "type": "_header-nav-column",
               "settings": {
-                "title": "Mega Clearance Sale",
-                "short_description": "",
-                "content_title": "",
-                "description": "",
-                "collection": "mega-clearance-sale",
-                "image_ratio": "portrait",
-                "product_limit": 4,
-                "button_label": "Shop All Mega Clearance Sale"
+                "title": "Heated Accessories",
+                "role": "group",
+                "mobile_open": true
               },
-              "blocks": {}
-            },
-            "category_5": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "New Customer -$30 Off",
-                "short_description": "",
-                "content_title": "",
-                "description": "",
-                "collection": "new-customer",
-                "image_ratio": "portrait",
-                "product_limit": 4,
-                "button_label": "Shop All New Customer -$30 Off"
+              "blocks": {
+                "header_nav_feature_dYUPd9": {
+                  "type": "_header-nav-feature",
+                  "name": "Feature link",
+                  "settings": {
+                    "title": "Feature",
+                    "description": "",
+                    "url": ""
+                  },
+                  "blocks": {}
+                }
               },
-              "blocks": {}
+              "block_order": [
+                "header_nav_feature_dYUPd9"
+              ]
             },
-            "category_6": {
-              "type": "_header-nav-category",
+            "header_nav_column_qipUBa": {
+              "type": "_header-nav-column",
               "settings": {
-                "title": "Outlet",
-                "short_description": "",
-                "content_title": "",
-                "description": "",
-                "collection": "outlet",
-                "image_ratio": "portrait",
-                "product_limit": 4,
-                "button_label": "Shop All Outlet"
+                "title": "",
+                "role": "group",
+                "mobile_open": true
               },
               "blocks": {}
             }
           },
           "block_order": [
-            "category_1",
-            "category_2",
-            "category_4",
-            "category_5",
-            "category_6"
+            "header_nav_column_a4LyLr",
+            "header_nav_column_qnziTN",
+            "header_nav_column_qipUBa"
           ]
         }
       },
@@ -863,8 +784,7 @@
         "new_panel",
         "men_panel",
         "women_panel",
-        "bundles_panel",
-        "sale_panel"
+        "header_nav_group_HHkAQK"
       ],
       "settings": {}
     },
