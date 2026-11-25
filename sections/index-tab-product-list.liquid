@@ -56,13 +56,7 @@
         max-width: 100%;
         margin: auto;
         border:1px solid #B93205;
-        overflow-x: auto;
-        overflow-y: hidden;
-        scrollbar-width: none;
-    }
-
-    .tab-product-list-section .tabs::-webkit-scrollbar {
-        display: none;
+        overflow:hidden;
     }
 
     .tab-product-list-section .tabs * {
@@ -237,13 +231,6 @@
 
         glider.style.setProperty('--glider-width', width + 'px');
         glider.style.setProperty('--glider-x', x + 'px');
-
-        // Keep the selected tab visible when the tabs strip scrolls horizontally.
-        if (x < tabsContainer.scrollLeft) {
-            tabsContainer.scrollLeft = x;
-        } else if (x + width > tabsContainer.scrollLeft + tabsContainer.clientWidth) {
-            tabsContainer.scrollLeft = x + width - tabsContainer.clientWidth;
-        }
     }
 
     function updateArrowPosition(tabItem) {
@@ -355,7 +342,7 @@
             "default": "discount"
         }
     ],
-    "max_blocks": 6,
+    "max_blocks": 5,
     "blocks": [
         {
             "type": "tab",
