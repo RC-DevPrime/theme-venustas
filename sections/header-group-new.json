@@ -257,98 +257,6 @@
             "shop_all"
           ]
         },
-        "bundles_panel": {
-          "type": "_header-nav-campaign",
-          "settings": {
-            "title": "导航｜Bundles",
-            "label": "Bundle Sale",
-            "menu_key": "bundles",
-            "sidebar_title": "Bundle",
-            "mobile_shop_all_label": "Shop All",
-            "mobile_shop_all_link": "shopify://collections/bundle-deal",
-            "show_category_button": true
-          },
-          "blocks": {
-            "category_1": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Clothing + Battery",
-                "short_description": "",
-                "content_title": "More Power, Longer Warmth",
-                "description": "",
-                "collection": "clothing-extra-battery",
-                "image_ratio": "landscape",
-                "product_limit": 4,
-                "button_label": "Shop All Clothing + Battery"
-              },
-              "blocks": {}
-            },
-            "category_2": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Clothing + Gloves",
-                "short_description": "",
-                "content_title": "Warm Hands, Stay Warm",
-                "description": "",
-                "collection": "complete-your-warmth",
-                "image_ratio": "landscape",
-                "product_limit": 4,
-                "button_label": "Shop All Clothing + Gloves"
-              },
-              "blocks": {}
-            },
-            "category_3": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Couple & Family",
-                "short_description": "",
-                "content_title": "Stay Warm Together",
-                "description": "",
-                "collection": "couple-family",
-                "image_ratio": "landscape",
-                "product_limit": 4,
-                "button_label": "Shop All Couple & Family"
-              },
-              "blocks": {}
-            },
-            "category_4": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Clothing + Socks",
-                "short_description": "",
-                "content_title": "Warm from Head to Toe",
-                "description": "",
-                "collection": "clothing-extra-socks",
-                "image_ratio": "landscape",
-                "product_limit": 4,
-                "button_label": "Shop All Clothing + Socks"
-              },
-              "blocks": {}
-            },
-            "shop_all": {
-              "type": "_header-nav-button",
-              "settings": {
-                "title": "Shop All Bundles",
-                "url": "shopify://collections/bundle-deal",
-                "style": "outline",
-                "align": "left",
-                "show_arrow": true,
-                "visibility": "desktop",
-                "secondary_title": "",
-                "secondary_url": "",
-                "secondary_visibility": "both"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "category_1",
-            "category_2",
-            "category_3",
-            "category_4",
-            "shop_all"
-          ]
-        },
         "men_panel": {
           "type": "_header-nav-group",
           "settings": {
@@ -995,6 +903,98 @@
             "shop_all"
           ]
         },
+        "bundles_panel": {
+          "type": "_header-nav-campaign",
+          "settings": {
+            "title": "导航｜Bundles",
+            "label": "Bundle Sale",
+            "menu_key": "bundles",
+            "sidebar_title": "Bundle",
+            "mobile_shop_all_label": "Shop All",
+            "mobile_shop_all_link": "shopify://collections/bundle-deal",
+            "show_category_button": true
+          },
+          "blocks": {
+            "category_1": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Clothing + Battery",
+                "short_description": "",
+                "content_title": "More Power, Longer Warmth",
+                "description": "",
+                "collection": "clothing-extra-battery",
+                "image_ratio": "landscape",
+                "product_limit": 4,
+                "button_label": "Shop All Clothing + Battery"
+              },
+              "blocks": {}
+            },
+            "category_2": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Clothing + Gloves",
+                "short_description": "",
+                "content_title": "Warm Hands, Stay Warm",
+                "description": "",
+                "collection": "complete-your-warmth",
+                "image_ratio": "landscape",
+                "product_limit": 4,
+                "button_label": "Shop All Clothing + Gloves"
+              },
+              "blocks": {}
+            },
+            "category_3": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Couple & Family",
+                "short_description": "",
+                "content_title": "Stay Warm Together",
+                "description": "",
+                "collection": "couple-family",
+                "image_ratio": "landscape",
+                "product_limit": 4,
+                "button_label": "Shop All Couple & Family"
+              },
+              "blocks": {}
+            },
+            "category_4": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Clothing + Socks",
+                "short_description": "",
+                "content_title": "Warm from Head to Toe",
+                "description": "",
+                "collection": "clothing-extra-socks",
+                "image_ratio": "landscape",
+                "product_limit": 4,
+                "button_label": "Shop All Clothing + Socks"
+              },
+              "blocks": {}
+            },
+            "shop_all": {
+              "type": "_header-nav-button",
+              "settings": {
+                "title": "Shop All Bundles",
+                "url": "shopify://collections/bundle-deal",
+                "style": "outline",
+                "align": "left",
+                "show_arrow": true,
+                "visibility": "desktop",
+                "secondary_title": "",
+                "secondary_url": "",
+                "secondary_visibility": "both"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "category_1",
+            "category_2",
+            "category_3",
+            "category_4",
+            "shop_all"
+          ]
+        },
         "gift_panel": {
           "type": "_header-nav-group",
           "settings": {
@@ -1230,10 +1230,10 @@
       },
       "block_order": [
         "new_panel",
-        "bundles_panel",
         "men_panel",
         "women_panel",
         "header_nav_group_HHkAQK",
+        "bundles_panel",
         "gift_panel",
         "sale_panel"
       ],
