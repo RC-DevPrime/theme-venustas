@@ -52,174 +52,6 @@
     "header_new": {
       "type": "header-new",
       "blocks": {
-        "bundles_panel": {
-          "type": "_header-nav-campaign",
-          "settings": {
-            "title": "导航｜Bundles",
-            "label": "Bundle Sale",
-            "menu_key": "bundles",
-            "sidebar_title": "Bundle",
-            "mobile_shop_all_label": "Shop All",
-            "mobile_shop_all_link": "shopify://collections/bundle-deal",
-            "show_category_button": true
-          },
-          "blocks": {
-            "category_1": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Clothing + Battery",
-                "short_description": "",
-                "content_title": "More Power, Longer Warmth",
-                "description": "",
-                "collection": "clothing-extra-battery",
-                "image_ratio": "landscape",
-                "product_limit": 4,
-                "button_label": "Shop All Clothing + Battery"
-              },
-              "blocks": {}
-            },
-            "category_2": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Clothing + Gloves",
-                "short_description": "",
-                "content_title": "Warm Hands, Stay Warm",
-                "description": "",
-                "collection": "complete-your-warmth",
-                "image_ratio": "landscape",
-                "product_limit": 4,
-                "button_label": "Shop All Clothing + Gloves"
-              },
-              "blocks": {}
-            },
-            "category_3": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Couple & Family",
-                "short_description": "",
-                "content_title": "Stay Warm Together",
-                "description": "",
-                "collection": "couple-family",
-                "image_ratio": "landscape",
-                "product_limit": 4,
-                "button_label": "Shop All Couple & Family"
-              },
-              "blocks": {}
-            },
-            "category_4": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Clothing + Socks",
-                "short_description": "",
-                "content_title": "Warm from Head to Toe",
-                "description": "",
-                "collection": "clothing-extra-socks",
-                "image_ratio": "landscape",
-                "product_limit": 4,
-                "button_label": "Shop All Clothing + Socks"
-              },
-              "blocks": {}
-            },
-            "shop_all": {
-              "type": "_header-nav-button",
-              "settings": {
-                "title": "Shop All Bundles",
-                "url": "shopify://collections/bundle-deal",
-                "style": "outline",
-                "align": "left",
-                "show_arrow": true,
-                "visibility": "desktop",
-                "secondary_title": "",
-                "secondary_url": "",
-                "secondary_visibility": "both"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "category_1",
-            "category_2",
-            "category_3",
-            "category_4",
-            "shop_all"
-          ]
-        },
-        "sale_panel": {
-          "type": "_header-nav-campaign",
-          "settings": {
-            "title": "导航｜Sale",
-            "label": "Sale",
-            "menu_key": "sale",
-            "sidebar_title": "Shop the Sale",
-            "mobile_shop_all_label": "Shop All",
-            "mobile_shop_all_link": "shopify://collections/campaign",
-            "show_category_button": true
-          },
-          "blocks": {
-            "category_1": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Fall Mega Sale",
-                "short_description": "",
-                "content_title": "",
-                "description": "",
-                "collection": "campaign",
-                "image_ratio": "portrait",
-                "product_limit": 4,
-                "button_label": "Shop All Fall Mega Sale"
-              },
-              "blocks": {}
-            },
-            "category_2": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Weekly Deals",
-                "short_description": "",
-                "content_title": "",
-                "description": "",
-                "collection": "deal-of-the-week",
-                "image_ratio": "portrait",
-                "product_limit": 4,
-                "button_label": "Shop All Weekly Hot Deals"
-              },
-              "blocks": {}
-            },
-            "category_4": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Mega Clearance",
-                "short_description": "",
-                "content_title": "",
-                "description": "",
-                "collection": "mega-clearance-sale",
-                "image_ratio": "portrait",
-                "product_limit": 4,
-                "button_label": "Shop All Mega Clearance Sale"
-              },
-              "blocks": {}
-            },
-            "category_6": {
-              "type": "_header-nav-category",
-              "settings": {
-                "title": "Outlet",
-                "short_description": "",
-                "content_title": "",
-                "description": "",
-                "collection": "outlet",
-                "image_ratio": "portrait",
-                "product_limit": 4,
-                "button_label": "Shop All Outlet"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "category_1",
-            "category_2",
-            "category_4",
-            "category_6"
-          ]
-        },
         "new_panel": {
           "type": "_header-nav-group",
           "settings": {
@@ -421,6 +253,98 @@
             "just_in",
             "promo_1",
             "promo_2",
+            "shop_all"
+          ]
+        },
+        "bundles_panel": {
+          "type": "_header-nav-campaign",
+          "settings": {
+            "title": "导航｜Bundles",
+            "label": "Bundle Sale",
+            "menu_key": "bundles",
+            "sidebar_title": "Bundle",
+            "mobile_shop_all_label": "Shop All",
+            "mobile_shop_all_link": "shopify://collections/bundle-deal",
+            "show_category_button": true
+          },
+          "blocks": {
+            "category_1": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Clothing + Battery",
+                "short_description": "",
+                "content_title": "More Power, Longer Warmth",
+                "description": "",
+                "collection": "clothing-extra-battery",
+                "image_ratio": "landscape",
+                "product_limit": 4,
+                "button_label": "Shop All Clothing + Battery"
+              },
+              "blocks": {}
+            },
+            "category_2": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Clothing + Gloves",
+                "short_description": "",
+                "content_title": "Warm Hands, Stay Warm",
+                "description": "",
+                "collection": "complete-your-warmth",
+                "image_ratio": "landscape",
+                "product_limit": 4,
+                "button_label": "Shop All Clothing + Gloves"
+              },
+              "blocks": {}
+            },
+            "category_3": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Couple & Family",
+                "short_description": "",
+                "content_title": "Stay Warm Together",
+                "description": "",
+                "collection": "couple-family",
+                "image_ratio": "landscape",
+                "product_limit": 4,
+                "button_label": "Shop All Couple & Family"
+              },
+              "blocks": {}
+            },
+            "category_4": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Clothing + Socks",
+                "short_description": "",
+                "content_title": "Warm from Head to Toe",
+                "description": "",
+                "collection": "clothing-extra-socks",
+                "image_ratio": "landscape",
+                "product_limit": 4,
+                "button_label": "Shop All Clothing + Socks"
+              },
+              "blocks": {}
+            },
+            "shop_all": {
+              "type": "_header-nav-button",
+              "settings": {
+                "title": "Shop All Bundles",
+                "url": "shopify://collections/bundle-deal",
+                "style": "outline",
+                "align": "left",
+                "show_arrow": true,
+                "visibility": "desktop",
+                "secondary_title": "",
+                "secondary_url": "",
+                "secondary_visibility": "both"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "category_1",
+            "category_2",
+            "category_3",
+            "category_4",
             "shop_all"
           ]
         },
@@ -1225,16 +1149,92 @@
             "promo_2",
             "guide"
           ]
+        },
+        "sale_panel": {
+          "type": "_header-nav-campaign",
+          "settings": {
+            "title": "导航｜Sale",
+            "label": "Sale",
+            "menu_key": "sale",
+            "sidebar_title": "Shop the Sale",
+            "mobile_shop_all_label": "Shop All",
+            "mobile_shop_all_link": "shopify://collections/campaign",
+            "show_category_button": true
+          },
+          "blocks": {
+            "category_1": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Fall Mega Sale",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "campaign",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All Fall Mega Sale"
+              },
+              "blocks": {}
+            },
+            "category_2": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Weekly Deals",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "deal-of-the-week",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All Weekly Hot Deals"
+              },
+              "blocks": {}
+            },
+            "category_4": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Mega Clearance",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "mega-clearance-sale",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All Mega Clearance Sale"
+              },
+              "blocks": {}
+            },
+            "category_6": {
+              "type": "_header-nav-category",
+              "settings": {
+                "title": "Outlet",
+                "short_description": "",
+                "content_title": "",
+                "description": "",
+                "collection": "outlet",
+                "image_ratio": "portrait",
+                "product_limit": 4,
+                "button_label": "Shop All Outlet"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "category_1",
+            "category_2",
+            "category_4",
+            "category_6"
+          ]
         }
       },
       "block_order": [
-        "bundles_panel",
-        "sale_panel",
         "new_panel",
+        "bundles_panel",
         "men_panel",
         "women_panel",
         "header_nav_group_HHkAQK",
-        "gift_panel"
+        "gift_panel",
+        "sale_panel"
       ],
       "settings": {
         "logo": "shopify://shop_images/main-header-logo.png",
