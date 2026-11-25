@@ -1,5 +1,22 @@
 # Header 实际文件清单
 
+## 2026-11-25 移动端导航折叠与 Technology 位置
+
+- blocks/_header-nav-column.liquid：折叠按钮改为所有列输出（含 category 角色），移除 `data-mobile-open` 与 `mobile_open` 设置；`role` 仍控制移动端内容内边距与 featured 字重。
+- assets/header-new.js：`preparePanel()` 写 `data-column-first`；`reset()` 只默认展开第一列；`syncColumns()` 去掉 category 特例，第一列隐藏按钮、其余列按展开状态切换，桌面端全部展开。
+- blocks/_header-nav-button.liquid + assets/header-new.css：primary 仅桌面可见、secondary 移动可见时加 `--mobile-secondary`，移动端 `order: 3` 排在推广卡之后。
+- 未改 sections/header-group-new.json（后台自动生成）；其中残留的 `mobile_open` 键已无 schema。
+
+## 2026-11-25 Category image menu 完整地址匹配
+
+- blocks/_header-nav-image-menu.liquid：菜单链接与图片槽位改为按含查询参数的完整地址匹配（路径 + 逐参数精确比较，参数最多者优先），`shopify://` 简写补成路径、`%20`／`+` 与 `www.` 归一；不再只比较路径导致所有 `/collections/men?...` 命中第一个槽位。
+
+## 2026-11-25 活动商品卡标题与 Menu list 徽标
+
+- snippets/header-new-product-card.liquid → assets/header-new.css：`.header-new__campaign-product-title` 两行截断（-webkit-line-clamp）。
+- blocks/_header-nav-menu.liquid：Menu list 区块已存在“菜单非空用菜单链接、为空回退四个初始链接”；本次增加徽标解析：标题或地址末尾的 `#文本` 直接作为徽标（无词表），输出 `.header-new__badge` 并从标题／href 去掉该段，全小写徽标首字母大写；`menu` 设置 info 同步说明。
+- 未新增资产或依赖；徽标样式复用 assets/header-new.css:221 `.header-new__badge`。
+
 ## 2026-11-25 旧导航删除
 
 旧 header section、旧 header group 与全部 mega-menu 片段已删除，共 20 个文件：sections/header.liquid、sections/header-group.json、assets/mega-menu.css、snippets/mega-menu*（4）、snippets/header-mega-*（11）、snippets/product-item-mega-menu*（2）、snippets/product-menu-badge.liquid；并移除 theme.liquid 与 theme.pagefly.liquid 中的 mega-menu.css 引用。当前入口只有 `layout/theme.liquid → sections/header-group-new.json`，order：announcement_bar → header_new → search → popup-cart，四个 section 文件均存在。下方 2026-11-23 基线表格与“旧文件仍存在”的描述已过时，仅作历史记录。详见 [日志](../../logs/header/2026-11-25-remove-legacy-header.md)。

@@ -239,7 +239,10 @@
       inner.style.setProperty('--header-column-count', Math.max(columns.length, 1));
       inner.style.setProperty('--header-promo-count', Math.min(promos.length, 2));
       inner.dataset.hasPromos = String(promos.length > 0);
-      columns.forEach((column, index) => column.style.setProperty('--header-column-index', index + 1));
+      columns.forEach((column, index) => {
+        column.style.setProperty('--header-column-index', index + 1);
+        column.dataset.columnFirst = String(index === 0);
+      });
       promos.forEach((promo, index) => {
         promo.style.setProperty('--header-promo-index', columns.length + index + 2);
         if (index > 1) promo.hidden = true;
@@ -306,9 +309,9 @@
         const button = column.querySelector('[data-header-column-toggle]');
         const content = column.querySelector('[data-header-column-content]');
         if (!button || !content) return;
-        const category = column.dataset.columnRole === 'category';
-        const expanded = !this.media.matches || category || column.dataset.mobileExpanded === 'true';
-        button.hidden = category && this.media.matches;
+        const first = column.dataset.columnFirst === 'true';
+        const expanded = !this.media.matches || first || column.dataset.mobileExpanded === 'true';
+        button.hidden = this.media.matches && first;
         button.disabled = !this.media.matches;
         button.setAttribute('aria-expanded', String(expanded));
         content.hidden = !expanded;
@@ -370,7 +373,7 @@
 
     reset() {
       this.close();
-      this.columns.forEach((column) => { column.dataset.mobileExpanded = column.dataset.mobileOpen || 'false'; });
+      this.columns.forEach((column) => { column.dataset.mobileExpanded = column.dataset.columnFirst || 'false'; });
       this.syncColumns();
       if (this.drawer) {
         this.drawer.toggleAttribute('inert', this.media.matches);

@@ -3,3 +3,7 @@
 
 # Optional: exclude AI instructions from Shopify CLI uploads
 AGENTS.md
+
+# Atomic-save temp files from the editor/agent tool (e.g. foo.liquid.6512.827649)
+.dsh-tmp/**
+*.[0-9][0-9][0-9][0-9].*

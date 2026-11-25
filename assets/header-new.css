@@ -173,7 +173,7 @@
   grid-column: var(--header-column-index, auto);
   grid-row: 1;
   min-width: 0;
-  padding-right: 32px;
+  padding-right: 24px;
 }
 
 .header-new__column-heading {
@@ -266,7 +266,7 @@
   display: grid;
   gap: 12px;
   padding-top: 8px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid #1a1a1a;
 }
 
 .header-new__image-menu-media {
@@ -688,6 +688,10 @@
     order: 1;
   }
 
+  .header-new__footer--mobile-secondary {
+    order: 3;
+  }
+
   .header-new__footer--paired .header-new__button--secondary {
     margin-left: 0;
   }
@@ -852,6 +856,10 @@
 }
 
 .header-new__campaign-product-title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   font-size: 13px;
   font-weight: 600;
   line-height: 18px;

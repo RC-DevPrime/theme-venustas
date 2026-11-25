@@ -24,11 +24,27 @@
         assign item_url = block.settings[url_key]
         assign item_description = block.settings[description_key]
       endif
+      assign item_url = item_url | append: ''
+      assign item_title = item_title | append: ''
+      assign item_badge = blank
+      if item_title contains '#'
+        assign item_badge = item_title | split: '#' | last | strip
+        assign item_title = item_title | split: '#' | first | strip
+      elsif item_url contains '#'
+        assign item_badge = item_url | split: '#' | last | strip
+        assign item_url = item_url | split: '#' | first
+      endif
+      if item_badge != blank
+        assign item_badge_lower = item_badge | downcase
+        if item_badge_lower == item_badge
+          assign item_badge = item_badge | capitalize
+        endif
+      endif
     -%}
     {%- if item_title != blank -%}
       <li>
         {%- if item_url != blank -%}<a href="{{ item_url | escape }}"{% if item_current %} aria-current="page"{% endif %}>{%- else -%}<span class="header-new__menu-label">{%- endif -%}
-          <span>{{ item_title | escape }}</span>
+          <span>{{ item_title | escape }}{% if item_badge != blank %}<span class="header-new__badge">{{ item_badge | escape }}</span>{% endif %}</span>
           {%- if item_description != blank -%}<span class="header-new__menu-description">{{ item_description | escape | newline_to_br }}</span>{%- endif -%}
         {%- if item_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
       </li>
@@ -49,7 +65,7 @@
       "type": "link_list",
       "id": "menu",
       "label": "Menu",
-      "info": "A non-empty menu replaces the initial links below."
+      "info": "A non-empty menu replaces the initial links below. Append #Text to a link name or URL (e.g. Ultra Warm 12V#Hot) to show Text as a badge."
     },
     {
       "type": "header",

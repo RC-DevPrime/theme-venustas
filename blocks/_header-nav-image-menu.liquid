@@ -17,18 +17,57 @@
         assign item_title = item_link.title
         assign item_url = item_link.url
         assign item_current = item_link.current
-        assign match_url = item_url | append: '' | remove: shop.url | split: '?' | first | split: '#' | first
+        assign match_url = item_url | append: '' | strip | replace: '://www.', '://' | remove: shop.url | split: '#' | first | strip
+        assign match_path = match_url | split: '?' | first
+        assign match_query = blank
+        if match_url contains '?'
+          assign match_query = match_url | split: '?' | last | replace: '%20', '+'
+        endif
+        assign match_params = match_query | split: '&'
+        assign best_score = -1
+        assign best_index = 0
         for image_index in (1..8)
           assign url_key = 'url_' | append: image_index
-          assign image_key = 'image_' | append: image_index
-          assign image_url = block.settings[url_key] | append: '' | remove: shop.url | split: '?' | first | split: '#' | first
-          if match_url == image_url
-            assign item_image = block.settings[image_key]
-            assign badge_key = 'badge_' | append: image_index
-            assign item_badge = block.settings[badge_key]
-            break
+          assign setting_url = block.settings[url_key] | append: '' | strip | replace: '://www.', '://'
+          if setting_url contains 'shopify://'
+            assign setting_url = setting_url | remove: 'shopify://'
+            assign setting_url = '/' | append: setting_url
+          endif
+          assign setting_url = setting_url | remove: shop.url | split: '#' | first | strip
+          assign setting_path = setting_url | split: '?' | first
+          assign setting_matched = false
+          assign setting_score = 0
+          if setting_path != blank and setting_path == match_path
+            assign setting_matched = true
+            if setting_url contains '?'
+              assign setting_params = setting_url | split: '?' | last | replace: '%20', '+' | split: '&'
+              for setting_param in setting_params
+                assign param_found = false
+                for match_param in match_params
+                  if match_param == setting_param
+                    assign param_found = true
+                    break
+                  endif
+                endfor
+                unless param_found
+                  assign setting_matched = false
+                  break
+                endunless
+              endfor
+              assign setting_score = setting_params.size
+            endif
+          endif
+          if setting_matched and setting_score > best_score
+            assign best_score = setting_score
+            assign best_index = image_index
           endif
         endfor
+        if best_index > 0
+          assign image_key = 'image_' | append: best_index
+          assign badge_key = 'badge_' | append: best_index
+          assign item_image = block.settings[image_key]
+          assign item_badge = block.settings[badge_key]
+        endif
       else
         assign title_key = 'title_' | append: item_index
         assign url_key = 'url_' | append: item_index
@@ -71,7 +110,7 @@
       "type": "link_list",
       "id": "menu",
       "label": "Menu",
-      "info": "Menu links control names, destinations and order. Image slots match links by URL. Initial slot text is used only when the menu is empty."
+      "info": "Menu links control names, destinations and order. Image slots match links by the full URL including query parameters (e.g. ?filter.p.product_type=Heated+Vest); the slot with the most matching parameters wins. Initial slot text is used only when the menu is empty."
     },
     {
       "type": "header",

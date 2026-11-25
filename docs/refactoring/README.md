@@ -1,5 +1,13 @@
 # Shopify Theme 重构知识库
 
+2026-11-25：[移动端导航折叠与 Technology 位置](logs/header/2026-11-25-mobile-nav-accordion.md)：所有列都可折叠，第一列无按钮直接展开、其余默认折叠（移除 mobile_open）；Our Technology 移动端排到推广卡之后。
+
+2026-11-25：[Category image menu 按完整地址匹配图片](logs/header/2026-11-25-image-menu-url-match.md)：图片槽位改为路径 + 查询参数逐项精确比较、参数最多者优先，避免 `/collections/men?filter.p.product_type=...` 全部命中第一个槽位。
+
+2026-11-25：[Menu list 菜单链接徽标](logs/header/2026-11-25-menu-list-badges.md)：菜单非空用菜单、为空回退初始链接；菜单项名称或链接末尾的 #文本 直接渲染 .header-new__badge 并从标题／href 去掉该段。
+
+2026-11-25：[活动商品卡标题两行省略](logs/header/2026-11-25-campaign-product-title-clamp.md)：header-new.css 标题加 -webkit-line-clamp:2，超过两行显示省略号。
+
 2026-11-25：[新 Header 去掉 header 类并清除旧样式/脚本](logs/header/2026-11-25-header-class-decoupling.md)：class 改为 header-new，213 条旧 header CSS 与 main/global/popup-cart/index 旧逻辑删除，header-hide 行为改指新类。
 
 2026-11-25：[删除旧导航](logs/header/2026-11-25-remove-legacy-header.md)：删除旧 header／group、mega-menu 片段与 mega-menu.css，保留共享样式与 `.header` 锚点。
