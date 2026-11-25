@@ -38,15 +38,6 @@ $(function () { // shorthand for $(document).ready
 
     if ($bannerSlider.length) {
 
-      if (enabled_transparent_banner_slider) {
-        const headerH =
-          $('.header .header-wrapper').height() ||
-          $('.header .header-wrapper-mobile').height() ||
-          0;
-
-        $bannerSlider.css('margin-top', `-${headerH}px`);
-      }
-
       $bannerSlider.each(function () {
         const $section = $(this);
         const swiperEl = $section.find('.banner-swiper')[0];

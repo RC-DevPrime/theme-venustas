@@ -56,7 +56,7 @@ $(document).ready(function () {
         const allowance = window.innerHeight * 0.7;
 
         function getHeaderHeight() {
-            const header = document.querySelector('.shopify-section-group-header-group .header');
+            const header = document.querySelector('.shopify-section-group-header-group .header-new');
             return header ? header.offsetHeight : 0;
         }
 
@@ -193,7 +193,7 @@ $(document).ready(function () {
 
         // ✅ Better header height getter (updates correctly when announcement bar changes)
         function getHeaderHeight() {
-            const header = document.querySelector('.shopify-section-group-header-group .header');
+            const header = document.querySelector('.shopify-section-group-header-group .header-new');
             return header ? header.getBoundingClientRect().height : 0;
         }
 
@@ -313,7 +313,7 @@ $(document).ready(function () {
 
         // ✅ Better header height getter (updates correctly when announcement bar changes)
         function getHeaderHeight() {
-            const header = document.querySelector('.shopify-section-group-header-group .header');
+            const header = document.querySelector('.shopify-section-group-header-group .header-new');
             return header ? header.getBoundingClientRect().height : 0;
         }
 
@@ -646,12 +646,12 @@ $(document).ready(function () {
         //         // Make the .product-header-section sticky
         //         $('.main-container-holder').addClass('product-header-sticky');
         //         // Hide the header
-        //         $('nav.header').addClass('header-hide');
+        //         $('nav.header-new').addClass('header-hide');
         //     } else {
         //         // Remove the sticky class when scrolling above the section
         //         $('.main-container-holder').removeClass('product-header-sticky');
         //         // Show the header again
-        //         $('nav.header').removeClass('header-hide');
+        //         $('nav.header-new').removeClass('header-hide');
         //     }
             
 
@@ -861,7 +861,7 @@ $(document).ready(function () {
 
     if ($('.text-policy-content-section').length) {
         function adjustStickyNav() {
-            const headerHeight = $('.shopify-section-group-header-group .header').outerHeight();
+            const headerHeight = $('.shopify-section-group-header-group .header-new').outerHeight();
             $('.text-policy-content-section .sticky-nav').css('top', `${headerHeight + 30 }px`);
         }
 
@@ -1225,7 +1225,7 @@ let aboutNav_lastChild = null;
 let aboutNav_ticking = false;
 
 function aboutNav_getHeaderOffset() {
-  const headerH = $('.shopify-section-group-header-group .header').outerHeight() || 0;
+  const headerH = $('.shopify-section-group-header-group .header-new').outerHeight() || 0;
   const stickyTopRaw = $('.sticky-slider').first().css('top');
   const stickyTop = parseInt(stickyTopRaw, 10);
   const stickyH = Number.isFinite(stickyTop) ? stickyTop : 0;
@@ -1569,12 +1569,12 @@ function page_nav_header_scroll(){
             // Make the .product-header-section sticky
             $('.main-nav-header-section').addClass('product-header-sticky');
             // Hide the header
-            $('nav.header').addClass('header-hide');
+            $('nav.header-new').addClass('header-hide');
         } else {
             // Remove the sticky class when scrolling above the section
             $('.main-nav-header-section').removeClass('product-header-sticky');
             // Show the header again
-            $('nav.header').removeClass('header-hide');
+            $('nav.header-new').removeClass('header-hide');
         }
 
 

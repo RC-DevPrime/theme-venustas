@@ -438,48 +438,6 @@
     </div>
   {% endif %}
 </section>
-{% if section.settings.enabled_transparent_header %}
-<style>
-  .header{
-      background:transparent;
-      box-shadow: 0 3px 6px 1px #00000000;
-  }
-  .header .logo img,
-  .header .nav-toggle img,
-  .header .nav-icons a img{
-      -webkit-filter: invert(1); /* For older Safari versions */
-      filter: invert(1);
-  }
-  .header .nav-items a span,
-  .header .nav-items a>i{
-    color:#fff;
-  }
-  .header.scrolled,
-  .header:hover  {
-      background-color: #fff;
-      box-shadow: 0 3px 6px 1px #0000001a;
-  }
-  .header.scrolled .logo img,
-  .header.scrolled .nav-icons a img,
-  .header.scrolled .nav-toggle img,
-  .header:hover .logo img,
-  .header:hover .nav-icons a img,
-  .header:hover .nav-toggle img{
-      -webkit-filter: invert(0); /* For older Safari versions */
-      filter: invert(0);
-  }
-  .header.scrolled .nav-items a span,
-  .header.scrolled .nav-items a>i,
-  .header:hover .nav-items a span,
-  .header:hover .nav-items a>i{
-      color:#161616;
-  }
-  .header.scrolled .nav-items a span .link-tag,
-  .header:hover .nav-items a span .link-tag{
-      color:#fff;
-  }
-</style>
-{% endif %}
 {% style %}
     .banner-slider {
         background: #FFF;
@@ -1107,28 +1065,8 @@
   {% endif %}
 </style>
 <script>
-  window.enabled_transparent_banner_slider = {{ section.settings.enabled_transparent_header | json }};
   window.enabled_banner_loop = {{ section.settings.enabled_loop | json }};
 </script>
-
-{% javascript %}
-  // Header scroll state (throttled)
-  (function () {
-    let last = 0;
-    window.addEventListener('scroll', function () {
-      const now = Date.now();
-      if (now - last < 100) return;
-      last = now;
-
-      const header = document.querySelector('.header');
-      if (!header) return;
-
-      if (window.scrollY >= 100) header.classList.add('scrolled');
-      else header.classList.remove('scrolled');
-    }, { passive: true });
-  })();
-
-{% endjavascript %}
 
 {% schema %}
 {
@@ -1136,12 +1074,6 @@
   "limit": 1,
   "templates": ["index"],
   "settings": [
-    {
-      "type": "checkbox",
-      "id": "enabled_transparent_header",
-      "label": "Enabled Transparent Header",
-      "default": true
-    },
     {
       "type": "checkbox",
       "id": "enabled_loop",

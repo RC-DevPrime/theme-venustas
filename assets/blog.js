@@ -107,12 +107,12 @@ $(document).ready(function () {
             }, 700); // same as transition duration
         });
 
-        const $header = $('.shopify-section-group-header-group .header');
+        const $header = $('.shopify-section-group-header-group .header-new');
         const headerHeight = $header.outerHeight();
         $('.main-page-section .sticky-article-tag').css('top', headerHeight + 30);
         
         $(window).on('load resize', function () {
-            const $header = $('.shopify-section-group-header-group .header');
+            const $header = $('.shopify-section-group-header-group .header-new');
             if ($header.length) {
                 const headerHeight = $header.outerHeight();
                 $('.main-page-section .sticky-article-tag').css('top', headerHeight + 30);

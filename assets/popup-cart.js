@@ -25,11 +25,6 @@ $(document).ready(function () {
 
 });
 
-// open cart on navigation
-$('.header .icon-cart').on('click', function() {
-    openCart();
-    console.log('Open Cart')
-});
 
 function openCart(shouldRefresh = true) {
     const $popup = $('#popup-cart');
@@ -530,10 +525,6 @@ function updateMembershipPoints(cart) {
 // ===============================
 function updateCartUI(cart) {
     if (!cart) return;
-
-    $('.header .icon-cart .dot')
-        .css('display', cart.item_count > 0 ? 'flex' : 'none')
-        .text(cart.item_count);
 
     updateMembershipPoints(cart);
 }

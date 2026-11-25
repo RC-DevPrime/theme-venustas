@@ -1,5 +1,9 @@
 # Header 已知事项
 
+2026-11-25 类名解耦：新导航改为 `<nav class="header-new">`，不再依赖 `.header` 基样式；collection／article／blog／main／page／product／index／cooling-vest-nav／heatingV-anchor-nav／index-banner-slider／tech-core 的 `.header` 选择器已改为 `.header-new`，`header-hide` 规则同步为 `nav.header-new.header-hide`。style.css 移除 213 条旧 header 规则、res-base.css 移除 37 条，main.js／global.js／popup-cart.js／index.js 内旧 header 逻辑已删。风险：没有浏览器实测，仍继承自 `.header` 的属性（除已补的 transition）已消失；Banner Slider 的“透明头”开关随旧标记移除（原值 false）；第三方应用或 PageFly 片段若依赖 `.header`／`.nav-mobile`／`.mega-*` 会失效。`global.js` 的 `MenuDrawer` 基类保留未用。见 [日志](../../logs/header/2026-11-25-header-class-decoupling.md)。
+
+2026-11-25 旧导航已删除：sections/header.liquid、header-group.json、20 个旧导航专属文件与两个 layout 的 mega-menu.css 引用已移除，全仓无残留引用，header-group-new 的四个 section 文件均存在。遗留：assets/style.css 与 res-base.css 内仍保留 `.header .mega-menu`、`.nav-mobile` 等旧导航选择器（无匹配 DOM 的死样式），因与新导航共用 `.header` 基础规则且需视觉验证，本次未清除；旧导航用到的 shop_images 文件库资源未处理。另外扫描发现 templates/product.MMJ01.json、templates/product.MMP03.json 无法解析（同为 position 2051 line 73 附近），本次未改动它们，属既有问题，需单独修复以免影响主题上传。见 [日志](../../logs/header/2026-11-25-remove-legacy-header.md)。
+
 2026-11-24 导航区块调整：Featured link 与 Category image menu 的同日改动已按用户要求全部还原，本仓库区块类型、schema、CSS 与 JSON 数据回到改动前状态。Gift 移动端 Shop All 复用 `shopify://pages/gift-guide`，页面句柄存在性未验证；image-menu 的图片仍按 `url_i` 匹配，Men／Women 的 `url_1..8` 全为空，移动端显示占位图，需补匹配地址后才会显示已上传图片。未浏览器实测。见 [日志](../../logs/header/2026-11-24-nav-block-cleanup.md)。
 
 2026-11-24 移动账户：登录态由 `{% if customer %}` 决定，未登录展示 `routes.account_login_url` 链接；登录后四个链接默认展开、details 折叠、箭头旋转。四个链接仍取 section 设置默认值（Orders 复用账户页地址），登录态切换、键盘折叠和箭头方向未浏览器实测。见 [日志](../../logs/header/2026-11-24-mobile-account-menu.md)。

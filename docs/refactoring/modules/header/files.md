@@ -1,5 +1,9 @@
 # Header 实际文件清单
 
+## 2026-11-25 旧导航删除
+
+旧 header section、旧 header group 与全部 mega-menu 片段已删除，共 20 个文件：sections/header.liquid、sections/header-group.json、assets/mega-menu.css、snippets/mega-menu*（4）、snippets/header-mega-*（11）、snippets/product-item-mega-menu*（2）、snippets/product-menu-badge.liquid；并移除 theme.liquid 与 theme.pagefly.liquid 中的 mega-menu.css 引用。当前入口只有 `layout/theme.liquid → sections/header-group-new.json`，order：announcement_bar → header_new → search → popup-cart，四个 section 文件均存在。下方 2026-11-23 基线表格与“旧文件仍存在”的描述已过时，仅作历史记录。详见 [日志](../../logs/header/2026-11-25-remove-legacy-header.md)。
+
 ## 2026-11-24 公告栏独立
 
 - sections/announcement-bar.liquid：新公告 section（header group），设置、两类区块、38px 高度变量、header-announcement 标记。

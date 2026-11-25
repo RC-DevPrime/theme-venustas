@@ -1,5 +1,9 @@
 # Shopify Theme 重构知识库
 
+2026-11-25：[新 Header 去掉 header 类并清除旧样式/脚本](logs/header/2026-11-25-header-class-decoupling.md)：class 改为 header-new，213 条旧 header CSS 与 main/global/popup-cart/index 旧逻辑删除，header-hide 行为改指新类。
+
+2026-11-25：[删除旧导航](logs/header/2026-11-25-remove-legacy-header.md)：删除旧 header／group、mega-menu 片段与 mega-menu.css，保留共享样式与 `.header` 锚点。
+
 2026-11-24：[公告栏独立 section](logs/header/2026-11-24-announcement-bar-section.md)：公告 38px 固定，header 40/68（1280 断点），样式与交互迁入 header-new.css／js。
 
 2026-11-24：[顶级导航下拉失效修复](logs/header/2026-11-24-nav-toggle-runtime.md)：section.blocks 读不到主题块 settings，改为运行时按面板 key 升级导航项。

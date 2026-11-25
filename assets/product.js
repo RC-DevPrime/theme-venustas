@@ -5,7 +5,7 @@ var sliderThumbs;
 var sliderImages;
 var gallerySlider;
 
-var headerHeight = $('.shopify-section-group-header-group .header').outerHeight();
+var headerHeight = $('.shopify-section-group-header-group .header-new').outerHeight();
 
 $(document).ready(function() {
     if ($('.product').length) {
@@ -2667,14 +2667,14 @@ function nav_header_scroll(){
             // Make the .product-header-section sticky
             $('.main-nav-header-section').addClass('product-header-sticky');
             // Hide the header
-            $('nav.header').addClass('header-hide');
+            $('nav.header-new').addClass('header-hide');
 
             
         } else {
             // Remove the sticky class when scrolling above the section
             $('.main-nav-header-section').removeClass('product-header-sticky');
             // Show the header again
-            $('nav.header').removeClass('header-hide');
+            $('nav.header-new').removeClass('header-hide');
         }
         
 

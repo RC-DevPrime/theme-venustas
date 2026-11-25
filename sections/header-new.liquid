@@ -16,7 +16,7 @@
   assign navigation_paths = '/collections/new-arrivals|/collections/men|/collections/women|/collections/kids|/collections/accessories|/collections/bundles|/collections/gift|/collections/sale' | split: '|'
 -%}
 
-<nav class="header header-new" data-header-new aria-label="Main navigation">
+<nav class="header-new" data-header-new aria-label="Main navigation">
   <div class="header-new__bar">
     <div class="header-new__mobile-left">
     <button class="header-new__mobile-open" type="button" data-header-mobile-open aria-label="Open menu" aria-expanded="false" aria-controls="HeaderDrawer-{{ section.id }}">{% render 'header-icons', icon: 'menu' %}</button>

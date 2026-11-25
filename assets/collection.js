@@ -1,4 +1,4 @@
-const $header = $('.shopify-section-group-header-group .header');
+const $header = $('.shopify-section-group-header-group .header-new');
 if($('.filter-list-container').length){
     
     const headerHeight = $header.outerHeight();
@@ -6,7 +6,7 @@ if($('.filter-list-container').length){
 }
 
 $(window).on('load resize', function () {
-  const $header = $('.shopify-section-group-header-group .header');
+  const $header = $('.shopify-section-group-header-group .header-new');
   if ($header.length) {
     const headerHeight = $header.outerHeight();
     $('.filter-list-container .sticky-filter').css('top', headerHeight + 50);

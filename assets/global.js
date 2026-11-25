@@ -420,33 +420,7 @@ class MenuDrawer extends HTMLElement {
 
 customElements.define('menu-drawer', MenuDrawer);
 
-class HeaderDrawer extends MenuDrawer {
-    constructor() {
-        super();
-    }
 
-    openMenuDrawer(summaryElement) {
-        this.header = this.header || document.getElementById('shopify-section-header');
-        this.borderOffset = this.borderOffset || this.closest('.header-wrapper').classList.contains('header-wrapper--border-bottom') ? 1 : 0;
-        document.documentElement.style.setProperty('--header-bottom-position', `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`);
-        this.header.classList.add('menu-open');
-
-        setTimeout(() => {
-            this.mainDetailsToggle.classList.add('menu-opening');
-        });
-
-        summaryElement.setAttribute('aria-expanded', true);
-        trapFocus(this.mainDetailsToggle, summaryElement);
-        document.body.classList.add(`overflow-hidden-${this.dataset.breakpoint}`);
-    }
-
-    closeMenuDrawer(event, elementToFocus) {
-        super.closeMenuDrawer(event, elementToFocus);
-        this.header.classList.remove('menu-open');
-    }
-}
-
-customElements.define('header-drawer', HeaderDrawer);
 
 class ModalDialog extends HTMLElement {
     constructor() {
@@ -1089,103 +1063,6 @@ class VariantRadios extends VariantSelects {
 
 customElements.define('variant-radios', VariantRadios);
 
-function initHeaderLocalizationSwitcher() {
-    const localeTriggers = document.querySelectorAll('.header .icon-local');
-    if (!localeTriggers.length) return;
-
-    const closeAllLocaleSwitchers = () => {
-        localeTriggers.forEach((trigger) => trigger.classList.remove('is-open'));
-    };
-
-    localeTriggers.forEach((trigger) => {
-        const toggleSwitcher = (event) => {
-            if (event.target.closest('.switcher')) return;
-
-            event.preventDefault();
-            const willOpen = !trigger.classList.contains('is-open');
-            closeAllLocaleSwitchers();
-            if (willOpen) trigger.classList.add('is-open');
-        };
-
-        trigger.addEventListener('click', toggleSwitcher);
-        trigger.addEventListener('keydown', (event) => {
-            if (event.key !== 'Enter' && event.key !== ' ') return;
-            toggleSwitcher(event);
-        });
-    });
-
-    document.querySelectorAll('.header .icon-local .country').forEach((countryOption) => {
-        countryOption.addEventListener('click', (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const href = countryOption.dataset.href;
-            if (href) {
-                window.location.href = href;
-                return;
-            }
-
-            const countryCode = countryOption.dataset.country;
-            if (!countryCode) return;
-
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/localization';
-
-            const countryInput = document.createElement('input');
-            countryInput.type = 'hidden';
-            countryInput.name = 'country_code';
-            countryInput.value = countryCode;
-            form.appendChild(countryInput);
-
-            const returnToInput = document.createElement('input');
-            returnToInput.type = 'hidden';
-            returnToInput.name = 'return_to';
-            returnToInput.value = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-            form.appendChild(returnToInput);
-
-            document.body.appendChild(form);
-            form.submit();
-        });
-    });
-
-    document.addEventListener('click', (event) => {
-        if (event.target.closest('.header .icon-local')) return;
-        closeAllLocaleSwitchers();
-    });
-}
-
-initHeaderLocalizationSwitcher();
 
 
-// // ADDED SCRIPT
-// const buyNowBtn = document.querySelector('.btn-product-buy-now');
 
-// if (buyNowBtn) {
-//     buyNowBtn.addEventListener('click', function () {
-//           if (buyNowBtn.hasAttribute('disabled')) return;
-      
-//           const variantId = buyNowBtn.getAttribute('data-variant-id');
-//           const quantity = $('quantity-input .quantity__input').val();
-      
-//           if (variantId) {
-//             window.location.href = `/cart/${variantId}:${quantity}`;
-//           }
-
-      
-//           let formData = $('.atc-form').serialize();
-      
-//           $.ajax({
-//               type: 'POST',
-//               url: '/cart/add.js',
-//               data: formData,
-//               dataType: 'json',
-//               success: function (response) {
-//                   window.location.href = '/checkout';
-//               },
-//               error: function (xhr, status, error) {
-//                   console.error('Error adding product to cart:', error);
-//               }
-//           });
-//     });
-// }

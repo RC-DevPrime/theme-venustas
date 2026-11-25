@@ -1,4 +1,4 @@
-.header-new.header {
+.header-new {
   position: fixed;
   top: 0;
   left: 0;
@@ -8,6 +8,7 @@
   background: #fff;
   color: #1a1a1a;
   box-shadow: 0 1px 0 #e5e7eb;
+  transition: box-shadow .2s ease;
   font-family: var(--font-primary, 'Montserrat', sans-serif);
   font-size: 14px;
   line-height: 20px;
@@ -19,7 +20,7 @@
   box-sizing: border-box;
 }
 
-.header-new.header [hidden] {
+.header-new[data-header-new] [hidden] {
   display: none;
 }
 
