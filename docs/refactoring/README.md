@@ -1,5 +1,9 @@
 # Shopify Theme 重构知识库
 
+2026-11-25：[Category image menu 移动端标题](logs/header/2026-11-25-image-menu-mobile-title.md)：匹配到槽位后，移动端用 Initial category name 覆盖菜单链接名称（空值回退菜单名），桌面端仍显示菜单名。
+
+2026-11-25：[移动端列角色修正](logs/header/2026-11-25-mobile-column-role.md)：category 角色只保留 Men／Women 的 Shop by Category（无标题直接展开）；Shop by Style 与 New 的 New Arrival 改回 group，第一列标题行恢复显示、默认展开且仍可点击折叠。
+
 2026-11-25：[移动端导航折叠与 Technology 位置](logs/header/2026-11-25-mobile-nav-accordion.md)：所有列都可折叠，第一列无按钮直接展开、其余默认折叠（移除 mobile_open）；Our Technology 移动端排到推广卡之后。
 
 2026-11-25：[Category image menu 按完整地址匹配图片](logs/header/2026-11-25-image-menu-url-match.md)：图片槽位改为路径 + 查询参数逐项精确比较、参数最多者优先，避免 `/collections/men?filter.p.product_type=...` 全部命中第一个槽位。

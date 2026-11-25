@@ -11,6 +11,7 @@
     {%- liquid
       assign item_image = blank
       assign item_badge = blank
+      assign item_title_mobile = blank
       assign item_current = false
       if use_menu
         assign item_link = block.settings.menu.links[forloop.index0]
@@ -65,8 +66,10 @@
         if best_index > 0
           assign image_key = 'image_' | append: best_index
           assign badge_key = 'badge_' | append: best_index
+          assign title_key = 'title_' | append: best_index
           assign item_image = block.settings[image_key]
           assign item_badge = block.settings[badge_key]
+          assign item_title_mobile = block.settings[title_key]
         endif
       else
         assign title_key = 'title_' | append: item_index
@@ -74,11 +77,13 @@
         assign image_key = 'image_' | append: item_index
         assign badge_key = 'badge_' | append: item_index
         assign item_title = block.settings[title_key]
+        assign item_title_mobile = item_title
         assign item_url = block.settings[url_key]
         assign item_image = block.settings[image_key]
         assign item_badge = block.settings[badge_key]
       endif
-      assign image_alt = item_image.alt | default: item_title
+      assign item_title_mobile = item_title_mobile | default: item_title
+      assign image_alt = item_image.alt | default: item_title_mobile
     -%}
     {%- if item_title != blank -%}
       <li class="header-new__image-menu-item">
@@ -90,7 +95,8 @@
               {{ 'collection-1' | placeholder_svg_tag: 'header-new__image-menu-placeholder' }}
             {%- endif -%}
           </span>
-          <span class="header-new__image-menu-title">{{ item_title | escape }}{% if item_badge != blank %}<span class="header-new__badge">{{ item_badge | escape }}</span>{% endif %}</span>
+          <span class="header-new__image-menu-title header-new__image-menu-title--desktop">{{ item_title | escape }}{% if item_badge != blank %}<span class="header-new__badge">{{ item_badge | escape }}</span>{% endif %}</span>
+          <span class="header-new__image-menu-title header-new__image-menu-title--mobile">{{ item_title_mobile | escape }}{% if item_badge != blank %}<span class="header-new__badge">{{ item_badge | escape }}</span>{% endif %}</span>
         {%- if item_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
       </li>
     {%- endif -%}
@@ -110,7 +116,7 @@
       "type": "link_list",
       "id": "menu",
       "label": "Menu",
-      "info": "Menu links control names, destinations and order. Image slots match links by the full URL including query parameters (e.g. ?filter.p.product_type=Heated+Vest); the slot with the most matching parameters wins. Initial slot text is used only when the menu is empty."
+      "info": "Menu links control destinations and order. Image slots match links by the full URL including query parameters (e.g. ?filter.p.product_type=Heated+Vest); the slot with the most matching parameters wins. Initial category name replaces the matched link name on mobile; initial text is used only when the menu is empty."
     },
     {
       "type": "header",

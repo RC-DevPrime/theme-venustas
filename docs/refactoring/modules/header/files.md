@@ -1,5 +1,16 @@
 # Header 实际文件清单
 
+## 2026-11-25 Category image menu 移动端标题
+
+- blocks/_header-nav-image-menu.liquid：命中槽位后读取 `title_N` 作为移动端标题（`item_title_mobile`，空值回退菜单名），标题拆成 `--desktop`／`--mobile` 两个 span，两者都保留 badge，图片 alt 用移动端标题。
+- assets/header-new.css：基础隐藏 `--mobile`，≤1199px 隐藏 `--desktop`、显示 `--mobile`；桌面端仍显示菜单名。
+
+## 2026-11-25 移动端列角色修正
+
+- sections/header-group-new.json：Men／Women 的 “Shop by Style”、New 面板的 “New Arrival” 由 `role: category` 改为 `role: group`；仅 Men／Women 的 “Shop by Category” 保留 category 角色。
+- assets/header-new.js：`syncColumns()` 的隐藏按钮条件由“第一列”改为“role = category”，category 列在移动端始终展开；其余列显示标题行，第一列只在初始化时展开、点击标题可折叠，其它列默认折叠。
+- 桌面端不受角色改动影响（role 只用于移动端内容内边距与图片菜单下 featured 字重）。
+
 ## 2026-11-25 移动端导航折叠与 Technology 位置
 
 - blocks/_header-nav-column.liquid：折叠按钮改为所有列输出（含 category 角色），移除 `data-mobile-open` 与 `mobile_open` 设置；`role` 仍控制移动端内容内边距与 featured 字重。

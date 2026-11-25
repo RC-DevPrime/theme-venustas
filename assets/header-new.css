@@ -278,6 +278,10 @@
   overflow-wrap: anywhere;
 }
 
+.header-new__image-menu-title--mobile {
+  display: none;
+}
+
 .header-new__column--category:has(.header-new__image-menu) .header-new__featured {
   font-weight: 700;
 }
@@ -581,6 +585,14 @@
     gap: 4px;
     font-size: 14px;
     line-height: 18px;
+  }
+
+  .header-new__image-menu-title--desktop {
+    display: none;
+  }
+
+  .header-new__image-menu-title--mobile {
+    display: block;
   }
 
   .header-new__image-menu-media {

@@ -309,9 +309,9 @@
         const button = column.querySelector('[data-header-column-toggle]');
         const content = column.querySelector('[data-header-column-content]');
         if (!button || !content) return;
-        const first = column.dataset.columnFirst === 'true';
-        const expanded = !this.media.matches || first || column.dataset.mobileExpanded === 'true';
-        button.hidden = this.media.matches && first;
+        const category = column.dataset.columnRole === 'category';
+        const expanded = !this.media.matches || category || column.dataset.mobileExpanded === 'true';
+        button.hidden = this.media.matches && category;
         button.disabled = !this.media.matches;
         button.setAttribute('aria-expanded', String(expanded));
         content.hidden = !expanded;
