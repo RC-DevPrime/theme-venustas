@@ -425,15 +425,6 @@
       this.close();
       this.columns.forEach((column) => { column.dataset.mobileExpanded = column.dataset.columnFirst || 'false'; });
       this.syncColumns();
-      this.root.querySelectorAll('[data-header-image-menu-toggle]').forEach((toggle) => {
-        const panel = document.getElementById(toggle.getAttribute('aria-controls'));
-        toggle.setAttribute('aria-expanded', 'true');
-        if (panel) panel.hidden = false;
-        const heading = toggle.closest('[data-header-column]')?.querySelector('.header-new__column-heading');
-        const label = toggle.querySelector('[data-header-image-menu-title]');
-        const title = heading?.textContent.trim();
-        if (label && title) label.textContent = title;
-      });
       if (this.drawer) {
         this.drawer.toggleAttribute('inert', this.media.matches);
         if (this.media.matches) this.drawer.setAttribute('aria-hidden', 'true');
@@ -477,11 +468,6 @@
         const column = target.closest('[data-header-column]');
         column.dataset.mobileExpanded = String(column.dataset.mobileExpanded !== 'true');
         this.syncColumns();
-      } else if (target.matches('[data-header-image-menu-toggle]') && this.media.matches) {
-        const panel = document.getElementById(target.getAttribute('aria-controls'));
-        const expanded = target.getAttribute('aria-expanded') !== 'true';
-        target.setAttribute('aria-expanded', String(expanded));
-        if (panel) panel.hidden = !expanded;
       } else if (target.matches('a[href]')) {
         const helpPanel = target.closest('.header-new__panel--help');
         if (!helpPanel) {

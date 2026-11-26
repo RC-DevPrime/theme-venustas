@@ -6,7 +6,6 @@
 {%- if product != blank -%}
   <a class="header-new__campaign-product" href="{{ product.url | escape }}">
     <span class="header-new__campaign-product-media">
-      {%- render 'sale-badge', product: product -%}
       {% render 'product-menu-badge', product: product %}
       {%- if product.featured_image != blank -%}
         {{ product.featured_image | image_url: width: 708 | image_tag: class: 'header-new__campaign-product-image', widths: '180, 236, 354, 472, 708', sizes: '(max-width: 1280px) calc((min(89vw, 100vw - 40px, 600px) - 44px) / 2), 236px', loading: 'lazy' }}

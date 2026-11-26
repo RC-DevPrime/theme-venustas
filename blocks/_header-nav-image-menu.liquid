@@ -104,11 +104,7 @@
 {%- endcapture -%}
 {%- assign menu_items = menu_items | strip -%}
 {%- if menu_items != blank -%}
-  <button class="header-new__image-menu-toggle" type="button" data-header-image-menu-toggle aria-expanded="true" aria-controls="HeaderImageMenu-{{ section.id }}-{{ block.id }}">
-    <span data-header-image-menu-title>Shop by Category</span>
-    <span class="header-new__icon">{% render 'header-icons', icon: 'chevron-right' %}</span>
-  </button>
-  <ul id="HeaderImageMenu-{{ section.id }}-{{ block.id }}" class="header-new__image-menu" {{ block.shopify_attributes }}>{{ menu_items }}</ul>
+  <ul class="header-new__image-menu" {{ block.shopify_attributes }}>{{ menu_items }}</ul>
 {%- endif -%}
 
 {% schema %}
