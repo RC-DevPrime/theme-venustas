@@ -1,0 +1,130 @@
+{% style %}
+  #shopify-section-{{ section.id }} .xmas-faq {
+    padding: 48px 0 72px;
+    background: #0b4c20;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+  #shopify-section-{{ section.id }} .xmas-faq__inner { width: min(calc(100% - 40px), 1340px); margin: 0 auto; }
+  #shopify-section-{{ section.id }} .xmas-faq__title { margin: 0 0 40px; color: inherit; font-size: 40px; font-weight: 800; line-height: 1.2; }
+  #shopify-section-{{ section.id }} .xmas-faq__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; align-items: start; border-top: 1px solid rgba(255, 255, 255, .65); }
+  #shopify-section-{{ section.id }} .xmas-faq__item { min-width: 0; border-bottom: 1px solid rgba(255, 255, 255, .65); }
+  #shopify-section-{{ section.id }} .xmas-faq__summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 0; list-style: none; cursor: pointer; }
+  #shopify-section-{{ section.id }} .xmas-faq__summary::-webkit-details-marker { display: none; }
+  #shopify-section-{{ section.id }} .xmas-faq__summary:focus-visible { outline: 2px solid #ffc107; outline-offset: 3px; }
+  #shopify-section-{{ section.id }} .xmas-faq__question { min-width: 0; font-size: 16px; font-weight: 600; line-height: 25.2px; overflow-wrap: anywhere; }
+  #shopify-section-{{ section.id }} .xmas-faq__icon { flex: 0 0 auto; color: #ffc107; font-size: 18px; font-weight: 600; line-height: 18px; }
+  #shopify-section-{{ section.id }} .xmas-faq__icon::before { content: '+'; }
+  #shopify-section-{{ section.id }} .xmas-faq__item[open] .xmas-faq__icon::before { content: '−'; }
+  #shopify-section-{{ section.id }} .xmas-faq__answer { padding-bottom: 22px; font-size: 16px; font-weight: 500; line-height: 1.5; overflow-wrap: anywhere; }
+  #shopify-section-{{ section.id }} .xmas-faq__answer p { margin: 0; }
+  #shopify-section-{{ section.id }} .xmas-faq__answer p + p { margin-top: 12px; }
+  #shopify-section-{{ section.id }} .xmas-faq__answer ul,
+  #shopify-section-{{ section.id }} .xmas-faq__answer ol { margin: 12px 0; padding-left: 24px; }
+  #shopify-section-{{ section.id }} .xmas-faq__answer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+  #shopify-section-{{ section.id }} .xmas-faq__answer a:focus-visible { outline: 2px solid #ffc107; outline-offset: 3px; }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .xmas-faq { padding: 32px 0; }
+    #shopify-section-{{ section.id }} .xmas-faq__title { margin-bottom: 6px; font-size: 24px; }
+    #shopify-section-{{ section.id }} .xmas-faq__list { grid-template-columns: minmax(0, 1fr); gap: 6px; border-top: 0; }
+    #shopify-section-{{ section.id }} .xmas-faq__item { border-color: #e5e7eb; }
+    #shopify-section-{{ section.id }} .xmas-faq__summary { gap: 12px; padding: 18px 0; }
+    #shopify-section-{{ section.id }} .xmas-faq__question { font-weight: 500; line-height: 24px; }
+    #shopify-section-{{ section.id }} .xmas-faq__icon { line-height: 1.45; }
+    #shopify-section-{{ section.id }} .xmas-faq__answer { padding-bottom: 18px; }
+  }
+{% endstyle %}
+
+<section class="xmas-faq"{% if section.settings.title != blank %} aria-labelledby="xmas-faq-title-{{ section.id }}"{% endif %}>
+  <div class="xmas-faq__inner">
+    {% if section.settings.title != blank %}<h2 class="xmas-faq__title" id="xmas-faq-title-{{ section.id }}">{{ section.settings.title | escape }}</h2>{% endif %}
+    {% capture faq_items %}
+      {% for block in section.blocks %}
+        {% if block.settings.question != blank and block.settings.answer != blank %}
+          <details class="xmas-faq__item" {{ block.shopify_attributes }}>
+            <summary class="xmas-faq__summary"><span class="xmas-faq__question">{{ block.settings.question | escape }}</span><span class="xmas-faq__icon" aria-hidden="true"></span></summary>
+            <div class="xmas-faq__answer">{{ block.settings.answer }}</div>
+          </details>
+        {% endif %}
+      {% endfor %}
+    {% endcapture %}
+    {% assign faq_items = faq_items | strip %}
+    {% if faq_items != blank %}<div class="xmas-faq__list">{{ faq_items }}</div>{% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "xmas FAQ",
+  "max_blocks": 20,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "FAQ" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question and answer",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Answer</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "xmas FAQ",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How do the Christmas sale discounts work?",
+            "answer": "<p>There are 3 ways to save:</p><p>Buy More, Save More: Get $20 off 1 select item or $50 off 2+ select items.</p><p>Weekly Deals: Enjoy special discounts on selected products.</p><p>Extra Savings: Get an additional $30 off orders of $300+.</p><p>Eligible discounts are automatically applied in your cart.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I combine different Christmas sale offers?",
+            "answer": "<p>Yes! You can mix and match products from Buy More, Save More and Weekly Deals in one order. Plus, the extra $30 off $300+ offer stacks on top of both deals.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Which products qualify for the $30 off $300 offer?",
+            "answer": "<p>Almost everything! Volcano, Apex, heated apparel, batteries and accessories all count toward the $300 qualifying order total, including products from both promotional categories.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "When should I order to receive my gift by Christmas?",
+            "answer": "<p>Place your order by December 15 for delivery by Christmas within the contiguous U.S. Orders placed after December 15 may not arrive in time. For a last-minute gift, consider our instant e-Gift Cards!</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Are gifts eligible for returns or exchanges?",
+            "answer": "<p>Absolutely! We understand that gifting is all about getting the right fit. Eligible purchases can be returned or exchanged through January 15, 2027. Please refer to our Return &amp; Exchange Policy for details.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How do e-Gift Cards work?",
+            "answer": "<p>Our e-Gift Cards are delivered instantly by email, making them perfect for last-minute gifts. Choose your preferred amount, and let your loved ones pick their favorite heated apparel and the right size.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What payment methods are available?",
+            "answer": "<p>We accept major payment methods at checkout. You can also enjoy flexible payments with Shop Pay, Afterpay or Klarna, allowing you to split your purchase into 4 payments, subject to provider eligibility and terms.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

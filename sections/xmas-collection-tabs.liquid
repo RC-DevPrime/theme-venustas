@@ -1,0 +1,211 @@
+{% style %}
+  #shopify-section-{{ section.id }} .xmas-collection-tabs {
+    display: block;
+    padding: 80px 0;
+    background: #0b4c20;
+    color: #f9f2e8;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__inner {
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__heading { min-width: 0; }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__title {
+    margin: 0 0 16px;
+    color: inherit;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__intro {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__tabs {
+    display: flex;
+    flex-shrink: 0;
+    gap: 8px;
+    padding: 6px;
+    border-radius: 6px;
+    background: #fffdf9;
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__tab {
+    min-width: 0;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #0b4c20;
+    font: 600 14px/20px var(--font-primary, 'Montserrat', sans-serif);
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__tab[aria-selected='true'] {
+    background: #0b4c20;
+    color: #fffdf9;
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__panel[hidden] { display: none; }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__viewport {
+    padding: 32px 20px;
+    border-top: 4px solid #b93205;
+    border-radius: 12px;
+    background: #fffdf9;
+    color: #1a1a1a;
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__track {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px 10px;
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__slide { min-width: 0; }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__dots { display: none; }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__footer {
+    margin-top: 40px;
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__view-all {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 40px;
+    border: 1.4px solid #ffc107;
+    border-radius: 6px;
+    color: #ffc107;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__icon { width: 12px; height: 12px; }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__icon svg { display: block; width: 100%; height: 100%; }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__tab:focus-visible,
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__view-all:focus-visible,
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__dot:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+  #shopify-section-{{ section.id }} .xmas-collection-tabs__empty { margin: 0; grid-column: 1 / -1; }
+  @media (min-width: 768px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__header { flex-wrap: wrap; gap: 24px; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .xmas-collection-tabs { padding: 32px 0; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__header { flex-direction: column; align-items: stretch; gap: 16px; margin-bottom: 16px; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__title { font-size: 24px; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__intro { line-height: 1.45; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__tabs { gap: 0; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__tab { flex: 1; padding: 10px 6px; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__viewport { padding: 0; border: 0; border-radius: 0; background: transparent; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__track { display: flex; gap: 0; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__slide { width: calc((100% - 12px) / 2); margin-right: 12px; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__dots { display: flex; justify-content: center; gap: 0; margin-top: 8px; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__dot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #f9f2e8;
+      cursor: pointer;
+    }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__dot::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #d9d9d9; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__dot[aria-current='true']::before { background: #b93205; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__footer { margin-top: 16px; }
+    #shopify-section-{{ section.id }} .xmas-collection-tabs__view-all { width: 100%; }
+  }
+{% endstyle %}
+
+<xmas-collection-tabs class="xmas-collection-tabs" aria-labelledby="xmas-collections-title-{{ section.id }}">
+  <div class="xmas-collection-tabs__inner">
+    <header class="xmas-collection-tabs__header">
+      <div class="xmas-collection-tabs__heading">
+        <h2 class="xmas-collection-tabs__title" id="xmas-collections-title-{{ section.id }}">$20 off 1 item · $50 off 2+</h2>
+        <p class="xmas-collection-tabs__intro">Mix and match any eligible styles in this section.</p>
+      </div>
+      {% if section.blocks.size > 0 %}
+        <div class="xmas-collection-tabs__tabs" role="tablist" aria-label="Product collections">
+          {% for block in section.blocks %}
+            <button class="xmas-collection-tabs__tab" type="button" role="tab" id="xmas-tab-{{ section.id }}-{{ block.id }}" aria-controls="xmas-panel-{{ section.id }}-{{ block.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>{{ block.settings.label | default: block.settings.collection.title | default: 'Collection' | escape }}</button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </header>
+    {% for block in section.blocks %}
+      {% liquid
+        assign selected_collection = block.settings.collection
+        assign product_count = selected_collection.products_count | default: 0 | at_most: 8
+        assign page_count = product_count | plus: 1 | divided_by: 2
+      %}
+      <div class="xmas-collection-tabs__panel" id="xmas-panel-{{ section.id }}-{{ block.id }}" role="tabpanel" aria-labelledby="xmas-tab-{{ section.id }}-{{ block.id }}" tabindex="0" {% unless forloop.first %}hidden{% endunless %}>
+        <div class="xmas-collection-tabs__viewport swiper" data-viewport>
+          <div class="xmas-collection-tabs__track swiper-wrapper">
+            {% for product in selected_collection.products limit: 8 %}
+              <div class="xmas-collection-tabs__slide swiper-slide">
+                {% render 'product-item', product: product, image_loading: 'lazy', image_sizes: '(max-width: 767px) calc((100vw - 52px) / 2), (max-width: 1199px) 50vw, 25vw' %}
+              </div>
+            {% else %}
+              <p class="xmas-collection-tabs__empty">No products found.</p>
+            {% endfor %}
+          </div>
+        </div>
+        {% if page_count > 1 %}
+          <div class="xmas-collection-tabs__dots" aria-label="Product pages">
+            {% for page in (1..page_count) %}
+              <button class="xmas-collection-tabs__dot" type="button" aria-label="Go to product page {{ page }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" data-page="{{ forloop.index0 }}"></button>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if selected_collection != blank %}
+          <div class="xmas-collection-tabs__footer">
+            <a class="xmas-collection-tabs__view-all" href="{{ selected_collection.url | escape }}">View all ① styles<span class="xmas-collection-tabs__icon" aria-hidden="true">{% render 'heating-icons', icon: 'chevron-right-16' %}</span></a>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</xmas-collection-tabs>
+<script src="{{ 'xmas-collection-tabs.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "xmas Collection Tabs",
+  "max_blocks": 4,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection tab",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Tab name", "default": "Collection" },
+        { "type": "collection", "id": "collection", "label": "Collection" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "xmas Collection Tabs",
+      "blocks": [
+        { "type": "collection", "settings": { "label": "All" } },
+        { "type": "collection", "settings": { "label": "Men" } },
+        { "type": "collection", "settings": { "label": "Women" } },
+        { "type": "collection", "settings": { "label": "Kids" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

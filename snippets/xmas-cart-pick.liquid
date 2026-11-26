@@ -1,0 +1,39 @@
+{% liquid
+  assign pick = block.settings.product
+  assign variant = pick.selected_or_first_available_variant
+  assign title = block.settings.title | default: pick.title
+  assign form_id = 'xmas-cart-pick-' | append: section.id | append: '-' | append: block.id
+%}
+{% if pick != blank %}
+  <article class="xmas-cart-savings__pick{% if block.settings.best_fit %} xmas-cart-savings__pick--best{% endif %}" data-pick data-price="{{ variant.price }}" data-badge="{{ block.settings.badge | escape }}"{% if block.settings.best_fit %} data-best-fit{% endif %} {{ block.shopify_attributes }}>
+    {% if block.settings.badge != blank or block.settings.best_fit %}<span class="xmas-cart-savings__badge" data-pick-badge>{% if block.settings.best_fit %}{{ block.settings.best_fit_label | escape }}{% else %}{{ block.settings.badge | escape }}{% endif %}</span>{% endif %}
+    <div class="xmas-cart-savings__product">
+      {% if pick.featured_image != blank %}
+        <a class="xmas-cart-savings__image-link" href="{{ pick.url | escape }}" aria-label="{{ title | escape }}">
+          {% assign image_alt = pick.featured_image.alt | default: title %}
+          {{ pick.featured_image | image_url: width: 192 | image_tag: widths: '64, 128, 192', sizes: '64px', class: 'xmas-cart-savings__image', alt: image_alt, loading: 'lazy' }}
+        </a>
+      {% endif %}
+      <div class="xmas-cart-savings__product-info">
+        <h4 class="xmas-cart-savings__product-title"><a href="{{ pick.url | escape }}">{{ title | escape }}</a></h4>
+        <p class="xmas-cart-savings__price">{{ variant.price | money }}</p>
+      </div>
+    </div>
+    {% if pick.has_only_default_variant %}
+      {% form 'product', pick, id: form_id, class: 'atc-form xmas-cart-savings__actions' %}
+        <input type="hidden" name="id" value="{{ variant.id }}">
+        <button class="btn-atc xmas-cart-savings__button" type="submit" name="add"{% unless variant.available %} disabled{% endunless %}>
+          <div class="position-relative"><span>{% if variant.available %}Add to Cart{% else %}Sold Out{% endif %}</span><div class="atc-overlay"><div class="atc-spinner"></div></div></div>
+          <span class="xmas-cart-savings__chevron" aria-hidden="true">{% render 'heating-icons', icon: 'chevron-right-16' %}</span>
+        </button>
+      {% endform %}
+    {% else %}
+      <div class="form-btn popup-atc xmas-cart-savings__actions">
+        <button class="btn-atc xmas-cart-savings__button" type="button" data-popup-handle="{{ pick.handle | escape }}"{% unless pick.available %} disabled{% endunless %}>
+          <div class="position-relative"><span>{% if pick.available %}Add to Cart{% else %}Sold Out{% endif %}</span><div class="atc-overlay"><div class="atc-spinner"></div></div></div>
+          <span class="xmas-cart-savings__chevron" aria-hidden="true">{% render 'heating-icons', icon: 'chevron-right-16' %}</span>
+        </button>
+      </div>
+    {% endif %}
+  </article>
+{% endif %}

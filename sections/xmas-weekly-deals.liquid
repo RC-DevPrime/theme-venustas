@@ -1,0 +1,202 @@
+{% style %}
+  #shopify-section-{{ section.id }} .xmas-weekly-deals {
+    display: block;
+    padding: 80px 0;
+    background: #f8f1e6;
+    color: #1a1a1a;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__inner { width: min(calc(100% - 40px), 1340px); margin: 0 auto; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__title { margin: 0 0 40px; color: #8f1226; font-size: 40px; font-weight: 800; line-height: 1.2; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__countdown {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 24px 40px;
+    border-radius: 14px;
+    background: #8f1226;
+    margin-bottom: 40px;
+  }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__copy { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__eyebrow { margin: 0; color: #ffc107; font-size: 14px; font-weight: 700; line-height: 1.45; letter-spacing: .96px; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__countdown-title { margin: 0; color: #f6f1e7; font-size: 28px; font-weight: 700; line-height: 1.2; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__subtitle { margin: 0; color: #f0d5d9; font-size: 16px; font-weight: 500; line-height: 24px; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__clock {
+    --tile-height: 100px;
+    display: grid;
+    grid-template-columns: minmax(0, 88px) 12px minmax(0, 88px) 12px minmax(0, 88px) 12px minmax(0, 88px);
+    gap: 10px;
+    flex: 0 0 auto;
+    width: 448px;
+    max-width: 100%;
+  }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__clock[hidden] { display: none; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__unit { min-width: 0; text-align: center; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__digit {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: var(--tile-height);
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: #6a0b1b;
+    color: #ffc857;
+    font-family: inherit;
+    font-size: 56px;
+    font-weight: 800;
+    line-height: var(--tile-height);
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    perspective: 500px;
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+  }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__digit::after { content: ''; position: absolute; z-index: 3; top: 50%; left: 0; width: 100%; height: 2px; background: rgba(0, 0, 0, .35); pointer-events: none; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__value { display: block; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__flap { position: absolute; left: 0; width: 100%; height: 50%; overflow: hidden; background: #6a0b1b; backface-visibility: hidden; pointer-events: none; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__flap[hidden] { display: none; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__flap--top { top: 0; border-radius: 8px 8px 0 0; transform-origin: bottom; z-index: 2; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__flap--bottom { top: 50%; border-radius: 0 0 8px 8px; transform-origin: top; z-index: 2; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__flap--old { top: 50%; border-radius: 0 0 8px 8px; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__flap span { display: block; height: var(--tile-height); line-height: var(--tile-height); }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__flap--bottom span,
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__flap--old span { transform: translateY(-50%); }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__unit-label { display: block; margin-top: 10px; color: #f0d5d9; font-size: 14px; font-weight: 500; line-height: 20px; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__colon { color: #ffc857; font-size: 32px; font-weight: 800; line-height: var(--tile-height); text-align: center; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__carousel { position: relative; padding: 32px 20px; border-top: 4px solid #ffc857; border-radius: 12px; background: #fffdf9; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__slide { width: calc((100% - 30px) / 4); min-width: 0; margin-right: 10px; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .6);
+    color: #1a1a1a;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__arrow--prev { left: -60px; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__arrow--next { right: -60px; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__arrow--prev svg { transform: rotate(180deg); }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__arrow svg { display: block; width: 100%; height: 100%; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__arrow[hidden] { display: none; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__dots { display: none; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__note { margin: 40px 0 0; color: rgba(26, 26, 26, .8); font-size: 14px; font-weight: 500; line-height: 20px; }
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__digit:focus-visible,
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__arrow:focus-visible,
+  #shopify-section-{{ section.id }} .xmas-weekly-deals__dot:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  @media (max-width: 1499px) and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__arrow--prev { left: 4px; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__arrow--next { right: 4px; }
+  }
+  @media (max-width: 1199px) and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__countdown { flex-wrap: wrap; }
+  }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .xmas-weekly-deals { padding: 32px 0; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__title { margin-bottom: 18px; font-size: 24px; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__countdown { flex-direction: column; align-items: flex-start; gap: 8px; padding: 20px 16px; margin-bottom: 18px; border-radius: 8px; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__countdown-title { font-size: 20px; line-height: 1.45; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__clock { --tile-height: 72px; width: 100%; grid-template-columns: minmax(0, 1fr) 7px minmax(0, 1fr) 7px minmax(0, 1fr) 7px minmax(0, 1fr); gap: clamp(3px, 1.84vw, 7.2px); }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__digit { border-radius: 6px; font-size: clamp(26px, 10.33vw, 40.3px); }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__unit-label { margin-top: 7px; font-size: 10px; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__colon { font-size: 23px; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__carousel { padding: 0; border: 0; border-radius: 0; background: transparent; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__slide { width: calc((100% - 12px) / 2); margin-right: 12px; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__arrow { display: none; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__dots { display: flex; justify-content: center; margin-top: 8px; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__dot { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; padding: 0; border: 0; background: transparent; color: #8f1226; cursor: pointer; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__dot::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #d9d9d9; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__dot[aria-current='true']::before { background: #b93205; }
+    #shopify-section-{{ section.id }} .xmas-weekly-deals__note { margin-top: 18px; }
+  }
+{% endstyle %}
+
+{% assign deals_collection = section.settings.collection %}
+<xmas-weekly-deals id="xmas-weekly-{{ section.id }}" class="xmas-weekly-deals" data-end="{{ section.settings.end_time | escape }}" aria-label="{{ section.settings.title | default: deals_collection.title | escape }}">
+  <div class="xmas-weekly-deals__inner">
+    {% if section.settings.title != blank %}<h2 class="xmas-weekly-deals__title">{{ section.settings.title | escape }}</h2>{% endif %}
+    {% if section.settings.eyebrow != blank or section.settings.countdown_title != blank or section.settings.subtitle != blank or section.settings.end_time != blank %}
+    <div class="xmas-weekly-deals__countdown">
+      <div class="xmas-weekly-deals__copy">
+        {% if section.settings.eyebrow != blank %}<p class="xmas-weekly-deals__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+        {% if section.settings.countdown_title != blank %}<h3 class="xmas-weekly-deals__countdown-title">{{ section.settings.countdown_title | escape }}</h3>{% endif %}
+        {% if section.settings.subtitle != blank %}<p class="xmas-weekly-deals__subtitle">{{ section.settings.subtitle | escape }}</p>{% endif %}
+      </div>
+      <div class="xmas-weekly-deals__clock" role="timer" aria-live="off" hidden>
+        {% assign units = 'DAYS,HOURS,MINUTES,SECONDS' | split: ',' %}
+        {% for unit in units %}
+          {% unless forloop.first %}<span class="xmas-weekly-deals__colon" aria-hidden="true">:</span>{% endunless %}
+          <div class="xmas-weekly-deals__unit">
+            <button class="xmas-weekly-deals__digit" type="button" data-unit="{{ forloop.index0 }}" aria-label="00 {{ unit }}">
+              <span class="xmas-weekly-deals__value" aria-hidden="true">00</span>
+              <span class="xmas-weekly-deals__flap xmas-weekly-deals__flap--old" aria-hidden="true" hidden><span>00</span></span>
+              <span class="xmas-weekly-deals__flap xmas-weekly-deals__flap--top" aria-hidden="true" hidden><span>00</span></span>
+              <span class="xmas-weekly-deals__flap xmas-weekly-deals__flap--bottom" aria-hidden="true" hidden><span>00</span></span>
+            </button>
+            <span class="xmas-weekly-deals__unit-label">{{ unit }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+    {% if deals_collection != blank and deals_collection.products_count > 0 %}
+      <div class="xmas-weekly-deals__carousel">
+        <div class="swiper" data-viewport>
+          <div class="swiper-wrapper">
+            {% for product in deals_collection.products limit: 4 %}
+              <div class="xmas-weekly-deals__slide swiper-slide" data-original>
+                {% render 'product-item', product: product, image_loading: 'lazy', image_sizes: '(max-width: 767px) calc((100vw - 52px) / 2), 25vw' %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <button class="xmas-weekly-deals__arrow xmas-weekly-deals__arrow--prev" type="button" aria-label="{{ section.settings.previous_label | escape }}" data-prev hidden>{% render 'heating-icons', icon: 'chevron-right-16' %}</button>
+        <button class="xmas-weekly-deals__arrow xmas-weekly-deals__arrow--next" type="button" aria-label="{{ section.settings.next_label | escape }}" data-next hidden>{% render 'heating-icons', icon: 'chevron-right-16' %}</button>
+      </div>
+      {% if deals_collection.products_count > 1 %}
+        <div class="xmas-weekly-deals__dots" aria-label="{{ section.settings.pagination_label | escape }}">
+          {% assign dot_count = deals_collection.products_count | at_most: 4 %}
+          {% for page in (1..dot_count) %}
+            <button class="xmas-weekly-deals__dot" type="button" aria-label="{{ section.settings.page_label | escape }} {{ page }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" data-page="{{ forloop.index0 }}"></button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% elsif request.design_mode %}
+      <p>Select a collection with products.</p>
+    {% endif %}
+    {% if section.settings.note != blank %}<p class="xmas-weekly-deals__note">{{ section.settings.note | escape }}</p>{% endif %}
+  </div>
+</xmas-weekly-deals>
+<script src="{{ 'xmas-weekly-deals.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "xmas Weekly Deals",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Weekly Deals" },
+    { "type": "text", "id": "eyebrow", "label": "Countdown caption", "default": "ENDS SUNDAY 11:59 PM [TZ]" },
+    { "type": "text", "id": "countdown_title", "label": "Countdown title", "default": "Time left on this week's picks" },
+    { "type": "text", "id": "subtitle", "label": "Countdown subtitle", "default": "Next week's picks drop Monday." },
+    { "type": "text", "id": "end_time", "label": "Countdown end time", "info": "Include the timezone: YYYY-MM-DDTHH:MM:SS-08:00 or YYYY-MM-DDTHH:MM:SS+08:00. Empty or invalid dates hide the clock; expired dates show zero." },
+    { "type": "collection", "id": "collection", "label": "Collection (first 4 products)" },
+    { "type": "textarea", "id": "note", "label": "Bottom note", "default": "Weekly Deals don't combine with ①, but they count toward ③ Extra $30 off $300+." },
+    { "type": "header", "content": "Accessibility labels" },
+    { "type": "text", "id": "previous_label", "label": "Previous button", "default": "Previous products" },
+    { "type": "text", "id": "next_label", "label": "Next button", "default": "Next products" },
+    { "type": "text", "id": "pagination_label", "label": "Pagination", "default": "Product pages" },
+    { "type": "text", "id": "page_label", "label": "Page button", "default": "Go to product" }
+  ],
+  "presets": [{ "name": "xmas Weekly Deals" }]
+}
+{% endschema %}

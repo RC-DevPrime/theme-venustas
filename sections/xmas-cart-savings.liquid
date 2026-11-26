@@ -1,0 +1,192 @@
+{% style %}
+  #shopify-section-{{ section.id }} .xmas-cart-savings { display: block; padding: 80px 0; background: #0b4c20; color: #f9f2e8; font-family: var(--font-primary, 'Montserrat', sans-serif); }
+  #shopify-section-{{ section.id }} .xmas-cart-savings [hidden] { display: none; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__inner { width: min(calc(100% - 40px), 1340px); margin: 0 auto; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__title { margin: 0 0 16px; color: inherit; font-size: 40px; font-weight: 800; line-height: 1.2; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__intro { margin: 0; font-size: 16px; font-weight: 500; line-height: 24px; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__states { display: flex; gap: 16px; margin: 40px 0 16px; overflow-x: auto; padding: 2px 0; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__state { flex: 0 0 auto; padding: 6px 16px; border: 1px solid #4f7a63; border-radius: 999px; font-size: 14px; font-weight: 700; line-height: 20px; white-space: nowrap; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__state[aria-current='true'] { border-color: #ffc857; background: #ffc857; color: #0f3d2a; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__panel { display: grid; grid-template-columns: minmax(0, 334px) minmax(0, 1fr); min-height: 438px; border: 1px solid #2f6a4f; border-radius: 16px; background: #0f3d2a; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__summary { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: 32px 24px; border-right: 1px solid #2f6a4f; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__eyebrow { margin: 0 0 12px; color: #a9c4b3; font-size: 14px; font-weight: 700; line-height: 1.45; letter-spacing: 1.68px; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__headline { margin: 0; color: #fff; font-size: 34px; font-weight: 700; line-height: 1.2; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__headline strong { color: #ffc857; font-weight: inherit; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__progress-badge { display: table; margin: 0 0 10px auto; padding: 4px 12px; border-radius: 999px; background: #ffc857; color: #0f3d2a; font-size: 14px; font-weight: 700; line-height: 1.2; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__progress { height: 18px; border-radius: 999px; background: #07201a; overflow: hidden; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__fill { height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, #edce4a, #ff4f00); }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__progress-labels { display: flex; justify-content: space-between; gap: 8px; margin-top: 4px; color: #cfe3d6; font-size: 14px; font-weight: 500; line-height: 20px; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__progress-labels strong { color: #fff; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__details { font-size: 14px; line-height: 1.5; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__details summary { list-style: none; cursor: pointer; font-weight: 700; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__details summary::-webkit-details-marker { display: none; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__details p { margin: 12px 0 0; color: #cfe3d6; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__hint { margin: 0; color: #cfe3d6; font-size: 16px; font-weight: 500; line-height: 1.5; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__right { min-width: 0; padding: 36px 24px; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__recommendations { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; min-height: 100%; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__note { padding: 18px 22px; border-radius: 12px; background: #b93205; color: #ffc857; font-size: 16px; line-height: 24px; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__note p { margin: 0; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__note p + p { margin-top: 8px; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__picks-heading { margin: 0 0 24px; color: #fff; font-size: 18px; font-weight: 600; line-height: 1.4; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__picks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__pick { display: flex; flex-direction: column; gap: 24px; min-width: 0; padding: 20px 18px; border: 1px solid #2f6a4f; border-radius: 14px; background: #0b2a1d; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__pick--best { border: 2px solid #b93205; padding: 19px 17px; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__badge { align-self: flex-start; max-width: 100%; padding: 4px 10px; border: 1px solid #4f7a63; border-radius: 999px; color: #cfe3d6; font-size: 11px; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__pick--best .xmas-cart-savings__badge { border-color: #b93205; background: #b93205; color: #fff; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__product { display: flex; align-items: flex-start; gap: 14px; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__image-link { flex: 0 0 64px; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__image { display: block; width: 64px; height: 64px; object-fit: contain; border-radius: 10px; background: #efefef; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__product-info { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__product-title { margin: 0; color: #fff; font-size: 16px; font-weight: 700; line-height: 1.4; overflow-wrap: anywhere; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__product-title a { color: inherit; text-decoration: none; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__price { margin: 0; color: #fff; font-size: 20px; font-weight: 700; line-height: 1.4; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__actions { margin: auto 0 0; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__button { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; padding: 12px 16px; border: 1.4px solid #fff; border-radius: 6px; background: transparent; color: #fff; font-family: inherit; font-size: 16px; font-weight: 600; line-height: 1.4; text-align: center; text-decoration: none; cursor: pointer; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__pick--best .xmas-cart-savings__button,
+  #shopify-section-{{ section.id }} .xmas-cart-savings__button--pay { border-color: #b93205; background: #b93205; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__button:disabled { opacity: .6; cursor: default; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__chevron { flex: 0 0 12px; width: 12px; height: 12px; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__chevron svg { display: block; width: 100%; height: 100%; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__unlocked { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; min-height: 100%; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__receipt { padding: 32px; border: 1px solid #2f6a4f; border-radius: 14px; background: #0b2a1d; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__row { display: flex; justify-content: space-between; gap: 16px; margin: 0 0 12px; color: #a9c4b3; font-size: 16px; line-height: 1.5; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__row strong { color: #fff; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__row--discount { color: #38cb88; font-weight: 700; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__row--pay { align-items: baseline; margin: 18px 0 0; padding-top: 18px; border-top: 1px solid #2f6a4f; color: #fff; font-size: 20px; font-weight: 700; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__pay { font-size: 40px; font-weight: 800; line-height: 1.2; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings__continue { align-self: center; color: #a9c4b3; font-size: 14px; text-decoration: underline; text-underline-offset: 2px; }
+  #shopify-section-{{ section.id }} .xmas-cart-savings a:focus-visible,
+  #shopify-section-{{ section.id }} .xmas-cart-savings button:focus-visible,
+  #shopify-section-{{ section.id }} .xmas-cart-savings summary:focus-visible { outline: 2px solid #ffc857; outline-offset: 3px; }
+  @media (min-width: 768px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .xmas-cart-savings__panel { grid-template-columns: minmax(0, 270px) minmax(0, 1fr); }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__picks { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .xmas-cart-savings { padding: 40px 0; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__title { font-size: 24px; margin-bottom: 20px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__states { gap: 8px; margin-top: 20px; margin-bottom: 20px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__state { font-size: 16px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__panel { display: block; min-height: 0; border: 0; background: transparent; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__summary { gap: 16px; padding: 20px 18px; border: 1px solid #2f6a4f; border-radius: 8px; background: #0f3d2a; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__headline { font-size: 28px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__details { margin-top: 20px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__right { padding: 0; margin-top: 20px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__recommendations { gap: 20px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__note { padding: 12px 14px; border-radius: 6px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__picks-heading { margin-bottom: 20px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__picks { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__pick { gap: 12px; padding: 18px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__pick--best { padding: 17px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__badge { align-self: stretch; font-size: 12px; font-weight: 500; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__receipt { padding: 20px 18px; }
+    #shopify-section-{{ section.id }} .xmas-cart-savings__pay { font-size: 30px; }
+  }
+{% endstyle %}
+
+<xmas-cart-savings class="xmas-cart-savings" id="xmas-cart-savings-{{ section.id }}" aria-labelledby="xmas-cart-title-{{ section.id }}">
+  <div class="xmas-cart-savings__inner">
+    <h2 class="xmas-cart-savings__title" id="xmas-cart-title-{{ section.id }}">Spend $300, Take Extra $30 Off</h2>
+    <p class="xmas-cart-savings__intro">Sitewide. Stacks on ① and ②. Everything in your cart counts.</p>
+    <div class="xmas-cart-savings__states" aria-label="Cart savings status">
+      <span class="xmas-cart-savings__state" data-state="empty" aria-current="false">Empty cart</span>
+      <span class="xmas-cart-savings__state" data-state="partial" aria-current="false"><span data-money="subtotal">{{ cart.total_price | money }}</span> in cart</span>
+      <span class="xmas-cart-savings__state" data-state="unlocked" aria-current="false">$300+ unlocked</span>
+    </div>
+    <div class="xmas-cart-savings__panel" hidden data-panel>
+      <div class="xmas-cart-savings__summary">
+        <div>
+          <p class="xmas-cart-savings__eyebrow" data-cart-label>YOUR CART · EMPTY</p>
+          <h3 class="xmas-cart-savings__headline" data-headline="empty">Spend <strong>$300</strong>, take <strong>$30</strong> off</h3>
+          <h3 class="xmas-cart-savings__headline" data-headline="partial" hidden>Add <strong data-money="remaining"></strong> more, take <strong>$30</strong> off</h3>
+          <h3 class="xmas-cart-savings__headline" data-headline="unlocked" hidden><strong>$30</strong> off<br>unlocked</h3>
+        </div>
+        <div>
+          <span class="xmas-cart-savings__progress-badge" data-progress-badge>-$30</span>
+          <div class="xmas-cart-savings__progress" role="progressbar" aria-label="Progress toward $300" aria-valuemin="0" aria-valuemax="300" aria-valuenow="0"><div class="xmas-cart-savings__fill" data-fill></div></div>
+          <div class="xmas-cart-savings__progress-labels"><span><span data-money="subtotal"></span> in cart</span><strong>$300</strong></div>
+        </div>
+        <details class="xmas-cart-savings__details" data-calculation>
+          <summary>See how the discount is calculated <span aria-hidden="true">›</span></summary>
+          <p>Subtotal after ① and ②: <span data-money="subtotal"></span>. Spend $300 to qualify for an extra $30 off. Applied savings: <span data-money="discount"></span>. Your cart total: <span data-money="pay"></span>.</p>
+        </details>
+        <p class="xmas-cart-savings__hint" data-unlocked-hint hidden>Heads up: the discount applies while your cart stays at $300 or more.</p>
+      </div>
+      <div class="xmas-cart-savings__right">
+        {% for state in (1..2) %}
+          {% liquid
+            if state == 1
+              assign state_name = 'empty'
+              assign block_type = 'empty_pick'
+            else
+              assign state_name = 'partial'
+              assign block_type = 'partial_pick'
+            endif
+          %}
+          <div class="xmas-cart-savings__recommendations" data-view="{{ state_name }}" hidden>
+            <div class="xmas-cart-savings__note" data-note="{{ state_name }}"></div>
+            <div>
+              <h3 class="xmas-cart-savings__picks-heading">{% if state == 1 %}Start with one of these{% else %}Quick top-ups that get you there{% endif %}</h3>
+              <div class="xmas-cart-savings__picks">
+                {% for block in section.blocks %}
+                  {% if block.type == block_type %}{% render 'xmas-cart-pick', block: block, section: section %}{% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        <div class="xmas-cart-savings__unlocked" data-view="unlocked" hidden>
+          <div class="xmas-cart-savings__receipt">
+            <p class="xmas-cart-savings__row"><span>Subtotal after ① and ②</span><strong data-money="subtotal"></strong></p>
+            <p class="xmas-cart-savings__row xmas-cart-savings__row--discount"><span>③ Extra $30 off $300+</span><span data-discount-line></span></p>
+            <p class="xmas-cart-savings__row xmas-cart-savings__row--pay"><span>You pay</span><strong class="xmas-cart-savings__pay" data-money="pay"></strong></p>
+          </div>
+          <a class="xmas-cart-savings__button xmas-cart-savings__button--pay" href="{{ routes.cart_url }}">Go to cart &amp; pay · <span data-money="pay"></span><span class="xmas-cart-savings__chevron" aria-hidden="true">{% render 'heating-icons', icon: 'chevron-right-16' %}</span></a>
+          <a class="xmas-cart-savings__continue" href="{{ section.settings.continue_link | default: routes.all_products_collection_url }}">Continue shopping</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" data-cart-initial>{{ cart | json }}</script>
+  <script type="application/json" data-cart-config>{"discountTitle": {{ section.settings.discount_title | json }}, "emptyNote": {{ section.settings.empty_note | json }}, "partialNote": {{ section.settings.partial_note | json }}}</script>
+</xmas-cart-savings>
+<script src="{{ 'xmas-cart-savings.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "xmas Cart Savings",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "discount_title", "label": "Shopify $30 discount title", "default": "Extra $30 off $300+", "info": "Enter the exact Shopify discount title/code. Only this discount is added back to calculate the $300 threshold. The payable amount always uses Shopify cart.total_price." },
+    { "type": "richtext", "id": "empty_note", "label": "Empty cart red note", "default": "<p>Start with a flagship: <strong>Apex</strong> or <strong>Volcano</strong> unlocks the $30 on its own.</p>" },
+    { "type": "richtext", "id": "partial_note", "label": "Under $300 red note", "default": "<p>The $30 comes off your whole order, so a <strong>{product_price}</strong> add-on really costs you only <strong>{after_savings}</strong>.</p>", "info": "Tokens use the first Best fit product (or first product): {product_price}, {after_savings}, {remaining}, {cart_total}." },
+    { "type": "url", "id": "continue_link", "label": "Continue shopping link" }
+  ],
+  "blocks": [
+    {
+      "type": "empty_pick", "name": "Empty cart product", "limit": 3,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "title", "label": "Title override", "info": "Leave empty to use the product title." },
+        { "type": "text", "id": "badge", "label": "Badge", "default": "UNLOCKS -$30", "info": "Use {shortfall} for the remaining amount after adding this product." },
+        { "type": "checkbox", "id": "best_fit", "label": "Highlight as best fit", "default": false },
+        { "type": "text", "id": "best_fit_label", "label": "Best fit text", "default": "BEST FIT" }
+      ]
+    },
+    {
+      "type": "partial_pick", "name": "Under $300 product", "limit": 3,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "title", "label": "Title override", "info": "Leave empty to use the product title." },
+        { "type": "text", "id": "badge", "label": "Badge", "default": "UNLOCKS -$30", "info": "Use {shortfall} for the remaining amount after adding this product." },
+        { "type": "checkbox", "id": "best_fit", "label": "Highlight as best fit", "default": false },
+        { "type": "text", "id": "best_fit_label", "label": "Best fit text", "default": "BEST FIT" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "xmas Cart Savings", "blocks": [
+    { "type": "empty_pick" }, { "type": "empty_pick" }, { "type": "empty_pick", "settings": { "badge": "{shortfall} SHORT" } },
+    { "type": "partial_pick", "settings": { "best_fit": true } }, { "type": "partial_pick" }, { "type": "partial_pick", "settings": { "badge": "{shortfall} SHORT" } }
+  ] }]
+}
+{% endschema %}
