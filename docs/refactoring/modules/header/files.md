@@ -1,5 +1,30 @@
 # Header 实际文件清单
 
+## 2026-11-26 桌面 predictive search 结构
+
+- sections/search.liquid：删除 Bootstrap 栅格（logo 列、表单列、空列）与 `.container`／`.input-group`，新结构 `.predictive-search__bar` → `predictive-search.predictive-search__box` → `form.predictive-search__field`；保留 `#predictive-search` 与 `.inner-content` 供 JS 使用。
+- assets/style.css：新增 `predictive-search__bar/box/field` 规则，搜索框 800px、输入 44 高胶囊；结果面板 `.predictive-search__results` 同为 800px。搜索条宽 `min(100%-40px,1720px)`、高跟随 `--header-nav-height`（≥1280 为 68），Logo 绝对定位左侧、搜索框居中 800。
+
+## 2026-11-26 桌面 predictive search
+
+- sections/search.liquid：搜索按钮与关闭入口改用 `header-icons` 的 search／close SVG，保留 `.icon-close` 供 header-new.js 关闭逻辑识别。
+- assets/style.css：表单改 44 高胶囊（圆角 32、1px rgba(0,0,0,.2)、14/20 输入），`#predictive-search` 面板 min(1340px,100%-40px)、内边距 24/20/28，结果标题 14/20 #515151、词条白底边框、view-all 14/20。
+
+## 2026-11-26 活动面板商品卡角标
+
+- snippets/header-new-product-card.liquid：`product-menu-badge` 移入 `.header-new__campaign-product-media`，角标以图片容器定位。
+- assets/header-new.css：图片容器加 `position:relative`；`.header-new__campaign-product-media .menu-badge` 设 top/right 8px、圆角 4、底色 #ff5d5f、白字 600。
+
+## 2026-11-25 header-new.css 前移
+
+- layout/theme.liquid：head 的 res-base/res-font 之后加载 header-new.css（唯一引用），保证首帧有样式。
+- sections/header-new.liquid、sections/announcement-bar.liquid：删除各自的 header-new.css 输出；header-new.js 仍由 header-new section 以 defer 加载。
+
+## 2026-11-25 移动端搜索弹层样式
+
+- assets/header-new.css（`.header-new__search-*` 段）：抽屉满宽，搜索胶囊 44 高／圆角 32／1px 边框／图标 18，内容左右 20、区块间距 20，标题 14/20，词条两列间距 12，商品两列间距 16、图片 167:209、标题 14/20、主价 16、对比价 12，折扣角标 9/600 渐变压角。
+- 未改 snippets/header-new-search-mobile.liquid 与 header-new.js；390 宽下内容宽度为 350。
+
 ## 2026-11-25 Category image menu 移动端标题
 
 - blocks/_header-nav-image-menu.liquid：命中槽位后读取 `title_N` 作为移动端标题（`item_title_mobile`，空值回退菜单名），标题拆成 `--desktop`／`--mobile` 两个 span，两者都保留 badge，图片 alt 用移动端标题。

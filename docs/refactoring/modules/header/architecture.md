@@ -1,5 +1,7 @@
 # Header 架构
 
+2026-11-25 样式表前移：`header-new.css` 不再由 section 输出，改在 `layout/theme.liquid` 的 `<head>`（`res-font.css` 之后）以普通 `stylesheet_tag` 加载，并在 header-new、announcement-bar 两个 section 中删除重复输出。原实现把 `<link>` 放在 body 的 header group 里，慢网络首帧、主题编辑器局部刷新（section DOM 连同 `<link>` 一起替换）或资源 404 时会出现整个 header 无样式。`header-new.js` 未动，仍由 section 以 defer 加载。详见[日志](../../logs/header/2026-11-25-header-css-head.md)。
+
 2026-11-25 移动端导航折叠：所有导航列都输出折叠按钮；`role: category`（仅 Men／Women 的 “Shop by Category”，2026-11-25 修正：Shop by Style 与 New 面板的 New Arrival 已改为 group）在移动端不显示按钮、内容直接展开；其余列显示标题行，DOM 第一列默认展开、其它默认折叠；第一列只是初始状态，点击标题仍可折叠。默认展开值由 JS 按 `data-column-first` 计算，不再读取列级的 `mobile_open`（该设置已移除）。`_header-nav-button` 在 primary 仅桌面可见、secondary 移动可见时加 `--mobile-secondary`，CSS 用 `order: 3` 把 “Our Technology: Heatwave™ & PowerCore™” 排到推广卡（order 2）之后。详见[日志](../../logs/header/2026-11-25-mobile-nav-accordion.md)与[2026-11-25 角色修正](../../logs/header/2026-11-25-mobile-column-role.md)。
 
 2026-11-25 类名解耦：`<nav class="header-new">` 不再带 `header` 类，样式全部由 header-new.css 提供（原 style.css `.header` 仅补充 transition，已并入）。所有页面脚本改用 `.header-new`：collection／article／blog 量高度、main.js 的 getHeaderHeight 与页面导航偏移、page／product／tech-core 的 `header-hide` 滚动隐藏（CSS 同步为 `nav.header-new.header-hide`）、cooling-vest-nav 偏移、heatingV-anchor-nav 滚动偏移、index-banner-slider 的 header 查询。旧 header 专属的 CSS（213 条）与 JS（公告 Swiper／marquee／倒计时、mega 与移动菜单、语言选择、`.icon-cart` 购物车、`HeaderDrawer`、透明头开关）已删除。详见[日志](../../logs/header/2026-11-25-header-class-decoupling.md)。
@@ -70,7 +72,7 @@ Bundles 数据复制旧 header-group.json 的 dislay_6_yaYK6A：clothing-extra-b
 
 新 Header 使用 /blocks/_header-nav-* 主题区块：面板 → 导航列 → 重点链接／菜单列表／特性导航，推广卡及底部按钮与列平级；通过 content_for 'blocks' 渲染。当前无需分类图片菜单，后续任务再补充该第四类型。导航名称和临时地址集中在 section 的 navigation_labels/navigation_paths 变量；普通菜单区块仍支持 Shopify 菜单。
 
-header-new.css 与 header-new.js 只由新 section 加载；新交互使用 data-header-*，不使用旧 header-wrapper、nav-item、drop 绑定入口。为保持共享消费者可取高度，section 额外保留 shopify-section-group-header-group 类，根保留 nav.header，固定导航加等高占位；根高度变量与 header:heightchange 继续输出。未改写 Collection/Product 脚本。旧 group 下搜索与购物车数据复制保留，但本次无对应新 Header 按钮。
+header-new.css 自 2026-11-25 起由 `layout/theme.liquid` 的 `<head>` 加载（原由 header-new 与 announcement-bar 两个 section 各自输出，导致 body 内样式表、首帧无样式与 section 局部刷新时失效）；header-new.js 仍由新 section 以 defer 加载。新交互使用 data-header-*，不使用旧 header-wrapper、nav-item、drop 绑定入口。为保持共享消费者可取高度，section 额外保留 shopify-section-group-header-group 类，根保留 nav.header，固定导航加等高占位；根高度变量与 header:heightchange 继续输出。未改写 Collection/Product 脚本。旧 group 下搜索与购物车数据复制保留，但本次无对应新 Header 按钮。
 
 移动端折叠（2026-11-23 原实现已被 2026-11-25 取代）：原为 Category 角色不输出折叠按钮并隐藏标题、其他列按 `mobile_open` 展开；现为所有列都输出按钮，仅 `role: category` 列在移动端隐藏按钮并直接展开内容，其余列显示标题行、第一列默认展开（点击仍可折叠）、其它默认折叠，且不再读取 `mobile_open`。仍支持返回、关闭、Escape、Tab 焦点约束及编辑器选中区块展开。脚本在 section 卸载时清理监听和观察器。2026-11-23 的原始规则见 [任务日志](../../logs/header/2026-11-23-new-navigation.md)；现行规则见 [2026-11-25 日志](../../logs/header/2026-11-25-mobile-nav-accordion.md) 与 [2026-11-25 角色修正](../../logs/header/2026-11-25-mobile-column-role.md)。以下为旧实现基线，供回退与后续迁移参考。
 

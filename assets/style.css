@@ -1282,70 +1282,110 @@ a.f-white:hover{
     z-index: 3;
     box-shadow: 0 3px 6px 1px #0000001a;
 }
-.predictive-search .container {
-    padding:12px 60px;
+.predictive-search__bar {
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    width: min(100% - 40px, 1720px);
+    height: var(--header-nav-height, 68px);
+    margin: 0 auto;
 }
-.predictive-search .icon:first-child {
-    width: 22px;
-}
-.predictive-search .icon:last-child {
-    width: 16px;
-    cursor: pointer;
-}
-.predictive-search .input-group button .icon{
-    width:100%;
-    height:100%;
-}
-.predictive-search predictive-search {
-    width: 50%;
-}
-.predictive-search predictive-search .input-group{
+.predictive-search__logo {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
     align-items: center;
+    flex: 0 0 154px;
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
 }
-.predictive-search form {
+.predictive-search__logo img {
+    display: block;
+    width: 154px;
+    height: auto;
+    max-height: 40px;
+    object-fit: contain;
+}
+.predictive-search__box {
+    display: block;
+    width: min(800px, 100%);
+    margin: 0 auto;
+}
+.predictive-search__field {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    height: 44px;
+    padding: 0 12px;
     background: #F5F5F5;
-    padding: 8px 14px;
-    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 32px;
 }
-.predictive-search form input {
+.predictive-search__field input {
     flex: 1;
+    min-width: 0;
     border: none;
     outline: none;
     box-shadow: none;
     font-family: var(--font-primary);
     font-weight: 500;
-    font-size: 16px;
-    background:unset;
-}
-.predictive-search form button {
-    background: unset;
-    outline: none;
-    border: none;
-    box-shadow: none;
     font-size: 14px;
+    line-height: 20px;
+    color: #1a1a1a;
+    background: unset;
+}
+.predictive-search__field input::placeholder {
+    color: #515151;
+    opacity: 1;
+}
+.predictive-search__field button {
+    flex: 0 0 18px;
     width: 18px;
     height: 18px;
-    border-radius: 50%!important;
-    margin-right:20px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: unset;
+    box-shadow: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    color:#fff;
+    cursor: pointer;
+}
+.predictive-search .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+}
+.predictive-search .icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.predictive-search .icon-close {
+    width: 20px;
+    height: 20px;
+    flex-basis: 20px;
+    cursor: pointer;
 }
 
-#predictive-search {
+.predictive-search__results {
     position: relative;
-    width: 60%;
-    max-width: 1200px;
-    margin: auto;
+    width: min(800px, calc(100% - 40px));
+    margin: 0 auto;
     background: #fff;
-    padding: 30px 50px;
+    padding: 24px 20px 28px;
     z-index: 2;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 8px 8px;
 }
 #predictive-search .predictive-wrapper:not(:has(.results)) {
     display: none;
@@ -1377,7 +1417,11 @@ a.f-white:hover{
     padding-bottom: 20px;
 }
 #predictive-search .results .predictive-title {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+    color: #515151;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
 }
 #predictive-search .results ul{
     display:inline-block;
@@ -1388,12 +1432,17 @@ a.f-white:hover{
     display:inline-block;
     margin-right:16px;
     margin-bottom:10px;
-    background: #F9F9F9;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
     padding:4px 12px;
+    color: #1a1a1a;
+    font-size: 14px;
+    line-height: 20px;
     transition: all 0.3s ease;
 }
 #predictive-search .results ul li:hover{
-    background-color: #0000000f;
+    background-color: #f5f5f5;
 }
 #predictive-search .results ul li:not(:last-child) {
     margin-bottom: 5px;
@@ -1457,11 +1506,12 @@ a.f-white:hover{
 #predictive-search .view-all {
     font-family: var(--font-primary);
     font-weight: 500;
-    font-size: 16px;
-    color: #161616;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #b9b9b9;
+    font-size: 14px;
+    line-height: 20px;
+    color: #1a1a1a;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
     display: block;
     transition: all .3s ease;
 }

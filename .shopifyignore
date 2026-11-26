@@ -1,9 +1,17 @@
 # Development documentation
 /docs/**
-
-# Optional: exclude AI instructions from Shopify CLI uploads
 AGENTS.md
 
-# Atomic-save temp files from the editor/agent tool (e.g. foo.liquid.6512.827649)
+# Atomic-save temp artifacts from the editor/agent tool
+# e.g. foo.liquid.6512.827649  or  .style.css.6512.<uuid>.tmpdir/style.css.tmp
+.dsh-tmp
 .dsh-tmp/**
 *.[0-9][0-9][0-9][0-9].*
+*.tmpdir
+*.tmpdir/**
+*.tmp
+**/*.tmp
+**/*.tmpdir
+**/*.tmpdir/**
+**/.*.tmpdir
+**/.*.tmpdir/**

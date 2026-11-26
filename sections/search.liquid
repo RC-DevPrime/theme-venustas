@@ -3,47 +3,35 @@
 <div class="predictive-search">
     <div class="overlay"></div>
     <div class="wrapper">
-        <div class="container">
-            
-            <div class="col-2 d-lg-block d-md-none d-sm-none">
-              <div class="logo">
-                  <a href="/">
-                    <img src="{{ settings.logo | img_url: 'master' }}">
-                  </a>
-              </div>
-            </div>
-            <div class="col-lg-8 col-md-6 col-sm-12">
-                <div class="search-box-container">
-                    <predictive-search>
-                        <form action="{{ routes.search_url }}" method="get" role="search">
-                            <div class="input-group">
-                                <button type="submit">
-                                    <img src="https://cdn.shopify.com/s/files/1/0457/1099/9709/files/search-icon.png?v=1763560283" class="icon" >
-                                </button>
-                                <input  id="Search" 
-                                        type="text" 
-                                        name="q" 
-                                        value="{{ search.terms | escape }}" 
-                                        aria-expanded="false"
-                                        aria-owns="predictive-search-results"
-                                        aria-controls="predictive-search-results"
-                                        aria-haspopup="listbox"
-                                        aria-autocomplete="list" placeholder="Search">
-                                
-                                <img src="https://cdn.shopify.com/s/files/1/0474/8365/0202/files/add_2x_bc131609-e92a-49f1-886a-390385879bcf.png" class="icon icon-close">
-                            </div>
-                        </form>
-                    </predictive-search>
-                </div>
-            </div>
-            <div class="col-lg-2 d-lg-flex d-md-flex d-sm-none justify-content-end">
-              
-            </div>
-          
+        <div class="predictive-search__bar">
+            <a class="predictive-search__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+                {%- if settings.logo != blank -%}
+                    {{ settings.logo | image_url: width: 462 | image_tag: widths: '154, 308, 462', sizes: '154px', alt: shop.name, loading: 'eager' }}
+                {%- else -%}
+                    {{ shop.name | escape }}
+                {%- endif -%}
+            </a>
+            <predictive-search class="predictive-search__box">
+                <form class="predictive-search__field" action="{{ routes.search_url }}" method="get" role="search">
+                    <button type="submit" aria-label="Search">
+                        <span class="icon">{% render 'header-icons', icon: 'search' %}</span>
+                    </button>
+                    <input  id="Search" 
+                            type="text" 
+                            name="q" 
+                            value="{{ search.terms | escape }}" 
+                            aria-expanded="false"
+                            aria-owns="predictive-search-results"
+                            aria-controls="predictive-search-results"
+                            aria-haspopup="listbox"
+                            aria-autocomplete="list" placeholder="Search">
+                    <span class="icon icon-close" role="button" tabindex="0" aria-label="Close search">{% render 'header-icons', icon: 'close' %}</span>
+                </form>
+            </predictive-search>
         </div>
     </div>
   {% if section.blocks.size > 0 %}
-    <div id="predictive-search" tabindex="-1">
+    <div id="predictive-search" class="predictive-search__results" tabindex="-1">
         <div class="inner-content">
         </div>
         {% render 'search-recommendations' %}

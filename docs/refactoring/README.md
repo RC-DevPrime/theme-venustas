@@ -1,5 +1,17 @@
 # Shopify Theme 重构知识库
 
+2026-11-26：[桌面 predictive search 结构重写](logs/header/2026-11-26-predictive-search-layout.md)：去掉 Bootstrap 栅格与 logo／空列，搜索框与结果面板统一 800px，改用 `predictive-search__*` 新类名。
+
+2026-11-26：[桌面 predictive search 样式与图标](logs/header/2026-11-26-predictive-search-style.md)：搜索/关闭图标改用 header-icons，表单改 44 高胶囊，结果面板 1340 上限，标题与词条按新版字号间距。
+
+2026-11-26：[活动面板商品卡角标](logs/header/2026-11-26-campaign-product-badge.md)：角标移入图片容器，绝对定位到图片右上角 8px、8px，底色 #FF5D5F。
+
+2026-11-25：[header-new.css 前移到 head](logs/header/2026-11-25-header-css-head.md)：样式表改由 layout/theme.liquid 的 head 加载，两个 section 去重，解决 body 内样式表导致的首帧无样式与 section 刷新失效。
+
+2026-11-25：[移动端搜索弹层样式](logs/header/2026-11-25-mobile-search-style.md)：按 Figma 6312:7106 调整字体、间距与商品卡，390 宽下内容宽 350（左右 20），抽屉改为满宽。
+
+2026-11-25：[桌面端 Help 字标加粗](logs/header/2026-11-25-help-wordmark-weight.md)：Help 为 SVG 轮廓字，用同色 0.45 描边模拟 700 字重，图标与尺寸不变。
+
 2026-11-25：[Category image menu 移动端标题](logs/header/2026-11-25-image-menu-mobile-title.md)：匹配到槽位后，移动端用 Initial category name 覆盖菜单链接名称（空值回退菜单名），桌面端仍显示菜单名。
 
 2026-11-25：[移动端列角色修正](logs/header/2026-11-25-mobile-column-role.md)：category 角色只保留 Men／Women 的 Shop by Category（无标题直接展开）；Shop by Style 与 New 的 New Arrival 改回 group，第一列标题行恢复显示、默认展开且仍可点击折叠。

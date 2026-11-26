@@ -20,3 +20,8 @@ build/
 
 # Shopify temporary files
 .shopify/
+
+# Editor/agent atomic-save artifacts (e.g. assets/.style.css.6512.<uuid>.tmpdir/style.css.tmp)
+.dsh-tmp/
+*.tmpdir/
+*.tmp
