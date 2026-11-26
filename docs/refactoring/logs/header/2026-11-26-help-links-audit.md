@@ -49,6 +49,14 @@
 - sections/header-new.liquid：`.header-new__help-link` 的 `<a>` 增加 `target="_blank" rel="noopener"`；无 URL 时仍输出 `<span>`。
 - assets/header-new.js：Help 面板内 `target="_blank"` 的链接与 `mailto:` 一样延迟 400ms 关闭面板，避免新标签页打开后下拉仍停留在页面上；同一标签页导航的 Help 链接仍不预先关闭，防止跳转被取消。
 
+## 后续修正 2（同日）
+
+- 用户反馈：桌面端点 Help 打开面板后，点面板里的链接没有跳转、面板却直接关闭；再次点 Help 也不像切换。
+- 原因与修正：
+  - `focusout` 在焦点离开导航（例如新标签页抢焦点、点击面板内链接）时会立即 `showPanel(null)`，把面板隐藏；隐藏发生在默认跳转之前会让点击“既没跳转又收起了”。现在焦点离开时不再自动关闭 Help 面板（`pointerleave` 原本已排除 Help），改为仅通过 Help 按钮、点击面板外或 Esc 关闭。
+  - 不再在链接点击后强制 `close()`；Help 面板里的 https 链接改为在点击处理里 `window.open(href, '_blank')` 并清空 opener，被浏览器拦截时回退 `location.assign`（保证能跳转），面板保持在页面上，随后点 Help 即可收起。
+  - 地址不变，仍为各设置值或上一轮的绝对地址回退。
+
 ## 风险、回退与遗留
 
 - 风险：Help Center／Warranty 页面按上线地址写死，若店铺页面路径不同需在主题设置里重新选；“Warranty Claim 未配置时回退 Help Center”为本次假设，需要商家确认目标页面。

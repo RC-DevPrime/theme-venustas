@@ -27,7 +27,9 @@
       });
       this.bind(root, 'focusout', () => {
         queueMicrotask(() => {
-          if (!this.media.matches && !root.contains(document.activeElement)) this.showPanel(null);
+          if (this.media.matches || root.contains(document.activeElement)) return;
+          if (this.activePanel?.classList.contains('header-new__panel--help')) return;
+          this.showPanel(null);
         });
       });
       this.bind(document, 'click', (event) => {
@@ -419,16 +421,16 @@
         column.dataset.mobileExpanded = String(column.dataset.mobileExpanded !== 'true');
         this.syncColumns();
       } else if (target.matches('a[href]')) {
-        // Hiding the help panel before the click's default action can cancel
-        // navigation / mailto, so only close it when the target survives.
-        if (target.closest('.header-new__panel--help')) {
-          const href = target.getAttribute('href') || '';
-          const opensNewTab = target.getAttribute('target') === '_blank';
-          if (href.startsWith('mailto:') || opensNewTab) {
-            window.setTimeout(() => this.close(), 400);
-          }
-        } else {
+        const helpPanel = target.closest('.header-new__panel--help');
+        if (!helpPanel) {
           this.close();
+        } else if (!event.ctrlKey && !event.metaKey && !event.shiftKey) {
+          const href = target.getAttribute('href') || '';
+          if (!/^https?:\/\//i.test(href)) return;
+          event.preventDefault();
+          const opened = window.open(href, '_blank');
+          if (opened) opened.opener = null;
+          else window.location.assign(href);
         }
       }
     }
