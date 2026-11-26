@@ -185,7 +185,7 @@
     openWishlist() {
       const buttons = [...this.root.querySelectorAll('[data-header-wishlist]')];
       // The Swym wishlist page is the store's `/pages/swym-wishlist`; it is the
-      // same destination the pre-redesign header used, so a tap never dead-ends.
+      // same destination the pre-redesign header used.
       const openWishlistPage = () => window.location.assign('/pages/swym-wishlist');
       const settle = () => {
         if (this.wishlistTimer) clearTimeout(this.wishlistTimer);
@@ -207,63 +207,38 @@
           return false;
         }
       };
-      const swymUiVisible = () => [...document.querySelectorAll('.swym-ui-component, #swym-wishlist')].some((node) => {
-        const style = window.getComputedStyle(node);
-        const rect = node.getBoundingClientRect();
-        return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
-      });
 
       settle();
       this.close();
 
-      if (typeof getSwymUi()?.open === 'function') {
-        // Let the drawer teardown (body scroll unlock / visibility) settle for
-        // a frame first: on mobile Swym renders its drawer from the same left
-        // edge and silently fails when it is opened in that same tick.
-        window.requestAnimationFrame(() => {
-          if (this.abort.signal.aborted) return;
-          if (!openSwymUi()) {
-            openWishlistPage();
-            return;
-          }
-          if (!this.media.matches) return;
-          // ui.open() does not throw when the mobile drawer fails to mount, so
-          // verify once and use the wishlist page if nothing appeared.
-          this.wishlistTimer = setTimeout(() => {
-            settle();
-            if (!swymUiVisible()) openWishlistPage();
-          }, 1000);
-        });
-        return;
-      }
-
-      this.pendingWishlist = true;
-      buttons.forEach((button) => button.setAttribute('aria-busy', 'true'));
-
-      const launcher = document.querySelector('.swym-wishlist, a[href="#swym-wishlist"]');
-      if (launcher) {
-        settle();
-        launcher.click();
-        return;
-      }
-
-      // The SDK can still load after the first tap (mobile networks), so retry
-      // briefly before leaving the header for the wishlist page.
-      let attempts = 0;
-      const retry = () => {
+      // Close the drawer first, then open Swym on the next frame so the drawer
+      // teardown (body scroll unlock / visibility) cannot race the Swym drawer.
+      window.requestAnimationFrame(() => {
+        if (this.abort.signal.aborted) return;
         if (openSwymUi()) {
           settle();
           return;
         }
-        attempts += 1;
-        if (attempts >= 5) {
-          settle();
-          openWishlistPage();
-          return;
-        }
-        this.wishlistTimer = setTimeout(retry, 300);
-      };
-      this.wishlistTimer = setTimeout(retry, 300);
+        // Swym can still be loading on a mobile connection. Retry instead of
+        // clicking Swym's page-level anchors, which only jump to the page end.
+        let attempts = 0;
+        const retry = () => {
+          if (openSwymUi()) {
+            settle();
+            return;
+          }
+          attempts += 1;
+          if (attempts > 12) {
+            settle();
+            openWishlistPage();
+            return;
+          }
+          this.wishlistTimer = setTimeout(retry, 250);
+        };
+        this.pendingWishlist = true;
+        buttons.forEach((button) => button.setAttribute('aria-busy', 'true'));
+        this.wishlistTimer = setTimeout(retry, 250);
+      });
     }
 
     toggleGift() {

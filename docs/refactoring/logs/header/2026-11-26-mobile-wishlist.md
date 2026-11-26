@@ -34,6 +34,16 @@
 
 - 新增本日志；`docs/refactoring/modules/header/known-issues.md` 增加对应条目。未改架构文档，无 ADR。
 
+## 后续修正（同日，第二版）
+
+- 用户反馈第一版无效：移动端点 Wishlist 后页面滚到 footer（邮箱输入框），地址栏只加 `#swym-list`，仍无抽屉；桌面正常。
+- 原因：第一版兜底里 `document.querySelector('.swym-wishlist, a[href="#swym-wishlist"]')` 命中了 Swym 注入在页面底部的入口锚点，`launcher.click()` 触发页面内跳转（滚到底部 / 写入 `#swym-list`），抽屉仍未打开；同时 `SwymCallbacks` 往往晚于首次点击，按钮没有重试。
+- 实际变更（仍仅 `assets/header-new.js`）：
+  - 删除“点击 Swym 页面入口锚点”分支（这是 footer 跳动与 `#swym-list` 的直接来源）。
+  - 删除 1s 可见性猜测与相应的自动跳转。
+  - 保留：`settle()` → `close()` → `requestAnimationFrame` 内调用 `ui.open()`；API 未就绪时置 `aria-busy` 并每 250ms 重试（最多 12 次，约 3s），仍失败才跳 `/pages/swym-wishlist`。
+- 待验证：手机端是否出现抽屉；若仍不出现，说明 `_swat.ui.open` 在移动端不渲染，下一步改为移动端直接打开 `/pages/swym-wishlist` 或改渲染容器方案（需另提方案）。
+
 ## 风险、回退与遗留
 
 - 风险：若移动端 `ui.open()` 实际已打开、但 Swym 根节点选择器与 `.swym-ui-component`／`#swym-wishlist` 不匹配，1s 后会误跳 wishlist 页（仍能看到收藏，不算失效）；反之若节点常驻可见，则静默失败仍不会被兜底。
