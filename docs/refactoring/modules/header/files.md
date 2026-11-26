@@ -1,5 +1,16 @@
 # Header 实际文件清单
 
+## 2026-11-26 条宽与下拉对齐
+
+- assets/header-new.css：`.header-new__bar` 桌面宽 `min(100% - 100px,1720px)`；移动断点 1280（桌面从 1281 起）。≥1281 下拉内容与 Logo 左对齐，≥1521 改为与导航 New 对齐（`--header-bar-inset` + 186px），作用于 panel-inner 与 campaign-layout；Help 面板右侧 `max(50px,…)`。
+- assets/header-new.js：`matchMedia('(max-width: 1280px)')`；sections/header-new.liquid 的 68px 高度改为 `min-width:1281px`。
+- assets/style.css：`.predictive-search__bar` 同步 100px 内缩，搜索弹层 Logo 与 header Logo 对齐。
+
+## 2026-11-26 顶部图标 hover
+
+- snippets/header-icons.liquid：search／wishlist／cart／help-circle／help 等图标的固定深色改为 `currentColor`（drawer-close 白色保留）。
+- assets/header-new.css：工具图标容器加颜色过渡，`@media (hover:hover)` 下 `.header-new__search／__mobile-search／__mobile-gift／__help／__cart／__utility-icon` hover 变 `#b93205`；Help 字标模拟字重的描边改为 currentColor。
+
 ## 2026-11-26 Help 链接与邮箱按钮
 
 - sections/header-new.liquid：Help 六项 URL 统一 `append: ''` 转字符串并逐个补绝对地址回退（Registration 用 venustas.com 页面，Claim 未配置回退 Help Center），href 加 escape，`target="_blank" rel="noopener"` 新标签页打开。

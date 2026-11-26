@@ -7,7 +7,7 @@
   class HeaderNavigation {
     constructor(root) {
       this.root = root;
-      this.media = window.matchMedia('(max-width: 1199px)');
+      this.media = window.matchMedia('(max-width: 1280px)');
       this.abort = new AbortController();
       this.drawer = root.querySelector('[data-header-drawer]');
       this.mainList = root.querySelector('[data-header-main-list]');

@@ -1,5 +1,9 @@
 # Shopify Theme 重构知识库
 
+2026-11-26：[Header 条宽 100px 与下拉左对齐](logs/header/2026-11-26-header-bar-align.md)：bar 改 `min(100% - 100px,1720px)`；下拉内容 1281–1520 与 Logo 对齐、1521 起与导航 New 对齐；移动端断点改为 1280，搜索条与 Help 面板同步。
+
+2026-11-26：[Header 顶部图标 hover 变红](logs/header/2026-11-26-header-icon-hover.md)：header-icons 全部改用 currentColor，搜索／账户／收藏／购物车／Help 及移动端图标 hover 变 #B93205。
+
 2026-11-26：[Help 链接与邮箱按钮](logs/header/2026-11-26-help-links-audit.md)：六项 Help 链接统一字符串化并补绝对地址回退，Help 面板内链接不再先关面板，邮箱按钮 hover #B93205；同步检查 header 各图标跳转。
 
 2026-11-26：[桌面 predictive search 结构重写](logs/header/2026-11-26-predictive-search-layout.md)：去掉 Bootstrap 栅格与 logo／空列，搜索框与结果面板统一 800px，改用 `predictive-search__*` 新类名。
