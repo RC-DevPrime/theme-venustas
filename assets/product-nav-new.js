@@ -107,7 +107,8 @@
         const choice = document.createElement('button');
         choice.type = 'button';
         choice.className = 'product-nav-new__option-choice';
-        choice.textContent = `${activeTrigger.dataset.optionName}: ${radio.value}`;
+        choice.textContent = radio.value;
+        choice.setAttribute('aria-label', `${activeTrigger.dataset.optionName}: ${radio.value}`);
         const sizeUnavailable = fieldset.dataset.optionKind === 'size' && !variants.some((variant) =>
           variant.available && variant.options.every((value, index) =>
             value === (index === optionIndex ? radio.value : optionFieldsets[index]?.querySelector('.nav-variant-radio:checked')?.value)
@@ -141,7 +142,8 @@
         const fieldset = optionFieldsets[index];
         const radio = fieldset?.querySelector('.nav-variant-radio:checked');
         if (!radio) return;
-        trigger.textContent = `${trigger.dataset.optionName}: ${radio.value}`;
+        trigger.textContent = radio.value;
+        trigger.setAttribute('aria-label', `${trigger.dataset.optionName}: ${radio.value}`);
         if (trigger.dataset.optionKind === 'color') {
           const source = Array.from(fieldset.querySelectorAll('.nav-variants-selector')).find((item) => item.dataset.id === radio.id);
           const swatch = source?.querySelector('.color-swatch');

@@ -1,84 +1,98 @@
-{%- if request.page_type != 'product' -%}
-  {{ 'product-new-battery-runtime.css' | asset_url | stylesheet_tag }}
-  <script src="{{ 'product-new-battery-runtime.js' | asset_url }}" defer="defer"></script>
-{%- endif -%}
+{%- liquid
+  assign show_product_battery_runtime = true
+  for product_tag in product.tags
+    assign product_tag_handle = product_tag | handleize
+    if product_tag_handle == 'open-box' or product_tag_handle == 'bundle-deal'
+      assign show_product_battery_runtime = false
+      break
+    endif
+  endfor
+-%}
 
-{% style %}
-  #shopify-section-{{ section.id }} .product-new-battery-runtime-section__content {
-    padding: 80px 0;
-    background: #f5f5f5;
-    color: #1a1a1a;
-    font-family: var(--font-primary, 'Montserrat', sans-serif);
-  }
-  #shopify-section-{{ section.id }} .product-new-battery-runtime__inner {
-    width: min(100% - 40px, 1340px);
-    margin: 0 auto;
-  }
-  #shopify-section-{{ section.id }} .product-new-battery-runtime__header {
-    display: grid;
-    gap: 16px;
-    margin-bottom: 48px;
-  }
-  #shopify-section-{{ section.id }} .product-new-battery-runtime__eyebrow {
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 1.68;
-    letter-spacing: 1.21px;
-    text-transform: uppercase;
-  }
-  #shopify-section-{{ section.id }} .product-new-battery-runtime__heading {
-    font-size: 34px;
-    font-weight: 700;
-    line-height: 1.22;
-  }
-  #shopify-section-{{ section.id }} .product-new-battery-runtime__header p,
-  #shopify-section-{{ section.id }} .product-new-battery-runtime__header h2 {
-    margin: 0;
-    color: inherit;
-    overflow-wrap: anywhere;
-  }
-  #shopify-section-{{ section.id }} .product-new-battery-runtime__description {
-    font-size: 16px;
-    line-height: 24px;
-  }
-  @media (max-width: 767px) {
-    #shopify-section-{{ section.id }} .product-new-battery-runtime__heading { font-size: 24px; }
-    #shopify-section-{{ section.id }} .product-new-battery-runtime__header { margin-bottom: 40px; }
-  }
-{% endstyle %}
+{%- if show_product_battery_runtime -%}
+  {%- if request.page_type != 'product' -%}
+    {{ 'product-new-battery-runtime.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'product-new-battery-runtime.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
 
-{%- capture runtime_cards -%}
-  {%- assign runtime_instance_id = 'BatteryRuntime-' | append: section.id -%}
-  {%- liquid
-    assign comparison_group = product.metafields.custom.battery_comparison_group.value
-    assign display_order = '0,1,2' | split: ','
-    for compared_product in comparison_group.products.value limit: 3
-      if compared_product.id == product.id
-        case forloop.index0
-          when 1
-            assign display_order = '1,2,0' | split: ','
-          when 2
-            assign display_order = '2,1,0' | split: ','
-        endcase
-        break
-      endif
-    endfor
-  -%}
-  {%- render 'product-new-battery-runtime-cards', product: product, comparison_group: comparison_group, display_order: display_order, show_placeholder: true, instance_id: runtime_instance_id -%}
-{%- endcapture -%}
-{%- if runtime_cards != blank -%}
-  <div class="product-new-battery-runtime-section__content"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | strip | remove_first: '#' | escape }}"{% endif %}>
-    <div class="product-new-battery-runtime__inner">
-      {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank -%}
-        <div class="product-new-battery-runtime__header">
-          {%- if section.settings.eyebrow != blank -%}<p class="product-new-battery-runtime__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
-          {%- if section.settings.heading != blank -%}<h2 class="product-new-battery-runtime__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
-          {%- if section.settings.description != blank -%}<p class="product-new-battery-runtime__description">{{ section.settings.description | escape }}</p>{%- endif -%}
-        </div>
-      {%- endif -%}
-      {{ runtime_cards }}
+  {% style %}
+    #shopify-section-{{ section.id }} .product-new-battery-runtime-section__content {
+      padding: 80px 0;
+      background: #f5f5f5;
+      color: #1a1a1a;
+      font-family: var(--font-primary, 'Montserrat', sans-serif);
+    }
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__inner {
+      width: min(100% - 40px, 1340px);
+      margin: 0 auto;
+    }
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__header {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.68;
+      letter-spacing: 1.21px;
+      text-transform: uppercase;
+    }
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__heading {
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.22;
+    }
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__header p,
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__header h2 {
+      margin: 0;
+      color: inherit;
+      overflow-wrap: anywhere;
+    }
+    #shopify-section-{{ section.id }} .product-new-battery-runtime__description {
+      font-size: 16px;
+      line-height: 24px;
+    }
+    @media (max-width: 767px) {
+      #shopify-section-{{ section.id }} .product-new-battery-runtime__heading { font-size: 24px; }
+      #shopify-section-{{ section.id }} .product-new-battery-runtime__header { margin-bottom: 40px; }
+    }
+  {% endstyle %}
+
+  {%- capture runtime_cards -%}
+    {%- assign runtime_instance_id = 'BatteryRuntime-' | append: section.id -%}
+    {%- liquid
+      assign comparison_group = product.metafields.custom.battery_comparison_group.value
+      assign display_order = '0,1,2' | split: ','
+      for compared_product in comparison_group.products.value limit: 3
+        if compared_product.id == product.id
+          case forloop.index0
+            when 1
+              assign display_order = '1,2,0' | split: ','
+            when 2
+              assign display_order = '2,1,0' | split: ','
+          endcase
+          break
+        endif
+      endfor
+    -%}
+    {%- render 'product-new-battery-runtime-cards', product: product, comparison_group: comparison_group, display_order: display_order, show_placeholder: true, instance_id: runtime_instance_id -%}
+  {%- endcapture -%}
+
+  {%- if runtime_cards != blank -%}
+    <div class="product-new-battery-runtime-section__content"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | strip | remove_first: '#' | escape }}"{% endif %}>
+      <div class="product-new-battery-runtime__inner">
+        {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank -%}
+          <div class="product-new-battery-runtime__header">
+            {%- if section.settings.eyebrow != blank -%}<p class="product-new-battery-runtime__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+            {%- if section.settings.heading != blank -%}<h2 class="product-new-battery-runtime__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+            {%- if section.settings.description != blank -%}<p class="product-new-battery-runtime__description">{{ section.settings.description | escape }}</p>{%- endif -%}
+          </div>
+        {%- endif -%}
+        {{ runtime_cards }}
+      </div>
     </div>
-  </div>
+  {%- endif -%}
 {%- endif -%}
 
 {% schema %}

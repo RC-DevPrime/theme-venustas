@@ -4,7 +4,6 @@
   assign product_form_id = 'header-nav-product-form'
   assign selected_variant = product.selected_or_first_available_variant
   assign product_image = product.featured_image | default: product.images.first
-  assign product_summary = product.metafields.custom.short_description.value | default: product.description | strip_html | strip | truncate: 92
   assign selected_size = blank
   assign selected_color = blank
   for option in product.options_with_values
@@ -30,12 +29,11 @@
 {% style %}
   #shopify-section-{{ section.id }} .product-nav-new { position: fixed; right: 0; bottom: 0; left: 0; z-index: 1111; color: #1a1a1a; font-family: var(--font-primary, 'Montserrat', sans-serif); }
   #shopify-section-{{ section.id }} .product-nav-new, #shopify-section-{{ section.id }} .product-nav-new * { box-sizing: border-box; }
-  #shopify-section-{{ section.id }} .product-nav-new__bar { display: flex; min-height: 84px; align-items: center; justify-content: space-between; gap: 24px; padding: 10px max(20px, calc((100% - 1340px) / 2)); border-top: 1px solid rgba(0, 0, 0, .08); background: #fff; box-shadow: 0 -5px 8.85px rgba(0, 0, 0, .06); }
+  #shopify-section-{{ section.id }} .product-nav-new__bar { display: flex; min-height: 72px; align-items: center; justify-content: space-between; gap: 24px; padding: 10px max(20px, calc((100% - 1340px) / 2)); border-top: 1px solid rgba(0, 0, 0, .08); background: #fff; box-shadow: 0 -5px 8.85px rgba(0, 0, 0, .06); }
   #shopify-section-{{ section.id }} .product-nav-new__product { display: flex; min-width: 0; align-items: center; gap: 16px; }
-  #shopify-section-{{ section.id }} .product-nav-new__image { display: block; width: 64px; height: auto;aspect-ratio: 616 / 800; flex: none; border-radius: 4px; object-fit: cover; }
+  #shopify-section-{{ section.id }} .product-nav-new__image { display: block; width: 40px; height: auto;aspect-ratio: 616 / 800; flex: none; border-radius: 4px; object-fit: cover; }
   #shopify-section-{{ section.id }} .product-nav-new__copy { display: flex; min-width: 0; flex-direction: column; gap: 2px; }
   #shopify-section-{{ section.id }} .product-nav-new__title { margin: 0; overflow: hidden; font-size: 16px; font-weight: 700; line-height: 1.25; text-overflow: ellipsis; white-space: nowrap; }
-  #shopify-section-{{ section.id }} .product-nav-new__summary { margin: 0; overflow: hidden; color: #515151; font-size: 12px; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
   #shopify-section-{{ section.id }} .product-nav-new__actions { display: flex; flex: none; align-items: center; gap: 8px; }
   #shopify-section-{{ section.id }} .product-nav-new__selector, #shopify-section-{{ section.id }} .product-nav-new__quantity { display: inline-flex; height: 40px; align-items: center; gap: 8px; padding: 0 14px; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff; color: #111827; font: 600 13px/1 var(--font-primary, 'Montserrat', sans-serif); white-space: nowrap; }
   #shopify-section-{{ section.id }} .product-nav-new__selector { cursor: pointer; }
@@ -82,6 +80,7 @@
   #shopify-section-{{ section.id }} .product-nav-new__backdrop { display: none; }
   #shopify-section-{{ section.id }} .product-nav-new__size-guide { float: right; margin-left: 12px; font-size: 12px; font-weight: 400; font-style: normal; }
   #shopify-section-{{ section.id }} .product-nav-new > .size-chart-component .size-chart-component__modal { z-index: 1112; }
+  #shopify-section-{{ section.id }} .product-nav-new > .size-chart-component > .size-chart-component__button { display: none; }
   #shopify-section-{{ section.id }} .product-nav-new__error { margin: 0; padding: 8px 20px; background: #fff0ed; color: #a32300; font-size: 13px; }
   #shopify-section-{{ section.id }} .product-nav-new__error[hidden] { display: none; }
   @media (min-width: 768px) {
@@ -160,13 +159,13 @@
   <div class="product-nav-new__bar">
     <div class="product-nav-new__product">
       {%- if product_image != blank -%}{{ product_image | image_url: width: 128 | image_tag: class: 'product-nav-new__image', loading: 'lazy', alt: product.title }}{%- endif -%}
-      <div class="product-nav-new__copy"><p class="product-nav-new__title">{{ product.title | escape }}</p><p class="product-nav-new__summary">{{ product_summary | escape }}</p></div>
+      <div class="product-nav-new__copy"><p class="product-nav-new__title">{{ product.title | escape }}</p></div>
     </div>
     <div class="product-nav-new__actions">
       {% unless product.has_only_default_variant %}
         <div class="product-nav-new__options">
           {% for option in product.options_with_values %}
-            <button class="product-nav-new__selector" type="button" data-open-panel="{{ forloop.index0 }}" data-option-name="{{ option.name | escape }}">{{ option.name | escape }}: {{ selected_variant.options[forloop.index0] | escape }}</button>
+            <button class="product-nav-new__selector" type="button" data-open-panel="{{ forloop.index0 }}" data-option-name="{{ option.name | escape }}" aria-label="{{ option.name | escape }}: {{ selected_variant.options[forloop.index0] | escape }}">{{ selected_variant.options[forloop.index0] | escape }}</button>
           {% endfor %}
         </div>
       {% endunless %}
