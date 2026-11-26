@@ -1,5 +1,7 @@
 # Header 架构
 
+2026-11-26 Men／Women 移动端 Shop by Category 折叠：`blocks/_header-nav-image-menu.liquid` 在 ≤1280 输出 `[data-header-image-menu-toggle]` 折叠行，文案由 JS 读取同列 `.header-new__column-heading`（桌面列标题）同步，无 JS 时回退 Shop by Category；默认展开六个图片。两个 Featured 按钮（New Arrivals、Best Sellers）位于其上方且不随折叠隐藏。桌面端不输出按钮，图片网格与原来一致。点击由 `assets/header-new.js` 切换图片列表 `hidden`，`reset()` 在初始化与断点变化时恢复展开；`syncColumns()` 对 category 列的强制展开规则未变。见[日志](../../logs/header/2026-11-26-mobile-shop-by-category-accordion.md)。
+
 2026-11-25 样式表前移：`header-new.css` 不再由 section 输出，改在 `layout/theme.liquid` 的 `<head>`（`res-font.css` 之后）以普通 `stylesheet_tag` 加载，并在 header-new、announcement-bar 两个 section 中删除重复输出。原实现把 `<link>` 放在 body 的 header group 里，慢网络首帧、主题编辑器局部刷新（section DOM 连同 `<link>` 一起替换）或资源 404 时会出现整个 header 无样式。`header-new.js` 未动，仍由 section 以 defer 加载。详见[日志](../../logs/header/2026-11-25-header-css-head.md)。
 
 2026-11-25 移动端导航折叠：所有导航列都输出折叠按钮；`role: category`（仅 Men／Women 的 “Shop by Category”，2026-11-25 修正：Shop by Style 与 New 面板的 New Arrival 已改为 group）在移动端不显示按钮、内容直接展开；其余列显示标题行，DOM 第一列默认展开、其它默认折叠；第一列只是初始状态，点击标题仍可折叠。默认展开值由 JS 按 `data-column-first` 计算，不再读取列级的 `mobile_open`（该设置已移除）。`_header-nav-button` 在 primary 仅桌面可见、secondary 移动可见时加 `--mobile-secondary`，CSS 用 `order: 3` 把 “Our Technology: Heatwave™ & PowerCore™” 排到推广卡（order 2）之后。详见[日志](../../logs/header/2026-11-25-mobile-nav-accordion.md)与[2026-11-25 角色修正](../../logs/header/2026-11-25-mobile-column-role.md)。

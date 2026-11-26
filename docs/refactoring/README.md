@@ -1,5 +1,9 @@
 # Shopify Theme 重构知识库
 
+2026-11-26：[Men／Women 移动端 Shop by Category 折叠](logs/header/2026-11-26-mobile-shop-by-category-accordion.md)：图片菜单在 ≤1280 输出折叠行，默认展开六图，两个快捷按钮保持在上方；桌面不变。
+
+2026-11-26：[Sale 面板商品卡折扣角标](logs/header/2026-11-26-sale-campaign-product-discount-badge.md)：商品卡图片左上角渲染 `sale-badge`，仅 `data-header-panel="sale"` 显示，Bundles 不显示。
+
 2026-11-26：[Header 条宽 100px 与下拉左对齐](logs/header/2026-11-26-header-bar-align.md)：bar 改 `min(100% - 100px,1720px)`；下拉内容 1281–1520 与 Logo 对齐、1521 起与导航 New 对齐；移动端断点改为 1280，搜索条与 Help 面板同步。
 
 2026-11-26：[Header 顶部图标 hover 变红](logs/header/2026-11-26-header-icon-hover.md)：header-icons 全部改用 currentColor，搜索／账户／收藏／购物车／Help 及移动端图标 hover 变 #B93205。
