@@ -1,5 +1,9 @@
 # Header 已知事项
 
+2026-11-26 移动抽屉 Wishlist：桌面心形图标可正常打开 Swym 抽屉（用户实测），移动抽屉同一按钮点击无响应；原 `openWishlist()` 在 `swym.ui.open` 不可用时只置 `aria-busy` 且不重试，Swym 晚加载会让按钮永久失效。已改为：rAF 延后调用 + try/catch、缺失时点击 Swym 注入入口并重试 5 次、移动端 1s 后校验可见性、最终兜底跳 `/pages/swym-wishlist`。仅静态检查，手机实测与 `ui.open` 静默失败与否未确认。见 [日志](../../logs/header/2026-11-26-mobile-wishlist.md)。
+
+2026-11-26 移动账户链接已配置：`header-group-new.json` 的 profile／orders／return_center／loyalty 分别写入 account.venustas.com／/profile、/orders、`https://venustas.returnscenter.com/`（无 `?ref=powr-io`，与 Help 面板默认值不同）与 account.venustas.com 的 `/pages/daacc659-…` 页面；四项不再走 Liquid 默认回退。桌面账户图标仍为 `routes.account_url`，Smile 的 `#smile-home` 入口未变。未浏览器验证登录态跳转与外部域名。见 [日志](../../logs/header/2026-11-26-account-links.md)。
+
 2026-11-25 类名解耦：新导航改为 `<nav class="header-new">`，不再依赖 `.header` 基样式；collection／article／blog／main／page／product／index／cooling-vest-nav／heatingV-anchor-nav／index-banner-slider／tech-core 的 `.header` 选择器已改为 `.header-new`，`header-hide` 规则同步为 `nav.header-new.header-hide`。style.css 移除 213 条旧 header 规则、res-base.css 移除 37 条，main.js／global.js／popup-cart.js／index.js 内旧 header 逻辑已删。风险：没有浏览器实测，仍继承自 `.header` 的属性（除已补的 transition）已消失；Banner Slider 的“透明头”开关随旧标记移除（原值 false）；第三方应用或 PageFly 片段若依赖 `.header`／`.nav-mobile`／`.mega-*` 会失效。`global.js` 的 `MenuDrawer` 基类保留未用。见 [日志](../../logs/header/2026-11-25-header-class-decoupling.md)。
 
 2026-11-25 旧导航已删除：sections/header.liquid、header-group.json、20 个旧导航专属文件与两个 layout 的 mega-menu.css 引用已移除，全仓无残留引用，header-group-new 的四个 section 文件均存在。遗留：assets/style.css 与 res-base.css 内仍保留 `.header .mega-menu`、`.nav-mobile` 等旧导航选择器（无匹配 DOM 的死样式），因与新导航共用 `.header` 基础规则且需视觉验证，本次未清除；旧导航用到的 shop_images 文件库资源未处理。另外扫描发现 templates/product.MMJ01.json、templates/product.MMP03.json 无法解析（同为 position 2051 line 73 附近），本次未改动它们，属既有问题，需单独修复以免影响主题上传。见 [日志](../../logs/header/2026-11-25-remove-legacy-header.md)。

@@ -183,16 +183,87 @@
     }
 
     openWishlist() {
-      const swym = window.venustasHeaderNew.swym || window._swat;
-      if (typeof swym?.ui?.open === 'function') {
+      const buttons = [...this.root.querySelectorAll('[data-header-wishlist]')];
+      // The Swym wishlist page is the store's `/pages/swym-wishlist`; it is the
+      // same destination the pre-redesign header used, so a tap never dead-ends.
+      const openWishlistPage = () => window.location.assign('/pages/swym-wishlist');
+      const settle = () => {
+        if (this.wishlistTimer) clearTimeout(this.wishlistTimer);
+        this.wishlistTimer = null;
         this.pendingWishlist = false;
-        this.root.querySelectorAll('[data-header-wishlist]').forEach((button) => button.removeAttribute('aria-busy'));
-        this.close();
-        swym.ui.open();
-      } else {
-        this.pendingWishlist = true;
-        this.root.querySelectorAll('[data-header-wishlist]').forEach((button) => button.setAttribute('aria-busy', 'true'));
+        buttons.forEach((button) => button.removeAttribute('aria-busy'));
+      };
+      const getSwymUi = () => {
+        const swym = window.venustasHeaderNew.swym || window._swat;
+        return swym && swym.ui;
+      };
+      const openSwymUi = () => {
+        const ui = getSwymUi();
+        if (typeof ui?.open !== 'function') return false;
+        try {
+          ui.open();
+          return true;
+        } catch (error) {
+          return false;
+        }
+      };
+      const swymUiVisible = () => [...document.querySelectorAll('.swym-ui-component, #swym-wishlist')].some((node) => {
+        const style = window.getComputedStyle(node);
+        const rect = node.getBoundingClientRect();
+        return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
+      });
+
+      settle();
+      this.close();
+
+      if (typeof getSwymUi()?.open === 'function') {
+        // Let the drawer teardown (body scroll unlock / visibility) settle for
+        // a frame first: on mobile Swym renders its drawer from the same left
+        // edge and silently fails when it is opened in that same tick.
+        window.requestAnimationFrame(() => {
+          if (this.abort.signal.aborted) return;
+          if (!openSwymUi()) {
+            openWishlistPage();
+            return;
+          }
+          if (!this.media.matches) return;
+          // ui.open() does not throw when the mobile drawer fails to mount, so
+          // verify once and use the wishlist page if nothing appeared.
+          this.wishlistTimer = setTimeout(() => {
+            settle();
+            if (!swymUiVisible()) openWishlistPage();
+          }, 1000);
+        });
+        return;
       }
+
+      this.pendingWishlist = true;
+      buttons.forEach((button) => button.setAttribute('aria-busy', 'true'));
+
+      const launcher = document.querySelector('.swym-wishlist, a[href="#swym-wishlist"]');
+      if (launcher) {
+        settle();
+        launcher.click();
+        return;
+      }
+
+      // The SDK can still load after the first tap (mobile networks), so retry
+      // briefly before leaving the header for the wishlist page.
+      let attempts = 0;
+      const retry = () => {
+        if (openSwymUi()) {
+          settle();
+          return;
+        }
+        attempts += 1;
+        if (attempts >= 5) {
+          settle();
+          openWishlistPage();
+          return;
+        }
+        this.wishlistTimer = setTimeout(retry, 300);
+      };
+      this.wishlistTimer = setTimeout(retry, 300);
     }
 
     toggleGift() {
@@ -354,6 +425,8 @@
 
     close(restoreFocus = false) {
       this.pendingWishlist = false;
+      if (this.wishlistTimer) clearTimeout(this.wishlistTimer);
+      this.wishlistTimer = null;
       this.root.querySelectorAll('[data-header-wishlist]').forEach((button) => button.removeAttribute('aria-busy'));
       this.closeCountries();
       this.showPanel(null);
@@ -501,6 +574,8 @@
     destroy() {
       this.closeSearch(false);
       this.close();
+      if (this.wishlistTimer) clearTimeout(this.wishlistTimer);
+      this.wishlistTimer = null;
       this.abort.abort();
       this.observer.disconnect();
       delete this.root.headerNewController;
