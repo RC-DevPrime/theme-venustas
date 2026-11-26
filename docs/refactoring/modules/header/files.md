@@ -1,5 +1,16 @@
 # Header 实际文件清单
 
+## 2026-11-26 Men／Women 移动端 Shop by Category 折叠
+
+- blocks/_header-nav-image-menu.liquid：新增 `[data-header-image-menu-toggle]` 折叠按钮，`data-header-image-menu-title` 由 JS 按同列标题同步；图片列表加 `HeaderImageMenu-{section.id}-{block.id}` id。
+- assets/header-new.css：桌面隐藏按钮；≤1280 显示全宽折叠行（白底、下边框、16/600、12px chevron），category 列内 `margin:20px -20px 0` 铺满抽屉。
+- assets/header-new.js：点击切换按钮 `aria-expanded` 与图片列表 `hidden`；`reset()` 在初始化与断点变化时恢复展开。
+
+## 2026-11-26 Sale 商品卡折扣角标
+
+- snippets/header-new-product-card.liquid：图片容器内新增 `render 'sale-badge', product: product`，共用卡片同时服务于 Bundles／Sale。
+- assets/header-new.css：`.header-new__campaign-product-media > .sale-badge` 默认隐藏，`[data-header-panel="sale"]` 下恢复 `display:flex`；位置沿用 style.css 的左上角 0,0。
+
 ## 2026-11-26 条宽与下拉对齐
 
 - assets/header-new.css：`.header-new__bar` 桌面宽 `min(100% - 100px,1720px)`；移动断点 1280（桌面从 1281 起）。≥1281 下拉内容与 Logo 左对齐，≥1521 改为与导航 New 对齐（`--header-bar-inset` + 186px），作用于 panel-inner 与 campaign-layout；Help 面板右侧 `max(50px,…)`。
