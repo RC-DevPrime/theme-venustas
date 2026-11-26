@@ -1,5 +1,11 @@
 # Header 实际文件清单
 
+## 2026-11-26 Help 链接与邮箱按钮
+
+- sections/header-new.liquid：Help 六项 URL 统一 `append: ''` 转字符串并逐个补绝对地址回退（Registration 用 venustas.com 页面，Claim 未配置回退 Help Center），href 加 escape，`target="_blank" rel="noopener"` 新标签页打开。
+- assets/header-new.js：Help 面板内 `a[href]` 不再先关闭面板（避免隐藏链接取消导航/mailto），mailto 延迟 400ms 关闭。
+- assets/header-new.css：`.header-new__help-email:hover { background:#b93205 }` 并加过渡。
+
 ## 2026-11-26 桌面 predictive search 结构
 
 - sections/search.liquid：删除 Bootstrap 栅格（logo 列、表单列、空列）与 `.container`／`.input-group`，新结构 `.predictive-search__bar` → `predictive-search.predictive-search__box` → `form.predictive-search__field`；保留 `#predictive-search` 与 `.inner-content` 供 JS 使用。

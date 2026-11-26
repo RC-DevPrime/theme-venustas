@@ -79,12 +79,37 @@
               {%- liquid
                 assign help_labels = 'Order Tracking|Returns & Exchanges|Warranty Registration|Warranty Claim|User Manuals|Help Center' | split: '|'
                 assign help_icons = 'help-order-tracking|help-returns|help-warranty-registration|help-warranty-claim|help-manuals|help-circle' | split: '|'
-                assign help_order_tracking = section.settings.help_order_tracking_url | default: 'https://venustas.aftership.com/'
-                assign help_returns = section.settings.help_returns_url | default: 'https://venustas.returnscenter.com/?ref=powr-io'
-                assign help_warranty_registration = section.settings.help_warranty_registration_url | default: 'shopify://pages/warranty-registration'
-                assign help_warranty_claim = section.settings.help_warranty_claim_url
-                assign help_manuals = section.settings.help_manuals_url | default: 'https://venustas.zendesk.com/hc/en-us/categories/38122906510477-User-Manual'
-                assign help_center = section.settings.help_link | default: 'https://venustas.zendesk.com/hc/en-us'
+
+                assign help_center = section.settings.help_link | append: '' | strip
+                if help_center == blank
+                  assign help_center = 'https://venustas.zendesk.com/hc/en-us'
+                endif
+
+                assign help_order_tracking = section.settings.help_order_tracking_url | append: '' | strip
+                if help_order_tracking == blank
+                  assign help_order_tracking = 'https://venustas.aftership.com/'
+                endif
+
+                assign help_returns = section.settings.help_returns_url | append: '' | strip
+                if help_returns == blank
+                  assign help_returns = 'https://venustas.returnscenter.com/?ref=powr-io'
+                endif
+
+                assign help_warranty_registration = section.settings.help_warranty_registration_url | append: '' | strip
+                if help_warranty_registration == blank
+                  assign help_warranty_registration = 'https://venustas.com/pages/warranty-registration'
+                endif
+
+                assign help_warranty_claim = section.settings.help_warranty_claim_url | append: '' | strip
+                if help_warranty_claim == blank
+                  assign help_warranty_claim = 'https://venustas.com/pages/warranty'
+                endif
+
+                assign help_manuals = section.settings.help_manuals_url | append: '' | strip
+                if help_manuals == blank
+                  assign help_manuals = 'https://venustas.zendesk.com/hc/en-us/categories/38122906510477-User-Manual'
+                endif
+
                 assign help_url_list = help_order_tracking | append: '|' | append: help_returns | append: '|' | append: help_warranty_registration | append: '|' | append: help_warranty_claim | append: '|' | append: help_manuals | append: '|' | append: help_center
                 assign help_urls = help_url_list | split: '|'
               -%}
@@ -93,7 +118,7 @@
                   {%- assign help_url = help_urls[forloop.index0] -%}
                   <li class="header-new__help-item">
                     {%- if help_url != blank -%}
-                      <a class="header-new__help-link" href="{{ help_url }}">
+                      <a class="header-new__help-link" href="{{ help_url | escape }}" target="_blank" rel="noopener">
                     {%- else -%}
                       <span class="header-new__help-link">
                     {%- endif -%}

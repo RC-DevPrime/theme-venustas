@@ -1,5 +1,7 @@
 # Shopify Theme 重构知识库
 
+2026-11-26：[Help 链接与邮箱按钮](logs/header/2026-11-26-help-links-audit.md)：六项 Help 链接统一字符串化并补绝对地址回退，Help 面板内链接不再先关面板，邮箱按钮 hover #B93205；同步检查 header 各图标跳转。
+
 2026-11-26：[桌面 predictive search 结构重写](logs/header/2026-11-26-predictive-search-layout.md)：去掉 Bootstrap 栅格与 logo／空列，搜索框与结果面板统一 800px，改用 `predictive-search__*` 新类名。
 
 2026-11-26：[桌面 predictive search 样式与图标](logs/header/2026-11-26-predictive-search-style.md)：搜索/关闭图标改用 header-icons，表单改 44 高胶囊，结果面板 1340 上限，标题与词条按新版字号间距。

@@ -418,7 +418,19 @@
         const column = target.closest('[data-header-column]');
         column.dataset.mobileExpanded = String(column.dataset.mobileExpanded !== 'true');
         this.syncColumns();
-      } else if (target.matches('a[href]')) this.close();
+      } else if (target.matches('a[href]')) {
+        // Hiding the help panel before the click's default action can cancel
+        // navigation / mailto, so only close it when the target survives.
+        if (target.closest('.header-new__panel--help')) {
+          const href = target.getAttribute('href') || '';
+          const opensNewTab = target.getAttribute('target') === '_blank';
+          if (href.startsWith('mailto:') || opensNewTab) {
+            window.setTimeout(() => this.close(), 400);
+          }
+        } else {
+          this.close();
+        }
+      }
     }
 
     keydown(event) {
