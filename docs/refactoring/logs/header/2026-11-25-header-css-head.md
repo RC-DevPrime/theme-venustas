@@ -29,6 +29,20 @@
 - 新增本日志；更新 `docs/refactoring/modules/header/architecture.md`（新增条目并修正“只由 section 加载”的旧结论）、`docs/refactoring/project/architecture.md`（资源加载关系）、`docs/refactoring/modules/header/files.md` 与知识库入口 README。
 - 无 ADR。
 
+## 后续补充（2026-11-26）
+
+- 用户反馈进入 `/collections/gift` 时 header 再次无样式。head 中的 link 仍在，怀疑是集合页走了不同的渲染路径（应用注入 header／旧 HTML 缓存）或该次请求的 CSS 资源失败。
+- 处理：在 `sections/header-new.liquid` 顶部**再次输出** `header-new.css` 作为兜底（head 仍为主加载）。正常页面第二次是同 URL 的缓存请求，不会改变首帧；若 header 被应用/局部渲染到没有 head 的上下文，section 自带样式链接。
+- 经验：head 中的 link 仍无法覆盖“页面 HTML 来自旧缓存/其它主题”的情况；排查时先看该页 view-source 是否有 `header-new.css`、Network 是否 200、当前预览主题 id（线上主题 t/134 没有该资源，误连线上就会无样式）。
+
+## 内联关键样式（2026-11-26，根治层）
+
+- 仅把样式表放 head 仍无法覆盖“当前渲染主题里没有这个资源”的情况：`asset_url` 是按**渲染 HTML 的那个主题副本**生成的（`/cdn/shop/t/<theme_id>/assets/…`）；开发主题上传失败、预览回落到已发布主题（已验证 t/134 下 `header-new.css` 返回 404）、或 CLI 代理 502 时，link 必然 404。
+- 因此在 `layout/theme.liquid` 的 `<head>` 里、`header-new.css` 之前加入一段 `{% style %}` 内联关键样式：固定 header 容器、bar 宽度/高度、Logo 154px、drawer 桌面 `display:contents`、导航横排、工具区、移动端 bar 网格与抽屉不可见等骨架规则。
+  - 完整 `header-new.css` 在同位置后加载，同选择器后者覆盖，正常时视觉不变；
+  - 样式表失败时页面只失去细节样式，不会再出现“巨型 Logo + 竖排菜单 + 面板铺开”的不可用状态。
+- 这是兜底层，不替代资源同步：仍需确认渲染主题里 `header-new.css` 为 200。
+
 ## 风险、回退与遗留
 
 - 风险：`theme.pagefly.liquid` 不渲染 header group，也未加入该样式表；若后续在该 layout 加入 header，需要同步加载。另有页面若通过 section rendering 单独取 header HTML（不含 head）也不会带样式，但正常整页访问不受影响。

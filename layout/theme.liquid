@@ -263,6 +263,29 @@
 
       {{ 'res-base.css' | asset_url | stylesheet_tag }}
       {{ 'res-font.css' | asset_url | stylesheet_tag }}
+      {%- comment -%}
+        Critical header layout: inline so the header stays usable even if
+        header-new.css fails to load (stale theme asset, 404, failed sync).
+        The full stylesheet below overrides these rules when it loads.
+      {%- endcomment -%}
+      {% style %}
+        .header-new{position:fixed;top:0;left:0;width:100%;height:calc(var(--header-nav-height,40px) + var(--announcement-current-height,0px));z-index:100000;background:#fff;box-shadow:0 1px 0 #e5e7eb}
+        .header-new [hidden]{display:none}
+        .header-new__bar{display:flex;align-items:center;width:min(100% - 100px,1720px);height:calc(100% - var(--announcement-current-height,0px));margin:var(--announcement-current-height,0px) auto 0}
+        .header-new__bar *{box-sizing:border-box}
+        .header-new__drawer{display:contents}
+        .header-new__logo{display:flex;flex:0 0 154px;align-items:center}
+        .header-new__logo img{display:block;width:154px;height:auto;max-height:40px;object-fit:contain}
+        .header-new__nav-list{display:flex;align-items:center;gap:30px;margin-left:32px}
+        .header-new__utilities{display:flex;align-items:center;gap:16px;margin-left:auto}
+        @media (max-width:1280px){
+          .header-new__bar{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;width:min(100% - 40px,1720px)}
+          .header-new__drawer{display:block;position:fixed;inset:0;visibility:hidden;pointer-events:none;background:#fff;overflow:auto}
+          .header-new[data-drawer-open] .header-new__drawer{visibility:visible;pointer-events:auto}
+          .header-new__mobile-left{display:flex;align-items:center;gap:12px;grid-column:1}
+          .header-new__desktop-utilities,.header-new__drawer-top,.header-new__panel-top,.header-new__column-toggle,.header-new__nav-chevron{display:none}
+        }
+      {% endstyle %}
       {{ 'header-new.css' | asset_url | stylesheet_tag }}
       {{ 'res-product-item.css' | asset_url | stylesheet_tag }}
       <link rel="preload" as="style" href="{{ 'res-popup-cart.css' | asset_url }}">
