@@ -567,6 +567,10 @@
     padding: 20px 20px 0 20px
   }
 
+  [data-header-panel='new'] .header-new__column--category .header-new__column-content {
+    padding-bottom: 20px;
+  }
+
   .header-new__column-content > .header-new__featured {
     grid-column: auto;
   }
@@ -679,6 +683,7 @@
 
   .header-new__menu a,
   .header-new__menu-label {
+    font-size: 16px;
     font-weight: 500;
     display: block;
     padding: 16px;
