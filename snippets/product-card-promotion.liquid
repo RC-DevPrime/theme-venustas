@@ -1,0 +1,13 @@
+{%- comment -%}
+  Usage: {% render 'product-card-promotion', product: product %}
+  Renders the product promotion line at the bottom of a product card.
+  The discounted price uses the same price the card displays.
+  Outputs nothing when the promotion metafield is empty.
+{%- endcomment -%}
+{%- liquid
+  assign card_price = product.selected_or_first_available_variant.price
+  if product.price_varies
+    assign card_price = product.price_min
+  endif
+-%}
+{%- render 'product-nav-promotion', product: product, price: card_price, uid: product.id -%}

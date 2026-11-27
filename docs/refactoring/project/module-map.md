@@ -21,7 +21,7 @@
 | header `.icon-cart` | popup-cart.js | 打开购物车，更新 `.icon-cart .dot` |
 | search section | main.js + predictive-search.js | 展开搜索、输入、建议结果容器；请求 section_id=predictive-search（本地目标缺失，见问题档案） |
 | product-collection | Collection 列表 | product-badge、product-variant-colors、okendo 评分；隐藏商品表单 |
-| product-item | 集合推荐等 | 与主列表的 product-collection 是不同组件，不能直接视为可互换 |
+| product-item | 集合推荐等 | 与主列表的 product-collection 是不同组件，不能直接视为可互换；2026-11-27 起两类卡片共用 product-card-promotion 底部促销行 |
 | main.js | Collection AJAX 替换后 | `window.applySwatchFallbacks`；collection.js 触发 `filters:refreshed` |
 | main-product／product.popup | main.js 商品编辑弹窗 | `#productEditPopupHTML`、product-edit-option → edit-product-variant |
 | product-variant | global.js | variant-radios、应用 JSON 变体数据、`#main-product-id`、价格／导航同步 |

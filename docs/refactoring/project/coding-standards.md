@@ -35,6 +35,24 @@
 - 验证前检查项目脚本；默认仅做变更相关静态语法、schema、引用及明显质量检查，不运行完整构建／全量测试／浏览器。只有用户特别要求浏览器时才按授权操作。
 - 不自动提交、推送、发布，不自动进入下一模块。
 
+## 2026-11-27 Shopify schema 与 section 文件复盘
+
+已确认事实（本地源码 + Shopify 返回的错误）：
+
+- `url` 类型 setting 的 `default` 只接受 `/collections`、`/collections/all`；写 `/collections/womens` 等自定义地址会报 `Invalid schema: setting with id="nav_link_sale" default must be a string or datasource access path`，整段 schema 校验失败。见 [Shopify Community 记录](https://community.shopify.com/t/how-to-add-default-url-in-sections-schema/64742)。
+- schema 校验失败的 section 文件不会被 Shopify 接受；`templates`／section group 再引用它时会报 `Section type 'header-new' does not refer to an existing section file`。只上传 JSON 不能修复。
+- `section.settings[动态变量]` 取值可能为空，导致 href 静默回退到旧数组（本次 Women 落到 `/collections/women`）；改为显式 `section.settings.nav_link_women` 或 `case` 白名单后正常。
+- URL 设置字段本身可以留空；为空时由 Liquid 回退提供地址，商家填写后优先使用设置值。
+
+项目规定：
+
+- 修改任何 section schema 后，提取 `{% schema %}` 做 `JSON.parse`，并检查重复 `id`、合法 `type`、`url` 设置的 `default` 是否只含 `/collections`、`/collections/all`；不能只看编辑器能否保存。
+- 自定义默认链接必须写在 Liquid 回退中，设置项留空并用 `info` 标注留空后的地址；不在 `url` 设置里写自定义 `default`。
+- 修改／删除 section 文件后，必须重新上传该 section 文件，并确认模板与 section group 里的 `type` 与文件名一致；schema 报错修好后不能只上传模板 JSON。
+- 优先显式读取 `section.settings.<id>`；需要用变量映射时用 `case` 白名单，并为每个分支保留正确回退，不能依赖动态键或旧数组。
+- 链接、价格等配置交付前核对“设置值 / 空值回退 / 实际输出”三条路径；改默认地址时同步改回退，避免回退仍是旧值。
+- 给元素设置 `display: flex` 等作者样式且仍可能使用 `hidden` 时，保留或补回 `[hidden] { display: none; }`，不能因空值不再输出节点就删除其他消费方的防御规则。
+
 ## 建议规范（未作为实施决策批准）
 
 - 逐步为 Header 高度、购物车、变体和片段刷新明确事件／DOM 契约与所有者，再考虑拆分资源。

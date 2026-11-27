@@ -1,5 +1,11 @@
 # Header 实际文件清单
 
+## 2026-11-27 桌面顶级导航链接
+
+- sections/header-new.liquid：新增 8 个 `nav_link_*` URL 设置，顶级入口 href 用 `case` 显式读取设置，空值回退已校正的 8 个路径（womens／heated-accessories／bundle-deal／gift guide／campaign）；非绝对地址仍拼 `routes.root_url`。
+- assets/header-new.js：`prepareNavToggles()` 改为 `prepareNavItems()`，保留 `<a>` 并补 `aria-expanded`／`aria-controls`／`data-nav-panel`；桌面悬停／聚焦打开面板，点击跳转；移动端点击仍打开面板；ArrowDown／Esc 同步。
+- 未改 blocks、header-group-new.json、header-new.css；详见 [任务日志](../../logs/header/2026-11-27-desktop-nav-links.md)。
+
 ## 2026-11-26 Men／Women 移动端 Shop by Category 折叠
 
 - blocks/_header-nav-image-menu.liquid：新增 `[data-header-image-menu-toggle]` 折叠按钮，`data-header-image-menu-title` 由 JS 按同列标题同步；图片列表加 `HeaderImageMenu-{section.id}-{block.id}` id。

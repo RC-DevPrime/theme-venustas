@@ -152,6 +152,15 @@ This repository contains a Shopify theme/project. Optimize for:
 - 未经用户明确要求，不运行完整构建、全量测试、性能审计或反复验证，不新增测试工具链。
 - 交付时简要说明修改文件和检查结果；未经用户要求，不发布到线上主题。
 
+### Shopify schema 与 section 文件规则（2026-11-27 复盘）
+- `url` 类型设置的 `default` 只接受 `/collections`、`/collections/all`（Shopify 平台限制）。需要自定义默认地址时不要写 `default`，改为在 Liquid 中按空值回退，并在设置 `info` 标注留空后的地址；否则整个 section schema 会报 `default must be a string or datasource access path`。
+- 修改 schema 后必须提取 `{% schema %}` 做 `JSON.parse`，并检查重复 `id`、合法 `type`、`url` 的 `default` 是否在白名单内；不能只凭编辑器/上传成功与否判断。
+- 设置字段可能为空或未被商家保存，Liquid 必须为空值提供正确回退，不能假设 schema `default` 一定生效。
+- 优先显式读取 `section.settings.<id>`；动态 `section.settings[变量]` 可能取不到值，必须用 `case` 白名单映射并保留回退，禁止在取不到值时静默使用过期或错误地址。
+- section 文件 schema 校验失败时 Shopify 会拒绝该文件；模板或 section group 引用它会报 `Section type 'x' does not refer to an existing section file`。修复 schema 后必须重新上传该 section 文件（只上传 JSON 不算修复），并确认文件存在、`type` 与文件名一致。
+- 涉及链接/价格的配置项，交付前核对“设置值 / 空值回退 / 实际输出”三条路径；修改默认地址时同步修改回退数组，避免回退仍是旧值。
+- 给元素设置 `display: flex` 等作者样式且仍可能使用 `hidden` 时，必须保留或补回 `[hidden] { display: none; }`，不能因空值不再输出节点就删除其他消费方的防御规则。
+
 ## Shopify-specific rules
 - Use Shopify AI Toolkit / Dev MCP when Shopify docs, schema, or platform behavior are needed.
 - Keep Liquid, schema, and JSON valid.
