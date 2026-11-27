@@ -51,6 +51,13 @@
 <div class="product-nav-new__panel-promotion" data-nav-promotion style="color: {{ promotion_color }}"{% if promotion_discount_price != blank %} data-promotion-type="{{ promotion_discount_type }}" data-promotion-value="{{ promotion_discount_value }}"{% endif %}>
   <span class="product-nav-new__panel-promotion-icon" style="color: inherit" aria-hidden="true">{% render 'heating-icons', icon: promotion_icon, uid: uid %}</span>
   <span data-nav-promotion-text style="color: inherit">{{ promotion_text | escape }}</span>
-  {%- if promotion_discount_price != blank -%}<span data-nav-promotion-discount-price style="color: inherit">· {{ promotion_discount_price }}</span>{%- endif -%}
+  {%- if promotion_discount_price != blank -%}
+    <span data-nav-promotion-discount-price style="color: inherit">
+      ·  
+      {% if product.price_varies %}
+        From {{ promotion_discount_price }}
+      {% else %}
+        {{ promotion_discount_price }}{% endif %}</span>
+      {%- endif -%}
 </div>
 {%- endif -%}

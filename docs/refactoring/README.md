@@ -1,5 +1,7 @@
 # Shopify Theme 重构知识库
 
+2026-11-27：[桌面顶级导航可点击与链接配置](logs/header/2026-11-27-desktop-nav-links.md)：8 个顶级入口保留 `<a>`，桌面悬停／聚焦开面板、点击跳转到 `nav_link_*` 设置；移动端仍点击开面板；默认链接对齐各面板 Shop All。
+
 2026-11-27：[促销行前缀分支与选中变体折扣价](logs/collection/2026-11-27-product-promotion-prefix-logic.md)：空值不显示；`Extra` 用 promotion-tag/#FF5F00 并按选中变体算折后价（商品页导航切换实时重算），`Free` 用 gift/#1E7A46，其它前缀黑色文字 + gift。
 
 2026-11-27：[促销行空值礼卡兜底与配色](logs/collection/2026-11-27-product-card-promotion-fallback.md)：metafield 为空统一显示 `Free $20 Gift Card Orders $200+`（gift 图标、#1E7A46），非空 #FF5F00；商品页导航、gift-guide 与两类商品卡片均生效，文案只在组件内维护。（已被同日前缀分支逻辑取代）

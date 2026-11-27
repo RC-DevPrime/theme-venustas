@@ -13,7 +13,8 @@
       this.mainList = root.querySelector('[data-header-main-list]');
       this.opener = root.querySelector('[data-header-mobile-open]');
       this.panels = [...root.querySelectorAll('[data-header-panel]')];
-      this.prepareNavToggles();
+      this.navLinks = [];
+      this.prepareNavItems();
       this.toggles = [...root.querySelectorAll('[data-header-toggle]')];
       this.columns = [...root.querySelectorAll('[data-header-column]')];
       this.drawerOpen = false;
@@ -69,10 +70,13 @@
         if (panel?.dataset.emphasize === 'true') toggle.classList.add('header-new__nav-link--emphasis');
       });
       this.bind(this.mainList, 'pointerover', (event) => {
-        if (!this.media.matches && !this.activePanel?.contains(document.activeElement) && event.target.closest('a[href]')) this.showPanel(null);
+        if (!this.media.matches && !this.activePanel?.contains(document.activeElement) && event.target.closest('a[href]') && !event.target.closest('.header-new__nav-item')) this.showPanel(null);
       });
       this.bind(this.mainList, 'focusin', (event) => {
-        if (!this.media.matches && event.target.closest('a[href]')) this.showPanel(null);
+        if (this.media.matches) return;
+        const item = event.target.closest('.header-new__nav-item[data-nav-key]');
+        const panel = item && this.panels.find((candidate) => candidate.dataset.headerPanel === item.dataset.navKey);
+        this.showPanel(panel || null);
       });
       this.reset();
       this.observer = new ResizeObserver(() => this.measure());
@@ -255,9 +259,10 @@
       return false;
     }
 
-    // Theme blocks don't expose their settings to the parent section, so the
-    // main nav item is upgraded to a panel toggle from the rendered panels.
-    prepareNavToggles() {
+    // Theme blocks don't expose their settings to the parent section, so each
+    // top-level link is matched to a rendered panel by data-nav-key. The link
+    // stays a real anchor: hover/focus opens the panel, click follows the link.
+    prepareNavItems() {
       if (!this.mainList) return;
       this.mainList.querySelectorAll('[data-nav-key]').forEach((item) => {
         const key = item.dataset.navKey;
@@ -268,14 +273,13 @@
           return;
         }
         if (!link) return;
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = link.className;
-        button.dataset.headerToggle = key;
-        button.setAttribute('aria-expanded', 'false');
-        if (link.hasAttribute('aria-current')) button.setAttribute('aria-current', link.getAttribute('aria-current'));
-        button.innerHTML = link.innerHTML;
-        link.replaceWith(button);
+        link.dataset.navPanel = key;
+        link.setAttribute('aria-expanded', 'false');
+        link.setAttribute('aria-controls', panel.id);
+        this.navLinks.push(link);
+        this.bind(link, 'pointerenter', (event) => {
+          if (!this.media.matches && event.pointerType !== 'touch') this.showPanel(panel);
+        });
       });
     }
 
@@ -374,6 +378,9 @@
       this.toggles.forEach((toggle) => {
         toggle.setAttribute('aria-expanded', String(toggle.dataset.headerToggle === panel?.dataset.headerPanel));
       });
+      this.navLinks.forEach((link) => {
+        link.setAttribute('aria-expanded', String(link.dataset.navPanel === panel?.dataset.headerPanel));
+      });
       if (this.mainList) this.mainList.hidden = this.media.matches && Boolean(panel);
       this.root.toggleAttribute('data-panel-open', Boolean(panel));
       this.root.toggleAttribute('data-help-open', Boolean(panel?.classList.contains('header-new__panel--help')));
@@ -467,7 +474,8 @@
       else if (target.matches('[data-header-mobile-open]')) this.openDrawer();
       else if (target.matches('[data-header-mobile-close]')) this.close(true);
       else if (target.matches('[data-header-mobile-back]')) {
-        const toggle = this.toggles.find((item) => item.dataset.headerToggle === this.activePanel?.dataset.headerPanel);
+        const toggle = this.toggles.find((item) => item.dataset.headerToggle === this.activePanel?.dataset.headerPanel)
+          || this.navLinks.find((link) => link.dataset.navPanel === this.activePanel?.dataset.headerPanel);
         this.showPanel(null);
         toggle?.focus();
       } else if (target.matches('[data-header-toggle]')) {
@@ -482,6 +490,15 @@
         const expanded = target.getAttribute('aria-expanded') !== 'true';
         target.setAttribute('aria-expanded', String(expanded));
         if (panel) panel.hidden = !expanded;
+      } else if (this.media.matches && target.matches('.header-new__nav-link') && target.closest('.header-new__nav-item[data-nav-key]')) {
+        const item = target.closest('.header-new__nav-item[data-nav-key]');
+        const panel = this.panels.find((candidate) => candidate.dataset.headerPanel === item.dataset.navKey);
+        if (panel) {
+          event.preventDefault();
+          this.showPanel(panel);
+        } else {
+          this.close();
+        }
       } else if (target.matches('a[href]')) {
         const helpPanel = target.closest('.header-new__panel--help');
         if (!helpPanel) {
@@ -517,13 +534,17 @@
           return;
         }
         if (this.activePanel) {
-          const toggle = this.toggles.find((item) => item.dataset.headerToggle === this.activePanel.dataset.headerPanel);
+          const toggle = this.toggles.find((item) => item.dataset.headerToggle === this.activePanel.dataset.headerPanel)
+            || this.navLinks.find((link) => link.dataset.navPanel === this.activePanel.dataset.headerPanel);
           this.showPanel(null);
           toggle?.focus();
         } else this.close(true);
       }
-      if (event.key === 'ArrowDown' && !this.media.matches && event.target.matches('[data-header-toggle]')) {
-        const panel = this.panels.find((item) => item.dataset.headerPanel === event.target.dataset.headerToggle);
+      if (event.key === 'ArrowDown' && !this.media.matches) {
+        const navLink = event.target.closest('.header-new__nav-link[data-nav-panel]');
+        const panel = navLink
+          ? this.panels.find((item) => item.dataset.headerPanel === navLink.dataset.navPanel)
+          : (event.target.matches('[data-header-toggle]') ? this.panels.find((item) => item.dataset.headerPanel === event.target.dataset.headerToggle) : null);
         if (panel) {
           event.preventDefault();
           this.showPanel(panel);

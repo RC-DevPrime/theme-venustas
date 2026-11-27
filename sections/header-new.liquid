@@ -32,9 +32,16 @@
       <ul class="header-new__nav-list" data-header-main-list>
         {%- for label in navigation_labels -%}
           {%- assign menu_key = label | handleize -%}
-          {%- assign nav_href = routes.root_url | append: navigation_paths[forloop.index0] | replace: '//', '/' -%}
+          {%- assign nav_link_setting = 'nav_link_' | append: menu_key -%}
+          {%- assign nav_href = section.settings[nav_link_setting] -%}
+          {%- if nav_href == blank -%}
+            {%- assign nav_href = navigation_paths[forloop.index0] -%}
+          {%- endif -%}
+          {%- unless nav_href contains '://' -%}
+            {%- assign nav_href = routes.root_url | append: nav_href | replace: '//', '/' -%}
+          {%- endunless -%}
           <li class="header-new__nav-item" data-nav-key="{{ menu_key }}">
-            <a class="header-new__nav-link{% if menu_key == 'gift' %} header-new__nav-link--emphasis{% endif %}{% if request.path == nav_href %} header-new__nav-link--active{% endif %}" href="{{ nav_href }}"{% if request.path == nav_href %} aria-current="page"{% endif %}>
+            <a class="header-new__nav-link{% if menu_key == 'gift' %} header-new__nav-link--emphasis{% endif %}{% if request.path == nav_href %} header-new__nav-link--active{% endif %}" href="{{ nav_href | escape }}"{% if request.path == nav_href %} aria-current="page"{% endif %}>
               {{- label | escape -}}
               <span class="header-new__nav-chevron">{% render 'header-icons', icon: 'chevron-right' %}</span>
             </a>
@@ -177,6 +184,62 @@
       "type": "image_picker",
       "id": "logo",
       "label": "Logo"
+    },
+    {
+      "type": "header",
+      "content": "Top navigation links"
+    },
+    {
+      "type": "paragraph",
+      "content": "Hovering a top-level item opens its panel. Clicking the item goes to this link."
+    },
+    {
+      "type": "url",
+      "id": "nav_link_new",
+      "label": "New link",
+      "default": "/collections/new-arrivals"
+    },
+    {
+      "type": "url",
+      "id": "nav_link_men",
+      "label": "Men link",
+      "default": "/collections/men"
+    },
+    {
+      "type": "url",
+      "id": "nav_link_women",
+      "label": "Women link",
+      "default": "/collections/womens"
+    },
+    {
+      "type": "url",
+      "id": "nav_link_kids",
+      "label": "Kids link",
+      "default": "/collections/kids"
+    },
+    {
+      "type": "url",
+      "id": "nav_link_accessories",
+      "label": "Accessories link",
+      "default": "/collections/heated-accessories"
+    },
+    {
+      "type": "url",
+      "id": "nav_link_bundles",
+      "label": "Bundles link",
+      "default": "/collections/bundle-deal"
+    },
+    {
+      "type": "url",
+      "id": "nav_link_gift",
+      "label": "Gift link",
+      "default": "/pages/heated-apparel-gift-guide"
+    },
+    {
+      "type": "url",
+      "id": "nav_link_sale",
+      "label": "Sale link",
+      "default": "/collections/campaign"
     },
     {
       "type": "url",

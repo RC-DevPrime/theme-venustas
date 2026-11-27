@@ -1,5 +1,7 @@
 # Header 已知事项
 
+2026-11-27 桌面顶级导航：8 个入口恢复为 `<a>`，桌面悬停／聚焦打开面板、点击跳转到 section 的 `nav_link_*` 设置；移动端点击仍打开面板。新设置默认对齐面板 Shop All（womens／heated-accessories／bundle-deal／gift guide／campaign），但线上 Header section 若曾整体保存过设置，新字段可能仍需在编辑器中确认。桌面触屏无 hover 时只能通过键盘展开面板。未浏览器实测。见 [日志](../../logs/header/2026-11-27-desktop-nav-links.md)。
+
 2026-11-26 移动抽屉 Wishlist：桌面心形图标可正常打开 Swym 抽屉（用户实测），移动抽屉同一按钮点击无响应；原 `openWishlist()` 在 `swym.ui.open` 不可用时只置 `aria-busy` 且不重试，Swym 晚加载会让按钮永久失效。已改为：rAF 延后调用 + try/catch、缺失时点击 Swym 注入入口并重试 5 次、移动端 1s 后校验可见性、最终兜底跳 `/pages/swym-wishlist`。仅静态检查，手机实测与 `ui.open` 静默失败与否未确认。见 [日志](../../logs/header/2026-11-26-mobile-wishlist.md)。
 
 2026-11-26 移动账户链接已配置：`header-group-new.json` 的 profile／orders／return_center／loyalty 分别写入 account.venustas.com／/profile、/orders、`https://venustas.returnscenter.com/`（无 `?ref=powr-io`，与 Help 面板默认值不同）与 account.venustas.com 的 `/pages/daacc659-…` 页面；四项不再走 Liquid 默认回退。桌面账户图标仍为 `routes.account_url`，Smile 的 `#smile-home` 入口未变。未浏览器验证登录态跳转与外部域名。见 [日志](../../logs/header/2026-11-26-account-links.md)。
