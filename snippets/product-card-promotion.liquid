@@ -1,0 +1,6 @@
+{%- comment -%}
+  Usage: {% render 'product-card-promotion', product: product %}
+  Renders the product promotion line at the bottom of a product card.
+  Outputs nothing when the promotion metafield is empty.
+{%- endcomment -%}
+{%- render 'product-nav-promotion', product: product, uid: product.id -%}

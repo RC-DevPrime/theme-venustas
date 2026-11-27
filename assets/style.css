@@ -1183,6 +1183,29 @@ a.f-white:hover{
     height: fit-content;
     justify-content: space-between;
 }
+.product-item .product-nav-new__panel-promotion{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+    color: #1a1a1a;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: normal;
+}
+.product-item .product-nav-new__panel-promotion-icon{
+    display: inline-flex;
+    flex: 0 0 14px;
+    width: 14px;
+    height: 14px;
+    color: #1a1a1a;
+}
+.product-item .product-nav-new__panel-promotion-icon svg{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 
 /* VARIANT OPTIONS ----------------------------------------------------------- */
 .block-variant-options{

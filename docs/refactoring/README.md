@@ -1,5 +1,11 @@
 # Shopify Theme 重构知识库
 
+2026-11-27：[促销行前缀分支与选中变体折扣价](logs/collection/2026-11-27-product-promotion-prefix-logic.md)：空值不显示；`Extra` 用 promotion-tag/#FF5F00 并按选中变体算折后价（商品页导航切换实时重算），`Free` 用 gift/#1E7A46，其它前缀黑色文字 + gift。
+
+2026-11-27：[促销行空值礼卡兜底与配色](logs/collection/2026-11-27-product-card-promotion-fallback.md)：metafield 为空统一显示 `Free $20 Gift Card Orders $200+`（gift 图标、#1E7A46），非空 #FF5F00；商品页导航、gift-guide 与两类商品卡片均生效，文案只在组件内维护。（已被同日前缀分支逻辑取代）
+
+2026-11-27：[商品卡片底部促销行](logs/collection/2026-11-27-product-card-promotion.md)：product-item 与主集合 product-collection 两类卡片底部复用 product-nav-promotion，取最低价变体折算；空值兜底由当日后续变更调整。
+
 2026-11-26：[Men／Women 移动端 Shop by Category 折叠](logs/header/2026-11-26-mobile-shop-by-category-accordion.md)：图片菜单在 ≤1280 输出折叠行，默认展开六图，两个快捷按钮保持在上方；桌面不变。
 
 2026-11-26：[Sale 面板商品卡折扣角标](logs/header/2026-11-26-sale-campaign-product-discount-badge.md)：商品卡图片左上角渲染 `sale-badge`，仅 `data-header-panel="sale"` 显示，Bundles 不显示。

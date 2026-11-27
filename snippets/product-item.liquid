@@ -270,6 +270,7 @@ assign product_image_sizes = image_sizes | default: '(max-width: 768px) 100vw, 5
                 {% endif %}
 
         </div>
+            {% render 'product-card-promotion', product: product %}
         </div>
         
     </div>

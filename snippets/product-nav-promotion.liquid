@@ -1,7 +1,10 @@
 {%- comment -%}
   Usage: {% render 'product-nav-promotion', product: product %}
-  Reads the product promotion metafield and calculates its discounted price.
-  Optional fallback_text is displayed when no valid discount can be calculated.
+  Shows the product promotion metafield. Empty metafield outputs nothing.
+  Extra... -> promotion tag icon, #FF5F00, discounted price from the selected variant.
+  Free...  -> gift icon, #1E7A46.
+  Other    -> gift icon, black text.
+  Optional uid makes the icon's SVG clipPath id unique when rendered more than once.
 {%- endcomment -%}
 {%- liquid
   assign curSym = ''
@@ -11,11 +14,16 @@
   assign selected_variant = product.selected_or_first_available_variant
   assign promotion_mf = product.metafields.promo.cart_discount_text
   assign promotion_text = promotion_mf.value | default: promotion_mf | strip_html | strip
-  assign promotion_prefix = promotion_text | slice: 0, 5
+  assign promotion_extra_prefix = promotion_text | slice: 0, 5
+  assign promotion_free_prefix = promotion_text | slice: 0, 4
+  assign promotion_icon = 'gift'
+  assign promotion_color = '#1a1a1a'
   assign promotion_discount_type = blank
   assign promotion_discount_value = 0
   assign promotion_discount_price = blank
-  if promotion_text != blank and promotion_prefix == 'Extra'
+  if promotion_text != blank and promotion_extra_prefix == 'Extra'
+    assign promotion_icon = 'promotion-tag'
+    assign promotion_color = '#FF5F00'
     assign promotion_extra_text = promotion_text | remove_first: 'Extra' | strip
     if promotion_extra_text contains '%'
       assign promotion_discount_value = promotion_extra_text | split: '%' | first | strip | plus: 0
@@ -24,6 +32,8 @@
       assign promotion_discount_value = promotion_extra_text | remove_first: '$' | strip | split: ' ' | first | plus: 0 | times: 100 | round
       assign promotion_discount_type = 'amount'
     endif
+  elsif promotion_text != blank and promotion_free_prefix == 'Free'
+    assign promotion_color = '#1E7A46'
   endif
   if selected_variant != blank and promotion_discount_type == 'percent' and promotion_discount_value > 0 and promotion_discount_value < 100
     assign promotion_discount_multiplier = 100 | minus: promotion_discount_value
@@ -36,12 +46,11 @@
     endif
     assign promotion_discount_price = promotion_discounted_price_cents | money | prepend: curSym
   endif
-  if promotion_discount_price == blank
-    assign promotion_text = fallback_text | default: ''
-  endif
 -%}
-<div class="product-nav-new__panel-promotion" data-nav-promotion{% if promotion_text == blank %} hidden{% endif %}>
-  <span class="product-nav-new__panel-promotion-icon" aria-hidden="true">{% render 'heating-icons', icon: 'promotion-tag' %}</span>
-  <span data-nav-promotion-text{% if promotion_discount_price == blank %} data-promotion-fallback{% endif %}>{{ promotion_text | escape }}</span>
-  {%- if promotion_discount_price != blank -%}<span data-nav-promotion-discount-price>· {{ promotion_discount_price }}</span>{%- endif -%}
+{%- if promotion_text != blank -%}
+<div class="product-nav-new__panel-promotion" data-nav-promotion style="color: {{ promotion_color }}"{% if promotion_discount_price != blank %} data-promotion-type="{{ promotion_discount_type }}" data-promotion-value="{{ promotion_discount_value }}"{% endif %}>
+  <span class="product-nav-new__panel-promotion-icon" style="color: inherit" aria-hidden="true">{% render 'heating-icons', icon: promotion_icon, uid: uid %}</span>
+  <span data-nav-promotion-text style="color: inherit">{{ promotion_text | escape }}</span>
+  {%- if promotion_discount_price != blank -%}<span data-nav-promotion-discount-price style="color: inherit">· {{ promotion_discount_price }}</span>{%- endif -%}
 </div>
+{%- endif -%}
