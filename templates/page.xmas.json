@@ -1,37 +1,52 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "xmas_ways_to_save": {
       "type": "xmas-ways-to-save",
       "name": "xmas Ways to Save",
-      "settings": {}
+      "settings": {
+        "link_1": "",
+        "link_2": "",
+        "link_3": ""
+      }
     },
     "xmas_collection_tabs": {
       "type": "xmas-collection-tabs",
-      "name": "xmas Collection Tabs",
-      "settings": {},
       "blocks": {
         "collection_1": {
           "type": "collection",
           "settings": {
-            "label": "All"
+            "label": "All",
+            "collection": "all-sales"
           }
         },
         "collection_2": {
           "type": "collection",
           "settings": {
-            "label": "Men"
+            "label": "Men",
+            "collection": "men"
           }
         },
         "collection_3": {
           "type": "collection",
           "settings": {
-            "label": "Women"
+            "label": "Women",
+            "collection": "womens"
           }
         },
         "collection_4": {
           "type": "collection",
           "settings": {
-            "label": "Kids"
+            "label": "Kids",
+            "collection": "kids"
           }
         }
       },
@@ -40,7 +55,9 @@
         "collection_2",
         "collection_3",
         "collection_4"
-      ]
+      ],
+      "name": "xmas Collection Tabs",
+      "settings": {}
     },
     "xmas_weekly_deals": {
       "type": "xmas-weekly-deals",
@@ -50,6 +67,8 @@
         "eyebrow": "ENDS SUNDAY 11:59 PM [TZ]",
         "countdown_title": "Time left on this week's picks",
         "subtitle": "Next week's picks drop Monday.",
+        "end_time": "2026-12-02T24:00:00-08:00",
+        "collection": "weekly-hot-deals",
         "note": "Weekly Deals don't combine with ①, but they count toward ③ Extra $30 off $300+.",
         "previous_label": "Previous products",
         "next_label": "Next products",
@@ -59,16 +78,12 @@
     },
     "xmas_cart_savings": {
       "type": "xmas-cart-savings",
-      "name": "xmas Cart Savings",
-      "settings": {
-        "discount_title": "Extra $30 off $300+",
-        "empty_note": "<p>Start with a flagship: <strong>Apex</strong> or <strong>Volcano</strong> unlocks the $30 on its own.</p>",
-        "partial_note": "<p>The $30 comes off your whole order, so a <strong>{product_price}</strong> add-on really costs you only <strong>{after_savings}</strong>.</p>"
-      },
       "blocks": {
         "empty_pick_1": {
           "type": "empty_pick",
           "settings": {
+            "product": "apex-heated-jacket-liner-heated-pants-liner-set",
+            "title": "Apex Jacket + Pants",
             "badge": "UNLOCKS -$30",
             "best_fit": false,
             "best_fit_label": "BEST FIT"
@@ -77,6 +92,8 @@
         "empty_pick_2": {
           "type": "empty_pick",
           "settings": {
+            "product": "volcano-pro-dual-battery-12v-heated-vest-for-men",
+            "title": "Volcano Pro Vest",
             "badge": "UNLOCKS -$30",
             "best_fit": false,
             "best_fit_label": "BEST FIT"
@@ -85,6 +102,8 @@
         "empty_pick_3": {
           "type": "empty_pick",
           "settings": {
+            "product": "7-4v-12v-battery-pack-7200mah",
+            "title": "7.5K Battery",
             "badge": "{shortfall} SHORT",
             "best_fit": false,
             "best_fit_label": "BEST FIT"
@@ -93,6 +112,8 @@
         "partial_pick_4": {
           "type": "partial_pick",
           "settings": {
+            "product": "unisex-waterproof-7-4v-heated-gloves",
+            "title": "Heated Gloves",
             "badge": "UNLOCKS -$30",
             "best_fit": true,
             "best_fit_label": "BEST FIT"
@@ -101,6 +122,8 @@
         "partial_pick_5": {
           "type": "partial_pick",
           "settings": {
+            "product": "7-4v-12v-battery-pack-7200mah",
+            "title": "7.5K Battery",
             "badge": "UNLOCKS -$30",
             "best_fit": false,
             "best_fit_label": "BEST FIT"
@@ -109,6 +132,8 @@
         "partial_pick_6": {
           "type": "partial_pick",
           "settings": {
+            "product": "heated-socks-for-men-and-women-7-4v",
+            "title": "Heated Socks",
             "badge": "{shortfall} SHORT",
             "best_fit": false,
             "best_fit_label": "BEST FIT"
@@ -122,16 +147,17 @@
         "partial_pick_4",
         "partial_pick_5",
         "partial_pick_6"
-      ]
+      ],
+      "name": "xmas Cart Savings",
+      "settings": {
+        "discount_title": "Extra $30 off $300+",
+        "empty_note": "<p>Start with a flagship: <strong>Apex</strong> or <strong>Volcano</strong> unlocks the $30 on its own.</p>",
+        "partial_note": "<p>The $30 comes off your whole order, so a <strong>&lcub;product_price&rcub;</strong> add-on really costs you only <strong>&lcub;after_savings&rcub;</strong>.</p>",
+        "continue_link": ""
+      }
     },
     "xmas_flagship_gifts": {
       "type": "xmas-flagship-gifts",
-      "name": "xmas Flagship Gifts",
-      "settings": {
-        "title": "Our flagships reach $300 on their own",
-        "button_label": "Add to Cart",
-        "sold_out_label": "Sold Out"
-      },
       "blocks": {
         "product_group_1": {
           "type": "product_group",
@@ -139,8 +165,13 @@
             "color": "red",
             "heading": "Heated vests & jackets",
             "link_label": "Shop the full collection",
+            "link": "shopify://collections/new-arrivals",
+            "product_1": "volcano-pro-dual-battery-12v-heated-vest-for-men",
+            "title_1": "VolcanoTM Pro Dual-Battery Heated Vest",
             "eyebrow_1": "Built for -40°F",
             "description_1": "Two batteries in the box.",
+            "product_2": "apex-heated-jacket-liner-heated-pants-liner-set",
+            "title_2": "ApexTM Heated Jacket + Pant Liner",
             "eyebrow_2": "Runs on your bike's 12V",
             "description_2": "Jacket $199.99 · Pants $179.99"
           }
@@ -151,8 +182,13 @@
             "color": "gold",
             "heading": "Heated gloves & socks",
             "link_label": "Shop the full collection",
+            "link": "shopify://collections/heated-accessories",
+            "product_1": "unisex-waterproof-heated-gloves-7-4v",
+            "title_1": "",
             "eyebrow_1": "Gift pick",
             "description_1": "Warm fingertips for 6 hours.",
+            "product_2": "heated-socks-for-men-and-women-7-4v",
+            "title_2": "Frost Heated Socks",
             "eyebrow_2": "Stocking stuffer",
             "description_2": "Rechargeable, machine washable."
           }
@@ -161,7 +197,27 @@
       "block_order": [
         "product_group_1",
         "product_group_2"
-      ]
+      ],
+      "name": "xmas Flagship Gifts",
+      "settings": {
+        "title": "Our flagships reach $300 on their own",
+        "button_label": "Add to Cart",
+        "sold_out_label": "Sold Out"
+      }
+    },
+    "gift_guide_egift_bLPPzB": {
+      "type": "gift-guide-egift",
+      "name": "Gift Guide eGift",
+      "settings": {
+        "anchor_id": "",
+        "title": "Out of Time? Send an e-Gift Card.",
+        "description": "Delivered instantly by email. They pick the size and the style.",
+        "desktop_image": "shopify://shop_images/giftG-banner-two.webp",
+        "mobile_image": "shopify://shop_images/giftG-banner-two-mobile.webp",
+        "button_label": "Buy a e-Gift Card",
+        "mobile_button_label": "",
+        "button_link": ""
+      }
     },
     "xmas_top_up": {
       "type": "xmas-top-up",
@@ -169,15 +225,16 @@
       "settings": {
         "title": "Top up to $300",
         "intro": "Gifts that keep them warm.",
-        "button_label": "Shop all accessories"
+        "product_1": "7-4v-12v-battery-pack-10000mah",
+        "product_2": "7-4v-12v-battery-pack-7200mah",
+        "product_3": "unisex-waterproof-7-4v-heated-gloves",
+        "product_4": "unisex-heated-fleece-scarf-7-4v",
+        "button_label": "Shop all accessories",
+        "button_link": "shopify://collections/heated-accessories"
       }
     },
     "xmas_faq": {
       "type": "xmas-faq",
-      "name": "xmas FAQ",
-      "settings": {
-        "title": "FAQ"
-      },
       "blocks": {
         "faq_1": {
           "type": "faq",
@@ -237,7 +294,11 @@
         "faq_5",
         "faq_6",
         "faq_7"
-      ]
+      ],
+      "name": "xmas FAQ",
+      "settings": {
+        "title": "FAQ"
+      }
     }
   },
   "order": [
@@ -247,6 +308,7 @@
     "xmas_cart_savings",
     "xmas_flagship_gifts",
     "xmas_top_up",
+    "gift_guide_egift_bLPPzB",
     "xmas_faq"
   ]
 }
