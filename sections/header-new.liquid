@@ -13,7 +13,7 @@
 
 {%- liquid
   assign navigation_labels = 'New|Men|Women|Kids|Accessories|Bundles|Gift|Sale' | split: '|'
-  assign navigation_paths = '/collections/new-arrivals|/collections/men|/collections/women|/collections/kids|/collections/accessories|/collections/bundles|/collections/gift|/collections/sale' | split: '|'
+  assign navigation_paths = '/collections/new-arrivals|/collections/men|/collections/womens|/collections/kids|/collections/heated-accessories|/collections/bundle-deal|/pages/heated-apparel-gift-guide|/collections/campaign' | split: '|'
 -%}
 
 <nav class="header-new" data-header-new aria-label="Main navigation">
@@ -32,8 +32,17 @@
       <ul class="header-new__nav-list" data-header-main-list>
         {%- for label in navigation_labels -%}
           {%- assign menu_key = label | handleize -%}
-          {%- assign nav_link_setting = 'nav_link_' | append: menu_key -%}
-          {%- assign nav_href = section.settings[nav_link_setting] -%}
+          {%- assign nav_href = blank -%}
+          {%- case menu_key -%}
+            {%- when 'new' -%}{%- assign nav_href = section.settings.nav_link_new -%}
+            {%- when 'men' -%}{%- assign nav_href = section.settings.nav_link_men -%}
+            {%- when 'women' -%}{%- assign nav_href = section.settings.nav_link_women -%}
+            {%- when 'kids' -%}{%- assign nav_href = section.settings.nav_link_kids -%}
+            {%- when 'accessories' -%}{%- assign nav_href = section.settings.nav_link_accessories -%}
+            {%- when 'bundles' -%}{%- assign nav_href = section.settings.nav_link_bundles -%}
+            {%- when 'gift' -%}{%- assign nav_href = section.settings.nav_link_gift -%}
+            {%- when 'sale' -%}{%- assign nav_href = section.settings.nav_link_sale -%}
+          {%- endcase -%}
           {%- if nav_href == blank -%}
             {%- assign nav_href = navigation_paths[forloop.index0] -%}
           {%- endif -%}
@@ -191,55 +200,55 @@
     },
     {
       "type": "paragraph",
-      "content": "Hovering a top-level item opens its panel. Clicking the item goes to this link."
+      "content": "Hovering a top-level item opens its panel; clicking it follows the link. Leave a link empty to use the built-in default."
     },
     {
       "type": "url",
       "id": "nav_link_new",
       "label": "New link",
-      "default": "/collections/new-arrivals"
+      "info": "Empty: /collections/new-arrivals"
     },
     {
       "type": "url",
       "id": "nav_link_men",
       "label": "Men link",
-      "default": "/collections/men"
+      "info": "Empty: /collections/men"
     },
     {
       "type": "url",
       "id": "nav_link_women",
       "label": "Women link",
-      "default": "/collections/womens"
+      "info": "Empty: /collections/womens"
     },
     {
       "type": "url",
       "id": "nav_link_kids",
       "label": "Kids link",
-      "default": "/collections/kids"
+      "info": "Empty: /collections/kids"
     },
     {
       "type": "url",
       "id": "nav_link_accessories",
       "label": "Accessories link",
-      "default": "/collections/heated-accessories"
+      "info": "Empty: /collections/heated-accessories"
     },
     {
       "type": "url",
       "id": "nav_link_bundles",
       "label": "Bundles link",
-      "default": "/collections/bundle-deal"
+      "info": "Empty: /collections/bundle-deal"
     },
     {
       "type": "url",
       "id": "nav_link_gift",
       "label": "Gift link",
-      "default": "/pages/heated-apparel-gift-guide"
+      "info": "Empty: /pages/heated-apparel-gift-guide"
     },
     {
       "type": "url",
       "id": "nav_link_sale",
       "label": "Sale link",
-      "default": "/collections/campaign"
+      "info": "Empty: /collections/campaign"
     },
     {
       "type": "url",

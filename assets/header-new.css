@@ -1308,7 +1308,6 @@
 @media (hover: hover) {
   .header-announcement__content .header-announcement__link:hover,
   .header-announcement__content .header-announcement__link:hover * {
-    color: var(--color-brand) !important;
     font-weight: 700;
   }
 }
@@ -1318,13 +1317,13 @@
   color: inherit;
   font-weight: 300;
   font-size: 14px;
-  text-decoration: none;
+}
+.header-announcement__content a {
+  text-decoration: underline;
 }
 .header-announcement__content em {
   font-style: unset;
-  color: var(--color-brand);
   font-weight: 600;
-  text-decoration: none;
 }
 .header-announcement__content strong { font-weight: bold; }
 .header-announcement__marquee-viewport,

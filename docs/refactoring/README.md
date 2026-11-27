@@ -1,6 +1,8 @@
 # Shopify Theme 重构知识库
 
-2026-11-27：[桌面顶级导航可点击与链接配置](logs/header/2026-11-27-desktop-nav-links.md)：8 个顶级入口保留 `<a>`，桌面悬停／聚焦开面板、点击跳转到 `nav_link_*` 设置；移动端仍点击开面板；默认链接对齐各面板 Shop All。
+2026-11-27：[商品卡片促销价按卡片展示价计算](logs/collection/2026-11-27-product-card-promo-card-price.md)：`product-card-promotion` 把卡片的 `price_min`／选中变体价传给促销组件，Extra 折后价与卡片 `From` 价一致。
+
+2026-11-27：[桌面顶级导航可点击与链接配置](logs/header/2026-11-27-desktop-nav-links.md)：8 个顶级入口保留 `<a>`，桌面悬停／聚焦开面板、点击跳转到 `nav_link_*` 设置；移动端仍点击开面板；字段留空时回退到各面板 Shop All。
 
 2026-11-27：[促销行前缀分支与选中变体折扣价](logs/collection/2026-11-27-product-promotion-prefix-logic.md)：空值不显示；`Extra` 用 promotion-tag/#FF5F00 并按选中变体算折后价（商品页导航切换实时重算），`Free` 用 gift/#1E7A46，其它前缀黑色文字 + gift。
 

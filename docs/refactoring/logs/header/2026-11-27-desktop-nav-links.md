@@ -19,9 +19,10 @@
 ## 实际变更
 
 1. `sections/header-new.liquid`
-   - 新增 8 个 `url` 设置：`nav_link_new`／`men`／`women`／`kids`／`accessories`／`bundles`／`gift`／`sale`，默认对齐各面板 Shop All：
+   - 新增 8 个 `url` 设置：`nav_link_new`／`men`／`women`／`kids`／`accessories`／`bundles`／`gift`／`sale`；Shopify 的 `url` 设置只允许 `/collections`、`/collections/all` 作为 default，因此不在 schema 写 default，留空由 Liquid 回退到与各面板 Shop All 一致的地址：
      `/collections/new-arrivals`、`/collections/men`、`/collections/womens`、`/collections/kids`、`/collections/heated-accessories`、`/collections/bundle-deal`、`/pages/heated-apparel-gift-guide`、`/collections/campaign`。
-   - 循环按 `nav_link_<menu_key>` 读取设置；为空回退原硬编码路径；非绝对 URL 继续拼接 `routes.root_url` 以保留本地化前缀。
+   - 循环用 `case` 显式读取 8 个 `nav_link_*` 设置；为空回退同一组已校正路径（`navigation_paths`）；非绝对 URL 继续拼接 `routes.root_url` 以保留本地化前缀。
+   - 2026-11-27 修正：用户报告点击 Women 跳到 `/collections/women`。原因是自定义 default 触发 `Invalid schema ... default must be a string or datasource access path`，section 无法保存，href 走了旧的 `navigation_paths` 回退；已移除 8 个 `default`（改为留空回退已校正地址），并把动态键 `section.settings[变量]` 改为显式 `case` 读取。
 2. `assets/header-new.js`
    - `prepareNavToggles()` 改为 `prepareNavItems()`：不再替换 `<a>`，只补 `aria-expanded`／`aria-controls`／`data-nav-panel`，并在桌面 `pointerenter` 打开对应面板。
    - 主列表 `pointerover`／`focusin`：导航项悬停／聚焦改为打开面板，不再按普通链接关闭。
@@ -34,7 +35,7 @@
 仅静态核对：
 
 - `node --check assets/header-new.js` 通过。
-- 提取 `{% schema %}` 后 `JSON.parse` 通过，设置数 26，8 个 `nav_link_*` 默认值与计划一致。
+- 提取 `{% schema %}` 后 `JSON.parse` 通过，设置数 26，8 个 `nav_link_*` 均无 `default`（避免 Shopify URL 设置的类型校验错误）。
 - 逐行核对：`data-nav-key` ↔ `data-header-panel` 匹配、`data-nav-panel` 只加在顶级链接、移动端点击分支在通用 `a[href]` 之前、绝对 URL 不拼 `routes.root_url`。
 - 未执行浏览器、主题检查或线上验证；悬停、键盘、触屏与移动抽屉实际表现未实测。
 
@@ -47,8 +48,8 @@
 
 - 桌面触屏设备没有 hover：点击会直接跳转，面板只能通过键盘（聚焦或 ArrowDown）打开。
 - 有面板的顶级项从 button 恢复为 a 后，桌面点击不再切换面板；悬停／聚焦已负责展开。
-- 设置默认值只在商家未保存该设置时生效；线上 Header section 若曾保存过整体设置，需要在新字段中显式填写或确认默认生效。
+- 8 个链接字段默认留空；留空时回退到上面已校正的地址，商家可在 Header 设置中填写覆盖。Shopify `url` 设置不支持自定义 default，不能在 schema 里预填。
 - 绝对 URL 时 `request.path == nav_href` 不成立，当前页下划线不显示；相对 URL 不受影响。
-- `navigation_paths` 中的旧 Women 路径 `/collections/women` 仍作为空设置回退；要修正需在后台填写或后续单独处理。
+- `navigation_paths` 的空设置回退已同步为校正后的 8 个地址（womens／heated-accessories／bundle-deal／gift guide／campaign），因此即使新设置尚未保存、编辑器未回填默认值，点击也不会再落到旧的 `/collections/women` 等路径。
 - 回退：恢复 `prepareNavToggles()`、移除 8 个设置与 schema，即可回到原按钮开关行为。
 - 遗留：未验证主题编辑器保存、实际点击跳转与移动抽屉表现；未提交、未推送、未发布。

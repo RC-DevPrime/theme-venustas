@@ -4,6 +4,7 @@
   Extra... -> promotion tag icon, #FF5F00, discounted price from the selected variant.
   Free...  -> gift icon, #1E7A46.
   Other    -> gift icon, black text.
+  Optional price overrides the price basis (product cards pass the price they display).
   Optional uid makes the icon's SVG clipPath id unique when rendered more than once.
 {%- endcomment -%}
 {%- liquid
@@ -12,6 +13,10 @@
     assign curSym = 'C'
   endif
   assign selected_variant = product.selected_or_first_available_variant
+  assign promotion_base_price = price
+  if promotion_base_price == blank
+    assign promotion_base_price = selected_variant.price
+  endif
   assign promotion_mf = product.metafields.promo.cart_discount_text
   assign promotion_text = promotion_mf.value | default: promotion_mf | strip_html | strip
   assign promotion_extra_prefix = promotion_text | slice: 0, 5
@@ -35,12 +40,12 @@
   elsif promotion_text != blank and promotion_free_prefix == 'Free'
     assign promotion_color = '#1E7A46'
   endif
-  if selected_variant != blank and promotion_discount_type == 'percent' and promotion_discount_value > 0 and promotion_discount_value < 100
+  if promotion_base_price != blank and promotion_discount_type == 'percent' and promotion_discount_value > 0 and promotion_discount_value < 100
     assign promotion_discount_multiplier = 100 | minus: promotion_discount_value
-    assign promotion_discounted_price_cents = selected_variant.price | times: promotion_discount_multiplier | divided_by: 100
+    assign promotion_discounted_price_cents = promotion_base_price | times: promotion_discount_multiplier | divided_by: 100
     assign promotion_discount_price = promotion_discounted_price_cents | money | prepend: curSym
-  elsif selected_variant != blank and promotion_discount_type == 'amount' and promotion_discount_value > 0
-    assign promotion_discounted_price_cents = selected_variant.price | minus: promotion_discount_value
+  elsif promotion_base_price != blank and promotion_discount_type == 'amount' and promotion_discount_value > 0
+    assign promotion_discounted_price_cents = promotion_base_price | minus: promotion_discount_value
     if promotion_discounted_price_cents < 0
       assign promotion_discounted_price_cents = 0
     endif
@@ -52,12 +57,7 @@
   <span class="product-nav-new__panel-promotion-icon" style="color: inherit" aria-hidden="true">{% render 'heating-icons', icon: promotion_icon, uid: uid %}</span>
   <span data-nav-promotion-text style="color: inherit">{{ promotion_text | escape }}</span>
   {%- if promotion_discount_price != blank -%}
-    <span data-nav-promotion-discount-price style="color: inherit">
-      ·  
-      {% if product.price_varies %}
-        From {{ promotion_discount_price }}
-      {% else %}
-        {{ promotion_discount_price }}{% endif %}</span>
-      {%- endif -%}
+    <span data-nav-promotion-discount-price style="color: inherit">· {% if product.price_varies %}From {% endif %}{{ promotion_discount_price }}</span>
+  {%- endif -%}
 </div>
 {%- endif -%}

@@ -36,7 +36,7 @@ ed170a6“Update from Shopify … by Yaoyao zhang”把 sections/header-group-ne
 
 2026-11-24 修正：该 section.blocks 方案不成立。本 section 的块是 blocks/_header-nav-* 主题块，父 section 遍历时 block.settings 为空、block.type 恒为 @theme，has_panel 恒 false，所有顶级入口退化为普通链接，下拉全部失效。现改为：section 只输出 li[data-nav-key] 加普通 a 链接，assets/header-new.js 在初始化时按 data-nav-key 与 data-header-panel 匹配，把对应链接原位升级为 button[data-header-toggle]，面板仍是唯一数据源，新增面板无需第二份名单。详见 [日志](../../logs/header/2026-11-24-nav-toggle-runtime.md)。
 
-2026-11-27 修正：上条的“升级为 button”已被替换。顶级链接保持 `<a>`，`prepareNavItems()` 只补 `aria-expanded`／`aria-controls`／`data-nav-panel`；桌面悬停／聚焦打开对应面板、点击按 href 跳转，移动端点击仍拦截为打开面板。8 个 href 由 section 的 `nav_link_*` 设置提供（空值回退原硬编码路径），默认对齐各面板 Shop All。面板仍按 `data-nav-key` ↔ `data-header-panel` 匹配，未改变块数据源。见 [日志](../../logs/header/2026-11-27-desktop-nav-links.md)。
+2026-11-27 修正：上条的“升级为 button”已被替换。顶级链接保持 `<a>`，`prepareNavItems()` 只补 `aria-expanded`／`aria-controls`／`data-nav-panel`；桌面悬停／聚焦打开对应面板、点击按 href 跳转，移动端点击仍拦截为打开面板。8 个 href 由 section 的 `nav_link_*` 设置提供，空值回退已校正的 `navigation_paths`（URL 设置不支持自定义 default，留空时与各面板 Shop All 一致），非绝对地址拼 `routes.root_url`。面板仍按 `data-nav-key` ↔ `data-header-panel` 匹配，未改变块数据源。见 [日志](../../logs/header/2026-11-27-desktop-nav-links.md)。
 
 Accessories 保留已配置的 Batteries & Power 三项及说明，补齐 Heated Accessories 五项，移除完全空白的第三列；两列 role=group、mobile_open=false。Gift 三列为 Gifts by Recipient、Gift by Price、Gift Card，均使用普通分组折叠、默认关闭，不将 Price 做成下一级页面。两面板复用现有双推广卡素材，移动显示。未提供的链接保持空值，编辑器可维护；旧 Header 保留。详见 [任务日志](../../logs/header/2026-11-24-accessories-gift-navigation.md)。
 

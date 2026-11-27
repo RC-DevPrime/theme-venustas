@@ -1,6 +1,6 @@
 # Header 技术档案
 
-2026-11-27：[桌面顶级导航可点击与链接配置](../../logs/header/2026-11-27-desktop-nav-links.md)：8 个顶级入口保留 `<a>`，桌面悬停／聚焦打开面板、点击跳转到 `nav_link_*` 设置；移动端仍点击打开面板；默认链接对齐各面板 Shop All。
+2026-11-27：[桌面顶级导航可点击与链接配置](../../logs/header/2026-11-27-desktop-nav-links.md)：8 个顶级入口保留 `<a>`，桌面悬停／聚焦打开面板、点击跳转到 `nav_link_*` 设置；移动端仍点击打开面板；字段留空时回退到各面板 Shop All 地址。
 
 2026-11-24：[公告栏独立 section](../../logs/header/2026-11-24-announcement-bar-section.md)：announcement-bar section 固定在顶部 38px，header 导航 40/68（1280 断点），公告样式与交互在 header-new.css／header-new.js。
 
