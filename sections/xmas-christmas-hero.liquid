@@ -1,0 +1,421 @@
+{%- liquid
+  assign desktop_banner = section.settings.desktop_banner
+  assign mobile_banner = section.settings.mobile_banner | default: desktop_banner
+  assign holiday_icon = section.settings.holiday_icon
+  assign button_link = section.settings.button_link | default: '/collections/all-sales'
+
+  capture icon_calendar
+    render 'heating-icons', icon: 'calendar'
+  endcapture
+  capture icon_truck
+    render 'heating-icons', icon: 'truck'
+  endcapture
+  capture icon_returns
+    render 'heating-icons', icon: 'returns'
+  endcapture
+  capture icon_card
+    render 'heating-icons', icon: 'card'
+  endcapture
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .xmas-hero {
+    background: #f9f2e8;
+    color: #fff;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: clamp(560px, 39.58vw, 760px);
+    overflow: hidden;
+    background: #7a1f1f;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 65% center;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__image--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__inner {
+    position: relative;
+    z-index: 1;
+    width: min(calc(100% - 40px), 1340px);
+    margin: 0 auto;
+    padding-bottom: 80px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: min(100%, 580px);
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__top,
+  #shopify-section-{{ section.id }} .xmas-hero__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #f6e5bd;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.45;
+    letter-spacing: 1.68px;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__mark {
+    display: block;
+    width: 18px;
+    height: 22px;
+    flex: 0 0 18px;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__title {
+    margin: 0;
+    color: #fff;
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__offers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 30px 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__offer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    border: 1px solid rgba(255, 255, 255, .32);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .1);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__offer-num {
+    color: #ffc107;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 48px;
+    border-radius: 6px;
+    background: #ffc857;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__note {
+    margin: 0;
+    color: rgba(255, 255, 255, .82);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__benefits-wrap {
+    position: relative;
+    z-index: 2;
+    width: min(calc(100% - 40px), 1340px);
+    margin: -59px auto 0;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__benefits {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: 24px 28px;
+    border-top: 4px solid #ffc857;
+    border-radius: 10px;
+    background: #fffdf9;
+    box-shadow: 0 8px 14px rgba(95, 73, 35, .12);
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__benefit {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    padding: 0 20px;
+    border-left: 1px solid #e5ddd2;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__benefit:first-child {
+    border-left: 0;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__benefit-icon {
+    display: block;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    color: #b93205;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__benefit-icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__benefit-text {
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__benefit-title {
+    margin: 0;
+    color: #b93205;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21px;
+  }
+
+  #shopify-section-{{ section.id }} .xmas-hero__benefit-desc {
+    margin: 0;
+    color: #515151;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+  }
+
+  @media (min-width: 768px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .xmas-hero__benefits {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding: 8px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__benefit {
+      padding: 16px;
+      border-top: 1px solid #e5ddd2;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__benefit:nth-child(-n+2) {
+      border-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__benefit:nth-child(odd) {
+      border-left: 0;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .xmas-hero {
+      background: #0b2a1d;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__hero {
+      display: block;
+      min-height: 654px;
+      background: #0b2a1d;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__image {
+      object-position: 68% center;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__image--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__image--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__inner {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+      min-height: 654px;
+      margin: 0;
+      padding: 32px 20px 20px;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__content {
+      flex: 1 1 auto;
+      justify-content: space-between;
+      width: 100%;
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__top,
+    #shopify-section-{{ section.id }} .xmas-hero__bottom {
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__eyebrow {
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__mark {
+      width: 16px;
+      height: 20px;
+      flex-basis: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__title {
+      font-size: 30px;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__offers {
+      gap: 8px;
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__offer {
+      padding: 7px 10px;
+      border-radius: 99px;
+      line-height: 1.45;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__offer-num {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__button {
+      width: 100%;
+      box-shadow: 0 0 20px rgba(39, 0, 0, .4);
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__note {
+      line-height: normal;
+    }
+
+    #shopify-section-{{ section.id }} .xmas-hero__benefits-wrap {
+      display: none;
+    }
+  }
+{% endstyle %}
+
+<section class="xmas-hero" aria-labelledby="xmas-hero-title-{{ section.id }}">
+  <div class="xmas-hero__hero">
+    {%- if desktop_banner != blank -%}
+      {{ desktop_banner | image_url: width: 2400 | image_tag: class: 'xmas-hero__image xmas-hero__image--desktop', widths: '960, 1340, 1600, 1920, 2400', sizes: '100vw', loading: 'eager', alt: '' }}
+    {%- endif -%}
+    {%- if mobile_banner != blank -%}
+      {{ mobile_banner | image_url: width: 900 | image_tag: class: 'xmas-hero__image xmas-hero__image--mobile', widths: '390, 600, 750, 900', sizes: '100vw', loading: 'eager', alt: '' }}
+    {%- endif -%}
+
+    <div class="xmas-hero__inner">
+      <div class="xmas-hero__content">
+        <div class="xmas-hero__top">
+          <div class="xmas-hero__eyebrow">
+            {%- if holiday_icon != blank -%}
+              {{ holiday_icon | image_url: width: 60 | image_tag: class: 'xmas-hero__mark', loading: 'eager', alt: '' }}
+            {%- endif -%}
+            <span>CHRISTMAS MEGA SALE</span>
+          </div>
+
+          <h1 class="xmas-hero__title" id="xmas-hero-title-{{ section.id }}">The Warmest Gift<br>This Year.</h1>
+
+          <ul class="xmas-hero__offers">
+            <li class="xmas-hero__offer"><span class="xmas-hero__offer-num">①</span><span>$20 off 1 · $50 off 2+</span></li>
+            <li class="xmas-hero__offer"><span class="xmas-hero__offer-num">②</span><span>Weekly Deals</span></li>
+            <li class="xmas-hero__offer"><span class="xmas-hero__offer-num">③</span><span>Extra $30 off $300+</span></li>
+          </ul>
+        </div>
+
+        <div class="xmas-hero__bottom">
+          <a class="xmas-hero__button" href="{{ button_link | escape }}">Shop the Sale</a>
+          <p class="xmas-hero__note">Applied in cart · Order by Dec 15 for Christmas</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="xmas-hero__benefits-wrap">
+    <div class="xmas-hero__benefits">
+      <div class="xmas-hero__benefit">
+        {%- if icon_calendar != blank -%}<span class="xmas-hero__benefit-icon">{{ icon_calendar }}</span>{%- endif -%}
+        <div class="xmas-hero__benefit-text">
+          <p class="xmas-hero__benefit-title">Order by Dec 15</p>
+          <p class="xmas-hero__benefit-desc">Arrives by Christmas in the contiguous US</p>
+        </div>
+      </div>
+
+      <div class="xmas-hero__benefit">
+        {%- if icon_truck != blank -%}<span class="xmas-hero__benefit-icon">{{ icon_truck }}</span>{%- endif -%}
+        <div class="xmas-hero__benefit-text">
+          <p class="xmas-hero__benefit-title">Free shipping</p>
+          <p class="xmas-hero__benefit-desc">Ships from our US warehouse</p>
+        </div>
+      </div>
+
+      <div class="xmas-hero__benefit">
+        {%- if icon_returns != blank -%}<span class="xmas-hero__benefit-icon">{{ icon_returns }}</span>{%- endif -%}
+        <div class="xmas-hero__benefit-text">
+          <p class="xmas-hero__benefit-title">Returns until Jan 15</p>
+          <p class="xmas-hero__benefit-desc">Easy exchanges on gifts</p>
+        </div>
+      </div>
+
+      <div class="xmas-hero__benefit">
+        {%- if icon_card != blank -%}<span class="xmas-hero__benefit-icon">{{ icon_card }}</span>{%- endif -%}
+        <div class="xmas-hero__benefit-text">
+          <p class="xmas-hero__benefit-title">Pay in 4</p>
+          <p class="xmas-hero__benefit-desc">With Shop Pay, Afterpay or Klarna</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "xmas Christmas Hero",
+  "tag": "section",
+  "class": "xmas-christmas-hero-section",
+  "settings": [
+    { "type": "image_picker", "id": "desktop_banner", "label": "Desktop banner" },
+    { "type": "image_picker", "id": "mobile_banner", "label": "Mobile banner" },
+    { "type": "image_picker", "id": "holiday_icon", "label": "Christmas wreath icon" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Leave blank to link to /collections/all-sales." }
+  ],
+  "presets": [{ "name": "xmas Christmas Hero" }]
+}
+{% endschema %}

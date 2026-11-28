@@ -109,4 +109,15 @@
     <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <path d="M3.75 9.375L7.125 12.75L14.25 5.25" stroke-width="1.8" stroke="#141414"/>
     </svg>
+  {%- when 'calendar' -%}
+    <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path d="M7.08333 7.08325H26.9167C28.4815 7.08325 29.75 8.35178 29.75 9.91659V26.9166C29.75 28.4814 28.4815 29.7499 26.9167 29.7499H7.08333C5.51853 29.7499 4.25 28.4814 4.25 26.9166V9.91659C4.25 8.35178 5.51853 7.08325 7.08333 7.08325Z" stroke-width="2.55" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/>
+      <path d="M9.91667 4.25V9.91667M24.0833 4.25V9.91667M4.25 14.1667H29.75" stroke-width="2.55" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/>
+      <path d="M11.333 21.25L14.1663 24.0833L21.2497 17" stroke-width="2.55" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/>
+    </svg>
+  {%- when 'card' -%}
+    <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path d="M7.08333 7.08325H26.9167C28.4815 7.08325 29.75 8.35178 29.75 9.91659V24.0833C29.75 25.6481 28.4815 26.9166 26.9167 26.9166H7.08333C5.51853 26.9166 4.25 25.6481 4.25 24.0833V9.91659C4.25 8.35178 5.51853 7.08325 7.08333 7.08325Z" stroke-width="2.55" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/>
+      <path d="M4.25 14.1667H29.75M9.91667 21.2501H14.1667" stroke-width="2.55" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/>
+    </svg>
 {%- endcase -%}

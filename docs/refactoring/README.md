@@ -1,5 +1,7 @@
 # Shopify Theme 重构知识库
 
+2026-11-28：[xmas Christmas Hero](logs/2026-11-28-xmas-christmas-hero.md)：新增圣诞页首屏，桌面/移动 banner、写死文案、单一按钮链接、四项权益卡；移动端隐藏权益卡，仅做静态验证。
+
 2026-11-28：[购物车行内编辑弹窗移动端全屏与固定购买按钮](logs/2026-11-28-cart-edit-popup-layout.md)：移动端全屏、桌面 600px，Add To Cart 固定底部；ADD MORE 留在商品列表滚动区，购物车数据流不变。
 
 2026-11-28：[编辑选项弹窗移动端全屏与固定底部按钮](logs/2026-11-28-product-edit-option-popup-layout.md)：集合卡与 index-product-tabs 共用的 product-edit-option 弹窗移动端全屏、底部 Add To Cart 固定；桌面 600px 居中、最高 90vh，当次不含购物车弹窗。
