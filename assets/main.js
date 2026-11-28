@@ -1231,24 +1231,25 @@ $(function () {
       });
     }
 
-    function updatePriceImageForPopup($popup, variant) {
+    function updatePriceImageForPopup($item, variant, quantity) {
       if (!variant) return;
 
-      const $price = $popup.find('.product-price .final .money').first();
-      const $cap = $popup.find('.product-price .original .money').first();
-      const $img = $popup.find('.product-featured-image img').first();
+      const qty = parseInt(quantity, 10) > 0 ? parseInt(quantity, 10) : 1;
+      const $price = $item.find('.product-price .final .money').first();
+      const $cap = $item.find('.product-price .original .money').first();
+      const $img = $item.find('.product-featured-image img').first();
 
       if ($price.length) {
         if (window.Shopify && Shopify.formatMoney) {
-          $price.text(Shopify.formatMoney(variant.price, Shopify.money_format));
+          $price.text(Shopify.formatMoney(variant.price * qty, Shopify.money_format));
         } else {
-          $price.text('$' + (variant.price / 100).toFixed(2));
+          $price.text('$' + (variant.price * qty / 100).toFixed(2));
         }
       }
 
       if ($cap.length) {
         if (variant.compare_at_price > variant.price) {
-          $cap.text('$' + (variant.compare_at_price / 100).toFixed(2));
+          $cap.text('$' + (variant.compare_at_price * qty / 100).toFixed(2));
           $cap.closest('.original').show();
         } else {
           $cap.closest('.original').hide();
@@ -1299,7 +1300,7 @@ $(function () {
       recomputeAvailabilityForItem($item, variants);
       updateVariantInfoForItem($item);
       const variant = findVariantForItem($item, variants);
-      updatePriceImageForPopup($popup, variant);
+      updatePriceImageForPopup($item, variant, $item.find('.nav-quantity__input').val());
     }
 
 
@@ -1431,6 +1432,14 @@ $(function () {
         });
 
         refreshItemState($item, variants, $popup);
+      });
+
+      $item.on('change.popupItem', '.nav-quantity__input', function () {
+        const $popup = $(this).closest('.product-update.popup-modal');
+        const variants = getPopupVariants($popup);
+        if (!variants) return;
+
+        updatePriceImageForPopup($item, findVariantForItem($item, variants), $(this).val());
       });
 
       initVariantTypeToggleForItem($item);

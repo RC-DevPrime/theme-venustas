@@ -211,7 +211,7 @@
 | [snippets/product-item-mega-menu-display-2.liquid](../../../../snippets/product-item-mega-menu-display-2.liquid) | — | [product-menu-badge.liquid](../../../../snippets/product-menu-badge.liquid) @L79 |
 | [snippets/product-item-mega-menu.liquid](../../../../snippets/product-item-mega-menu.liquid) | — | [product-menu-badge.liquid](../../../../snippets/product-menu-badge.liquid) @L81 |
 | [snippets/product-menu-badge.liquid](../../../../snippets/product-menu-badge.liquid) | — | 无字面量 snippet／asset_url 调用（不代表无数据或 JS 依赖） |
-| [snippets/product-update-popup.liquid](../../../../snippets/product-update-popup.liquid) | — | [edit-product-variant.liquid](../../../../snippets/edit-product-variant.liquid) @L90 |
+| [snippets/product-update-popup.liquid](../../../../snippets/product-update-popup.liquid) | — | [product-card-promotion.liquid](../../../../snippets/product-card-promotion.liquid) @L63；[edit-product-variant.liquid](../../../../snippets/edit-product-variant.liquid) @L67 |
 | [snippets/search-recommendations.liquid](../../../../snippets/search-recommendations.liquid) | — | 无字面量 snippet／asset_url 调用（不代表无数据或 JS 依赖） |
 
 ## 资源与共享脚本

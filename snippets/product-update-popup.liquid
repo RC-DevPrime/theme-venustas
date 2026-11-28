@@ -42,48 +42,25 @@
                     </h3>
                     <div class="product-price pb-lg-3 pb-md-3 pb-sm-2">
                         <span class="final">
-                            {{ item.final_line_price | money | prepend: curSym }}
+                            <span class="money">{{ item.final_line_price | money | prepend: curSym }}</span>
                         </span>
-                        
-                        {% assign final_compare = item.quantity | times: item.variant.compare_at_price  %}
-                        {% if final_compare > 0 %}
-                            <span class="original">
-                                {{ final_compare | money | prepend: curSym }}
-                            </span>
-
-                            {% assign totalLess = totalLess | plus: final_compare %}
-                        {% else %}
-                            {% assign totalLess = totalLess | plus: item.final_line_price %}
-                        {% endif %}
-                        
-                        {% assign discounted_price = item.total_discount %}
-
-                        {% assign totalSavings = 0 %}
-
-                        {% assign compare_price = item.variant.compare_at_price %}
-                        {% assign original_price = item.variant.price %}
-                        {% assign final_price = item.final_price %}
-                        {% assign quantity = item.quantity %}
-                        
-                        {% if compare_price > original_price %}
-                        {% assign price_saving = compare_price | minus: original_price %}
-                        {% else %}
-                        {% assign price_saving = 0 %}
-                        {% endif %}
-                    
-                        {% assign additional_discount = original_price | minus: final_price %}
-                    
-                        {% assign savings_per_item = price_saving | plus: additional_discount %}
-                        {% assign savings_total = savings_per_item | times: quantity %}
-                        {% assign totalSavings = totalSavings | plus: savings_total %}
-                        
-                        {% if totalSavings > 0 %}
-                            <span class="discounted">
-                            Save {{ totalSavings | money_without_trailing_zeros | prepend: curSym }}
-                            </span>
-                        {% endif %}
-
+                        <span class="original"{% unless active_variant.compare_at_price > active_variant.price %} hidden{% endunless %}>
+                            <span class="money">{{ item.quantity | times: active_variant.compare_at_price | money | prepend: curSym }}</span>
+                        </span>
                     </div>
+
+                    {%- liquid
+                        assign popup_temperature = product.metafields.custom.temperature.value | default: product.metafields.custom.temperature | strip_html | strip
+                        assign popup_tag = product.metafields.custom.custom_tag.value | default: product.metafields.custom.custom_tag | strip_html | strip
+                    -%}
+                    {%- if popup_temperature != blank or popup_tag != blank -%}
+                        <p class="product-popup-features">
+                            {%- if popup_temperature != blank -%}{{ popup_temperature | escape }}{%- endif -%}
+                            {%- if popup_temperature != blank and popup_tag != blank %} · {% endif -%}
+                            {%- if popup_tag != blank -%}{{ popup_tag | escape }}{%- endif -%}
+                        </p>
+                    {%- endif -%}
+                    {% render 'product-card-promotion', product: product %}
 
 
                     {% unless product.has_only_default_variant %}

@@ -1,5 +1,7 @@
 # Shopify Theme 重构知识库
 
+2026-11-28：[编辑弹窗商品信息区：价格、特性与促销行](logs/2026-11-28-popup-product-summary.md)：编辑弹窗用选中变体单价（price_varies 加 From），购物车弹窗用行总价并随变体/数量重算；移除 Save，新增 temperature · custom_tag 特性行与 product-card-promotion 促销行。
+
 2026-11-28：[集合促销 Box 移动端背景图](logs/collection/2026-11-28-promotion-box-mobile-image.md)：Promotion Box - Image／Sale 各增加移动端背景图设置，≤899px 切换，留空回退桌面图。
 
 2026-11-28：[编辑弹窗移动端底部抽屉样式](logs/2026-11-28-popup-nav-new-mobile-style.md)：两个编辑弹窗移动端参考 product-nav-new，改为非全屏底部抽屉、98px 商品摘要、灰色变体区、固定 ATC；桌面 600px 不变，数量留在滚动区。
