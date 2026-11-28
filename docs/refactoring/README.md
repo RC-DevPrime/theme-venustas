@@ -1,5 +1,9 @@
 # Shopify Theme 重构知识库
 
+2026-11-28：[公告栏链接下划线与倒计时精简](logs/header/2026-11-28-announcement-link-underline-countdown.md)：整段 `link` 包裹不画下划线、富文本内嵌 `<a>` 才带下划线；倒计时去掉秒，数字改主题色加粗。
+
+2026-11-28：[抽屉 logo 行右侧的国家切换](logs/header/2026-11-28-mobile-country-switcher.md)：移动端切换移入抽屉顶部 logo 行，删除抽屉专用覆盖后复用桌面浮层，并清理抽屉顶部 3 条历史按钮样式。
+
 2026-11-28：[促销行图标与文案同排](logs/2026-11-28-promotion-row-icon-inline.md)：`product-nav-promotion` 把图标与文案合成一个 flex item，图标浮动在首行左侧，Free 长文案换行后回到与图标左对齐；折扣价仍可换行，商品页抽屉行为不变。
 
 2026-11-28：[集合商品卡标题重写与行数限制](logs/collection/2026-11-28-product-collection-title-clamp.md)：product-collection 标题合并为单锚点 + 内层 span，≤899px 三行、≥900px 两行省略，样式改到 collection.css。

@@ -47,9 +47,19 @@
                 {% case block.type %}
                   {% when 'announcement_bar' %}
                     {% if block.settings.announcement_content != blank %}
+                      {%- liquid
+                        assign announcement_has_inline_link = false
+                        if block.settings.announcement_content contains '<a'
+                          assign announcement_has_inline_link = true
+                        endif
+                        assign announcement_whole_link = false
+                        if block.settings.link != blank and announcement_has_inline_link == false
+                          assign announcement_whole_link = true
+                        endif
+                      -%}
                       <div class="swiper-slide">
                         <div class="header-announcement__content" style="color:{{ section.settings.text_color }};">
-                          {% if block.settings.link != blank %}
+                          {% if announcement_whole_link %}
                             <a href="{{ block.settings.link }}" class="header-announcement__link">
                           {% else %}
                             <span class="header-announcement__link">
@@ -73,7 +83,7 @@
                                 </span>
                               </span>
                             </span>
-                          {% if block.settings.link != blank %}
+                          {% if announcement_whole_link %}
                             </a>
                           {% else %}
                             </span>
@@ -110,9 +120,6 @@
                                     </span>
                                     <span class="header-announcement__unit">
                                       <span class="header-announcement__unit-value" data-header-announcement-unit="minutes">00</span> Mins
-                                    </span>
-                                    <span class="header-announcement__unit">
-                                      <span class="header-announcement__unit-value" data-header-announcement-unit="seconds">00</span> Secs
                                     </span>
                                   </span>
                                 </span>

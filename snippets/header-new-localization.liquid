@@ -4,7 +4,7 @@
   @param {string} mode - Unique desktop or mobile presentation.
 {% enddoc %}
 {% assign is_canada = false %}{% if request.host contains 'venustas.ca' %}{% assign is_canada = true %}{% endif %}
-<div class="header-new__localization" data-header-localization>
+<div class="header-new__localization header-new__localization--{{ mode }}" data-header-localization>
 <button type="button" data-header-country-toggle aria-expanded="false" aria-controls="HeaderCountry-{{ section.id }}-{{ mode }}" aria-label="Change country, current {% if is_canada %}Canada CAD{% else %}United States USD{% endif %}">
 <span class="header-new__flag" aria-hidden="true">{% if is_canada %}{% render 'header-icons', icon: 'flag-ca' %}{% else %}{% render 'header-icons', icon: 'flag-us' %}{% endif %}</span>
 <span class="header-new__country-label">{% if is_canada %}Canada <small>CAD</small>{% else %}United States <small>USD</small>{% endif %}</span>

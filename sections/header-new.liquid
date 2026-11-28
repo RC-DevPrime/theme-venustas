@@ -28,6 +28,7 @@
       <div class="header-new__drawer-scroll">
       <div class="header-new__drawer-top">
         <a class="header-new__logo" href="{{ routes.root_url }}">{% if section.settings.logo != blank %}{{ section.settings.logo | image_url: width: 462 | image_tag: widths: '154, 308, 462', sizes: '154px', alt: shop.name, loading: 'eager' }}{% else %}{{ shop.name | escape }}{% endif %}</a>
+        {% render 'header-new-localization', section: section, mode: 'mobile' %}
       </div>
       <ul class="header-new__nav-list" data-header-main-list>
         {%- for label in navigation_labels -%}
@@ -83,7 +84,6 @@
       <span class="header-new__nav-chevron">{% render 'header-icons', icon: 'chevron-right' %}</span></button>
       <button class="header-new__utility-row" type="button" data-header-wishlist>
       <span class="header-new__utility-icon">{% render 'header-icons', icon: 'wishlist' %}</span>Wishlist</button>
-      {% render 'header-new-localization', section: section, mode: 'mobile' %}
       </div>
             {% content_for 'blocks' %}
             <div class="header-new__panel header-new__panel--help" id="HeaderPanel-{{ section.id }}-help" data-header-panel="help" hidden aria-label="Help">

@@ -1,5 +1,9 @@
 # Header 技术档案
 
+2026-11-28：[公告栏链接下划线与倒计时精简](../../logs/header/2026-11-28-announcement-link-underline-countdown.md)：整段 `link` 包裹时不再画下划线，只有富文本内嵌 `<a>` 才带下划线（并用 `contains '<a'` 避免 `<a>` 嵌套）；倒计时去掉秒，数字改主题色加粗。
+
+2026-11-28：[抽屉 logo 行右侧的国家切换](../../logs/header/2026-11-28-mobile-country-switcher.md)：移动端切换从抽屉底部列表移到 `.header-new__drawer-top` 的 logo 之后，删除抽屉专用覆盖后直接复用桌面浮层；同时清理抽屉顶部 3 条历史按钮样式。
+
 2026-11-28：[移动端 Just Launched 默认展开](../../logs/header/2026-11-28-mobile-new-just-launched-open.md)：新增列级 `mobile_default_open` 设置，面板内无列启用时仍回退“第一列展开”；仅 New 的 Just Launched 启用。
 
 2026-11-27：[桌面顶级导航可点击与链接配置](../../logs/header/2026-11-27-desktop-nav-links.md)：8 个顶级入口保留 `<a>`，桌面悬停／聚焦打开面板、点击跳转到 `nav_link_*` 设置；移动端仍点击打开面板；字段留空时回退到各面板 Shop All 地址。
