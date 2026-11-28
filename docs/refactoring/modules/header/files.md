@@ -1,5 +1,12 @@
 # Header 实际文件清单
 
+## 2026-11-28 移动端 New 面板 Just Launched 默认展开
+
+- blocks/_header-nav-column.liquid：schema 新增 `mobile_default_open` checkbox（默认 false），列根输出 `data-mobile-default-open`。
+- assets/header-new.js：`preparePanel()` 由 `data-column-first` 改为 `data-column-default-open`（面板内有列开启设置时只展开这些列，否则回退第一列）；`reset()` 读该值作为 `data-mobile-expanded` 初值。
+- sections/header-group-new.json：`new_panel.launched` 增加 `"mobile_default_open": true`。
+- 未改 CSS 与 `syncColumns()`；详见 [任务日志](../../logs/header/2026-11-28-mobile-new-just-launched-open.md)。
+
 ## 2026-11-27 桌面顶级导航链接
 
 - sections/header-new.liquid：新增 8 个 `nav_link_*` URL 设置，顶级入口 href 用 `case` 显式读取设置，空值回退已校正的 8 个路径（womens／heated-accessories／bundle-deal／gift guide／campaign）；非绝对地址仍拼 `routes.root_url`。

@@ -157,11 +157,8 @@ assign sale_badge_type = 'discount'
                     {{ product_label }}
                 </span>
             </div>
-            <a href="{{ product.url }}" class="product-title d-block body-lg pp-bold pb-2 d-lg-block d-md-block d-sm-none">
-                {{ product.title }}
-            </a>
-            <a href="{{ product.url }}" class="product-title d-block body pp-bold pb-2 d-lg-none d-md-none d-sm-block">
-                {{ product.title }}
+            <a class="product-collection-title" href="{{ product.url }}">
+                <span class="product-collection-title__text">{{ product.title | escape }}</span>
             </a>
             {% render 'okendo-reviews-product-rating-summary', product: product %}
 

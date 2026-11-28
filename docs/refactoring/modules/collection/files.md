@@ -1,5 +1,17 @@
 # Collection 实际文件清单
 
+## 2026-11-28 促销行图标与文案同排
+
+- snippets/product-nav-promotion.liquid L57–61：图标与文案包进 `.product-nav-new__panel-promotion-label`，折扣价仍是容器直接子元素（保留换行）。
+- assets/style.css L1209：新增 `.product-nav-new__panel-promotion-label`（块级、min-width 0），label 内图标 `float:left` + `margin-right:4px`，换行后各行与图标左对齐；三处使用方容器规则未改。
+- 影响集合卡片的 Free 文案：图标回到与文案同排且与第一行对齐；详见 [任务日志](../../logs/2026-11-28-promotion-row-icon-inline.md)。
+
+## 2026-11-28 商品卡标题重写与行数限制
+
+- snippets/product-collection.liquid @L160：原两个重复锚点（`body-lg` / `body` 分端）合并为 `<a class="product-collection-title">` + `<span class="product-collection-title__text">`，标题补 `escape`。
+- assets/collection.css 末尾：`.main-collection .product-collection-title`（block、`padding:0 24px 8px 0`）与 `__text`（`-webkit-line-clamp:3`、14px/1.4em），`≥900px` 改为 2 行、16px/1.6em。
+- 未改 product-item／row-product-item／column-product-item／search-product-item 等其它卡片的标题实现；详见 [任务日志](../../logs/collection/2026-11-28-product-collection-title-clamp.md)。
+
 基线：2026-11-23，本地静态引用。已读取入口／关键交互代码，并对下列文件提取实际字面量 render/include、asset_url；不是按名称归类。仅列静态可追溯关系，动态 app render、分支是否运行、外部注入不在此闭包内。调用行号用于定位，变更后须核对当前源码。
 
 ## JSON 模板索引

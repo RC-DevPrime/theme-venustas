@@ -401,3 +401,30 @@
 }
 @media only screen and (min-width: 2560px) {
 }
+
+/* PRODUCT CARD TITLE ------------------------------------------------------------------------ */
+.main-collection .product-collection-title {
+    display: block;
+    padding: 0 24px 8px 0;
+}
+
+.main-collection .product-collection-title__text {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4em;
+    overflow-wrap: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+}
+
+@media only screen and (min-width: 900px) {
+    .main-collection .product-collection-title__text {
+        font-size: 16px;
+        line-height: 1.6em;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+}

@@ -1,4 +1,4 @@
-<div class="header-new__column header-new__column--{{ block.settings.role }}" data-header-column data-column-role="{{ block.settings.role }}" {{ block.shopify_attributes }}>
+<div class="header-new__column header-new__column--{{ block.settings.role }}" data-header-column data-column-role="{{ block.settings.role }}" data-mobile-default-open="{{ block.settings.mobile_default_open }}" {{ block.shopify_attributes }}>
   {%- if block.settings.title != blank -%}
     <h2 class="header-new__column-heading">{{ block.settings.title | escape }}</h2>
     <button class="header-new__column-toggle" type="button" data-header-column-toggle aria-expanded="false" aria-controls="HeaderColumn-{{ section.id }}-{{ block.id }}">
@@ -20,7 +20,8 @@
     { "type": "select", "id": "role", "label": "Column role", "options": [
       { "value": "group", "label": "Collapsible group" },
       { "value": "category", "label": "Shop by Category" }
-    ], "default": "group" }
+    ], "default": "group" },
+    { "type": "checkbox", "id": "mobile_default_open", "label": "Open by default on mobile", "info": "When no column in the panel enables this, the first column opens by default.", "default": false }
   ],
   "blocks": [
     { "type": "_header-nav-featured" },

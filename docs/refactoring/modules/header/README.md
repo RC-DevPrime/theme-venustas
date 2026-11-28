@@ -1,5 +1,7 @@
 # Header 技术档案
 
+2026-11-28：[移动端 Just Launched 默认展开](../../logs/header/2026-11-28-mobile-new-just-launched-open.md)：新增列级 `mobile_default_open` 设置，面板内无列启用时仍回退“第一列展开”；仅 New 的 Just Launched 启用。
+
 2026-11-27：[桌面顶级导航可点击与链接配置](../../logs/header/2026-11-27-desktop-nav-links.md)：8 个顶级入口保留 `<a>`，桌面悬停／聚焦打开面板、点击跳转到 `nav_link_*` 设置；移动端仍点击打开面板；字段留空时回退到各面板 Shop All 地址。
 
 2026-11-24：[公告栏独立 section](../../logs/header/2026-11-24-announcement-bar-section.md)：announcement-bar section 固定在顶部 38px，header 导航 40/68（1280 断点），公告样式与交互在 header-new.css／header-new.js。

@@ -1,5 +1,11 @@
 # Shopify Theme 重构知识库
 
+2026-11-28：[促销行图标与文案同排](logs/2026-11-28-promotion-row-icon-inline.md)：`product-nav-promotion` 把图标与文案合成一个 flex item，图标浮动在首行左侧，Free 长文案换行后回到与图标左对齐；折扣价仍可换行，商品页抽屉行为不变。
+
+2026-11-28：[集合商品卡标题重写与行数限制](logs/collection/2026-11-28-product-collection-title-clamp.md)：product-collection 标题合并为单锚点 + 内层 span，≤899px 三行、≥900px 两行省略，样式改到 collection.css。
+
+2026-11-28：[移动端 New 面板 Just Launched 默认展开](logs/header/2026-11-28-mobile-new-just-launched-open.md)：列级 `mobile_default_open` 设置替代“只展开 DOM 第一列”，仅 New 的 Just Launched 启用；Men／Women／Accessories／Gift 行为不变。
+
 2026-11-27：[商品卡片促销价按卡片展示价计算](logs/collection/2026-11-27-product-card-promo-card-price.md)：`product-card-promotion` 把卡片的 `price_min`／选中变体价传给促销组件，Extra 折后价与卡片 `From` 价一致。
 
 2026-11-27：[桌面顶级导航可点击与链接配置](logs/header/2026-11-27-desktop-nav-links.md)：8 个顶级入口保留 `<a>`，桌面悬停／聚焦开面板、点击跳转到 `nav_link_*` 设置；移动端仍点击开面板；字段留空时回退到各面板 Shop All。
