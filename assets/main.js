@@ -558,6 +558,7 @@ $(function () {
     $('body').addClass('no-scroll');
 
     // Init variants UI every time we open (safe)
+    initPopupSizeToggle($popup);
     refreshPopupVariantUI($popup);
   }
 
@@ -885,6 +886,85 @@ $(function () {
   function refreshPopupVariantUI($popup) {
     updateDisabledStates($popup);
     ensureValidSelections($popup);
+  }
+
+  // =======================================================
+  // SIZE TYPE (STANDARD / TALL) FOR THE AJAX POPUP
+  // Same markup/classes as the toggle the cart popups get from
+  // initVariantTypeToggleForItem, so both popups look and behave alike.
+  // =======================================================
+  function initPopupSizeToggle($popup) {
+    const $fieldset = $popup.find('fieldset.variant-size').first();
+    if (!$fieldset.length) return;
+
+    function isTallSize(label) {
+      return String(label || '').trim().toUpperCase().includes('LT');
+    }
+
+    const $selectors = $fieldset.find('.nav-variants-selector');
+
+    const hasTallSizes = $selectors.toArray().some(function (selector) {
+      return isTallSize($(selector).data('option-value'));
+    });
+
+    if (!hasTallSizes) {
+      $fieldset.find('.variant-type-toggle').remove();
+      $selectors.show().removeClass('hidden-type');
+      $fieldset.find('.nav-variants-option').show();
+      return;
+    }
+
+    if (!$fieldset.find('.variant-type-toggle').length) {
+      $fieldset.find('legend').after(`
+        <div class="variant-type-toggle">
+          <button type="button" class="variant-type-btn active" data-type="standard">Standard</button>
+          <button type="button" class="variant-type-btn" data-type="tall">Tall</button>
+        </div>
+      `);
+    }
+
+    function applyType(type) {
+      const $toggleButtons = $fieldset.find('.variant-type-btn');
+      $toggleButtons.removeClass('active');
+      $toggleButtons.filter('[data-type="' + type + '"]').addClass('active');
+
+      $selectors.each(function () {
+        const $selector = $(this);
+        const $option = $selector.next('.nav-variants-option');
+        const isTall = isTallSize($selector.data('option-value'));
+        const show = type === 'tall' ? isTall : !isTall;
+
+        if (show) {
+          $selector.show().removeClass('hidden-type');
+          $option.show();
+        } else {
+          $selector.hide().addClass('hidden-type').removeClass('selected');
+          $option.hide();
+        }
+      });
+
+      refreshPopupVariantUI($popup);
+
+      // No purchasable size in this type: report so the caller can revert,
+      // otherwise add-to-cart would fall back to a hidden (wrong) size.
+      return $fieldset.find('.nav-variants-selector').filter(':visible').not('.disabled').length > 0;
+    }
+
+    const $selected = $fieldset.find('.nav-variants-selector.selected').first();
+    const selectedValue = $selected.length
+      ? $selected.data('option-value')
+      : $fieldset.find('input.nav-variant-radio:checked').val();
+
+    $fieldset.off('click.popupSize', '.variant-type-btn');
+    $fieldset.on('click.popupSize', '.variant-type-btn', function () {
+      const previousType = $fieldset.find('.variant-type-btn.active').data('type');
+      const type = $(this).data('type');
+
+      if (!applyType(type)) applyType(previousType);
+    });
+
+    const initialType = isTallSize(selectedValue) ? 'tall' : 'standard';
+    if (!applyType(initialType)) applyType(initialType === 'tall' ? 'standard' : 'tall');
   }
 
   $(document).on('click', '.product-update.popup-modal .nav-variants-selector', function (e) {

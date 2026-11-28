@@ -1,5 +1,9 @@
 # Shopify Theme 重构知识库
 
+2026-11-28：[修复 collection.best-seller.json 非法 JSON](logs/collection/2026-11-28-best-seller-json-fix.md)：`promotion_image` 的 `background_image` 后混入字面量 `\r\n`，改为真实换行，模板可正常解析。
+
+2026-11-28：[商品编辑弹窗恢复 Standard／Tall 尺码切换](logs/product-detail/2026-11-28-product-popup-size-toggle.md)：`product-edit-option` 打开的 AJAX 商品弹窗在 `main.js` `openPopup` 里补 `initPopupSizeToggle`，复用购物车弹窗的 `.variant-type-toggle`；Liquid 未改。
+
 2026-11-28：[商品页导航粘顶位置修正](logs/product-detail/2026-11-28-product-nav-sticky-offset.md)：`product-nav` 粘顶 top 改为“Header 高度 + 公告栏 38px”（桌面 106／移动 78），滚动态不再隐藏 Header。
 
 2026-11-28：[集合促销 Box 移动端背景图](logs/collection/2026-11-28-promotion-box-mobile-image.md)：Promotion Box - Image／Sale 各增加移动端背景图设置，≤899px 切换，留空回退桌面图。

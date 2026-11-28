@@ -14,6 +14,7 @@ main-product include global-vars 设置 CAD 的 curSym；读取 product、varian
 
 - product-variant 输出 variant-radios 与变体 JSON；global.js 的 VariantSelects/VariantRadios 执行选项、隐藏 input、价格和导航同步，并抓取变体页面 HTML。
 - main-product 有主商品表单及隐藏商品内容／编辑弹窗；product.popup 使用 layout none 输出相同 product-edit-option，用于共享编辑弹窗请求。main.js 含 URL 回退与弹窗加载逻辑。
+- 尺码的 Standard／Tall 切换由 JS 注入，不在两个弹窗 Liquid 中：购物车弹窗走 main.js 的 `CART_SCOPES` → `initVariantTypeToggleForItem`；集合／搜索卡片打开的 AJAX 商品弹窗走 main.js 的 `openPopup` → `initPopupSizeToggle`。两者都按选项值是否含 `LT` 分组，产物为 `.variant-type-toggle`，样式来自 popup-cart.css／product.css。`snippets/product-size-toggle.liquid` 当前无引用，修改该功能前先确认走哪条路径。
 - popup-cart.js 处理主区及跨页面加购、cart API 和刷新；product.js 也包含商品／导航加购路径，具体改动需核对实际绑定而非按名称认定唯一入口。
 - product.js 的 venustasRegionalInventoryGate 暴露 update、canAddSelectedVariant、syncNavInventoryMarkup、refreshInventoryInfoForVariant 等能力，观察应用 DOM、同步主区／导航库存，根据区域状态控制加购；包含变体页面请求和 iframe 回退。
 - main-product 中 availability 脚本将应用节点移动至展示槽。应用注入时机与 DOM 结构属于运行依赖，本地模板不能独立证明库存。
