@@ -9,10 +9,15 @@
  */
 {
   "sections": {
-    "xmas_christmas_hero": {
+    "xmas_christmas_hero_PYeBqp": {
       "type": "xmas-christmas-hero",
       "name": "xmas Christmas Hero",
-      "settings": {}
+      "settings": {
+        "desktop_banner": "shopify://shop_images/xmas-banner.webp",
+        "mobile_banner": "shopify://shop_images/xmas-banner-mobile.webp",
+        "holiday_icon": "shopify://shop_images/giftG-flower.webp",
+        "button_link": ""
+      }
     },
     "xmas_ways_to_save": {
       "type": "xmas-ways-to-save",
@@ -311,6 +316,7 @@
     }
   },
   "order": [
+    "xmas_christmas_hero_PYeBqp",
     "xmas_ways_to_save",
     "xmas_collection_tabs",
     "xmas_weekly_deals",
