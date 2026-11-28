@@ -1,5 +1,7 @@
 # Shopify Theme 重构知识库
 
+2026-11-28：[商品页导航粘顶位置修正](logs/product-detail/2026-11-28-product-nav-sticky-offset.md)：`product-nav` 粘顶 top 改为“Header 高度 + 公告栏 38px”（桌面 106／移动 78），滚动态不再隐藏 Header。
+
 2026-11-28：[编辑弹窗商品信息区：价格、特性与促销行](logs/2026-11-28-popup-product-summary.md)：编辑弹窗用选中变体单价（price_varies 加 From），购物车弹窗用行总价并随变体/数量重算；移除 Save，新增 temperature · custom_tag 特性行与 product-card-promotion 促销行。
 
 2026-11-28：[集合促销 Box 移动端背景图](logs/collection/2026-11-28-promotion-box-mobile-image.md)：Promotion Box - Image／Sale 各增加移动端背景图设置，≤899px 切换，留空回退桌面图。

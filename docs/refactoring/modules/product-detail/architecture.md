@@ -22,6 +22,8 @@ main-product include global-vars 设置 CAD 的 curSym；读取 product、varian
 
 product-nav 和 product-nav-new 由具体模板选择；新导航加载 product-nav-new.js，调用 nav-product-variant、size-chart-component 和 product-nav-promotion。不能把商品页内导航与站点 Header 混淆。
 
+旧 product-nav 的 `.main-nav-header-section` 由 product.js 的 `nav_header_scroll` 在滚动后加 `.product-header-sticky` 固定定位，`top` 依赖 Header 高度变量 `--header-nav-height`（移动端 40px、≥1281 为 68px）与公告栏 `--announcement-current-height`（38px／0）；滚动态 Header 保持显示。调整 Header 高度、公告栏或这些变量时需同步该表达式。
+
 layout 按 product 加载 product.css、product.js、product-new-battery-runtime.css/js；product-heating-features snippet 按其分支加载专用 CSS。main/global/popup-cart、Bootstrap、Swiper 仍为公共依赖；产品内容 sections 中还有各自的内联样式／脚本和静态引用，见 files.md。
 
 product-review-section 动态 render app block；settings_data 配置 Okendo、多地点库存及其他应用。product.gift-card-pro 使用 layout none 跳转 `/a/gc/gift-card/`，不是普通商品详情布局。

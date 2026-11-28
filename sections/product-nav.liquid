@@ -69,7 +69,8 @@
   
     .product-page-nav-header-section .product-header-sticky {
         position: fixed;
-        top: 0;
+        /* Sit below the fixed announcement bar + site header (40/68px + 38px). */
+        top: calc(var(--header-nav-height, 40px) + var(--announcement-current-height, 0px));
         width: 100%;
         z-index: 4; /* Make sure it's above other content */
     }
