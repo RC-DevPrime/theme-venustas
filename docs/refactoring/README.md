@@ -1,5 +1,7 @@
 # Shopify Theme 重构知识库
 
+2026-11-28：[集合促销 Box 移动端背景图](logs/collection/2026-11-28-promotion-box-mobile-image.md)：Promotion Box - Image／Sale 各增加移动端背景图设置，≤899px 切换，留空回退桌面图。
+
 2026-11-28：[公告栏链接下划线与倒计时精简](logs/header/2026-11-28-announcement-link-underline-countdown.md)：整段 `link` 包裹不画下划线、富文本内嵌 `<a>` 才带下划线；倒计时去掉秒，数字改主题色加粗。
 
 2026-11-28：[抽屉 logo 行右侧的国家切换](logs/header/2026-11-28-mobile-country-switcher.md)：移动端切换移入抽屉顶部 logo 行，删除抽屉专用覆盖后复用桌面浮层，并清理抽屉顶部 3 条历史按钮样式。
