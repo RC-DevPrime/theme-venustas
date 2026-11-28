@@ -1,5 +1,10 @@
 # Product Detail 实际文件清单
 
+## 2026-11-28 促销行图标与文案同排
+
+- snippets/product-nav-promotion.liquid L57–61：图标与文案包进 `.product-nav-new__panel-promotion-label`，折扣价仍为容器直接子元素；assets/style.css L1209 新增该 label 样式。
+- 商品页导航（sections/product-nav-new.liquid L149）容器仍为 `white-space:nowrap`，单行显示行为不变；详见 [任务日志](../../logs/2026-11-28-promotion-row-icon-inline.md)。
+
 基线：2026-11-23，本地静态引用。已读取入口／关键交互代码，并对下列文件提取实际字面量 render/include、asset_url；不是按名称归类。仅列静态可追溯关系，动态 app render、分支是否运行、外部注入不在此闭包内。调用行号用于定位，变更后须核对当前源码。
 
 ## JSON 模板索引

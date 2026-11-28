@@ -14,6 +14,13 @@
     "announcement_bar": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_countdown_HKFBW4": {
+          "type": "announcement_countdown",
+          "settings": {
+            "announcement_content": "<p>Black Friday Mega Sale</p>",
+            "date_time": "Nov 29, 2026 16:00:00"
+          }
+        },
         "announcement_1": {
           "type": "announcement_bar",
           "settings": {
@@ -24,8 +31,8 @@
         "announcement_2": {
           "type": "announcement_bar",
           "settings": {
-            "announcement_content": "<p><em><strong>Holiday Returns Extended </strong></em>- Until Jan 15th, 2027</p>",
-            "link": "shopify://pages/return-and-exchange-policy"
+            "announcement_content": "<p><a href=\"/pages/return-and-exchange-policy\" target=\"_blank\" title=\"Return and Exchange\"><em><strong>Holiday Returns Extended </strong></em></a>- Until Jan 15th, 2027</p>",
+            "link": ""
           }
         },
         "announcement_3": {
@@ -37,6 +44,7 @@
         }
       },
       "block_order": [
+        "announcement_countdown_HKFBW4",
         "announcement_1",
         "announcement_2",
         "announcement_3"
@@ -67,7 +75,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "New Arrival",
-                "role": "category"
+                "role": "category",
+                "mobile_default_open": false
               },
               "blocks": {
                 "arrival": {
@@ -96,14 +105,15 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Just Launched",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": true
               },
               "blocks": {
                 "volcano": {
                   "type": "_header-nav-feature",
                   "settings": {
                     "title": "Volcano™ Heated Vest",
-                    "badge": "Hot",
+                    "badge": "HOT",
                     "description": "Men’s & women’s · Built for -40°F",
                     "url": "shopify://collections/volcano-series"
                   },
@@ -113,7 +123,7 @@
                   "type": "_header-nav-feature",
                   "settings": {
                     "title": "Apex™ Riding System",
-                    "badge": "Hot",
+                    "badge": "HOT",
                     "description": "12V heated jacket & pant liners",
                     "url": "shopify://collections/apex-riding-system"
                   },
@@ -129,14 +139,15 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Just In",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": false
               },
               "blocks": {
                 "tactical": {
                   "type": "_header-nav-feature",
                   "settings": {
                     "title": "Tactical Jacket",
-                    "badge": "New",
+                    "badge": "NEW",
                     "description": "Men’s · 12V",
                     "url": "https://venustas.com/products/mens-dual-control-heated-tactical-softshell-jacket-12v"
                   },
@@ -246,7 +257,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Shop by Category",
-                "role": "category"
+                "role": "category",
+                "mobile_default_open": false
               },
               "blocks": {
                 "new_arrivals": {
@@ -313,7 +325,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Shop by Style",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": false
               },
               "blocks": {
                 "styles": {
@@ -344,7 +357,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Warmth & Runtime",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": false
               },
               "blocks": {
                 "ultra": {
@@ -353,7 +367,7 @@
                     "title": "Ultra Warm 12V",
                     "badge": "",
                     "description": "Down to -4°F",
-                    "url": "https://venustas.com/collections/12v?filter.p.m.custom.gender=Men"
+                    "url": "https://venustas.com/collections/12v?filter.p.m.custom.gender=Men%27s"
                   },
                   "blocks": {}
                 },
@@ -373,7 +387,7 @@
                     "title": "All-Day Warmth",
                     "badge": "",
                     "description": "Up to 20 hours",
-                    "url": "https://venustas.com/collections/extended-heat-gear?filter.p.m.custom.gender=Men"
+                    "url": "https://venustas.com/collections/extended-heat-gear?filter.p.m.custom.gender=Men%27s"
                   },
                   "blocks": {}
                 }
@@ -388,7 +402,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Collections",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": false
               },
               "blocks": {
                 "collections": {
@@ -482,7 +497,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Shop by Category",
-                "role": "category"
+                "role": "category",
+                "mobile_default_open": false
               },
               "blocks": {
                 "new_arrivals": {
@@ -549,7 +565,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Shop by Style",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": false
               },
               "blocks": {
                 "styles": {
@@ -580,7 +597,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Warmth & Runtime",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": false
               },
               "blocks": {
                 "ultra": {
@@ -624,7 +642,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Collections",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": false
               },
               "blocks": {
                 "collections": {
@@ -719,7 +738,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Batteries & Power",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": false
               },
               "blocks": {
                 "header_nav_feature_E3KjEb": {
@@ -766,7 +786,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Heated Accessories",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": false
               },
               "blocks": {
                 "header_nav_feature_dYUPd9": {
@@ -845,12 +866,12 @@
             "promo_2": {
               "type": "_header-nav-promo",
               "settings": {
-                "image": "shopify://shop_images/header-accessories-image-two.webp",
+                "image": "shopify://shop_images/heated-gloves-g02_3.jpg",
                 "preset_image": "apex",
-                "eyebrow": "Soft Warm",
-                "title": "Heated Fleece Scarf",
-                "description": "20H Long-Lasting",
-                "url": "https://venustas.com/products/unisex-heated-fleece-scarf-7-4v",
+                "eyebrow": "FINGERTIP WARMTH",
+                "title": "Unisex Heated Gloves",
+                "description": "35% GENUINE LEATHER SHEL",
+                "url": "shopify://products/unisex-waterproof-heated-gloves-7-4v",
                 "mobile_visible": true
               },
               "blocks": {}
@@ -986,7 +1007,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Gifts by Recipient",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": false
               },
               "blocks": {
                 "menu": {
@@ -1017,7 +1039,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Gift by Price",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": false
               },
               "blocks": {
                 "menu": {
@@ -1048,7 +1071,8 @@
               "type": "_header-nav-column",
               "settings": {
                 "title": "Gift Card",
-                "role": "group"
+                "role": "group",
+                "mobile_default_open": false
               },
               "blocks": {
                 "menu": {
@@ -1214,6 +1238,14 @@
       ],
       "settings": {
         "logo": "shopify://shop_images/main-header-logo.png",
+        "nav_link_new": "",
+        "nav_link_men": "",
+        "nav_link_women": "",
+        "nav_link_kids": "",
+        "nav_link_accessories": "",
+        "nav_link_bundles": "",
+        "nav_link_gift": "",
+        "nav_link_sale": "",
         "help_link": "",
         "help_email": "service@venustas.com",
         "help_phone": "+1 (888) 836-6460",

@@ -1,5 +1,11 @@
 # Header 架构
 
+2026-11-28 公告栏：整段链接（`block.settings.link`）只在富文本没有内嵌 `<a>` 时才包 `<a class="header-announcement__link">`，否则包 `<span>`，避免 `<a>` 嵌套；下划线规则相应收窄为 `.header-announcement__marquee-item a`，整段链接回到全局无下划线，内嵌链接才显示下划线。倒计时去掉 seconds 单位，`initCountdown()` 只更新天／时／分，数字块改为主题色 `var(--color-brand,#B93205)` 加粗。见[日志](../../logs/header/2026-11-28-announcement-link-underline-countdown.md)。
+
+2026-11-28 抽屉国家切换：移动端实例从抽屉底部 `.header-new__mobile-utilities` 移到 `.header-new__drawer-top`（logo 之后，该行在 ≤1280 已是 `display:flex;justify-content:space-between`）。同时删除 6 条把浮层改成行内展开的抽屉覆盖（`ul{position:static}`、显示国家名、隐藏当前行等），移动端因此直接复用桌面浮层；仅补 `top:calc(100% + 16px)`（落到 68px 行高＋16px padding 的行下方）、`z-index:2` 与 8px 圆角。抽屉顶部原有 3 条命中 `button`／`button img` 的历史样式已删除，避免橙底 44×44 与旗帜被压成 20×20。桌面实例仍渲染在 `.header-new__desktop-utilities`，未改。见[日志](../../logs/header/2026-11-28-mobile-country-switcher.md)。
+
+2026-11-28 移动端列默认展开规则：`reset()` 的默认展开值来自 `preparePanel()` 写入的 `data-column-default-open`——面板内任一列在后台勾选 `mobile_default_open` 时只展开这些列，没有任何列勾选时仍回退为“DOM 第一列展开”。该设置只解决“首列为 `role: category`（移动端无折叠行）时默认展开落在不可折叠列、首个可折叠子导航仍折叠”的问题；当前仅 New 面板的 Just Launched 列启用，Men／Women／Accessories／Gift 行为不变。未改 `syncColumns()` 与 CSS。见[日志](../../logs/header/2026-11-28-mobile-new-just-launched-open.md)。
+
 2026-11-26 Men／Women 移动端 Shop by Category 折叠：`blocks/_header-nav-image-menu.liquid` 在 ≤1280 输出 `[data-header-image-menu-toggle]` 折叠行，文案由 JS 读取同列 `.header-new__column-heading`（桌面列标题）同步，无 JS 时回退 Shop by Category；默认展开六个图片。两个 Featured 按钮（New Arrivals、Best Sellers）位于其上方且不随折叠隐藏。桌面端不输出按钮，图片网格与原来一致。点击由 `assets/header-new.js` 切换图片列表 `hidden`，`reset()` 在初始化与断点变化时恢复展开；`syncColumns()` 对 category 列的强制展开规则未变。见[日志](../../logs/header/2026-11-26-mobile-shop-by-category-accordion.md)。
 
 2026-11-25 样式表前移：`header-new.css` 不再由 section 输出，改在 `layout/theme.liquid` 的 `<head>`（`res-font.css` 之后）以普通 `stylesheet_tag` 加载，并在 header-new、announcement-bar 两个 section 中删除重复输出。原实现把 `<link>` 放在 body 的 header group 里，慢网络首帧、主题编辑器局部刷新（section DOM 连同 `<link>` 一起替换）或资源 404 时会出现整个 header 无样式。`header-new.js` 未动，仍由 section 以 defer 加载。详见[日志](../../logs/header/2026-11-25-header-css-head.md)。

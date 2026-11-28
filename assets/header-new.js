@@ -291,9 +291,10 @@
       inner.style.setProperty('--header-column-count', Math.max(columns.length, 1));
       inner.style.setProperty('--header-promo-count', Math.min(promos.length, 2));
       inner.dataset.hasPromos = String(promos.length > 0);
+      const explicitOpen = columns.some((column) => column.dataset.mobileDefaultOpen === 'true');
       columns.forEach((column, index) => {
         column.style.setProperty('--header-column-index', index + 1);
-        column.dataset.columnFirst = String(index === 0);
+        column.dataset.columnDefaultOpen = String(explicitOpen ? column.dataset.mobileDefaultOpen === 'true' : index === 0);
       });
       promos.forEach((promo, index) => {
         promo.style.setProperty('--header-promo-index', columns.length + index + 2);
@@ -430,7 +431,7 @@
 
     reset() {
       this.close();
-      this.columns.forEach((column) => { column.dataset.mobileExpanded = column.dataset.columnFirst || 'false'; });
+      this.columns.forEach((column) => { column.dataset.mobileExpanded = column.dataset.columnDefaultOpen || 'false'; });
       this.syncColumns();
       this.root.querySelectorAll('[data-header-image-menu-toggle]').forEach((toggle) => {
         const panel = document.getElementById(toggle.getAttribute('aria-controls'));
@@ -777,7 +778,6 @@
         if (units.days) units.days.textContent = pad(Math.floor(diff / 86400000));
         if (units.hours) units.hours.textContent = pad(Math.floor(diff / 3600000) % 24);
         if (units.minutes) units.minutes.textContent = pad(Math.floor(diff / 60000) % 60);
-        if (units.seconds) units.seconds.textContent = pad(Math.floor(diff / 1000) % 60);
       };
 
       tick();

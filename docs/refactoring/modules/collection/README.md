@@ -1,5 +1,7 @@
 # Collection 技术档案
 
+2026-11-28：[商品卡标题重写与行数限制](../../logs/collection/2026-11-28-product-collection-title-clamp.md)：product-collection 标题合为一个锚点 + 内层 span，移动端 ≤899px 三行、桌面 ≥900px 两行省略；其它卡片标题未改。
+
 状态：2026-11-23 初始化；第二阶段，尚未获准开始业务重构。
 
 职责：集合 Banner／导航、过滤排序、分页／加载更多、商品卡片、推广区、FAQ 和推荐区。61 个 JSON 变体保存不同配置；定义不等于启用。

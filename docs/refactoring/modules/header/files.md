@@ -1,5 +1,24 @@
 # Header 实际文件清单
 
+## 2026-11-28 公告栏链接下划线与倒计时
+
+- sections/announcement-bar.liquid：整段 `<a>` 包裹改为 `announcement_whole_link`（`link` 非空且富文本无 `<a>` 才包裹），删除倒计时 seconds 单位。
+- assets/header-new.css：下划线收窄到 `.header-announcement__marquee-item a`；`.header-announcement__unit-value` 改 `var(--color-brand,#B93205)` + 700。
+- assets/header-new.js：`initCountdown()` 的 tick 去掉秒。详见 [任务日志](../../logs/header/2026-11-28-announcement-link-underline-countdown.md)。
+
+## 2026-11-28 抽屉 logo 行右侧的国家切换
+
+- snippets/header-new-localization.liquid：根节点增加 `header-new__localization--{{ mode }}` 模式类。
+- sections/header-new.liquid L31：移动端实例移入 `.header-new__drawer-top`（logo 之后）；原 `.header-new__mobile-utilities` 内的实例删除。
+- assets/header-new.css：删除 6 条抽屉专用覆盖使移动端复用桌面浮层；新增 `.header-new .header-new__localization--mobile ul{top:calc(100% + 16px);z-index:2;border-radius:8px;overflow:hidden}`；删除抽屉顶部 3 条历史 `button`／`button img` 样式。详见 [任务日志](../../logs/header/2026-11-28-mobile-country-switcher.md)。
+
+## 2026-11-28 移动端 New 面板 Just Launched 默认展开
+
+- blocks/_header-nav-column.liquid：schema 新增 `mobile_default_open` checkbox（默认 false），列根输出 `data-mobile-default-open`。
+- assets/header-new.js：`preparePanel()` 由 `data-column-first` 改为 `data-column-default-open`（面板内有列开启设置时只展开这些列，否则回退第一列）；`reset()` 读该值作为 `data-mobile-expanded` 初值。
+- sections/header-group-new.json：`new_panel.launched` 增加 `"mobile_default_open": true`。
+- 未改 CSS 与 `syncColumns()`；详见 [任务日志](../../logs/header/2026-11-28-mobile-new-just-launched-open.md)。
+
 ## 2026-11-27 桌面顶级导航链接
 
 - sections/header-new.liquid：新增 8 个 `nav_link_*` URL 设置，顶级入口 href 用 `case` 显式读取设置，空值回退已校正的 8 个路径（womens／heated-accessories／bundle-deal／gift guide／campaign）；非绝对地址仍拼 `routes.root_url`。

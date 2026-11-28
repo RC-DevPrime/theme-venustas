@@ -1,10 +1,14 @@
 # Shopify Theme 重构知识库
 
-2026-11-28：[xmas Christmas Hero](logs/2026-11-28-xmas-christmas-hero.md)：新增圣诞页首屏，桌面/移动 banner、写死文案、单一按钮链接、四项权益卡；移动端隐藏权益卡，仅做静态验证。
+2026-11-28：[公告栏链接下划线与倒计时精简](logs/header/2026-11-28-announcement-link-underline-countdown.md)：整段 `link` 包裹不画下划线、富文本内嵌 `<a>` 才带下划线；倒计时去掉秒，数字改主题色加粗。
 
-2026-11-28：[购物车行内编辑弹窗移动端全屏与固定购买按钮](logs/2026-11-28-cart-edit-popup-layout.md)：移动端全屏、桌面 600px，Add To Cart 固定底部；ADD MORE 留在商品列表滚动区，购物车数据流不变。
+2026-11-28：[抽屉 logo 行右侧的国家切换](logs/header/2026-11-28-mobile-country-switcher.md)：移动端切换移入抽屉顶部 logo 行，删除抽屉专用覆盖后复用桌面浮层，并清理抽屉顶部 3 条历史按钮样式。
 
-2026-11-28：[编辑选项弹窗移动端全屏与固定底部按钮](logs/2026-11-28-product-edit-option-popup-layout.md)：集合卡与 index-product-tabs 共用的 product-edit-option 弹窗移动端全屏、底部 Add To Cart 固定；桌面 600px 居中、最高 90vh，当次不含购物车弹窗。
+2026-11-28：[促销行图标与文案同排](logs/2026-11-28-promotion-row-icon-inline.md)：`product-nav-promotion` 把图标与文案合成一个 flex item，图标浮动在首行左侧，Free 长文案换行后回到与图标左对齐；折扣价仍可换行，商品页抽屉行为不变。
+
+2026-11-28：[集合商品卡标题重写与行数限制](logs/collection/2026-11-28-product-collection-title-clamp.md)：product-collection 标题合并为单锚点 + 内层 span，≤899px 三行、≥900px 两行省略，样式改到 collection.css。
+
+2026-11-28：[移动端 New 面板 Just Launched 默认展开](logs/header/2026-11-28-mobile-new-just-launched-open.md)：列级 `mobile_default_open` 设置替代“只展开 DOM 第一列”，仅 New 的 Just Launched 启用；Men／Women／Accessories／Gift 行为不变。
 
 2026-11-27：[商品卡片促销价按卡片展示价计算](logs/collection/2026-11-27-product-card-promo-card-price.md)：`product-card-promotion` 把卡片的 `price_min`／选中变体价传给促销组件，Extra 折后价与卡片 `From` 价一致。
 

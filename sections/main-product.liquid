@@ -95,7 +95,7 @@ endif
                                         assign product_temperature = product.metafields.custom.temperature.value | default: product.metafields.custom.temperature | strip_html | strip
                                     -%}
                                     {%- capture product_label_text -%}
-                                        {%- if product_temperature != blank -%}Best for {{ product_temperature }}°F{%- endif -%}
+                                        {%- if product_temperature != blank -%} {{ product_temperature }} {%- endif -%}
                                         {%- if product_label != blank -%}
                                             {%- if product_temperature != blank -%}{{- ' | ' -}}{%- endif -%}
                                             {{- product_label -}}
