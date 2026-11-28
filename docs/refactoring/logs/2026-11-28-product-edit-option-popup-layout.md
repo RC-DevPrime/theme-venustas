@@ -47,3 +47,5 @@
 
 2026-11-28 后续：用户另行批准购物车行内编辑弹窗（`product-update-popup`）的同类改造，并选择只固定 Add To Cart；见 [购物车行内编辑弹窗移动端全屏与固定购买按钮](2026-11-28-cart-edit-popup-layout.md)。本日志中“购物车弹窗不变”仅指当时任务范围。
 
+2026-11-28 再后续：移动端全屏已按 `product-nav-new` 的底部抽屉样式调整（不再全屏），见 [编辑弹窗移动端按 product-nav-new 底部抽屉样式改造](2026-11-28-popup-nav-new-mobile-style.md)。
+

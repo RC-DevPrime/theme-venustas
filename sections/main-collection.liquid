@@ -66,6 +66,9 @@
         position:absolute;
         transition: all 0.3s ease;
     }
+    #shopify-section-{{ section.id }} .promotion-box .promotion-box__bg--mobile{
+        display:none;
+    }
     .grid-column-1{
         grid-column: 1;
     }
@@ -284,6 +287,12 @@
         }
         .main-collection .products-row > .promotion-box:nth-of-type(2){
             grid-row: 4;
+        }
+        #shopify-section-{{ section.id }} .promotion-box .promotion-box__bg--desktop{
+            display:none;
+        }
+        #shopify-section-{{ section.id }} .promotion-box .promotion-box__bg--mobile{
+            display:block;
         }
         .grid-column-3{
             grid-column: 2;

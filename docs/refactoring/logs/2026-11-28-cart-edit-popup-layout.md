@@ -48,3 +48,7 @@
 - 桌面宽度固定 600px，而购物车抽屉本身宽 580px；弹窗按视口居中，可能略宽于抽屉背景。
 - 回退：还原 `product-update-popup.liquid` 的 `.popup-content` 类、ATC 位置与 `bottom-container` 结构，并删除 `style.css` 中 `cart-edit-popup`／`cart-add-more-row`／`cart-atc-footer` 规则即可。
 - 遗留：未在真实主题中验证 iOS／Android 安全区、长变体列表、多个 ADD MORE 商品时的滚动与保存表现；等待审核后再决定是否发布。
+
+## 后续
+
+2026-11-28 后续：移动端全屏已按 `product-nav-new` 的底部抽屉样式调整（不再全屏），并重新适配商品摘要与底部购买区；见 [编辑弹窗移动端按 product-nav-new 底部抽屉样式改造](2026-11-28-popup-nav-new-mobile-style.md)。
