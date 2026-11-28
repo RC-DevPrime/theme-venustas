@@ -1,5 +1,9 @@
 # Shopify Theme 重构知识库
 
+2026-11-28：[购物车行内编辑弹窗移动端全屏与固定购买按钮](logs/2026-11-28-cart-edit-popup-layout.md)：移动端全屏、桌面 600px，Add To Cart 固定底部；ADD MORE 留在商品列表滚动区，购物车数据流不变。
+
+2026-11-28：[编辑选项弹窗移动端全屏与固定底部按钮](logs/2026-11-28-product-edit-option-popup-layout.md)：集合卡与 index-product-tabs 共用的 product-edit-option 弹窗移动端全屏、底部 Add To Cart 固定；桌面 600px 居中、最高 90vh，当次不含购物车弹窗。
+
 2026-11-27：[商品卡片促销价按卡片展示价计算](logs/collection/2026-11-27-product-card-promo-card-price.md)：`product-card-promotion` 把卡片的 `price_min`／选中变体价传给促销组件，Extra 折后价与卡片 `From` 价一致。
 
 2026-11-27：[桌面顶级导航可点击与链接配置](logs/header/2026-11-27-desktop-nav-links.md)：8 个顶级入口保留 `<a>`，桌面悬停／聚焦开面板、点击跳转到 `nav_link_*` 设置；移动端仍点击开面板；字段留空时回退到各面板 Shop All。
