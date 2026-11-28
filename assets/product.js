@@ -2664,17 +2664,11 @@ function nav_header_scroll(){
 
         // Check the scroll position
         if ($(window).scrollTop() >= productHeaderTop) {
-            // Make the .product-header-section sticky
+            // Make the .product-header-section sticky below the site header
             $('.main-nav-header-section').addClass('product-header-sticky');
-            // Hide the header
-            $('nav.header-new').addClass('header-hide');
-
-            
         } else {
             // Remove the sticky class when scrolling above the section
             $('.main-nav-header-section').removeClass('product-header-sticky');
-            // Show the header again
-            $('nav.header-new').removeClass('header-hide');
         }
         
 
