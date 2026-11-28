@@ -1,5 +1,11 @@
 # Collection 实际文件清单
 
+## 2026-11-28 促销 Box 移动端背景图
+
+- sections/main-collection.liquid：promotion_image、promotion_sale 两个块各新增 `background_image_mobile`（image_picker，留空回退桌面图）；渲染 @L612–645／@L660–693 输出 `--desktop`／`--mobile` 两张 `.bg-image`。
+- 同文件 `{% style %}`：`--mobile` 默认 `display:none`（@L69–71），`max-width:899px` 内切换为隐藏 `--desktop`、显示 `--mobile`（@L291–296）。
+- promotion_video、`element_image` 未改；sections/main-search.liquid 中同类 promotion box 未同步；详见 [任务日志](../../logs/collection/2026-11-28-promotion-box-mobile-image.md)。
+
 ## 2026-11-28 促销行图标与文案同排
 
 - snippets/product-nav-promotion.liquid L57–61：图标与文案包进 `.product-nav-new__panel-promotion-label`，折扣价仍是容器直接子元素（保留换行）。

@@ -1,5 +1,7 @@
 # Collection 技术档案
 
+2026-11-28：[促销 Box 移动端背景图](../../logs/collection/2026-11-28-promotion-box-mobile-image.md)：promotion_image／promotion_sale 各增加 `background_image_mobile`，≤899px 切换、留空回退桌面图。
+
 2026-11-28：[商品卡标题重写与行数限制](../../logs/collection/2026-11-28-product-collection-title-clamp.md)：product-collection 标题合为一个锚点 + 内层 span，移动端 ≤899px 三行、桌面 ≥900px 两行省略；其它卡片标题未改。
 
 状态：2026-11-23 初始化；第二阶段，尚未获准开始业务重构。
