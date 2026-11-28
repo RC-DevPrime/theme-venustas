@@ -1,0 +1,24 @@
+{%- comment -%}
+  Two feature values for the product card / quick add dialog.
+  Usage: {% render 'product-new-card-features', product: product %}
+  Reads custom.temperature and custom.custom_tag.
+{%- endcomment -%}
+{%- liquid
+  assign feature_temperature = product.metafields.custom.temperature.value | default: product.metafields.custom.temperature | strip_html | strip
+  assign feature_tag = product.metafields.custom.custom_tag.value | default: product.metafields.custom.custom_tag | strip_html | strip
+  assign feature_temperature_text = ''
+  if feature_temperature != blank
+    if feature_temperature contains '°'
+      assign feature_temperature_text = 'Built for ' | append: feature_temperature
+    else
+      assign feature_temperature_text = 'Built for ' | append: feature_temperature | append: '°F'
+    endif
+  endif
+-%}
+{%- if feature_temperature_text != blank or feature_tag != blank -%}
+  <p class="product-new-card__features{% if class != blank %} {{ class }}{% endif %}">
+    {%- if feature_temperature_text != blank -%}<span>{{ feature_temperature_text | escape }}</span>{%- endif -%}
+    {%- if feature_temperature_text != blank and feature_tag != blank -%}<span aria-hidden="true">·</span>{%- endif -%}
+    {%- if feature_tag != blank -%}<span>{{ feature_tag | escape }}</span>{%- endif -%}
+  </p>
+{%- endif -%}

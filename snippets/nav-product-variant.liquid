@@ -3,6 +3,7 @@
     assign variants_option1_arr = product.variants | map: 'option1'
     assign variants_option2_arr = product.variants | map: 'option2'
     assign variants_option3_arr = product.variants | map: 'option3'
+    assign color_is_detail_lc = product.metafields.custom.color_is_detail.value | downcase
 %}
 
 <div class="nav-variants variants">
@@ -143,6 +144,14 @@
                             {% endif %}
                         {% endif %}
 
+                        {% assign is_new_color = false %}
+                        {% if color_is_detail_lc != blank %}
+                            {% assign color_is_new_needle = '"' | append: color_value_raw | append: '": "new"' %}
+                            {% if color_is_detail_lc contains color_is_new_needle %}
+                                {% assign is_new_color = true %}
+                            {% endif %}
+                        {% endif %}
+
                         {% assign swatch_file_name = color_value_raw | handle | append: '.png' %}
                         {% assign swatch_image = images[swatch_file_name] %}
                         {% assign swatch_file_url = blank %}
@@ -150,8 +159,9 @@
                             {% assign swatch_file_url = swatch_image | image_url %}
                         {% endif %}
 
+                        {% if show_color_new %}<span class="variant-color-option">{% endif %}
                         <span class="nav-variants-selector color {% if option.selected_value == value %}selected{% endif %} {% if option_disabled %}disabled{% endif %}" 
-                            data-id="nav-{{ product.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                            data-id="nav-{{ product.id }}-{{ option.position }}-{{ forloop.index0 }}" data-option-value="{{ value | escape }}">
                             <div class="color-swatch" style="
                                 background-color: {% if metaobject_color_value != blank %}{{ metaobject_color_value }}{% else %}{{ base_color }}{% endif %};
                                 {% if color_image_url != blank %}
@@ -164,6 +174,10 @@
                                 background-size: cover;
                             "></div>
                         </span>
+                        {% if show_color_new %}
+                            {% if is_new_color %}<span class="variant-new-tag" style="background-color: {% if metaobject_color_value != blank %}{{ metaobject_color_value }}{% else %}{{ base_color }}{% endif %};">New</span>{% endif %}
+                            </span>
+                        {% endif %}
                         <span class="nav-variants-option">
                             <input type="radio" class="nav-variant-radio {% if option_disabled %}disabled{% endif %}"
                                 id="nav-{{ product.id }}-{{ option.position }}-{{ forloop.index0 }}" 

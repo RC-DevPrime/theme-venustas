@@ -1,0 +1,70 @@
+{%- comment -%}
+  Quick add dialog content. Loaded on demand through templates/product.quick-add.liquid
+  (?view=quick-add) and inserted into a single <dialog> host by product-new-card.js.
+{%- endcomment -%}
+{%- liquid
+  assign dialog_variant = product.selected_or_first_available_variant
+  assign dialog_form_id = 'product-quick-add-form-' | append: product.id
+
+  assign dialog_size_chart = blank
+  paginate shop.metaobjects.size_chart.values by 250
+    for chart in shop.metaobjects.size_chart.values
+      assign dialog_chart_products = chart.target_products.value | map: 'id'
+      if dialog_chart_products contains product.id
+        assign dialog_size_chart = chart
+        break
+      endif
+    endfor
+  endpaginate
+  assign dialog_chart_id = 'quick-add-' | append: product.id
+-%}
+<div class="product-new-quick-add__content product-option-panel" data-quick-add-content>
+  <button class="product-nav-new__close product-new-quick-add__close" type="button" data-quick-add-close aria-label="Close">×</button>
+
+  <div class="product-nav-new__panel-product product-new-quick-add__summary">
+    {%- if product.featured_image != blank -%}
+      <div class="product-nav-new__panel-product-image">
+        {{ product.featured_image | image_url: width: 180 | image_tag: loading: 'lazy', alt: product.title }}
+      </div>
+    {%- endif -%}
+    <div class="product-nav-new__panel-product-copy">
+      <h2 class="product-nav-new__panel-title">{{ product.title | escape }}</h2>
+      {%- render 'product-new-card-price',
+        product: product,
+        variant: dialog_variant,
+        show_from: false,
+        price_class: 'product-nav-new__panel-price',
+        current_class: 'product-nav-new__price-current',
+        compare_class: 'product-nav-new__price-compare'
+      -%}
+      {%- render 'product-new-card-features', product: product -%}
+      {%- render 'product-nav-promotion', product: product -%}
+    </div>
+  </div>
+
+  <div class="product-nav-new__panel-content product-new-quick-add__options" data-quick-add-options>
+    {%- render 'nav-product-variant', product: product, product_form_id: dialog_form_id, show_color_new: true -%}
+    {%- if dialog_size_chart != blank -%}
+      {%- render 'size-chart-component',
+        product: product,
+        matched_size_chart: dialog_size_chart,
+        id: dialog_chart_id,
+        button_class: 'product-option-panel__size-guide'
+      -%}
+    {%- endif -%}
+  </div>
+
+  <div class="product-new-quick-add__footer">
+    <form id="{{ dialog_form_id }}" class="product-new-quick-add__form" data-quick-add-form novalidate>
+      <input type="hidden" name="id" value="{{ dialog_variant.id }}" data-quick-add-variant-id>
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" class="product-new-quick-add__cta" data-quick-add-cta>
+        <span data-quick-add-cta-label>{% if dialog_variant.available %}Add to cart{% else %}Sold out{% endif %}</span>
+      </button>
+    </form>
+    <p class="product-new-quick-add__error" data-quick-add-error role="alert" hidden></p>
+    <a class="product-new-quick-add__details" href="{{ product.url }}">View full details</a>
+  </div>
+
+  <script type="application/json" data-quick-add-money>{"currency": {{ cart.currency.iso_code | default: shop.currency | json }}, "locale": {{ request.locale.iso_code | json }}}</script>
+</div>

@@ -1,0 +1,94 @@
+{%- comment -%}
+  Product card media: main image, hover image, sale badge, product badge and
+  the quick add control.
+{%- endcomment -%}
+{%- liquid
+  assign media_loading = image_loading | default: 'lazy'
+  assign media_fetchpriority = image_fetchpriority | default: 'auto'
+  assign media_sizes = image_sizes | default: '(max-width: 767px) calc(50vw - 24px), (max-width: 899px) 30vw, 25vw'
+  assign media_selected_variant = product.selected_or_first_available_variant
+  assign media_color_index = 0
+  assign media_has_color = false
+  for option in product.options_with_values
+    assign media_option_name = option.name | downcase
+    if media_option_name == 'color' or media_option_name == 'colour'
+      assign media_color_index = forloop.index0
+      assign media_has_color = true
+    endif
+  endfor
+
+  assign media_active_image = product.featured_image
+  if media_has_color
+    assign media_color_value = media_selected_variant.options[media_color_index]
+    assign media_color_position = media_color_index | plus: 1
+    assign media_option_key = 'option' | append: media_color_position
+    assign media_color_variants = product.variants | where: media_option_key, media_color_value
+    for media_variant in media_color_variants
+      if media_variant.image != blank
+        assign media_active_image = media_variant.image
+        break
+      endif
+    endfor
+  endif
+
+  assign media_active_image_400 = blank
+  assign media_active_image_800 = blank
+  if media_active_image != blank
+    assign media_active_image_400 = media_active_image | image_url: width: 400
+    assign media_active_image_800 = media_active_image | image_url: width: 800
+  endif
+  assign media_active_srcset = media_active_image_400 | append: ' 400w, ' | append: media_active_image_800 | append: ' 800w'
+
+  assign media_hover_image = blank
+  assign media_second = product.media[1]
+  if media_second != blank and media_second.media_type == 'image'
+    if media_active_image == blank or media_second.image.src != media_active_image.src
+      assign media_hover_image = media_second.image | default: media_second.preview_image
+    endif
+  endif
+  assign media_hover_400 = blank
+  assign media_hover_800 = blank
+  if media_hover_image != blank
+    assign media_hover_400 = media_hover_image | image_url: width: 400
+    assign media_hover_800 = media_hover_image | image_url: width: 800
+  endif
+  assign media_hover_srcset = media_hover_400 | append: ' 400w, ' | append: media_hover_800 | append: ' 800w'
+-%}
+<div class="product-new-card__media">
+  <a class="product-new-card__media-link" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+    {%- if media_active_image != blank -%}
+      <img
+        class="product-new-card__image is-active"
+        data-card-image
+        src="{{ media_active_image_400 }}"
+        srcset="{{ media_active_srcset }}"
+        sizes="{{ media_sizes }}"
+        width="400"
+        height="520"
+        alt="{{ product.title | escape }}"
+        loading="{{ media_loading }}"
+        fetchpriority="{{ media_fetchpriority }}"
+        decoding="async"
+      >
+    {%- else -%}
+      <span class="product-new-card__image-placeholder">{{ 'product-1' | placeholder_svg_tag: 'product-new-card__placeholder-svg' }}</span>
+    {%- endif -%}
+    {%- if media_hover_image != blank -%}
+      <img
+        class="product-new-card__image product-new-card__image--hover"
+        src="{{ media_hover_400 }}"
+        srcset="{{ media_hover_srcset }}"
+        sizes="{{ media_sizes }}"
+        width="400"
+        height="520"
+        alt=""
+        loading="lazy"
+        decoding="async"
+      >
+    {%- endif -%}
+  </a>
+
+  {% render 'sale-badge', product: product, badge_type: sale_badge_type %}
+  {% render 'product-badge', product: product %}
+  {% render 'product-new-card-quick-add', product: product %}
+</div>

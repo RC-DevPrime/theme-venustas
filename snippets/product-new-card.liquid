@@ -1,0 +1,64 @@
+{%- comment -%}
+  Product card (product-new-card).
+
+  Usage:
+    {% render 'product-new-card', product: product, layout: 'grid' %}
+
+  Parameters:
+    product              required
+    layout               optional: grid | slider | search (class modifier only)
+    image_loading        optional
+    image_fetchpriority  optional
+    image_sizes          optional
+    show_promotion       optional, default true
+    sale_badge_type      optional: discount | percent
+{%- endcomment -%}
+{%- liquid
+  assign card_layout = layout | default: 'grid'
+  assign card_variant = product.selected_or_first_available_variant
+  assign card_show_promotion = true
+  if show_promotion == false
+    assign card_show_promotion = false
+  endif
+-%}
+<product-new-card class="product-new-card product-new-card--{{ card_layout }}" data-product-handle="{{ product.handle | escape }}">
+  {%- render 'product-new-card-media',
+    product: product,
+    image_loading: image_loading,
+    image_fetchpriority: image_fetchpriority,
+    image_sizes: image_sizes,
+    sale_badge_type: sale_badge_type
+  -%}
+
+  <div class="product-new-card__body">
+    <div class="product-new-card__top">
+      {%- render 'product-new-card-swatches', product: product -%}
+      <div class="wishlist-button product-new-card__wishlist">
+        <button
+          aria-label="Add to Wishlist"
+          data-with-epi="true"
+          class="swym-button swym-add-to-wishlist-view-product product_{{ product.id }}"
+          data-swaction="addToWishlist"
+          data-product-id="{{ product.id | json }}"
+          data-variant-id="{{ product.variants[0].id }}"
+          data-product-url="{{ shop.url }}{{ product.url }}"
+        ></button>
+      </div>
+    </div>
+
+    <a class="product-new-card__title" href="{{ product.url }}">{{ product.title | escape }}</a>
+
+    <div class="product-new-card__info">
+      {%- render 'product-new-card-features', product: product -%}
+      <div class="product-new-card__meta">
+        {%- if product.metafields.okendo.StarRatingSnippet != blank -%}
+          <div class="product-new-card__rating">{% render 'okendo-reviews-product-rating-summary', product: product %}</div>
+        {%- endif -%}
+        {%- render 'product-new-card-price', product: product, variant: card_variant, show_from: product.price_varies -%}
+        {%- if card_show_promotion -%}
+          {%- render 'product-card-promotion', product: product -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</product-new-card>

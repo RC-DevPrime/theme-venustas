@@ -1,0 +1,317 @@
+/*
+  Shared option-panel styles.
+  Used by the Product Navigation mobile sheet (sections/product-nav-new.liquid)
+  and the Product Quick Add dialog (snippets/product-new-card-quick-add-dialog.liquid).
+  Only visual layer: shell positioning (sheet / dialog) stays with each owner.
+*/
+
+.product-option-panel {
+  box-sizing: border-box;
+  color: #1a1a1a;
+  font-family: var(--font-primary, 'Montserrat', sans-serif);
+}
+
+.product-option-panel *,
+.product-option-panel *::before,
+.product-option-panel *::after {
+  box-sizing: border-box;
+}
+
+/* Scrollable content area */
+.product-option-panel .product-nav-new__panel-content {
+  flex: 0 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #b8b8b8 #f4f4f4;
+  padding: 0 20px 16px;
+}
+
+.product-option-panel .product-nav-new__panel-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.product-option-panel .product-nav-new__panel-content::-webkit-scrollbar-track {
+  background: #f4f4f4;
+}
+
+.product-option-panel .product-nav-new__panel-content::-webkit-scrollbar-thumb {
+  background: #b8b8b8;
+  border-radius: 4px;
+}
+
+/* Variant box */
+.product-option-panel .nav-variants {
+  width: 100%;
+  padding: 16px;
+  border-radius: 6px;
+  background: #f5f5f5;
+}
+
+.product-option-panel .nav-variants > .no-js-hidden {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-option-panel fieldset {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.product-option-panel .nav-variants .variant-name {
+  margin: 0 0 10px;
+  color: #161616;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.product-option-panel .nav-variants .variant {
+  margin-bottom: 16px;
+}
+
+.product-option-panel .nav-variants .variant:last-child {
+  margin-bottom: 0;
+}
+
+.product-option-panel .nav-variants-selector {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 6px 8px 0;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.product-option-panel .nav-variants-selector.default {
+  min-width: 40px;
+  padding: 9px 10px;
+  border: 1px solid #dedede;
+  border-radius: 6px;
+  color: #1a1a1a;
+  font-family: var(--font-primary, 'Montserrat', sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.product-option-panel .nav-variants-selector.default.selected {
+  border-color: #161616;
+  background: #161616;
+  color: #fff;
+}
+
+.product-option-panel .nav-variants-selector.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.product-option-panel .nav-variants-selector.color {
+  width: 26px;
+  height: 26px;
+  padding: 2px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  outline: 1px solid #dedede;
+}
+
+.product-option-panel .nav-variants-selector.color.selected {
+  outline-color: #161616;
+}
+
+.product-option-panel .nav-variants-selector.color .color-swatch {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.product-option-panel .nav-variants-option {
+  display: none;
+}
+
+/* Size pills (42x32 boxes, diagonal strike when unavailable) */
+.product-option-panel .variant-size .nav-variants-selector.default {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  width: 42px;
+  min-width: 42px;
+  height: 32px;
+  margin: 0 3px 0 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-primary, 'Montserrat', sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.product-option-panel .variant-size .nav-variants-selector.default.selected {
+  border-color: #000;
+  background: #000;
+  color: #fff;
+}
+
+.product-option-panel .variant-size .nav-variants-selector.default.disabled {
+  opacity: 1;
+  color: #ccc;
+}
+
+.product-option-panel .variant-size .nav-variants-selector.default.disabled::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150%;
+  height: 1px;
+  background: #dedede;
+  transform-origin: top right;
+  transform: rotate(-38deg);
+  pointer-events: none;
+}
+
+/* Product summary */
+.product-option-panel .product-nav-new__panel-product {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.product-option-panel .product-nav-new__panel-product-image {
+  width: 98px;
+  aspect-ratio: 616 / 800;
+  flex: 0 0 98px;
+  align-self: flex-start;
+}
+
+.product-option-panel .product-nav-new__panel-product-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-option-panel .product-nav-new__panel-product-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.product-option-panel .product-nav-new__panel-title {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: #1a1a1a;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.product-option-panel .product-nav-new__panel-price {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  line-height: normal;
+}
+
+.product-option-panel .product-nav-new__price-current {
+  color: #b93205;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.product-option-panel .product-nav-new__price-compare {
+  color: #999;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: line-through;
+}
+
+.product-option-panel .product-nav-new__price-compare[hidden] {
+  display: none;
+}
+
+.product-option-panel .product-nav-new__panel-promotion {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: auto 0 0;
+  color: #1a1a1a;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.product-option-panel .product-nav-new__panel-promotion-icon {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  color: #1a1a1a;
+}
+
+.product-option-panel .product-nav-new__panel-promotion-icon svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+.product-option-panel .product-nav-new__close {
+  display: block;
+  flex: 0 0 auto;
+  margin: 0 20px 12px auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #515151;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* New-colour chip used by the quick add dialog */
+.product-option-panel .variant-color-option {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0 12px 0 0;
+  vertical-align: top;
+}
+
+.product-option-panel .variant-color-option .nav-variants-selector {
+  margin: 0;
+}
+
+.product-option-panel .variant-new-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 15px;
+  padding: 0 4px;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .product-option-panel .nav-variants-selector.default {
+    min-width: 40px;
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+}

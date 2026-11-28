@@ -1,0 +1,34 @@
+{%- comment -%}
+  Price row for the product card and quick add dialog.
+  Usage:
+    {% render 'product-new-card-price', product: product, variant: variant, show_from: product.price_varies %}
+
+  Parameters:
+    product            required
+    variant            optional, defaults to selected/first available variant
+    show_from          optional, adds "From " in front of the price
+    price_class        optional wrapper class
+    current_class      optional class for the current price span
+    compare_class      optional class for the compare-at price
+{%- endcomment -%}
+{%- liquid
+  assign price_variant = variant | default: product.selected_or_first_available_variant
+  assign display_price = price_variant.price
+  if show_from and product.price_varies
+    assign display_price = product.price_min
+  endif
+  assign compare_price = price_variant.compare_at_price
+  assign show_compare = false
+  if compare_price > display_price
+    assign show_compare = true
+  endif
+  assign wrapper_class = price_class | default: 'product-new-card__price'
+  assign current_price_class = current_class | default: 'product-new-card__price-current'
+  assign compare_price_class = compare_class | default: 'product-new-card__price-compare'
+-%}
+{%- if product != blank -%}
+  <p class="{{ wrapper_class | escape }}" data-price>
+    <span class="{{ current_price_class | escape }}" data-price-current>{% if show_from and product.price_varies %}From {% endif %}{{ display_price | money }}</span>
+    <s class="{{ compare_price_class | escape }}" data-price-compare{% unless show_compare %} hidden{% endunless %}>{{ compare_price | money }}</s>
+  </p>
+{%- endif -%}

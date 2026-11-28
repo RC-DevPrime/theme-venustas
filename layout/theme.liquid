@@ -254,6 +254,9 @@
       {{ 'bootstrap-custom.css' | asset_url | stylesheet_tag }}
 
       {{ 'style.css' | asset_url | stylesheet_tag }}
+      {{ 'product-option-panel.css' | asset_url | stylesheet_tag }}
+      {{ 'product-new-card.css' | asset_url | stylesheet_tag }}
+      {{ 'size-chart-component.css' | asset_url | stylesheet_tag }}
       {%- if template.name == 'index' -%}
         {{ 'index-product-tabs.css' | asset_url | stylesheet_tag }}
       {%- endif -%}
@@ -397,6 +400,8 @@
         </script>
         <!-- Theme JS -->
         <script src="{{ 'main.js' | asset_url }}" defer></script>
+        <script src="{{ 'product-new-card.js' | asset_url }}" defer></script>
+        <script src="{{ 'size-chart-component.js' | asset_url }}" defer></script>
 
         {% if template.name == 'index' %}
           <script src="{{ 'index.js' | asset_url }}" defer></script>

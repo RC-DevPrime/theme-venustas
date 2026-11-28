@@ -62,17 +62,10 @@
   #shopify-section-{{ section.id }} .product-nav-new__option-choice { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px; border: 0; border-radius: 3px; background: #fff; color: #111827; font: 600 12px/1.4 var(--font-primary, 'Montserrat', sans-serif); text-align: left; cursor: pointer; }
   #shopify-section-{{ section.id }} .product-nav-new__option-choice:hover, #shopify-section-{{ section.id }} .product-nav-new__option-choice[aria-pressed="true"] { background: #f3f4f6; }
   #shopify-section-{{ section.id }} .product-nav-new__option-choice:disabled { opacity: .35; cursor: not-allowed; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants { width: 100%; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants .variant-name { margin: 0 0 10px; color: #161616; font-size: 14px;font-weight:700; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants .variant { margin-bottom: 16px; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.default { font-weight:700;min-width: 42px; padding: 9px 12px; border: 1px solid #dedede; border-radius: 6px; color: #1a1a1a; text-align: center; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.default.selected { border-color: #161616; background: #161616; color: #fff; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.color { width: 26px; height: 26px; padding: 2px; border: 1px solid #fff; border-radius: 50%; outline: 1px solid #dedede; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.color.selected { outline-color: #161616; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.color .color-swatch { width: 100%; height: 100%; border-radius: inherit; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-option { display: none; }
   #shopify-section-{{ section.id }} .product-nav-new__panel .product-form { width: 100%; margin-top: 16px; }
   #shopify-section-{{ section.id }} .product-nav-new__panel .product-form .product-nav-new__submit { width: 100%; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .product-nav-new__price-current { font-size: 20px; font-weight: 700; }
+  #shopify-section-{{ section.id }} .product-nav-new__panel .product-nav-new__price-compare { color: #999; font-size: 12px; font-weight: 500; }
   #shopify-section-{{ section.id }} .product-nav-new__purchase-row { display: flex; align-items: stretch; gap: 8px; margin-top: 16px; }
   #shopify-section-{{ section.id }} .product-nav-new__purchase-row .product-form { flex: 1; min-width: 0; margin-top: 0; }
   #shopify-section-{{ section.id }} .product-nav-new__purchase-row .main-product-error { font-size: 12px; }
@@ -114,21 +107,7 @@
     #shopify-section-{{ section.id }} .product-nav-new__panel[data-option-filter] .nav-variants fieldset { display: block; }
     #shopify-section-{{ section.id }} .product-nav-new.is-open .product-nav-new__backdrop { display: block; position: fixed; inset: 0; border: 0; background: rgba(0, 0, 0, .45); }
     #shopify-section-{{ section.id }} .product-nav-new.is-open .product-nav-new__panel { display: flex; flex-direction: column; position: fixed; top: auto; right: 0; bottom: 0; left: 0; width: auto; height: auto; max-height: 90vh; max-height: 90dvh; margin: 0; padding: 16px 0 0; overflow: hidden; border: 0; border-radius: 12px 12px 0 0; transform: none; z-index: 1111; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel-content { flex: 0 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; scrollbar-width: thin; scrollbar-color: #b8b8b8 #f4f4f4; padding: 0 20px 16px; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel-content::-webkit-scrollbar { width: 5px; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel-content::-webkit-scrollbar-track { background: #f4f4f4; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel-content::-webkit-scrollbar-thumb { background: #b8b8b8; border-radius: 4px; }
     #shopify-section-{{ section.id }} .product-nav-new__panel > .product-nav-new__purchase-row { flex: 0 0 auto; margin-top: 0; padding: 12px 20px calc(16px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid #ececec; background: #fff; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants { padding: 16px; border-radius: 6px; background: #f5f5f5; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants > .no-js-hidden { display: flex; flex-direction: column; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel fieldset { min-width: 0; padding: 0; border: 0; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector { display: inline-flex; align-items: center; justify-content: center; margin: 0 6px 8px 0; vertical-align: middle; cursor: pointer; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.default { min-width: 40px; padding: 9px 10px; font-size: 12px; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel .nav-variants-selector.disabled { opacity: .35; cursor: not-allowed; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel .variant-size .nav-variants-selector.default { position: relative; display: inline-block; overflow: hidden; width: 42px; min-width: 42px; height: 32px; margin: 0 3px 0 0; padding: 0; border-radius: 0; background: transparent; font-family: var(--font-primary); font-size: 12px; font-weight: 500; line-height: 32px; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel .variant-size .nav-variants-selector.default.selected { border-color: #000; background: #000; color: #fff; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel .variant-size .nav-variants-selector.default.disabled { opacity: 1; color: #ccc; }
-    #shopify-section-{{ section.id }} .product-nav-new__panel .variant-size .nav-variants-selector.default.disabled::before { content: ''; position: absolute; top: 0; right: 0; width: 150%; height: 1px; background: #dedede; transform-origin: top right; transform: rotate(-38deg); pointer-events: none; }
     #shopify-section-{{ section.id }} .product-nav-new__purchase-row > .product-nav-new__quantity { height: 48px; flex: 0 0 100px; justify-content: space-between; gap: 8px; }
     #shopify-section-{{ section.id }} .product-nav-new__purchase-row { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 8px; }
     #shopify-section-{{ section.id }} .product-nav-new__purchase-row .product-form { display: contents; }
@@ -137,19 +116,6 @@
     #shopify-section-{{ section.id }} .product-nav-new__purchase-row .main-product-error { grid-column: 1 / -1; grid-row: 1; margin: 0; padding: 10px 12px; border: 1px solid #f3d7ad; border-radius: 6px; background: #fff8ed; color: #784b16; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; text-align: left; }
     #shopify-section-{{ section.id }} .product-nav-new__purchase-row .main-product-error p { margin: 0; color: inherit; font-size: inherit; line-height: inherit; }
     #shopify-section-{{ section.id }} .product-nav-new.is-open > [data-purchase-error] { display: none; }
-    #shopify-section-{{ section.id }} .product-nav-new__close { display: block; flex: 0 0 auto; margin: 0 20px 12px auto; padding: 0; border: 0; background: transparent; color: #515151; font-size: 26px; line-height: 1; cursor: pointer; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel-product { display: flex; align-items: stretch; gap: 12px; margin-bottom: 12px; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel-product-image { width: 98px; aspect-ratio: 616 / 800; flex: 0 0 98px; align-self: flex-start; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel-product-image img { display: block; width: 100%; height: 100%; object-fit: contain; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel-product-copy { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 4px; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel-title { display: -webkit-box; margin: 0; overflow: hidden; color: #1a1a1a; font-size: 18px; font-weight: 600; line-height: normal; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel-price { display: flex; align-items: center; gap: 6px; margin: 0; line-height: normal; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel-price .product-nav-new__price-current { color: #b93205; font-size: 20px; font-weight: 700; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel-price .product-nav-new__price-compare { color: #999; font-size: 12px; font-weight: 500; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel-promotion { display: flex; align-items: center; gap: 6px; margin: auto 0 0; color: #1a1a1a; font-size: 12px; font-weight: 600; line-height: normal; white-space: nowrap; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel-promotion-icon { display: inline-flex; width: 14px; height: 14px; flex: 0 0 14px; color: #1a1a1a; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel-promotion-icon svg { display: block; width: 14px; height: 14px; }
-  #shopify-section-{{ section.id }} .product-nav-new__panel-promotion[hidden] { display: none; }
     #shopify-section-{{ section.id }} .product-nav-new__panel .product-nav-new__submit { width: 100%; min-height: 48px; }
   }
 {% endstyle %}
@@ -178,7 +144,7 @@
   <div class="product-nav-new__option-popover" data-desktop-options hidden aria-label="Product options"></div>
   <button class="product-nav-new__mobile-toggle" type="button" data-mobile-toggle>{% if selected_variant.available %}ADD TO CART{% else %}Out of Stock{% endif %}</button>
   <button class="product-nav-new__backdrop" type="button" data-mobile-backdrop aria-label="Close product options" tabindex="-1"></button>
-  <div class="product-variant-selector product-nav-new__panel" id="ProductNavPanel-{{ section.id }}" role="dialog" aria-label="Product options" aria-hidden="true" tabindex="-1" data-product-panel>
+  <div class="product-variant-selector product-option-panel product-nav-new__panel" id="ProductNavPanel-{{ section.id }}" role="dialog" aria-label="Product options" aria-hidden="true" tabindex="-1" data-product-panel>
     <button class="product-nav-new__close" type="button" data-mobile-close aria-label="Close">×</button>
     <div class="product-nav-new__panel-content">
     <div class="product-nav-new__panel-product">

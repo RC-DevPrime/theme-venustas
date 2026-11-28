@@ -1,0 +1,174 @@
+{%- comment -%}
+  Colour swatches for the product card.
+  Data logic mirrors the legacy product-variant-colors snippet; markup and
+  styling are new. Each swatch carries the data needed by product-new-card.js
+  to update the image, price, quick add target and wishlist variant.
+{%- endcomment -%}
+{%- liquid
+  assign swatch_selected_variant = product.selected_or_first_available_variant
+  assign swatch_color_index = 0
+  assign swatch_color_array_index = 0
+  for option in product.options_with_values
+    assign swatch_option_name = option.name | downcase
+    if swatch_option_name == 'color' or swatch_option_name == 'colour'
+      assign swatch_color_index = forloop.index
+      assign swatch_color_array_index = forloop.index0
+    endif
+  endfor
+  assign swatch_selected_color = swatch_selected_variant.options[swatch_color_array_index]
+  assign swatch_color_is_detail = product.metafields.custom.color_is_detail.value | downcase
+  assign swatch_color_option = product.options_with_values[swatch_color_array_index]
+-%}
+{%- if swatch_color_index > 0 and swatch_color_option.values.size > 0 -%}
+  <div class="product-new-card__swatches" data-swatches{% if swatch_color_option.values.size > 5 %} data-more{% endif %}>
+    <ul class="product-new-card__swatch-list">
+      {%- for color_value in swatch_color_option.values -%}
+        {%- liquid
+          assign color_value_raw = color_value | downcase
+          assign color_words = color_value_raw | split: ' '
+          assign color_base = color_words.last
+          assign color_swatch_bg = blank
+          assign color_meta_value = blank
+          assign color_meta_image_url = blank
+          assign color_meta_entry = blank
+          assign color_meta_fallback = blank
+          assign color_category_metafield = product.metafields.shopify['color-pattern']
+          if color_category_metafield == blank
+            assign color_category_metafield = product.metafields.shopify.color_pattern
+          endif
+          if color_category_metafield == blank
+            assign color_category_metafield = product.metafields.custom.color
+          endif
+
+          assign color_asset_name = color_value | strip | append: '.png'
+          assign color_asset_handle = color_value | handle | append: '.png'
+          assign color_asset_exact = images[color_asset_name]
+          assign color_asset_handle_image = images[color_asset_handle]
+
+          for color_entry in color_category_metafield.value
+            assign color_entry_label = color_entry.label.value | default: color_entry.label | default: color_entry.name.value | default: color_entry.name | default: color_entry.title.value | default: color_entry.title
+            assign color_entry_label_downcase = color_entry_label | downcase
+            if forloop.index0 == forloop.parentloop.index0
+              assign color_meta_fallback = color_entry
+            endif
+            if color_entry_label_downcase == color_value_raw
+              assign color_meta_entry = color_entry
+            endif
+          endfor
+          if color_meta_entry == blank
+            assign color_meta_entry = color_meta_fallback
+          endif
+          if color_meta_entry != blank
+            assign color_meta_value = color_meta_entry.color.value | default: color_meta_entry.color | default: color_meta_entry.hex.value | default: color_meta_entry.hex
+            assign color_meta_image = color_meta_entry.image.value | default: color_meta_entry.image | default: color_meta_entry.swatch_image.value | default: color_meta_entry.swatch_image | default: color_meta_entry.pattern.value | default: color_meta_entry.pattern
+            if color_meta_image != blank
+              assign color_meta_image_url = color_meta_image | image_url
+            endif
+          endif
+
+          if color_asset_exact != blank
+            assign color_swatch_bg = color_asset_exact | image_url
+          elsif color_asset_handle_image != blank
+            assign color_swatch_bg = color_asset_handle_image | image_url
+          endif
+          if color_meta_image_url != blank
+            assign color_swatch_bg = color_meta_image_url
+          endif
+
+          assign color_option_key = 'option' | append: swatch_color_index
+          assign color_variants = product.variants | where: color_option_key, color_value
+          assign color_variant = blank
+          assign color_variant_with_image = blank
+          for candidate_variant in color_variants
+            if candidate_variant.image != blank and color_variant_with_image == blank
+              assign color_variant_with_image = candidate_variant
+            endif
+            if candidate_variant.available and color_variant == blank
+              assign color_variant = candidate_variant
+            endif
+          endfor
+          if color_variant == blank
+            assign color_variant = color_variants.first
+          endif
+          if color_variant_with_image == blank
+            assign color_variant_with_image = color_variant
+          endif
+
+          assign color_price_list = color_variants | map: 'price' | sort
+          assign color_price_min = color_price_list | first
+          assign color_price_max = color_price_list | last
+          assign color_show_from = false
+          if color_price_max > color_price_min
+            assign color_show_from = true
+          endif
+          assign color_display_price = color_variant.price
+          if color_show_from
+            assign color_display_price = color_price_min
+          endif
+          assign color_compare = color_variant.compare_at_price
+          assign color_compare_visible = false
+          if color_compare > color_display_price and color_show_from == false
+            assign color_compare_visible = true
+          endif
+          assign color_price_text = color_display_price | money
+          if color_show_from
+            assign color_price_text = 'From ' | append: color_price_text
+          endif
+          assign color_compare_text = ''
+          if color_compare_visible
+            assign color_compare_text = color_compare | money
+          endif
+
+          assign color_is_new = false
+          if swatch_color_is_detail != blank
+            assign color_new_needle = '"' | append: color_value_raw | append: '": "new"'
+            if swatch_color_is_detail contains color_new_needle
+              assign color_is_new = true
+            endif
+          endif
+
+          assign color_image = color_variant_with_image.image | default: product.featured_image
+          assign color_image_src = blank
+          assign color_image_srcset = blank
+          if color_image != blank
+            assign color_image_400 = color_image | image_url: width: 400
+            assign color_image_800 = color_image | image_url: width: 800
+            assign color_image_src = color_image_400
+            assign color_image_srcset = color_image_400 | append: ' 400w, ' | append: color_image_800 | append: ' 800w'
+          endif
+        -%}
+        <li class="product-new-card__swatch-item">
+          <button
+            type="button"
+            class="product-new-card__swatch{% if color_value == swatch_selected_color %} is-selected{% endif %}"
+            data-swatch
+            data-color="{{ color_value | escape }}"
+            data-variant-id="{{ color_variant.id }}"
+            data-available="{{ color_variant.available }}"
+            data-price-text="{{ color_price_text | escape }}"
+            data-compare-text="{{ color_compare_text | escape }}"
+            data-compare-visible="{{ color_compare_visible }}"
+            data-image="{{ color_image_src | escape }}"
+            data-image-srcset="{{ color_image_srcset | escape }}"
+            data-image-alt="{{ product.title | append: ' - ' | append: color_value | escape }}"
+            aria-pressed="{% if color_value == swatch_selected_color %}true{% else %}false{% endif %}"
+            aria-label="{{ color_value | escape }}"
+          >
+            <span
+              class="product-new-card__swatch-dot"
+              style="--pnc-swatch-color: {% if color_meta_value != blank %}{{ color_meta_value }}{% else %}{{ color_base }}{% endif %};{% if color_swatch_bg != blank %} --pnc-swatch-image: url('{{ color_swatch_bg }}');{% endif %}"
+            ></span>
+          </button>
+          {%- if color_is_new -%}
+            <span class="product-new-card__swatch-new">New</span>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- if swatch_color_option.values.size > 5 -%}
+      <button class="product-new-card__swatch-toggle" type="button" data-swatch-toggle aria-expanded="false" aria-label="Show all colours">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 6 8 10.5 12.5 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    {%- endif -%}
+  </div>
+{%- endif -%}

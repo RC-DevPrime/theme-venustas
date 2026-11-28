@@ -1,0 +1,40 @@
+{%- comment -%}
+  Quick add control rendered on the card media.
+  Single-variant products post the native product form (handled by popup-cart.js);
+  multi-variant products open the quick add dialog.
+{%- endcomment -%}
+{%- liquid
+  assign quick_add_variant = product.selected_or_first_available_variant
+  assign quick_add_color_index = 0
+  assign quick_add_has_color = false
+  for option in product.options_with_values
+    assign quick_add_option_name = option.name | downcase
+    if quick_add_option_name == 'color' or quick_add_option_name == 'colour'
+      assign quick_add_color_index = forloop.index0
+      assign quick_add_has_color = true
+    endif
+  endfor
+  assign quick_add_color = ''
+  if quick_add_has_color
+    assign quick_add_color = quick_add_variant.options[quick_add_color_index]
+  endif
+-%}
+{%- if product.available == false -%}
+  <span class="product-new-card__quick-add is-disabled" aria-disabled="true">Sold out</span>
+{%- elsif product.has_only_default_variant -%}
+  {%- form 'product', product, class: 'atc-form product-new-card__quick-add-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+    <input type="hidden" name="id" value="{{ quick_add_variant.id }}">
+    <button type="submit" name="add" class="btn-atc product-new-card__quick-add">
+      <span>Quick add</span>
+      <div class="atc-overlay"><div class="atc-spinner"></div></div>
+    </button>
+  {%- endform -%}
+{%- else -%}
+  <a
+    class="product-new-card__quick-add"
+    href="{{ product.url }}"
+    data-quick-add
+    data-color="{{ quick_add_color | escape }}"
+    aria-haspopup="dialog"
+  >Quick add</a>
+{%- endif -%}
